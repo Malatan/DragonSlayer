@@ -47,10 +47,10 @@ RM = "F:\Software\CLion 2019.2.5\bin\cmake\win\bin\cmake.exe" -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "F:\CLion Projects\DragonSlayer"
+CMAKE_SOURCE_DIR = F:\DragonSlayer
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "F:\CLion Projects\DragonSlayer\cmake-build-debug"
+CMAKE_BINARY_DIR = F:\DragonSlayer\cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -79,9 +79,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "F:\CLion Projects\DragonSlayer\cmake-build-debug\CMakeFiles" "F:\CLion Projects\DragonSlayer\cmake-build-debug\CMakeFiles\progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start F:\DragonSlayer\cmake-build-debug\CMakeFiles F:\DragonSlayer\cmake-build-debug\CMakeFiles\progress.marks
 	$(MAKE) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start "F:\CLion Projects\DragonSlayer\cmake-build-debug\CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start F:\DragonSlayer\cmake-build-debug\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -122,6 +122,87 @@ DragonSlayer/fast:
 	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/build
 .PHONY : DragonSlayer/fast
 
+Core/Game.obj: Core/Game.cpp.obj
+
+.PHONY : Core/Game.obj
+
+# target to build an object file
+Core/Game.cpp.obj:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj
+.PHONY : Core/Game.cpp.obj
+
+Core/Game.i: Core/Game.cpp.i
+
+.PHONY : Core/Game.i
+
+# target to preprocess a source file
+Core/Game.cpp.i:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Core/Game.cpp.i
+.PHONY : Core/Game.cpp.i
+
+Core/Game.s: Core/Game.cpp.s
+
+.PHONY : Core/Game.s
+
+# target to generate assembly for a file
+Core/Game.cpp.s:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Core/Game.cpp.s
+.PHONY : Core/Game.cpp.s
+
+Core/MainMenuState.obj: Core/MainMenuState.cpp.obj
+
+.PHONY : Core/MainMenuState.obj
+
+# target to build an object file
+Core/MainMenuState.cpp.obj:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.obj
+.PHONY : Core/MainMenuState.cpp.obj
+
+Core/MainMenuState.i: Core/MainMenuState.cpp.i
+
+.PHONY : Core/MainMenuState.i
+
+# target to preprocess a source file
+Core/MainMenuState.cpp.i:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.i
+.PHONY : Core/MainMenuState.cpp.i
+
+Core/MainMenuState.s: Core/MainMenuState.cpp.s
+
+.PHONY : Core/MainMenuState.s
+
+# target to generate assembly for a file
+Core/MainMenuState.cpp.s:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.s
+.PHONY : Core/MainMenuState.cpp.s
+
+Core/State.obj: Core/State.cpp.obj
+
+.PHONY : Core/State.obj
+
+# target to build an object file
+Core/State.cpp.obj:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Core/State.cpp.obj
+.PHONY : Core/State.cpp.obj
+
+Core/State.i: Core/State.cpp.i
+
+.PHONY : Core/State.i
+
+# target to preprocess a source file
+Core/State.cpp.i:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Core/State.cpp.i
+.PHONY : Core/State.cpp.i
+
+Core/State.s: Core/State.cpp.s
+
+.PHONY : Core/State.s
+
+# target to generate assembly for a file
+Core/State.cpp.s:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Core/State.cpp.s
+.PHONY : Core/State.cpp.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -158,6 +239,15 @@ help:
 	@echo ... edit_cache
 	@echo ... DragonSlayer
 	@echo ... rebuild_cache
+	@echo ... Core/Game.obj
+	@echo ... Core/Game.i
+	@echo ... Core/Game.s
+	@echo ... Core/MainMenuState.obj
+	@echo ... Core/MainMenuState.i
+	@echo ... Core/MainMenuState.s
+	@echo ... Core/State.obj
+	@echo ... Core/State.i
+	@echo ... Core/State.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

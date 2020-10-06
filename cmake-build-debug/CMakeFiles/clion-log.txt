@@ -1,5 +1,5 @@
-"F:\Software\CLion 2019.2.5\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" "F:\CLion Projects\DragonSlayer"
--- Found SFML 2.5.1 in F:/CLion Projects/DragonSlayer/SFML_2.5.1/lib/cmake/SFML
+"F:\Software\CLion 2019.2.5\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" F:\DragonSlayer
+-- Found SFML 2.5.1 in F:/DragonSlayer/SFML_2.5.1/lib/cmake/SFML
 -- Configuring done
 -- Generating done
--- Build files have been written to: F:/CLion Projects/DragonSlayer/cmake-build-debug
+-- Build files have been written to: F:/DragonSlayer/cmake-build-debug

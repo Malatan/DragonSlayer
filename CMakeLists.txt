@@ -2,7 +2,15 @@ cmake_minimum_required(VERSION 3.15)
 set(PROJECT_NAME DragonSlayer)
 project(${PROJECT_NAME})
 set(CMAKE_CXX_STANDARD 14)
-set(SOURCE_FILES main.cpp)
+set(SOURCE_FILES
+        main.cpp
+        Core/Game.cpp
+        Core/Game.h
+        Core/State.cpp
+        Core/State.h
+        Core/MainMenuState.cpp
+        Core/MainMenuState.h
+        )
 
 if (CMAKE_BUILD_TYPE STREQUAL "Release")
     add_executable(${PROJECT_NAME} WIN32 ${SOURCE_FILES})

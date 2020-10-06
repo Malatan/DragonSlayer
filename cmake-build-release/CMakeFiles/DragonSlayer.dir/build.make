@@ -42,10 +42,10 @@ RM = "F:\Software\CLion 2019.2.5\bin\cmake\win\bin\cmake.exe" -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "F:\CLion Projects\DragonSlayer"
+CMAKE_SOURCE_DIR = F:\DragonSlayer
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "F:\CLion Projects\DragonSlayer\cmake-build-release"
+CMAKE_BINARY_DIR = F:\DragonSlayer\cmake-build-release
 
 # Include any dependencies generated for this target.
 include CMakeFiles/DragonSlayer.dir/depend.make
@@ -59,25 +59,73 @@ include CMakeFiles/DragonSlayer.dir/flags.make
 CMakeFiles/DragonSlayer.dir/main.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
 CMakeFiles/DragonSlayer.dir/main.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
 CMakeFiles/DragonSlayer.dir/main.cpp.obj: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="F:\CLion Projects\DragonSlayer\cmake-build-release\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/DragonSlayer.dir/main.cpp.obj"
-	F:\Software\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\main.cpp.obj -c "F:\CLion Projects\DragonSlayer\main.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=F:\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/DragonSlayer.dir/main.cpp.obj"
+	F:\Software\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\main.cpp.obj -c F:\DragonSlayer\main.cpp
 
 CMakeFiles/DragonSlayer.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/DragonSlayer.dir/main.cpp.i"
-	F:\Software\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "F:\CLion Projects\DragonSlayer\main.cpp" > CMakeFiles\DragonSlayer.dir\main.cpp.i
+	F:\Software\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E F:\DragonSlayer\main.cpp > CMakeFiles\DragonSlayer.dir\main.cpp.i
 
 CMakeFiles/DragonSlayer.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DragonSlayer.dir/main.cpp.s"
-	F:\Software\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "F:\CLion Projects\DragonSlayer\main.cpp" -o CMakeFiles\DragonSlayer.dir\main.cpp.s
+	F:\Software\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S F:\DragonSlayer\main.cpp -o CMakeFiles\DragonSlayer.dir\main.cpp.s
+
+CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
+CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
+CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj: ../Core/Game.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=F:\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj"
+	F:\Software\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Core\Game.cpp.obj -c F:\DragonSlayer\Core\Game.cpp
+
+CMakeFiles/DragonSlayer.dir/Core/Game.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/DragonSlayer.dir/Core/Game.cpp.i"
+	F:\Software\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E F:\DragonSlayer\Core\Game.cpp > CMakeFiles\DragonSlayer.dir\Core\Game.cpp.i
+
+CMakeFiles/DragonSlayer.dir/Core/Game.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DragonSlayer.dir/Core/Game.cpp.s"
+	F:\Software\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S F:\DragonSlayer\Core\Game.cpp -o CMakeFiles\DragonSlayer.dir\Core\Game.cpp.s
+
+CMakeFiles/DragonSlayer.dir/Core/State.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
+CMakeFiles/DragonSlayer.dir/Core/State.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
+CMakeFiles/DragonSlayer.dir/Core/State.cpp.obj: ../Core/State.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=F:\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/DragonSlayer.dir/Core/State.cpp.obj"
+	F:\Software\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Core\State.cpp.obj -c F:\DragonSlayer\Core\State.cpp
+
+CMakeFiles/DragonSlayer.dir/Core/State.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/DragonSlayer.dir/Core/State.cpp.i"
+	F:\Software\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E F:\DragonSlayer\Core\State.cpp > CMakeFiles\DragonSlayer.dir\Core\State.cpp.i
+
+CMakeFiles/DragonSlayer.dir/Core/State.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DragonSlayer.dir/Core/State.cpp.s"
+	F:\Software\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S F:\DragonSlayer\Core\State.cpp -o CMakeFiles\DragonSlayer.dir\Core\State.cpp.s
+
+CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
+CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
+CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.obj: ../Core/MainMenuState.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=F:\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.obj"
+	F:\Software\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Core\MainMenuState.cpp.obj -c F:\DragonSlayer\Core\MainMenuState.cpp
+
+CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.i"
+	F:\Software\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E F:\DragonSlayer\Core\MainMenuState.cpp > CMakeFiles\DragonSlayer.dir\Core\MainMenuState.cpp.i
+
+CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.s"
+	F:\Software\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S F:\DragonSlayer\Core\MainMenuState.cpp -o CMakeFiles\DragonSlayer.dir\Core\MainMenuState.cpp.s
 
 # Object files for target DragonSlayer
 DragonSlayer_OBJECTS = \
-"CMakeFiles/DragonSlayer.dir/main.cpp.obj"
+"CMakeFiles/DragonSlayer.dir/main.cpp.obj" \
+"CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj" \
+"CMakeFiles/DragonSlayer.dir/Core/State.cpp.obj" \
+"CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.obj"
 
 # External object files for target DragonSlayer
 DragonSlayer_EXTERNAL_OBJECTS =
 
 DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/main.cpp.obj
+DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj
+DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/Core/State.cpp.obj
+DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.obj
 DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/build.make
 DragonSlayer.exe: ../SFML_2.5.1/lib/libsfml-graphics.a
 DragonSlayer.exe: ../SFML_2.5.1/lib/libsfml-audio.a
@@ -87,7 +135,7 @@ DragonSlayer.exe: ../SFML_2.5.1/lib/libsfml-system.a
 DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/linklibs.rsp
 DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/objects1.rsp
 DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="F:\CLion Projects\DragonSlayer\cmake-build-release\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable DragonSlayer.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=F:\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable DragonSlayer.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\DragonSlayer.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -100,6 +148,6 @@ CMakeFiles/DragonSlayer.dir/clean:
 .PHONY : CMakeFiles/DragonSlayer.dir/clean
 
 CMakeFiles/DragonSlayer.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" "F:\CLion Projects\DragonSlayer" "F:\CLion Projects\DragonSlayer" "F:\CLion Projects\DragonSlayer\cmake-build-release" "F:\CLion Projects\DragonSlayer\cmake-build-release" "F:\CLion Projects\DragonSlayer\cmake-build-release\CMakeFiles\DragonSlayer.dir\DependInfo.cmake" --color=$(COLOR)
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" F:\DragonSlayer F:\DragonSlayer F:\DragonSlayer\cmake-build-release F:\DragonSlayer\cmake-build-release F:\DragonSlayer\cmake-build-release\CMakeFiles\DragonSlayer.dir\DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/DragonSlayer.dir/depend
 

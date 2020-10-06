@@ -4,13 +4,15 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "F:/CLion Projects/DragonSlayer/main.cpp" "F:/CLion Projects/DragonSlayer/cmake-build-debug/CMakeFiles/DragonSlayer.dir/main.cpp.obj"
+  "F:/DragonSlayer/Core/Game.cpp" "F:/DragonSlayer/cmake-build-debug/CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj"
+  "F:/DragonSlayer/Core/MainMenuState.cpp" "F:/DragonSlayer/cmake-build-debug/CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.obj"
+  "F:/DragonSlayer/Core/State.cpp" "F:/DragonSlayer/cmake-build-debug/CMakeFiles/DragonSlayer.dir/Core/State.cpp.obj"
+  "F:/DragonSlayer/main.cpp" "F:/DragonSlayer/cmake-build-debug/CMakeFiles/DragonSlayer.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "../../SFML_2.5.1/bin"
   "../SFML_2.5.1/include"
   )
 

@@ -8,34 +8,33 @@
 		<Option virtualFolders="CMake Files\;CMake Files\SFML_2.5.1\;CMake Files\SFML_2.5.1\lib\;CMake Files\SFML_2.5.1\lib\cmake\;CMake Files\SFML_2.5.1\lib\cmake\SFML\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="F:/CLion Projects/DragonSlayer/cmake-build-release"/>
+				<Option working_dir="F:/DragonSlayer/cmake-build-release"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/CLion Projects/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/CLion Projects/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/CLion Projects/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/CLion Projects/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="F:/CLion Projects/DragonSlayer/cmake-build-release"/>
+				<Option working_dir="F:/DragonSlayer/cmake-build-release"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/CLion Projects/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/CLion Projects/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/CLion Projects/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/CLion Projects/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="DragonSlayer">
-				<Option output="F:/CLion Projects/DragonSlayer/cmake-build-release/DragonSlayer.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="F:/CLion Projects/DragonSlayer/cmake-build-release"/>
+				<Option output="F:/DragonSlayer/cmake-build-release/DragonSlayer.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="F:/DragonSlayer/cmake-build-release"/>
 				<Option object_output="./"/>
 				<Option type="0"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="F:/CLion Projects/DragonSlayer/../SFML_2.5.1/bin"/>
-					<Add directory="F:/CLion Projects/DragonSlayer/SFML_2.5.1/include"/>
+					<Add directory="F:/DragonSlayer/SFML_2.5.1/include"/>
 					<Add directory="f:\software\mingw\bin\../lib/gcc/mingw32/9.2.0/include/c++"/>
 					<Add directory="f:\software\mingw\bin\../lib/gcc/mingw32/9.2.0/include/c++/mingw32"/>
 					<Add directory="f:\software\mingw\bin\../lib/gcc/mingw32/9.2.0/include/c++/backward"/>
@@ -44,21 +43,20 @@
 					<Add directory="f:\software\mingw\bin\../lib/gcc/mingw32/9.2.0/include-fixed"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/CLion Projects/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 DragonSlayer"/>
-					<CompileFile command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/CLion Projects/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/CLion Projects/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/CLion Projects/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 DragonSlayer"/>
+					<CompileFile command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="DragonSlayer/fast">
-				<Option output="F:/CLion Projects/DragonSlayer/cmake-build-release/DragonSlayer.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="F:/CLion Projects/DragonSlayer/cmake-build-release"/>
+				<Option output="F:/DragonSlayer/cmake-build-release/DragonSlayer.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="F:/DragonSlayer/cmake-build-release"/>
 				<Option object_output="./"/>
 				<Option type="0"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="F:/CLion Projects/DragonSlayer/../SFML_2.5.1/bin"/>
-					<Add directory="F:/CLion Projects/DragonSlayer/SFML_2.5.1/include"/>
+					<Add directory="F:/DragonSlayer/SFML_2.5.1/include"/>
 					<Add directory="f:\software\mingw\bin\../lib/gcc/mingw32/9.2.0/include/c++"/>
 					<Add directory="f:\software\mingw\bin\../lib/gcc/mingw32/9.2.0/include/c++/mingw32"/>
 					<Add directory="f:\software\mingw\bin\../lib/gcc/mingw32/9.2.0/include/c++/backward"/>
@@ -67,45 +65,63 @@
 					<Add directory="f:\software\mingw\bin\../lib/gcc/mingw32/9.2.0/include-fixed"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/CLion Projects/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 DragonSlayer/fast"/>
-					<CompileFile command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/CLion Projects/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/CLion Projects/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/CLion Projects/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 DragonSlayer/fast"/>
+					<CompileFile command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="F:/CLion Projects/DragonSlayer/cmake-build-release"/>
+				<Option working_dir="F:/DragonSlayer/cmake-build-release"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/CLion Projects/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/CLion Projects/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/CLion Projects/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/CLion Projects/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="F:/Software/MinGW/bin/mingw32-make.exe -f &quot;F:/DragonSlayer/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="F:/CLion Projects/DragonSlayer/main.cpp">
+		<Unit filename="F:/DragonSlayer/Core/Game.cpp">
 			<Option target="DragonSlayer"/>
 		</Unit>
-		<Unit filename="F:/CLion Projects/DragonSlayer/CMakeLists.txt">
+		<Unit filename="F:/DragonSlayer/Core/Game.h">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Core/MainMenuState.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Core/MainMenuState.h">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Core/State.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Core/State.h">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/main.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
-		<Unit filename="F:/CLion Projects/DragonSlayer/SFML_2.5.1/lib/cmake/SFML/SFMLConfig.cmake">
+		<Unit filename="F:/DragonSlayer/SFML_2.5.1/lib/cmake/SFML/SFMLConfig.cmake">
 			<Option virtualFolder="CMake Files\SFML_2.5.1\lib\cmake\SFML\"/>
 		</Unit>
-		<Unit filename="F:/CLion Projects/DragonSlayer/SFML_2.5.1/lib/cmake/SFML/SFMLConfigDependencies.cmake">
+		<Unit filename="F:/DragonSlayer/SFML_2.5.1/lib/cmake/SFML/SFMLConfigDependencies.cmake">
 			<Option virtualFolder="CMake Files\SFML_2.5.1\lib\cmake\SFML\"/>
 		</Unit>
-		<Unit filename="F:/CLion Projects/DragonSlayer/SFML_2.5.1/lib/cmake/SFML/SFMLConfigVersion.cmake">
+		<Unit filename="F:/DragonSlayer/SFML_2.5.1/lib/cmake/SFML/SFMLConfigVersion.cmake">
 			<Option virtualFolder="CMake Files\SFML_2.5.1\lib\cmake\SFML\"/>
 		</Unit>
-		<Unit filename="F:/CLion Projects/DragonSlayer/SFML_2.5.1/lib/cmake/SFML/SFMLSharedTargets-debug.cmake">
+		<Unit filename="F:/DragonSlayer/SFML_2.5.1/lib/cmake/SFML/SFMLSharedTargets-debug.cmake">
 			<Option virtualFolder="CMake Files\SFML_2.5.1\lib\cmake\SFML\"/>
 		</Unit>
-		<Unit filename="F:/CLion Projects/DragonSlayer/SFML_2.5.1/lib/cmake/SFML/SFMLSharedTargets-release.cmake">
+		<Unit filename="F:/DragonSlayer/SFML_2.5.1/lib/cmake/SFML/SFMLSharedTargets-release.cmake">
 			<Option virtualFolder="CMake Files\SFML_2.5.1\lib\cmake\SFML\"/>
 		</Unit>
-		<Unit filename="F:/CLion Projects/DragonSlayer/SFML_2.5.1/lib/cmake/SFML/SFMLSharedTargets.cmake">
+		<Unit filename="F:/DragonSlayer/SFML_2.5.1/lib/cmake/SFML/SFMLSharedTargets.cmake">
 			<Option virtualFolder="CMake Files\SFML_2.5.1\lib\cmake\SFML\"/>
 		</Unit>
 	</Project>
