@@ -683,6 +683,8 @@ F:/DragonSlayer/Core/MainMenuState.h
 F:/DragonSlayer/Core/MainMenuState.h
 State.h
 F:/DragonSlayer/Core/State.h
+../Gui/gui.h
+F:/DragonSlayer/Gui/Gui.h
 
 F:/DragonSlayer/Core/State.h
 fstream
@@ -694,5 +696,9 @@ sstream
 SFML/Graphics.hpp
 -
 stack
+-
+
+F:/DragonSlayer/Gui/Gui.h
+SFML/Graphics.hpp
 -
 

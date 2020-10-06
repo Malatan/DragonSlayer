@@ -100,6 +100,12 @@
 		<Unit filename="F:/DragonSlayer/Core/State.h">
 			<Option target="DragonSlayer"/>
 		</Unit>
+		<Unit filename="F:/DragonSlayer/Gui/Gui.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Gui/Gui.h">
+			<Option target="DragonSlayer"/>
+		</Unit>
 		<Unit filename="F:/DragonSlayer/main.cpp">
 			<Option target="DragonSlayer"/>
 		</Unit>

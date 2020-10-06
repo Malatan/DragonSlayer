@@ -203,6 +203,33 @@ Core/State.cpp.s:
 	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Core/State.cpp.s
 .PHONY : Core/State.cpp.s
 
+Gui/Gui.obj: Gui/Gui.cpp.obj
+
+.PHONY : Gui/Gui.obj
+
+# target to build an object file
+Gui/Gui.cpp.obj:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/Gui.cpp.obj
+.PHONY : Gui/Gui.cpp.obj
+
+Gui/Gui.i: Gui/Gui.cpp.i
+
+.PHONY : Gui/Gui.i
+
+# target to preprocess a source file
+Gui/Gui.cpp.i:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/Gui.cpp.i
+.PHONY : Gui/Gui.cpp.i
+
+Gui/Gui.s: Gui/Gui.cpp.s
+
+.PHONY : Gui/Gui.s
+
+# target to generate assembly for a file
+Gui/Gui.cpp.s:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/Gui.cpp.s
+.PHONY : Gui/Gui.cpp.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -248,6 +275,9 @@ help:
 	@echo ... Core/State.obj
 	@echo ... Core/State.i
 	@echo ... Core/State.s
+	@echo ... Gui/Gui.obj
+	@echo ... Gui/Gui.i
+	@echo ... Gui/Gui.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

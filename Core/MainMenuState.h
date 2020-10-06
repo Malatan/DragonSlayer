@@ -6,6 +6,7 @@
 #define DRAGONSLAYER_MAINMENUSTATE_H
 
 #include "State.h"
+#include "../Gui/gui.h"
 
 class MainMenuState : public State {
 private:
@@ -14,7 +15,7 @@ private:
     sf::RectangleShape background;
     sf::Font font;
 
-//    std::map<std::string, gui::Button*> buttons;
+    std::map<std::string, gui::Button*> buttons;
 
     //functions
     void initVariables();

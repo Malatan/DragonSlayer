@@ -73,12 +73,12 @@ preinstall:
 CMakeFiles/DragonSlayer.dir/all:
 	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/depend
 	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=F:\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=1,2,3,4,5 "Built target DragonSlayer"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=F:\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=1,2,3,4,5,6 "Built target DragonSlayer"
 .PHONY : CMakeFiles/DragonSlayer.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/DragonSlayer.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start F:\DragonSlayer\cmake-build-release\CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start F:\DragonSlayer\cmake-build-release\CMakeFiles 6
 	$(MAKE) -f CMakeFiles\Makefile2 CMakeFiles/DragonSlayer.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start F:\DragonSlayer\cmake-build-release\CMakeFiles 0
 .PHONY : CMakeFiles/DragonSlayer.dir/rule

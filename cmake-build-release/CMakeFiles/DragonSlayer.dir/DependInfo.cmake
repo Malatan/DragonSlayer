@@ -7,6 +7,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "F:/DragonSlayer/Core/Game.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj"
   "F:/DragonSlayer/Core/MainMenuState.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.obj"
   "F:/DragonSlayer/Core/State.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Core/State.cpp.obj"
+  "F:/DragonSlayer/Gui/Gui.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Gui/Gui.cpp.obj"
   "F:/DragonSlayer/main.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

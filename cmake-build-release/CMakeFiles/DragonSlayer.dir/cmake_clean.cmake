@@ -2,6 +2,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Core/State.cpp.obj"
+  "CMakeFiles/DragonSlayer.dir/Gui/Gui.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/main.cpp.obj"
   "DragonSlayer.exe"
   "DragonSlayer.exe.manifest"

@@ -32,9 +32,10 @@ void Game::initWindow() {
     ifs.close();
 
     this->windowSettings.antialiasingLevel = antialiasing_level;
-        this->window = new sf::RenderWindow(window_bounds, title,
-                                            sf::Style::Titlebar | sf::Style::Close, this->windowSettings);
-
+    this->window = new sf::RenderWindow(window_bounds,
+                                        title,
+                                        sf::Style::Close,
+                                        this->windowSettings);
     this->window->setFramerateLimit(framerate_limit);
     this->window->setVerticalSyncEnabled(veritcal_enabled);
 
