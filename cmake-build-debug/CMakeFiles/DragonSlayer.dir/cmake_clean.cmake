@@ -1,8 +1,12 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/DragonSlayer.dir/Components/AnimationComponent.cpp.obj"
+  "CMakeFiles/DragonSlayer.dir/Components/MovementComponent.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Core/GameState.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Core/State.cpp.obj"
+  "CMakeFiles/DragonSlayer.dir/Entity/Entity.cpp.obj"
+  "CMakeFiles/DragonSlayer.dir/Entity/Player.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Gui/Gui.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Gui/PauseMenu.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/main.cpp.obj"

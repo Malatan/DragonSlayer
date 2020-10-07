@@ -6,17 +6,17 @@
 #define DRAGONSLAYER_GAMESTATE_H
 
 #include "State.h"
+#include "../Entity/Player.h"
 #include "../Gui/PauseMenu.h"
 
 class GameState : public State{
 private:
     sf::Font* font;
     PauseMenu* pmenu;
-  //  Player* player;
+    Player* player;
 
 
     //functions
-    void initFonts();
     void initTextures();
     void initPauseMenu();
     void initPlayers();

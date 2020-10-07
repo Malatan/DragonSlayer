@@ -233,6 +233,60 @@ gtest_main/fast:
 	$(MAKE) -f unit_testing\lib\googletest-master\googletest\CMakeFiles\gtest_main.dir\build.make unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/build
 .PHONY : gtest_main/fast
 
+Components/AnimationComponent.obj: Components/AnimationComponent.cpp.obj
+
+.PHONY : Components/AnimationComponent.obj
+
+# target to build an object file
+Components/AnimationComponent.cpp.obj:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Components/AnimationComponent.cpp.obj
+.PHONY : Components/AnimationComponent.cpp.obj
+
+Components/AnimationComponent.i: Components/AnimationComponent.cpp.i
+
+.PHONY : Components/AnimationComponent.i
+
+# target to preprocess a source file
+Components/AnimationComponent.cpp.i:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Components/AnimationComponent.cpp.i
+.PHONY : Components/AnimationComponent.cpp.i
+
+Components/AnimationComponent.s: Components/AnimationComponent.cpp.s
+
+.PHONY : Components/AnimationComponent.s
+
+# target to generate assembly for a file
+Components/AnimationComponent.cpp.s:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Components/AnimationComponent.cpp.s
+.PHONY : Components/AnimationComponent.cpp.s
+
+Components/MovementComponent.obj: Components/MovementComponent.cpp.obj
+
+.PHONY : Components/MovementComponent.obj
+
+# target to build an object file
+Components/MovementComponent.cpp.obj:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Components/MovementComponent.cpp.obj
+.PHONY : Components/MovementComponent.cpp.obj
+
+Components/MovementComponent.i: Components/MovementComponent.cpp.i
+
+.PHONY : Components/MovementComponent.i
+
+# target to preprocess a source file
+Components/MovementComponent.cpp.i:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Components/MovementComponent.cpp.i
+.PHONY : Components/MovementComponent.cpp.i
+
+Components/MovementComponent.s: Components/MovementComponent.cpp.s
+
+.PHONY : Components/MovementComponent.s
+
+# target to generate assembly for a file
+Components/MovementComponent.cpp.s:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Components/MovementComponent.cpp.s
+.PHONY : Components/MovementComponent.cpp.s
+
 Core/Game.obj: Core/Game.cpp.obj
 
 .PHONY : Core/Game.obj
@@ -341,6 +395,60 @@ Core/State.cpp.s:
 	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Core/State.cpp.s
 .PHONY : Core/State.cpp.s
 
+Entity/Entity.obj: Entity/Entity.cpp.obj
+
+.PHONY : Entity/Entity.obj
+
+# target to build an object file
+Entity/Entity.cpp.obj:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Entity/Entity.cpp.obj
+.PHONY : Entity/Entity.cpp.obj
+
+Entity/Entity.i: Entity/Entity.cpp.i
+
+.PHONY : Entity/Entity.i
+
+# target to preprocess a source file
+Entity/Entity.cpp.i:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Entity/Entity.cpp.i
+.PHONY : Entity/Entity.cpp.i
+
+Entity/Entity.s: Entity/Entity.cpp.s
+
+.PHONY : Entity/Entity.s
+
+# target to generate assembly for a file
+Entity/Entity.cpp.s:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Entity/Entity.cpp.s
+.PHONY : Entity/Entity.cpp.s
+
+Entity/Player.obj: Entity/Player.cpp.obj
+
+.PHONY : Entity/Player.obj
+
+# target to build an object file
+Entity/Player.cpp.obj:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Entity/Player.cpp.obj
+.PHONY : Entity/Player.cpp.obj
+
+Entity/Player.i: Entity/Player.cpp.i
+
+.PHONY : Entity/Player.i
+
+# target to preprocess a source file
+Entity/Player.cpp.i:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Entity/Player.cpp.i
+.PHONY : Entity/Player.cpp.i
+
+Entity/Player.s: Entity/Player.cpp.s
+
+.PHONY : Entity/Player.s
+
+# target to generate assembly for a file
+Entity/Player.cpp.s:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Entity/Player.cpp.s
+.PHONY : Entity/Player.cpp.s
+
 Gui/Gui.obj: Gui/Gui.cpp.obj
 
 .PHONY : Gui/Gui.obj
@@ -440,6 +548,12 @@ help:
 	@echo ... gmock
 	@echo ... gtest
 	@echo ... gtest_main
+	@echo ... Components/AnimationComponent.obj
+	@echo ... Components/AnimationComponent.i
+	@echo ... Components/AnimationComponent.s
+	@echo ... Components/MovementComponent.obj
+	@echo ... Components/MovementComponent.i
+	@echo ... Components/MovementComponent.s
 	@echo ... Core/Game.obj
 	@echo ... Core/Game.i
 	@echo ... Core/Game.s
@@ -452,6 +566,12 @@ help:
 	@echo ... Core/State.obj
 	@echo ... Core/State.i
 	@echo ... Core/State.s
+	@echo ... Entity/Entity.obj
+	@echo ... Entity/Entity.i
+	@echo ... Entity/Entity.s
+	@echo ... Entity/Player.obj
+	@echo ... Entity/Player.i
+	@echo ... Entity/Player.s
 	@echo ... Gui/Gui.obj
 	@echo ... Gui/Gui.i
 	@echo ... Gui/Gui.s

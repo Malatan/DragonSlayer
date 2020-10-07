@@ -5,9 +5,9 @@
 #include "GameState.h"
 
 void GameState::initTextures() {
- /*   if(!this->textures["PLAYER_SHEET"] .loadFromFile("../Resources/Images/Sprites/Player/player_sheet.png")){
+    if(!this->textures["PLAYER_SHEET"] .loadFromFile("../Resources/Images/Sprites/Player/player.jpg")){
         throw("Errore gamestate could not load player texture");
-    }*/
+    }
 }
 
 void GameState::initPauseMenu() {
@@ -17,14 +17,13 @@ void GameState::initPauseMenu() {
 }
 
 void GameState::initPlayers() {
-   //this->player = new Player(0, 0, this->textures["PLAYER_SHEET"]);
+   this->player = new Player(10, 10, this->textures["PLAYER_SHEET"]);
 
 }
 
 //constructors/destructors
 GameState::GameState(sf::RenderWindow* window, std::stack<State*>* states, sf::Font* font)
         : State(window, states){
-    //this->initFonts();
     this->font = font;
     this->initTextures();
     this->initPauseMenu();
@@ -48,14 +47,8 @@ void GameState::updateInput(const float &dt) {
     }
 }
 
-/*void GameState::initFonts() {
-    if(!this->font.loadFromFile("../Fonts/WISHFULWAVES.ttf")){
-        throw("Errore: gamestate could not load font");
-    }
-}*/
-
 void GameState::updatePlayerInput(const float &dt) {
- /*   //update player input
+    //aggiorna player input
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
         this->player->move(dt, -1.f, 0.f);
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
@@ -63,7 +56,7 @@ void GameState::updatePlayerInput(const float &dt) {
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
         this->player->move(dt, 0.f, -1.f);
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-        this->player->move(dt, 0.f, 1.f);*/
+        this->player->move(dt, 0.f, 1.f);
 }
 
 void GameState::updatePausedMenuButtons() {
@@ -81,7 +74,7 @@ void GameState::update(const float& dt) {
 
         this->updatePlayerInput(dt);
 
-    //    this->player->update(dt);
+        this->player->update(dt);
 
     } else{ // paused update
         this->pmenu->update(this->mousePosView);
@@ -93,10 +86,9 @@ void GameState::update(const float& dt) {
 void GameState::render(sf::RenderTarget* target) {
     if(!target){
         target = this->window;
-    } else{
-
     }
- //   this->player->render(*target);
+
+    this->player->render(*target);
 
     if(this->paused){ // pause menu render
         this->pmenu->render(*target);

@@ -16,6 +16,14 @@ set(SOURCE_FILES
         Gui/Gui.h
         Gui/PauseMenu.cpp
         Gui/PauseMenu.h
+        Entity/Entity.cpp
+        Entity/Entity.h
+        Entity/Player.cpp
+        Entity/Player.h
+        Components/MovementComponent.cpp
+        Components/MovementComponent.h
+        Components/AnimationComponent.cpp
+        Components/AnimationComponent.h
         )
 
 if (CMAKE_BUILD_TYPE STREQUAL "Release")
