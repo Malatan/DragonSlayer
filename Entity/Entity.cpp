@@ -29,10 +29,10 @@ void Entity::createMovementComponent(const float maxVelocity, const float accele
     this->movementComponent = new MovementComponent(this->sprite, maxVelocity, acceleration, deceleration);
 }
 
-/*void Entity::createAnimationComponent(sf::Texture& texture_sheet) {
+void Entity::createAnimationComponent(sf::Texture& texture_sheet) {
     this->animationComponent = new AnimationComponent(this->sprite, texture_sheet);
     //this->sprite.setScale(3,3);
-}*/
+}
 
 //functions
 void Entity::setPosition(const float x, const float y) {

@@ -21,6 +21,7 @@ public:
     virtual ~Player();
 
     //funtions
+    void updateAnimation(const float &dt);
     virtual void update(const float &dt);
 };
 
