@@ -260,6 +260,33 @@ Core/Game.cpp.s:
 	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Core/Game.cpp.s
 .PHONY : Core/Game.cpp.s
 
+Core/GameState.obj: Core/GameState.cpp.obj
+
+.PHONY : Core/GameState.obj
+
+# target to build an object file
+Core/GameState.cpp.obj:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Core/GameState.cpp.obj
+.PHONY : Core/GameState.cpp.obj
+
+Core/GameState.i: Core/GameState.cpp.i
+
+.PHONY : Core/GameState.i
+
+# target to preprocess a source file
+Core/GameState.cpp.i:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Core/GameState.cpp.i
+.PHONY : Core/GameState.cpp.i
+
+Core/GameState.s: Core/GameState.cpp.s
+
+.PHONY : Core/GameState.s
+
+# target to generate assembly for a file
+Core/GameState.cpp.s:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Core/GameState.cpp.s
+.PHONY : Core/GameState.cpp.s
+
 Core/MainMenuState.obj: Core/MainMenuState.cpp.obj
 
 .PHONY : Core/MainMenuState.obj
@@ -341,6 +368,33 @@ Gui/Gui.cpp.s:
 	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/Gui.cpp.s
 .PHONY : Gui/Gui.cpp.s
 
+Gui/PauseMenu.obj: Gui/PauseMenu.cpp.obj
+
+.PHONY : Gui/PauseMenu.obj
+
+# target to build an object file
+Gui/PauseMenu.cpp.obj:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/PauseMenu.cpp.obj
+.PHONY : Gui/PauseMenu.cpp.obj
+
+Gui/PauseMenu.i: Gui/PauseMenu.cpp.i
+
+.PHONY : Gui/PauseMenu.i
+
+# target to preprocess a source file
+Gui/PauseMenu.cpp.i:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/PauseMenu.cpp.i
+.PHONY : Gui/PauseMenu.cpp.i
+
+Gui/PauseMenu.s: Gui/PauseMenu.cpp.s
+
+.PHONY : Gui/PauseMenu.s
+
+# target to generate assembly for a file
+Gui/PauseMenu.cpp.s:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/PauseMenu.cpp.s
+.PHONY : Gui/PauseMenu.cpp.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -389,6 +443,9 @@ help:
 	@echo ... Core/Game.obj
 	@echo ... Core/Game.i
 	@echo ... Core/Game.s
+	@echo ... Core/GameState.obj
+	@echo ... Core/GameState.i
+	@echo ... Core/GameState.s
 	@echo ... Core/MainMenuState.obj
 	@echo ... Core/MainMenuState.i
 	@echo ... Core/MainMenuState.s
@@ -398,6 +455,9 @@ help:
 	@echo ... Gui/Gui.obj
 	@echo ... Gui/Gui.i
 	@echo ... Gui/Gui.s
+	@echo ... Gui/PauseMenu.obj
+	@echo ... Gui/PauseMenu.i
+	@echo ... Gui/PauseMenu.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

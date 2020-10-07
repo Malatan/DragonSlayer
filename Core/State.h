@@ -24,6 +24,7 @@ protected:
     float keyTime;
     float keyTimeMax;
 
+
     sf::Vector2i mousePosScreen;
     sf::Vector2i mousePosWindow;
     sf::Vector2f mousePosView;

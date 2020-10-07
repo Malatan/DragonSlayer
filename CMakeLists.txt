@@ -10,8 +10,12 @@ set(SOURCE_FILES
         Core/State.h
         Core/MainMenuState.cpp
         Core/MainMenuState.h
+        Core/GameState.cpp
+        Core/GameState.h
         Gui/Gui.cpp
         Gui/Gui.h
+        Gui/PauseMenu.cpp
+        Gui/PauseMenu.h
         )
 
 if (CMAKE_BUILD_TYPE STREQUAL "Release")

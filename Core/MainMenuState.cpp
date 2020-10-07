@@ -75,10 +75,10 @@ void MainMenuState::updateButtons() {
         it.second->update((this->mousePosView));
     }
 
-/*    //Nuovo gioco
+    //Nuovo gioco
     if(this->buttons["GAME_STATE"]->isPressed()){
-        this->states->push(new GameState(this->window, this->supportedKeys, this->states));
-    }*/
+        this->states->push(new GameState(this->window, this->states, &this->font));
+    }
 
     //Esce dal gioco
     if(this->buttons["EXIT_STATE"]->isPressed()){

@@ -366,6 +366,12 @@
 		<Unit filename="F:/DragonSlayer/Core/Game.h">
 			<Option target="DragonSlayer"/>
 		</Unit>
+		<Unit filename="F:/DragonSlayer/Core/GameState.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Core/GameState.h">
+			<Option target="DragonSlayer"/>
+		</Unit>
 		<Unit filename="F:/DragonSlayer/Core/MainMenuState.cpp">
 			<Option target="DragonSlayer"/>
 		</Unit>
@@ -382,6 +388,12 @@
 			<Option target="DragonSlayer"/>
 		</Unit>
 		<Unit filename="F:/DragonSlayer/Gui/Gui.h">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Gui/PauseMenu.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Gui/PauseMenu.h">
 			<Option target="DragonSlayer"/>
 		</Unit>
 		<Unit filename="F:/DragonSlayer/main.cpp">

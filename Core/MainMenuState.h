@@ -6,6 +6,7 @@
 #define DRAGONSLAYER_MAINMENUSTATE_H
 
 #include "State.h"
+#include "GameState.h"
 #include "../Gui/gui.h"
 
 class MainMenuState : public State {

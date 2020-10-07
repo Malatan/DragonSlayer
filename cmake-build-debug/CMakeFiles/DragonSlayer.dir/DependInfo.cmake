@@ -5,9 +5,11 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "F:/DragonSlayer/Core/Game.cpp" "F:/DragonSlayer/cmake-build-debug/CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj"
+  "F:/DragonSlayer/Core/GameState.cpp" "F:/DragonSlayer/cmake-build-debug/CMakeFiles/DragonSlayer.dir/Core/GameState.cpp.obj"
   "F:/DragonSlayer/Core/MainMenuState.cpp" "F:/DragonSlayer/cmake-build-debug/CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.obj"
   "F:/DragonSlayer/Core/State.cpp" "F:/DragonSlayer/cmake-build-debug/CMakeFiles/DragonSlayer.dir/Core/State.cpp.obj"
   "F:/DragonSlayer/Gui/Gui.cpp" "F:/DragonSlayer/cmake-build-debug/CMakeFiles/DragonSlayer.dir/Gui/Gui.cpp.obj"
+  "F:/DragonSlayer/Gui/PauseMenu.cpp" "F:/DragonSlayer/cmake-build-debug/CMakeFiles/DragonSlayer.dir/Gui/PauseMenu.cpp.obj"
   "F:/DragonSlayer/main.cpp" "F:/DragonSlayer/cmake-build-debug/CMakeFiles/DragonSlayer.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
