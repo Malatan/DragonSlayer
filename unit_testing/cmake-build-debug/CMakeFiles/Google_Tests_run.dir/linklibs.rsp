@@ -1,0 +1,1 @@
+ -LF:/DragonSlayer/unit_testing/cmake-build-debug/lib -lDateConverter_lib lib/libgtestd.a lib/libgtest_maind.a lib/libgtestd.a -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 
