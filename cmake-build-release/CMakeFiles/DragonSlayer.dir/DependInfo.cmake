@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "F:/DragonSlayer/Core/Game.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj"
   "F:/DragonSlayer/Core/GameState.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Core/GameState.cpp.obj"
   "F:/DragonSlayer/Core/MainMenuState.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.obj"
+  "F:/DragonSlayer/Core/RunTimeClock.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Core/RunTimeClock.cpp.obj"
   "F:/DragonSlayer/Core/State.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Core/State.cpp.obj"
   "F:/DragonSlayer/Entity/Entity.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Entity/Entity.cpp.obj"
   "F:/DragonSlayer/Entity/Player.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Entity/Player.cpp.obj"

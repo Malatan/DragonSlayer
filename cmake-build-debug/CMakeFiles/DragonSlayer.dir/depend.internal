@@ -236,6 +236,7 @@ CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj
  F:/DragonSlayer/Core/Game.h
  F:/DragonSlayer/Core/GameState.h
  F:/DragonSlayer/Core/MainMenuState.h
+ F:/DragonSlayer/Core/RunTimeClock.h
  F:/DragonSlayer/Core/State.h
  F:/DragonSlayer/Entity/Entity.h
  F:/DragonSlayer/Entity/Player.h
@@ -410,6 +411,9 @@ CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.obj
  F:/DragonSlayer/Entity/Player.h
  F:/DragonSlayer/Gui/Gui.h
  F:/DragonSlayer/Gui/PauseMenu.h
+CMakeFiles/DragonSlayer.dir/Core/RunTimeClock.cpp.obj
+ F:/DragonSlayer/Core/RunTimeClock.cpp
+ F:/DragonSlayer/Core/RunTimeClock.h
 CMakeFiles/DragonSlayer.dir/Core/State.cpp.obj
  ../SFML_2.5.1/include/SFML/Config.hpp
  ../SFML_2.5.1/include/SFML/Graphics.hpp
@@ -881,6 +885,7 @@ CMakeFiles/DragonSlayer.dir/main.cpp.obj
  F:/DragonSlayer/Core/Game.h
  F:/DragonSlayer/Core/GameState.h
  F:/DragonSlayer/Core/MainMenuState.h
+ F:/DragonSlayer/Core/RunTimeClock.h
  F:/DragonSlayer/Core/State.h
  F:/DragonSlayer/Entity/Entity.h
  F:/DragonSlayer/Entity/Player.h

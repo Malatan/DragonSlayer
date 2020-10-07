@@ -235,6 +235,7 @@ CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj: ../Core/Game.cpp
 CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj: ../Core/Game.h
 CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj: ../Core/GameState.h
 CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj: ../Core/MainMenuState.h
+CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj: ../Core/RunTimeClock.h
 CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj: ../Core/State.h
 CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj: ../Entity/Entity.h
 CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj: ../Entity/Player.h
@@ -409,6 +410,9 @@ CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.obj: ../Entity/Entity.h
 CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.obj: ../Entity/Player.h
 CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.obj: ../Gui/Gui.h
 CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.obj: ../Gui/PauseMenu.h
+
+CMakeFiles/DragonSlayer.dir/Core/RunTimeClock.cpp.obj: ../Core/RunTimeClock.cpp
+CMakeFiles/DragonSlayer.dir/Core/RunTimeClock.cpp.obj: ../Core/RunTimeClock.h
 
 CMakeFiles/DragonSlayer.dir/Core/State.cpp.obj: ../SFML_2.5.1/include/SFML/Config.hpp
 CMakeFiles/DragonSlayer.dir/Core/State.cpp.obj: ../SFML_2.5.1/include/SFML/Graphics.hpp
@@ -880,6 +884,7 @@ CMakeFiles/DragonSlayer.dir/main.cpp.obj: ../Components/MovementComponent.h
 CMakeFiles/DragonSlayer.dir/main.cpp.obj: ../Core/Game.h
 CMakeFiles/DragonSlayer.dir/main.cpp.obj: ../Core/GameState.h
 CMakeFiles/DragonSlayer.dir/main.cpp.obj: ../Core/MainMenuState.h
+CMakeFiles/DragonSlayer.dir/main.cpp.obj: ../Core/RunTimeClock.h
 CMakeFiles/DragonSlayer.dir/main.cpp.obj: ../Core/State.h
 CMakeFiles/DragonSlayer.dir/main.cpp.obj: ../Entity/Entity.h
 CMakeFiles/DragonSlayer.dir/main.cpp.obj: ../Entity/Player.h

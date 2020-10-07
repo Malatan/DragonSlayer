@@ -12,6 +12,8 @@ set(SOURCE_FILES
         Core/MainMenuState.h
         Core/GameState.cpp
         Core/GameState.h
+        Core/RunTimeClock.cpp
+        Core/RunTimeClock.h
         Gui/Gui.cpp
         Gui/Gui.h
         Gui/PauseMenu.cpp

@@ -390,6 +390,12 @@
 		<Unit filename="F:/DragonSlayer/Core/MainMenuState.h">
 			<Option target="DragonSlayer"/>
 		</Unit>
+		<Unit filename="F:/DragonSlayer/Core/RunTimeClock.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Core/RunTimeClock.h">
+			<Option target="DragonSlayer"/>
+		</Unit>
 		<Unit filename="F:/DragonSlayer/Core/State.cpp">
 			<Option target="DragonSlayer"/>
 		</Unit>

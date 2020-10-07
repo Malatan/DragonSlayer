@@ -7,6 +7,7 @@
 
 #include "State.h"
 #include "MainMenuState.h"
+#include "RunTimeClock.h"
 
 class Game {
 private:
@@ -18,9 +19,12 @@ private:
 
     sf::Clock dtClock;
     float dt; //delta time
+    sf::Time gameRunTime;
+    RunTimeClock* rtc;
 
     std::stack<State*> states;
 
+    std::string Title;
     //Initialization
     void initVariables();
     void initWindow();

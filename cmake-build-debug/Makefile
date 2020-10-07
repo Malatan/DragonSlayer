@@ -368,6 +368,33 @@ Core/MainMenuState.cpp.s:
 	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.s
 .PHONY : Core/MainMenuState.cpp.s
 
+Core/RunTimeClock.obj: Core/RunTimeClock.cpp.obj
+
+.PHONY : Core/RunTimeClock.obj
+
+# target to build an object file
+Core/RunTimeClock.cpp.obj:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Core/RunTimeClock.cpp.obj
+.PHONY : Core/RunTimeClock.cpp.obj
+
+Core/RunTimeClock.i: Core/RunTimeClock.cpp.i
+
+.PHONY : Core/RunTimeClock.i
+
+# target to preprocess a source file
+Core/RunTimeClock.cpp.i:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Core/RunTimeClock.cpp.i
+.PHONY : Core/RunTimeClock.cpp.i
+
+Core/RunTimeClock.s: Core/RunTimeClock.cpp.s
+
+.PHONY : Core/RunTimeClock.s
+
+# target to generate assembly for a file
+Core/RunTimeClock.cpp.s:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Core/RunTimeClock.cpp.s
+.PHONY : Core/RunTimeClock.cpp.s
+
 Core/State.obj: Core/State.cpp.obj
 
 .PHONY : Core/State.obj
@@ -563,6 +590,9 @@ help:
 	@echo ... Core/MainMenuState.obj
 	@echo ... Core/MainMenuState.i
 	@echo ... Core/MainMenuState.s
+	@echo ... Core/RunTimeClock.obj
+	@echo ... Core/RunTimeClock.i
+	@echo ... Core/RunTimeClock.s
 	@echo ... Core/State.obj
 	@echo ... Core/State.i
 	@echo ... Core/State.s

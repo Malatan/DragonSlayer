@@ -2,7 +2,7 @@
 // Created by Zheng on 06/10/2020.
 //
 
-
+#include <iostream>
 #include "Game.h"
 
 void Game::initVariables() {
@@ -14,14 +14,14 @@ void Game::initWindow() {
     std::ifstream ifs("../Config/window.ini");
     this->videomodes = sf::VideoMode::getFullscreenModes();
 
-    std::string title = "None";
+    this->Title = "None";
     sf::VideoMode window_bounds = sf::VideoMode::getDesktopMode();
     unsigned framerate_limit = 120;
     bool veritcal_enabled = false;
     unsigned antialiasing_level = 0;
 
     if(ifs.is_open()){
-        std::getline(ifs,title);
+        std::getline(ifs,this->Title);
         ifs >> window_bounds.width >> window_bounds.height;
         ifs >> framerate_limit;
         ifs >> veritcal_enabled;
@@ -33,12 +33,12 @@ void Game::initWindow() {
 
     this->windowSettings.antialiasingLevel = antialiasing_level;
     this->window = new sf::RenderWindow(window_bounds,
-                                        title,
+                                        this->Title,
                                         sf::Style::Close,
                                         this->windowSettings);
     this->window->setFramerateLimit(framerate_limit);
     this->window->setVerticalSyncEnabled(veritcal_enabled);
-
+    this->rtc = new RunTimeClock();
 }
 
 
@@ -48,6 +48,7 @@ void Game::initStates() {
 
 //Constructors/Destructors
 Game::Game() {
+
     this->initWindow();
     this->initStates();
 }
@@ -62,7 +63,9 @@ Game::~Game() {
 }
 
 void Game::updateDt() {
-    this->dt = this->dtClock.restart().asSeconds();
+    this->gameRunTime = this->dtClock.restart();
+    this->dt = gameRunTime.asSeconds();
+    this->rtc->addMilliseconds(gameRunTime.asMilliseconds());
 }
 
 //Functions
@@ -106,6 +109,7 @@ void Game::render() {
 
 void Game::run() {
     while(this->window->isOpen()){
+        this->window->setTitle(this->Title+this->rtc->toString());
         this->updateDt();
         this->update();
         this->render();

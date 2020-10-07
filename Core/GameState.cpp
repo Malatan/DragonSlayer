@@ -5,7 +5,7 @@
 #include "GameState.h"
 
 void GameState::initTextures() {
-    if(!this->textures["PLAYER_SHEET"] .loadFromFile("../Resources/Images/Sprites/Player/player.jpg")){
+    if(!this->textures["PLAYER_SHEET"] .loadFromFile("../Resources/Images/Sprites/Player/player_sheet.png")){
         throw("Errore gamestate could not load player texture");
     }
 }
