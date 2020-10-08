@@ -6,24 +6,28 @@
 
 //initializer functions
 void Player::initVariables() {
+
+}
+
+void Player::initAnimations() {
+    this->animationComponent->addAnimation("IDLE", 10.f,
+            0, 0, 14, 0, 64 ,64);
+    this->animationComponent->addAnimation("WALK", 6.f,
+            0, 1, 7, 1, 64 ,64);
 }
 
 //constructors/destructors
 Player::Player(float x, float y, float scale_x, float scale_y, sf::Texture& texture_sheet) {
-    this->initVariables();
-
     this->scale.x = scale_x;
     this->scale.y = scale_y;
-
     this->sprite.setScale(this->scale);
 
-    this->setPosition(x, y);
     this->createAnimationComponent(texture_sheet);
     this->createMovementComponent(120.f, 8.f, 4.f);
+    this->createHitboxComponent(this->sprite, 46, 26.f, 50.f, 65.f);
+    this->initAnimations();
 
-    this->animationComponent->addAnimation("IDLE", 10.f, 0, 0, 14, 0, 64 ,64);
-    this->animationComponent->addAnimation("WALK", 6.f, 0, 1, 7, 1, 64 ,64);
-
+    this->setPosition(x, y);
 
 }
 
@@ -67,4 +71,13 @@ void Player::updateAnimation(const float &dt) {
 void Player::update(const float &dt) {
     this->movementComponent->update(dt);
     this->updateAnimation(dt);
+    this->hitboxComponent->update();
 }
+
+void Player::render(sf::RenderTarget &target, const bool show_hitbox) {
+    target.draw(this->sprite);
+    if(show_hitbox)
+        this->hitboxComponent->render(target);
+}
+
+

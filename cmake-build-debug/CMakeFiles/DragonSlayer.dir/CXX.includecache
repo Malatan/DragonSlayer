@@ -680,23 +680,13 @@ F:/DragonSlayer/Components/AnimationComponent.h
 SFML/Graphics.hpp
 -
 
-F:/DragonSlayer/Components/MovementComponent.h
+F:/DragonSlayer/Components/HitBoxComponent.h
 SFML/Graphics.hpp
 -
 
-F:/DragonSlayer/Core/Game.cpp
-iostream
+F:/DragonSlayer/Components/MovementComponent.h
+SFML/Graphics.hpp
 -
-Game.h
-F:/DragonSlayer/Core/Game.h
-
-F:/DragonSlayer/Core/Game.h
-State.h
-F:/DragonSlayer/Core/State.h
-MainMenuState.h
-F:/DragonSlayer/Core/MainMenuState.h
-RunTimeClock.h
-F:/DragonSlayer/Core/RunTimeClock.h
 
 F:/DragonSlayer/Core/GameState.cpp
 GameState.h
@@ -712,22 +702,6 @@ F:/DragonSlayer/Entity/Enemy.h
 ../Gui/PauseMenu.h
 F:/DragonSlayer/Gui/PauseMenu.h
 
-F:/DragonSlayer/Core/MainMenuState.cpp
-MainMenuState.h
-F:/DragonSlayer/Core/MainMenuState.h
-
-F:/DragonSlayer/Core/MainMenuState.h
-State.h
-F:/DragonSlayer/Core/State.h
-GameState.h
-F:/DragonSlayer/Core/GameState.h
-../Gui/gui.h
-F:/DragonSlayer/Gui/Gui.h
-
-F:/DragonSlayer/Core/RunTimeClock.h
-iostream
--
-
 F:/DragonSlayer/Core/State.h
 fstream
 -
@@ -740,15 +714,7 @@ SFML/Graphics.hpp
 stack
 -
 
-F:/DragonSlayer/Entity/Enemy.cpp
-Enemy.h
 F:/DragonSlayer/Entity/Enemy.h
-
-F:/DragonSlayer/Entity/Enemy.h
-Entity.h
-F:/DragonSlayer/Entity/Entity.h
-
-F:/DragonSlayer/Entity/Entity.cpp
 Entity.h
 F:/DragonSlayer/Entity/Entity.h
 
@@ -757,12 +723,10 @@ F:/DragonSlayer/Entity/Entity.h
 F:/DragonSlayer/Components/MovementComponent.h
 ../Components/AnimationComponent.h
 F:/DragonSlayer/Components/AnimationComponent.h
+../Components/HitBoxComponent.h
+F:/DragonSlayer/Components/HitBoxComponent.h
 iostream
 -
-
-F:/DragonSlayer/Entity/Player.cpp
-Player.h
-F:/DragonSlayer/Entity/Player.h
 
 F:/DragonSlayer/Entity/Player.h
 Entity.h
@@ -775,10 +739,4 @@ SFML/Graphics.hpp
 F:/DragonSlayer/Gui/PauseMenu.h
 Gui.h
 F:/DragonSlayer/Gui/Gui.h
-
-F:/DragonSlayer/main.cpp
-iostream
--
-Core/Game.h
-F:/DragonSlayer/Core/Game.h
 

@@ -24,7 +24,9 @@ void GameState::initPlayers() {
            this->window->getSize().y/2.f, 2.f, 2.f,
            this->textures["PLAYER_SHEET"]);
 
-   this->enemis.push_back(new Enemy(30.f, 30.f, this->textures["ENEMY_WIZARD_SHEET"]));
+   this->enemis.push_back(new Enemy(30.f, 30.f, 1.2f, 1.2f,
+           127.f, 134.f, 50.f, 65.f,
+                                    this->textures["ENEMY_WIZARD_SHEET"]));
 
 }
 
@@ -33,8 +35,8 @@ void GameState::initHintsTab() {
     this->hints.setCharacterSize(30);
     this->hints.setString(" Press Esc to pause\n"
                                 " Press WASD to move\n"
-                                " Press E to interact and loot\n"
-                                " Press C to open character tab and inventory");
+                                " Press E to interact and loot non funzia\n"
+                                " Press C to open character tab and inventory non funzia");
 
     this->hints.setPosition(5.f, (this->window->getSize().y/100.f) * 83.f);
 }
@@ -96,9 +98,8 @@ void GameState::update(const float& dt) {
         this->player->update(dt);
         for(auto i : this->enemis){
             i->update(dt);
-            if(i->getSprite().getGlobalBounds().intersects(this->player->getSprite().getGlobalBounds()))
-            {
-                std::cout<<"1";
+            if(this->player->getHitboxComponent()->intersects(i->getHitboxComponent()->getGlobalBounds())){
+                std::cout<<"11";
             }
         }
 
@@ -114,9 +115,9 @@ void GameState::render(sf::RenderTarget* target) {
         target = this->window;
     }
 
-    this->player->render(*target);
+    this->player->render(*target, true);
     for(auto i : this->enemis){
-        i->render(*target);
+        i->render(*target, true);
     }
 
     target->draw(this->hints);

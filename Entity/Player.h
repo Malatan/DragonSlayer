@@ -13,6 +13,7 @@ private:
 
     //initializer functions
     void initVariables();
+    void initAnimations();
 
 protected:
 
@@ -22,7 +23,8 @@ public:
 
     //funtions
     void updateAnimation(const float &dt);
-    virtual void update(const float &dt);
+    void update(const float &dt);
+    void render(sf::RenderTarget& target, const bool show_hitbox = false);
 };
 
 

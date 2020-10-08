@@ -20,18 +20,15 @@
     <list default="true" id="5e176dfb-d06b-4a3a-ae60-4825526ebf88" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Components/AnimationComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Components/AnimationComponent.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Game.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Game.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/GameState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/GameState.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/GameState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/GameState.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/Enemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/Enemy.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/Enemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/Enemy.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Entity/Entity.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/Entity.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Entity/Entity.h" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/Entity.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Entity/Player.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/Player.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Entity/Player.h" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/Player.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/CXX.includecache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/Core/GameState.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/Core/GameState.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/DependInfo.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/Entity/Entity.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/Entity/Entity.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/Entity/Player.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/Entity/Player.cpp.obj" afterDir="false" />
@@ -178,7 +175,7 @@
       <workItem from="1601996605529" duration="5200000" />
       <workItem from="1602006957159" duration="6242000" />
       <workItem from="1602079541329" duration="22076000" />
-      <workItem from="1602165697387" duration="8032000" />
+      <workItem from="1602165697387" duration="11305000" />
     </task>
     <servers />
   </component>

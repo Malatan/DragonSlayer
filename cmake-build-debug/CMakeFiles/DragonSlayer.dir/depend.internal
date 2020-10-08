@@ -78,6 +78,83 @@ CMakeFiles/DragonSlayer.dir/Components/AnimationComponent.cpp.obj
  ../SFML_2.5.1/include/SFML/Window/WindowStyle.hpp
  F:/DragonSlayer/Components/AnimationComponent.cpp
  F:/DragonSlayer/Components/AnimationComponent.h
+CMakeFiles/DragonSlayer.dir/Components/HitBoxComponent.cpp.obj
+ ../SFML_2.5.1/include/SFML/Config.hpp
+ ../SFML_2.5.1/include/SFML/Graphics.hpp
+ ../SFML_2.5.1/include/SFML/Graphics/BlendMode.hpp
+ ../SFML_2.5.1/include/SFML/Graphics/CircleShape.hpp
+ ../SFML_2.5.1/include/SFML/Graphics/Color.hpp
+ ../SFML_2.5.1/include/SFML/Graphics/ConvexShape.hpp
+ ../SFML_2.5.1/include/SFML/Graphics/Drawable.hpp
+ ../SFML_2.5.1/include/SFML/Graphics/Export.hpp
+ ../SFML_2.5.1/include/SFML/Graphics/Font.hpp
+ ../SFML_2.5.1/include/SFML/Graphics/Glsl.hpp
+ ../SFML_2.5.1/include/SFML/Graphics/Glsl.inl
+ ../SFML_2.5.1/include/SFML/Graphics/Glyph.hpp
+ ../SFML_2.5.1/include/SFML/Graphics/Image.hpp
+ ../SFML_2.5.1/include/SFML/Graphics/PrimitiveType.hpp
+ ../SFML_2.5.1/include/SFML/Graphics/Rect.hpp
+ ../SFML_2.5.1/include/SFML/Graphics/Rect.inl
+ ../SFML_2.5.1/include/SFML/Graphics/RectangleShape.hpp
+ ../SFML_2.5.1/include/SFML/Graphics/RenderStates.hpp
+ ../SFML_2.5.1/include/SFML/Graphics/RenderTarget.hpp
+ ../SFML_2.5.1/include/SFML/Graphics/RenderTexture.hpp
+ ../SFML_2.5.1/include/SFML/Graphics/RenderWindow.hpp
+ ../SFML_2.5.1/include/SFML/Graphics/Shader.hpp
+ ../SFML_2.5.1/include/SFML/Graphics/Shape.hpp
+ ../SFML_2.5.1/include/SFML/Graphics/Sprite.hpp
+ ../SFML_2.5.1/include/SFML/Graphics/Text.hpp
+ ../SFML_2.5.1/include/SFML/Graphics/Texture.hpp
+ ../SFML_2.5.1/include/SFML/Graphics/Transform.hpp
+ ../SFML_2.5.1/include/SFML/Graphics/Transformable.hpp
+ ../SFML_2.5.1/include/SFML/Graphics/Vertex.hpp
+ ../SFML_2.5.1/include/SFML/Graphics/VertexArray.hpp
+ ../SFML_2.5.1/include/SFML/Graphics/VertexBuffer.hpp
+ ../SFML_2.5.1/include/SFML/Graphics/View.hpp
+ ../SFML_2.5.1/include/SFML/System.hpp
+ ../SFML_2.5.1/include/SFML/System/Clock.hpp
+ ../SFML_2.5.1/include/SFML/System/Err.hpp
+ ../SFML_2.5.1/include/SFML/System/Export.hpp
+ ../SFML_2.5.1/include/SFML/System/FileInputStream.hpp
+ ../SFML_2.5.1/include/SFML/System/InputStream.hpp
+ ../SFML_2.5.1/include/SFML/System/Lock.hpp
+ ../SFML_2.5.1/include/SFML/System/MemoryInputStream.hpp
+ ../SFML_2.5.1/include/SFML/System/Mutex.hpp
+ ../SFML_2.5.1/include/SFML/System/NonCopyable.hpp
+ ../SFML_2.5.1/include/SFML/System/Sleep.hpp
+ ../SFML_2.5.1/include/SFML/System/String.hpp
+ ../SFML_2.5.1/include/SFML/System/String.inl
+ ../SFML_2.5.1/include/SFML/System/Thread.hpp
+ ../SFML_2.5.1/include/SFML/System/Thread.inl
+ ../SFML_2.5.1/include/SFML/System/ThreadLocal.hpp
+ ../SFML_2.5.1/include/SFML/System/ThreadLocalPtr.hpp
+ ../SFML_2.5.1/include/SFML/System/ThreadLocalPtr.inl
+ ../SFML_2.5.1/include/SFML/System/Time.hpp
+ ../SFML_2.5.1/include/SFML/System/Utf.hpp
+ ../SFML_2.5.1/include/SFML/System/Utf.inl
+ ../SFML_2.5.1/include/SFML/System/Vector2.hpp
+ ../SFML_2.5.1/include/SFML/System/Vector2.inl
+ ../SFML_2.5.1/include/SFML/System/Vector3.hpp
+ ../SFML_2.5.1/include/SFML/System/Vector3.inl
+ ../SFML_2.5.1/include/SFML/Window.hpp
+ ../SFML_2.5.1/include/SFML/Window/Clipboard.hpp
+ ../SFML_2.5.1/include/SFML/Window/Context.hpp
+ ../SFML_2.5.1/include/SFML/Window/ContextSettings.hpp
+ ../SFML_2.5.1/include/SFML/Window/Cursor.hpp
+ ../SFML_2.5.1/include/SFML/Window/Event.hpp
+ ../SFML_2.5.1/include/SFML/Window/Export.hpp
+ ../SFML_2.5.1/include/SFML/Window/GlResource.hpp
+ ../SFML_2.5.1/include/SFML/Window/Joystick.hpp
+ ../SFML_2.5.1/include/SFML/Window/Keyboard.hpp
+ ../SFML_2.5.1/include/SFML/Window/Mouse.hpp
+ ../SFML_2.5.1/include/SFML/Window/Sensor.hpp
+ ../SFML_2.5.1/include/SFML/Window/Touch.hpp
+ ../SFML_2.5.1/include/SFML/Window/VideoMode.hpp
+ ../SFML_2.5.1/include/SFML/Window/Window.hpp
+ ../SFML_2.5.1/include/SFML/Window/WindowHandle.hpp
+ ../SFML_2.5.1/include/SFML/Window/WindowStyle.hpp
+ F:/DragonSlayer/Components/HitBoxComponent.cpp
+ F:/DragonSlayer/Components/HitBoxComponent.h
 CMakeFiles/DragonSlayer.dir/Components/MovementComponent.cpp.obj
  ../SFML_2.5.1/include/SFML/Config.hpp
  ../SFML_2.5.1/include/SFML/Graphics.hpp
@@ -231,6 +308,7 @@ CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj
  ../SFML_2.5.1/include/SFML/Window/WindowHandle.hpp
  ../SFML_2.5.1/include/SFML/Window/WindowStyle.hpp
  F:/DragonSlayer/Components/AnimationComponent.h
+ F:/DragonSlayer/Components/HitBoxComponent.h
  F:/DragonSlayer/Components/MovementComponent.h
  F:/DragonSlayer/Core/Game.cpp
  F:/DragonSlayer/Core/Game.h
@@ -319,6 +397,7 @@ CMakeFiles/DragonSlayer.dir/Core/GameState.cpp.obj
  ../SFML_2.5.1/include/SFML/Window/WindowHandle.hpp
  ../SFML_2.5.1/include/SFML/Window/WindowStyle.hpp
  F:/DragonSlayer/Components/AnimationComponent.h
+ F:/DragonSlayer/Components/HitBoxComponent.h
  F:/DragonSlayer/Components/MovementComponent.h
  F:/DragonSlayer/Core/GameState.cpp
  F:/DragonSlayer/Core/GameState.h
@@ -404,6 +483,7 @@ CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.obj
  ../SFML_2.5.1/include/SFML/Window/WindowHandle.hpp
  ../SFML_2.5.1/include/SFML/Window/WindowStyle.hpp
  F:/DragonSlayer/Components/AnimationComponent.h
+ F:/DragonSlayer/Components/HitBoxComponent.h
  F:/DragonSlayer/Components/MovementComponent.h
  F:/DragonSlayer/Core/GameState.h
  F:/DragonSlayer/Core/MainMenuState.cpp
@@ -570,6 +650,7 @@ CMakeFiles/DragonSlayer.dir/Entity/Enemy.cpp.obj
  ../SFML_2.5.1/include/SFML/Window/WindowHandle.hpp
  ../SFML_2.5.1/include/SFML/Window/WindowStyle.hpp
  F:/DragonSlayer/Components/AnimationComponent.h
+ F:/DragonSlayer/Components/HitBoxComponent.h
  F:/DragonSlayer/Components/MovementComponent.h
  F:/DragonSlayer/Entity/Enemy.cpp
  F:/DragonSlayer/Entity/Enemy.h
@@ -650,6 +731,7 @@ CMakeFiles/DragonSlayer.dir/Entity/Entity.cpp.obj
  ../SFML_2.5.1/include/SFML/Window/WindowHandle.hpp
  ../SFML_2.5.1/include/SFML/Window/WindowStyle.hpp
  F:/DragonSlayer/Components/AnimationComponent.h
+ F:/DragonSlayer/Components/HitBoxComponent.h
  F:/DragonSlayer/Components/MovementComponent.h
  F:/DragonSlayer/Entity/Entity.cpp
  F:/DragonSlayer/Entity/Entity.h
@@ -729,6 +811,7 @@ CMakeFiles/DragonSlayer.dir/Entity/Player.cpp.obj
  ../SFML_2.5.1/include/SFML/Window/WindowHandle.hpp
  ../SFML_2.5.1/include/SFML/Window/WindowStyle.hpp
  F:/DragonSlayer/Components/AnimationComponent.h
+ F:/DragonSlayer/Components/HitBoxComponent.h
  F:/DragonSlayer/Components/MovementComponent.h
  F:/DragonSlayer/Entity/Entity.h
  F:/DragonSlayer/Entity/Player.cpp
@@ -967,6 +1050,7 @@ CMakeFiles/DragonSlayer.dir/main.cpp.obj
  ../SFML_2.5.1/include/SFML/Window/WindowHandle.hpp
  ../SFML_2.5.1/include/SFML/Window/WindowStyle.hpp
  F:/DragonSlayer/Components/AnimationComponent.h
+ F:/DragonSlayer/Components/HitBoxComponent.h
  F:/DragonSlayer/Components/MovementComponent.h
  F:/DragonSlayer/Core/Game.h
  F:/DragonSlayer/Core/GameState.h

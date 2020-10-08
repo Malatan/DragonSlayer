@@ -260,6 +260,33 @@ Components/AnimationComponent.cpp.s:
 	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Components/AnimationComponent.cpp.s
 .PHONY : Components/AnimationComponent.cpp.s
 
+Components/HitBoxComponent.obj: Components/HitBoxComponent.cpp.obj
+
+.PHONY : Components/HitBoxComponent.obj
+
+# target to build an object file
+Components/HitBoxComponent.cpp.obj:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Components/HitBoxComponent.cpp.obj
+.PHONY : Components/HitBoxComponent.cpp.obj
+
+Components/HitBoxComponent.i: Components/HitBoxComponent.cpp.i
+
+.PHONY : Components/HitBoxComponent.i
+
+# target to preprocess a source file
+Components/HitBoxComponent.cpp.i:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Components/HitBoxComponent.cpp.i
+.PHONY : Components/HitBoxComponent.cpp.i
+
+Components/HitBoxComponent.s: Components/HitBoxComponent.cpp.s
+
+.PHONY : Components/HitBoxComponent.s
+
+# target to generate assembly for a file
+Components/HitBoxComponent.cpp.s:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Components/HitBoxComponent.cpp.s
+.PHONY : Components/HitBoxComponent.cpp.s
+
 Components/MovementComponent.obj: Components/MovementComponent.cpp.obj
 
 .PHONY : Components/MovementComponent.obj
@@ -632,6 +659,9 @@ help:
 	@echo ... Components/AnimationComponent.obj
 	@echo ... Components/AnimationComponent.i
 	@echo ... Components/AnimationComponent.s
+	@echo ... Components/HitBoxComponent.obj
+	@echo ... Components/HitBoxComponent.i
+	@echo ... Components/HitBoxComponent.s
 	@echo ... Components/MovementComponent.obj
 	@echo ... Components/MovementComponent.i
 	@echo ... Components/MovementComponent.s
