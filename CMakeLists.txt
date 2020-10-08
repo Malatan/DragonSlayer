@@ -18,10 +18,14 @@ set(SOURCE_FILES
         Gui/Gui.h
         Gui/PauseMenu.cpp
         Gui/PauseMenu.h
+        Gui/CharacterTab.cpp
+        Gui/CharacterTab.h
         Entity/Entity.cpp
         Entity/Entity.h
         Entity/Player.cpp
         Entity/Player.h
+        Entity/Enemy.cpp
+        Entity/Enemy.h
         Components/MovementComponent.cpp
         Components/MovementComponent.h
         Components/AnimationComponent.cpp

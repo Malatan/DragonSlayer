@@ -422,6 +422,33 @@ Core/State.cpp.s:
 	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Core/State.cpp.s
 .PHONY : Core/State.cpp.s
 
+Entity/Enemy.obj: Entity/Enemy.cpp.obj
+
+.PHONY : Entity/Enemy.obj
+
+# target to build an object file
+Entity/Enemy.cpp.obj:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Entity/Enemy.cpp.obj
+.PHONY : Entity/Enemy.cpp.obj
+
+Entity/Enemy.i: Entity/Enemy.cpp.i
+
+.PHONY : Entity/Enemy.i
+
+# target to preprocess a source file
+Entity/Enemy.cpp.i:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Entity/Enemy.cpp.i
+.PHONY : Entity/Enemy.cpp.i
+
+Entity/Enemy.s: Entity/Enemy.cpp.s
+
+.PHONY : Entity/Enemy.s
+
+# target to generate assembly for a file
+Entity/Enemy.cpp.s:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Entity/Enemy.cpp.s
+.PHONY : Entity/Enemy.cpp.s
+
 Entity/Entity.obj: Entity/Entity.cpp.obj
 
 .PHONY : Entity/Entity.obj
@@ -475,6 +502,33 @@ Entity/Player.s: Entity/Player.cpp.s
 Entity/Player.cpp.s:
 	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Entity/Player.cpp.s
 .PHONY : Entity/Player.cpp.s
+
+Gui/CharacterTab.obj: Gui/CharacterTab.cpp.obj
+
+.PHONY : Gui/CharacterTab.obj
+
+# target to build an object file
+Gui/CharacterTab.cpp.obj:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/CharacterTab.cpp.obj
+.PHONY : Gui/CharacterTab.cpp.obj
+
+Gui/CharacterTab.i: Gui/CharacterTab.cpp.i
+
+.PHONY : Gui/CharacterTab.i
+
+# target to preprocess a source file
+Gui/CharacterTab.cpp.i:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/CharacterTab.cpp.i
+.PHONY : Gui/CharacterTab.cpp.i
+
+Gui/CharacterTab.s: Gui/CharacterTab.cpp.s
+
+.PHONY : Gui/CharacterTab.s
+
+# target to generate assembly for a file
+Gui/CharacterTab.cpp.s:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/CharacterTab.cpp.s
+.PHONY : Gui/CharacterTab.cpp.s
 
 Gui/Gui.obj: Gui/Gui.cpp.obj
 
@@ -596,12 +650,18 @@ help:
 	@echo ... Core/State.obj
 	@echo ... Core/State.i
 	@echo ... Core/State.s
+	@echo ... Entity/Enemy.obj
+	@echo ... Entity/Enemy.i
+	@echo ... Entity/Enemy.s
 	@echo ... Entity/Entity.obj
 	@echo ... Entity/Entity.i
 	@echo ... Entity/Entity.s
 	@echo ... Entity/Player.obj
 	@echo ... Entity/Player.i
 	@echo ... Entity/Player.s
+	@echo ... Gui/CharacterTab.obj
+	@echo ... Gui/CharacterTab.i
+	@echo ... Gui/CharacterTab.s
 	@echo ... Gui/Gui.obj
 	@echo ... Gui/Gui.i
 	@echo ... Gui/Gui.s

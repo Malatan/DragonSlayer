@@ -31,8 +31,14 @@ void Entity::createMovementComponent(const float maxVelocity, const float accele
 
 void Entity::createAnimationComponent(sf::Texture& texture_sheet) {
     this->animationComponent = new AnimationComponent(this->sprite, texture_sheet);
-    //this->sprite.setScale(3,3);
+   // this->sprite.setScale(3,3);
 }
+
+//accessors
+sf::Sprite Entity::getSprite(){
+    return this->sprite;
+}
+
 
 //functions
 void Entity::setPosition(const float x, const float y) {
@@ -52,6 +58,8 @@ void Entity::update(const float &dt) {
 }
 
 void Entity::render(sf::RenderTarget& target) {
-    target.draw(this->sprite);
 
+    target.draw(this->sprite);
 }
+
+

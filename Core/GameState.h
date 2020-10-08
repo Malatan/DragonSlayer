@@ -7,6 +7,7 @@
 
 #include "State.h"
 #include "../Entity/Player.h"
+#include "../Entity/Enemy.h"
 #include "../Gui/PauseMenu.h"
 
 class GameState : public State{
@@ -15,11 +16,15 @@ private:
     PauseMenu* pmenu;
     Player* player;
 
+    std::vector<Enemy*> enemis;
+
+    sf::Text hints;
 
     //functions
     void initTextures();
     void initPauseMenu();
     void initPlayers();
+    void initHintsTab();
 
 public:
     GameState(sf::RenderWindow* window, std::stack<State*>* states, sf::Font *font);

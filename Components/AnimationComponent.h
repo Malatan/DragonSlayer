@@ -44,7 +44,7 @@ private:
         const bool& play(const float &dt){
             //update timer
             this->done = false;
-            this->timer += 120.f * dt;
+            this->timer += 100.f * dt;
             if(this->timer >= this->animationTimer){
                 //reset timer
                 this->timer = 0.f;

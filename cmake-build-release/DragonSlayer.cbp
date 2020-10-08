@@ -402,6 +402,12 @@
 		<Unit filename="F:/DragonSlayer/Core/State.h">
 			<Option target="DragonSlayer"/>
 		</Unit>
+		<Unit filename="F:/DragonSlayer/Entity/Enemy.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Entity/Enemy.h">
+			<Option target="DragonSlayer"/>
+		</Unit>
 		<Unit filename="F:/DragonSlayer/Entity/Entity.cpp">
 			<Option target="DragonSlayer"/>
 		</Unit>
@@ -412,6 +418,12 @@
 			<Option target="DragonSlayer"/>
 		</Unit>
 		<Unit filename="F:/DragonSlayer/Entity/Player.h">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Gui/CharacterTab.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Gui/CharacterTab.h">
 			<Option target="DragonSlayer"/>
 		</Unit>
 		<Unit filename="F:/DragonSlayer/Gui/Gui.cpp">

@@ -7,7 +7,7 @@
 
 #include "../Components/MovementComponent.h"
 #include "../Components/AnimationComponent.h"
-
+#include <iostream>
 
 class Entity {
 private:
@@ -15,6 +15,7 @@ private:
 
 protected:
     sf::Sprite sprite;
+    sf::Vector2f scale;
 
     MovementComponent* movementComponent;
     AnimationComponent* animationComponent;
@@ -28,6 +29,8 @@ public:
     void createMovementComponent(const float maxVelocity, float acceleration, const float deceleration);
     void createAnimationComponent(sf::Texture& texture_sheet);
 
+    //accessors
+    virtual sf::Sprite getSprite();
     //functions
     virtual void setPosition(const float x, const float y);
     virtual void move(const float& dt, const float x, const float y);

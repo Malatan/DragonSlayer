@@ -17,7 +17,7 @@ private:
 protected:
 
 public:
-    Player(float x, float y, sf::Texture& texture_sheet);
+    Player(float x, float y, float scale_x, float scale_y, sf::Texture& texture_sheet);
     virtual ~Player();
 
     //funtions

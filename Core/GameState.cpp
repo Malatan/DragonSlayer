@@ -8,6 +8,9 @@ void GameState::initTextures() {
     if(!this->textures["PLAYER_SHEET"] .loadFromFile("../Resources/Images/Sprites/Player/player_sheet.png")){
         throw("Errore gamestate could not load player texture");
     }
+    if(!this->textures["ENEMY_WIZARD_SHEET"] .loadFromFile("../Resources/Images/Sprites/Enemy/wizard_Idle.png")){
+        throw("Errore gamestate could not load player texture");
+    }
 }
 
 void GameState::initPauseMenu() {
@@ -17,8 +20,23 @@ void GameState::initPauseMenu() {
 }
 
 void GameState::initPlayers() {
-   this->player = new Player(10, 10, this->textures["PLAYER_SHEET"]);
+   this->player = new Player(this->window->getSize().x/2.f,
+           this->window->getSize().y/2.f, 2.f, 2.f,
+           this->textures["PLAYER_SHEET"]);
 
+   this->enemis.push_back(new Enemy(30.f, 30.f, this->textures["ENEMY_WIZARD_SHEET"]));
+
+}
+
+void GameState::initHintsTab() {
+    this->hints.setFont(*this->font);
+    this->hints.setCharacterSize(30);
+    this->hints.setString(" Press Esc to pause\n"
+                                " Press WASD to move\n"
+                                " Press E to interact and loot\n"
+                                " Press C to open character tab and inventory");
+
+    this->hints.setPosition(5.f, (this->window->getSize().y/100.f) * 83.f);
 }
 
 //constructors/destructors
@@ -28,11 +46,12 @@ GameState::GameState(sf::RenderWindow* window, std::stack<State*>* states, sf::F
     this->initTextures();
     this->initPauseMenu();
     this->initPlayers();
+    this->initHintsTab();
 }
 
 GameState::~GameState() {
     delete this->pmenu;
- //   delete this->player;
+    delete this->player;
 }
 
 //functions
@@ -75,6 +94,13 @@ void GameState::update(const float& dt) {
         this->updatePlayerInput(dt);
 
         this->player->update(dt);
+        for(auto i : this->enemis){
+            i->update(dt);
+            if(i->getSprite().getGlobalBounds().intersects(this->player->getSprite().getGlobalBounds()))
+            {
+                std::cout<<"1";
+            }
+        }
 
     } else{ // paused update
         this->pmenu->update(this->mousePosView);
@@ -89,7 +115,11 @@ void GameState::render(sf::RenderTarget* target) {
     }
 
     this->player->render(*target);
+    for(auto i : this->enemis){
+        i->render(*target);
+    }
 
+    target->draw(this->hints);
     if(this->paused){ // pause menu render
         this->pmenu->render(*target);
     }
@@ -104,3 +134,5 @@ void GameState::render(sf::RenderTarget* target) {
     mouseText.setString(ss.str());
     target->draw(mouseText);
 }
+
+

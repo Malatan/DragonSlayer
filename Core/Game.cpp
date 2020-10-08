@@ -34,7 +34,7 @@ void Game::initWindow() {
     this->windowSettings.antialiasingLevel = antialiasing_level;
     this->window = new sf::RenderWindow(window_bounds,
                                         this->Title,
-                                        sf::Style::Close,
+                                        sf::Style::Default  ,
                                         this->windowSettings);
     this->window->setFramerateLimit(framerate_limit);
     this->window->setVerticalSyncEnabled(veritcal_enabled);
@@ -108,7 +108,14 @@ void Game::render() {
 }
 
 void Game::run() {
+    sf::Event event;
     while(this->window->isOpen()){
+        if (event.type == sf::Event::Resized)
+        {
+            // update the view to the new size of the window
+            sf::FloatRect visibleArea(0.f, 0.f, event.size.width, event.size.height);
+            this->window->setView(sf::View(visibleArea));
+        }
         this->window->setTitle(this->Title+this->rtc->toString());
         this->updateDt();
         this->update();
