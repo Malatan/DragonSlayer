@@ -6,8 +6,8 @@
 #define DRAGONSLAYER_GAMESTATE_H
 
 #include "State.h"
-#include "../Entity/Player.h"
-#include "../Entity/Enemy.h"
+#include "../Game/Player.h"
+#include "../Game/Enemy.h"
 #include "../Gui/PauseMenu.h"
 #include "../Gui/CharacterTab.h"
 

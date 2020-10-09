@@ -20,12 +20,22 @@ set(SOURCE_FILES
         Gui/PauseMenu.h
         Gui/CharacterTab.cpp
         Gui/CharacterTab.h
-        Entity/Entity.cpp
-        Entity/Entity.h
-        Entity/Player.cpp
-        Entity/Player.h
-        Entity/Enemy.cpp
-        Entity/Enemy.h
+        Game/Entity.cpp
+        Game/Entity.h
+        Game/Player.cpp
+        Game/Player.h
+        Game/Enemy.cpp
+        Game/Enemy.h
+        Game/Buff.h
+        Game/Buff.cpp
+        Game/Inventory.cpp
+        Game/Inventory.h
+        Game/Item.cpp
+        Game/Item.h
+        Game/Spell.cpp
+        Game/Spell.h
+        Game/Stats.h
+        Game/Stats.cpp
         Components/MovementComponent.cpp
         Components/MovementComponent.h
         Components/AnimationComponent.cpp

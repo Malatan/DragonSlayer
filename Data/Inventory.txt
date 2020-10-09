@@ -1,0 +1,11 @@
+E Helm anhelmet 50 Rare hlm.jpg 7 head 
+C HealthPotion healthpotion 5 Common hpot.png 18 
+W Sword asword 100 Epic swd.png 43 sword 30 
+E Chest chestarmor 124 Leggendary cgs.jpg 22 chest 
+E Arms armsarmor 43 Uncommon arm.jpg 6 arms 
+C DmgUP dmgincrease 23 Uncommon dmgup.png 2 
+C ManaPotion manapotion 5 Common mpot.png 5 
+W Bow abow 204 Leggendary bow.png 88 bow 77 
+E Legs somepants 87 Rare keg.jpg 15 legs 
+W Axe anaxe 69 Rare aze.png 39 axe 28 
+E Shied astoneshield 103 Epic sjf.jpg 18 shield 

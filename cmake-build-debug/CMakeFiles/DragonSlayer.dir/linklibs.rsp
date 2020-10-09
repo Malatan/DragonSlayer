@@ -1,1 +1,1 @@
-../SFML_2.5.1/lib/libsfml-graphics-d.a ../SFML_2.5.1/lib/libsfml-audio-d.a ../SFML_2.5.1/lib/libsfml-network-d.a ../SFML_2.5.1/lib/libsfml-window-d.a ../SFML_2.5.1/lib/libsfml-system-d.a -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 
+ ../SFML_2.5.1/lib/libsfml-graphics-d.a ../SFML_2.5.1/lib/libsfml-audio-d.a ../SFML_2.5.1/lib/libsfml-network-d.a ../SFML_2.5.1/lib/libsfml-window-d.a ../SFML_2.5.1/lib/libsfml-system-d.a -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 

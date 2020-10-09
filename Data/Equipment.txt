@@ -1,0 +1,6 @@
+W ElfBow abow 420 Leggendary bow.png 177 bow 77 
+E TrinityShield astoneshield 287 Epic sjf.jpg 33 shield 
+E IronHelmet anhelmet 20 Common hlm.jpg 10 head 
+E HuntersChest chestarmor 300 Leggendary cgs.jpg 30 chest 
+E SoftGloves armsarmor 120 Rare arm.jpg 2 arms 
+E PantsofDeath legsarmor 222 Epic leg.jpg 13 legs 
