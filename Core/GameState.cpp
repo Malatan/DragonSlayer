@@ -19,6 +19,10 @@ void GameState::initPauseMenu() {
     this->pmenu->addButton("QUIT", 400.f, "Quit");
 }
 
+void GameState::initCharacterTab() {
+    this->cTab = new CharacterTab(*this->window, this->font);
+}
+
 void GameState::initPlayers() {
    this->player = new Player(this->window->getSize().x/2.f,
            this->window->getSize().y/2.f, 2.f, 2.f,
@@ -45,8 +49,10 @@ void GameState::initHintsTab() {
 GameState::GameState(sf::RenderWindow* window, std::stack<State*>* states, sf::Font* font)
         : State(window, states){
     this->font = font;
+    this->stato = 0;
     this->initTextures();
     this->initPauseMenu();
+    this->initCharacterTab();
     this->initPlayers();
     this->initHintsTab();
 }
@@ -61,10 +67,19 @@ void GameState::updateInput(const float &dt) {
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && this->getKeyTime()){
         if(!this->paused){
             this->pauseState();
+            this->stato = 1;
         } else{
             this->unpauseState();
+            this->stato = 0;
         }
-
+    }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::C) && this->getKeyTime()){
+        if(!this->paused){
+            this->pauseState();
+            this->stato = 2;
+        } else{
+            this->unpauseState();
+            this->stato = 0;
+        }
     }
 }
 
@@ -99,13 +114,19 @@ void GameState::update(const float& dt) {
         for(auto i : this->enemis){
             i->update(dt);
             if(this->player->getHitboxComponent()->intersects(i->getHitboxComponent()->getGlobalBounds())){
-                std::cout<<"11";
+                std::cout<<"Collision"<<"\n";
             }
         }
 
     } else{ // paused update
-        this->pmenu->update(this->mousePosView);
-        this->updatePausedMenuButtons();
+        if(stato == 1){
+            this->pmenu->update(this->mousePosView);
+            this->updatePausedMenuButtons();
+
+        } else if(stato == 2){
+            this->cTab->update(this->mousePosView);
+        }
+
     }
 
 }
@@ -122,7 +143,12 @@ void GameState::render(sf::RenderTarget* target) {
 
     target->draw(this->hints);
     if(this->paused){ // pause menu render
-        this->pmenu->render(*target);
+        if(stato == 1){
+            this->pmenu->render(*target);
+        } else if(stato == 2){
+            this->cTab->render(*target);
+        }
+
     }
 
     //debbuging tool: show mouse pos coords
@@ -135,5 +161,7 @@ void GameState::render(sf::RenderTarget* target) {
     mouseText.setString(ss.str());
     target->draw(mouseText);
 }
+
+
 
 
