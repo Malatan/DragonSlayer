@@ -449,86 +449,221 @@ Core/State.cpp.s:
 	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Core/State.cpp.s
 .PHONY : Core/State.cpp.s
 
-Entity/Enemy.obj: Entity/Enemy.cpp.obj
+Game/Buff.obj: Game/Buff.cpp.obj
 
-.PHONY : Entity/Enemy.obj
-
-# target to build an object file
-Entity/Enemy.cpp.obj:
-	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Entity/Enemy.cpp.obj
-.PHONY : Entity/Enemy.cpp.obj
-
-Entity/Enemy.i: Entity/Enemy.cpp.i
-
-.PHONY : Entity/Enemy.i
-
-# target to preprocess a source file
-Entity/Enemy.cpp.i:
-	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Entity/Enemy.cpp.i
-.PHONY : Entity/Enemy.cpp.i
-
-Entity/Enemy.s: Entity/Enemy.cpp.s
-
-.PHONY : Entity/Enemy.s
-
-# target to generate assembly for a file
-Entity/Enemy.cpp.s:
-	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Entity/Enemy.cpp.s
-.PHONY : Entity/Enemy.cpp.s
-
-Entity/Entity.obj: Entity/Entity.cpp.obj
-
-.PHONY : Entity/Entity.obj
+.PHONY : Game/Buff.obj
 
 # target to build an object file
-Entity/Entity.cpp.obj:
-	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Entity/Entity.cpp.obj
-.PHONY : Entity/Entity.cpp.obj
+Game/Buff.cpp.obj:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Buff.cpp.obj
+.PHONY : Game/Buff.cpp.obj
 
-Entity/Entity.i: Entity/Entity.cpp.i
+Game/Buff.i: Game/Buff.cpp.i
 
-.PHONY : Entity/Entity.i
+.PHONY : Game/Buff.i
 
 # target to preprocess a source file
-Entity/Entity.cpp.i:
-	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Entity/Entity.cpp.i
-.PHONY : Entity/Entity.cpp.i
+Game/Buff.cpp.i:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Buff.cpp.i
+.PHONY : Game/Buff.cpp.i
 
-Entity/Entity.s: Entity/Entity.cpp.s
+Game/Buff.s: Game/Buff.cpp.s
 
-.PHONY : Entity/Entity.s
+.PHONY : Game/Buff.s
 
 # target to generate assembly for a file
-Entity/Entity.cpp.s:
-	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Entity/Entity.cpp.s
-.PHONY : Entity/Entity.cpp.s
+Game/Buff.cpp.s:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Buff.cpp.s
+.PHONY : Game/Buff.cpp.s
 
-Entity/Player.obj: Entity/Player.cpp.obj
+Game/Enemy.obj: Game/Enemy.cpp.obj
 
-.PHONY : Entity/Player.obj
+.PHONY : Game/Enemy.obj
 
 # target to build an object file
-Entity/Player.cpp.obj:
-	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Entity/Player.cpp.obj
-.PHONY : Entity/Player.cpp.obj
+Game/Enemy.cpp.obj:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Enemy.cpp.obj
+.PHONY : Game/Enemy.cpp.obj
 
-Entity/Player.i: Entity/Player.cpp.i
+Game/Enemy.i: Game/Enemy.cpp.i
 
-.PHONY : Entity/Player.i
+.PHONY : Game/Enemy.i
 
 # target to preprocess a source file
-Entity/Player.cpp.i:
-	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Entity/Player.cpp.i
-.PHONY : Entity/Player.cpp.i
+Game/Enemy.cpp.i:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Enemy.cpp.i
+.PHONY : Game/Enemy.cpp.i
 
-Entity/Player.s: Entity/Player.cpp.s
+Game/Enemy.s: Game/Enemy.cpp.s
 
-.PHONY : Entity/Player.s
+.PHONY : Game/Enemy.s
 
 # target to generate assembly for a file
-Entity/Player.cpp.s:
-	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Entity/Player.cpp.s
-.PHONY : Entity/Player.cpp.s
+Game/Enemy.cpp.s:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Enemy.cpp.s
+.PHONY : Game/Enemy.cpp.s
+
+Game/Entity.obj: Game/Entity.cpp.obj
+
+.PHONY : Game/Entity.obj
+
+# target to build an object file
+Game/Entity.cpp.obj:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Entity.cpp.obj
+.PHONY : Game/Entity.cpp.obj
+
+Game/Entity.i: Game/Entity.cpp.i
+
+.PHONY : Game/Entity.i
+
+# target to preprocess a source file
+Game/Entity.cpp.i:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Entity.cpp.i
+.PHONY : Game/Entity.cpp.i
+
+Game/Entity.s: Game/Entity.cpp.s
+
+.PHONY : Game/Entity.s
+
+# target to generate assembly for a file
+Game/Entity.cpp.s:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Entity.cpp.s
+.PHONY : Game/Entity.cpp.s
+
+Game/Inventory.obj: Game/Inventory.cpp.obj
+
+.PHONY : Game/Inventory.obj
+
+# target to build an object file
+Game/Inventory.cpp.obj:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Inventory.cpp.obj
+.PHONY : Game/Inventory.cpp.obj
+
+Game/Inventory.i: Game/Inventory.cpp.i
+
+.PHONY : Game/Inventory.i
+
+# target to preprocess a source file
+Game/Inventory.cpp.i:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Inventory.cpp.i
+.PHONY : Game/Inventory.cpp.i
+
+Game/Inventory.s: Game/Inventory.cpp.s
+
+.PHONY : Game/Inventory.s
+
+# target to generate assembly for a file
+Game/Inventory.cpp.s:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Inventory.cpp.s
+.PHONY : Game/Inventory.cpp.s
+
+Game/Item.obj: Game/Item.cpp.obj
+
+.PHONY : Game/Item.obj
+
+# target to build an object file
+Game/Item.cpp.obj:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Item.cpp.obj
+.PHONY : Game/Item.cpp.obj
+
+Game/Item.i: Game/Item.cpp.i
+
+.PHONY : Game/Item.i
+
+# target to preprocess a source file
+Game/Item.cpp.i:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Item.cpp.i
+.PHONY : Game/Item.cpp.i
+
+Game/Item.s: Game/Item.cpp.s
+
+.PHONY : Game/Item.s
+
+# target to generate assembly for a file
+Game/Item.cpp.s:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Item.cpp.s
+.PHONY : Game/Item.cpp.s
+
+Game/Player.obj: Game/Player.cpp.obj
+
+.PHONY : Game/Player.obj
+
+# target to build an object file
+Game/Player.cpp.obj:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Player.cpp.obj
+.PHONY : Game/Player.cpp.obj
+
+Game/Player.i: Game/Player.cpp.i
+
+.PHONY : Game/Player.i
+
+# target to preprocess a source file
+Game/Player.cpp.i:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Player.cpp.i
+.PHONY : Game/Player.cpp.i
+
+Game/Player.s: Game/Player.cpp.s
+
+.PHONY : Game/Player.s
+
+# target to generate assembly for a file
+Game/Player.cpp.s:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Player.cpp.s
+.PHONY : Game/Player.cpp.s
+
+Game/Spell.obj: Game/Spell.cpp.obj
+
+.PHONY : Game/Spell.obj
+
+# target to build an object file
+Game/Spell.cpp.obj:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Spell.cpp.obj
+.PHONY : Game/Spell.cpp.obj
+
+Game/Spell.i: Game/Spell.cpp.i
+
+.PHONY : Game/Spell.i
+
+# target to preprocess a source file
+Game/Spell.cpp.i:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Spell.cpp.i
+.PHONY : Game/Spell.cpp.i
+
+Game/Spell.s: Game/Spell.cpp.s
+
+.PHONY : Game/Spell.s
+
+# target to generate assembly for a file
+Game/Spell.cpp.s:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Spell.cpp.s
+.PHONY : Game/Spell.cpp.s
+
+Game/Stats.obj: Game/Stats.cpp.obj
+
+.PHONY : Game/Stats.obj
+
+# target to build an object file
+Game/Stats.cpp.obj:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Stats.cpp.obj
+.PHONY : Game/Stats.cpp.obj
+
+Game/Stats.i: Game/Stats.cpp.i
+
+.PHONY : Game/Stats.i
+
+# target to preprocess a source file
+Game/Stats.cpp.i:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Stats.cpp.i
+.PHONY : Game/Stats.cpp.i
+
+Game/Stats.s: Game/Stats.cpp.s
+
+.PHONY : Game/Stats.s
+
+# target to generate assembly for a file
+Game/Stats.cpp.s:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Stats.cpp.s
+.PHONY : Game/Stats.cpp.s
 
 Gui/CharacterTab.obj: Gui/CharacterTab.cpp.obj
 
@@ -680,15 +815,30 @@ help:
 	@echo ... Core/State.obj
 	@echo ... Core/State.i
 	@echo ... Core/State.s
-	@echo ... Entity/Enemy.obj
-	@echo ... Entity/Enemy.i
-	@echo ... Entity/Enemy.s
-	@echo ... Entity/Entity.obj
-	@echo ... Entity/Entity.i
-	@echo ... Entity/Entity.s
-	@echo ... Entity/Player.obj
-	@echo ... Entity/Player.i
-	@echo ... Entity/Player.s
+	@echo ... Game/Buff.obj
+	@echo ... Game/Buff.i
+	@echo ... Game/Buff.s
+	@echo ... Game/Enemy.obj
+	@echo ... Game/Enemy.i
+	@echo ... Game/Enemy.s
+	@echo ... Game/Entity.obj
+	@echo ... Game/Entity.i
+	@echo ... Game/Entity.s
+	@echo ... Game/Inventory.obj
+	@echo ... Game/Inventory.i
+	@echo ... Game/Inventory.s
+	@echo ... Game/Item.obj
+	@echo ... Game/Item.i
+	@echo ... Game/Item.s
+	@echo ... Game/Player.obj
+	@echo ... Game/Player.i
+	@echo ... Game/Player.s
+	@echo ... Game/Spell.obj
+	@echo ... Game/Spell.i
+	@echo ... Game/Spell.s
+	@echo ... Game/Stats.obj
+	@echo ... Game/Stats.i
+	@echo ... Game/Stats.s
 	@echo ... Gui/CharacterTab.obj
 	@echo ... Gui/CharacterTab.i
 	@echo ... Gui/CharacterTab.s

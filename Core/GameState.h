@@ -26,8 +26,8 @@ private:
     //functions
     void initTextures();
     void initPauseMenu();
-    void initCharacterTab();
     void initPlayers();
+    void initCharacterTab(Player* player);
     void initHintsTab();
 
 public:

@@ -19,19 +19,19 @@ void GameState::initPauseMenu() {
     this->pmenu->addButton("QUIT", 400.f, "Quit");
 }
 
-void GameState::initCharacterTab() {
-    this->cTab = new CharacterTab(*this->window, this->font);
+void GameState::initPlayers() {
+    this->player = new Player(this->window->getSize().x/2.f,
+                              this->window->getSize().y/2.f, 2.f, 2.f,
+                              this->textures["PLAYER_SHEET"]);
+
+    this->enemis.push_back(new Enemy(30.f, 30.f, 1.2f, 1.2f,
+                                     127.f, 134.f, 50.f, 65.f,
+                                     this->textures["ENEMY_WIZARD_SHEET"]));
+
 }
 
-void GameState::initPlayers() {
-   this->player = new Player(this->window->getSize().x/2.f,
-           this->window->getSize().y/2.f, 2.f, 2.f,
-           this->textures["PLAYER_SHEET"]);
-
-   this->enemis.push_back(new Enemy(30.f, 30.f, 1.2f, 1.2f,
-           127.f, 134.f, 50.f, 65.f,
-                                    this->textures["ENEMY_WIZARD_SHEET"]));
-
+void GameState::initCharacterTab(Player* player) {
+    this->cTab = new CharacterTab(*this->window, this->font, player);
 }
 
 void GameState::initHintsTab() {
@@ -52,8 +52,8 @@ GameState::GameState(sf::RenderWindow* window, std::stack<State*>* states, sf::F
     this->stato = 0;
     this->initTextures();
     this->initPauseMenu();
-    this->initCharacterTab();
     this->initPlayers();
+    this->initCharacterTab(this->player);
     this->initHintsTab();
 }
 
@@ -105,6 +105,7 @@ void GameState::update(const float& dt) {
     this->updateMousePosition();
     this->updateKeyTime(dt);
     this->updateInput(dt);
+    this->player->getPlayerStats()->addExp(50);
 
     if(!this->paused){ //unpaused update
 
@@ -113,9 +114,9 @@ void GameState::update(const float& dt) {
         this->player->update(dt);
         for(auto i : this->enemis){
             i->update(dt);
-            if(this->player->getHitboxComponent()->intersects(i->getHitboxComponent()->getGlobalBounds())){
+           /* if(this->player->getHitboxComponent()->intersects(i->getHitboxComponent()->getGlobalBounds())){
                 std::cout<<"Collision"<<"\n";
-            }
+            }*/
         }
 
     } else{ // paused update
@@ -146,6 +147,7 @@ void GameState::render(sf::RenderTarget* target) {
         if(stato == 1){
             this->pmenu->render(*target);
         } else if(stato == 2){
+
             this->cTab->render(*target);
         }
 

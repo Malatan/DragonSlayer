@@ -33,6 +33,7 @@ private:
     int wisdom;
     int strength;
 
+    int freePoints;
 public:
 
     void importStats();
@@ -76,7 +77,8 @@ public:
     void setArmorBonus(int armorBonus);
     int getDamageBonus();
     void setDamageBonus(int damageBonus);
-
+    int getFreePoints();
+    void setFreePoints(int freePoints);
 };
 
 

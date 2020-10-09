@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/Leonardo/Documents/Desktop Directories/Code/DEV_DragonSlayer/DragonSlayerMAIN/DragonSlayer/unit_testing
+# Install script for directory: F:/DragonSlayer/unit_testing
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,6 +34,6 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/Leonardo/Documents/Desktop Directories/Code/DEV_DragonSlayer/DragonSlayerMAIN/DragonSlayer/cmake-build-debug/unit_testing/lib/googletest-master/cmake_install.cmake")
+  include("F:/DragonSlayer/cmake-build-debug/unit_testing/lib/googletest-master/cmake_install.cmake")
 endif()
 

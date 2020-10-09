@@ -408,22 +408,52 @@
 		<Unit filename="F:/DragonSlayer/Core/State.h">
 			<Option target="DragonSlayer"/>
 		</Unit>
-		<Unit filename="F:/DragonSlayer/Entity/Enemy.cpp">
+		<Unit filename="F:/DragonSlayer/Game/Buff.cpp">
 			<Option target="DragonSlayer"/>
 		</Unit>
-		<Unit filename="F:/DragonSlayer/Entity/Enemy.h">
+		<Unit filename="F:/DragonSlayer/Game/Buff.h">
 			<Option target="DragonSlayer"/>
 		</Unit>
-		<Unit filename="F:/DragonSlayer/Entity/Entity.cpp">
+		<Unit filename="F:/DragonSlayer/Game/Enemy.cpp">
 			<Option target="DragonSlayer"/>
 		</Unit>
-		<Unit filename="F:/DragonSlayer/Entity/Entity.h">
+		<Unit filename="F:/DragonSlayer/Game/Enemy.h">
 			<Option target="DragonSlayer"/>
 		</Unit>
-		<Unit filename="F:/DragonSlayer/Entity/Player.cpp">
+		<Unit filename="F:/DragonSlayer/Game/Entity.cpp">
 			<Option target="DragonSlayer"/>
 		</Unit>
-		<Unit filename="F:/DragonSlayer/Entity/Player.h">
+		<Unit filename="F:/DragonSlayer/Game/Entity.h">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Game/Inventory.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Game/Inventory.h">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Game/Item.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Game/Item.h">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Game/Player.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Game/Player.h">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Game/Spell.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Game/Spell.h">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Game/Stats.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Game/Stats.h">
 			<Option target="DragonSlayer"/>
 		</Unit>
 		<Unit filename="F:/DragonSlayer/Gui/CharacterTab.cpp">

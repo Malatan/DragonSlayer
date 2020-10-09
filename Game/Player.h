@@ -37,7 +37,10 @@ private:
 protected:
 
 public:
-
+    Player();
+    Player(float x, float y, float scale_x, float scale_y, sf::Texture& texture_sheet);
+    Player(int gold, Inventory invent);
+    virtual ~Player();
 
 
     //funtions
@@ -59,8 +62,8 @@ public:
     void learnSpell(string spell);
     void earnExp(int exp);
 
-    Stats getPlayerStats();
-    void setPlayerStats(Stats playerStats);
+    Stats* getPlayerStats();
+    void setPlayerStats(Stats* playerStats);
     Inventory getInvent();
     void setInvent(Inventory invent);
     int getGold();
@@ -77,12 +80,6 @@ public:
     void equipLegs(Item legs);
     Item getArms();
     void equipArms(Item arms);
-
-
-    Player();
-    Player(float x, float y, float scale_x, float scale_y, sf::Texture& texture_sheet);
-    Player(int gold, Inventory invent);
-    virtual ~Player();
 };
 
 

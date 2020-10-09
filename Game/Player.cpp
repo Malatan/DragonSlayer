@@ -29,6 +29,21 @@ Player::Player(float x, float y, float scale_x, float scale_y, sf::Texture& text
 
     this->setPosition(x, y);
 
+    this->setPlayerStats(new Stats());
+
+}
+
+Player::Player(int gold, Inventory invent) {
+    this->gold = gold;
+    this->invent = invent;
+}
+
+Player::Player() {
+
+}
+
+Player::~Player() {
+
 }
 
 //functions
@@ -79,35 +94,35 @@ void Player::render(sf::RenderTarget &target, const bool show_hitbox) {
 string Player::playerDetails() {
     string desc = "";
 
-    desc+= "PLAYER LIV." + to_string(Player::getPlayerStats().getLevel())
+    desc+= "PLAYER LIV." + to_string(Player::getPlayerStats()->getLevel())
            + "     HP[";
 
     int health =0;
-    for(int i=0; i<Player::getPlayerStats().getMaxHp(); i=i+10){
-        if(health <= Player::getPlayerStats().getHp())
+    for(int i=0; i<Player::getPlayerStats()->getMaxHp(); i=i+10){
+        if(health <= Player::getPlayerStats()->getHp())
             desc+="#";
         else
             desc+="-";
         health += 10;
     }
 
-    desc+= to_string(Player::getPlayerStats().getHp()) + "/" + to_string(Player::getPlayerStats().getMaxHp()) + "]\n"
-           + "     Armor: " + to_string(Player::getPlayerStats().getArmor() + Player::getPlayerStats().getArmorBonus())
-           + "     Damage: " + to_string(Player::getPlayerStats().getDamage() + Player::getPlayerStats().getDamageBonus()) + "\n";
+    desc+= to_string(Player::getPlayerStats()->getHp()) + "/" + to_string(Player::getPlayerStats()->getMaxHp()) + "]\n"
+           + "     Armor: " + to_string(Player::getPlayerStats()->getArmor() + Player::getPlayerStats()->getArmorBonus())
+           + "     Damage: " + to_string(Player::getPlayerStats()->getDamage() + Player::getPlayerStats()->getDamageBonus()) + "\n";
 
     return desc;
 }
 
 int Player::takeDamage(int dmg) {
-    dmg = dmg - Player::playerStats.getArmor();
-    int newHp = Player::playerStats.getHp() - dmg;
-    Player::playerStats.setHp(newHp);
+    dmg = dmg - this->playerStats.getArmor();
+    int newHp = this->playerStats.getHp() - dmg;
+    this->playerStats.setHp(newHp);
 
     return dmg;
 }
 
 void Player::earnExp(int exp) {
-    Player::playerStats.addExp(exp);       //SE CON EXP IL PLAYER SALE DI LIVELLO
+    this->playerStats.addExp(exp);       //SE CON EXP IL PLAYER SALE DI LIVELLO
 }
 
 void Player::learnSpell(string spell) {
@@ -464,12 +479,12 @@ void Player::importEquipment() {
     }
 }
 
-Stats Player::getPlayerStats() {
-    return Player::playerStats;
+Stats* Player::getPlayerStats() {
+    return &this->playerStats;
 }
 
-void Player::setPlayerStats(Stats playerStats) {
-    Player::playerStats = playerStats;
+void Player::setPlayerStats(Stats *playerStats) {
+    this->playerStats = *playerStats;
 }
 
 Inventory Player::getInvent() {
@@ -649,16 +664,5 @@ void Player::equipArms(Item arms) {
     }
 }
 
-Player::Player(int gold, Inventory invent) {
-    Player::gold = gold;
-    Player::invent = invent;
-}
 
-Player::Player() {
-
-}
-
-Player::~Player() {
-
-}
 

@@ -4,16 +4,41 @@
 
 #include "Stats.h"
 
+Stats::Stats(){
+    this->level = 0;
+    this->exp = 0;
+    this->maxExp = 100;
+
+    this->hp = 100;
+    this->maxHp = 100;
+    this->mp = 100;
+    this->maxMp = 100;
+    this->armor = 10;
+    this->armorBonus = 0;
+    this->damage = 20;
+    this->damageBonus = 0;
+    this->critChance = 5;     //in %
+    this->evadeChance = 5;    //in %
+    this->agility = 3;
+    this->wisdom = 3;
+    this->strength = 3;
+    this->freePoints = 0;
+}
+
+Stats::~Stats(){
+
+}
+
 bool Stats::addExp(int earned) {
-    Stats::exp = Stats::exp + earned;
+    this->exp = this->exp + earned;
 
-    if(Stats::exp >= Stats::maxExp){                //SE RAGGIUNTA QNT NECESSARIA A LIVELLARE
+    if(this->exp >= this->maxExp){                //SE RAGGIUNTA QNT NECESSARIA A LIVELLARE
 
-        int newExp = Stats::exp - Stats::maxExp;    //EXP IN ECCESSO AGGIUNTA PER FARE IL PROX LIVELLO
+        int newExp = this->exp - this->maxExp;    //EXP IN ECCESSO AGGIUNTA PER FARE IL PROX LIVELLO
 
-        int choise = 2;     //SCRIVERE CODICE PER EFFETTUARE SCELTA TRA 3 ATTRIBUTI
+        int choise = 0;     //SCRIVERE CODICE PER EFFETTUARE SCELTA TRA 3 ATTRIBUTI
 
-        Stats::levelUp(choise, newExp);
+        this->levelUp(choise, newExp);
 
         return true;
     }
@@ -39,44 +64,46 @@ void Stats::setDamageBonus(int damageBonus) {
 }
 
 void Stats::levelUp(int choise, int newExp) {
-    Stats::importStats();
+   // this->importStats();
 
-    Stats::level ++;
-    Stats::exp = newExp;
-    Stats::maxExp = Stats::maxExp +25;          //EXP MAX PER LIVELLARE AUMENTATA
+    this->level ++;
+    this->exp = newExp;
+    this->maxExp = Stats::maxExp +25;          //EXP MAX PER LIVELLARE AUMENTATA
 
-    Stats::maxHp = Stats::maxHp +25;
-    Stats::hp = Stats::maxHp;               //HP RIGENERATI
-    Stats::maxMp = Stats::maxMp +25;
-    Stats::mp = Stats::maxMp;               //MP RIGENERATI
-    Stats::armor = Stats::armor +2;
+    this->maxHp = Stats::maxHp +25;
+    this->hp = Stats::maxHp;               //HP RIGENERATI
+    this->maxMp = Stats::maxMp +25;
+    this->mp = Stats::maxMp;               //MP RIGENERATI
+    this->armor = Stats::armor +2;
+
+    this->freePoints += 3;
 
 
     switch (choise) {           //SCELTA TRA AGILITY WISDOM E STRENGTH
         case 1:     //STRENGTH
-            Stats::strength++;
+            this->strength++;
 
-            Stats::maxHp = Stats::maxHp +25;
-            Stats::hp = Stats::maxHp;
-            Stats::armor = Stats::armor +2;
+            this->maxHp = this->maxHp +25;
+            this->hp = this->maxHp;
+            this->armor = this->armor +2;
             break;
         case 2:     //AGILITY
-            Stats::agility ++;
+            this->agility ++;
 
-            Stats::critChance = Stats::critChance +5;
-            Stats::evadeChance = Stats::evadeChance +3;
+            this->critChance = this->critChance +5;
+            this->evadeChance = this->evadeChance +3;
             break;
         case 3:     //WISDOM
-            Stats::wisdom ++;
+            this->wisdom ++;
 
-            Stats::maxMp = Stats::maxMp +25;
-            Stats::mp = Stats::maxMp;
+            this->maxMp = Stats::maxMp +25;
+            this->mp = Stats::maxMp;
             break;
         default:
             break;
     }
 
-    Stats::exportStats();
+  //  this->exportStats();
 }
 
 bool Stats::exportStats() {
@@ -101,6 +128,7 @@ bool Stats::exportStats() {
         file<<to_string(Stats::strength) + "\n";
     }
 
+    return true;
 
 }
 
@@ -211,16 +239,8 @@ void Stats::importStats() {
     }
 }
 
-Stats::Stats(){
-
-}
-
-Stats::~Stats(){
-
-}
-
 int Stats::getLevel() {
-    return level;
+    return this->level;
 }
 
 void Stats::setLevel(int level) {
@@ -329,4 +349,12 @@ int Stats::getStrength(){
 
 void Stats::setStrength(int strength) {
     Stats::strength = strength;
+}
+
+int Stats::getFreePoints() {
+    return this->freePoints;
+}
+
+void Stats::setFreePoints(int freePoints) {
+    this->freePoints = freePoints;
 }
