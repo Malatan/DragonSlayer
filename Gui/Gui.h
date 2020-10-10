@@ -14,6 +14,12 @@ enum button_states{
     BTN_HOVER,
 };
 
+enum item_slot_states{
+    SLOT_IDLE = 0,
+    SLOT_ACTIVE,
+    SLOT_HOVER,
+};
+
 namespace gui{
     class Button {
     private:
@@ -71,6 +77,75 @@ namespace gui{
 
     };
 
+    class ProgressBar{
+    private:
+        sf::Window* window;
+        sf::Font* font;
+        sf::Text text;
+        sf::RectangleShape barShape;
+        sf::RectangleShape progressShape;
+
+        int min;
+        int max;
+        int currentValue;
+        float progressPercentage;
+        bool textPrint;
+
+    protected:
+
+    public:
+        //constuctors/destructors
+        ProgressBar(sf::Window* window, float x, float y, float width, float height, int min, int max, int currentValue, sf::Font* font);
+        virtual ~ProgressBar();
+
+        //accessors
+        sf::Vector2f getPosition();
+
+        //modifiers
+        void setMax(int max);
+        void setMin(int min);
+        void setCurrentValue(int currentValue);
+        void setText(std::string text);
+        void setBarShapeColor(sf::Color color);
+        void setProgressShapeColor(sf::Color color);
+
+        //functions
+        void update(float current, int max);
+        void render(sf::RenderTarget& target);
+    };
+
+    class ItemSlot{
+    private:
+        short unsigned slotState;
+        bool renderItemInfoContainer;
+
+        sf::Window* window;
+        sf::RectangleShape shape;
+        sf::Font* font;
+        sf::Text itemName;
+
+        sf::RectangleShape itemInfoContainer;
+
+
+    protected:
+
+
+    public:
+        //constructors/destructors
+        ItemSlot(float x, float y, float width, float height, sf::Window* window, sf::Font* font);
+        virtual ~ItemSlot();
+
+
+        //accessors
+
+        //modifiers
+
+        //functions
+        void itemInfo(const sf::Vector2f& mousePos);
+        void updateItemInfoPos(const sf::Vector2f& mousePos);
+        void update(const sf::Vector2f& mousePos);
+        void render(sf::RenderTarget& target);
+    };
 
 }
 

@@ -16,6 +16,13 @@ private:
     sf::Text tabText;
     Player* player;
     State* state;
+    gui::ItemSlot* item;
+    sf::Text hpBarLbl;
+    sf::Text mpBarLbl;
+    sf::Text expBarLbl;
+    gui::ProgressBar* hpBar;
+    gui::ProgressBar* mpBar;
+    gui::ProgressBar* expBar;
 
     sf::RectangleShape backgorund;
     sf::RectangleShape container;
