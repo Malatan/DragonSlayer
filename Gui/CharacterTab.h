@@ -13,19 +13,20 @@
 class CharacterTab {
 private:
     sf::Font* font;
-    sf::Text tabText;
     Player* player;
     State* state;
     gui::ItemSlot* item;
+
+    //container
+    sf::RectangleShape backgorund;
+    sf::RectangleShape container;
+    sf::Text tabText;
     sf::Text hpBarLbl;
     sf::Text mpBarLbl;
     sf::Text expBarLbl;
     gui::ProgressBar* hpBar;
     gui::ProgressBar* mpBar;
     gui::ProgressBar* expBar;
-
-    sf::RectangleShape backgorund;
-    sf::RectangleShape container;
 
     //stats container
     sf::RectangleShape statsContainer;
@@ -40,6 +41,8 @@ private:
     //equip container
     sf::RectangleShape equipContainer;
     sf::Text equipContainerTitle;
+    std::vector<gui::ItemSlot*>* equipSlots;
+
 
     //inventory container
     sf::RectangleShape inventoryContainer;
@@ -52,9 +55,9 @@ public:
     virtual ~CharacterTab();
 
     //initializers
-    void initStatsContainer(float sizeContainers);
-    void initEquipContainer(float sizeContainers);
-    void initInventoryContainer(float sizeContainers);
+    void initStatsContainer();
+    void initEquipContainer(sf::RenderWindow& window);
+    void initInventoryContainer();
 
     //accessor
 

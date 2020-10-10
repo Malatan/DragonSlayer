@@ -51,14 +51,16 @@ void GameState::initHintsTab() {
     this->hints.setString(" Press Esc to pause\n"
                                 " Press WASD to move\n"
                                 " Press E to interact and loot non funzia\n"
-                                " Press C to open character tab and inventory");
+                                " Press C to open/close character tab and inventory\n"
+                                " Press B to print ResourcesHandler\n"
+                                " Press T in the character Tab to gain exp\n");
 
-    this->hints.setPosition(5.f, (this->window->getSize().y/100.f) * 83.f);
+    this->hints.setPosition(5.f, this->window->getSize().y - this->hints.getGlobalBounds().height + 20.f);
 }
 
 //constructors/destructors
-GameState::GameState(sf::RenderWindow* window, std::stack<State*>* states, ResourcesHandler* rsHandler, sf::Font* font)
-        : State(window, states, rsHandler){
+GameState::GameState(sf::RenderWindow* window, std::stack<State*>* states, ResourcesHandler* rsHandler, sf::Font* font, bool* isFocused)
+        : State(window, states, rsHandler, isFocused){
     this->font = font;
     this->stato = 0;
     this->initTextures();
@@ -88,25 +90,29 @@ void GameState::changeStato(int stato) {
 }
 
 void GameState::updateInput(const float &dt) {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && this->getKeyTime()){
-        this->changeStato(1);
-    }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::C) && this->getKeyTime()){
-        this->changeStato(2);
+    if (*this->windowIsFocused) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && this->getKeyTime()) {
+            this->changeStato(1);
+        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::C) && this->getKeyTime()) {
+            this->changeStato(2);
+        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::T) && this->getKeyTime()) {
+            this->player->getPlayerStats()->addExp(100);
+        }
     }
 }
 
 void GameState::updatePlayerInput(const float &dt) {
-    //aggiorna player input
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
-        this->player->move(dt, -1.f, 0.f);
+    if(*this->windowIsFocused){
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
+            this->player->move(dt, -1.f, 0.f);
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+            this->player->move(dt, 1.f, 0.f);
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+            this->player->move(dt, 0.f, -1.f);
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+            this->player->move(dt, 0.f, 1.f);
     }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-        this->player->move(dt, 1.f, 0.f);
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-        this->player->move(dt, 0.f, -1.f);
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-        this->player->move(dt, 0.f, 1.f);
-
 
 }
 

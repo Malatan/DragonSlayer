@@ -6,10 +6,10 @@
 
 //initializers
 
-void CharacterTab::initStatsContainer(float sizeContainers) {
+void CharacterTab::initStatsContainer() {
 //containere per le statistiche
     this->statsContainer.setFillColor(sf::Color(50, 50, 50, 100));
-    this->statsContainer.setSize(sf::Vector2f(sizeContainers - 120.f, 720.f));
+    this->statsContainer.setSize(sf::Vector2f(((this->container.getGlobalBounds().width - 60.f) / 3.f) - 120.f, 720.f));
     this->statsContainer.setPosition(this->container.getPosition().x + 20.f,
                                           this->container.getPosition().y + 60.f);
 
@@ -98,7 +98,7 @@ void CharacterTab::initStatsContainer(float sizeContainers) {
     this->addAgilityBtn->setTextPositionAddY(-22.f);
 }
 
-void CharacterTab::initEquipContainer(float sizeContainers) {
+void CharacterTab::initEquipContainer(sf::RenderWindow& window) {
     this->equipContainer.setFillColor(sf::Color(70, 70, 70, 100));
     this->equipContainer.setSize(sf::Vector2f(this->container.getGlobalBounds().width - this->statsContainer.getGlobalBounds().width - 50.f,
             150.f));
@@ -113,9 +113,21 @@ void CharacterTab::initEquipContainer(float sizeContainers) {
                                           - this->equipContainerTitle.getGlobalBounds().width/2.f,
                                           this->equipContainer.getPosition().y);
 
+ /*   for(int i = 0 ; i < 6 ; i++){
+        this->equipSlots.push_back(new gui::ItemSlot(this->equipContainer.getPosition().x + 5.f,
+                this->equipContainer
+
+                ));
+    }
+
+    this->item = new gui::ItemSlot(this->inventoryContainer.getPosition().x+this->inventoryContainer.getGlobalBounds().width/2.f,
+                                   this->inventoryContainer.getPosition().y+this->inventoryContainer.getGlobalBounds().height/2.f,
+                                   50.f,50.f, &window,
+                                   this->font);
+*/
 }
 
-void CharacterTab::initInventoryContainer(float sizeContainers) {
+void CharacterTab::initInventoryContainer() {
     this->inventoryContainer.setFillColor(sf::Color(90, 90, 90, 100));
     this->inventoryContainer.setSize(sf::Vector2f(this->equipContainer.getGlobalBounds().width,
                                                   this->statsContainer.getGlobalBounds().height - this->equipContainer.getGlobalBounds().height - 10.f));
@@ -192,10 +204,9 @@ CharacterTab::CharacterTab(sf::RenderWindow& window, sf::Font* font, Player* pla
     this->expBar->setProgressShapeColor(sf::Color::Yellow);
 
 
-    float sizeContainers = (this->container.getGlobalBounds().width - 60.f) / 3.f;
-    this->initStatsContainer(sizeContainers);
-    this->initEquipContainer(sizeContainers);
-    this->initInventoryContainer(sizeContainers);
+    this->initStatsContainer();
+    this->initEquipContainer(window);
+    this->initInventoryContainer();
     this->item = new gui::ItemSlot(this->inventoryContainer.getPosition().x+this->inventoryContainer.getGlobalBounds().width/2.f,
             this->inventoryContainer.getPosition().y+this->inventoryContainer.getGlobalBounds().height/2.f,50.f,50.f, &window,
             this->font);
@@ -210,6 +221,8 @@ CharacterTab::~CharacterTab() {
     delete this->mpBar;
     delete this->expBar;
     delete this->item;
+    for(auto i : *this->equipSlots)
+        delete i;
 }
 
 //accessor
@@ -307,9 +320,7 @@ void CharacterTab::update(const sf::Vector2f& mousePos) {
     this->mpBar->update(this->player->getPlayerStats()->getMp(), this->player->getPlayerStats()->getMaxMp());
     this->expBar->update(this->player->getPlayerStats()->getExp(), this->player->getPlayerStats()->getMaxExp());
 
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::T)){
-        this->player->getPlayerStats()->addExp(100);
-    }
+
 }
 
 void CharacterTab::render(sf::RenderTarget &target) {

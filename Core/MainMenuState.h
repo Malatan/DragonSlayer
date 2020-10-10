@@ -27,7 +27,7 @@ protected:
 
 
 public:
-    MainMenuState(sf::RenderWindow *window, std::stack<State*>* states, ResourcesHandler* rsHandler);
+    MainMenuState(sf::RenderWindow *window, std::stack<State*>* states, ResourcesHandler* rsHandler, bool* isFocused);
     virtual ~MainMenuState();
 
     //functions

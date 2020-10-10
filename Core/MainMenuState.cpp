@@ -51,8 +51,8 @@ void MainMenuState::initButtons() {
                                                   idle_color, hover_color, active_color);
 }
 
-MainMenuState::MainMenuState(sf::RenderWindow *window, std::stack<State*>* states, ResourcesHandler* rsHandler)
-        : State(window, states, rsHandler){
+MainMenuState::MainMenuState(sf::RenderWindow *window, std::stack<State*>* states, ResourcesHandler* rsHandler, bool* isFocused)
+        : State(window, states, rsHandler, isFocused){
     this->initVariables();
     this->initBackground();
     this->initFonts();
@@ -78,7 +78,7 @@ void MainMenuState::updateButtons() {
 
     //Nuovo gioco
     if(this->buttons["GAME_STATE"]->isPressed()){
-        this->states->push(new GameState(this->window, this->states, this->rsHandler, &this->font));
+        this->states->push(new GameState(this->window, this->states, this->rsHandler, &this->font, this->windowIsFocused));
     }
 
     //Esce dal gioco

@@ -24,6 +24,7 @@ protected:
 
     bool quit;
     bool paused;
+    bool* windowIsFocused;
     float keyTime;
     float keyTimeMax;
 
@@ -37,7 +38,7 @@ protected:
 
 
 public:
-    State(sf::RenderWindow* window, std::stack<State*>* states, ResourcesHandler* rsHandler);
+    State(sf::RenderWindow* window, std::stack<State*>* states, ResourcesHandler* rsHandler, bool* isFocused);
     virtual ~State();
 
     //accessors

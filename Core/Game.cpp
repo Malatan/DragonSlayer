@@ -44,12 +44,12 @@ void Game::initWindow() {
 
 
 void Game::initStates() {
-    this->states.push(new MainMenuState(this->window, &this->states, this->rsHandler));
+    this->states.push(new MainMenuState(this->window, &this->states, this->rsHandler, &this->isFocused));
 }
 
 //Constructors/Destructors
 Game::Game() {
-
+    this->isFocused = true;
     this->initWindow();
     this->initStates();
 }
@@ -118,17 +118,24 @@ void Game::render() {
 void Game::run() {
     sf::Event event;
     while(this->window->isOpen()){
-        if (event.type == sf::Event::Resized)
-        {
-            // update the view to the new size of the window
-            sf::FloatRect visibleArea(0.f, 0.f, event.size.width, event.size.height);
-            this->window->setView(sf::View(visibleArea));
+        while(this->window->pollEvent(event)){
+            switch (event.type)
+            {
+                case sf::Event::Closed:       //check for CLOSED event
+                    this->window->close();
+                    break;
+                case sf::Event::GainedFocus:
+                    this->isFocused = true;
+                    break;
+                case sf::Event::LostFocus:
+                    this->isFocused = false;
+                    break;
+            }
         }
+
         this->window->setTitle(this->Title+this->rtc->toString());
         this->updateDt();
         this->update();
         this->render();
-
-
     }
 }

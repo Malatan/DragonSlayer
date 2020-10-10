@@ -4,10 +4,11 @@
 
 #include "State.h"
 
-State::State(sf::RenderWindow *window, std::stack<State*>* states, ResourcesHandler* rsHandler) {
+State::State(sf::RenderWindow *window, std::stack<State*>* states, ResourcesHandler* rsHandler, bool* isFocused) {
     this->window = window;
     this->states = states;
     this->rsHandler = rsHandler;
+    this->windowIsFocused = isFocused;
     this->quit = false;
     this->paused = false;
     this->keyTime = 0.f;

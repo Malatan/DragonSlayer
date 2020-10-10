@@ -21,6 +21,7 @@ private:
 
     sf::Clock dtClock;
     float dt; //delta time
+    bool isFocused;
     sf::Time gameRunTime;
     RunTimeClock* rtc;
 
