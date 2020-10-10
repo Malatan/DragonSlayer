@@ -29,10 +29,10 @@ Stats::~Stats(){
 
 }
 
-bool Stats::addExp(int earned) {
+void Stats::addExp(int earned) {
     this->exp = this->exp + earned;
 
-    if(this->exp >= this->maxExp){                //SE RAGGIUNTA QNT NECESSARIA A LIVELLARE
+    while(this->exp >= this->maxExp){                //SE RAGGIUNTA QNT NECESSARIA A LIVELLARE
 
         int newExp = this->exp - this->maxExp;    //EXP IN ECCESSO AGGIUNTA PER FARE IL PROX LIVELLO
 
@@ -40,11 +40,32 @@ bool Stats::addExp(int earned) {
 
         this->levelUp(choise, newExp);
 
-        return true;
     }
 
-    Stats::exportStats();
-    return false;
+//    Stats::exportStats();
+}
+
+void Stats::addAttribute(int type) {
+    if(type == 0){ //strength
+        this->strength++;
+
+        this->maxHp = this->maxHp +25;
+        this->hp = this->maxHp;
+        this->armor = this->armor +2;
+        this->freePoints --;
+    }else if(type == 1){ //wisdom
+        this->wisdom ++;
+
+        this->maxMp = Stats::maxMp +25;
+        this->mp = Stats::maxMp;
+        this->freePoints --;
+    }else if(type ==2){ //agility
+        this->agility ++;
+
+        this->critChance = this->critChance +5;
+        this->evadeChance = this->evadeChance +3;
+        this->freePoints --;
+    }
 }
 
 int Stats::getArmorBonus() {
@@ -358,3 +379,5 @@ int Stats::getFreePoints() {
 void Stats::setFreePoints(int freePoints) {
     this->freePoints = freePoints;
 }
+
+

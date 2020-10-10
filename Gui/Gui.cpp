@@ -26,7 +26,7 @@ gui::Button::Button(float x, float y, float width, float height,
     this->text.setCharacterSize(character_size);
     this->text.setPosition(
             (this->shape.getPosition().x + width /2.f) - this->text.getGlobalBounds().width/2.f,
-            (this->shape.getPosition().y + height /2.f) - this->text.getGlobalBounds().height/2.f
+            (this->shape.getPosition().y + height /2.f) - this->text.getGlobalBounds().height/1.5f
     );
 
     //colore testo bottone
@@ -76,6 +76,22 @@ void gui::Button::setId(const short unsigned id) {
     this->id = id;
 }
 
+void gui::Button::setBorderColor(sf::Color color) {
+    this->shape.setOutlineColor(color);
+}
+
+void gui::Button::setBorderLineThickness(float value) {
+    this->shape.setOutlineThickness(value);
+}
+
+void gui::Button::setTextPosition(sf::Vector2f position) {
+    this->text.setPosition(position);
+}
+
+void gui::Button::setTextPositionAddY(float y) {
+    this->text.setPosition(this->text.getPosition().x, this->text.getPosition().y + y);
+}
+
 
 //functions
 void gui::Button::update(const sf::Vector2f& mousePos) {
@@ -121,4 +137,9 @@ void gui::Button::render(sf::RenderTarget& target) {
     target.draw(this->shape);
     target.draw(this->text);
 }
+
+
+
+
+
 

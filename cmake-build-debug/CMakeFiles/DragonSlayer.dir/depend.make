@@ -939,7 +939,10 @@ CMakeFiles/DragonSlayer.dir/Gui/CharacterTab.cpp.obj: ../SFML_2.5.1/include/SFML
 CMakeFiles/DragonSlayer.dir/Gui/CharacterTab.cpp.obj: ../Components/AnimationComponent.h
 CMakeFiles/DragonSlayer.dir/Gui/CharacterTab.cpp.obj: ../Components/HitBoxComponent.h
 CMakeFiles/DragonSlayer.dir/Gui/CharacterTab.cpp.obj: ../Components/MovementComponent.h
+CMakeFiles/DragonSlayer.dir/Gui/CharacterTab.cpp.obj: ../Core/GameState.h
+CMakeFiles/DragonSlayer.dir/Gui/CharacterTab.cpp.obj: ../Core/State.h
 CMakeFiles/DragonSlayer.dir/Gui/CharacterTab.cpp.obj: ../Game/Buff.h
+CMakeFiles/DragonSlayer.dir/Gui/CharacterTab.cpp.obj: ../Game/Enemy.h
 CMakeFiles/DragonSlayer.dir/Gui/CharacterTab.cpp.obj: ../Game/Entity.h
 CMakeFiles/DragonSlayer.dir/Gui/CharacterTab.cpp.obj: ../Game/Inventory.h
 CMakeFiles/DragonSlayer.dir/Gui/CharacterTab.cpp.obj: ../Game/Item.h
@@ -949,6 +952,7 @@ CMakeFiles/DragonSlayer.dir/Gui/CharacterTab.cpp.obj: ../Game/Stats.h
 CMakeFiles/DragonSlayer.dir/Gui/CharacterTab.cpp.obj: ../Gui/CharacterTab.cpp
 CMakeFiles/DragonSlayer.dir/Gui/CharacterTab.cpp.obj: ../Gui/CharacterTab.h
 CMakeFiles/DragonSlayer.dir/Gui/CharacterTab.cpp.obj: ../Gui/Gui.h
+CMakeFiles/DragonSlayer.dir/Gui/CharacterTab.cpp.obj: ../Gui/PauseMenu.h
 
 CMakeFiles/DragonSlayer.dir/Gui/Gui.cpp.obj: ../SFML_2.5.1/include/SFML/Config.hpp
 CMakeFiles/DragonSlayer.dir/Gui/Gui.cpp.obj: ../SFML_2.5.1/include/SFML/Graphics.hpp

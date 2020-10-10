@@ -39,8 +39,9 @@ public:
     void importStats();
     bool exportStats();
     string listStats();
-    bool addExp(int earned);
+    void addExp(int earned);
     void levelUp(int choise, int newExp);
+    void addAttribute(int type);
 
     Stats();
     virtual ~Stats();

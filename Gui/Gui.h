@@ -60,6 +60,10 @@ namespace gui{
         //modifiers
         void setText(const std::string text);
         void setId(const short unsigned id);
+        void setBorderColor(sf::Color color);
+        void setBorderLineThickness(float value);
+        void setTextPosition(sf::Vector2f position);
+        void setTextPositionAddY(float y);
 
         //functions
         void update(const sf::Vector2f& mousePos);

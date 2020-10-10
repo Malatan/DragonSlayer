@@ -31,7 +31,7 @@ void GameState::initPlayers() {
 }
 
 void GameState::initCharacterTab(Player* player) {
-    this->cTab = new CharacterTab(*this->window, this->font, player);
+    this->cTab = new CharacterTab(*this->window, this->font, player, this);
 }
 
 void GameState::initHintsTab() {
@@ -40,7 +40,7 @@ void GameState::initHintsTab() {
     this->hints.setString(" Press Esc to pause\n"
                                 " Press WASD to move\n"
                                 " Press E to interact and loot non funzia\n"
-                                " Press C to open character tab and inventory non funzia");
+                                " Press C to open character tab and inventory");
 
     this->hints.setPosition(5.f, (this->window->getSize().y/100.f) * 83.f);
 }
@@ -60,33 +60,35 @@ GameState::GameState(sf::RenderWindow* window, std::stack<State*>* states, sf::F
 GameState::~GameState() {
     delete this->pmenu;
     delete this->player;
+    delete this->cTab;
+    for(auto i : this->enemis)
+        delete i;
 }
 
 //functions
+void GameState::changeStato(int stato) {
+    if(!this->paused){
+        this->pauseState();
+        this->stato = stato;
+    } else{
+        this->unpauseState();
+        this->stato = 0;
+    }
+}
+
 void GameState::updateInput(const float &dt) {
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && this->getKeyTime()){
-        if(!this->paused){
-            this->pauseState();
-            this->stato = 1;
-        } else{
-            this->unpauseState();
-            this->stato = 0;
-        }
+        this->changeStato(1);
     }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::C) && this->getKeyTime()){
-        if(!this->paused){
-            this->pauseState();
-            this->stato = 2;
-        } else{
-            this->unpauseState();
-            this->stato = 0;
-        }
+        this->changeStato(2);
     }
 }
 
 void GameState::updatePlayerInput(const float &dt) {
     //aggiorna player input
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
         this->player->move(dt, -1.f, 0.f);
+    }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
         this->player->move(dt, 1.f, 0.f);
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
@@ -105,7 +107,7 @@ void GameState::update(const float& dt) {
     this->updateMousePosition();
     this->updateKeyTime(dt);
     this->updateInput(dt);
-    this->player->getPlayerStats()->addExp(50);
+    this->player->getPlayerStats()->addExp(1);
 
     if(!this->paused){ //unpaused update
 
@@ -126,6 +128,8 @@ void GameState::update(const float& dt) {
 
         } else if(stato == 2){
             this->cTab->update(this->mousePosView);
+            if(this->cTab->closeCharacterTabByClicking(this->mousePosView))
+                this->changeStato(0);
         }
 
     }
@@ -163,6 +167,8 @@ void GameState::render(sf::RenderTarget* target) {
     mouseText.setString(ss.str());
     target->draw(mouseText);
 }
+
+
 
 
 

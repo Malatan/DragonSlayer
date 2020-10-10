@@ -11,6 +11,8 @@
 #include "../Gui/PauseMenu.h"
 #include "../Gui/CharacterTab.h"
 
+class CharacterTab;
+
 class GameState : public State{
 private:
     sf::Font* font;
@@ -35,6 +37,7 @@ public:
     virtual ~GameState();
 
     //functions
+    void changeStato(int stato);
     void updateInput(const float &dt);
     void updatePlayerInput(const float& dt);
     void updatePausedMenuButtons();

@@ -29,8 +29,8 @@ void MainMenuState::initFonts() {
 void MainMenuState::initButtons() {
     float centerX = this->window->getSize().x / 2.f;
     float percentY = (this->window->getSize().y)/100.f;
-    float btnWidth = 250.f;
-    float btnHeight = 60.f;
+    float btnWidth = 200.f;
+    float btnHeight = 40.f;
     sf::Color text_idle_color = sf::Color(71, 17, 13,250);
     sf::Color text_hover_color = sf::Color(250, 250, 250, 250);
     sf::Color text_active_color = sf::Color(20, 20, 20, 50);
