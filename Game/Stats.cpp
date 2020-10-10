@@ -5,7 +5,8 @@
 #include "Stats.h"
 
 Stats::Stats(){
-    this->level = 0;
+    //default value
+  /*  this->level = 0;
     this->exp = 0;
     this->maxExp = 100;
 
@@ -22,7 +23,7 @@ Stats::Stats(){
     this->agility = 3;
     this->wisdom = 3;
     this->strength = 3;
-    this->freePoints = 0;
+    this->freePoints = 0;*/
 }
 
 Stats::~Stats(){
@@ -168,7 +169,7 @@ string Stats::listStats() {
     return desc;
 }
 
-void Stats::importStats() {
+/*void Stats::importStats() {
 
     ifstream file;
     file.open("Stats.txt");
@@ -254,11 +255,17 @@ void Stats::importStats() {
                 intStrength >> strength;
                 Stats::strength = strength;
                 current++;
+            }else if(current==12){
+                stringstream intFreePoints(word);
+                int free_points;
+                intFreePoints >> free_points;
+                this->freePoints = free_points;
+                current++;
             }
 
         }
     }
-}
+}*/
 
 int Stats::getLevel() {
     return this->level;

@@ -746,6 +746,60 @@ Gui/PauseMenu.cpp.s:
 	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/PauseMenu.cpp.s
 .PHONY : Gui/PauseMenu.cpp.s
 
+Resources/Resource.obj: Resources/Resource.cpp.obj
+
+.PHONY : Resources/Resource.obj
+
+# target to build an object file
+Resources/Resource.cpp.obj:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.obj
+.PHONY : Resources/Resource.cpp.obj
+
+Resources/Resource.i: Resources/Resource.cpp.i
+
+.PHONY : Resources/Resource.i
+
+# target to preprocess a source file
+Resources/Resource.cpp.i:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.i
+.PHONY : Resources/Resource.cpp.i
+
+Resources/Resource.s: Resources/Resource.cpp.s
+
+.PHONY : Resources/Resource.s
+
+# target to generate assembly for a file
+Resources/Resource.cpp.s:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.s
+.PHONY : Resources/Resource.cpp.s
+
+Resources/ResourcesHandler.obj: Resources/ResourcesHandler.cpp.obj
+
+.PHONY : Resources/ResourcesHandler.obj
+
+# target to build an object file
+Resources/ResourcesHandler.cpp.obj:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Resources/ResourcesHandler.cpp.obj
+.PHONY : Resources/ResourcesHandler.cpp.obj
+
+Resources/ResourcesHandler.i: Resources/ResourcesHandler.cpp.i
+
+.PHONY : Resources/ResourcesHandler.i
+
+# target to preprocess a source file
+Resources/ResourcesHandler.cpp.i:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Resources/ResourcesHandler.cpp.i
+.PHONY : Resources/ResourcesHandler.cpp.i
+
+Resources/ResourcesHandler.s: Resources/ResourcesHandler.cpp.s
+
+.PHONY : Resources/ResourcesHandler.s
+
+# target to generate assembly for a file
+Resources/ResourcesHandler.cpp.s:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Resources/ResourcesHandler.cpp.s
+.PHONY : Resources/ResourcesHandler.cpp.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -848,6 +902,12 @@ help:
 	@echo ... Gui/PauseMenu.obj
 	@echo ... Gui/PauseMenu.i
 	@echo ... Gui/PauseMenu.s
+	@echo ... Resources/Resource.obj
+	@echo ... Resources/Resource.i
+	@echo ... Resources/Resource.s
+	@echo ... Resources/ResourcesHandler.obj
+	@echo ... Resources/ResourcesHandler.i
+	@echo ... Resources/ResourcesHandler.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

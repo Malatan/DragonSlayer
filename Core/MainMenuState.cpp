@@ -10,9 +10,12 @@ void MainMenuState::initVariables() {
                     static_cast<float>(this->window->getSize().x),
                     static_cast<float>(this->window->getSize().y)));
 
-    if(!this->backgroundTexture.loadFromFile("../Resources/Images/Backgrounds/mainMenuBG.png")){
+    this->rsHandler->addResouce(new Resource("../Resources/Images/Backgrounds/mainMenuBG.png", "background", "MainMenuState",
+            &this->backgroundTexture));
+ /*   if(!this->backgroundTexture.loadFromFile("../Resources/Images/Backgrounds/mainMenuBG.png")){
         throw("Errore mainmenustate failed to load background texture");
-    }
+    }*/
+
     this->background.setTexture(&this->backgroundTexture);
 }
 
@@ -50,8 +53,8 @@ void MainMenuState::initButtons() {
                                                   idle_color, hover_color, active_color);
 }
 
-MainMenuState::MainMenuState(sf::RenderWindow *window, std::stack<State*>* states)
-        : State(window, states){
+MainMenuState::MainMenuState(sf::RenderWindow *window, std::stack<State*>* states, ResourcesHandler* rsHandler)
+        : State(window, states, rsHandler){
     this->initVariables();
     this->initBackground();
     this->initFonts();
@@ -77,7 +80,7 @@ void MainMenuState::updateButtons() {
 
     //Nuovo gioco
     if(this->buttons["GAME_STATE"]->isPressed()){
-        this->states->push(new GameState(this->window, this->states, &this->font));
+        this->states->push(new GameState(this->window, this->states, this->rsHandler, &this->font));
     }
 
     //Esce dal gioco
@@ -89,6 +92,7 @@ void MainMenuState::updateButtons() {
 void MainMenuState::update(const float &dt) {
     this->updateMousePosition();
     this->updateInput(dt);
+    this->updateKeyTime(dt);
     this->updateButtons();
 }
 

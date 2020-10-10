@@ -23,6 +23,8 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "F:/DragonSlayer/Gui/CharacterTab.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Gui/CharacterTab.cpp.obj"
   "F:/DragonSlayer/Gui/Gui.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Gui/Gui.cpp.obj"
   "F:/DragonSlayer/Gui/PauseMenu.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Gui/PauseMenu.cpp.obj"
+  "F:/DragonSlayer/Resources/Resource.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.obj"
+  "F:/DragonSlayer/Resources/ResourcesHandler.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Resources/ResourcesHandler.cpp.obj"
   "F:/DragonSlayer/main.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

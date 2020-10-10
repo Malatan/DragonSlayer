@@ -474,6 +474,18 @@
 		<Unit filename="F:/DragonSlayer/Gui/PauseMenu.h">
 			<Option target="DragonSlayer"/>
 		</Unit>
+		<Unit filename="F:/DragonSlayer/Resources/Resource.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Resources/Resource.h">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Resources/ResourcesHandler.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Resources/ResourcesHandler.h">
+			<Option target="DragonSlayer"/>
+		</Unit>
 		<Unit filename="F:/DragonSlayer/main.cpp">
 			<Option target="DragonSlayer"/>
 		</Unit>

@@ -203,6 +203,13 @@ CharacterTab::CharacterTab(sf::RenderWindow& window, sf::Font* font, Player* pla
 }
 
 CharacterTab::~CharacterTab() {
+    delete this->addStrengthBtn;
+    delete this->addWisdomBtn;
+    delete this->addAgilityBtn;
+    delete this->hpBar;
+    delete this->mpBar;
+    delete this->expBar;
+    delete this->item;
 }
 
 //accessor
@@ -299,6 +306,10 @@ void CharacterTab::update(const sf::Vector2f& mousePos) {
     this->hpBar->update(this->player->getPlayerStats()->getHp(), this->player->getPlayerStats()->getMaxHp());
     this->mpBar->update(this->player->getPlayerStats()->getMp(), this->player->getPlayerStats()->getMaxMp());
     this->expBar->update(this->player->getPlayerStats()->getExp(), this->player->getPlayerStats()->getMaxExp());
+
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::T)){
+        this->player->getPlayerStats()->addExp(100);
+    }
 }
 
 void CharacterTab::render(sf::RenderTarget &target) {

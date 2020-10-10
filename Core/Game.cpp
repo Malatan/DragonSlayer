@@ -39,11 +39,12 @@ void Game::initWindow() {
     this->window->setFramerateLimit(framerate_limit);
     this->window->setVerticalSyncEnabled(veritcal_enabled);
     this->rtc = new RunTimeClock();
+    this->rsHandler = new ResourcesHandler();
 }
 
 
 void Game::initStates() {
-    this->states.push((new MainMenuState(this->window, &this->states)));
+    this->states.push(new MainMenuState(this->window, &this->states, this->rsHandler));
 }
 
 //Constructors/Destructors
@@ -55,6 +56,8 @@ Game::Game() {
 
 Game::~Game() {
     delete this->window;
+    delete this->rsHandler;
+    delete this->rtc;
     while(this->states.empty()){
         delete this->states.top();
         this->states.pop();
@@ -81,9 +84,14 @@ void Game::updateSFMLEvents() {
 }
 
 void Game::update() {
+
     this->updateSFMLEvents();
     if(!this->states.empty()){
+
         this->states.top()->update(this->dt);
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::B) && this->states.top()->getKeyTime()){
+            std::cout << this->rsHandler->toString();
+        }
         if(this->states.top()->getQuit()){
             this->states.top()->endState();
             delete this->states.top();
@@ -120,5 +128,7 @@ void Game::run() {
         this->updateDt();
         this->update();
         this->render();
+
+
     }
 }

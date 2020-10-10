@@ -36,7 +36,7 @@ private:
     int freePoints;
 public:
 
-    void importStats();
+  //  void importStats();
     bool exportStats();
     string listStats();
     void addExp(int earned);

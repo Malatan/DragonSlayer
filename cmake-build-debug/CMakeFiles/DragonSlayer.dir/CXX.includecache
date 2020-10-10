@@ -688,6 +688,10 @@ F:/DragonSlayer/Components/MovementComponent.h
 SFML/Graphics.hpp
 -
 
+F:/DragonSlayer/Core/GameState.cpp
+GameState.h
+F:/DragonSlayer/Core/GameState.h
+
 F:/DragonSlayer/Core/GameState.h
 State.h
 F:/DragonSlayer/Core/State.h
@@ -711,6 +715,8 @@ SFML/Graphics.hpp
 -
 stack
 -
+../Resources/ResourcesHandler.h
+F:/DragonSlayer/Resources/ResourcesHandler.h
 
 F:/DragonSlayer/Game/Buff.h
 string
@@ -806,10 +812,6 @@ F:/DragonSlayer/Game/iostream
 fstream
 F:/DragonSlayer/Game/fstream
 
-F:/DragonSlayer/Gui/CharacterTab.cpp
-CharacterTab.h
-F:/DragonSlayer/Gui/CharacterTab.h
-
 F:/DragonSlayer/Gui/CharacterTab.h
 Gui.h
 F:/DragonSlayer/Gui/Gui.h
@@ -827,4 +829,16 @@ SFML/Graphics.hpp
 F:/DragonSlayer/Gui/PauseMenu.h
 Gui.h
 F:/DragonSlayer/Gui/Gui.h
+
+F:/DragonSlayer/Resources/Resource.h
+iostream
+-
+SFML/Graphics.hpp
+-
+
+F:/DragonSlayer/Resources/ResourcesHandler.h
+Resource.h
+F:/DragonSlayer/Resources/Resource.h
+../Game/Stats.h
+F:/DragonSlayer/Game/Stats.h
 

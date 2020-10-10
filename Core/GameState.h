@@ -33,7 +33,7 @@ private:
     void initHintsTab();
 
 public:
-    GameState(sf::RenderWindow* window, std::stack<State*>* states, sf::Font *font);
+    GameState(sf::RenderWindow* window, std::stack<State*>* states, ResourcesHandler* rsHandler, sf::Font *font);
     virtual ~GameState();
 
     //functions

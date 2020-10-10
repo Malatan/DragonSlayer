@@ -27,7 +27,7 @@ protected:
 
 
 public:
-    MainMenuState(sf::RenderWindow *window, std::stack<State*>* states);
+    MainMenuState(sf::RenderWindow *window, std::stack<State*>* states, ResourcesHandler* rsHandler);
     virtual ~MainMenuState();
 
     //functions

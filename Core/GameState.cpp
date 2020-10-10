@@ -5,12 +5,19 @@
 #include "GameState.h"
 
 void GameState::initTextures() {
-    if(!this->textures["PLAYER_SHEET"] .loadFromFile("../Resources/Images/Sprites/Player/player_sheet.png")){
+
+    this->rsHandler->addResouce(new Resource("../Resources/Images/Sprites/Player/player_sheet.png", "player sheet", "GameState",
+            &this->textures["PLAYER_SHEET"]));
+
+    this->rsHandler->addResouce(new Resource("../Resources/Images/Sprites/Enemy/wizard_Idle.png", "wizard sheet", "GameState",
+                                             &this->textures["ENEMY_WIZARD_SHEET"]));
+
+  /*  if(!this->textures["PLAYER_SHEET"] .loadFromFile("../Resources/Images/Sprites/Player/player_sheet.png")){
         throw("Errore gamestate could not load player texture");
     }
     if(!this->textures["ENEMY_WIZARD_SHEET"] .loadFromFile("../Resources/Images/Sprites/Enemy/wizard_Idle.png")){
         throw("Errore gamestate could not load player texture");
-    }
+    }*/
 }
 
 void GameState::initPauseMenu() {
@@ -23,6 +30,10 @@ void GameState::initPlayers() {
     this->player = new Player(this->window->getSize().x/2.f,
                               this->window->getSize().y/2.f, 2.f, 2.f,
                               this->textures["PLAYER_SHEET"]);
+    this->player->setGold(1000);
+
+    // legge i valori di default del Stats dal Data/Stats.txt
+    this->rsHandler->loadPlayerStatsTxt(this->player->getPlayerStats());
 
     this->enemis.push_back(new Enemy(30.f, 30.f, 1.2f, 1.2f,
                                      127.f, 134.f, 50.f, 65.f,
@@ -46,8 +57,8 @@ void GameState::initHintsTab() {
 }
 
 //constructors/destructors
-GameState::GameState(sf::RenderWindow* window, std::stack<State*>* states, sf::Font* font)
-        : State(window, states){
+GameState::GameState(sf::RenderWindow* window, std::stack<State*>* states, ResourcesHandler* rsHandler, sf::Font* font)
+        : State(window, states, rsHandler){
     this->font = font;
     this->stato = 0;
     this->initTextures();
@@ -95,6 +106,8 @@ void GameState::updatePlayerInput(const float &dt) {
         this->player->move(dt, 0.f, -1.f);
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
         this->player->move(dt, 0.f, 1.f);
+
+
 }
 
 void GameState::updatePausedMenuButtons() {
@@ -107,7 +120,7 @@ void GameState::update(const float& dt) {
     this->updateMousePosition();
     this->updateKeyTime(dt);
     this->updateInput(dt);
-    this->player->getPlayerStats()->addExp(1);
+
 
     if(!this->paused){ //unpaused update
 

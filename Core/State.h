@@ -11,6 +11,7 @@
 #include <sstream>
 #include <SFML/Graphics.hpp>
 #include <stack>
+#include "../Resources/ResourcesHandler.h"
 
 class State {
 private:
@@ -19,6 +20,8 @@ private:
 protected:
     std::stack<State*>* states;
     sf::RenderWindow* window;
+    ResourcesHandler* rsHandler;
+
     bool quit;
     bool paused;
     float keyTime;
@@ -34,7 +37,7 @@ protected:
 
 
 public:
-    State(sf::RenderWindow* window, std::stack<State*>* states);
+    State(sf::RenderWindow* window, std::stack<State*>* states, ResourcesHandler* rsHandler);
     virtual ~State();
 
     //accessors

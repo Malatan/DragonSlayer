@@ -148,6 +148,7 @@ void gui::Button::render(sf::RenderTarget& target) {
 
 gui::ProgressBar::ProgressBar(sf::Window *window, float x, float y, float width, float height, int min, int max, int currentValue, sf::Font *font)
 : window(window), font(font), min(min), max(max), currentValue(currentValue){
+    this->progressPercentage = 0.f;
     this->barShape.setSize(sf::Vector2f(width, height));
     this->barShape.setPosition(x, y);
     this->barShape.setFillColor(sf::Color::Transparent);
@@ -208,8 +209,14 @@ void gui::ProgressBar::update(float current, int max) {
     this->currentValue = current;
     this->text.setString(ss.str());
     this->progressPercentage = (float)this->currentValue / (float)this->max;
-    this->progressShape.setSize(sf::Vector2f(this->barShape.getGlobalBounds().width * this->progressPercentage - 4.f,
-                                             this->progressShape.getGlobalBounds().height));
+    if(this->progressPercentage == 1){
+        this->progressShape.setSize(sf::Vector2f(this->barShape.getGlobalBounds().width * this->progressPercentage -4.f,
+                                                 this->progressShape.getGlobalBounds().height));
+    } else{
+        this->progressShape.setSize(sf::Vector2f(this->barShape.getGlobalBounds().width * this->progressPercentage,
+                                                 this->progressShape.getGlobalBounds().height));
+    }
+
 }
 
 void gui::ProgressBar::render(sf::RenderTarget &target) {

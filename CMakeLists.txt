@@ -42,6 +42,10 @@ set(SOURCE_FILES
         Components/AnimationComponent.h
         Components/HitBoxComponent.cpp
         Components/HitBoxComponent.h
+        Resources/ResourcesHandler.cpp
+        Resources/ResourcesHandler.h
+        Resources/Resource.cpp
+        Resources/Resource.h
         )
 
 if (CMAKE_BUILD_TYPE STREQUAL "Release")

@@ -18,6 +18,8 @@ void Player::initAnimations() {
 
 //constructors/destructors
 Player::Player(float x, float y, float scale_x, float scale_y, sf::Texture& texture_sheet) {
+    this->gold = 0;
+
     this->scale.x = scale_x;
     this->scale.y = scale_y;
     this->sprite.setScale(this->scale);
@@ -30,7 +32,6 @@ Player::Player(float x, float y, float scale_x, float scale_y, sf::Texture& text
     this->setPosition(x, y);
 
     this->setPlayerStats(new Stats());
-
 }
 
 Player::Player(int gold, Inventory invent) {

@@ -4,9 +4,10 @@
 
 #include "State.h"
 
-State::State(sf::RenderWindow *window, std::stack<State*>* states) {
+State::State(sf::RenderWindow *window, std::stack<State*>* states, ResourcesHandler* rsHandler) {
     this->window = window;
     this->states = states;
+    this->rsHandler = rsHandler;
     this->quit = false;
     this->paused = false;
     this->keyTime = 0.f;
