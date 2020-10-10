@@ -10,16 +10,18 @@
 
 class Resource {
 private:
-    sf::Texture* texture;
+    sf::Image image;
     std::string resourcePath;
-    std::string usageDescription;
+    std::string key;
     std::string stateName;
 protected:
 
 public:
-    Resource(std::string resourcePath, std::string usageDescription,std::string stateName, sf::Texture* texture);
+    Resource(std::string resourcePath, std::string key,std::string stateName);
     virtual ~Resource();
 
+    std::string getKey();
+    const sf::Image getImage() const;
     std::string toString();
 };
 

@@ -5,19 +5,19 @@
 #include "GameState.h"
 
 void GameState::initTextures() {
+    if(!this->rsHandler->checkIfKeyExist("player sheet")){
+        this->rsHandler->addResouce(new Resource("../Resources/Images/Sprites/Player/player_sheet.png", "player sheet", "GameState"));
 
-    this->rsHandler->addResouce(new Resource("../Resources/Images/Sprites/Player/player_sheet.png", "player sheet", "GameState",
-            &this->textures["PLAYER_SHEET"]));
-
-    this->rsHandler->addResouce(new Resource("../Resources/Images/Sprites/Enemy/wizard_Idle.png", "wizard sheet", "GameState",
-                                             &this->textures["ENEMY_WIZARD_SHEET"]));
-
-  /*  if(!this->textures["PLAYER_SHEET"] .loadFromFile("../Resources/Images/Sprites/Player/player_sheet.png")){
-        throw("Errore gamestate could not load player texture");
     }
-    if(!this->textures["ENEMY_WIZARD_SHEET"] .loadFromFile("../Resources/Images/Sprites/Enemy/wizard_Idle.png")){
-        throw("Errore gamestate could not load player texture");
-    }*/
+
+    if(!this->rsHandler->checkIfKeyExist("wizard sheet")) {
+        this->rsHandler->addResouce(
+                new Resource("../Resources/Images/Sprites/Enemy/wizard_Idle.png", "wizard sheet", "GameState"));
+    }
+
+    this->textures["PLAYER_SHEET"].loadFromImage(this->rsHandler->getResouceByKey("player sheet")->getImage());
+    this->textures["ENEMY_WIZARD_SHEET"].loadFromImage(this->rsHandler->getResouceByKey("wizard sheet")->getImage());
+
 }
 
 void GameState::initPauseMenu() {

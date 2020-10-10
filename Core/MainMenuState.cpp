@@ -10,11 +10,9 @@ void MainMenuState::initVariables() {
                     static_cast<float>(this->window->getSize().x),
                     static_cast<float>(this->window->getSize().y)));
 
-    this->rsHandler->addResouce(new Resource("../Resources/Images/Backgrounds/mainMenuBG.png", "background", "MainMenuState",
-            &this->backgroundTexture));
- /*   if(!this->backgroundTexture.loadFromFile("../Resources/Images/Backgrounds/mainMenuBG.png")){
-        throw("Errore mainmenustate failed to load background texture");
-    }*/
+    this->rsHandler->addResouce(new Resource("../Resources/Images/Backgrounds/mainMenuBG.png", "mainmenu background", "MainMenuState"));
+
+    this->backgroundTexture.loadFromImage(this->rsHandler->getResouceByKey("mainmenu background")->getImage());
 
     this->background.setTexture(&this->backgroundTexture);
 }

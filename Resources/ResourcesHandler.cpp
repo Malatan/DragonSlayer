@@ -10,11 +10,32 @@ ResourcesHandler::ResourcesHandler() {
 }
 
 ResourcesHandler::~ResourcesHandler() {
+    for(auto i : this->resources){
+        delete i;
+    }
+}
 
+bool ResourcesHandler::checkIfKeyExist(std::string key) {
+    for(auto i : this->resources){
+        if(i->getKey().compare(key) == 0){
+            return true;
+        }
+    }
+    return false;
 }
 
 void ResourcesHandler::addResouce(Resource *rs) {
     this->resources.push_back(rs);
+}
+
+
+Resource *ResourcesHandler::getResouceByKey(std::string key) {
+    for(auto i : this->resources){
+        if(i->getKey().compare(key) == 0)
+            return i;
+    }
+
+    return nullptr;
 }
 
 std::string ResourcesHandler::toString() {
@@ -64,5 +85,8 @@ bool ResourcesHandler::loadPlayerStatsTxt(Stats* playerStats) {
 
     return false;
 }
+
+
+
 
 

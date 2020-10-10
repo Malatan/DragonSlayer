@@ -19,7 +19,9 @@ public:
     virtual ~ResourcesHandler();
 
 
+    bool checkIfKeyExist(std::string key);
     void addResouce(Resource* rs);
+    Resource* getResouceByKey(std::string key);
 
     bool loadPlayerStatsTxt(Stats* playerStats);
 
