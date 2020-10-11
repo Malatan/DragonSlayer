@@ -22,7 +22,7 @@ void MainMenuState::initBackground() {
 }
 
 void MainMenuState::initFonts() {
-    if(!this->font.loadFromFile("../Fonts/BreatheFire-65pg.ttf")){
+    if(!this->font.loadFromFile("../Resources/Fonts/BreatheFire-65pg.ttf")){
         throw("Errore: mainmenustate could not load font");
     }
 }

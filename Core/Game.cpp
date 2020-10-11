@@ -11,7 +11,7 @@ void Game::initVariables() {
 }
 
 void Game::initWindow() {
-    std::ifstream ifs("../Config/window.ini");
+    std::ifstream ifs("../Resources/Config/window.ini");
     this->videomodes = sf::VideoMode::getFullscreenModes();
 
     this->Title = "None";
@@ -50,6 +50,14 @@ void Game::initStates() {
 //Constructors/Destructors
 Game::Game() {
     this->isFocused = true;
+    this->unitTesting = false;
+    this->initWindow();
+    this->initStates();
+}
+
+Game::Game(bool unit_testing) {
+    this->isFocused = true;
+    this->unitTesting = unit_testing;
     this->initWindow();
     this->initStates();
 }
@@ -77,9 +85,19 @@ void Game::endApplication() {
 }
 
 void Game::updateSFMLEvents() {
-    while(this->window->pollEvent((this->sfEvent))){
-        if(this->sfEvent.type == sf::Event::Closed)
-            this->window->close();
+    while(this->window->pollEvent(this->sfEvent)){
+        switch (this->sfEvent.type)
+        {
+            case sf::Event::Closed:       //check for CLOSED event
+                this->window->close();
+                break;
+            case sf::Event::GainedFocus:
+                this->isFocused = true;
+                break;
+            case sf::Event::LostFocus:
+                this->isFocused = false;
+                break;
+        }
     }
 }
 
@@ -113,26 +131,24 @@ void Game::render() {
 }
 
 void Game::run() {
-    sf::Event event;
     while(this->window->isOpen()){
-        while(this->window->pollEvent(event)){
-            switch (event.type)
-            {
-                case sf::Event::Closed:       //check for CLOSED event
-                    this->window->close();
-                    break;
-                case sf::Event::GainedFocus:
-                    this->isFocused = true;
-                    break;
-                case sf::Event::LostFocus:
-                    this->isFocused = false;
-                    break;
-            }
-        }
-
         this->window->setTitle(this->Title+this->rtc->toString());
         this->updateDt();
         this->update();
         this->render();
     }
 }
+
+void Game::unitTestingRun() {
+    this->window->setVisible(false);
+    while(this->window->isOpen()){
+        this->updateDt();
+        this->update();
+    }
+}
+
+sf::RenderWindow *Game::getWindow(){
+    return this->window;
+}
+
+

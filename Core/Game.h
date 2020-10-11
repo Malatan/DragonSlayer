@@ -15,6 +15,7 @@ private:
     //Variables
     ResourcesHandler* rsHandler;
     sf::RenderWindow *window;
+private:
     sf::Event sfEvent;
     std::vector<sf::VideoMode> videomodes;
     sf::ContextSettings windowSettings;
@@ -22,6 +23,7 @@ private:
     sf::Clock dtClock;
     float dt; //delta time
     bool isFocused;
+    bool unitTesting;
     sf::Time gameRunTime;
     RunTimeClock* rtc;
 
@@ -36,7 +38,11 @@ private:
 public:
     //Constructors/Destructors
     Game();
+    Game(bool unit_testing);
     virtual ~Game();
+
+    //accessors
+    sf::RenderWindow *getWindow();
 
     //Functions
 
@@ -48,11 +54,13 @@ public:
     void updateSFMLEvents();
     void update();
 
+
     //render
     void render();
 
     //core
     void run();
+    void unitTestingRun();
 };
 
 

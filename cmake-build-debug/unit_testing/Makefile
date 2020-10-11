@@ -170,6 +170,600 @@ unit_testing_run/fast:
 	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/build
 .PHONY : unit_testing_run/fast
 
+Tests.obj: Tests.cpp.obj
+
+.PHONY : Tests.obj
+
+# target to build an object file
+Tests.cpp.obj:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/Tests.cpp.obj
+.PHONY : Tests.cpp.obj
+
+Tests.i: Tests.cpp.i
+
+.PHONY : Tests.i
+
+# target to preprocess a source file
+Tests.cpp.i:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/Tests.cpp.i
+.PHONY : Tests.cpp.i
+
+Tests.s: Tests.cpp.s
+
+.PHONY : Tests.s
+
+# target to generate assembly for a file
+Tests.cpp.s:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/Tests.cpp.s
+.PHONY : Tests.cpp.s
+
+__/Components/AnimationComponent.obj: __/Components/AnimationComponent.cpp.obj
+
+.PHONY : __/Components/AnimationComponent.obj
+
+# target to build an object file
+__/Components/AnimationComponent.cpp.obj:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/AnimationComponent.cpp.obj
+.PHONY : __/Components/AnimationComponent.cpp.obj
+
+__/Components/AnimationComponent.i: __/Components/AnimationComponent.cpp.i
+
+.PHONY : __/Components/AnimationComponent.i
+
+# target to preprocess a source file
+__/Components/AnimationComponent.cpp.i:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/AnimationComponent.cpp.i
+.PHONY : __/Components/AnimationComponent.cpp.i
+
+__/Components/AnimationComponent.s: __/Components/AnimationComponent.cpp.s
+
+.PHONY : __/Components/AnimationComponent.s
+
+# target to generate assembly for a file
+__/Components/AnimationComponent.cpp.s:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/AnimationComponent.cpp.s
+.PHONY : __/Components/AnimationComponent.cpp.s
+
+__/Components/HitBoxComponent.obj: __/Components/HitBoxComponent.cpp.obj
+
+.PHONY : __/Components/HitBoxComponent.obj
+
+# target to build an object file
+__/Components/HitBoxComponent.cpp.obj:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/HitBoxComponent.cpp.obj
+.PHONY : __/Components/HitBoxComponent.cpp.obj
+
+__/Components/HitBoxComponent.i: __/Components/HitBoxComponent.cpp.i
+
+.PHONY : __/Components/HitBoxComponent.i
+
+# target to preprocess a source file
+__/Components/HitBoxComponent.cpp.i:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/HitBoxComponent.cpp.i
+.PHONY : __/Components/HitBoxComponent.cpp.i
+
+__/Components/HitBoxComponent.s: __/Components/HitBoxComponent.cpp.s
+
+.PHONY : __/Components/HitBoxComponent.s
+
+# target to generate assembly for a file
+__/Components/HitBoxComponent.cpp.s:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/HitBoxComponent.cpp.s
+.PHONY : __/Components/HitBoxComponent.cpp.s
+
+__/Components/MovementComponent.obj: __/Components/MovementComponent.cpp.obj
+
+.PHONY : __/Components/MovementComponent.obj
+
+# target to build an object file
+__/Components/MovementComponent.cpp.obj:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/MovementComponent.cpp.obj
+.PHONY : __/Components/MovementComponent.cpp.obj
+
+__/Components/MovementComponent.i: __/Components/MovementComponent.cpp.i
+
+.PHONY : __/Components/MovementComponent.i
+
+# target to preprocess a source file
+__/Components/MovementComponent.cpp.i:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/MovementComponent.cpp.i
+.PHONY : __/Components/MovementComponent.cpp.i
+
+__/Components/MovementComponent.s: __/Components/MovementComponent.cpp.s
+
+.PHONY : __/Components/MovementComponent.s
+
+# target to generate assembly for a file
+__/Components/MovementComponent.cpp.s:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/MovementComponent.cpp.s
+.PHONY : __/Components/MovementComponent.cpp.s
+
+__/Core/Game.obj: __/Core/Game.cpp.obj
+
+.PHONY : __/Core/Game.obj
+
+# target to build an object file
+__/Core/Game.cpp.obj:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/Game.cpp.obj
+.PHONY : __/Core/Game.cpp.obj
+
+__/Core/Game.i: __/Core/Game.cpp.i
+
+.PHONY : __/Core/Game.i
+
+# target to preprocess a source file
+__/Core/Game.cpp.i:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/Game.cpp.i
+.PHONY : __/Core/Game.cpp.i
+
+__/Core/Game.s: __/Core/Game.cpp.s
+
+.PHONY : __/Core/Game.s
+
+# target to generate assembly for a file
+__/Core/Game.cpp.s:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/Game.cpp.s
+.PHONY : __/Core/Game.cpp.s
+
+__/Core/GameState.obj: __/Core/GameState.cpp.obj
+
+.PHONY : __/Core/GameState.obj
+
+# target to build an object file
+__/Core/GameState.cpp.obj:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/GameState.cpp.obj
+.PHONY : __/Core/GameState.cpp.obj
+
+__/Core/GameState.i: __/Core/GameState.cpp.i
+
+.PHONY : __/Core/GameState.i
+
+# target to preprocess a source file
+__/Core/GameState.cpp.i:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/GameState.cpp.i
+.PHONY : __/Core/GameState.cpp.i
+
+__/Core/GameState.s: __/Core/GameState.cpp.s
+
+.PHONY : __/Core/GameState.s
+
+# target to generate assembly for a file
+__/Core/GameState.cpp.s:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/GameState.cpp.s
+.PHONY : __/Core/GameState.cpp.s
+
+__/Core/MainMenuState.obj: __/Core/MainMenuState.cpp.obj
+
+.PHONY : __/Core/MainMenuState.obj
+
+# target to build an object file
+__/Core/MainMenuState.cpp.obj:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/MainMenuState.cpp.obj
+.PHONY : __/Core/MainMenuState.cpp.obj
+
+__/Core/MainMenuState.i: __/Core/MainMenuState.cpp.i
+
+.PHONY : __/Core/MainMenuState.i
+
+# target to preprocess a source file
+__/Core/MainMenuState.cpp.i:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/MainMenuState.cpp.i
+.PHONY : __/Core/MainMenuState.cpp.i
+
+__/Core/MainMenuState.s: __/Core/MainMenuState.cpp.s
+
+.PHONY : __/Core/MainMenuState.s
+
+# target to generate assembly for a file
+__/Core/MainMenuState.cpp.s:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/MainMenuState.cpp.s
+.PHONY : __/Core/MainMenuState.cpp.s
+
+__/Core/RunTimeClock.obj: __/Core/RunTimeClock.cpp.obj
+
+.PHONY : __/Core/RunTimeClock.obj
+
+# target to build an object file
+__/Core/RunTimeClock.cpp.obj:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/RunTimeClock.cpp.obj
+.PHONY : __/Core/RunTimeClock.cpp.obj
+
+__/Core/RunTimeClock.i: __/Core/RunTimeClock.cpp.i
+
+.PHONY : __/Core/RunTimeClock.i
+
+# target to preprocess a source file
+__/Core/RunTimeClock.cpp.i:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/RunTimeClock.cpp.i
+.PHONY : __/Core/RunTimeClock.cpp.i
+
+__/Core/RunTimeClock.s: __/Core/RunTimeClock.cpp.s
+
+.PHONY : __/Core/RunTimeClock.s
+
+# target to generate assembly for a file
+__/Core/RunTimeClock.cpp.s:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/RunTimeClock.cpp.s
+.PHONY : __/Core/RunTimeClock.cpp.s
+
+__/Core/State.obj: __/Core/State.cpp.obj
+
+.PHONY : __/Core/State.obj
+
+# target to build an object file
+__/Core/State.cpp.obj:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/State.cpp.obj
+.PHONY : __/Core/State.cpp.obj
+
+__/Core/State.i: __/Core/State.cpp.i
+
+.PHONY : __/Core/State.i
+
+# target to preprocess a source file
+__/Core/State.cpp.i:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/State.cpp.i
+.PHONY : __/Core/State.cpp.i
+
+__/Core/State.s: __/Core/State.cpp.s
+
+.PHONY : __/Core/State.s
+
+# target to generate assembly for a file
+__/Core/State.cpp.s:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/State.cpp.s
+.PHONY : __/Core/State.cpp.s
+
+__/Game/Buff.obj: __/Game/Buff.cpp.obj
+
+.PHONY : __/Game/Buff.obj
+
+# target to build an object file
+__/Game/Buff.cpp.obj:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Buff.cpp.obj
+.PHONY : __/Game/Buff.cpp.obj
+
+__/Game/Buff.i: __/Game/Buff.cpp.i
+
+.PHONY : __/Game/Buff.i
+
+# target to preprocess a source file
+__/Game/Buff.cpp.i:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Buff.cpp.i
+.PHONY : __/Game/Buff.cpp.i
+
+__/Game/Buff.s: __/Game/Buff.cpp.s
+
+.PHONY : __/Game/Buff.s
+
+# target to generate assembly for a file
+__/Game/Buff.cpp.s:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Buff.cpp.s
+.PHONY : __/Game/Buff.cpp.s
+
+__/Game/Enemy.obj: __/Game/Enemy.cpp.obj
+
+.PHONY : __/Game/Enemy.obj
+
+# target to build an object file
+__/Game/Enemy.cpp.obj:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Enemy.cpp.obj
+.PHONY : __/Game/Enemy.cpp.obj
+
+__/Game/Enemy.i: __/Game/Enemy.cpp.i
+
+.PHONY : __/Game/Enemy.i
+
+# target to preprocess a source file
+__/Game/Enemy.cpp.i:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Enemy.cpp.i
+.PHONY : __/Game/Enemy.cpp.i
+
+__/Game/Enemy.s: __/Game/Enemy.cpp.s
+
+.PHONY : __/Game/Enemy.s
+
+# target to generate assembly for a file
+__/Game/Enemy.cpp.s:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Enemy.cpp.s
+.PHONY : __/Game/Enemy.cpp.s
+
+__/Game/Entity.obj: __/Game/Entity.cpp.obj
+
+.PHONY : __/Game/Entity.obj
+
+# target to build an object file
+__/Game/Entity.cpp.obj:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Entity.cpp.obj
+.PHONY : __/Game/Entity.cpp.obj
+
+__/Game/Entity.i: __/Game/Entity.cpp.i
+
+.PHONY : __/Game/Entity.i
+
+# target to preprocess a source file
+__/Game/Entity.cpp.i:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Entity.cpp.i
+.PHONY : __/Game/Entity.cpp.i
+
+__/Game/Entity.s: __/Game/Entity.cpp.s
+
+.PHONY : __/Game/Entity.s
+
+# target to generate assembly for a file
+__/Game/Entity.cpp.s:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Entity.cpp.s
+.PHONY : __/Game/Entity.cpp.s
+
+__/Game/Inventory.obj: __/Game/Inventory.cpp.obj
+
+.PHONY : __/Game/Inventory.obj
+
+# target to build an object file
+__/Game/Inventory.cpp.obj:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Inventory.cpp.obj
+.PHONY : __/Game/Inventory.cpp.obj
+
+__/Game/Inventory.i: __/Game/Inventory.cpp.i
+
+.PHONY : __/Game/Inventory.i
+
+# target to preprocess a source file
+__/Game/Inventory.cpp.i:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Inventory.cpp.i
+.PHONY : __/Game/Inventory.cpp.i
+
+__/Game/Inventory.s: __/Game/Inventory.cpp.s
+
+.PHONY : __/Game/Inventory.s
+
+# target to generate assembly for a file
+__/Game/Inventory.cpp.s:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Inventory.cpp.s
+.PHONY : __/Game/Inventory.cpp.s
+
+__/Game/Item.obj: __/Game/Item.cpp.obj
+
+.PHONY : __/Game/Item.obj
+
+# target to build an object file
+__/Game/Item.cpp.obj:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Item.cpp.obj
+.PHONY : __/Game/Item.cpp.obj
+
+__/Game/Item.i: __/Game/Item.cpp.i
+
+.PHONY : __/Game/Item.i
+
+# target to preprocess a source file
+__/Game/Item.cpp.i:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Item.cpp.i
+.PHONY : __/Game/Item.cpp.i
+
+__/Game/Item.s: __/Game/Item.cpp.s
+
+.PHONY : __/Game/Item.s
+
+# target to generate assembly for a file
+__/Game/Item.cpp.s:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Item.cpp.s
+.PHONY : __/Game/Item.cpp.s
+
+__/Game/Player.obj: __/Game/Player.cpp.obj
+
+.PHONY : __/Game/Player.obj
+
+# target to build an object file
+__/Game/Player.cpp.obj:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Player.cpp.obj
+.PHONY : __/Game/Player.cpp.obj
+
+__/Game/Player.i: __/Game/Player.cpp.i
+
+.PHONY : __/Game/Player.i
+
+# target to preprocess a source file
+__/Game/Player.cpp.i:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Player.cpp.i
+.PHONY : __/Game/Player.cpp.i
+
+__/Game/Player.s: __/Game/Player.cpp.s
+
+.PHONY : __/Game/Player.s
+
+# target to generate assembly for a file
+__/Game/Player.cpp.s:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Player.cpp.s
+.PHONY : __/Game/Player.cpp.s
+
+__/Game/Spell.obj: __/Game/Spell.cpp.obj
+
+.PHONY : __/Game/Spell.obj
+
+# target to build an object file
+__/Game/Spell.cpp.obj:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Spell.cpp.obj
+.PHONY : __/Game/Spell.cpp.obj
+
+__/Game/Spell.i: __/Game/Spell.cpp.i
+
+.PHONY : __/Game/Spell.i
+
+# target to preprocess a source file
+__/Game/Spell.cpp.i:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Spell.cpp.i
+.PHONY : __/Game/Spell.cpp.i
+
+__/Game/Spell.s: __/Game/Spell.cpp.s
+
+.PHONY : __/Game/Spell.s
+
+# target to generate assembly for a file
+__/Game/Spell.cpp.s:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Spell.cpp.s
+.PHONY : __/Game/Spell.cpp.s
+
+__/Game/Stats.obj: __/Game/Stats.cpp.obj
+
+.PHONY : __/Game/Stats.obj
+
+# target to build an object file
+__/Game/Stats.cpp.obj:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Stats.cpp.obj
+.PHONY : __/Game/Stats.cpp.obj
+
+__/Game/Stats.i: __/Game/Stats.cpp.i
+
+.PHONY : __/Game/Stats.i
+
+# target to preprocess a source file
+__/Game/Stats.cpp.i:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Stats.cpp.i
+.PHONY : __/Game/Stats.cpp.i
+
+__/Game/Stats.s: __/Game/Stats.cpp.s
+
+.PHONY : __/Game/Stats.s
+
+# target to generate assembly for a file
+__/Game/Stats.cpp.s:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Stats.cpp.s
+.PHONY : __/Game/Stats.cpp.s
+
+__/Gui/CharacterTab.obj: __/Gui/CharacterTab.cpp.obj
+
+.PHONY : __/Gui/CharacterTab.obj
+
+# target to build an object file
+__/Gui/CharacterTab.cpp.obj:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/CharacterTab.cpp.obj
+.PHONY : __/Gui/CharacterTab.cpp.obj
+
+__/Gui/CharacterTab.i: __/Gui/CharacterTab.cpp.i
+
+.PHONY : __/Gui/CharacterTab.i
+
+# target to preprocess a source file
+__/Gui/CharacterTab.cpp.i:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/CharacterTab.cpp.i
+.PHONY : __/Gui/CharacterTab.cpp.i
+
+__/Gui/CharacterTab.s: __/Gui/CharacterTab.cpp.s
+
+.PHONY : __/Gui/CharacterTab.s
+
+# target to generate assembly for a file
+__/Gui/CharacterTab.cpp.s:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/CharacterTab.cpp.s
+.PHONY : __/Gui/CharacterTab.cpp.s
+
+__/Gui/Gui.obj: __/Gui/Gui.cpp.obj
+
+.PHONY : __/Gui/Gui.obj
+
+# target to build an object file
+__/Gui/Gui.cpp.obj:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/Gui.cpp.obj
+.PHONY : __/Gui/Gui.cpp.obj
+
+__/Gui/Gui.i: __/Gui/Gui.cpp.i
+
+.PHONY : __/Gui/Gui.i
+
+# target to preprocess a source file
+__/Gui/Gui.cpp.i:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/Gui.cpp.i
+.PHONY : __/Gui/Gui.cpp.i
+
+__/Gui/Gui.s: __/Gui/Gui.cpp.s
+
+.PHONY : __/Gui/Gui.s
+
+# target to generate assembly for a file
+__/Gui/Gui.cpp.s:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/Gui.cpp.s
+.PHONY : __/Gui/Gui.cpp.s
+
+__/Gui/PauseMenu.obj: __/Gui/PauseMenu.cpp.obj
+
+.PHONY : __/Gui/PauseMenu.obj
+
+# target to build an object file
+__/Gui/PauseMenu.cpp.obj:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/PauseMenu.cpp.obj
+.PHONY : __/Gui/PauseMenu.cpp.obj
+
+__/Gui/PauseMenu.i: __/Gui/PauseMenu.cpp.i
+
+.PHONY : __/Gui/PauseMenu.i
+
+# target to preprocess a source file
+__/Gui/PauseMenu.cpp.i:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/PauseMenu.cpp.i
+.PHONY : __/Gui/PauseMenu.cpp.i
+
+__/Gui/PauseMenu.s: __/Gui/PauseMenu.cpp.s
+
+.PHONY : __/Gui/PauseMenu.s
+
+# target to generate assembly for a file
+__/Gui/PauseMenu.cpp.s:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/PauseMenu.cpp.s
+.PHONY : __/Gui/PauseMenu.cpp.s
+
+__/Resources/Resource.obj: __/Resources/Resource.cpp.obj
+
+.PHONY : __/Resources/Resource.obj
+
+# target to build an object file
+__/Resources/Resource.cpp.obj:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/Resource.cpp.obj
+.PHONY : __/Resources/Resource.cpp.obj
+
+__/Resources/Resource.i: __/Resources/Resource.cpp.i
+
+.PHONY : __/Resources/Resource.i
+
+# target to preprocess a source file
+__/Resources/Resource.cpp.i:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/Resource.cpp.i
+.PHONY : __/Resources/Resource.cpp.i
+
+__/Resources/Resource.s: __/Resources/Resource.cpp.s
+
+.PHONY : __/Resources/Resource.s
+
+# target to generate assembly for a file
+__/Resources/Resource.cpp.s:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/Resource.cpp.s
+.PHONY : __/Resources/Resource.cpp.s
+
+__/Resources/ResourcesHandler.obj: __/Resources/ResourcesHandler.cpp.obj
+
+.PHONY : __/Resources/ResourcesHandler.obj
+
+# target to build an object file
+__/Resources/ResourcesHandler.cpp.obj:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/ResourcesHandler.cpp.obj
+.PHONY : __/Resources/ResourcesHandler.cpp.obj
+
+__/Resources/ResourcesHandler.i: __/Resources/ResourcesHandler.cpp.i
+
+.PHONY : __/Resources/ResourcesHandler.i
+
+# target to preprocess a source file
+__/Resources/ResourcesHandler.cpp.i:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/ResourcesHandler.cpp.i
+.PHONY : __/Resources/ResourcesHandler.cpp.i
+
+__/Resources/ResourcesHandler.s: __/Resources/ResourcesHandler.cpp.s
+
+.PHONY : __/Resources/ResourcesHandler.s
+
+# target to generate assembly for a file
+__/Resources/ResourcesHandler.cpp.s:
+	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/ResourcesHandler.cpp.s
+.PHONY : __/Resources/ResourcesHandler.cpp.s
+
 mainTest.obj: mainTest.cpp.obj
 
 .PHONY : mainTest.obj
@@ -197,33 +791,6 @@ mainTest.cpp.s:
 	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/mainTest.cpp.s
 .PHONY : mainTest.cpp.s
 
-test.obj: test.cpp.obj
-
-.PHONY : test.obj
-
-# target to build an object file
-test.cpp.obj:
-	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/test.cpp.obj
-.PHONY : test.cpp.obj
-
-test.i: test.cpp.i
-
-.PHONY : test.i
-
-# target to preprocess a source file
-test.cpp.i:
-	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/test.cpp.i
-.PHONY : test.cpp.i
-
-test.s: test.cpp.s
-
-.PHONY : test.s
-
-# target to generate assembly for a file
-test.cpp.s:
-	cd /d F:\DragonSlayer\cmake-build-debug && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/test.cpp.s
-.PHONY : test.cpp.s
-
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -237,12 +804,75 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... install/strip
+	@echo ... Tests.obj
+	@echo ... Tests.i
+	@echo ... Tests.s
+	@echo ... __/Components/AnimationComponent.obj
+	@echo ... __/Components/AnimationComponent.i
+	@echo ... __/Components/AnimationComponent.s
+	@echo ... __/Components/HitBoxComponent.obj
+	@echo ... __/Components/HitBoxComponent.i
+	@echo ... __/Components/HitBoxComponent.s
+	@echo ... __/Components/MovementComponent.obj
+	@echo ... __/Components/MovementComponent.i
+	@echo ... __/Components/MovementComponent.s
+	@echo ... __/Core/Game.obj
+	@echo ... __/Core/Game.i
+	@echo ... __/Core/Game.s
+	@echo ... __/Core/GameState.obj
+	@echo ... __/Core/GameState.i
+	@echo ... __/Core/GameState.s
+	@echo ... __/Core/MainMenuState.obj
+	@echo ... __/Core/MainMenuState.i
+	@echo ... __/Core/MainMenuState.s
+	@echo ... __/Core/RunTimeClock.obj
+	@echo ... __/Core/RunTimeClock.i
+	@echo ... __/Core/RunTimeClock.s
+	@echo ... __/Core/State.obj
+	@echo ... __/Core/State.i
+	@echo ... __/Core/State.s
+	@echo ... __/Game/Buff.obj
+	@echo ... __/Game/Buff.i
+	@echo ... __/Game/Buff.s
+	@echo ... __/Game/Enemy.obj
+	@echo ... __/Game/Enemy.i
+	@echo ... __/Game/Enemy.s
+	@echo ... __/Game/Entity.obj
+	@echo ... __/Game/Entity.i
+	@echo ... __/Game/Entity.s
+	@echo ... __/Game/Inventory.obj
+	@echo ... __/Game/Inventory.i
+	@echo ... __/Game/Inventory.s
+	@echo ... __/Game/Item.obj
+	@echo ... __/Game/Item.i
+	@echo ... __/Game/Item.s
+	@echo ... __/Game/Player.obj
+	@echo ... __/Game/Player.i
+	@echo ... __/Game/Player.s
+	@echo ... __/Game/Spell.obj
+	@echo ... __/Game/Spell.i
+	@echo ... __/Game/Spell.s
+	@echo ... __/Game/Stats.obj
+	@echo ... __/Game/Stats.i
+	@echo ... __/Game/Stats.s
+	@echo ... __/Gui/CharacterTab.obj
+	@echo ... __/Gui/CharacterTab.i
+	@echo ... __/Gui/CharacterTab.s
+	@echo ... __/Gui/Gui.obj
+	@echo ... __/Gui/Gui.i
+	@echo ... __/Gui/Gui.s
+	@echo ... __/Gui/PauseMenu.obj
+	@echo ... __/Gui/PauseMenu.i
+	@echo ... __/Gui/PauseMenu.s
+	@echo ... __/Resources/Resource.obj
+	@echo ... __/Resources/Resource.i
+	@echo ... __/Resources/Resource.s
+	@echo ... __/Resources/ResourcesHandler.obj
+	@echo ... __/Resources/ResourcesHandler.i
+	@echo ... __/Resources/ResourcesHandler.s
 	@echo ... mainTest.obj
 	@echo ... mainTest.i
 	@echo ... mainTest.s
-	@echo ... test.obj
-	@echo ... test.i
-	@echo ... test.s
 .PHONY : help
 
 

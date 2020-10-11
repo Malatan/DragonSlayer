@@ -55,7 +55,7 @@ else ()
 endif ()
 
 #SFML CONFIG
-set(SFML_ROOT "../SFML_2.5.1")
+set(SFML_ROOT "SFML_2.5.1")
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
 find_package(SFML REQUIRED COMPONENTS audio graphics window system)
 target_link_libraries(${PROJECT_NAME} sfml-system sfml-window sfml-graphics sfml-audio sfml-network)
