@@ -688,10 +688,6 @@ F:/DragonSlayer/Components/MovementComponent.h
 SFML/Graphics.hpp
 -
 
-F:/DragonSlayer/Core/GameState.cpp
-GameState.h
-F:/DragonSlayer/Core/GameState.h
-
 F:/DragonSlayer/Core/GameState.h
 State.h
 F:/DragonSlayer/Core/State.h
@@ -811,6 +807,10 @@ iostream
 F:/DragonSlayer/Game/iostream
 fstream
 F:/DragonSlayer/Game/fstream
+
+F:/DragonSlayer/Gui/CharacterTab.cpp
+CharacterTab.h
+F:/DragonSlayer/Gui/CharacterTab.h
 
 F:/DragonSlayer/Gui/CharacterTab.h
 Gui.h

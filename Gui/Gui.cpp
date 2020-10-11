@@ -235,15 +235,16 @@ void gui::ProgressBar::render(sf::RenderTarget &target) {
  *
  */
 
-gui::ItemSlot::ItemSlot(float x, float y, float width, float height,sf::Window* window, sf::Font *font)
+gui::ItemSlot::ItemSlot(float x, float y, float width, float height, int id, sf::Window* window, sf::Font *font)
     : window(window), font(font){
     this->renderItemInfoContainer = false;
+    this->id = id;
 
     this->shape.setPosition(sf::Vector2f(x,y));
     this->shape.setSize(sf::Vector2f(width, height));
-    this->shape.setFillColor(sf::Color::Green);
-    this->shape.setOutlineThickness(1.f);
-    this->shape.setOutlineColor(sf::Color::Blue);
+
+    this->cover.setPosition(sf::Vector2f(x,y));
+    this->cover.setSize(sf::Vector2f(width, height));
 
     this->itemInfoContainer.setSize(sf::Vector2f(width*2, height*2));
     this->itemInfoContainer.setFillColor(sf::Color::Magenta);
@@ -262,6 +263,19 @@ gui::ItemSlot::~ItemSlot() {
 
 }
 
+void gui::ItemSlot::setSlotTexture(const sf::Texture *texture) {
+    this->shape.setTexture(texture);
+}
+
+void gui::ItemSlot::setSlotTexture(const sf::Image image, sf::IntRect intRect) {
+    this->texture.loadFromImage(image, intRect);
+    this->shape.setTexture(&this->texture);
+}
+
+void gui::ItemSlot::setText(std::string text) {
+    this->itemName.setString(text);
+}
+
 void gui::ItemSlot::itemInfo(const sf::Vector2f &mousePos) {
 
 }
@@ -270,14 +284,14 @@ void gui::ItemSlot::updateItemInfoPos(const sf::Vector2f &mousePos) {
     this->itemInfoContainer.setPosition(mousePos);
 }
 
-void gui::ItemSlot::update(const sf::Vector2f &mousePos) {
-
+void gui::ItemSlot::update(const sf::Vector2f &mousePos, int *updateSlot) {
 
     //hover
     if(this->shape.getGlobalBounds().contains(mousePos)){
         this->slotState = SLOT_HOVER;
         this->renderItemInfoContainer = true;
         this->updateItemInfoPos(mousePos);
+        *updateSlot = this->id;
         this->window->setMouseCursorVisible(false);
         //pressed
         if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
@@ -289,37 +303,42 @@ void gui::ItemSlot::update(const sf::Vector2f &mousePos) {
         this->slotState = SLOT_IDLE;
         this->renderItemInfoContainer = false;
         this->window->setMouseCursorVisible(true);
+        *updateSlot = 6;
     }
 
     //cambia colore in base allo stato del bottone
     switch(this->slotState){
         case SLOT_IDLE:
-            this->shape.setFillColor(sf::Color::Green);
-            this->shape.setOutlineColor(sf::Color::Blue);
+            this->cover.setFillColor(sf::Color::Transparent);
             break;
         case SLOT_HOVER:
-            this->shape.setFillColor(sf::Color::Blue);
-            this->shape.setOutlineColor(sf::Color::Green);
+            this->cover.setFillColor(sf::Color(212, 212, 212,70));
             break;
         case SLOT_ACTIVE:
-            this->shape.setFillColor(sf::Color::Transparent);
-            this->shape.setOutlineColor(sf::Color::Yellow);
+            this->cover.setFillColor(sf::Color(112, 112, 112, 210));
             break;
         default: //caso errato
-            this->shape.setFillColor(sf::Color::Red);
-            this->shape.setFillColor(sf::Color::Blue);
-            this->shape.setOutlineColor(sf::Color::Green);
+            this->cover.setFillColor(sf::Color::Red);
+            this->cover.setOutlineColor(sf::Color::Green);
             break;
     }
 }
 
 void gui::ItemSlot::render(sf::RenderTarget &target) {
     target.draw(this->shape);
+    target.draw(this->cover);
+
     if(this->renderItemInfoContainer){
         target.draw(this->itemInfoContainer);
     }
    // target.draw(this->itemName);
 }
+
+
+
+
+
+
 
 
 

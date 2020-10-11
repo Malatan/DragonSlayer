@@ -43,6 +43,7 @@ void GameState::initPlayers() {
 
 void GameState::initCharacterTab(Player* player) {
     this->cTab = new CharacterTab(*this->window, this->font, player, this);
+    this->initEquipSlotsTextures();
 }
 
 void GameState::initHintsTab() {
@@ -56,6 +57,28 @@ void GameState::initHintsTab() {
                                 " Press T in the character Tab to gain exp\n");
 
     this->hints.setPosition(5.f, this->window->getSize().y - this->hints.getGlobalBounds().height + 20.f);
+}
+
+void GameState::initEquipSlotsTextures(){
+    if(!this->rsHandler->checkIfKeyExist("EquipSlotsSheet")){
+        this->rsHandler->addResouce(new Resource("../Resources/Images/equipslot_sheet.png", "EquipSlotsSheet", "GameState"));
+
+    }
+    sf::Image image = this->rsHandler->getResouceByKey("EquipSlotsSheet")->getImage();
+    sf::Texture* texture;
+
+    //weapon
+    this->cTab->getEquipSlots()[5]->setSlotTexture(image, sf::IntRect(0, 0, 67, 67));
+    //shield
+    this->cTab->getEquipSlots()[2]->setSlotTexture(image, sf::IntRect(67, 0, 67, 67));
+    //head
+    this->cTab->getEquipSlots()[4]->setSlotTexture(image, sf::IntRect(134, 0, 67, 67));
+    //chest
+    this->cTab->getEquipSlots()[1]->setSlotTexture(image, sf::IntRect(201, 0, 67, 67));
+    //arms
+    this->cTab->getEquipSlots()[3]->setSlotTexture(image, sf::IntRect(268, 0, 67, 67));
+    //legs
+    this->cTab->getEquipSlots()[0]->setSlotTexture(image, sf::IntRect(335, 0, 67, 67));
 }
 
 //constructors/destructors
@@ -97,6 +120,8 @@ void GameState::updateInput(const float &dt) {
             this->changeStato(2);
         } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::T) && this->getKeyTime()) {
             this->player->getPlayerStats()->addExp(100);
+        } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::B) && this->getKeyTime()){
+            std::cout << this->rsHandler->toString();
         }
     }
 }

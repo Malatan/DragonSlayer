@@ -89,9 +89,6 @@ void Game::update() {
     if(!this->states.empty()){
 
         this->states.top()->update(this->dt);
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::B) && this->states.top()->getKeyTime()){
-            std::cout << this->rsHandler->toString();
-        }
         if(this->states.top()->getQuit()){
             this->states.top()->endState();
             delete this->states.top();

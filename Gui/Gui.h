@@ -118,10 +118,13 @@ namespace gui{
     private:
         short unsigned slotState;
         bool renderItemInfoContainer;
+        int id;
 
         sf::Window* window;
         sf::RectangleShape shape;
+        sf::RectangleShape cover;
         sf::Font* font;
+        sf::Texture texture;
         sf::Text itemName;
 
         sf::RectangleShape itemInfoContainer;
@@ -132,21 +135,43 @@ namespace gui{
 
     public:
         //constructors/destructors
-        ItemSlot(float x, float y, float width, float height, sf::Window* window, sf::Font* font);
+        ItemSlot(float x, float y, float width, float height, int id, sf::Window* window, sf::Font* font);
         virtual ~ItemSlot();
 
 
         //accessors
 
+
         //modifiers
+        void setSlotTexture(const sf::Texture *texture);
+        void setSlotTexture(const sf::Image image, sf::IntRect intRect);
+        void setText(std::string text);
 
         //functions
         void itemInfo(const sf::Vector2f& mousePos);
         void updateItemInfoPos(const sf::Vector2f& mousePos);
-        void update(const sf::Vector2f& mousePos);
+        void update(const sf::Vector2f &mousePos, int *updateSlot);
         void render(sf::RenderTarget& target);
     };
 
+    class EquipSlots{
+    private:
+        ItemSlot head;
+        ItemSlot chest;
+        ItemSlot arms;
+        ItemSlot legs;
+        ItemSlot weapon;
+        ItemSlot shield;
+    protected:
+
+    public:
+
+        EquipSlots();
+        virtual  ~EquipSlots();
+
+        void update(const sf::Vector2f& mousePos, int* updateSlot);
+        void render(sf::RenderTarget& target);
+    };
 }
 
 

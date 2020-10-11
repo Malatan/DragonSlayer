@@ -100,8 +100,7 @@ void CharacterTab::initStatsContainer() {
 
 void CharacterTab::initEquipContainer(sf::RenderWindow& window) {
     this->equipContainer.setFillColor(sf::Color(70, 70, 70, 100));
-    this->equipContainer.setSize(sf::Vector2f(this->container.getGlobalBounds().width - this->statsContainer.getGlobalBounds().width - 50.f,
-            150.f));
+    this->equipContainer.setSize(sf::Vector2f(190.f, this->statsContainer.getGlobalBounds().height));
     this->equipContainer.setPosition(this->statsContainer.getPosition().x + this->statsContainer.getGlobalBounds().width + 10.f,
                                      this->container.getPosition().y + 60.f);
 
@@ -113,26 +112,46 @@ void CharacterTab::initEquipContainer(sf::RenderWindow& window) {
                                           - this->equipContainerTitle.getGlobalBounds().width/2.f,
                                           this->equipContainer.getPosition().y);
 
- /*   for(int i = 0 ; i < 6 ; i++){
-        this->equipSlots.push_back(new gui::ItemSlot(this->equipContainer.getPosition().x + 5.f,
-                this->equipContainer
+    this->equipBonusLbl.setString("Equip Effects:\n"
+                                  "Damage +20\n"
+                                  "Armor +15");
+    this->equipBonusLbl.setFont(*this->font);
+    this->equipBonusLbl.setCharacterSize(20);
+    this->equipBonusLbl.setPosition(this->equipContainer.getPosition().x + 10.f,
+                                    this->equipContainer.getPosition().y + 320.f);
 
-                ));
-    }
+    float posX = 15.f;
+    float posY = 40.f;
+    float slotSize = 70.f;
 
-    this->item = new gui::ItemSlot(this->inventoryContainer.getPosition().x+this->inventoryContainer.getGlobalBounds().width/2.f,
-                                   this->inventoryContainer.getPosition().y+this->inventoryContainer.getGlobalBounds().height/2.f,
-                                   50.f,50.f, &window,
-                                   this->font);
-*/
+    this->equipSlots[5] = new gui::ItemSlot(this->equipContainer.getPosition().x + posX,
+                                                  this->equipContainer.getPosition().y + posY, slotSize, slotSize, 5, &window, this->font
+    );
+    this->equipSlots[4] = new gui::ItemSlot(this->equipContainer.getPosition().x + posX + 90.f,
+                                                  this->equipContainer.getPosition().y + posY, slotSize, slotSize, 4, &window, this->font
+    );
+    this->equipSlots[3] = new gui::ItemSlot(this->equipContainer.getPosition().x + posX,
+                                                  this->equipContainer.getPosition().y + posY + 90.f, slotSize, slotSize, 3, &window, this->font
+    );
+    this->equipSlots[2] = new gui::ItemSlot(this->equipContainer.getPosition().x + posX + 90.f,
+                                                  this->equipContainer.getPosition().y + posY + 90.f, slotSize, slotSize, 2, &window, this->font
+    );
+    this->equipSlots[1] = new gui::ItemSlot(this->equipContainer.getPosition().x + posX,
+                                                  this->equipContainer.getPosition().y + posY + 180.f, slotSize, slotSize, 1, &window, this->font
+    );
+    this->equipSlots[0] = new gui::ItemSlot(this->equipContainer.getPosition().x + posX + 90.f,
+                                                  this->equipContainer.getPosition().y + posY + 180.f, slotSize, slotSize, 0, &window, this->font
+    );
+
 }
 
 void CharacterTab::initInventoryContainer() {
     this->inventoryContainer.setFillColor(sf::Color(90, 90, 90, 100));
-    this->inventoryContainer.setSize(sf::Vector2f(this->equipContainer.getGlobalBounds().width,
-                                                  this->statsContainer.getGlobalBounds().height - this->equipContainer.getGlobalBounds().height - 10.f));
-    this->inventoryContainer.setPosition(this->statsContainer.getPosition().x + this->statsContainer.getGlobalBounds().width + 10.f,
-                                         this->equipContainer.getPosition().y + this->equipContainer.getGlobalBounds().height + 10.f);
+    this->inventoryContainer.setSize(sf::Vector2f(this->container.getGlobalBounds().width - 60.f
+    -this->statsContainer.getGlobalBounds().width -this->equipContainer.getGlobalBounds().width
+            , this->statsContainer.getGlobalBounds().height));
+    this->inventoryContainer.setPosition(this->equipContainer.getPosition().x + this->equipContainer.getGlobalBounds().width + 10.f,
+            this->equipContainer.getPosition().y );
 
     this->invContainerTitle.setString("-Inventory-");
     this->invContainerTitle.setFillColor(sf::Color(255, 255, 255, 200));
@@ -151,7 +170,8 @@ CharacterTab::CharacterTab(sf::RenderWindow& window, sf::Font* font, Player* pla
             static_cast<float>(window.getSize().x),
             static_cast<float>(window.getSize().y)));
     this->backgorund.setFillColor(sf::Color(20, 20, 20, 100));
-
+    this->updateSlot = (int *) malloc(sizeof(int));
+    *this->updateSlot = 6;
     //initi container
     this->container.setSize(sf::Vector2f(
             static_cast<float>(window.getSize().x / 1.1f),
@@ -207,9 +227,6 @@ CharacterTab::CharacterTab(sf::RenderWindow& window, sf::Font* font, Player* pla
     this->initStatsContainer();
     this->initEquipContainer(window);
     this->initInventoryContainer();
-    this->item = new gui::ItemSlot(this->inventoryContainer.getPosition().x+this->inventoryContainer.getGlobalBounds().width/2.f,
-            this->inventoryContainer.getPosition().y+this->inventoryContainer.getGlobalBounds().height/2.f,50.f,50.f, &window,
-            this->font);
 
 }
 
@@ -220,12 +237,15 @@ CharacterTab::~CharacterTab() {
     delete this->hpBar;
     delete this->mpBar;
     delete this->expBar;
-    delete this->item;
-    for(auto i : *this->equipSlots)
+    for(auto i : this->equipSlots)
         delete i;
 }
 
 //accessor
+
+gui::ItemSlot** CharacterTab::getEquipSlots() {
+    return this->equipSlots;
+}
 
 
 //functions
@@ -269,12 +289,26 @@ void CharacterTab::statsContainerRender(sf::RenderTarget &target) {
 }
 
 void CharacterTab::equipContainerUpdate(const sf::Vector2f &mousePos) {
+    int counter = 0;
+    for(auto i : this->equipSlots){
+        if(*this->updateSlot != 6){
+            this->equipSlots[*this->updateSlot]->update(mousePos, this->updateSlot);
+        }
+        else{
+            i->update(mousePos, this->updateSlot);
+        }
 
+        counter++;
+    }
 }
 
 void CharacterTab::equipContainerRender(sf::RenderTarget &target) {
     target.draw(this->equipContainer);
     target.draw(this->equipContainerTitle);
+    target.draw(this->equipBonusLbl);
+    for(auto i : this->equipSlots){
+        i->render(target);
+    }
 }
 
 void CharacterTab::invContainerUpdate(const sf::Vector2f &mousePos) {
@@ -314,21 +348,18 @@ void CharacterTab::updateButtons() {
 
 void CharacterTab::update(const sf::Vector2f& mousePos) {
     this->statsContainerUpdate(mousePos);
+    this->equipContainerUpdate(mousePos);
+
     this->updateButtons();
-    this->item->update(mousePos);
     this->hpBar->update(this->player->getPlayerStats()->getHp(), this->player->getPlayerStats()->getMaxHp());
     this->mpBar->update(this->player->getPlayerStats()->getMp(), this->player->getPlayerStats()->getMaxMp());
     this->expBar->update(this->player->getPlayerStats()->getExp(), this->player->getPlayerStats()->getMaxExp());
-
-
 }
 
 void CharacterTab::render(sf::RenderTarget &target) {
     target.draw(this->backgorund);
     target.draw(this->container);
     target.draw(this->tabText);
-
-    this->item->render(target);
 
     target.draw(this->hpBarLbl);
     this->hpBar->render(target);
@@ -337,11 +368,13 @@ void CharacterTab::render(sf::RenderTarget &target) {
     target.draw(this->expBarLbl);
     this->expBar->render(target);
 
-
     this->statsContainerRender(target);
     this->equipContainerRender(target);
     this->invContainerRender(target);
 }
+
+
+
 
 
 

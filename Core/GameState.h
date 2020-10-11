@@ -31,6 +31,7 @@ private:
     void initPlayers();
     void initCharacterTab(Player* player);
     void initHintsTab();
+    void initEquipSlotsTextures();
 
 public:
     GameState(sf::RenderWindow* window, std::stack<State*>* states, ResourcesHandler* rsHandler, sf::Font *font, bool* isFocused);
