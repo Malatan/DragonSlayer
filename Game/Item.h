@@ -22,8 +22,8 @@ protected:
     Buff buffs[10];
     int value;
     string rarity;
-    string iconFileName;
-
+    int iconRectX;
+    int iconRectY;
     //Weapon attributes
     int damage;
 
@@ -37,7 +37,7 @@ public:
 
     //CONSTRUCTOR & DESTRUCTOR
 
-    Item(string itemType, string name, string description, int value, string rarity, string icon);
+  //  Item(string itemType, string name, string description, int value, string rarity, string icon);
     Item();
     virtual ~Item();
 
@@ -70,15 +70,18 @@ public:
     void setRarity(string rarity);
     string getRarity();
 
-    void setIconFileName(string icon);
-    string getIconFileName();
+    void setIconRectX(int x);
+    int getIconRectX();
 
+    void setIconRectY(int y);
+    int getIconRectY();
+
+    std::string getItemUsageType();
     //OTHER METHODS
 
     bool addBuff(Buff in);
     Buff getBuffbyIndex(int i);
     string listItem();
-
 };
 
 

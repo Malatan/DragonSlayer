@@ -27,6 +27,10 @@ int Inventory::getItemsSize() {
     return this->items.size();
 }
 
+Item *Inventory::getItem(int n) {
+    return this->items.at(n);
+}
+
 void Inventory::sortByItemType() {
     sort(this->items.begin(),this->items.end(),
             [](const Item* lhs , const Item* rhs)
@@ -66,7 +70,7 @@ bool Inventory::exportInventory() {
                 file<<Inventory::items[i].getDescription() + " ";
                 file<<to_string(Inventory::items[i].getValue()) + " ";
                 file<<Inventory::items[i].getRarity() + " ";
-                file<< Inventory::items[i].getIconFileName() + " ";
+                file<< Inventory::items[i].getIconRect() + " ";
 
                 if(Inventory::items[i].getItemType() == "W"){
                     file<<to_string(Inventory::items[i].getDamage()) + " ";
@@ -92,6 +96,8 @@ bool Inventory::exportInventory() {
     }*/
     return true;
 }
+
+
 
 
 

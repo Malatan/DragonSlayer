@@ -5,20 +5,6 @@
 #include "Item.h"
 #include "Buff.h"
 
-Item::Item(string itemType, string name, string description, int value, string rarity, string icon) {
-    Item::itemType = itemType;
-    Item::name = name;
-    Item::description = description;
-    Item::value = value;
-    Item::rarity = rarity;
-    Item::iconFileName = icon;
-
-    for (int i=0; i<10; i++)
-    {
-        Item::buffs[i] = Buff();
-    }
-
-}
 
 Item::Item(){
 
@@ -48,7 +34,8 @@ string Item::listItem() {
         << " armor: " << this->armor
         << " damage: " << this->damage
         << " quantity: " << this->quantity
-        << " iconfilename: " << this->iconFileName;
+        << " iconRect: " << this->iconRectX
+        << " - " << this->iconRectY;
 
     return ss.str();
 }
@@ -106,12 +93,20 @@ void Item::setRarity(string rarity) {
     Item::rarity = rarity;
 }
 
-string Item::getIconFileName() {
-    return this->iconFileName;
+int Item::getIconRectX() {
+    return this->iconRectX;
 }
 
-void Item::setIconFileName(string icon) {
-    this->iconFileName = icon;
+void Item::setIconRectX(int x) {
+    this->iconRectX = x;
+}
+
+int Item::getIconRectY() {
+    return this->iconRectY;
+}
+
+void Item::setIconRectY(int y) {
+    this->iconRectY = y;
 }
 
 int Item::getDamage() {
@@ -133,4 +128,24 @@ void Item::setArmor(int armor) {
 Buff Item::getBuffbyIndex(int i) {
 
     return Item::buffs[i];
+}
+
+std::string Item::getItemUsageType() {
+    std::string app = this->itemType.substr(2);
+    if(app == "head"){
+        app = "Helmet";
+    } else if(app == "chest"){
+        app = "Chest";
+    } else if(app == "arms"){
+        app = "Gloves";
+    } else if(app == "legs"){
+        app = "Boots";
+    } else if(app == "sword" || app == "axe"){
+        app = "Melee";
+    } else if(app == "bow"){
+        app = "Ranged";
+    } else if(app == "potion"){
+        app = "Comsumable";
+    }
+    return app;
 }

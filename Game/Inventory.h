@@ -31,6 +31,8 @@ public:
     int getCurrentSpace();
 
     int getItemsSize();
+    Item* getItem(int n);
+
 
     bool addItem(Item* item);
     bool exportInventory();

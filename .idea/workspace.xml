@@ -20,34 +20,26 @@
     <list default="true" id="5e176dfb-d06b-4a3a-ae60-4825526ebf88" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/GameState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/GameState.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/MainMenuState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/MainMenuState.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/MainMenuState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/MainMenuState.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/GameState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/GameState.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/Inventory.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Inventory.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Buff.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Buff.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/Inventory.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Inventory.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/Inventory.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Inventory.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/Item.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Item.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/Item.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Item.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/Player.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Player.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Player.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Player.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Gui/CharacterTab.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/CharacterTab.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Gui/CharacterTab.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/CharacterTab.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Gui/Gui.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/Gui.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Gui/Gui.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/Gui.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Resources/ResourcesHandler.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/ResourcesHandler.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Resources/ResourcesHandler.h" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/ResourcesHandler.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/CXX.includecache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/Core/GameState.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/Core/GameState.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/Gui/CharacterTab.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/Gui/CharacterTab.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/Gui/Gui.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/Gui/Gui.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/Resources/ResourcesHandler.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/Resources/ResourcesHandler.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/Gui/PauseMenu.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/Gui/PauseMenu.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/depend.internal" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/depend.internal" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/depend.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/main.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/main.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/objects.a" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/DragonSlayer.dir/objects.a" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/DragonSlayer.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/DragonSlayer.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unit_testing/Tests.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/unit_testing/Tests.cpp" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -167,7 +159,8 @@
       <workItem from="1602330466254" duration="30103000" />
       <workItem from="1602372267606" duration="5183000" />
       <workItem from="1602419683098" duration="10030000" />
-      <workItem from="1602437439902" duration="28064000" />
+      <workItem from="1602437439902" duration="28213000" />
+      <workItem from="1602497637312" duration="10435000" />
     </task>
     <servers />
   </component>
@@ -191,7 +184,7 @@
     <watches-manager>
       <configuration name="CMakeRunConfiguration">
         <watch expression="this-&gt;inventorySlots[0]-&gt;shape.sf::Shape" />
-        <watch expression="this" />
+        <watch expression="texture-&gt;m_size" />
       </configuration>
     </watches-manager>
   </component>

@@ -235,10 +235,9 @@ void gui::ProgressBar::render(sf::RenderTarget &target) {
  *
  */
 
-gui::ItemSlot::ItemSlot(float x, float y, float width, float height, int id, sf::Window* window, sf::Font *font)
-    : window(window), font(font){
+gui::ItemSlot::ItemSlot(float x, float y, float width, float height, int id, sf::Window* window, sf::Font *font, Item* item)
+    : window(window), font(font), item(item), id(id){
     this->renderItemInfoContainer = false;
-    this->id = id;
     this->shape.setPosition(sf::Vector2f(x,y));
     this->shape.setSize(sf::Vector2f(width, height));
 
@@ -246,7 +245,10 @@ gui::ItemSlot::ItemSlot(float x, float y, float width, float height, int id, sf:
     this->cover.setSize(sf::Vector2f(width, height));
 
     this->itemInfoContainer.setSize(sf::Vector2f(width*2, height*2));
-    this->itemInfoContainer.setFillColor(sf::Color::Magenta);
+    this->itemInfoContainer.setFillColor(sf::Color(71, 71, 71));
+
+    this->itemInfoLbl.setFont(*this->font);
+    this->itemInfoLbl.setCharacterSize(20.f);
 
     this->itemName.setFont(*this->font);
     this->itemName.setString("item");
@@ -266,13 +268,35 @@ int gui::ItemSlot::getId() {
     return this->id;
 }
 
-void gui::ItemSlot::setSlotTexture(const sf::Texture *texture) {
-    this->shape.setTexture(texture);
+void gui::ItemSlot::setSlotTexture(const sf::Texture *texture, float size) {
+    if(this->item != nullptr){
+        this->shape.setTexture(texture);
+        this->shape.setTextureRect(sf::IntRect(
+                this->item->getIconRectX() * size,
+                this->item->getIconRectY() * size,
+                size, size));
+        this->shape.setOutlineThickness(1.f);
+        if(this->item->getRarity() == "Uncommon"){
+            this->shape.setOutlineColor(sf::Color::White);
+        } else if(this->item->getRarity() == "Common"){
+            this->shape.setOutlineColor(sf::Color::Green);
+        } else if(this->item->getRarity() == "Rare"){
+            this->shape.setOutlineColor(sf::Color::Blue);
+        } else if(this->item->getRarity() == "Epic"){
+            this->shape.setOutlineColor(sf::Color::Magenta);
+        } else if(this->item->getRarity() == "Legendary"){
+            this->shape.setOutlineColor(sf::Color(255,127,80));
+        }
+        this->updateItemInfo();
+        this->itemInfoContainer.setSize(sf::Vector2f(this->itemInfoLbl.getGlobalBounds().width + 10.f,
+                                                     this->itemInfoLbl.getGlobalBounds().height + 15.f));
+    }
+
 }
 
-void gui::ItemSlot::setSlotTexture(const sf::Image image, sf::IntRect intRect) {
-    this->texture.loadFromImage(image, intRect);
-    this->shape.setTexture(&this->texture);
+void gui::ItemSlot::setSlotTexture(sf::Texture* texture, sf::IntRect intRect) {
+    this->shape.setTexture(texture);
+    this->shape.setTextureRect(intRect);
 }
 
 void gui::ItemSlot::setText(std::string text) {
@@ -283,8 +307,29 @@ void gui::ItemSlot::itemInfo(const sf::Vector2f &mousePos) {
 
 }
 
+void gui::ItemSlot::updateItemInfo() {
+    std::stringstream ss;
+    ss << this->item->getName()
+        << "\nType: " << this->item->getItemUsageType()
+        << "\n" << this->item->getRarity();
+    if(this->item->getDamage() !=0){
+        ss << "\n+" << this->item->getDamage() << " dmg";
+    }
+    if(this->item->getArmor() !=0){
+        ss << "\n+" << this->item->getArmor() << " armor";
+    }
+    ss << "\n   '" << this->item->getDescription() << "'";
+    ss << "\nValue: " << this->item->getValue();
+
+    this->itemInfoLbl.setString(ss.str());
+}
+
+
+
 void gui::ItemSlot::updateItemInfoPos(const sf::Vector2f &mousePos) {
     this->itemInfoContainer.setPosition(mousePos);
+    this->itemInfoLbl.setPosition(this->itemInfoContainer.getPosition().x + 5.f,
+                                  this->itemInfoContainer.getPosition().y);
 }
 
 void gui::ItemSlot::update(const sf::Vector2f &mousePos, int *updateSlot) {
@@ -333,9 +378,12 @@ void gui::ItemSlot::render(sf::RenderTarget &target) {
 
     if(this->renderItemInfoContainer){
         target.draw(this->itemInfoContainer);
+        target.draw(this->itemInfoLbl);
     }
    // target.draw(this->itemName);
 }
+
+
 
 
 

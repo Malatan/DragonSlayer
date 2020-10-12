@@ -1042,6 +1042,8 @@ CMakeFiles/DragonSlayer.dir/Gui/Gui.cpp.obj: ../SFML_2.5.1/include/SFML/Window/V
 CMakeFiles/DragonSlayer.dir/Gui/Gui.cpp.obj: ../SFML_2.5.1/include/SFML/Window/Window.hpp
 CMakeFiles/DragonSlayer.dir/Gui/Gui.cpp.obj: ../SFML_2.5.1/include/SFML/Window/WindowHandle.hpp
 CMakeFiles/DragonSlayer.dir/Gui/Gui.cpp.obj: ../SFML_2.5.1/include/SFML/Window/WindowStyle.hpp
+CMakeFiles/DragonSlayer.dir/Gui/Gui.cpp.obj: ../Game/Buff.h
+CMakeFiles/DragonSlayer.dir/Gui/Gui.cpp.obj: ../Game/Item.h
 CMakeFiles/DragonSlayer.dir/Gui/Gui.cpp.obj: ../Gui/Gui.cpp
 CMakeFiles/DragonSlayer.dir/Gui/Gui.cpp.obj: ../Gui/Gui.h
 
@@ -1119,6 +1121,8 @@ CMakeFiles/DragonSlayer.dir/Gui/PauseMenu.cpp.obj: ../SFML_2.5.1/include/SFML/Wi
 CMakeFiles/DragonSlayer.dir/Gui/PauseMenu.cpp.obj: ../SFML_2.5.1/include/SFML/Window/Window.hpp
 CMakeFiles/DragonSlayer.dir/Gui/PauseMenu.cpp.obj: ../SFML_2.5.1/include/SFML/Window/WindowHandle.hpp
 CMakeFiles/DragonSlayer.dir/Gui/PauseMenu.cpp.obj: ../SFML_2.5.1/include/SFML/Window/WindowStyle.hpp
+CMakeFiles/DragonSlayer.dir/Gui/PauseMenu.cpp.obj: ../Game/Buff.h
+CMakeFiles/DragonSlayer.dir/Gui/PauseMenu.cpp.obj: ../Game/Item.h
 CMakeFiles/DragonSlayer.dir/Gui/PauseMenu.cpp.obj: ../Gui/Gui.h
 CMakeFiles/DragonSlayer.dir/Gui/PauseMenu.cpp.obj: ../Gui/PauseMenu.cpp
 CMakeFiles/DragonSlayer.dir/Gui/PauseMenu.cpp.obj: ../Gui/PauseMenu.h

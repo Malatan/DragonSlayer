@@ -5,19 +5,31 @@
 #include "GameState.h"
 
 void GameState::initTextures() {
-    if(!this->rsHandler->checkIfKeyExist("player sheet")){
-        this->rsHandler->addResouce(new Resource("../Resources/Images/Sprites/Player/player_sheet.png", "player sheet", "GameState"));
-
-    }
-
-    if(!this->rsHandler->checkIfKeyExist("wizard sheet")) {
+    if(!this->rsHandler->checkIfKeyExist("player_sheet")){
         this->rsHandler->addResouce(
-                new Resource("../Resources/Images/Sprites/Enemy/wizard_Idle.png", "wizard sheet", "GameState"));
+                new Resource("../Resources/Images/Sprites/Player/player_sheet.png", "player_sheet", "GameState"));
+
     }
 
-    this->textures["PLAYER_SHEET"].loadFromImage(this->rsHandler->getResouceByKey("player sheet")->getImage());
-    this->textures["ENEMY_WIZARD_SHEET"].loadFromImage(this->rsHandler->getResouceByKey("wizard sheet")->getImage());
+    if(!this->rsHandler->checkIfKeyExist("wizard_sheet")) {
+        this->rsHandler->addResouce(
+                new Resource("../Resources/Images/Sprites/Enemy/wizard_Idle.png", "wizard_sheet", "GameState"));
+    }
 
+    if(!this->rsHandler->checkIfKeyExist("EquipSlotsSheet")){
+        this->rsHandler->addResouce(
+                new Resource("../Resources/Images/equipslot_sheet.png", "EquipSlotsSheet", "GameState"));
+    }
+
+    if(!this->rsHandler->checkIfKeyExist("items_sheet")) {
+        this->rsHandler->addResouce(
+                new Resource("../Resources/Images/items_sheet.png", "items_sheet", "GameState"));
+    }
+
+    this->textures["PLAYER_SHEET"].loadFromImage(this->rsHandler->getResouceByKey("player_sheet")->getImage());
+    this->textures["ENEMY_WIZARD_SHEET"].loadFromImage(this->rsHandler->getResouceByKey("wizard_sheet")->getImage());
+    this->textures["ITEMS_SHEET"].loadFromImage(this->rsHandler->getResouceByKey("items_sheet")->getImage());
+    this->textures["EquipSlotsSheet"].loadFromImage(this->rsHandler->getResouceByKey("EquipSlotsSheet")->getImage());
 }
 
 void GameState::initPauseMenu() {
@@ -47,6 +59,7 @@ void GameState::initPlayers() {
 void GameState::initCharacterTab(Player* player) {
     this->cTab = new CharacterTab(*this->window, this->font, player, this);
     this->initEquipSlotsTextures();
+    this->initInventoryItemTextures();
 }
 
 void GameState::initHintsTab() {
@@ -63,25 +76,31 @@ void GameState::initHintsTab() {
 }
 
 void GameState::initEquipSlotsTextures(){
-    if(!this->rsHandler->checkIfKeyExist("EquipSlotsSheet")){
-        this->rsHandler->addResouce(new Resource("../Resources/Images/equipslot_sheet.png", "EquipSlotsSheet", "GameState"));
-
-    }
-    sf::Image image = this->rsHandler->getResouceByKey("EquipSlotsSheet")->getImage();
-    sf::Texture* texture;
-
     //weapon
-    this->cTab->getEquipSlots()[5]->setSlotTexture(image, sf::IntRect(0, 0, 67, 67));
+    this->cTab->getEquipSlots()[5]->setSlotTexture(&this->textures["EquipSlotsSheet"],
+            sf::IntRect(0, 0, 67, 67));
     //shield
-    this->cTab->getEquipSlots()[4]->setSlotTexture(image, sf::IntRect(67, 0, 67, 67));
+    this->cTab->getEquipSlots()[4]->setSlotTexture(&this->textures["EquipSlotsSheet"],
+            sf::IntRect(67, 0, 67, 67));
     //head
-    this->cTab->getEquipSlots()[3]->setSlotTexture(image, sf::IntRect(134, 0, 67, 67));
+    this->cTab->getEquipSlots()[3]->setSlotTexture(&this->textures["EquipSlotsSheet"],
+            sf::IntRect(134, 0, 67, 67));
     //chest
-    this->cTab->getEquipSlots()[2]->setSlotTexture(image, sf::IntRect(201, 0, 67, 67));
+    this->cTab->getEquipSlots()[2]->setSlotTexture(&this->textures["EquipSlotsSheet"],
+            sf::IntRect(201, 0, 67, 67));
     //arms
-    this->cTab->getEquipSlots()[1]->setSlotTexture(image, sf::IntRect(268, 0, 67, 67));
+    this->cTab->getEquipSlots()[1]->setSlotTexture(&this->textures["EquipSlotsSheet"],
+            sf::IntRect(268, 0, 67, 67));
     //legs
-    this->cTab->getEquipSlots()[0]->setSlotTexture(image, sf::IntRect(335, 0, 67, 67));
+    this->cTab->getEquipSlots()[0]->setSlotTexture(&this->textures["EquipSlotsSheet"],
+            sf::IntRect(335, 0, 67, 67));
+}
+
+void GameState::initInventoryItemTextures(){
+
+    for(auto i : this->cTab->getInventorySlots()){
+        i->setSlotTexture(&this->textures["ITEMS_SHEET"], 34.f);
+    }
 }
 
 //constructors/destructors

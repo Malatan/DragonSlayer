@@ -6,7 +6,7 @@
 #define DRAGONSLAYER_GUI_H
 
 #include <SFML/Graphics.hpp>
-
+#include "../Game/Item.h"
 
 enum button_states{
     BTN_IDLE = 0,
@@ -120,6 +120,7 @@ namespace gui{
         bool renderItemInfoContainer;
         int id;
 
+        Item* item;
         sf::Window* window;
         sf::RectangleShape shape;
         sf::RectangleShape cover;
@@ -128,14 +129,14 @@ namespace gui{
         sf::Text itemName;
 
         sf::RectangleShape itemInfoContainer;
-
+        sf::Text itemInfoLbl;
 
     protected:
 
 
     public:
         //constructors/destructors
-        ItemSlot(float x, float y, float width, float height, int id, sf::Window* window, sf::Font* font);
+        ItemSlot(float x, float y, float width, float height, int id, sf::Window* window, sf::Font* font, Item* item);
         virtual ~ItemSlot();
 
 
@@ -143,12 +144,13 @@ namespace gui{
         int getId();
 
         //modifiers
-        void setSlotTexture(const sf::Texture *texture);
-        void setSlotTexture(const sf::Image image, sf::IntRect intRect);
+        void setSlotTexture(const sf::Texture *texture, float size);
+        void setSlotTexture(sf::Texture* texture, sf::IntRect intRect);
         void setText(std::string text);
 
         //functions
         void itemInfo(const sf::Vector2f& mousePos);
+        void updateItemInfo();
         void updateItemInfoPos(const sf::Vector2f& mousePos);
         void update(const sf::Vector2f &mousePos, int *updateSlot);
         void render(sf::RenderTarget& target);

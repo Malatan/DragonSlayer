@@ -1,13 +1,15 @@
-E-head Helm anhelmet 50 Rare hlm.jpg 7
-C-potion HealthPotion healthpotion 5 Common hpot.png 18
-W-sword Sword asword 100 Epic swd.png 43
-E-chest Chest chestarmor 124 Leggendary cgs.jpg 22
-E-arms Arms armsarmor 43 Uncommon arm.jpg 6
-C-potion DmgUP dmgincrease 23 Uncommon dmgup.png 2
-C-potion ManaPotion manapotion 5 Common mpot.png 5
-W-bow Bow abow 204 Leggendary bow.png 88
-E-legs Legs somepants 87 Rare keg.jpg 15
-W-axe Axe anaxe 69 Rare aze.png 39
-E-shield Shied astoneshield 103 Epic sjf.jpg 18
-E-chest Chest chestarmor 124 Leggendary cgs.jpg 22
-E-legs Legs somepants 87 Rare keg.jpg 15
+E-head Helm anhelmet 50 Rare 7 11 13 
+C-potion HealthPotion(S) healthpotion 5 Common 18 0 3
+W-sword Sword asword 100 Epic 43 4 5
+E-chest Chest chestarmor 124 Legendary 22 3 13
+E-arms Arms armsarmor 43 Uncommon 6 2 7
+C-potion DmgUP dmgincrease 23 Uncommon 2 1 3
+C-potion ManaPotion manapotion 5 Common 5 3 3
+C-potion HealthPotion(M) healthpotion 5 Common 18 7 2
+C-potion HealthPotion(L) healthpotion 5 Common 18 7 3
+W-bow Bow abow 204 Legendary 88 6 11
+E-legs Legs somepants 87 Rare 15 2 14
+W-axe Axe anaxe 69 Rare 39 6 10
+E-shield Shied astoneshield 103 Epic 18 3 12
+E-chest Chest chestarmor 124 Legendary 22 4 13
+E-legs Legs somepants 87 Rare 15 3 14

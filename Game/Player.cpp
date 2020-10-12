@@ -293,7 +293,7 @@ bool Player::exportSpells() {
 }
 
 bool Player::exportEquipment() {
-
+/*
     ofstream file;
     file.open("Equipment.txt");
 
@@ -305,7 +305,7 @@ bool Player::exportEquipment() {
         file<<Player::weapon.getDescription() + " ";
         file<<to_string(Player::weapon.getValue()) + " ";
         file<<Player::weapon.getRarity() + " ";
-        file<< Player::weapon.getIconFileName() + " ";
+        file<< Player::weapon.getIconRect() + " ";
         file<<to_string(Player::weapon.getDamage()) + " ";
 //        file<<Player::weapon.getWeaponType() + " ";
 //        file<<to_string(Player::weapon.getDurability()) + " \n";
@@ -315,7 +315,7 @@ bool Player::exportEquipment() {
         file<<Player::shield.getDescription() + " ";
         file<<to_string(Player::shield.getValue()) + " ";
         file<<Player::shield.getRarity() + " ";
-        file<< Player::shield.getIconFileName() + " ";
+        file<< Player::shield.getIconRect() + " ";
         file<<to_string(Player::shield.getArmor()) + " ";
 //        file<<Player::shield.getArmorType() + " \n";
 
@@ -324,7 +324,7 @@ bool Player::exportEquipment() {
         file<<Player::head.getDescription() + " ";
         file<<to_string(Player::head.getValue()) + " ";
         file<<Player::head.getRarity() + " ";
-        file<< Player::head.getIconFileName() + " ";
+        file<< Player::head.getIconRect() + " ";
         file<<to_string(Player::head.getArmor()) + " ";
  //      file<<Player::head.getArmorType() + " \n";
 
@@ -333,7 +333,7 @@ bool Player::exportEquipment() {
         file<<Player::chest.getDescription() + " ";
         file<<to_string(Player::chest.getValue()) + " ";
         file<<Player::chest.getRarity() + " ";
-        file<< Player::chest.getIconFileName() + " ";
+        file<< Player::chest.getIconRect() + " ";
         file<<to_string(Player::chest.getArmor()) + " ";
   //      file<<Player::chest.getArmorType() + " \n";
 
@@ -342,7 +342,7 @@ bool Player::exportEquipment() {
         file<<Player::arms.getDescription() + " ";
         file<<to_string(Player::arms.getValue()) + " ";
         file<<Player::arms.getRarity() + " ";
-        file<< Player::arms.getIconFileName() + " ";
+        file<< Player::arms.getIconRect() + " ";
         file<<to_string(Player::arms.getArmor()) + " ";
   //      file<<Player::arms.getArmorType() + " \n";
 
@@ -351,14 +351,14 @@ bool Player::exportEquipment() {
         file<<Player::legs.getDescription() + " ";
         file<<to_string(Player::legs.getValue()) + " ";
         file<<Player::legs.getRarity() + " ";
-        file<< Player::legs.getIconFileName() + " ";
+        file<< Player::legs.getIconRect() + " ";
         file<<to_string(Player::legs.getArmor()) + " ";
   //      file<<Player::legs.getArmorType() + " \n";
 
         file.close();
         return true;
     }
-
+*/
 }
 
 void Player::importEquipment() {

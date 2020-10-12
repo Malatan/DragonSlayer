@@ -15,8 +15,7 @@ private:
     sf::Font* font;
     Player* player;
     State* state;
-    int* updateEquipSlot;
-    int* updateInvSlot;
+    int* updateSlot;
 
     //container
     sf::RectangleShape backgorund;
@@ -46,6 +45,9 @@ private:
     gui::ItemSlot* equipSlots[6];
     std::vector<gui::ItemSlot*> inventorySlots;
 
+
+private:
+
     //inventory container
     sf::RectangleShape inventoryContainer;
     sf::Text invContainerTitle;
@@ -64,6 +66,7 @@ public:
 
     //accessor
     gui::ItemSlot** getEquipSlots();
+    const vector<gui::ItemSlot *> &getInventorySlots() const;
 
     //functions
     std::string playerStatsToString();

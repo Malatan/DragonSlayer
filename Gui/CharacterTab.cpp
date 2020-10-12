@@ -126,27 +126,27 @@ void CharacterTab::initEquipContainer(sf::RenderWindow& window) {
 
     this->equipSlots[5] = new gui::ItemSlot(
             this->equipContainer.getPosition().x + posX,
-            this->equipContainer.getPosition().y + posY, slotSize, slotSize, 5, &window, this->font
+            this->equipContainer.getPosition().y + posY, slotSize, slotSize, 5, &window, this->font, nullptr
     );
     this->equipSlots[4] = new gui::ItemSlot(
             this->equipContainer.getPosition().x + posX + 90.f,
-            this->equipContainer.getPosition().y + posY, slotSize, slotSize, 4, &window, this->font
+            this->equipContainer.getPosition().y + posY, slotSize, slotSize, 4, &window, this->font, nullptr
     );
     this->equipSlots[3] = new gui::ItemSlot(
             this->equipContainer.getPosition().x + posX,
-            this->equipContainer.getPosition().y + posY + 90.f, slotSize, slotSize, 3, &window, this->font
+            this->equipContainer.getPosition().y + posY + 90.f, slotSize, slotSize, 3, &window, this->font, nullptr
     );
     this->equipSlots[2] = new gui::ItemSlot(
             this->equipContainer.getPosition().x + posX + 90.f,
-            this->equipContainer.getPosition().y + posY + 90.f, slotSize, slotSize, 2, &window, this->font
+            this->equipContainer.getPosition().y + posY + 90.f, slotSize, slotSize, 2, &window, this->font, nullptr
     );
     this->equipSlots[1] = new gui::ItemSlot(
             this->equipContainer.getPosition().x + posX,
-            this->equipContainer.getPosition().y + posY + 180.f, slotSize, slotSize, 1, &window, this->font
+            this->equipContainer.getPosition().y + posY + 180.f, slotSize, slotSize, 1, &window, this->font, nullptr
     );
     this->equipSlots[0] = new gui::ItemSlot(
             this->equipContainer.getPosition().x + posX + 90.f,
-            this->equipContainer.getPosition().y + posY + 180.f, slotSize, slotSize, 0, &window, this->font
+            this->equipContainer.getPosition().y + posY + 180.f, slotSize, slotSize, 0, &window, this->font, nullptr
     );
 
 
@@ -180,7 +180,7 @@ void CharacterTab::initInventoryContainer(sf::RenderWindow& window) {
         this->inventorySlots.push_back(new gui::ItemSlot(
                 this->inventoryContainer.getPosition().x + 36.f + (modifierX * (i % max_per_row)),
                 this->inventoryContainer.getPosition().y + 70.f + (modifierY * yMultiplier) ,
-                60.f, 60.f, 6+i, &window, this->font
+                60.f, 60.f, 6+i, &window, this->font, this->player->getInventory()->getItem(i)
         ));
     }
 }
@@ -193,10 +193,8 @@ CharacterTab::CharacterTab(sf::RenderWindow& window, sf::Font* font, Player* pla
             static_cast<float>(window.getSize().x),
             static_cast<float>(window.getSize().y)));
     this->backgorund.setFillColor(sf::Color(20, 20, 20, 100));
-    this->updateEquipSlot = (int *) malloc(sizeof(int));
-    this->updateInvSlot = (int *) malloc(sizeof(int));
-    *this->updateEquipSlot = 100;
-    *this->updateInvSlot = 100;
+    this->updateSlot = (int *) malloc(sizeof(int));
+    *this->updateSlot = 100;
 
 
     //initi container
@@ -320,12 +318,12 @@ void CharacterTab::statsContainerRender(sf::RenderTarget &target) {
 void CharacterTab::equipContainerUpdate(const sf::Vector2f &mousePos) {
 
     for(auto i : this->equipSlots){
-        if(*this->updateEquipSlot < 6 || *this->updateEquipSlot == 100){
-            if(*this->updateEquipSlot != 100) {
-                this->equipSlots[*this->updateEquipSlot]->update(mousePos, this->updateEquipSlot);
+        if(*this->updateSlot < 6 || *this->updateSlot == 100){
+            if(*this->updateSlot != 100) {
+                this->equipSlots[*this->updateSlot]->update(mousePos, this->updateSlot);
             }
-            else if(*this->updateEquipSlot){
-                i->update(mousePos, this->updateEquipSlot);
+            else if(*this->updateSlot){
+                i->update(mousePos, this->updateSlot);
             }
         }
     }
@@ -342,12 +340,12 @@ void CharacterTab::equipContainerRender(sf::RenderTarget &target) {
 
 void CharacterTab::invContainerUpdate(const sf::Vector2f &mousePos) {
     for(auto i : this->inventorySlots){
-        if(*this->updateEquipSlot > 5){
-            if(*this->updateEquipSlot != 100 && *this->updateEquipSlot > 5) {
-                this->inventorySlots[(*this->updateEquipSlot-6)]->update(mousePos, this->updateEquipSlot);
+        if(*this->updateSlot > 5){
+            if(*this->updateSlot != 100 && *this->updateSlot > 5) {
+                this->inventorySlots[(*this->updateSlot - 6)]->update(mousePos, this->updateSlot);
             }
             else{
-                i->update(mousePos, this->updateEquipSlot);
+                i->update(mousePos, this->updateSlot);
             }
         }
     }
@@ -417,6 +415,10 @@ void CharacterTab::render(sf::RenderTarget &target) {
     this->invContainerRender(target);
     this->equipContainerRender(target);
 
+}
+
+const vector<gui::ItemSlot *> &CharacterTab::getInventorySlots() const {
+    return this->inventorySlots;
 }
 
 
