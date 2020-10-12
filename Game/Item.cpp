@@ -5,11 +5,60 @@
 #include "Item.h"
 #include "Buff.h"
 
+Item::Item(string itemType, string name, string description, int value, string rarity, string icon) {
+    Item::itemType = itemType;
+    Item::name = name;
+    Item::description = description;
+    Item::value = value;
+    Item::rarity = rarity;
+    Item::iconFileName = icon;
+
+    for (int i=0; i<10; i++)
+    {
+        Item::buffs[i] = Buff();
+    }
+
+}
+
+Item::Item(){
+
+};
+
+Item::~Item() {
+
+}
+
+bool Item::addBuff(Buff in) {
+    for(int i=0; i<10; i++){
+        if(Item::buffs[i].getName() == ""){
+            Item::buffs[i] = in;
+            return true;
+        }
+    }
+    return false;
+}
+
+string Item::listItem() {
+    stringstream ss;
+    ss << "Itemtype: " << this->itemType
+        << " name: " << this->name
+        << " desc: " << this->description
+        << " value: " << this->value
+        << " rarity: " << this->rarity
+        << " armor: " << this->armor
+        << " damage: " << this->damage
+        << " quantity: " << this->quantity
+        << " iconfilename: " << this->iconFileName;
+
+    return ss.str();
+}
+
+
 void Item::setItemType(string itemType) {
     Item::itemType = itemType;
 }
 
-string Item::getItemType() {
+string Item::getItemType() const {
     return Item::itemType;
 }
 
@@ -57,12 +106,12 @@ void Item::setRarity(string rarity) {
     Item::rarity = rarity;
 }
 
-string Item::getIcon() {
-    return Item::icon;
+string Item::getIconFileName() {
+    return this->iconFileName;
 }
 
-void Item::setIcon(string icon) {
-    Item::icon = icon;
+void Item::setIconFileName(string icon) {
+    this->iconFileName = icon;
 }
 
 int Item::getDamage() {
@@ -73,22 +122,6 @@ void Item::setDamage(int damage) {
     Item::damage = damage;
 }
 
-string Item::getWeaponType()  {
-    return Item::weaponType;
-}
-
-void Item::setWeaponType(string weaponType) {
-    Item::weaponType = weaponType;
-}
-
-int Item::getDurability()  {
-    return Item::durability;
-}
-
-void Item::setDurability(int durability) {
-    Item::durability = durability;
-}
-
 int Item::getArmor() {
     return Item::armor;
 }
@@ -97,72 +130,7 @@ void Item::setArmor(int armor) {
     Item::armor = armor;
 }
 
-string Item::getArmorType()  {
-    return Item::armorType;
-}
-
-void Item::setArmorType(string armorType) {
-    Item::armorType = armorType;
-}
-
 Buff Item::getBuffbyIndex(int i) {
 
     return Item::buffs[i];
 }
-
-bool Item::addBuff(Buff in) {
-    for(int i=0; i<10; i++){
-        if(Item::buffs[i].getName() == ""){
-            Item::buffs[i] = in;
-            return true;
-        }
-    }
-    return false;
-}
-
-string Item::listItem() {
-    string desc = "";
-    desc+= Item::name + "\n"
-            + " - " + Item::description + "\n"
-            + " - " + Item::rarity + "\n"
-            + " - " + to_string(Item::value) + " gold";
-
-    if(Item::itemType == "W"){
-        desc+=  "\n - " + to_string(Item::damage) + " dmg\n" +
-                " - " + to_string(Item::durability) + " uses";
-    }
-
-    if(Item::itemType == "E"){
-        desc+=  "\n - " + to_string(Item::armor) + " armor";
-    }
-    return desc;
-}
-
-
-Item::Item(string itemType, string name, string description, int value, string rarity, string icon) {
-    Item::itemType = itemType;
-    Item::name = name;
-    Item::description = description;
-    Item::value = value;
-    Item::rarity = rarity;
-    Item::icon = icon;
-
-    for (int i=0; i<10; i++)
-    {
-        Item::buffs[i] = Buff();
-    }
-
-}
-
-Item::Item(){
-
-    for (int i=0; i<10; i++)
-    {
-        Item::buffs[i] = Buff();
-    }
-};
-
-Item::~Item() {
-
-}
-

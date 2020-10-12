@@ -6,6 +6,7 @@
 #define DRAGON_SLAYER_ITEM_H
 #include <string>
 #include <iostream>
+#include <sstream>
 #include "Buff.h"
 
 using namespace std;
@@ -21,16 +22,13 @@ protected:
     Buff buffs[10];
     int value;
     string rarity;
-    string icon;
+    string iconFileName;
 
     //Weapon attributes
     int damage;
-    string weaponType;
-    int durability;
 
     //Armature attributes
     int armor;
-    string armorType;
 
     //Consumable attributes
     int quantity;
@@ -48,41 +46,38 @@ public:
 
     int getQuantity();
     void setQuantity(int quantity);
+
     int getDamage();
     void setDamage(int damage);
-    string getWeaponType();
-    void setWeaponType(string weaponType);
-    int getDurability();
-    void setDurability(int durability);
+
     int getArmor();
     void setArmor(int armor);
-    string getArmorType();
-    void setArmorType(string armorType);
+
     void setItemType(string itemType);
-    string getItemType();
+    string getItemType() const;
+
     void setName(string name);
     string getName();
+
     void setDescription(string description);
     string getDescription();
+
     const Buff *getBuffs() const;
+
     void setValue(int value);
     int getValue();
+
     void setRarity(string rarity);
     string getRarity();
-    void setIcon(string icon);
-    string getIcon();
 
+    void setIconFileName(string icon);
+    string getIconFileName();
 
     //OTHER METHODS
 
     bool addBuff(Buff in);
     Buff getBuffbyIndex(int i);
     string listItem();
-
-
-
-
-
 
 };
 

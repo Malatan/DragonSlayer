@@ -239,7 +239,6 @@ gui::ItemSlot::ItemSlot(float x, float y, float width, float height, int id, sf:
     : window(window), font(font){
     this->renderItemInfoContainer = false;
     this->id = id;
-
     this->shape.setPosition(sf::Vector2f(x,y));
     this->shape.setSize(sf::Vector2f(width, height));
 
@@ -261,6 +260,10 @@ gui::ItemSlot::ItemSlot(float x, float y, float width, float height, int id, sf:
 
 gui::ItemSlot::~ItemSlot() {
 
+}
+
+int gui::ItemSlot::getId() {
+    return this->id;
 }
 
 void gui::ItemSlot::setSlotTexture(const sf::Texture *texture) {
@@ -303,7 +306,7 @@ void gui::ItemSlot::update(const sf::Vector2f &mousePos, int *updateSlot) {
         this->slotState = SLOT_IDLE;
         this->renderItemInfoContainer = false;
         this->window->setMouseCursorVisible(true);
-        *updateSlot = 6;
+        *updateSlot = 100;
     }
 
     //cambia colore in base allo stato del bottone

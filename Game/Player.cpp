@@ -31,12 +31,9 @@ Player::Player(float x, float y, float scale_x, float scale_y, sf::Texture& text
 
     this->setPosition(x, y);
 
-    this->setPlayerStats(new Stats());
-}
-
-Player::Player(int gold, Inventory invent) {
-    this->gold = gold;
-    this->invent = invent;
+    this->currentInventorySpace = 20;
+    this->playerStats = new Stats();
+    this->inventory = new Inventory(&this->currentInventorySpace);
 }
 
 Player::Player() {
@@ -115,15 +112,15 @@ string Player::playerDetails() {
 }
 
 int Player::takeDamage(int dmg) {
-    dmg = dmg - this->playerStats.getArmor();
-    int newHp = this->playerStats.getHp() - dmg;
-    this->playerStats.setHp(newHp);
+   // dmg = dmg - this->playerStats.getArmor();
+   // int newHp = this->playerStats.getHp() - dmg;
+   // this->playerStats.setHp(newHp);
 
     return dmg;
 }
 
 void Player::earnExp(int exp) {
-    this->playerStats.addExp(exp);       //SE CON EXP IL PLAYER SALE DI LIVELLO
+  //  this->playerStats.addExp(exp);       //SE CON EXP IL PLAYER SALE DI LIVELLO
 }
 
 void Player::learnSpell(string spell) {
@@ -145,8 +142,8 @@ void Player::reloadEquipStats() {
     armorBonus += Player::arms.getArmor();
     armorBonus += Player::legs.getArmor();
 
-    Player::playerStats.setArmorBonus(armorBonus);
-    Player::playerStats.setDamageBonus(damageBonus);
+ //   Player::playerStats.setArmorBonus(armorBonus);
+ //   Player::playerStats.setDamageBonus(damageBonus);
 }
 
 string  Player::listEquipment() {
@@ -156,7 +153,6 @@ string  Player::listEquipment() {
             " - " + Player::weapon.getRarity() + "\n" +
             " - " + to_string(Player::weapon.getValue()) + " gold\n" +
             " - " + to_string(Player::weapon.getDamage()) + " dmg\n" +
-            " - " + to_string(Player::weapon.getDurability()) + " uses\n" +
             "Shield: " + Player::shield.getName() + "\n" +
             " - " + Player::shield.getDescription() + "\n" +
             " - " + Player::shield.getRarity() + "\n" +
@@ -309,55 +305,55 @@ bool Player::exportEquipment() {
         file<<Player::weapon.getDescription() + " ";
         file<<to_string(Player::weapon.getValue()) + " ";
         file<<Player::weapon.getRarity() + " ";
-        file<<Player::weapon.getIcon() + " ";
+        file<< Player::weapon.getIconFileName() + " ";
         file<<to_string(Player::weapon.getDamage()) + " ";
-        file<<Player::weapon.getWeaponType() + " ";
-        file<<to_string(Player::weapon.getDurability()) + " \n";
+//        file<<Player::weapon.getWeaponType() + " ";
+//        file<<to_string(Player::weapon.getDurability()) + " \n";
 
         file<<Player::shield.getItemType()+ " ";
         file<<Player::shield.getName() + " ";
         file<<Player::shield.getDescription() + " ";
         file<<to_string(Player::shield.getValue()) + " ";
         file<<Player::shield.getRarity() + " ";
-        file<<Player::shield.getIcon() + " ";
+        file<< Player::shield.getIconFileName() + " ";
         file<<to_string(Player::shield.getArmor()) + " ";
-        file<<Player::shield.getArmorType() + " \n";
+//        file<<Player::shield.getArmorType() + " \n";
 
         file<<Player::head.getItemType()+ " ";
         file<<Player::head.getName() + " ";
         file<<Player::head.getDescription() + " ";
         file<<to_string(Player::head.getValue()) + " ";
         file<<Player::head.getRarity() + " ";
-        file<<Player::head.getIcon() + " ";
+        file<< Player::head.getIconFileName() + " ";
         file<<to_string(Player::head.getArmor()) + " ";
-        file<<Player::head.getArmorType() + " \n";
+ //      file<<Player::head.getArmorType() + " \n";
 
         file<<Player::chest.getItemType()+ " ";
         file<<Player::chest.getName() + " ";
         file<<Player::chest.getDescription() + " ";
         file<<to_string(Player::chest.getValue()) + " ";
         file<<Player::chest.getRarity() + " ";
-        file<<Player::chest.getIcon() + " ";
+        file<< Player::chest.getIconFileName() + " ";
         file<<to_string(Player::chest.getArmor()) + " ";
-        file<<Player::chest.getArmorType() + " \n";
+  //      file<<Player::chest.getArmorType() + " \n";
 
         file<<Player::arms.getItemType()+ " ";
         file<<Player::arms.getName() + " ";
         file<<Player::arms.getDescription() + " ";
         file<<to_string(Player::arms.getValue()) + " ";
         file<<Player::arms.getRarity() + " ";
-        file<<Player::arms.getIcon() + " ";
+        file<< Player::arms.getIconFileName() + " ";
         file<<to_string(Player::arms.getArmor()) + " ";
-        file<<Player::arms.getArmorType() + " \n";
+  //      file<<Player::arms.getArmorType() + " \n";
 
         file<<Player::legs.getItemType()+ " ";
         file<<Player::legs.getName() + " ";
         file<<Player::legs.getDescription() + " ";
         file<<to_string(Player::legs.getValue()) + " ";
         file<<Player::legs.getRarity() + " ";
-        file<<Player::legs.getIcon() + " ";
+        file<< Player::legs.getIconFileName() + " ";
         file<<to_string(Player::legs.getArmor()) + " ";
-        file<<Player::legs.getArmorType() + " \n";
+  //      file<<Player::legs.getArmorType() + " \n";
 
         file.close();
         return true;
@@ -366,7 +362,7 @@ bool Player::exportEquipment() {
 }
 
 void Player::importEquipment() {
-    ifstream file;
+ /*   ifstream file;
     file.open("Equipment.txt");
 
     if (!file.is_open()){
@@ -404,7 +400,7 @@ void Player::importEquipment() {
                         }else if(newlineCont == 5){
                             i.setRarity(word);
                         }else if(newlineCont == 4){
-                            i.setIcon(word);
+//                            i.setIcon(word);
                         }else if(newlineCont == 3){
                             stringstream intValue(word);
                             int damage;
@@ -416,7 +412,6 @@ void Player::importEquipment() {
                             stringstream intValue(word);
                             int durability;
                             intValue >> durability;
-                            i.setDurability(durability);
 
                             i.setArmor(0);
                             i.setArmorType("");
@@ -440,7 +435,7 @@ void Player::importEquipment() {
                         }else if(newlineCont == 4){
                             i.setRarity(word);
                         }else if(newlineCont == 3){
-                            i.setIcon(word);
+                    //        i.setIcon(word);
                         }else if(newlineCont == 2){
                             stringstream intValue(word);
                             int armor;
@@ -451,7 +446,6 @@ void Player::importEquipment() {
 
                             i.setDamage(0);
                             i.setWeaponType("");
-                            i.setDurability(0);
 
                             if(i.getArmorType() == "head"){
                                 Player::head = i;
@@ -477,31 +471,31 @@ void Player::importEquipment() {
             }
 
         }
-    }
+    }*/
 }
 
 Stats* Player::getPlayerStats() {
-    return &this->playerStats;
+    return this->playerStats;
 }
 
-void Player::setPlayerStats(Stats *playerStats) {
-    this->playerStats = *playerStats;
+void Player::setPlayerStats(Stats* playerStats) {
+    this->playerStats = playerStats;
 }
 
-Inventory Player::getInvent() {
-    return Player::invent;
+Inventory* Player::getInventory() {
+    return this->inventory;
 }
 
-void Player::setInvent(Inventory invent) {
-    Player::invent = invent;
+void Player::setInventory(Inventory* inventory) {
+    this->inventory = inventory;
 }
 
 int Player::getGold() {
-    return Player::gold;
+    return this->gold;
 }
 
 void Player::setGold(int gold) {
-    Player::gold = gold;
+    this->gold = gold;
 }
 
 Item Player::getWeapon() {
@@ -515,10 +509,10 @@ void Player::equipWeapon(Item weapon) {
             Item move = Player::weapon;
             Player::weapon = weapon;
 
-            for(int i=0; i<invent.getCurrentSpace(); i++){
-                if(Player::invent.getItemByIndex(i).getName() == weapon.getName() ){
-                    Player::invent.replaceItem(i,move);
-                }
+            for(int i=0; i < inventory->getCurrentSpace(); i++){
+//                if(Player::inventory->getItemByIndex(i).getName() == weapon.getName() ){
+     //               Player::inventory->replaceItem(i, move);
+      //          }
             }
         }else{
             Player::weapon = weapon;
@@ -535,16 +529,16 @@ Item Player::getShield() {
 }
 
 void Player::equipShield(Item shield) {
-    if(shield.getItemType() == "E"){
+ /*   if(shield.getItemType() == "E"){
         if(shield.getArmorType() == "shield"){
             if(Player::shield.getName() != ""){         //SE HA GIA' SCUDO EQUIPAGGIATO
                 Item move = Player::shield;
                 Player::shield = shield;
 
-                for(int i=0; i<invent.getCurrentSpace(); i++){
-                    if(Player::invent.getItemByIndex(i).getName() == shield.getName() ){
-                        Player::invent.replaceItem(i,move);
-                    }
+                for(int i=0; i < inventory->getCurrentSpace(); i++){
+         //           if(Player::inventory->getItemByIndex(i).getName() == shield.getName() ){
+        //                Player::inventory->replaceItem(i, move);
+         //           }
                 }
             }else{
                 Player::shield = shield;
@@ -554,7 +548,7 @@ void Player::equipShield(Item shield) {
         }
     } else {
         cout<<"The item is not a shield";
-    }
+    }*/
 }
 
 Item Player::getHead() {
@@ -562,17 +556,17 @@ Item Player::getHead() {
 }
 
 void Player::equipHead(Item head) {
-    if(head.getItemType() == "E"){
+ /*   if(head.getItemType() == "E"){
         if(head.getArmorType() == "head"){
             if(Player::head.getName() != ""){
                 Item move = Player::head;
                 Player::head = head;
 
-                for(int i=0; i<invent.getCurrentSpace(); i++){
-                    if(Player::invent.getItemByIndex(i).getName() == head.getName() ){
-                        Player::invent.replaceItem(i,move);
-                    }
-                }
+          //      for(int i=0; i < inventory->getCurrentSpace(); i++){
+           //         if(Player::inventory->getItemByIndex(i).getName() == head.getName() ){
+           //             Player::inventory->replaceItem(i, move);
+           //         }
+           //     }
             }else{
                 Player::head = head;
             }
@@ -581,7 +575,7 @@ void Player::equipHead(Item head) {
         }
     } else {
         cout<<"The item is not a head";
-    }
+    }*/
 }
 
 Item Player::getChest() {
@@ -589,17 +583,17 @@ Item Player::getChest() {
 }
 
 void Player::equipChest(Item chest) {
-    if(chest.getItemType() == "E"){
+ /*   if(chest.getItemType() == "E"){
         if(chest.getArmorType() == "chest"){
             if(Player::chest.getName() != ""){
                 Item move = Player::chest;
                 Player::chest = chest;
 
-                for(int i=0; i<invent.getCurrentSpace(); i++){
-                    if(Player::invent.getItemByIndex(i).getName() == chest.getName() ){
-                        Player::invent.replaceItem(i,move);
-                    }
-                }
+            //    for(int i=0; i < inventory->getCurrentSpace(); i++){
+          //          if(Player::inventory->getItemByIndex(i).getName() == chest.getName() ){
+          //             Player::inventory->replaceItem(i, move);
+           //         }
+          //      }
             }else{
                 Player::chest = chest;
             }
@@ -608,7 +602,7 @@ void Player::equipChest(Item chest) {
         }
     } else {
         cout<<"The item is not a chest";
-    }
+    }*/
 }
 
 Item Player::getLegs() {
@@ -616,17 +610,17 @@ Item Player::getLegs() {
 }
 
 void Player::equipLegs(Item legs) {
-    if(legs.getItemType() == "E"){
+ /*   if(legs.getItemType() == "E"){
         if(legs.getArmorType() == "legs"){
             if(Player::legs.getName() != ""){
                 Item move = Player::legs;
                 Player::legs = legs;
 
-                for(int i=0; i<invent.getCurrentSpace(); i++){
-                    if(Player::invent.getItemByIndex(i).getName() == legs.getName() ){
-                        Player::invent.replaceItem(i,move);
-                    }
-                }
+         //       for(int i=0; i < inventory->getCurrentSpace(); i++){
+         //           if(Player::inventory->getItemByIndex(i).getName() == legs.getName() ){
+         //               Player::inventory->replaceItem(i, move);
+         //           }
+          //      }
             }else{
                 Player::legs = legs;
             }
@@ -635,7 +629,7 @@ void Player::equipLegs(Item legs) {
         }
     } else {
         cout<<"The item is not a legs";
-    }
+    }*/
 }
 
 Item Player::getArms() {
@@ -643,17 +637,17 @@ Item Player::getArms() {
 }
 
 void Player::equipArms(Item arms) {
-    if(arms.getItemType() == "E"){
+ /*   if(arms.getItemType() == "E"){
         if(arms.getArmorType() == "arms"){
             if(Player::arms.getName() != ""){
                 Item move = Player::arms;
                 Player::arms = arms;
 
-                for(int i=0; i<invent.getCurrentSpace(); i++){
-                    if(Player::invent.getItemByIndex(i).getName() == arms.getName() ){
-                        Player::invent.replaceItem(i,move);
-                    }
-                }
+         //       for(int i=0; i < inventory->getCurrentSpace(); i++){
+        //            if(Player::inventory->getItemByIndex(i).getName() == arms.getName() ){
+        //                Player::inventory->replaceItem(i, move);
+        //            }
+         //       }
             }else{
                 Player::arms = arms;
             }
@@ -662,7 +656,7 @@ void Player::equipArms(Item arms) {
         }
     } else {
         cout<<"The item is not a arms";
-    }
+    }*/
 }
 
 

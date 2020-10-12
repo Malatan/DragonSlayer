@@ -7,8 +7,8 @@
 #include <string>
 #include <sstream>
 #include "Item.h"
-#include "iostream"
-#include "fstream"
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -17,31 +17,26 @@ using namespace std;
 class Inventory {
 
 public:
-    const static int maxSpace = 50;               //MASSIMO NUMERO DI SLOT OCCUPABILI NEL GIOCO
-    int currentSpace;           //MASSIMO NUMERO DI SLOT OCCUPABILI SECONDO I NOSTRI POWER UP DELL'INVENTARIO
+    const static int MAX_SPACE = 40;               //MASSIMO NUMERO DI SLOT OCCUPABILI NEL GIOCO
+    int* currentSpace;           //MASSIMO NUMERO DI SLOT OCCUPABILI SECONDO I NOSTRI POWER UP DELL'INVENTARIO
 
-    Item items[maxSpace];
+    vector<Item*> items;
 
 public:
+    Inventory();
+    Inventory(int* currentSpace);
+    virtual ~Inventory();
 
-    int getMaxSpace();
-
-    void setCurrentSpace(int currentSpace);
+    void setCurrentSpace(int* currentSpace);
     int getCurrentSpace();
 
-    Item getItemByIndex(int i);
-    void replaceItem(int i, Item in);
-    bool addItem(Item in);
+    int getItemsSize();
 
-    void importInventory();
+    bool addItem(Item* item);
     bool exportInventory();
     string listInventory();
 
-    Inventory();
-    Inventory(int currentSpace);
-    virtual ~Inventory();
-
-
+    void sortByItemType();
 };
 
 

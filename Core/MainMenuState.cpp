@@ -66,6 +66,10 @@ MainMenuState::~MainMenuState() {
     }
 }
 
+void MainMenuState::startNewGame() {
+    this->states->push(new GameState(this->window, this->states, this->rsHandler, &this->font, this->windowIsFocused));
+}
+
 void MainMenuState::updateInput(const float &dt) {
 
 }
@@ -78,7 +82,7 @@ void MainMenuState::updateButtons() {
 
     //Nuovo gioco
     if(this->buttons["GAME_STATE"]->isPressed()){
-        this->states->push(new GameState(this->window, this->states, this->rsHandler, &this->font, this->windowIsFocused));
+        this->startNewGame();
     }
 
     //Esce dal gioco
@@ -119,3 +123,5 @@ void MainMenuState::render(sf::RenderTarget *target) {
     target->draw(mouseText);
 
 }
+
+

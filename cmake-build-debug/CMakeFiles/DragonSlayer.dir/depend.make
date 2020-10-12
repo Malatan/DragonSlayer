@@ -597,6 +597,9 @@ CMakeFiles/DragonSlayer.dir/Core/State.cpp.obj: ../SFML_2.5.1/include/SFML/Windo
 CMakeFiles/DragonSlayer.dir/Core/State.cpp.obj: ../SFML_2.5.1/include/SFML/Window/WindowStyle.hpp
 CMakeFiles/DragonSlayer.dir/Core/State.cpp.obj: ../Core/State.cpp
 CMakeFiles/DragonSlayer.dir/Core/State.cpp.obj: ../Core/State.h
+CMakeFiles/DragonSlayer.dir/Core/State.cpp.obj: ../Game/Buff.h
+CMakeFiles/DragonSlayer.dir/Core/State.cpp.obj: ../Game/Inventory.h
+CMakeFiles/DragonSlayer.dir/Core/State.cpp.obj: ../Game/Item.h
 CMakeFiles/DragonSlayer.dir/Core/State.cpp.obj: ../Game/Stats.h
 CMakeFiles/DragonSlayer.dir/Core/State.cpp.obj: ../Resources/Resource.h
 CMakeFiles/DragonSlayer.dir/Core/State.cpp.obj: ../Resources/ResourcesHandler.h
@@ -1271,6 +1274,9 @@ CMakeFiles/DragonSlayer.dir/Resources/ResourcesHandler.cpp.obj: ../SFML_2.5.1/in
 CMakeFiles/DragonSlayer.dir/Resources/ResourcesHandler.cpp.obj: ../SFML_2.5.1/include/SFML/Window/Window.hpp
 CMakeFiles/DragonSlayer.dir/Resources/ResourcesHandler.cpp.obj: ../SFML_2.5.1/include/SFML/Window/WindowHandle.hpp
 CMakeFiles/DragonSlayer.dir/Resources/ResourcesHandler.cpp.obj: ../SFML_2.5.1/include/SFML/Window/WindowStyle.hpp
+CMakeFiles/DragonSlayer.dir/Resources/ResourcesHandler.cpp.obj: ../Game/Buff.h
+CMakeFiles/DragonSlayer.dir/Resources/ResourcesHandler.cpp.obj: ../Game/Inventory.h
+CMakeFiles/DragonSlayer.dir/Resources/ResourcesHandler.cpp.obj: ../Game/Item.h
 CMakeFiles/DragonSlayer.dir/Resources/ResourcesHandler.cpp.obj: ../Game/Stats.h
 CMakeFiles/DragonSlayer.dir/Resources/ResourcesHandler.cpp.obj: ../Resources/Resource.h
 CMakeFiles/DragonSlayer.dir/Resources/ResourcesHandler.cpp.obj: ../Resources/ResourcesHandler.cpp

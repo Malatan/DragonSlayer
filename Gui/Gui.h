@@ -140,7 +140,7 @@ namespace gui{
 
 
         //accessors
-
+        int getId();
 
         //modifiers
         void setSlotTexture(const sf::Texture *texture);

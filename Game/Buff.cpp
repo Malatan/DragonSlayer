@@ -5,6 +5,22 @@
 #include "Buff.h"
 #include <iostream>
 
+Buff::Buff(string name, string effect, string type, bool hidden, int turns) {
+    Buff::name = name;
+    Buff::effect = effect;
+    Buff::type = type;
+    Buff::hidden = hidden;
+    Buff::turns = turns;
+}
+
+Buff::Buff() {
+
+}
+
+Buff::~Buff() {
+
+}
+
 void Buff::setName(string name) {
     Buff::name = name;
 }
@@ -45,18 +61,4 @@ int Buff::getTurns() {
     return Buff::turns;
 }
 
-Buff::Buff(string name, string effect, string type, bool hidden, int turns) {
-    Buff::name = name;
-    Buff::effect = effect;
-    Buff::type = type;
-    Buff::hidden = hidden;
-    Buff::turns = turns;
-}
 
-Buff::Buff() {
-
-}
-
-Buff::~Buff() {
-
-}

@@ -15,7 +15,8 @@ private:
     sf::Font* font;
     Player* player;
     State* state;
-    int* updateSlot;
+    int* updateEquipSlot;
+    int* updateInvSlot;
 
     //container
     sf::RectangleShape backgorund;
@@ -43,7 +44,7 @@ private:
     sf::Text equipContainerTitle;
     sf::Text equipBonusLbl;
     gui::ItemSlot* equipSlots[6];
-
+    std::vector<gui::ItemSlot*> inventorySlots;
 
     //inventory container
     sf::RectangleShape inventoryContainer;
@@ -58,7 +59,7 @@ public:
     //initializers
     void initStatsContainer();
     void initEquipContainer(sf::RenderWindow& window);
-    void initInventoryContainer();
+    void initInventoryContainer(sf::RenderWindow& window);
 
 
     //accessor

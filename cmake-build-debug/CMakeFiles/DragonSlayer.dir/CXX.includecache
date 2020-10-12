@@ -700,18 +700,6 @@ F:/DragonSlayer/Gui/PauseMenu.h
 ../Gui/CharacterTab.h
 F:/DragonSlayer/Gui/CharacterTab.h
 
-F:/DragonSlayer/Core/MainMenuState.cpp
-MainMenuState.h
-F:/DragonSlayer/Core/MainMenuState.h
-
-F:/DragonSlayer/Core/MainMenuState.h
-State.h
-F:/DragonSlayer/Core/State.h
-GameState.h
-F:/DragonSlayer/Core/GameState.h
-../Gui/gui.h
-F:/DragonSlayer/Gui/Gui.h
-
 F:/DragonSlayer/Core/State.h
 fstream
 -
@@ -767,15 +755,17 @@ sstream
 -
 Item.h
 F:/DragonSlayer/Game/Item.h
-iostream
-F:/DragonSlayer/Game/iostream
-fstream
-F:/DragonSlayer/Game/fstream
+vector
+-
+algorithm
+-
 
 F:/DragonSlayer/Game/Item.h
 string
 -
 iostream
+-
+sstream
 -
 Buff.h
 F:/DragonSlayer/Game/Buff.h
@@ -820,6 +810,10 @@ F:/DragonSlayer/Game/iostream
 fstream
 F:/DragonSlayer/Game/fstream
 
+F:/DragonSlayer/Gui/CharacterTab.cpp
+CharacterTab.h
+F:/DragonSlayer/Gui/CharacterTab.h
+
 F:/DragonSlayer/Gui/CharacterTab.h
 Gui.h
 F:/DragonSlayer/Gui/Gui.h
@@ -849,4 +843,6 @@ Resource.h
 F:/DragonSlayer/Resources/Resource.h
 ../Game/Stats.h
 F:/DragonSlayer/Game/Stats.h
+../Game/Inventory.h
+F:/DragonSlayer/Game/Inventory.h
 

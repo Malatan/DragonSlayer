@@ -31,6 +31,7 @@ public:
     virtual ~MainMenuState();
 
     //functions
+    void startNewGame();
     void updateInput(const float& dt);
     void updateButtons();
     void update(const float& dt);

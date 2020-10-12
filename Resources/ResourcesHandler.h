@@ -7,6 +7,7 @@
 
 #include "Resource.h"
 #include "../Game/Stats.h"
+#include "../Game/Inventory.h"
 
 class ResourcesHandler {
 private:
@@ -24,7 +25,7 @@ public:
     Resource* getResouceByKey(std::string key);
 
     bool loadPlayerStatsTxt(Stats* playerStats);
-
+    bool loadPlayerInventoryTxt(Inventory* playerInventory);
     std::string toString();
 };
 

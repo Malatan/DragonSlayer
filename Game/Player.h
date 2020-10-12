@@ -19,8 +19,9 @@
 class Player : public Entity{
 private:
     //variables
-    Stats playerStats;
-    Inventory invent;
+    Stats* playerStats;
+    Inventory* inventory;
+    int currentInventorySpace;
     Spell spells[30];           //TUTTE SPELL DEL GIOCO - ALCUNE SARANNO SBLOCCATE E ALTRE NO
     int gold;
     Item weapon;
@@ -39,7 +40,6 @@ protected:
 public:
     Player();
     Player(float x, float y, float scale_x, float scale_y, sf::Texture& texture_sheet);
-    Player(int gold, Inventory invent);
     virtual ~Player();
 
 
@@ -64,8 +64,8 @@ public:
 
     Stats* getPlayerStats();
     void setPlayerStats(Stats* playerStats);
-    Inventory getInvent();
-    void setInvent(Inventory invent);
+    Inventory* getInventory();
+    void setInventory(Inventory* invent);
     int getGold();
     void setGold(int gold);
     Item getWeapon();

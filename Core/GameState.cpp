@@ -35,6 +35,9 @@ void GameState::initPlayers() {
     // legge i valori di default del Stats dal Data/Stats.txt
     this->rsHandler->loadPlayerStatsTxt(this->player->getPlayerStats());
 
+    // legge i valori di default dell 'inventario dal Data/Inventory.txt
+    this->rsHandler->loadPlayerInventoryTxt(this->player->getInventory());
+
     this->enemis.push_back(new Enemy(30.f, 30.f, 1.2f, 1.2f,
                                      127.f, 134.f, 50.f, 65.f,
                                      this->textures["ENEMY_WIZARD_SHEET"]));
@@ -51,7 +54,7 @@ void GameState::initHintsTab() {
     this->hints.setCharacterSize(30);
     this->hints.setString(" Press Esc to pause\n"
                                 " Press WASD to move\n"
-                                " Press E to interact and loot non funzia\n"
+                                " Press I to print inventory\n"
                                 " Press C to open/close character tab and inventory\n"
                                 " Press B to print ResourcesHandler\n"
                                 " Press T in the character Tab to gain exp\n");
@@ -70,13 +73,13 @@ void GameState::initEquipSlotsTextures(){
     //weapon
     this->cTab->getEquipSlots()[5]->setSlotTexture(image, sf::IntRect(0, 0, 67, 67));
     //shield
-    this->cTab->getEquipSlots()[2]->setSlotTexture(image, sf::IntRect(67, 0, 67, 67));
+    this->cTab->getEquipSlots()[4]->setSlotTexture(image, sf::IntRect(67, 0, 67, 67));
     //head
-    this->cTab->getEquipSlots()[4]->setSlotTexture(image, sf::IntRect(134, 0, 67, 67));
+    this->cTab->getEquipSlots()[3]->setSlotTexture(image, sf::IntRect(134, 0, 67, 67));
     //chest
-    this->cTab->getEquipSlots()[1]->setSlotTexture(image, sf::IntRect(201, 0, 67, 67));
+    this->cTab->getEquipSlots()[2]->setSlotTexture(image, sf::IntRect(201, 0, 67, 67));
     //arms
-    this->cTab->getEquipSlots()[3]->setSlotTexture(image, sf::IntRect(268, 0, 67, 67));
+    this->cTab->getEquipSlots()[1]->setSlotTexture(image, sf::IntRect(268, 0, 67, 67));
     //legs
     this->cTab->getEquipSlots()[0]->setSlotTexture(image, sf::IntRect(335, 0, 67, 67));
 }
@@ -122,6 +125,8 @@ void GameState::updateInput(const float &dt) {
             this->player->getPlayerStats()->addExp(100);
         } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::B) && this->getKeyTime()){
             std::cout << this->rsHandler->toString();
+        } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::I) && this->getKeyTime()){
+            std::cout << this->player->getInventory()->listInventory();
         }
     }
 }
