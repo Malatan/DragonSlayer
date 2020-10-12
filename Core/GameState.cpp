@@ -140,6 +140,7 @@ void GameState::updateInput(const float &dt) {
             this->changeStato(1);
         } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::C) && this->getKeyTime()) {
             this->changeStato(2);
+            this->cTab->unselectAll();
         } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::T) && this->getKeyTime()) {
             this->player->getPlayerStats()->addExp(100);
         } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::B) && this->getKeyTime()){

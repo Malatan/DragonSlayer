@@ -45,12 +45,11 @@ private:
     gui::ItemSlot* equipSlots[6];
     std::vector<gui::ItemSlot*> inventorySlots;
 
-
-private:
-
     //inventory container
     sf::RectangleShape inventoryContainer;
     sf::Text invContainerTitle;
+    sf::Text selectedNumberLbl;
+
 
 protected:
 
@@ -71,7 +70,7 @@ public:
     //functions
     std::string playerStatsToString();
 
-
+    void unselectAll();
     void statsContainerUpdate(const sf::Vector2f& mousePos);
     void statsContainerRender(sf::RenderTarget& target);
     void equipContainerUpdate(const sf::Vector2f& mousePos);

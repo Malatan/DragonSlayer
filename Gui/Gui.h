@@ -7,6 +7,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "../Game/Item.h"
+#include "../Core/State.h"
 
 enum button_states{
     BTN_IDLE = 0,
@@ -118,9 +119,11 @@ namespace gui{
     private:
         short unsigned slotState;
         bool renderItemInfoContainer;
+        bool isSelected;
         int id;
 
         Item* item;
+        State* state;
         sf::Window* window;
         sf::RectangleShape shape;
         sf::RectangleShape cover;
@@ -136,23 +139,26 @@ namespace gui{
 
     public:
         //constructors/destructors
-        ItemSlot(float x, float y, float width, float height, int id, sf::Window* window, sf::Font* font, Item* item);
+        ItemSlot(float x, float y, float width, float height, int id, sf::Window* window, sf::Font* font, Item* item, State* state);
         virtual ~ItemSlot();
 
 
         //accessors
         int getId();
+        bool hasItem();
+        bool getIsSelected();
 
         //modifiers
         void setSlotTexture(const sf::Texture *texture, float size);
         void setSlotTexture(sf::Texture* texture, sf::IntRect intRect);
         void setText(std::string text);
+        void setSelectedBool(bool b);
 
         //functions
         void itemInfo(const sf::Vector2f& mousePos);
         void updateItemInfo();
         void updateItemInfoPos(const sf::Vector2f& mousePos);
-        void update(const sf::Vector2f &mousePos, int *updateSlot);
+        void update(const sf::Vector2f& mousePos, int* updateSlot, bool inv);
         void render(sf::RenderTarget& target);
     };
 
@@ -171,7 +177,7 @@ namespace gui{
         EquipSlots();
         virtual  ~EquipSlots();
 
-        void update(const sf::Vector2f& mousePos, int* updateSlot);
+        void update(const sf::Vector2f& mousePos, int* updateSlot, bool inv);
         void render(sf::RenderTarget& target);
     };
 }
