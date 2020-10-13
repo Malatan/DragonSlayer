@@ -69,7 +69,7 @@ public:
     int getValue();
 
     void setRarity(string rarity);
-    string getRarity();
+    string getRarity() const;
 
     void setIconRectX(int x);
     int getIconRectX();

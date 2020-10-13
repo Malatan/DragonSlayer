@@ -29,6 +29,7 @@ namespace gui{
 
         bool pressed;
         bool hover;
+        bool disabled;
 
         sf::RectangleShape shape;
         sf::Font* font;
@@ -69,6 +70,7 @@ namespace gui{
         void setTextPositionAddY(float y);
 
         //functions
+        void setDisabled(bool b);
         void update(const sf::Vector2f& mousePos);
         void render(sf::RenderTarget& target);
 
@@ -181,6 +183,26 @@ namespace gui{
         virtual  ~EquipSlots();
 
         void update(const sf::Vector2f& mousePos, int* updateSlot, bool inv);
+        void render(sf::RenderTarget& target);
+    };
+
+    class ConfirmDialog{
+    private:
+    protected:
+        sf::Window* window;
+        State* state;
+        sf::RectangleShape dialog;
+        Button* yesBtn;
+        Button* noBtn;
+        sf::Text text;
+
+        bool result;
+
+    public:
+        ConfirmDialog(float x, float y, std::string text, sf::Window* window, State* state, sf::Font* font, float characterSize);
+        virtual ~ConfirmDialog();
+
+        bool update(const sf::Vector2f& mousePos, bool* openDialog);
         void render(sf::RenderTarget& target);
     };
 }

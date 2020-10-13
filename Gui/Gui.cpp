@@ -12,6 +12,7 @@ gui::Button::Button(float x, float y, float width, float height,
                     sf::Color idle_color, sf::Color hover_color, sf::Color active_color, short unsigned id) {
     this->buttonState = BTN_IDLE;
     this->id = id;
+    this->disabled = false;
 
     this->shape.setPosition(sf::Vector2f(x,y));
     this->shape.setSize(sf::Vector2f(width, height));
@@ -111,15 +112,17 @@ void gui::Button::setTextPositionAddY(float y) {
 //functions
 void gui::Button::update(const sf::Vector2f& mousePos) {
 
-    //idle
-    this->buttonState = BTN_IDLE;
+    if(!this->disabled){
+        //idle
+        this->buttonState = BTN_IDLE;
 
-    //hover
-    if(this->shape.getGlobalBounds().contains(mousePos)){
-        this->buttonState = BTN_HOVER;
-        //pressed
-        if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-            this->buttonState = BTN_ACTIVE;
+        //hover
+        if(this->shape.getGlobalBounds().contains(mousePos)){
+            this->buttonState = BTN_HOVER;
+            //pressed
+            if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+                this->buttonState = BTN_ACTIVE;
+            }
         }
     }
 
@@ -147,6 +150,17 @@ void gui::Button::render(sf::RenderTarget& target) {
 
 sf::Vector2f gui::Button::getPosition() {
     return this->shape.getPosition();
+}
+
+void gui::Button::setDisabled(bool b) {
+    if(b){
+        this->shape.setOutlineColor(sf::Color(128, 128, 128));
+        this->text.setFillColor(sf::Color(128, 128, 128));
+    } else{
+        this->shape.setOutlineColor(sf::Color::White);
+        this->text.setFillColor(sf::Color(this->textIdleColor));
+    }
+    this->disabled = b;
 }
 
 
@@ -376,30 +390,31 @@ void gui::ItemSlot::update(const sf::Vector2f &mousePos, int *updateSlot, bool i
     //hover
     if(this->shape.getGlobalBounds().contains(mousePos)){
         //pressed
-        if(this->item->getIsNew()){
-            this->item->setIsNew(false);
-        }
-        if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->state->getKeyTime() && this->item){
-            this->slotState = SLOT_ACTIVE;
-            this->renderItemInfoContainer = false;
-            if(inv){
-                if(this->isSelected){
-                    this->isSelected = false;
-                    this->cover.setOutlineColor(sf::Color::Transparent);
-                } else{
-                    this->isSelected = true;
-                    this->cover.setOutlineColor(sf::Color::Cyan);
+        if(this->item){
+            if(this->item->getIsNew()){
+                this->item->setIsNew(false);
+            }
+            if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->state->getKeyTime()){
+                this->slotState = SLOT_ACTIVE;
+                this->renderItemInfoContainer = false;
+                if(inv){
+                    if(this->isSelected){
+                        this->isSelected = false;
+                        this->cover.setOutlineColor(sf::Color::Transparent);
+                    } else{
+                        this->isSelected = true;
+                        this->cover.setOutlineColor(sf::Color::Cyan);
+                    }
                 }
             }
+            if(this->hasItem()){
+                this->renderItemInfoContainer = true;
+                this->updateItemInfoPos(mousePos);
+                this->window->setMouseCursorVisible(false);
+                this->slotState = SLOT_HOVER;
+                *updateSlot = this->id;
+            }
         }
-        if(this->hasItem()){
-            this->renderItemInfoContainer = true;
-            this->updateItemInfoPos(mousePos);
-            this->window->setMouseCursorVisible(false);
-            this->slotState = SLOT_HOVER;
-            *updateSlot = this->id;
-        }
-
     } else{
         //idle
         this->slotState = SLOT_IDLE;
@@ -445,22 +460,70 @@ void gui::ItemSlot::render(sf::RenderTarget &target) {
    // target.draw(this->itemName);
 }
 
+/*
+ *                      CONFIRM DIALOG
+ *
+ */
 
 
+gui::ConfirmDialog::ConfirmDialog(float x, float y, std::string text, sf::Window* window, State* state, sf::Font* font, float characterSize) :
+    window(window), state(state){
+    this->dialog.setSize(sf::Vector2f(500.f, 150.f));
+    this->dialog.setPosition(x, y);
+    this->dialog.setFillColor(sf::Color(61, 61, 61, 230));
+
+    this->text.setString(text);
+    this->text.setFont(*font);
+    this->text.setCharacterSize(characterSize);
+    this->text.setPosition(this->dialog.getPosition().x + (this->dialog.getGlobalBounds().width / 2.f) -
+            this->text.getGlobalBounds().width / 2.f,
+            this->dialog.getPosition().y + (this->dialog.getGlobalBounds().height / 2.f) -
+            this->text.getGlobalBounds().height / 2.f - 30.f);
+
+    this->yesBtn = new Button(this->text.getPosition().x + (this->text.getGlobalBounds().width / 2.f) - 120.f,
+                            this->text.getPosition().y + 50.f , 40.f, 30.f,
+                             font, "Yes", 30,
+                              sf::Color(38, 38, 38),
+                              sf::Color(250, 250, 250, 250),
+                              sf::Color(20, 20, 20, 50),
+                              sf::Color::Transparent,
+                              sf::Color(150, 150, 150, 0),
+                              sf::Color(20, 20, 20, 0));
 
 
+    this->noBtn = new Button(this->text.getPosition().x + (this->text.getGlobalBounds().width / 2.f) + 80.f,
+            this->text.getPosition().y + 50.f, 40.f, 30.f,
+                             font, "No", 30,
+                             sf::Color(38, 38, 38),
+                             sf::Color(250, 250, 250, 250),
+                             sf::Color(20, 20, 20, 50),
+                             sf::Color::Transparent,
+                             sf::Color(150, 150, 150, 0),
+                             sf::Color(20, 20, 20, 0));
 
+}
 
+gui::ConfirmDialog::~ConfirmDialog() {
+    delete this->yesBtn;
+    delete this->noBtn;
+}
 
+bool gui::ConfirmDialog::update(const sf::Vector2f &mousePos, bool* openDialog) {
+    this->yesBtn->update(mousePos);
+    this->noBtn->update(mousePos);
+    if(this->yesBtn->isPressed() && this->state->getKeyTime()){
+        *openDialog = false;
+        return true;
+    }
+    if(this->noBtn->isPressed() && this->state->getKeyTime()){
+        *openDialog = false;
+        return false;
+    }
+}
 
-
-
-
-
-
-
-
-
-
-
-
+void gui::ConfirmDialog::render(sf::RenderTarget &target) {
+    target.draw(this->dialog);
+    target.draw(this->text);
+    this->yesBtn->render(target);
+    this->noBtn->render(target);
+}

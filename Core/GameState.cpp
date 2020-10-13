@@ -69,7 +69,7 @@ void GameState::initPlayers() {
 }
 
 void GameState::initCharacterTab(Player* player) {
-    this->cTab = new CharacterTab(*this->window, this->font, player, this);
+    this->cTab = new CharacterTab(this->window, this->font, player, this);
     this->initEquipSlotsTextures();
     this->initInventoryItemTextures();
 }
@@ -141,7 +141,7 @@ GameState::~GameState() {
 void GameState::addItem(Item *item) {
     if(this->player->getInventory()->addItem(item)){
         this->player->getInventory()->sortByItemType();
-        this->cTab->initInventorySlots(*this->window);
+        this->cTab->initInventorySlots();
         this->initInventoryItemTextures();
     }
 }

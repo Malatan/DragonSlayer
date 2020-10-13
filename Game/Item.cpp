@@ -91,7 +91,7 @@ void Item::setQuantity(int quantity) {
     Item::quantity = quantity;
 }
 
-string Item::getRarity() {
+string Item::getRarity() const {
     return Item::rarity;
 }
 

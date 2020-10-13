@@ -12,10 +12,15 @@
 
 class CharacterTab {
 private:
+    sf::RenderWindow* window;
     sf::Font* font;
     Player* player;
     State* state;
     int* updateSlot;
+    gui::ConfirmDialog* confirmDialog;
+    int selectedItem;
+
+    bool openDialog;
 
     //container
     sf::RectangleShape backgorund;
@@ -54,19 +59,18 @@ private:
     sf::Text inventorySpaceLbl;
     gui::Button* EquipUnEquipBtn;
     gui::Button* deleteBtn;
-    gui::Button* sortBtn;
 
 protected:
 
 public:
-    CharacterTab(sf::RenderWindow& window, sf::Font* font, Player* player, State* state);
+    CharacterTab(sf::RenderWindow* window, sf::Font* font, Player* player, State* state);
     virtual ~CharacterTab();
 
     //initializers
     void initStatsContainer();
-    void initEquipContainer(sf::RenderWindow& window);
-    void initInventoryContainer(sf::RenderWindow& window);
-    void initInventorySlots(sf::RenderWindow& window);
+    void initEquipContainer();
+    void initInventoryContainer();
+    void initInventorySlots();
 
     //accessor
     gui::ItemSlot** getEquipSlots();

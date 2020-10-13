@@ -98,7 +98,7 @@ void CharacterTab::initStatsContainer() {
     this->addAgilityBtn->setTextPositionAddY(-22.f);
 }
 
-void CharacterTab::initEquipContainer(sf::RenderWindow& window) {
+void CharacterTab::initEquipContainer() {
     this->equipContainer.setFillColor(sf::Color(70, 70, 70, 100));
     this->equipContainer.setSize(sf::Vector2f(190.f, this->statsContainer.getGlobalBounds().height));
     this->equipContainer.setPosition(this->statsContainer.getPosition().x + this->statsContainer.getGlobalBounds().width + 10.f,
@@ -127,38 +127,38 @@ void CharacterTab::initEquipContainer(sf::RenderWindow& window) {
     this->equipSlots[5] = new gui::ItemSlot(
             this->equipContainer.getPosition().x + posX,
             this->equipContainer.getPosition().y + posY,
-            slotSize, slotSize, 5, &window, this->font, nullptr, this->state, true
+            slotSize, slotSize, 5, this->window, this->font, nullptr, this->state, true
     );
     this->equipSlots[4] = new gui::ItemSlot(
             this->equipContainer.getPosition().x + posX + 90.f,
             this->equipContainer.getPosition().y + posY, slotSize,
-            slotSize, 4, &window, this->font, nullptr, this->state, true
+            slotSize, 4, this->window, this->font, nullptr, this->state, true
     );
     this->equipSlots[3] = new gui::ItemSlot(
             this->equipContainer.getPosition().x + posX,
             this->equipContainer.getPosition().y + posY + 90.f,
-            slotSize, slotSize, 3, &window, this->font, nullptr, this->state, true
+            slotSize, slotSize, 3, this->window, this->font, nullptr, this->state, true
     );
     this->equipSlots[2] = new gui::ItemSlot(
             this->equipContainer.getPosition().x + posX + 90.f,
             this->equipContainer.getPosition().y + posY + 90.f,
-            slotSize, slotSize, 2, &window, this->font, nullptr, this->state, true
+            slotSize, slotSize, 2, this->window, this->font, nullptr, this->state, true
     );
     this->equipSlots[1] = new gui::ItemSlot(
             this->equipContainer.getPosition().x + posX,
             this->equipContainer.getPosition().y + posY + 180.f,
-            slotSize, slotSize, 1, &window, this->font, nullptr, this->state, true
+            slotSize, slotSize, 1, this->window, this->font, nullptr, this->state, true
     );
     this->equipSlots[0] = new gui::ItemSlot(
             this->equipContainer.getPosition().x + posX + 90.f,
             this->equipContainer.getPosition().y + posY + 180.f,
-            slotSize, slotSize, 0, &window, this->font, nullptr, this->state, true
+            slotSize, slotSize, 0, this->window, this->font, nullptr, this->state, true
     );
 
 
 }
 
-void CharacterTab::initInventoryContainer(sf::RenderWindow& window) {
+void CharacterTab::initInventoryContainer() {
     this->inventoryContainer.setFillColor(sf::Color(90, 90, 90, 100));
     this->inventoryContainer.setSize(sf::Vector2f(this->container.getGlobalBounds().width - 60.f
     -this->statsContainer.getGlobalBounds().width -this->equipContainer.getGlobalBounds().width
@@ -180,49 +180,35 @@ void CharacterTab::initInventoryContainer(sf::RenderWindow& window) {
     this->selectedNumberLbl.setPosition(this->inventoryContainer.getPosition().x + 20.f,
             this->inventoryContainer.getPosition().y + 30.f);
 
-    this->initInventorySlots(window);
+    this->initInventorySlots();
 
     this->EquipUnEquipBtn = new gui::Button(
             this->inventoryContainer.getPosition().x + 570.f,
-            this->inventoryContainer.getPosition().y + 520.f, 130.f, 40.f,
+            this->inventoryContainer.getPosition().y + 580.f, 130.f, 40.f,
             this->font, "Equip/Unequip", 20.f,
             sf::Color(255, 255, 255, 255),
-            sf::Color(250, 250, 250, 250),
+            sf::Color(160, 160, 160),
             sf::Color(20, 20, 20, 50),
 
             sf::Color(70, 70, 70, 0),
             sf::Color(150, 150, 150, 0),
-            sf::Color(20, 20, 20, 0));
+            sf::Color(130, 130, 130));
     this->EquipUnEquipBtn->setBorderColor(sf::Color::White);
     this->EquipUnEquipBtn->setBorderLineThickness(5.f);
 
     this->deleteBtn = new gui::Button(
             this->inventoryContainer.getPosition().x + 570.f,
-            this->inventoryContainer.getPosition().y + 580.f, 130.f, 40.f,
+            this->inventoryContainer.getPosition().y + 640.f, 130.f, 40.f,
             this->font, "Delete item", 20.f,
             sf::Color(255, 255, 255, 255),
-            sf::Color(250, 250, 250, 250),
+            sf::Color(160, 160, 160),
             sf::Color(20, 20, 20, 50),
 
             sf::Color(70, 70, 70, 0),
             sf::Color(150, 150, 150, 0),
-            sf::Color(20, 20, 20, 0));
+            sf::Color(130, 130, 130));
     this->deleteBtn->setBorderColor(sf::Color::White);
     this->deleteBtn->setBorderLineThickness(5.f);
-
-    this->sortBtn = new gui::Button(
-            this->inventoryContainer.getPosition().x + 570.f,
-            this->inventoryContainer.getPosition().y + 640.f, 130.f, 40.f,
-            this->font, "Sort Inventory", 20.f,
-            sf::Color(255, 255, 255, 255),
-            sf::Color(250, 250, 250, 250),
-            sf::Color(20, 20, 20, 50),
-
-            sf::Color(70, 70, 70, 0),
-            sf::Color(150, 150, 150, 0),
-            sf::Color(20, 20, 20, 0));
-    this->sortBtn->setBorderColor(sf::Color::White);
-    this->sortBtn->setBorderLineThickness(5.f);
 
     this->goldLbl.setFont(*this->font);
     this->goldLbl.setCharacterSize(20);
@@ -237,7 +223,7 @@ void CharacterTab::initInventoryContainer(sf::RenderWindow& window) {
                                         this->goldLbl.getPosition().y + 30.f);
 }
 
-void CharacterTab::initInventorySlots(sf::RenderWindow &window) {
+void CharacterTab::initInventorySlots() {
     //init inventory slots
     if(this->inventorySlots.size() != 0){
         this->inventorySlots.clear();
@@ -254,19 +240,21 @@ void CharacterTab::initInventorySlots(sf::RenderWindow &window) {
         this->inventorySlots.push_back(new gui::ItemSlot(
                 this->inventoryContainer.getPosition().x + 36.f + (modifierX * (i % max_per_row)),
                 this->inventoryContainer.getPosition().y + 70.f + (modifierY * yMultiplier) ,
-                60.f, 60.f, 6+i, &window, this->font, this->player->getInventory()->getItem(i),
+                60.f, 60.f, 6+i, this->window, this->font, this->player->getInventory()->getItem(i),
                 this->state, false
         ));
     }
 }
 
-CharacterTab::CharacterTab(sf::RenderWindow& window, sf::Font* font, Player* player, State* state) : font(font), player(player), state(state)
+CharacterTab::CharacterTab(sf::RenderWindow* window, sf::Font* font, Player* player, State* state) :
+font(font), player(player), state(state), window(window)
 {
+    this->openDialog = false;
 
     //init background
     this->backgorund.setSize(sf::Vector2f(
-            static_cast<float>(window.getSize().x),
-            static_cast<float>(window.getSize().y)));
+            static_cast<float>(window->getSize().x),
+            static_cast<float>(window->getSize().y)));
     this->backgorund.setFillColor(sf::Color(20, 20, 20, 100));
     this->updateSlot = (int *) malloc(sizeof(int));
     *this->updateSlot = 100;
@@ -274,12 +262,12 @@ CharacterTab::CharacterTab(sf::RenderWindow& window, sf::Font* font, Player* pla
 
     //initi container
     this->container.setSize(sf::Vector2f(
-            static_cast<float>(window.getSize().x / 1.1f),
-            static_cast<float>(window.getSize().y - 100.f )));
+            static_cast<float>(window->getSize().x / 1.1f),
+            static_cast<float>(window->getSize().y - 100.f )));
     this->container.setFillColor(sf::Color(20, 20, 20, 200));
 
     this->container.setPosition(sf::Vector2f(
-            static_cast<float>(window.getSize().x) / 2.f - this->container.getSize().x / 2.f,
+            static_cast<float>(window->getSize().x) / 2.f - this->container.getSize().x / 2.f,
             40.f));
 
     //init text
@@ -298,7 +286,7 @@ CharacterTab::CharacterTab(sf::RenderWindow& window, sf::Font* font, Player* pla
             this->tabText.getPosition().x + 300.f,
             this->tabText.getPosition().y + 10.f);
 
-    this->hpBar = new gui::ProgressBar(&window, this->hpBarLbl.getPosition().x + 35.f, this->tabText.getPosition().y + 10.f, 150.f, 25.f,
+    this->hpBar = new gui::ProgressBar(window, this->hpBarLbl.getPosition().x + 35.f, this->tabText.getPosition().y + 10.f, 150.f, 25.f,
                                        0, this->player->getPlayerStats()->getMaxHp(), this->player->getPlayerStats()->getHp(), font);
     this->hpBar->setProgressShapeColor(sf::Color::Red);
 
@@ -309,7 +297,7 @@ CharacterTab::CharacterTab(sf::RenderWindow& window, sf::Font* font, Player* pla
             this->hpBarLbl.getPosition().x + 230.f,
             this->tabText.getPosition().y + 10.f);
 
-    this->mpBar = new gui::ProgressBar(&window, this->mpBarLbl.getPosition().x + 35.f, this->tabText.getPosition().y + 10.f, 150.f, 25.f,
+    this->mpBar = new gui::ProgressBar(window, this->mpBarLbl.getPosition().x + 35.f, this->tabText.getPosition().y + 10.f, 150.f, 25.f,
                                        0, this->player->getPlayerStats()->getMaxMp(), this->player->getPlayerStats()->getMp(), font);
     this->mpBar->setProgressShapeColor(sf::Color::Blue);
 
@@ -320,14 +308,14 @@ CharacterTab::CharacterTab(sf::RenderWindow& window, sf::Font* font, Player* pla
             this->mpBarLbl.getPosition().x + 230.f,
             this->tabText.getPosition().y + 10.f);
 
-    this->expBar = new gui::ProgressBar(&window, this->expBarLbl.getPosition().x + 35.f, this->tabText.getPosition().y + 10.f, 150.f, 25.f,
+    this->expBar = new gui::ProgressBar(window, this->expBarLbl.getPosition().x + 35.f, this->tabText.getPosition().y + 10.f, 150.f, 25.f,
                                        0, this->player->getPlayerStats()->getMaxExp(), this->player->getPlayerStats()->getExp(), font);
     this->expBar->setProgressShapeColor(sf::Color::Green);
 
 
     this->initStatsContainer();
-    this->initEquipContainer(window);
-    this->initInventoryContainer(window);
+    this->initEquipContainer();
+    this->initInventoryContainer();
 
 }
 
@@ -337,10 +325,10 @@ CharacterTab::~CharacterTab() {
     delete this->addAgilityBtn;
     delete this->EquipUnEquipBtn;
     delete this->deleteBtn;
-    delete this->sortBtn;
     delete this->hpBar;
     delete this->mpBar;
     delete this->expBar;
+    delete this->confirmDialog;
     for(auto i : this->equipSlots)
         delete i;
     for(auto i : this->inventorySlots)
@@ -423,11 +411,11 @@ void CharacterTab::equipContainerRender(sf::RenderTarget &target) {
 }
 
 void CharacterTab::invContainerUpdate(const sf::Vector2f &mousePos) {
-    int count = 0;
+    this->selectedItem = 0;
     std::stringstream ss;
     for(auto i : this->inventorySlots){
         if(i->getIsSelected())
-            count++;
+            this->selectedItem++;
         if(*this->updateSlot > 5){
             if(*this->updateSlot != 100 && *this->updateSlot > 5) {
                 this->inventorySlots[(*this->updateSlot - 6)]->update(mousePos, this->updateSlot, true);
@@ -437,7 +425,7 @@ void CharacterTab::invContainerUpdate(const sf::Vector2f &mousePos) {
             }
         }
     }
-    ss << "Items selected: " << count;
+    ss << "Items selected: " << this->selectedItem;
     this->selectedNumberLbl.setString(ss.str());
 
     ss.str("");
@@ -448,6 +436,15 @@ void CharacterTab::invContainerUpdate(const sf::Vector2f &mousePos) {
     ss << "Inventory Capacity: " << this->player->getInventory()->getItemsSize()
         << "/" << this->player->getInventory()->getCurrentSpace();
     this->inventorySpaceLbl.setString(ss.str());
+
+    if(this->selectedItem != 0){
+        this->deleteBtn->setDisabled(false);
+    }else{
+        this->deleteBtn->setDisabled(true);
+    }
+
+    this->EquipUnEquipBtn->update(mousePos);
+    this->deleteBtn->update(mousePos);
 }
 
 void CharacterTab::invContainerRender(sf::RenderTarget &target) {
@@ -458,7 +455,6 @@ void CharacterTab::invContainerRender(sf::RenderTarget &target) {
     target.draw(this->inventorySpaceLbl);
     this->EquipUnEquipBtn->render(target);
     this->deleteBtn->render(target);
-    this->sortBtn->render(target);
  /*   for(auto i : this->inventorySlots){
         i->render(target);
     }*/
@@ -489,19 +485,33 @@ void CharacterTab::updateButtons() {
         if(this->player->getPlayerStats()->getFreePoints() > 0){
             this->player->getPlayerStats()->addAttribute(2);
         }
-    }
+    } else if(this->EquipUnEquipBtn->isPressed() && this->state->getKeyTime()) {
 
+    } else if(this->deleteBtn->isPressed() && this->state->getKeyTime()) {
+        std::stringstream ss;
+        ss << "Are you sure you want to delete selected " << this->selectedItem << " items?";
+        this->confirmDialog = new gui::ConfirmDialog(this->container.getPosition().x + (this->container.getGlobalBounds().width / 2.f) - 250.f,
+                this->container.getPosition().y + (this->container.getGlobalBounds().height / 2.f) - 125.f,
+                ss.str(), this->window, this->state, this->font, 25.f);
+        this->openDialog = true;
+    }
 }
 
 void CharacterTab::update(const sf::Vector2f& mousePos) {
-    this->statsContainerUpdate(mousePos);
-    this->equipContainerUpdate(mousePos);
-    this->invContainerUpdate(mousePos);
+    if(!this->openDialog){
+        this->statsContainerUpdate(mousePos);
+        this->equipContainerUpdate(mousePos);
+        this->invContainerUpdate(mousePos);
 
-    this->updateButtons();
-    this->hpBar->update(this->player->getPlayerStats()->getHp(), this->player->getPlayerStats()->getMaxHp());
-    this->mpBar->update(this->player->getPlayerStats()->getMp(), this->player->getPlayerStats()->getMaxMp());
-    this->expBar->update(this->player->getPlayerStats()->getExp(), this->player->getPlayerStats()->getMaxExp());
+        this->updateButtons();
+        this->hpBar->update(this->player->getPlayerStats()->getHp(), this->player->getPlayerStats()->getMaxHp());
+        this->mpBar->update(this->player->getPlayerStats()->getMp(), this->player->getPlayerStats()->getMaxMp());
+        this->expBar->update(this->player->getPlayerStats()->getExp(), this->player->getPlayerStats()->getMaxExp());
+    } else{
+        if(this->confirmDialog->update(mousePos, &this->openDialog)){
+            delete this->confirmDialog;
+        }
+    }
 }
 
 void CharacterTab::render(sf::RenderTarget &target) {
@@ -520,6 +530,9 @@ void CharacterTab::render(sf::RenderTarget &target) {
     this->invContainerRender(target);
     this->equipContainerRender(target);
 
+    if(this->openDialog){
+        this->confirmDialog->render(target);
+    }
 }
 
 const vector<gui::ItemSlot *> &CharacterTab::getInventorySlots() const {
