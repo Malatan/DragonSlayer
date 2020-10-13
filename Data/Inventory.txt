@@ -10,6 +10,6 @@ C-potionL HealthPotion(L) healthpotion 5 Common 18 7 3
 W-bow Bow abow 204 Legendary 88 6 11
 E-legs Legs somepants 87 Rare 15 2 14
 W-axe Axe anaxe 69 Rare 39 6 10
-E-shield Shied astoneshield 103 Epic 18 3 12
-E-chest Chest chestarmor 124 Legendary 22 4 13
-E-legs Legs somepants 87 Rare 15 3 14
+E-shield Shied55 astoneshield 103 Epic 18 3 12
+E-chest Chest6 chestarmor2 154 Legendary 52 4 13
+E-legs Legs7 somepants3 857 Rare 18 3 14

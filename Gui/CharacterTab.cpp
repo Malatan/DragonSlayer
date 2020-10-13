@@ -442,6 +442,11 @@ void CharacterTab::invContainerUpdate(const sf::Vector2f &mousePos) {
     }else{
         this->deleteBtn->setDisabled(true);
     }
+    if(this->selectedItem == 1){
+        this->EquipUnEquipBtn->setDisabled(false);
+    } else{
+        this->EquipUnEquipBtn->setDisabled(true);
+    }
 
     this->EquipUnEquipBtn->update(mousePos);
     this->deleteBtn->update(mousePos);
@@ -472,26 +477,101 @@ bool CharacterTab::closeCharacterTabByClicking(const sf::Vector2f& mousePos) {
     return false;
 }
 
+void CharacterTab::equipUnequipItem(int equip_slot, Item *item, gui::ItemSlot* i, sf::IntRect intRect, std::string typeIcon) {
+    if(!item->isEquipped() && !this->player->isSlotEquipped(equip_slot)){ // equip item
+        this->player->setEquipItem(item, equip_slot);
+        this->equipSlots[equip_slot]->setItem(item);
+        this->equipSlots[equip_slot]->updateItemInfo();
+        this->equipSlots[equip_slot]->setShapeTexture(i->getShape()->getTexture(),
+                                                      i->getIntRect());
+        this->equipSlots[equip_slot]->getShape()->setOutlineColor(i->getShape()->getOutlineColor());
+        item->setEquipped(true);
+        i->setUpRightTexture(&this->textures[typeIcon]);
+        i->setSelectedBool(false);
+
+    } else if(item->isEquipped() && this->player->isSlotEquipped(equip_slot)){ // unequip item
+        this->player->unequipItem(equip_slot);
+        this->equipSlots[equip_slot]->setItem(nullptr);
+        this->equipSlots[equip_slot]->setSlotTexture(&this->textures["EquipSlotsSheet"], intRect);
+        this->equipSlots[equip_slot]->getShape()->setOutlineColor(sf::Color::Transparent);
+        item->setEquipped(false);
+        i->setSelectedBool(false);
+
+    } else if(!item->isEquipped() && this->player->isSlotEquipped(equip_slot)){ // unequip then equip
+        this->player->unequipItem(equip_slot);
+        this->equipSlots[equip_slot]->setItem(nullptr);
+        this->equipSlots[equip_slot]->setSlotTexture(&this->textures["EquipSlotsSheet"], intRect);
+        this->equipSlots[equip_slot]->getShape()->setOutlineColor(sf::Color::Transparent);
+        item->setEquipped(false);
+
+        this->player->setEquipItem(item, equip_slot);
+        this->equipSlots[equip_slot]->setItem(item);
+        this->equipSlots[equip_slot]->updateItemInfo();
+        this->equipSlots[equip_slot]->setShapeTexture(i->getShape()->getTexture(),
+                                                      i->getIntRect());
+        this->equipSlots[equip_slot]->getShape()->setOutlineColor(i->getShape()->getOutlineColor());
+        item->setEquipped(true);
+        i->setUpRightTexture(&this->textures[typeIcon]);
+        i->setSelectedBool(false);
+
+    }
+
+}
+
 void CharacterTab::updateButtons() {
     if(this->addStrengthBtn->isPressed() && this->state->getKeyTime()){
         this->addStrengthBtn->setButtonState(BTN_IDLE);
         if(this->player->getPlayerStats()->getFreePoints() > 0){
             this->player->getPlayerStats()->addAttribute(0);
         }
-    }
-    if(this->addWisdomBtn->isPressed() && this->state->getKeyTime()){
+    } else if(this->addWisdomBtn->isPressed() && this->state->getKeyTime()){
         this->addWisdomBtn->setButtonState(BTN_IDLE);
         if(this->player->getPlayerStats()->getFreePoints() > 0){
             this->player->getPlayerStats()->addAttribute(1);
         }
-    }
-    if(this->addAgilityBtn->isPressed() && this->state->getKeyTime()){
+    } else if(this->addAgilityBtn->isPressed() && this->state->getKeyTime()){
         this->addAgilityBtn->setButtonState(BTN_IDLE);
         if(this->player->getPlayerStats()->getFreePoints() > 0){
             this->player->getPlayerStats()->addAttribute(2);
         }
-    }
-    if(this->EquipUnEquipBtn->isPressed() && this->state->getKeyTime()) {
+    } else if(this->EquipUnEquipBtn->isPressed() && this->state->getKeyTime()) {
+        this->EquipUnEquipBtn->setButtonState(BTN_IDLE);
+        bool flag = false;
+        for(auto i : this->inventorySlots){
+            if(i->getIsSelected()){
+                Item* item = this->player->getInventory()->getItem(i->getItem()->getName());
+                if(item->getItemUsageType() == "Melee" || item->getItemUsageType() == "Ranged"){
+                    this->equipUnequipItem(5, item, i,
+                            sf::IntRect(0, 0, 67, 67),"WEAPON_ICON");
+
+                } else if(item->getItemUsageType() == "Shield"){
+                    this->equipUnequipItem(4, item, i,
+                            sf::IntRect(67, 0, 67, 67),"SHIELD_ICON");
+
+                }else if(item->getItemUsageType() == "Helmet"){
+                    this->equipUnequipItem(3, item, i,
+                            sf::IntRect(134, 0, 67, 67),"ARMOR_ICON");
+
+                }else if(item->getItemUsageType() == "Chest"){
+                    this->equipUnequipItem(2, item, i,
+                            sf::IntRect(201, 0, 67, 67),"ARMOR_ICON");
+
+                }else if(item->getItemUsageType() == "Gloves"){
+                    this->equipUnequipItem(1, item, i,
+                            sf::IntRect(268, 0, 67, 67),"ARMOR_ICON");
+
+                }else if(item->getItemUsageType() == "Boots"){
+                    this->equipUnequipItem(0, item, i,
+                            sf::IntRect(335, 0, 67, 67),"ARMOR_ICON");
+
+                }else if(item->getItemUsageType() == "Consumable"){
+                    std::cout<<"Can't equip consumables!\n";
+                }
+                flag = true;
+            }
+            if(flag)
+                break;
+        }
 
     }
     if(this->deleteBtn->isPressed() && this->state->getKeyTime()) {
@@ -565,6 +645,8 @@ void CharacterTab::render(sf::RenderTarget &target) {
 const vector<gui::ItemSlot *> &CharacterTab::getInventorySlots() const {
     return this->inventorySlots;
 }
+
+
 
 
 

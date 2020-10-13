@@ -36,12 +36,30 @@ void GameState::initTextures() {
                 new Resource("../Resources/Images/new.png", "newTag", "GameState"));
     }
 
+    if(!this->rsHandler->checkIfKeyExist("weaponIcon")) {
+        this->rsHandler->addResouce(
+                new Resource("../Resources/Images/weaponIcon.png", "weaponIcon", "GameState"));
+    }
+
+    if(!this->rsHandler->checkIfKeyExist("armorIcon")) {
+        this->rsHandler->addResouce(
+                new Resource("../Resources/Images/armorIcon.png", "armorIcon", "GameState"));
+    }
+
+    if(!this->rsHandler->checkIfKeyExist("shieldIcon")) {
+        this->rsHandler->addResouce(
+                new Resource("../Resources/Images/shieldIcon.png", "shieldIcon", "GameState"));
+    }
+
     this->textures["PLAYER_SHEET"].loadFromImage(this->rsHandler->getResouceByKey("player_sheet")->getImage());
     this->textures["ENEMY_WIZARD_SHEET"].loadFromImage(this->rsHandler->getResouceByKey("wizard_sheet")->getImage());
     this->textures["ITEMS_SHEET"].loadFromImage(this->rsHandler->getResouceByKey("items_sheet")->getImage());
     this->textures["EquipSlotsSheet"].loadFromImage(this->rsHandler->getResouceByKey("EquipSlotsSheet")->getImage());
     this->textures["SELECTED_ICON"].loadFromImage(this->rsHandler->getResouceByKey("selected")->getImage());
     this->textures["NEW_TAG"].loadFromImage(this->rsHandler->getResouceByKey("newTag")->getImage());
+    this->textures["WEAPON_ICON"].loadFromImage(this->rsHandler->getResouceByKey("weaponIcon")->getImage());
+    this->textures["ARMOR_ICON"].loadFromImage(this->rsHandler->getResouceByKey("armorIcon")->getImage());
+    this->textures["SHIELD_ICON"].loadFromImage(this->rsHandler->getResouceByKey("shieldIcon")->getImage());
 }
 
 void GameState::initPauseMenu() {
@@ -173,6 +191,8 @@ void GameState::updateInput(const float &dt) {
             this->addItem(new Item("E-arms", "Dragon Helmet",
                     "powerful helmet", 5000, "Legendary",
                     4, 7, 0, 400, 1, true));
+        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::R) && this->getKeyTime()){
+            std::cout<<this->player->toStringEquipment();
         }
     }
 }

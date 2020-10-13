@@ -130,6 +130,7 @@ namespace gui{
         sf::RectangleShape cover;
         sf::RectangleShape downRight;
         sf::RectangleShape upRight;
+        sf::IntRect intRect;
         sf::Font* font;
         sf::Texture texture;
         sf::Text itemName;
@@ -152,9 +153,12 @@ namespace gui{
         bool hasItem();
         bool getIsSelected();
         Item* getItem();
+        sf::RectangleShape* getShape();
+        sf::IntRect* getIntRect();
 
         //modifiers
-
+        void setItem(Item* item);
+        void setShapeTexture(const sf::Texture *texture, const sf::IntRect* intRect);
         void setSlotTexture(const sf::Texture *texture, float size);
         void setSlotTexture(sf::Texture* texture, sf::IntRect intRect);
         void setText(std::string text);

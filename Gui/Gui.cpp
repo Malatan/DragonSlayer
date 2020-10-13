@@ -269,6 +269,11 @@ gui::ItemSlot::ItemSlot(float x, float y, float width, float height, int id,
     this->isSelected = false;
     this->shape.setPosition(sf::Vector2f(x,y));
     this->shape.setSize(sf::Vector2f(width, height));
+    if(this->isEquipSlot){
+        this->shape.setOutlineThickness(-3.f);
+        this->shape.setOutlineColor(sf::Color::Transparent);
+    }
+
 
     this->downRight.setPosition(this->shape.getPosition().x + 42.f,
             this->shape.getPosition().y + 38.f);
@@ -319,11 +324,13 @@ bool gui::ItemSlot::hasItem() {
 void gui::ItemSlot::setSlotTexture(const sf::Texture *texture, float size) {
     if(this->item != nullptr){
         this->shape.setTexture(texture);
-        this->shape.setTextureRect(sf::IntRect(
+        this->intRect = sf::IntRect(
                 this->item->getIconRectX() * size,
                 this->item->getIconRectY() * size,
-                size, size));
+                size, size);
+        this->shape.setTextureRect(this->intRect);
         this->shape.setOutlineThickness(-3.f);
+
         if(this->item->getRarity() == "Uncommon"){
             this->shape.setOutlineColor(sf::Color::White);
         } else if(this->item->getRarity() == "Common"){
@@ -368,20 +375,22 @@ void gui::ItemSlot::itemInfo(const sf::Vector2f &mousePos) {
 }
 
 void gui::ItemSlot::updateItemInfo() {
-    std::stringstream ss;
-    ss << this->item->getName()
-        << "\nType: " << this->item->getItemUsageType()
-        << "\n" << this->item->getRarity();
-    if(this->item->getDamage() !=0){
-        ss << "\n+" << this->item->getDamage() << " dmg";
-    }
-    if(this->item->getArmor() !=0){
-        ss << "\n+" << this->item->getArmor() << " armor";
-    }
-    ss << "\n   '" << this->item->getDescription() << "'";
-    ss << "\nValue: " << this->item->getValue();
+    if(this->item){
+        std::stringstream ss;
+        ss << this->item->getName()
+           << "\nType: " << this->item->getItemUsageType()
+           << "\n" << this->item->getRarity();
+        if(this->item->getDamage() !=0){
+            ss << "\n+" << this->item->getDamage() << " dmg";
+        }
+        if(this->item->getArmor() !=0){
+            ss << "\n+" << this->item->getArmor() << " armor";
+        }
+        ss << "\n   '" << this->item->getDescription() << "'";
+        ss << "\nValue: " << this->item->getValue();
 
-    this->itemInfoLbl.setString(ss.str());
+        this->itemInfoLbl.setString(ss.str());
+    }
 }
 
 void gui::ItemSlot::updateItemInfoPos(const sf::Vector2f &mousePos) {
@@ -398,7 +407,7 @@ void gui::ItemSlot::update(const sf::Vector2f &mousePos, int *updateSlot, bool i
             if(this->item->getIsNew()){
                 this->item->setIsNew(false);
             }
-            if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->state->getKeyTime()){
+            if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->state->getKeyTime() && !this->isEquipSlot){
                 this->slotState = SLOT_ACTIVE;
                 this->renderItemInfoContainer = false;
                 if(inv){
@@ -453,8 +462,11 @@ void gui::ItemSlot::render(sf::RenderTarget &target) {
     if(this->isSelected){
         target.draw(this->downRight);
     }
-    if(this->item && this->item->getIsNew()){
-        target.draw(this->upRight);
+
+    if(this->item && !this->isEquipSlot){
+        if(this->item->getIsNew() || this->item->isEquipped()){
+            target.draw(this->upRight);
+        }
     }
 
     if(this->renderItemInfoContainer){
@@ -466,6 +478,23 @@ void gui::ItemSlot::render(sf::RenderTarget &target) {
 
 Item *gui::ItemSlot::getItem() {
     return this->item;
+}
+
+void gui::ItemSlot::setItem(Item *item) {
+    this->item = item;
+}
+
+sf::RectangleShape* gui::ItemSlot::getShape() {
+    return &this->shape;
+}
+
+void gui::ItemSlot::setShapeTexture(const sf::Texture *texture, const sf::IntRect* intRect) {
+    this->shape.setTexture(texture);
+    this->shape.setTextureRect(*intRect);
+}
+
+sf::IntRect* gui::ItemSlot::getIntRect() {
+    return &this->intRect;
 }
 
 

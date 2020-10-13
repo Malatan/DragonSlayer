@@ -34,6 +34,13 @@ Player::Player(float x, float y, float scale_x, float scale_y, sf::Texture& text
     this->currentInventorySpace = 30;
     this->playerStats = new Stats();
     this->inventory = new Inventory(&this->currentInventorySpace);
+
+    this->weapon = nullptr;
+    this->shield = nullptr;
+    this->head = nullptr;
+    this->chest = nullptr;
+    this->arms = nullptr;
+    this->legs = nullptr;
 }
 
 Player::Player() {
@@ -132,7 +139,7 @@ void Player::learnSpell(string spell) {
 }
 
 void Player::reloadEquipStats() {
-    int armorBonus = 0;
+ /*   int armorBonus = 0;
     int damageBonus = 0;
 
     damageBonus += Player::weapon.getDamage();
@@ -140,14 +147,14 @@ void Player::reloadEquipStats() {
     armorBonus += Player::head.getArmor();
     armorBonus += Player::chest.getArmor();
     armorBonus += Player::arms.getArmor();
-    armorBonus += Player::legs.getArmor();
+    armorBonus += Player::legs.getArmor();*/
 
  //   Player::playerStats.setArmorBonus(armorBonus);
  //   Player::playerStats.setDamageBonus(damageBonus);
 }
 
 string  Player::listEquipment() {
-    string desc = "";
+ /*   string desc = "";
     desc+=  "Weapon: " + Player::weapon.getName() + "\n" +
             " - " + Player::weapon.getDescription() + "\n" +
             " - " + Player::weapon.getRarity() + "\n" +
@@ -178,8 +185,8 @@ string  Player::listEquipment() {
             " - " + Player::legs.getRarity() + "\n" +
             " - " + to_string(Player::legs.getValue()) + " gold\n" +
             " - " + to_string(Player::legs.getArmor()) + " armor\n";
-
-    return desc;
+*/
+    return "desc";
 }
 
 string Player::listSpells(){
@@ -499,166 +506,144 @@ void Player::setGold(int gold) {
     this->gold = gold;
 }
 
-Item Player::getWeapon() {
-    return Player::weapon;
-}
-
-void Player::equipWeapon(Item weapon) {
-    if(weapon.getItemType() == "W"){
-
-        if(Player::weapon.getName() != ""){         //SE HA GIA' ARMA EQUIPAGGIATA
-            Item move = Player::weapon;
-            Player::weapon = weapon;
-
-            for(int i=0; i < inventory->getCurrentSpace(); i++){
-//                if(Player::inventory->getItemByIndex(i).getName() == weapon.getName() ){
-     //               Player::inventory->replaceItem(i, move);
-      //          }
-            }
-        }else{
-            Player::weapon = weapon;
-        }
-
-    } else {
-        cout<<"The item is not a weapon";
+void Player::setEquipItem(Item *item, int equip_slot) {
+    switch(equip_slot){
+        case 5:  // weapon
+            this->weapon = item;
+            break;
+        case 4: // shield
+            this->shield = item;
+            break;
+        case 3: // helmet
+            this->head = item;
+            break;
+        case 2: // chest
+            this->chest = item;
+            break;
+        case 1: // arms
+            this->arms = item;
+            break;
+        case 0: // legs
+            this->legs = item;
+            break;
     }
-
 }
 
-Item Player::getShield() {
-    return Player::shield;
+bool Player::isSlotEquipped(int equip_slot) {
+    switch(equip_slot){
+        case 5:  // weapon
+            if(this->weapon != nullptr)
+                return true;
+            else
+                return false;
+        case 4: // shield
+            if(this->shield)
+                return true;
+            else
+                return false;
+        case 3: // helmet
+            if(this->head)
+                return true;
+            else
+                return false;
+        case 2: // chest
+            if(this->chest)
+                return true;
+            else
+                return false;
+        case 1: // arms
+            if(this->arms)
+                return true;
+            else
+                return false;
+        case 0: // legs
+            if(this->legs)
+                return true;
+            else
+                return false;
+        default:
+            return false;
+    }
 }
 
-void Player::equipShield(Item shield) {
- /*   if(shield.getItemType() == "E"){
-        if(shield.getArmorType() == "shield"){
-            if(Player::shield.getName() != ""){         //SE HA GIA' SCUDO EQUIPAGGIATO
-                Item move = Player::shield;
-                Player::shield = shield;
-
-                for(int i=0; i < inventory->getCurrentSpace(); i++){
-         //           if(Player::inventory->getItemByIndex(i).getName() == shield.getName() ){
-        //                Player::inventory->replaceItem(i, move);
-         //           }
-                }
-            }else{
-                Player::shield = shield;
+void Player::unequipItem(int equip_slot) {
+    switch(equip_slot){
+        case 5:  // weapon
+            if(this->weapon != nullptr){
+                this->weapon->setEquipped(false);
+                this->weapon = nullptr;
             }
-        }else{
-            cout<<"The armature is not a shield";
-        }
-    } else {
-        cout<<"The item is not a shield";
-    }*/
-}
-
-Item Player::getHead() {
-    return Player::head;
-}
-
-void Player::equipHead(Item head) {
- /*   if(head.getItemType() == "E"){
-        if(head.getArmorType() == "head"){
-            if(Player::head.getName() != ""){
-                Item move = Player::head;
-                Player::head = head;
-
-          //      for(int i=0; i < inventory->getCurrentSpace(); i++){
-           //         if(Player::inventory->getItemByIndex(i).getName() == head.getName() ){
-           //             Player::inventory->replaceItem(i, move);
-           //         }
-           //     }
-            }else{
-                Player::head = head;
+            break;
+        case 4: // shield
+            if(this->shield != nullptr){
+                this->shield->setEquipped(false);
+                this->shield = nullptr;
             }
-        }else{
-            cout<<"The armature is not a head";
-        }
-    } else {
-        cout<<"The item is not a head";
-    }*/
-}
-
-Item Player::getChest() {
-    return Player::chest;
-}
-
-void Player::equipChest(Item chest) {
- /*   if(chest.getItemType() == "E"){
-        if(chest.getArmorType() == "chest"){
-            if(Player::chest.getName() != ""){
-                Item move = Player::chest;
-                Player::chest = chest;
-
-            //    for(int i=0; i < inventory->getCurrentSpace(); i++){
-          //          if(Player::inventory->getItemByIndex(i).getName() == chest.getName() ){
-          //             Player::inventory->replaceItem(i, move);
-           //         }
-          //      }
-            }else{
-                Player::chest = chest;
+            break;
+        case 3: // helmet
+            if(this->head != nullptr){
+                this->head->setEquipped(false);
+                this->head = nullptr;
             }
-        }else{
-            cout<<"The armature is not a chest";
-        }
-    } else {
-        cout<<"The item is not a chest";
-    }*/
-}
-
-Item Player::getLegs() {
-    return Player::legs;
-}
-
-void Player::equipLegs(Item legs) {
- /*   if(legs.getItemType() == "E"){
-        if(legs.getArmorType() == "legs"){
-            if(Player::legs.getName() != ""){
-                Item move = Player::legs;
-                Player::legs = legs;
-
-         //       for(int i=0; i < inventory->getCurrentSpace(); i++){
-         //           if(Player::inventory->getItemByIndex(i).getName() == legs.getName() ){
-         //               Player::inventory->replaceItem(i, move);
-         //           }
-          //      }
-            }else{
-                Player::legs = legs;
+            break;
+        case 2: // chest
+            if(this->chest != nullptr){
+                this->chest->setEquipped(false);
+                this->chest = nullptr;
             }
-        }else{
-            cout<<"The armature is not a legs";
-        }
-    } else {
-        cout<<"The item is not a legs";
-    }*/
-}
-
-Item Player::getArms() {
-    return Player::arms;
-}
-
-void Player::equipArms(Item arms) {
- /*   if(arms.getItemType() == "E"){
-        if(arms.getArmorType() == "arms"){
-            if(Player::arms.getName() != ""){
-                Item move = Player::arms;
-                Player::arms = arms;
-
-         //       for(int i=0; i < inventory->getCurrentSpace(); i++){
-        //            if(Player::inventory->getItemByIndex(i).getName() == arms.getName() ){
-        //                Player::inventory->replaceItem(i, move);
-        //            }
-         //       }
-            }else{
-                Player::arms = arms;
+            break;
+        case 1: // arms
+            if(this->arms != nullptr){
+                this->arms->setEquipped(false);
+                this->arms = nullptr;
             }
-        }else{
-            cout<<"The armature is not a arms";
-        }
-    } else {
-        cout<<"The item is not a arms";
-    }*/
+            break;
+        case 0: // legs
+            if(this->legs != nullptr){
+                this->legs->setEquipped(false);
+                this->legs = nullptr;
+            }
+            break;
+    }
 }
 
+std::string Player::toStringEquipment() {
+    std::stringstream ss;
+    ss << "\nWeapon: ";
+    if(this->weapon != nullptr)
+        ss << this->weapon->getName();
+    else
+        ss << "Nothing";
 
+    ss << "\nShield: ";
+    if(this->shield != nullptr)
+        ss << this->shield->getName();
+    else
+        ss << "Nothing";
 
+    ss << "\nHead: ";
+    if(this->head != nullptr)
+        ss << this->head->getName();
+    else
+        ss << "Nothing";
+
+    ss << "\nChest: ";
+    if(this->chest != nullptr)
+        ss << this->chest->getName();
+    else
+        ss << "Nothing";
+
+    ss << "\nArms: ";
+    if(this->arms != nullptr)
+        ss << this->arms->getName();
+    else
+        ss << "Nothing";
+
+    ss << "\nLegs: ";
+    if(this->legs != nullptr)
+        ss << this->legs->getName();
+    else
+        ss << "Nothing";
+
+    return ss.str();
+}

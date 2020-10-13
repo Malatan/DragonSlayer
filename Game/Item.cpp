@@ -13,7 +13,7 @@ Item::Item(string itemType, string name, string description, int value, string r
 }
 
 Item::Item(){
-
+    this->equipped = false;
 };
 
 Item::~Item() {
@@ -150,8 +150,10 @@ std::string Item::getItemUsageType() {
         app = "Melee";
     } else if(app == "bow"){
         app = "Ranged";
-    } else if(app == "potionS" || app == "potionM" || app == "potionL"){
-        app = "Comsumable";
+    } else if(app == "shield"){
+        app = "Shield";
+    }else if(app == "potionS" || app == "potionM" || app == "potionL"){
+        app = "Consumable";
     }
     return app;
 }
@@ -162,6 +164,14 @@ void Item::setIsNew(bool b) {
 
 bool Item::getIsNew() {
     return this->isNew;
+}
+
+void Item::setEquipped(bool b) {
+    this->equipped = b;
+}
+
+bool Item::isEquipped() {
+    return this->equipped;
 }
 
 

@@ -80,6 +80,7 @@ public:
     //functions
     std::string playerStatsToString();
 
+    void equipUnequipItem(int equip_slot, Item* item, gui::ItemSlot* i, sf::IntRect intRect, std::string typeIcon);
     void unselectAll();
     void statsContainerUpdate(const sf::Vector2f& mousePos);
     void statsContainerRender(sf::RenderTarget& target);

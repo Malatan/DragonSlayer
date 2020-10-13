@@ -32,7 +32,7 @@ public:
 
     int getItemsSize();
     Item* getItem(int n);
-
+    Item* getItem(std::string name);
 
     bool removeItem(std::string name);
 

@@ -24,12 +24,12 @@ private:
     int currentInventorySpace;
     Spell spells[30];           //TUTTE SPELL DEL GIOCO - ALCUNE SARANNO SBLOCCATE E ALTRE NO
     int gold;
-    Item weapon;
-    Item shield;
-    Item head;
-    Item chest;
-    Item arms;
-    Item legs;
+    Item* weapon;
+    Item* shield;
+    Item* head;
+    Item* chest;
+    Item* arms;
+    Item* legs;
 
     //initializer functions
     void initVariables();
@@ -47,6 +47,12 @@ public:
     void updateAnimation(const float &dt);
     void update(const float &dt);
     void render(sf::RenderTarget& target, const bool show_hitbox = false);
+
+    void setEquipItem(Item* item, int equip_slot);
+    bool isSlotEquipped(int equip_slot);
+    void unequipItem(int equip_slot);
+
+    std::string toStringEquipment();
 
     int takeDamage(int dmg);        //RETURN DMG reduced by Player ARMOR
     string playerDetails();
@@ -68,18 +74,8 @@ public:
     void setInventory(Inventory* invent);
     int getGold();
     void setGold(int gold);
-    Item getWeapon();
-    void equipWeapon(Item weapon);
-    Item getShield();
-    void equipShield(Item shield);
-    Item getHead();
-    void equipHead(Item head);
-    Item getChest();
-    void equipChest(Item chest);
-    Item getLegs();
-    void equipLegs(Item legs);
-    Item getArms();
-    void equipArms(Item arms);
+
+
 };
 
 

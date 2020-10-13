@@ -112,6 +112,19 @@ bool Inventory::removeItem(std::string name) {
     return false;
 }
 
+Item *Inventory::getItem(std::string name) {
+    auto iter = std::find_if(this->items.begin(), this->items.end(),
+                             [&](const Item* p){
+                                 return p->getName() == name;
+                             });
+
+    if ( iter != this->items.end()){
+        return (*iter);
+    }
+
+    return nullptr;
+}
+
 
 
 

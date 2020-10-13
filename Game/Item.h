@@ -16,7 +16,6 @@ class Item {
 protected:
 
     string itemType;    // ITEM/WEAPON/ARMATURE
-
     string name;
     string description;
     Buff buffs[10];
@@ -25,6 +24,7 @@ protected:
     int iconRectX;
     int iconRectY;
     bool isNew;
+    bool equipped;
     //Weapon attributes
     int damage;
 
@@ -80,7 +80,13 @@ public:
     void setIsNew(bool b);
     bool getIsNew();
 
+    void setEquipped(bool b);
+    bool isEquipped();
+
     std::string getItemUsageType();
+
+
+
     //OTHER METHODS
 
     bool addBuff(Buff in);
