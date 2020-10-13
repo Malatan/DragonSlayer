@@ -517,17 +517,18 @@ gui::ConfirmDialog::~ConfirmDialog() {
     delete this->noBtn;
 }
 
-bool gui::ConfirmDialog::update(const sf::Vector2f &mousePos, bool* openDialog) {
+int gui::ConfirmDialog::update(const sf::Vector2f &mousePos, bool* openDialog) {
     this->yesBtn->update(mousePos);
     this->noBtn->update(mousePos);
     if(this->yesBtn->isPressed() && this->state->getKeyTime()){
         *openDialog = false;
-        return true;
+        return 1;
     }
     if(this->noBtn->isPressed() && this->state->getKeyTime()){
         *openDialog = false;
-        return false;
+        return 0;
     }
+    return 2;
 }
 
 void gui::ConfirmDialog::render(sf::RenderTarget &target) {

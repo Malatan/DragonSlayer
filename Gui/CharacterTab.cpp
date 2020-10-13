@@ -492,6 +492,7 @@ void CharacterTab::updateButtons() {
         }
     }
     if(this->EquipUnEquipBtn->isPressed() && this->state->getKeyTime()) {
+
     }
     if(this->deleteBtn->isPressed() && this->state->getKeyTime()) {
         this->deleteBtn->setButtonState(BTN_IDLE);
@@ -518,7 +519,7 @@ void CharacterTab::update(const sf::Vector2f& mousePos) {
         this->mpBar->update(this->player->getPlayerStats()->getMp(), this->player->getPlayerStats()->getMaxMp());
         this->expBar->update(this->player->getPlayerStats()->getExp(), this->player->getPlayerStats()->getMaxExp());
     } else if(this->openDialog){
-        if(this->confirmDialog->update(mousePos, &this->openDialog)){
+        if(this->confirmDialog->update(mousePos, &this->openDialog) == 1){
 
             for(auto i : this->inventorySlots){
                 if(i->getIsSelected()){

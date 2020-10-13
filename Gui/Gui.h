@@ -199,13 +199,11 @@ namespace gui{
         Button* noBtn;
         sf::Text text;
 
-        bool result;
-
     public:
         ConfirmDialog(float x, float y, std::string text, sf::Window* window, State* state, sf::Font* font, float characterSize);
         virtual ~ConfirmDialog();
 
-        bool update(const sf::Vector2f& mousePos, bool* openDialog);
+        int update(const sf::Vector2f& mousePos, bool* openDialog);
         void render(sf::RenderTarget& target);
     };
 }
