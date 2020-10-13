@@ -22,6 +22,7 @@ private:
 
     bool openDialog;
 
+    std::map<std::string, sf::Texture> textures;
     //container
     sf::RectangleShape backgorund;
     sf::RectangleShape container;
@@ -63,7 +64,7 @@ private:
 protected:
 
 public:
-    CharacterTab(sf::RenderWindow* window, sf::Font* font, Player* player, State* state);
+    CharacterTab(sf::RenderWindow* window, sf::Font* font, Player* player, State* state, map<string, sf::Texture> textures);
     virtual ~CharacterTab();
 
     //initializers

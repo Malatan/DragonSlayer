@@ -163,6 +163,10 @@ void gui::Button::setDisabled(bool b) {
     this->disabled = b;
 }
 
+void gui::Button::setButtonState(button_states btnstates) {
+    this->buttonState = btnstates;
+}
+
 
 /*
  *
@@ -459,6 +463,11 @@ void gui::ItemSlot::render(sf::RenderTarget &target) {
     }
    // target.draw(this->itemName);
 }
+
+Item *gui::ItemSlot::getItem() {
+    return this->item;
+}
+
 
 /*
  *                      CONFIRM DIALOG

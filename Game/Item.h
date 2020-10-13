@@ -58,7 +58,7 @@ public:
     string getItemType() const;
 
     void setName(string name);
-    string getName();
+    string getName() const;
 
     void setDescription(string description);
     string getDescription();

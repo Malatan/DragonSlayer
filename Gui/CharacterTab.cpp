@@ -246,11 +246,11 @@ void CharacterTab::initInventorySlots() {
     }
 }
 
-CharacterTab::CharacterTab(sf::RenderWindow* window, sf::Font* font, Player* player, State* state) :
-font(font), player(player), state(state), window(window)
+CharacterTab::CharacterTab(sf::RenderWindow* window, sf::Font* font, Player* player, State* state, map<string, sf::Texture> textures) :
+font(font), player(player), state(state), window(window), textures(textures)
 {
     this->openDialog = false;
-
+    this->confirmDialog = nullptr;
     //init background
     this->backgorund.setSize(sf::Vector2f(
             static_cast<float>(window->getSize().x),
@@ -474,42 +474,68 @@ bool CharacterTab::closeCharacterTabByClicking(const sf::Vector2f& mousePos) {
 
 void CharacterTab::updateButtons() {
     if(this->addStrengthBtn->isPressed() && this->state->getKeyTime()){
+        this->addStrengthBtn->setButtonState(BTN_IDLE);
         if(this->player->getPlayerStats()->getFreePoints() > 0){
             this->player->getPlayerStats()->addAttribute(0);
         }
-    } else if(this->addWisdomBtn->isPressed() && this->state->getKeyTime()){
+    }
+    if(this->addWisdomBtn->isPressed() && this->state->getKeyTime()){
+        this->addWisdomBtn->setButtonState(BTN_IDLE);
         if(this->player->getPlayerStats()->getFreePoints() > 0){
             this->player->getPlayerStats()->addAttribute(1);
         }
-    } else if(this->addAgilityBtn->isPressed() && this->state->getKeyTime()){
+    }
+    if(this->addAgilityBtn->isPressed() && this->state->getKeyTime()){
+        this->addAgilityBtn->setButtonState(BTN_IDLE);
         if(this->player->getPlayerStats()->getFreePoints() > 0){
             this->player->getPlayerStats()->addAttribute(2);
         }
-    } else if(this->EquipUnEquipBtn->isPressed() && this->state->getKeyTime()) {
-
-    } else if(this->deleteBtn->isPressed() && this->state->getKeyTime()) {
+    }
+    if(this->EquipUnEquipBtn->isPressed() && this->state->getKeyTime()) {
+    }
+    if(this->deleteBtn->isPressed() && this->state->getKeyTime()) {
+        this->deleteBtn->setButtonState(BTN_IDLE);
         std::stringstream ss;
         ss << "Are you sure you want to delete selected " << this->selectedItem << " items?";
-        this->confirmDialog = new gui::ConfirmDialog(this->container.getPosition().x + (this->container.getGlobalBounds().width / 2.f) - 250.f,
-                this->container.getPosition().y + (this->container.getGlobalBounds().height / 2.f) - 125.f,
-                ss.str(), this->window, this->state, this->font, 25.f);
+        if(!this->confirmDialog){
+            this->confirmDialog = new gui::ConfirmDialog(this->container.getPosition().x + (this->container.getGlobalBounds().width / 2.f) - 250.f,
+                                                         this->container.getPosition().y + (this->container.getGlobalBounds().height / 2.f) - 125.f,
+                                                         ss.str(), this->window, this->state, this->font, 25.f);
+        }
         this->openDialog = true;
     }
 }
 
 void CharacterTab::update(const sf::Vector2f& mousePos) {
+    this->updateButtons();
+
     if(!this->openDialog){
         this->statsContainerUpdate(mousePos);
         this->equipContainerUpdate(mousePos);
         this->invContainerUpdate(mousePos);
 
-        this->updateButtons();
         this->hpBar->update(this->player->getPlayerStats()->getHp(), this->player->getPlayerStats()->getMaxHp());
         this->mpBar->update(this->player->getPlayerStats()->getMp(), this->player->getPlayerStats()->getMaxMp());
         this->expBar->update(this->player->getPlayerStats()->getExp(), this->player->getPlayerStats()->getMaxExp());
-    } else{
+    } else if(this->openDialog){
         if(this->confirmDialog->update(mousePos, &this->openDialog)){
-            delete this->confirmDialog;
+
+            for(auto i : this->inventorySlots){
+                if(i->getIsSelected()){
+                    this->player->getInventory()->removeItem(i->getItem()->getName());
+                    this->selectedItem--;
+                }
+                if(selectedItem == 0){
+                    break;
+                }
+            }
+            this->player->getInventory()->sortByItemType();
+            initInventorySlots();
+            for(auto i : this->getInventorySlots()){
+                i->setSlotTexture(&this->textures["ITEMS_SHEET"], 34.f);
+                i->setDownRightTexture(&this->textures["SELECTED_ICON"]);
+                i->setUpRightTexture(&this->textures["NEW_TAG"]);
+            }
         }
     }
 }

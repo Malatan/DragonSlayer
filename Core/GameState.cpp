@@ -69,7 +69,7 @@ void GameState::initPlayers() {
 }
 
 void GameState::initCharacterTab(Player* player) {
-    this->cTab = new CharacterTab(this->window, this->font, player, this);
+    this->cTab = new CharacterTab(this->window, this->font, player, this, this->getTextures());
     this->initEquipSlotsTextures();
     this->initInventoryItemTextures();
 }

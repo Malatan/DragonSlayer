@@ -59,7 +59,7 @@ void Item::setName(string name) {
     Item::name = name;
 }
 
-string Item::getName() {
+string Item::getName() const {
     return Item::name;
 }
 

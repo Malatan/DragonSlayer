@@ -59,6 +59,7 @@ namespace gui{
         sf::Vector2f getPosition();
 
         //modifiers
+        void setButtonState(button_states);
         void setPosition(float x, float y);
         void setPosition(sf::Vector2f pos);
         void setSize(sf::Vector2f size);
@@ -150,8 +151,10 @@ namespace gui{
         int getId();
         bool hasItem();
         bool getIsSelected();
+        Item* getItem();
 
         //modifiers
+
         void setSlotTexture(const sf::Texture *texture, float size);
         void setSlotTexture(sf::Texture* texture, sf::IntRect intRect);
         void setText(std::string text);

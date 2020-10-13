@@ -11,6 +11,7 @@
 #include <sstream>
 #include <SFML/Graphics.hpp>
 #include <stack>
+#include <map>
 #include "../Resources/ResourcesHandler.h"
 
 class State {
@@ -36,7 +37,6 @@ protected:
     //resources
     std::map<std::string, sf::Texture> textures;
 
-
 public:
     State(sf::RenderWindow* window, std::stack<State*>* states, ResourcesHandler* rsHandler, bool* isFocused, sf::Event* sfEvent);
     virtual ~State();
@@ -45,6 +45,7 @@ public:
     const bool& getQuit() const;
     const bool getKeyTime();
     ResourcesHandler *getRsHandler() const;
+    const map<string, sf::Texture> &getTextures() const;
 
     //functions
     void endState();

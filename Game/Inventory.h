@@ -34,6 +34,8 @@ public:
     Item* getItem(int n);
 
 
+    bool removeItem(std::string name);
+
     bool addItem(Item* item);
     bool exportInventory();
     string listInventory();

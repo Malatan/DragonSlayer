@@ -62,3 +62,7 @@ void State::updateKeyTime(const float &dt) {
 ResourcesHandler *State::getRsHandler() const {
     return this->rsHandler;
 }
+
+const map<string, sf::Texture> &State::getTextures() const {
+    return this->textures;
+}

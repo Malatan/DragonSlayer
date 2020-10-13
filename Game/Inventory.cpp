@@ -98,6 +98,20 @@ bool Inventory::exportInventory() {
     return true;
 }
 
+bool Inventory::removeItem(std::string name) {
+    auto iter = std::find_if(this->items.begin(), this->items.end(),
+                             [&](const Item* p){
+        return p->getName() == name;
+    });
+
+    if ( iter != this->items.end()){
+        this->items.erase(iter);
+        return true;
+    }
+
+    return false;
+}
+
 
 
 
