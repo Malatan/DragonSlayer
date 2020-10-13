@@ -114,6 +114,7 @@ bool ResourcesHandler::loadPlayerInventoryTxt(Inventory *playerInventory) {
                 file >> app;
                 item->setIconRectY(std::stoi(app));
 
+                item->setIsNew(true);
                 item->setDamage(0);
                 item->setQuantity(1);
                 playerInventory->addItem(item);
@@ -134,7 +135,7 @@ bool ResourcesHandler::loadPlayerInventoryTxt(Inventory *playerInventory) {
                 file >> app;
                 item->setIconRectY(std::stoi(app));
 
-
+                item->setIsNew(true);
                 item->setArmor(0);
                 item->setQuantity(1);
                 playerInventory->addItem(item);
@@ -155,6 +156,7 @@ bool ResourcesHandler::loadPlayerInventoryTxt(Inventory *playerInventory) {
                 file >> app;
                 item->setIconRectY(std::stoi(app));
 
+                item->setIsNew(true);
                 item->setArmor(0);
                 item->setDamage(0);
                 playerInventory->addItem(item);

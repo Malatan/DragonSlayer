@@ -42,29 +42,25 @@ namespace gui{
         sf::Color hoverColor;
         sf::Color activeColor;
 
-        sf::Color outlineIdleColor;
-        sf::Color outlineHoverColor;
-        sf::Color outlineActiveColor;
-
     protected:
 
     public:
         Button(float x, float y, float width, float height, sf::Font* font,
                std::string text, unsigned character_size,
                sf::Color text_idle_color, sf::Color text_hover_color,sf::Color text_active_color,
-               sf::Color idle_color,sf::Color hover_color, sf::Color active_color,
-               sf::Color outline_idle_color = sf::Color::Transparent,
-               sf::Color outline_hover_color = sf::Color::Transparent,
-               sf::Color outline_active_color = sf::Color::Transparent,
-               short unsigned id = 0);
+               sf::Color idle_color,sf::Color hover_color, sf::Color active_color, short unsigned id = 0);
         virtual ~Button();
 
         //accessors
         const bool isPressed() const;
         const std::string getText() const;
         const short unsigned& getId() const;
+        sf::Vector2f getPosition();
 
         //modifiers
+        void setPosition(float x, float y);
+        void setPosition(sf::Vector2f pos);
+        void setSize(sf::Vector2f size);
         void setText(const std::string text);
         void setId(const short unsigned id);
         void setBorderColor(sf::Color color);
@@ -119,7 +115,9 @@ namespace gui{
     private:
         short unsigned slotState;
         bool renderItemInfoContainer;
+        bool renderRightClickMenu;
         bool isSelected;
+        bool isEquipSlot;
         int id;
 
         Item* item;
@@ -127,6 +125,8 @@ namespace gui{
         sf::Window* window;
         sf::RectangleShape shape;
         sf::RectangleShape cover;
+        sf::RectangleShape downRight;
+        sf::RectangleShape upRight;
         sf::Font* font;
         sf::Texture texture;
         sf::Text itemName;
@@ -139,7 +139,8 @@ namespace gui{
 
     public:
         //constructors/destructors
-        ItemSlot(float x, float y, float width, float height, int id, sf::Window* window, sf::Font* font, Item* item, State* state);
+        ItemSlot(float x, float y, float width, float height, int id, sf::Window* window,
+                sf::Font* font, Item* item, State* state, bool isEquipSlot);
         virtual ~ItemSlot();
 
 
@@ -153,6 +154,8 @@ namespace gui{
         void setSlotTexture(sf::Texture* texture, sf::IntRect intRect);
         void setText(std::string text);
         void setSelectedBool(bool b);
+        void setDownRightTexture(sf::Texture* texture);
+        void setUpRightTexture(sf::Texture* texture);
 
         //functions
         void itemInfo(const sf::Vector2f& mousePos);

@@ -44,7 +44,7 @@ void Game::initWindow() {
 
 
 void Game::initStates() {
-    this->states.push(new MainMenuState(this->window, &this->states, this->rsHandler, &this->isFocused));
+    this->states.push(new MainMenuState(this->window, &this->states, this->rsHandler, &this->isFocused, &this->sfEvent));
 }
 
 //Constructors/Destructors

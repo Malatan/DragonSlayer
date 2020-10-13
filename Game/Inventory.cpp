@@ -12,7 +12,7 @@ Inventory::Inventory() {
 }
 
 Inventory::~Inventory() {
-
+    delete this->currentSpace;
 }
 
 void Inventory::setCurrentSpace(int* currentSpace) {
@@ -40,8 +40,9 @@ void Inventory::sortByItemType() {
 }
 
 bool Inventory::addItem(Item* item) {
-    if(this->items.size() <= MAX_SPACE){
+    if(this->items.size() < *this->currentSpace){
         this->items.push_back(item);
+        return true;
     }
     return false;
 }

@@ -5,6 +5,12 @@
 #include "Item.h"
 #include "Buff.h"
 
+Item::Item(string itemType, string name, string description, int value, string rarity, int iconRectX,
+           int iconRectY, int damage, int armor, int quantity, bool isNew) : itemType(itemType), name(name), description(description),
+           value(value), rarity(rarity), iconRectX(iconRectX), iconRectY(iconRectY), damage(damage), armor(armor), quantity(quantity),
+           isNew(isNew){
+
+}
 
 Item::Item(){
 
@@ -144,8 +150,18 @@ std::string Item::getItemUsageType() {
         app = "Melee";
     } else if(app == "bow"){
         app = "Ranged";
-    } else if(app == "potion"){
+    } else if(app == "potionS" || app == "potionM" || app == "potionL"){
         app = "Comsumable";
     }
     return app;
 }
+
+void Item::setIsNew(bool b) {
+    this->isNew = b;
+}
+
+bool Item::getIsNew() {
+    return this->isNew;
+}
+
+

@@ -21,13 +21,13 @@ protected:
     std::stack<State*>* states;
     sf::RenderWindow* window;
     ResourcesHandler* rsHandler;
+    sf::Event* sfEvent;
 
     bool quit;
     bool paused;
     bool* windowIsFocused;
     float keyTime;
     float keyTimeMax;
-
 
     sf::Vector2i mousePosScreen;
     sf::Vector2i mousePosWindow;
@@ -38,12 +38,13 @@ protected:
 
 
 public:
-    State(sf::RenderWindow* window, std::stack<State*>* states, ResourcesHandler* rsHandler, bool* isFocused);
+    State(sf::RenderWindow* window, std::stack<State*>* states, ResourcesHandler* rsHandler, bool* isFocused, sf::Event* sfEvent);
     virtual ~State();
 
     //accessors
     const bool& getQuit() const;
     const bool getKeyTime();
+    ResourcesHandler *getRsHandler() const;
 
     //functions
     void endState();

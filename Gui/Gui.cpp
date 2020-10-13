@@ -9,9 +9,7 @@
 gui::Button::Button(float x, float y, float width, float height,
                     sf::Font *font, std::string text, unsigned character_size,
                     sf::Color text_idle_color, sf::Color text_hover_color, sf::Color text_active_color,
-                    sf::Color idle_color, sf::Color hover_color, sf::Color active_color,
-                    sf::Color outline_idle_color,sf::Color outline_hover_color,sf::Color outline_active_color,
-                    short unsigned id) {
+                    sf::Color idle_color, sf::Color hover_color, sf::Color active_color, short unsigned id) {
     this->buttonState = BTN_IDLE;
     this->id = id;
 
@@ -19,7 +17,7 @@ gui::Button::Button(float x, float y, float width, float height,
     this->shape.setSize(sf::Vector2f(width, height));
     this->shape.setFillColor(idle_color);
     this->shape.setOutlineThickness(1.f);
-    this->shape.setOutlineColor(outline_idle_color);
+    this->shape.setOutlineColor(sf::Color::Transparent);
 
     this->font = font;
     this->text.setFont(*this->font);
@@ -40,11 +38,6 @@ gui::Button::Button(float x, float y, float width, float height,
     this->idleColor = idle_color;
     this->hoverColor = hover_color;
     this->activeColor = active_color;
-
-    //colore bordo bottone
-    this->outlineIdleColor = outline_idle_color;
-    this->outlineHoverColor = outline_hover_color;
-    this->outlineActiveColor = outline_active_color;
 }
 
 gui::Button::~Button() {
@@ -70,6 +63,26 @@ const short unsigned &gui::Button::getId() const {
 
 
 //modifiers
+void gui::Button::setPosition(float x, float y) {
+    this->shape.setPosition(x,y);
+    this->text.setPosition(
+            (x + this->shape.getGlobalBounds().width /2.f) - this->text.getGlobalBounds().width/2.f,
+            (y + this->shape.getGlobalBounds().height /2.f) - this->text.getGlobalBounds().height/1.5f
+    );
+}
+
+void gui::Button::setPosition(sf::Vector2f pos) {
+    this->shape.setPosition(pos);
+    this->text.setPosition(
+            (pos.x + this->shape.getGlobalBounds().width /2.f) - this->text.getGlobalBounds().width/2.f,
+            (pos.y + this->shape.getGlobalBounds().height /2.f) - this->text.getGlobalBounds().height/1.5f
+    );
+}
+
+void gui::Button::setSize(sf::Vector2f size) {
+    this->shape.setSize(size);
+}
+
 void gui::Button::setText(const std::string text) {
     this->text.setString(text);
 }
@@ -115,22 +128,14 @@ void gui::Button::update(const sf::Vector2f& mousePos) {
         case BTN_IDLE:
             this->shape.setFillColor(this->idleColor);
             this->text.setFillColor(this->textIdleColor);
-            this->shape.setOutlineColor(this->outlineIdleColor);
             break;
         case BTN_HOVER:
             this->shape.setFillColor(this->hoverColor);
             this->text.setFillColor(this->textHoverColor);
-            this->shape.setOutlineColor(this->outlineHoverColor);
             break;
         case BTN_ACTIVE:
             this->shape.setFillColor(this->activeColor);
             this->text.setFillColor(this->textActiveColor);
-            this->shape.setOutlineColor(this->outlineActiveColor);
-            break;
-        default: //caso errato
-            this->shape.setFillColor(sf::Color::Red);
-            this->shape.setFillColor(sf::Color::Blue);
-            this->shape.setOutlineColor(sf::Color::Green);
             break;
     }
 }
@@ -139,6 +144,11 @@ void gui::Button::render(sf::RenderTarget& target) {
     target.draw(this->shape);
     target.draw(this->text);
 }
+
+sf::Vector2f gui::Button::getPosition() {
+    return this->shape.getPosition();
+}
+
 
 /*
  *
@@ -220,8 +230,6 @@ void gui::ProgressBar::update(float current, int max) {
 }
 
 void gui::ProgressBar::render(sf::RenderTarget &target) {
-
-
     target.draw(this->barShape);
     target.draw(this->progressShape);
     target.draw(this->text);
@@ -235,16 +243,26 @@ void gui::ProgressBar::render(sf::RenderTarget &target) {
  *
  */
 
-gui::ItemSlot::ItemSlot(float x, float y, float width, float height, int id, sf::Window* window, sf::Font *font, Item* item, State* state)
-    : window(window), font(font), item(item), id(id), state(state){
+gui::ItemSlot::ItemSlot(float x, float y, float width, float height, int id,
+        sf::Window* window, sf::Font *font, Item* item, State* state, bool isEquipSlot)
+    : window(window), font(font), item(item), id(id), state(state), isEquipSlot(isEquipSlot){
     this->renderItemInfoContainer = false;
+    this->renderRightClickMenu = false;
     this->isSelected = false;
     this->shape.setPosition(sf::Vector2f(x,y));
     this->shape.setSize(sf::Vector2f(width, height));
 
+    this->downRight.setPosition(this->shape.getPosition().x + 42.f,
+            this->shape.getPosition().y + 38.f);
+    this->downRight.setSize(sf::Vector2f(15.f, 20.f));
+
+    this->upRight.setPosition(this->shape.getPosition().x + 42.f,
+                                this->shape.getPosition().y);
+    this->upRight.setSize(sf::Vector2f(25.f, 25.f));
+
     this->cover.setPosition(sf::Vector2f(x,y));
     this->cover.setSize(sf::Vector2f(width, height));
-    this->cover.setOutlineThickness(2.f);
+    this->cover.setOutlineThickness(3.f);
     this->cover.setOutlineColor(sf::Color::Transparent);
 
     this->itemInfoContainer.setSize(sf::Vector2f(width*2, height*2));
@@ -253,14 +271,15 @@ gui::ItemSlot::ItemSlot(float x, float y, float width, float height, int id, sf:
     this->itemInfoLbl.setFont(*this->font);
     this->itemInfoLbl.setCharacterSize(20.f);
 
-    this->itemName.setFont(*this->font);
+
+ /*   this->itemName.setFont(*this->font);
     this->itemName.setString("item");
     this->itemName.setCharacterSize(20.f);
     this->itemName.setOrigin(this->itemName.getGlobalBounds().width/2.f, this->itemName.getGlobalBounds().height/2.f);
     this->itemName.setPosition(
             this->shape.getPosition().x + (width/2.f),
             this->shape.getPosition().y + height + 5.f
-    );
+    );*/
 }
 
 gui::ItemSlot::~ItemSlot() {
@@ -286,7 +305,7 @@ void gui::ItemSlot::setSlotTexture(const sf::Texture *texture, float size) {
                 this->item->getIconRectX() * size,
                 this->item->getIconRectY() * size,
                 size, size));
-        this->shape.setOutlineThickness(-2.f);
+        this->shape.setOutlineThickness(-3.f);
         if(this->item->getRarity() == "Uncommon"){
             this->shape.setOutlineColor(sf::Color::White);
         } else if(this->item->getRarity() == "Common"){
@@ -308,6 +327,14 @@ void gui::ItemSlot::setSlotTexture(const sf::Texture *texture, float size) {
 void gui::ItemSlot::setSlotTexture(sf::Texture* texture, sf::IntRect intRect) {
     this->shape.setTexture(texture);
     this->shape.setTextureRect(intRect);
+}
+
+void gui::ItemSlot::setDownRightTexture(sf::Texture *texture) {
+    this->downRight.setTexture(texture);
+}
+
+void gui::ItemSlot::setUpRightTexture(sf::Texture *texture) {
+    this->upRight.setTexture(texture);
 }
 
 void gui::ItemSlot::setText(std::string text) {
@@ -346,19 +373,13 @@ void gui::ItemSlot::updateItemInfoPos(const sf::Vector2f &mousePos) {
 }
 
 void gui::ItemSlot::update(const sf::Vector2f &mousePos, int *updateSlot, bool inv) {
-
     //hover
     if(this->shape.getGlobalBounds().contains(mousePos)){
-        if(this->hasItem()){
-            this->renderItemInfoContainer = true;
-            this->window->setMouseCursorVisible(false);
-            this->slotState = SLOT_HOVER;
-            this->updateItemInfoPos(mousePos);
-            *updateSlot = this->id;
-        }
-
         //pressed
-        if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->state->getKeyTime()){
+        if(this->item->getIsNew()){
+            this->item->setIsNew(false);
+        }
+        if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->state->getKeyTime() && this->item){
             this->slotState = SLOT_ACTIVE;
             this->renderItemInfoContainer = false;
             if(inv){
@@ -371,6 +392,14 @@ void gui::ItemSlot::update(const sf::Vector2f &mousePos, int *updateSlot, bool i
                 }
             }
         }
+        if(this->hasItem()){
+            this->renderItemInfoContainer = true;
+            this->updateItemInfoPos(mousePos);
+            this->window->setMouseCursorVisible(false);
+            this->slotState = SLOT_HOVER;
+            *updateSlot = this->id;
+        }
+
     } else{
         //idle
         this->slotState = SLOT_IDLE;
@@ -379,10 +408,10 @@ void gui::ItemSlot::update(const sf::Vector2f &mousePos, int *updateSlot, bool i
         *updateSlot = 100;
         if(this->isSelected){
             this->cover.setOutlineColor(sf::Color::Cyan);
-
         } else{
             this->cover.setOutlineColor(sf::Color::Transparent);
         }
+
     }
 
     //cambia colore in base allo stato del bottone
@@ -396,16 +425,18 @@ void gui::ItemSlot::update(const sf::Vector2f &mousePos, int *updateSlot, bool i
         case SLOT_ACTIVE:
             this->cover.setFillColor(sf::Color(112, 112, 112, 210));
             break;
-        default: //caso errato
-            this->cover.setFillColor(sf::Color::Red);
-            this->cover.setOutlineColor(sf::Color::Green);
-            break;
     }
 }
 
 void gui::ItemSlot::render(sf::RenderTarget &target) {
     target.draw(this->shape);
     target.draw(this->cover);
+    if(this->isSelected){
+        target.draw(this->downRight);
+    }
+    if(this->item && this->item->getIsNew()){
+        target.draw(this->upRight);
+    }
 
     if(this->renderItemInfoContainer){
         target.draw(this->itemInfoContainer);
@@ -413,6 +444,9 @@ void gui::ItemSlot::render(sf::RenderTarget &target) {
     }
    // target.draw(this->itemName);
 }
+
+
+
 
 
 

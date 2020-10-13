@@ -4,9 +4,10 @@
 
 #include "State.h"
 
-State::State(sf::RenderWindow *window, std::stack<State*>* states, ResourcesHandler* rsHandler, bool* isFocused) {
+State::State(sf::RenderWindow *window, std::stack<State*>* states, ResourcesHandler* rsHandler, bool* isFocused, sf::Event* sfEvent) {
     this->window = window;
     this->states = states;
+    this->sfEvent =sfEvent;
     this->rsHandler = rsHandler;
     this->windowIsFocused = isFocused;
     this->quit = false;
@@ -56,4 +57,8 @@ void State::updateKeyTime(const float &dt) {
         this->keyTime += 60.f * dt;
     }
 
+}
+
+ResourcesHandler *State::getRsHandler() const {
+    return this->rsHandler;
 }

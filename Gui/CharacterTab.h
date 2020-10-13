@@ -43,13 +43,18 @@ private:
     sf::Text equipContainerTitle;
     sf::Text equipBonusLbl;
     gui::ItemSlot* equipSlots[6];
-    std::vector<gui::ItemSlot*> inventorySlots;
+
 
     //inventory container
+    std::vector<gui::ItemSlot*> inventorySlots;
     sf::RectangleShape inventoryContainer;
     sf::Text invContainerTitle;
     sf::Text selectedNumberLbl;
-
+    sf::Text goldLbl;
+    sf::Text inventorySpaceLbl;
+    gui::Button* EquipUnEquipBtn;
+    gui::Button* deleteBtn;
+    gui::Button* sortBtn;
 
 protected:
 
@@ -61,7 +66,7 @@ public:
     void initStatsContainer();
     void initEquipContainer(sf::RenderWindow& window);
     void initInventoryContainer(sf::RenderWindow& window);
-
+    void initInventorySlots(sf::RenderWindow& window);
 
     //accessor
     gui::ItemSlot** getEquipSlots();

@@ -31,7 +31,7 @@ Player::Player(float x, float y, float scale_x, float scale_y, sf::Texture& text
 
     this->setPosition(x, y);
 
-    this->currentInventorySpace = 20;
+    this->currentInventorySpace = 30;
     this->playerStats = new Stats();
     this->inventory = new Inventory(&this->currentInventorySpace);
 }
@@ -359,6 +359,7 @@ bool Player::exportEquipment() {
         return true;
     }
 */
+return false;
 }
 
 void Player::importEquipment() {

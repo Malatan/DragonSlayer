@@ -26,10 +26,22 @@ void GameState::initTextures() {
                 new Resource("../Resources/Images/items_sheet.png", "items_sheet", "GameState"));
     }
 
+    if(!this->rsHandler->checkIfKeyExist("selected")) {
+        this->rsHandler->addResouce(
+                new Resource("../Resources/Images/selectedIcon.png", "selected", "GameState"));
+    }
+
+    if(!this->rsHandler->checkIfKeyExist("newTag")) {
+        this->rsHandler->addResouce(
+                new Resource("../Resources/Images/new.png", "newTag", "GameState"));
+    }
+
     this->textures["PLAYER_SHEET"].loadFromImage(this->rsHandler->getResouceByKey("player_sheet")->getImage());
     this->textures["ENEMY_WIZARD_SHEET"].loadFromImage(this->rsHandler->getResouceByKey("wizard_sheet")->getImage());
     this->textures["ITEMS_SHEET"].loadFromImage(this->rsHandler->getResouceByKey("items_sheet")->getImage());
     this->textures["EquipSlotsSheet"].loadFromImage(this->rsHandler->getResouceByKey("EquipSlotsSheet")->getImage());
+    this->textures["SELECTED_ICON"].loadFromImage(this->rsHandler->getResouceByKey("selected")->getImage());
+    this->textures["NEW_TAG"].loadFromImage(this->rsHandler->getResouceByKey("newTag")->getImage());
 }
 
 void GameState::initPauseMenu() {
@@ -97,15 +109,17 @@ void GameState::initEquipSlotsTextures(){
 }
 
 void GameState::initInventoryItemTextures(){
-
     for(auto i : this->cTab->getInventorySlots()){
         i->setSlotTexture(&this->textures["ITEMS_SHEET"], 34.f);
+        i->setDownRightTexture(&this->textures["SELECTED_ICON"]);
+        i->setUpRightTexture(&this->textures["NEW_TAG"]);
     }
 }
 
 //constructors/destructors
-GameState::GameState(sf::RenderWindow* window, std::stack<State*>* states, ResourcesHandler* rsHandler, sf::Font* font, bool* isFocused)
-        : State(window, states, rsHandler, isFocused){
+GameState::GameState(sf::RenderWindow* window, std::stack<State*>* states, ResourcesHandler* rsHandler, sf::Font* font,
+        bool* isFocused, sf::Event* sfEvent)
+        : State(window, states, rsHandler, isFocused, sfEvent){
     this->font = font;
     this->stato = 0;
     this->initTextures();
@@ -124,6 +138,14 @@ GameState::~GameState() {
 }
 
 //functions
+void GameState::addItem(Item *item) {
+    if(this->player->getInventory()->addItem(item)){
+        this->player->getInventory()->sortByItemType();
+        this->cTab->initInventorySlots(*this->window);
+        this->initInventoryItemTextures();
+    }
+}
+
 void GameState::changeStato(int stato) {
     if(!this->paused){
         this->pauseState();
@@ -145,8 +167,12 @@ void GameState::updateInput(const float &dt) {
             this->player->getPlayerStats()->addExp(100);
         } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::B) && this->getKeyTime()){
             std::cout << this->rsHandler->toString();
-        } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::I) && this->getKeyTime()){
+        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::I) && this->getKeyTime()){
             std::cout << this->player->getInventory()->listInventory();
+        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::G) && this->getKeyTime()){
+            this->addItem(new Item("E-arms", "Dragon Helmet",
+                    "powerful helmet", 5000, "Legendary",
+                    4, 7, 0, 400, 1, true));
         }
     }
 }
@@ -236,6 +262,8 @@ void GameState::render(sf::RenderTarget* target) {
     mouseText.setString(ss.str());
     target->draw(mouseText);
 }
+
+
 
 
 

@@ -24,6 +24,7 @@ protected:
     string rarity;
     int iconRectX;
     int iconRectY;
+    bool isNew;
     //Weapon attributes
     int damage;
 
@@ -34,10 +35,10 @@ protected:
     int quantity;
 
 public:
-
     //CONSTRUCTOR & DESTRUCTOR
 
-  //  Item(string itemType, string name, string description, int value, string rarity, string icon);
+    Item(string itemType, string name, string description, int value, string rarity,
+            int iconRectX, int iconRectY, int damage, int armor, int quantity, bool isNew);
     Item();
     virtual ~Item();
 
@@ -75,6 +76,9 @@ public:
 
     void setIconRectY(int y);
     int getIconRectY();
+
+    void setIsNew(bool b);
+    bool getIsNew();
 
     std::string getItemUsageType();
     //OTHER METHODS

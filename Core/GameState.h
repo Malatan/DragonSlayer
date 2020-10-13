@@ -35,10 +35,11 @@ private:
     void initInventoryItemTextures();
 
 public:
-    GameState(sf::RenderWindow* window, std::stack<State*>* states, ResourcesHandler* rsHandler, sf::Font *font, bool* isFocused);
+    GameState(sf::RenderWindow* window, std::stack<State*>* states, ResourcesHandler* rsHandler, sf::Font *font, bool* isFocused, sf::Event* sfEvent);
     virtual ~GameState();
 
     //functions
+    void addItem(Item* item);
     void changeStato(int stato);
     void updateInput(const float &dt);
     void updatePlayerInput(const float& dt);
