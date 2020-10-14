@@ -11,7 +11,8 @@ Item::Item(string itemType, string name, string description, int value, string r
            value(value), rarity(rarity), iconRectX(iconRectX), iconRectY(iconRectY),
            hp(hp), mp(hp), damage(damage), armor(armor), critChance(critchance), evadeChance(evadechance), quantity(quantity),
            isNew(isNew){
-
+    this->equipped = false;
+    this->updateUsageType();
 }
 
 Item::Item(){
@@ -27,7 +28,12 @@ Item::Item(){
     this->critChance= 0;
     this->evadeChance= 0;
     this->quantity= 0;
-};
+    this->usageType = 7;
+
+
+}
+
+
 
 Item::~Item() {
 
@@ -46,6 +52,7 @@ bool Item::addBuff(Buff in) {
 string Item::listItem() {
     stringstream ss;
     ss << "Itemtype: " << this->itemType
+        << " type: " << this->usageType
         << " name: " << this->name
         << " desc: " << this->description
         << " value: " << this->value
@@ -153,7 +160,7 @@ Buff Item::getBuffbyIndex(int i) {
     return Item::buffs[i];
 }
 
-std::string Item::getItemUsageType() {
+std::string Item::getItemUsageTypeString() {
     std::string app = this->itemType.substr(2);
     if(app == "head"){
         app = "Helmet";
@@ -229,6 +236,27 @@ void Item::setEvadeChance(float evadeChance) {
     Item::evadeChance = evadeChance;
 }
 
+int Item::getUsageType() {
+    return this->usageType;
+}
 
+void Item::updateUsageType() {
+    std::string app = this->itemType.substr(2);
+    if(app == "head"){
+        this->usageType = 3;
+    } else if(app == "chest"){
+        this->usageType = 2;
+    } else if(app == "arms"){
+        this->usageType = 1;
+    } else if(app == "legs"){
+        this->usageType = 0;
+    } else if(app == "sword" || app == "axe" || app == "bow"){
+        this->usageType = 5;
+    } else if(app == "shield"){
+        this->usageType = 4;
+    }else if(app == "potionS" || app == "potionM" || app == "potionL"){
+        this->usageType = 6;
+    }
+};
 
 

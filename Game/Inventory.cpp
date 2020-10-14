@@ -5,22 +5,26 @@
 #include "Inventory.h"
 
 Inventory::Inventory(int* currentSpace) {
-    this->currentSpace = currentSpace;
+    this->currentMaxSpace = currentSpace;
 }
 
 Inventory::Inventory() {
 }
 
 Inventory::~Inventory() {
-    delete this->currentSpace;
+    delete this->currentMaxSpace;
 }
 
-void Inventory::setCurrentSpace(int* currentSpace) {
-    this->currentSpace;
+void Inventory::setCurrentMaxSpace(int currentMaxSpace) {
+    if(currentMaxSpace > MAX_SPACE){
+        *this->currentMaxSpace = MAX_SPACE;
+    } else{
+        *this->currentMaxSpace = currentMaxSpace;
+    }
 }
 
-int Inventory::getCurrentSpace() {
-    return *this->currentSpace;
+int Inventory::getCurrentMaxSpace() {
+    return *this->currentMaxSpace;
 }
 
 int Inventory::getItemsSize() {
@@ -41,7 +45,7 @@ void Inventory::sortByItemType() {
 }
 
 bool Inventory::addItem(Item* item) {
-    if(this->items.size() < *this->currentSpace){
+    if(this->items.size() < *this->currentMaxSpace){
         this->items.push_back(item);
         return true;
     }
@@ -65,7 +69,7 @@ bool Inventory::exportInventory() {
     if (!file.is_open()){
         return false;
     } else {
-        for(int i=0; i<*this->currentSpace; i++){
+        for(int i=0; i<*this->currentMaxSpace; i++){
             if(Inventory::items[i].getName() != ""){
                 file<<Inventory::items[i].getItemType() + " ";
                 file<<Inventory::items[i].getName() + " ";

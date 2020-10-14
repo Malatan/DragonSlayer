@@ -15,7 +15,8 @@ class Item {
 
 protected:
 
-    string itemType;    // ITEM/WEAPON/ARMATURE
+    int usageType; // 5 weapon, 4 shield, 3 helmet, 2 chest, 1 gloves, 0 boots, 6 consumable
+    string itemType;
     string name;
     string description;
     Buff buffs[10];
@@ -100,15 +101,16 @@ public:
 
     void setEvadeChance(float evadeChance);
 
-    std::string getItemUsageType();
 
-    bool isConsumable();
+    int getUsageType();
 
     //OTHER METHODS
-
+    bool isConsumable();
     bool addBuff(Buff in);
     Buff getBuffbyIndex(int i);
     string listItem();
+    std::string getItemUsageTypeString();
+    void updateUsageType();
 };
 
 

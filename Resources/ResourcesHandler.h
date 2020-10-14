@@ -8,10 +8,13 @@
 #include "Resource.h"
 #include "../Game/Stats.h"
 #include "../Game/Inventory.h"
+#include <SFML/Graphics.hpp>
 
 class ResourcesHandler {
 private:
     std::vector<Resource*> resources;
+    sf::IntRect equipSlotsTextureIntRects[6];
+
 protected:
 
 public:
@@ -20,6 +23,8 @@ public:
     virtual ~ResourcesHandler();
 
 
+    void setEquipSlotsTextureIntRect(int equip_slot, sf::IntRect intRect);
+    sf::IntRect getEquipSlotTextureRect(int equip_slot);
     bool checkIfKeyExist(std::string key);
     bool addResouce(std::string path, std::string key, std::string state_name);
     Resource* getResouceByKey(std::string key);

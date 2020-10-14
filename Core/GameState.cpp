@@ -43,6 +43,7 @@ void GameState::initPlayers() {
                               this->window->getSize().y/2.f, 2.f, 2.f,
                               this->textures["PLAYER_SHEET"]);
     this->player->setGold(1000);
+    this->player->getInventory()->setCurrentMaxSpace(90);
 
     // legge i valori di default del Stats dal Data/Stats.txt
     this->rsHandler->loadPlayerStatsTxt(this->player->getPlayerStats());
@@ -57,7 +58,7 @@ void GameState::initPlayers() {
 }
 
 void GameState::initCharacterTab(Player* player) {
-    this->cTab = new CharacterTab(this->window, this->font, player, this, this->getTextures());
+    this->cTab = new CharacterTab(this->window, this->font, player, this, this->getTextures(), this->rsHandler);
     this->initEquipSlotsTextures();
     this->initInventoryItemTextures();
 }
@@ -77,21 +78,27 @@ void GameState::initHintsTab() {
 
 void GameState::initEquipSlotsTextures(){
     //weapon
+    this->rsHandler->setEquipSlotsTextureIntRect(5 , sf::IntRect(0, 0, 67, 67));
     this->cTab->getEquipSlots()[5]->setSlotTexture(&this->textures["EquipSlotsSheet"],
             sf::IntRect(0, 0, 67, 67));
     //shield
+    this->rsHandler->setEquipSlotsTextureIntRect(4 , sf::IntRect(67, 0, 67, 67));
     this->cTab->getEquipSlots()[4]->setSlotTexture(&this->textures["EquipSlotsSheet"],
             sf::IntRect(67, 0, 67, 67));
     //head
+    this->rsHandler->setEquipSlotsTextureIntRect(3 , sf::IntRect(134, 0, 67, 67));
     this->cTab->getEquipSlots()[3]->setSlotTexture(&this->textures["EquipSlotsSheet"],
             sf::IntRect(134, 0, 67, 67));
     //chest
+    this->rsHandler->setEquipSlotsTextureIntRect(2 , sf::IntRect(201, 0, 67, 67));
     this->cTab->getEquipSlots()[2]->setSlotTexture(&this->textures["EquipSlotsSheet"],
             sf::IntRect(201, 0, 67, 67));
     //arms
+    this->rsHandler->setEquipSlotsTextureIntRect(1 , sf::IntRect(268, 0, 67, 67));
     this->cTab->getEquipSlots()[1]->setSlotTexture(&this->textures["EquipSlotsSheet"],
             sf::IntRect(268, 0, 67, 67));
     //legs
+    this->rsHandler->setEquipSlotsTextureIntRect(0 , sf::IntRect(335, 0, 67, 67));
     this->cTab->getEquipSlots()[0]->setSlotTexture(&this->textures["EquipSlotsSheet"],
             sf::IntRect(335, 0, 67, 67));
 }
@@ -127,29 +134,34 @@ GameState::~GameState() {
 
 //functions
 void GameState::addItem(Item *item) {
+    std::cout<<this->player->getInventory()->getItemsSize()<<"\n";
     if(this->player->getInventory()->addItem(item)){
         this->player->getInventory()->sortByItemType();
         this->cTab->initInventorySlots();
         this->initInventoryItemTextures();
         for(auto i : this->cTab->getInventorySlots()){
             if(i->getItem()->isEquipped()){
-                if(i->getItem()->getItemUsageType() == "Melee" || i->getItem()->getItemUsageType() == "Ranged"){
-                    i->setUpRightTexture(&this->textures["WEAPON_ICON"]);
-                }
-                else if(i->getItem()->getItemUsageType() == "Shield"){
-                    i->setUpRightTexture(&this->textures["SHIELD_ICON"]);
-                }
-                else if(i->getItem()->getItemUsageType() == "Helmet"){
-                    i->setUpRightTexture(&this->textures["HELMET_ICON"]);
-                }
-                else if(i->getItem()->getItemUsageType() == "Chest"){
-                    i->setUpRightTexture(&this->textures["ARMOR_ICON"]);
-                }
-                else if(i->getItem()->getItemUsageType() == "Gloves"){
-                    i->setUpRightTexture(&this->textures["GLOVES_ICON"]);
-                }
-                else if(i->getItem()->getItemUsageType() == "Boots"){
-                    i->setUpRightTexture(&this->textures["BOOTS_ICON"]);
+                switch(i->getItem()->getUsageType()){
+                    case 5:
+                        i->setUpRightTexture(&this->textures["WEAPON_ICON"]);
+                        break;
+                    case 4:
+                        i->setUpRightTexture(&this->textures["SHIELD_ICON"]);
+                        break;
+                    case 3:
+                        i->setUpRightTexture(&this->textures["HELMET_ICON"]);
+                        break;
+                    case 2:
+                        i->setUpRightTexture(&this->textures["ARMOR_ICON"]);
+                        break;
+                    case 1:
+                        i->setUpRightTexture(&this->textures["GLOVES_ICON"]);
+                        break;
+                    case 0:
+                        i->setUpRightTexture(&this->textures["BOOTS_ICON"]);
+                        break;
+                    default:
+                        break;
                 }
             }
         }
@@ -181,7 +193,7 @@ void GameState::updateInput(const float &dt) {
             std::cout << this->player->getInventory()->listInventory();
         }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::G) && this->getKeyTime()){
             std::stringstream ss;
-            ss << "Dragon Helmet" << rand();
+            ss << "Dragon Gloves" << rand();
             this->addItem(new Item("E-arms", ss.str(),
                     "powerful helmet", 5000, "Legendary",
                     4, 7, 300, 200, 0, 350, 10.3, 17.3, 1, true));

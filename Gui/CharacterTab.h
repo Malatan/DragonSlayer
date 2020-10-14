@@ -12,6 +12,7 @@
 
 class CharacterTab {
 private:
+    ResourcesHandler* rsHandler;
     sf::RenderWindow* window;
     sf::Font* font;
     Player* player;
@@ -58,13 +59,15 @@ private:
     sf::Text selectedNumberLbl;
     sf::Text goldLbl;
     sf::Text inventorySpaceLbl;
+    sf::Text keysHintLbl;
     gui::Button* EquipUnEquipBtn;
     gui::Button* deleteBtn;
 
 protected:
 
 public:
-    CharacterTab(sf::RenderWindow* window, sf::Font* font, Player* player, State* state, map<string, sf::Texture> textures);
+    CharacterTab(sf::RenderWindow* window, sf::Font* font, Player* player, State* state, map<string,
+            sf::Texture> textures, ResourcesHandler* rsHandler);
     virtual ~CharacterTab();
 
     //initializers
@@ -80,7 +83,7 @@ public:
     //functions
     std::string playerStatsToString();
 
-    void equipUnequipItem(int equip_slot, Item* item, gui::ItemSlot* i, sf::IntRect intRect, std::string typeIcon);
+    void equipUnequipItem(int equip_slot, Item* item, gui::ItemSlot* i, std::string typeIcon);
     void unselectAll();
     void statsContainerUpdate(const sf::Vector2f& mousePos);
     void statsContainerRender(sf::RenderTarget& target);
@@ -88,10 +91,14 @@ public:
     void equipContainerRender(sf::RenderTarget& target);
     void invContainerUpdate(const sf::Vector2f& mousePos);
     void invContainerRender(sf::RenderTarget& target);
+
     void updateEquipBonusLbl();
     void deleteItemFromInventory();
     bool closeCharacterTabByClicking(const sf::Vector2f& mousePos);
     void updateButtons();
+    void equipUnEquipBtnFunction();
+    void deleteBtnFunction();
+    void updateKeyboardInput();
     void update(const sf::Vector2f& mousePos);
     void render(sf::RenderTarget& target);
 

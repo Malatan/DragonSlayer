@@ -52,12 +52,6 @@ public:
     void setBonusStats(int hp, int mp, int dmg, int armor, float cc, float ec);
     bool isSlotEquipped(int equip_slot);
     void unequipItem(int equip_slot);
-    int getHpBonus();
-    int getMpBonus();
-    int getDamageBonus();
-    int getArmorBonus();
-    float getCritChanceBonus();
-    float getEvadeChanceBonus();
 
     std::string toStringEquipment();
 
@@ -79,6 +73,7 @@ public:
     int getGold();
     void setGold(int gold);
     Item* getEquippedItem(int equip_slot);
+
 
 };
 

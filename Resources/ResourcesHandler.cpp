@@ -140,6 +140,7 @@ bool ResourcesHandler::loadPlayerInventoryTxt(Inventory *playerInventory) {
             item->setIconRectY(std::stoi(app));
 
             item->setIsNew(true);
+            item->updateUsageType();
             playerInventory->addItem(item);
             count --;
         }
@@ -150,6 +151,20 @@ bool ResourcesHandler::loadPlayerInventoryTxt(Inventory *playerInventory) {
     }
 
     return true;
+}
+
+void ResourcesHandler::setEquipSlotsTextureIntRect(int equip_slot, sf::IntRect intRect) {
+    if(equip_slot < 6 && equip_slot >= 0){
+        this->equipSlotsTextureIntRects[equip_slot] = intRect;
+    }
+
+}
+
+sf::IntRect ResourcesHandler::getEquipSlotTextureRect(int equip_slot) {
+    if(equip_slot < 6 && equip_slot >= 0){
+        return this->equipSlotsTextureIntRects[equip_slot];
+    }
+    return sf::IntRect(0, 0, 0, 0);
 }
 
 

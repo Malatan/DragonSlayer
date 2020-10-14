@@ -376,7 +376,7 @@ void gui::ItemSlot::updateItemInfo() {
     if(this->item != nullptr){
         std::stringstream ss;
         ss << this->item->getName()
-           << "\nType: " << this->item->getItemUsageType()
+           << "\nType: " << this->item->getItemUsageTypeString()
            << "\n" << this->item->getRarity();
         if(this->item->getHp() !=0){
             ss << "\n+" << this->item->getHp() << " hp";
@@ -528,6 +528,8 @@ void gui::ItemSlot::updateQuantityLbl() {
 
 gui::ConfirmDialog::ConfirmDialog(float x, float y, std::string text, sf::Window* window, State* state, sf::Font* font, float characterSize) :
     window(window), state(state){
+    this->window->setMouseCursorVisible(true);
+
     this->dialog.setSize(sf::Vector2f(500.f, 150.f));
     this->dialog.setPosition(x, y);
     this->dialog.setFillColor(sf::Color(61, 61, 61, 230));

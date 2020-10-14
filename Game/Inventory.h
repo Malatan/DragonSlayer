@@ -17,8 +17,8 @@ using namespace std;
 class Inventory {
 
 public:
-    const static int MAX_SPACE = 40;               //MASSIMO NUMERO DI SLOT OCCUPABILI NEL GIOCO
-    int* currentSpace;           //MASSIMO NUMERO DI SLOT OCCUPABILI SECONDO I NOSTRI POWER UP DELL'INVENTARIO
+    const static int MAX_SPACE = 70;               //MASSIMO NUMERO DI SLOT OCCUPABILI NEL GIOCO
+    int* currentMaxSpace;           //MASSIMO NUMERO DI SLOT OCCUPABILI SECONDO I NOSTRI POWER UP DELL'INVENTARIO
 
     vector<Item*> items;
 
@@ -27,8 +27,8 @@ public:
     Inventory(int* currentSpace);
     virtual ~Inventory();
 
-    void setCurrentSpace(int* currentSpace);
-    int getCurrentSpace();
+    void setCurrentMaxSpace(int currentMaxSpace);
+    int getCurrentMaxSpace();
 
     int getItemsSize();
     Item* getItem(int n);

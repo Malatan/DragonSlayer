@@ -429,30 +429,6 @@ std::string Player::toStringEquipment() {
     return ss.str();
 }
 
-int Player::getHpBonus() {
-    return 0;
-}
-
-int Player::getMpBonus() {
-    return 0;
-}
-
-int Player::getDamageBonus() {
-    return 0;
-}
-
-int Player::getArmorBonus() {
-    return 0;
-}
-
-float Player::getCritChanceBonus() {
-    return 0;
-}
-
-float Player::getEvadeChanceBonus() {
-    return 0;
-}
-
 Item *Player::getEquippedItem(int equip_slot) {
     switch(equip_slot){
         case 5:  // weapon
