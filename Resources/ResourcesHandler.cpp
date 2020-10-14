@@ -24,10 +24,15 @@ bool ResourcesHandler::checkIfKeyExist(std::string key) {
     return false;
 }
 
-void ResourcesHandler::addResouce(Resource *rs) {
-    this->resources.push_back(rs);
+bool ResourcesHandler::addResouce(std::string path, std::string key, std::string state_name) {
+    for(auto i : this->resources){
+        if(i->getKey().compare(key) == 0){
+            return false;
+        }
+    }
+    this->resources.push_back(new Resource(path, key, state_name));
+    return true;
 }
-
 
 Resource *ResourcesHandler::getResouceByKey(std::string key) {
     for(auto i : this->resources){
@@ -52,7 +57,7 @@ bool ResourcesHandler::loadPlayerStatsTxt(Stats* playerStats) {
     if (!file.is_open()){
         cout<<"Resource load error: Could not load Stats.txt";
     } else{
-        int app;
+        float app;
         file >> app;
         playerStats->setLevel(app);
         file >> app;
@@ -94,74 +99,51 @@ bool ResourcesHandler::loadPlayerInventoryTxt(Inventory *playerInventory) {
         cout<<"Resource load error: Could not load Inventory.txt";
     } else{
         std::string app;
-        while(!file.eof()){
-            file >> app;
+        int count;
+        file >> count;
+        while(count != 0){
             item = new Item();
-            if(app.at(0) == 'E'){ // equipment
-                item->setItemType(app);
-                file >> app;
-                item->setName(app);
-                file >> app;
-                item->setDescription(app);
-                file >> app;
-                item->setValue(std::stoi(app));
-                file >> app;
-                item->setRarity(app);
-                file >> app;
-                item->setArmor(std::stoi(app));
-                file >> app;
-                item->setIconRectX(std::stoi(app));
-                file >> app;
-                item->setIconRectY(std::stoi(app));
+            file >> app;
+            item->setItemType(app);
+            file >> app;
+            item->setName(app);
+            file >> app;
+            item->setDescription(app);
+            file >> app;
+            item->setValue(std::stoi(app));
+            file >> app;
+            item->setRarity(app);
 
-                item->setIsNew(true);
-                item->setDamage(0);
-                item->setQuantity(1);
-                playerInventory->addItem(item);
-            } else if(app.at(0) == 'W'){ // weapon
-                item->setItemType(app);
+            if(item->getItemType().at(0) != 'C'){
                 file >> app;
-                item->setName(app);
+                item->setHp(std::stoi(app));
                 file >> app;
-                item->setDescription(app);
-                file >> app;
-                item->setValue(std::stoi(app));
-                file >> app;
-                item->setRarity(app);
+                item->setMp(std::stoi(app));
                 file >> app;
                 item->setDamage(std::stoi(app));
                 file >> app;
-                item->setIconRectX(std::stoi(app));
+                item->setArmor(std::stoi(app));
                 file >> app;
-                item->setIconRectY(std::stoi(app));
+                item->setCritChance(std::stof(app));
+                file >> app;
+                item->setEvadeChance(std::stof(app));
 
-                item->setIsNew(true);
-                item->setArmor(0);
                 item->setQuantity(1);
-                playerInventory->addItem(item);
-            } else if(app.at(0) == 'C'){ // consumable
-                item->setItemType(app);
-                file >> app;
-                item->setName(app);
-                file >> app;
-                item->setDescription(app);
-                file >> app;
-                item->setValue(std::stoi(app));
-                file >> app;
-                item->setRarity(app);
+            } else{ // consumable
                 file >> app;
                 item->setQuantity(std::stoi(app));
-                file >> app;
-                item->setIconRectX(std::stoi(app));
-                file >> app;
-                item->setIconRectY(std::stoi(app));
-
-                item->setIsNew(true);
-                item->setArmor(0);
-                item->setDamage(0);
-                playerInventory->addItem(item);
             }
+
+            file >> app;
+            item->setIconRectX(std::stoi(app));
+            file >> app;
+            item->setIconRectY(std::stoi(app));
+
+            item->setIsNew(true);
+            playerInventory->addItem(item);
+            count --;
         }
+
         if(playerInventory->getItemsSize() > 1){
             playerInventory->sortByItemType();
         }

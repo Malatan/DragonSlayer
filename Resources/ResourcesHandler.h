@@ -21,7 +21,7 @@ public:
 
 
     bool checkIfKeyExist(std::string key);
-    void addResouce(Resource* rs);
+    bool addResouce(std::string path, std::string key, std::string state_name);
     Resource* getResouceByKey(std::string key);
 
     bool loadPlayerStatsTxt(Stats* playerStats);
