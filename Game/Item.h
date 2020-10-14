@@ -25,20 +25,21 @@ protected:
     int iconRectY;
     bool isNew;
     bool equipped;
-    //Weapon attributes
+
+    int hp;
+    int mp;
     int damage;
-
-    //Armature attributes
     int armor;
+    float critChance;
+    float evadeChance;
 
-    //Consumable attributes
     int quantity;
 
 public:
     //CONSTRUCTOR & DESTRUCTOR
 
     Item(string itemType, string name, string description, int value, string rarity,
-            int iconRectX, int iconRectY, int damage, int armor, int quantity, bool isNew);
+            int iconRectX, int iconRectY, int hp, int mp, int damage, int armor, float critchance, float evadechance, int quantity, bool isNew);
     Item();
     virtual ~Item();
 
@@ -83,9 +84,25 @@ public:
     void setEquipped(bool b);
     bool isEquipped();
 
+    int getHp() const;
+
+    void setHp(int hp);
+
+    int getMp() const;
+
+    void setMp(int mp);
+
+    float getCritChance() const;
+
+    void setCritChance(float critChance);
+
+    float getEvadeChance() const;
+
+    void setEvadeChance(float evadeChance);
+
     std::string getItemUsageType();
 
-
+    bool isConsumable();
 
     //OTHER METHODS
 

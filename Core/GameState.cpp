@@ -5,51 +5,18 @@
 #include "GameState.h"
 
 void GameState::initTextures() {
-    if(!this->rsHandler->checkIfKeyExist("player_sheet")){
-        this->rsHandler->addResouce(
-                new Resource("../Resources/Images/Sprites/Player/player_sheet.png", "player_sheet", "GameState"));
-
-    }
-
-    if(!this->rsHandler->checkIfKeyExist("wizard_sheet")) {
-        this->rsHandler->addResouce(
-                new Resource("../Resources/Images/Sprites/Enemy/wizard_Idle.png", "wizard_sheet", "GameState"));
-    }
-
-    if(!this->rsHandler->checkIfKeyExist("EquipSlotsSheet")){
-        this->rsHandler->addResouce(
-                new Resource("../Resources/Images/equipslot_sheet.png", "EquipSlotsSheet", "GameState"));
-    }
-
-    if(!this->rsHandler->checkIfKeyExist("items_sheet")) {
-        this->rsHandler->addResouce(
-                new Resource("../Resources/Images/items_sheet.png", "items_sheet", "GameState"));
-    }
-
-    if(!this->rsHandler->checkIfKeyExist("selected")) {
-        this->rsHandler->addResouce(
-                new Resource("../Resources/Images/selectedIcon.png", "selected", "GameState"));
-    }
-
-    if(!this->rsHandler->checkIfKeyExist("newTag")) {
-        this->rsHandler->addResouce(
-                new Resource("../Resources/Images/new.png", "newTag", "GameState"));
-    }
-
-    if(!this->rsHandler->checkIfKeyExist("weaponIcon")) {
-        this->rsHandler->addResouce(
-                new Resource("../Resources/Images/weaponIcon.png", "weaponIcon", "GameState"));
-    }
-
-    if(!this->rsHandler->checkIfKeyExist("armorIcon")) {
-        this->rsHandler->addResouce(
-                new Resource("../Resources/Images/armorIcon.png", "armorIcon", "GameState"));
-    }
-
-    if(!this->rsHandler->checkIfKeyExist("shieldIcon")) {
-        this->rsHandler->addResouce(
-                new Resource("../Resources/Images/shieldIcon.png", "shieldIcon", "GameState"));
-    }
+    this->rsHandler->addResouce("../Resources/Images/Sprites/Player/player_sheet.png", "player_sheet", "GameState");
+    this->rsHandler->addResouce("../Resources/Images/Sprites/Enemy/wizard_Idle.png", "wizard_sheet", "GameState");
+    this->rsHandler->addResouce("../Resources/Images/equipslot_sheet.png", "EquipSlotsSheet", "GameState");
+    this->rsHandler->addResouce("../Resources/Images/items_sheet.png", "items_sheet", "GameState");
+    this->rsHandler->addResouce("../Resources/Images/selectedIcon.png", "selected", "GameState");
+    this->rsHandler->addResouce("../Resources/Images/new.png", "newTag", "GameState");
+    this->rsHandler->addResouce("../Resources/Images/weaponIcon.png", "weaponIcon", "GameState");
+    this->rsHandler->addResouce("../Resources/Images/shieldIcon.png", "shieldIcon", "GameState");
+    this->rsHandler->addResouce("../Resources/Images/helmetIcon.png", "helmetIcon", "GameState");
+    this->rsHandler->addResouce("../Resources/Images/armorIcon.png", "armorIcon", "GameState");
+    this->rsHandler->addResouce("../Resources/Images/glovesIcon.png", "glovesIcon", "GameState");
+    this->rsHandler->addResouce("../Resources/Images/bootsIcon.png", "bootsIcon", "GameState");
 
     this->textures["PLAYER_SHEET"].loadFromImage(this->rsHandler->getResouceByKey("player_sheet")->getImage());
     this->textures["ENEMY_WIZARD_SHEET"].loadFromImage(this->rsHandler->getResouceByKey("wizard_sheet")->getImage());
@@ -58,8 +25,11 @@ void GameState::initTextures() {
     this->textures["SELECTED_ICON"].loadFromImage(this->rsHandler->getResouceByKey("selected")->getImage());
     this->textures["NEW_TAG"].loadFromImage(this->rsHandler->getResouceByKey("newTag")->getImage());
     this->textures["WEAPON_ICON"].loadFromImage(this->rsHandler->getResouceByKey("weaponIcon")->getImage());
-    this->textures["ARMOR_ICON"].loadFromImage(this->rsHandler->getResouceByKey("armorIcon")->getImage());
     this->textures["SHIELD_ICON"].loadFromImage(this->rsHandler->getResouceByKey("shieldIcon")->getImage());
+    this->textures["HELMET_ICON"].loadFromImage(this->rsHandler->getResouceByKey("helmetIcon")->getImage());
+    this->textures["ARMOR_ICON"].loadFromImage(this->rsHandler->getResouceByKey("armorIcon")->getImage());
+    this->textures["GLOVES_ICON"].loadFromImage(this->rsHandler->getResouceByKey("glovesIcon")->getImage());
+    this->textures["BOOTS_ICON"].loadFromImage(this->rsHandler->getResouceByKey("bootsIcon")->getImage());
 }
 
 void GameState::initPauseMenu() {
@@ -161,6 +131,28 @@ void GameState::addItem(Item *item) {
         this->player->getInventory()->sortByItemType();
         this->cTab->initInventorySlots();
         this->initInventoryItemTextures();
+        for(auto i : this->cTab->getInventorySlots()){
+            if(i->getItem()->isEquipped()){
+                if(i->getItem()->getItemUsageType() == "Melee" || i->getItem()->getItemUsageType() == "Ranged"){
+                    i->setUpRightTexture(&this->textures["WEAPON_ICON"]);
+                }
+                else if(i->getItem()->getItemUsageType() == "Shield"){
+                    i->setUpRightTexture(&this->textures["SHIELD_ICON"]);
+                }
+                else if(i->getItem()->getItemUsageType() == "Helmet"){
+                    i->setUpRightTexture(&this->textures["HELMET_ICON"]);
+                }
+                else if(i->getItem()->getItemUsageType() == "Chest"){
+                    i->setUpRightTexture(&this->textures["ARMOR_ICON"]);
+                }
+                else if(i->getItem()->getItemUsageType() == "Gloves"){
+                    i->setUpRightTexture(&this->textures["GLOVES_ICON"]);
+                }
+                else if(i->getItem()->getItemUsageType() == "Boots"){
+                    i->setUpRightTexture(&this->textures["BOOTS_ICON"]);
+                }
+            }
+        }
     }
 }
 
@@ -188,9 +180,11 @@ void GameState::updateInput(const float &dt) {
         }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::I) && this->getKeyTime()){
             std::cout << this->player->getInventory()->listInventory();
         }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::G) && this->getKeyTime()){
-            this->addItem(new Item("E-arms", "Dragon Helmet",
+            std::stringstream ss;
+            ss << "Dragon Helmet" << rand();
+            this->addItem(new Item("E-arms", ss.str(),
                     "powerful helmet", 5000, "Legendary",
-                    4, 7, 0, 400, 1, true));
+                    4, 7, 300, 200, 0, 350, 10.3, 17.3, 1, true));
         }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::R) && this->getKeyTime()){
             std::cout<<this->player->toStringEquipment();
         }

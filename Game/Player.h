@@ -49,8 +49,15 @@ public:
     void render(sf::RenderTarget& target, const bool show_hitbox = false);
 
     void setEquipItem(Item* item, int equip_slot);
+    void setBonusStats(int hp, int mp, int dmg, int armor, float cc, float ec);
     bool isSlotEquipped(int equip_slot);
     void unequipItem(int equip_slot);
+    int getHpBonus();
+    int getMpBonus();
+    int getDamageBonus();
+    int getArmorBonus();
+    float getCritChanceBonus();
+    float getEvadeChanceBonus();
 
     std::string toStringEquipment();
 
@@ -59,9 +66,6 @@ public:
 
 
     void reloadEquipStats();    //applica i bonus degli oggetti alle stats
-    string listEquipment();
-    void importEquipment();
-    bool exportEquipment();
     string listSpells();
     void importSpells();
     bool exportSpells();
@@ -74,7 +78,7 @@ public:
     void setInventory(Inventory* invent);
     int getGold();
     void setGold(int gold);
-
+    Item* getEquippedItem(int equip_slot);
 
 };
 

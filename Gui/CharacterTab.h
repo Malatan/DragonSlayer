@@ -88,6 +88,8 @@ public:
     void equipContainerRender(sf::RenderTarget& target);
     void invContainerUpdate(const sf::Vector2f& mousePos);
     void invContainerRender(sf::RenderTarget& target);
+    void updateEquipBonusLbl();
+    void deleteItemFromInventory();
     bool closeCharacterTabByClicking(const sf::Vector2f& mousePos);
     void updateButtons();
     void update(const sf::Vector2f& mousePos);

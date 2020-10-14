@@ -6,14 +6,27 @@
 #include "Buff.h"
 
 Item::Item(string itemType, string name, string description, int value, string rarity, int iconRectX,
-           int iconRectY, int damage, int armor, int quantity, bool isNew) : itemType(itemType), name(name), description(description),
-           value(value), rarity(rarity), iconRectX(iconRectX), iconRectY(iconRectY), damage(damage), armor(armor), quantity(quantity),
+           int iconRectY, int hp, int mp, int damage, int armor, float critchance, float evadechance, int quantity, bool isNew) :
+           itemType(itemType), name(name), description(description),
+           value(value), rarity(rarity), iconRectX(iconRectX), iconRectY(iconRectY),
+           hp(hp), mp(hp), damage(damage), armor(armor), critChance(critchance), evadeChance(evadechance), quantity(quantity),
            isNew(isNew){
 
 }
 
 Item::Item(){
     this->equipped = false;
+    this->value = 0;
+    this->iconRectX = 0;
+    this->iconRectY = 0;
+    this->isNew = true;
+    this->hp= 0;
+    this->mp= 0;
+    this->damage= 0;
+    this->armor= 0;
+    this->critChance= 0;
+    this->evadeChance= 0;
+    this->quantity= 0;
 };
 
 Item::~Item() {
@@ -37,11 +50,15 @@ string Item::listItem() {
         << " desc: " << this->description
         << " value: " << this->value
         << " rarity: " << this->rarity
-        << " armor: " << this->armor
+        << " hp: " << this->hp
+        << " mp: " << this->mp
         << " damage: " << this->damage
+        << " armor: " << this->armor
+        << " critchance: " << this->critChance
+        << " evadechance: " << this->evadeChance
         << " quantity: " << this->quantity
         << " iconRect: " << this->iconRectX
-        << " - " << this->iconRectY;
+        << "-" << this->iconRectY;
 
     return ss.str();
 }
@@ -173,5 +190,45 @@ void Item::setEquipped(bool b) {
 bool Item::isEquipped() {
     return this->equipped;
 }
+
+bool Item::isConsumable() {
+    if(this->getItemType().at(0) == 'C')
+        return true;
+    return false;
+}
+
+int Item::getHp() const {
+    return hp;
+}
+
+void Item::setHp(int hp) {
+    Item::hp = hp;
+}
+
+int Item::getMp() const {
+    return mp;
+}
+
+void Item::setMp(int mp) {
+    Item::mp = mp;
+}
+
+float Item::getCritChance() const {
+    return critChance;
+}
+
+void Item::setCritChance(float critChance) {
+    Item::critChance = critChance;
+}
+
+float Item::getEvadeChance() const {
+    return evadeChance;
+}
+
+void Item::setEvadeChance(float evadeChance) {
+    Item::evadeChance = evadeChance;
+}
+
+
 
 

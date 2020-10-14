@@ -35,7 +35,8 @@ void Inventory::sortByItemType() {
     sort(this->items.begin(),this->items.end(),
             [](const Item* lhs , const Item* rhs)
             {
-                return lhs->getItemType() < rhs->getItemType();
+                return lhs->getItemType() < rhs->getItemType()
+                ;
             });
 }
 

@@ -24,8 +24,8 @@ void CharacterTab::initStatsContainer() {
 
     this->statsName.setString("Level:\n"
                               "Exp:\n"
-                              "Hp:\n"
-                              "Mp:\n"
+                              "Max Hp:\n"
+                              "Max Mp:\n"
                               "Damage:\n"
                               "Armor:\n"
                               "Critical Chance:\n"
@@ -112,11 +112,9 @@ void CharacterTab::initEquipContainer() {
                                           - this->equipContainerTitle.getGlobalBounds().width/2.f,
                                           this->equipContainer.getPosition().y);
 
-    this->equipBonusLbl.setString("Equip Effects:\n"
-                                  "Damage +20\n"
-                                  "Armor +15");
+    this->equipBonusLbl.setString("Equip Effects:\n");
     this->equipBonusLbl.setFont(*this->font);
-    this->equipBonusLbl.setCharacterSize(20);
+    this->equipBonusLbl.setCharacterSize(18);
     this->equipBonusLbl.setPosition(this->equipContainer.getPosition().x + 10.f,
                                     this->equipContainer.getPosition().y + 320.f);
 
@@ -346,12 +344,12 @@ std::string CharacterTab::playerStatsToString() {
     std::stringstream ss;
     ss << this->player->getPlayerStats()->getLevel()  << "\n"
             <<this->player->getPlayerStats()->getExp() <<"/" << this->player->getPlayerStats()->getMaxExp() << "\n"
-            <<this->player->getPlayerStats()->getMaxHp() << "\n"
-            <<this->player->getPlayerStats()->getMaxMp() << "\n"
-            <<this->player->getPlayerStats()->getDamage() << "\n"
-            <<this->player->getPlayerStats()->getArmor() << "\n"
-            <<this->player->getPlayerStats()->getCritChance() << "%\n"
-            <<this->player->getPlayerStats()->getEvadeChance() << "%\n\n\n\n"
+            <<this->player->getPlayerStats()->getFinalHp() << "\n"
+            <<this->player->getPlayerStats()->getFinalMp() << "\n"
+            <<this->player->getPlayerStats()->getFinalDamage() << "\n"
+            <<this->player->getPlayerStats()->getFinalArmor() << "\n"
+            <<this->player->getPlayerStats()->getFinalCritChance() << "%\n"
+            <<this->player->getPlayerStats()->getFinalEvadeChance() << "%\n\n\n\n"
             <<this->player->getPlayerStats()->getStrength() << "\n"
             <<this->player->getPlayerStats()->getWisdom() << "\n"
             <<this->player->getPlayerStats()->getAgility() << "\n"
@@ -515,7 +513,7 @@ void CharacterTab::equipUnequipItem(int equip_slot, Item *item, gui::ItemSlot* i
         i->setSelectedBool(false);
 
     }
-
+    this->updateEquipBonusLbl();
 }
 
 void CharacterTab::updateButtons() {
@@ -543,14 +541,13 @@ void CharacterTab::updateButtons() {
                 if(item->getItemUsageType() == "Melee" || item->getItemUsageType() == "Ranged"){
                     this->equipUnequipItem(5, item, i,
                             sf::IntRect(0, 0, 67, 67),"WEAPON_ICON");
-
                 } else if(item->getItemUsageType() == "Shield"){
                     this->equipUnequipItem(4, item, i,
                             sf::IntRect(67, 0, 67, 67),"SHIELD_ICON");
 
                 }else if(item->getItemUsageType() == "Helmet"){
                     this->equipUnequipItem(3, item, i,
-                            sf::IntRect(134, 0, 67, 67),"ARMOR_ICON");
+                            sf::IntRect(134, 0, 67, 67),"HELMET_ICON");
 
                 }else if(item->getItemUsageType() == "Chest"){
                     this->equipUnequipItem(2, item, i,
@@ -558,11 +555,11 @@ void CharacterTab::updateButtons() {
 
                 }else if(item->getItemUsageType() == "Gloves"){
                     this->equipUnequipItem(1, item, i,
-                            sf::IntRect(268, 0, 67, 67),"ARMOR_ICON");
+                            sf::IntRect(268, 0, 67, 67),"GLOVES_ICON");
 
                 }else if(item->getItemUsageType() == "Boots"){
                     this->equipUnequipItem(0, item, i,
-                            sf::IntRect(335, 0, 67, 67),"ARMOR_ICON");
+                            sf::IntRect(335, 0, 67, 67),"BOOTS_ICON");
 
                 }else if(item->getItemUsageType() == "Consumable"){
                     std::cout<<"Can't equip consumables!\n";
@@ -595,28 +592,12 @@ void CharacterTab::update(const sf::Vector2f& mousePos) {
         this->equipContainerUpdate(mousePos);
         this->invContainerUpdate(mousePos);
 
-        this->hpBar->update(this->player->getPlayerStats()->getHp(), this->player->getPlayerStats()->getMaxHp());
-        this->mpBar->update(this->player->getPlayerStats()->getMp(), this->player->getPlayerStats()->getMaxMp());
+        this->hpBar->update(this->player->getPlayerStats()->getHp(), this->player->getPlayerStats()->getFinalHp());
+        this->mpBar->update(this->player->getPlayerStats()->getMp(), this->player->getPlayerStats()->getFinalMp());
         this->expBar->update(this->player->getPlayerStats()->getExp(), this->player->getPlayerStats()->getMaxExp());
     } else if(this->openDialog){
         if(this->confirmDialog->update(mousePos, &this->openDialog) == 1){
-
-            for(auto i : this->inventorySlots){
-                if(i->getIsSelected()){
-                    this->player->getInventory()->removeItem(i->getItem()->getName());
-                    this->selectedItem--;
-                }
-                if(selectedItem == 0){
-                    break;
-                }
-            }
-            this->player->getInventory()->sortByItemType();
-            initInventorySlots();
-            for(auto i : this->getInventorySlots()){
-                i->setSlotTexture(&this->textures["ITEMS_SHEET"], 34.f);
-                i->setDownRightTexture(&this->textures["SELECTED_ICON"]);
-                i->setUpRightTexture(&this->textures["NEW_TAG"]);
-            }
+            this->deleteItemFromInventory();
         }
     }
 }
@@ -644,6 +625,84 @@ void CharacterTab::render(sf::RenderTarget &target) {
 
 const vector<gui::ItemSlot *> &CharacterTab::getInventorySlots() const {
     return this->inventorySlots;
+}
+
+void CharacterTab::updateEquipBonusLbl() {
+    int dmgBonus = 0;
+    int armorBonus = 0;
+    int hpBonus = 0;
+    int mpBonus = 0;
+    float critChanceBonus = 0;
+    float evadeChanceBonus = 0;
+    for(int i = 0 ; i < 6 ; i++){
+        if(this->player->isSlotEquipped(i)){
+            hpBonus += this->player->getEquippedItem(i)->getHp();
+            mpBonus += this->player->getEquippedItem(i)->getMp();
+            dmgBonus += this->player->getEquippedItem(i)->getDamage();
+            armorBonus += this->player->getEquippedItem(i)->getArmor();
+            critChanceBonus += this->player->getEquippedItem(i)->getCritChance();
+            evadeChanceBonus += this->player->getEquippedItem(i)->getEvadeChance();
+        }
+    }
+    std::stringstream ss;
+    ss << "Equip Effects: \n";
+    if(hpBonus != 0)
+        ss << " + " << hpBonus << " hp\n";
+    if(mpBonus != 0)
+        ss << " + " << mpBonus << " mp\n";
+    if(dmgBonus != 0)
+        ss << " + " << dmgBonus << " dmg\n";
+    if(armorBonus != 0)
+        ss << " + " << armorBonus << " armor\n";
+    if(critChanceBonus != 0)
+        ss << " + " << critChanceBonus << " % critical chance\n";
+    if(evadeChanceBonus != 0)
+        ss << " + " << evadeChanceBonus << " % evade chance\n";
+
+    this->equipBonusLbl.setString(ss.str());
+
+    this->player->setBonusStats(hpBonus, mpBonus, dmgBonus, armorBonus, critChanceBonus, evadeChanceBonus);
+}
+
+void CharacterTab::deleteItemFromInventory() {
+    for(auto i : this->inventorySlots){
+        if(i->getIsSelected()){
+            this->player->getInventory()->removeItem(i->getItem()->getName());
+            this->selectedItem--;
+        }
+        if(selectedItem == 0){
+            break;
+        }
+    }
+    this->player->getInventory()->sortByItemType();
+    initInventorySlots();
+    for(auto i : this->getInventorySlots()){
+        i->setSlotTexture(&this->textures["ITEMS_SHEET"], 34.f);
+        i->setDownRightTexture(&this->textures["SELECTED_ICON"]);
+        i->setUpRightTexture(&this->textures["NEW_TAG"]);
+    }
+    for(auto i : this->inventorySlots){
+        if(i->getItem()->isEquipped()){
+            if(i->getItem()->getItemUsageType() == "Melee" || i->getItem()->getItemUsageType() == "Ranged"){
+                i->setUpRightTexture(&this->textures["WEAPON_ICON"]);
+            }
+            else if(i->getItem()->getItemUsageType() == "Shield"){
+                i->setUpRightTexture(&this->textures["SHIELD_ICON"]);
+            }
+            else if(i->getItem()->getItemUsageType() == "Helmet"){
+                i->setUpRightTexture(&this->textures["HELMET_ICON"]);
+            }
+            else if(i->getItem()->getItemUsageType() == "Chest"){
+                i->setUpRightTexture(&this->textures["ARMOR_ICON"]);
+            }
+            else if(i->getItem()->getItemUsageType() == "Gloves"){
+                i->setUpRightTexture(&this->textures["GLOVES_ICON"]);
+            }
+            else if(i->getItem()->getItemUsageType() == "Boots"){
+                i->setUpRightTexture(&this->textures["BOOTS_ICON"]);
+            }
+        }
+    }
 }
 
 

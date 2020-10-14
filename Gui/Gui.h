@@ -133,11 +133,10 @@ namespace gui{
         sf::IntRect intRect;
         sf::Font* font;
         sf::Texture texture;
-        sf::Text itemName;
 
         sf::RectangleShape itemInfoContainer;
         sf::Text itemInfoLbl;
-
+        sf::Text quantityLbl;
     protected:
 
 
@@ -161,13 +160,13 @@ namespace gui{
         void setShapeTexture(const sf::Texture *texture, const sf::IntRect* intRect);
         void setSlotTexture(const sf::Texture *texture, float size);
         void setSlotTexture(sf::Texture* texture, sf::IntRect intRect);
-        void setText(std::string text);
         void setSelectedBool(bool b);
         void setDownRightTexture(sf::Texture* texture);
         void setUpRightTexture(sf::Texture* texture);
 
         //functions
         void itemInfo(const sf::Vector2f& mousePos);
+        void updateQuantityLbl();
         void updateItemInfo();
         void updateItemInfoPos(const sf::Vector2f& mousePos);
         void update(const sf::Vector2f& mousePos, int* updateSlot, bool inv);

@@ -14,7 +14,6 @@ using namespace std;
 class Stats {
 
 private:
-
     int level;
     int exp;
     int maxExp;
@@ -24,62 +23,110 @@ private:
     int mp;
     int maxMp;
     int armor;
-    int armorBonus;
     int damage;
-    int damageBonus;
-    int critChance;     //in %
-    int evadeChance;    //in %
+    float critChance;     //in %
+    float evadeChance;    //in %
+
     int agility;
     int wisdom;
     int strength;
-
     int freePoints;
+
+    int maxHpBonus;
+    int maxMpBonus;
+    int damageBonus;
+    int armorBonus;
+    float critChanceBonus;
+    float evadeChanceBonus;    //in %
+
 public:
 
-  //  void importStats();
     bool exportStats();
     string listStats();
     void addExp(int earned);
     void levelUp(int choise, int newExp);
     void addAttribute(int type);
+    void checkHpLimit();
+    void checkMpLimit();
 
     Stats();
     virtual ~Stats();
 
     int getLevel();
     void setLevel(int level);
+
     int getExp();
     void setExp(int exp);
+
     int getMaxExp();
     void setMaxExp(int maxExp);
+
     int getHp();
     void setHp(int hp);
+
     int getMaxHp();
     void setMaxHp(int maxHp);
+
     int getMp();
     void setMp(int mp);
+
     int getMaxMp();
     void setMaxMp(int maxMp);
+
     int getArmor();
     void setArmor(int armor);
+
     int getDamage();
     void setDamage(int damage);
-    int getCritChance();
-    void setCritChance(int critChance);
-    int getEvadeChance();
-    void setEvadeChance(int evadeChance);
+
+    float getCritChance();
+    void setCritChance(float critChance);
+
+    float getEvadeChance();
+    void setEvadeChance(float evadeChance);
+
     int getAgility();
     void setAgility(int agility);
+
     int getWisdom();
     void setWisdom(int wisdom);
+
     int getStrength();
     void setStrength(int strength);
-    int getArmorBonus();
-    void setArmorBonus(int armorBonus);
-    int getDamageBonus();
-    void setDamageBonus(int damageBonus);
+
     int getFreePoints();
     void setFreePoints(int freePoints);
+
+    int getMaxHpBonus() const;
+
+    void setMaxHpBonus(int maxHpBonus);
+
+    int getMaxMpBonus() const;
+
+    void setMaxMpBonus(int maxMpBonus);
+
+    int getDamageBonus() const;
+
+    void setDamageBonus(int damageBonus);
+
+    int getArmorBonus() const;
+
+    void setArmorBonus(int armorBonus);
+
+    float getCritChanceBonus() const;
+
+    void setCritChanceBonus(float critChanceBonus);
+
+    float getEvadeChanceBonus() const;
+
+    void setEvadeChanceBonus(float evadeChanceBonus);
+
+    int getFinalHp();
+    int getFinalMp();
+    int getFinalDamage();
+    int getFinalArmor();
+    float getFinalCritChance();
+    float getFinalEvadeChance();
 };
 
 

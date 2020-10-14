@@ -294,15 +294,17 @@ gui::ItemSlot::ItemSlot(float x, float y, float width, float height, int id,
     this->itemInfoLbl.setFont(*this->font);
     this->itemInfoLbl.setCharacterSize(20.f);
 
-
- /*   this->itemName.setFont(*this->font);
-    this->itemName.setString("item");
-    this->itemName.setCharacterSize(20.f);
-    this->itemName.setOrigin(this->itemName.getGlobalBounds().width/2.f, this->itemName.getGlobalBounds().height/2.f);
-    this->itemName.setPosition(
-            this->shape.getPosition().x + (width/2.f),
-            this->shape.getPosition().y + height + 5.f
-    );*/
+    this->quantityLbl.setFont(*this->font);
+    this->quantityLbl.setCharacterSize(20.f);
+    if(this->item != nullptr){
+        std:stringstream ss;
+        ss << "x" << this->item->getQuantity();
+        this->quantityLbl.setString(ss.str());
+    }
+    this->quantityLbl.setPosition(
+            this->shape.getPosition().x +  5.f,
+            this->shape.getPosition().y + 35.f
+    );
 }
 
 gui::ItemSlot::~ItemSlot() {
@@ -362,10 +364,6 @@ void gui::ItemSlot::setUpRightTexture(sf::Texture *texture) {
     this->upRight.setTexture(texture);
 }
 
-void gui::ItemSlot::setText(std::string text) {
-    this->itemName.setString(text);
-}
-
 void gui::ItemSlot::setSelectedBool(bool b) {
     this->isSelected = b;
 }
@@ -375,21 +373,34 @@ void gui::ItemSlot::itemInfo(const sf::Vector2f &mousePos) {
 }
 
 void gui::ItemSlot::updateItemInfo() {
-    if(this->item){
+    if(this->item != nullptr){
         std::stringstream ss;
         ss << this->item->getName()
            << "\nType: " << this->item->getItemUsageType()
            << "\n" << this->item->getRarity();
+        if(this->item->getHp() !=0){
+            ss << "\n+" << this->item->getHp() << " hp";
+        }
+        if(this->item->getMp() !=0){
+            ss << "\n+" << this->item->getMp() << " mp";
+        }
         if(this->item->getDamage() !=0){
             ss << "\n+" << this->item->getDamage() << " dmg";
         }
         if(this->item->getArmor() !=0){
             ss << "\n+" << this->item->getArmor() << " armor";
         }
-        ss << "\n   '" << this->item->getDescription() << "'";
+        if(this->item->getCritChance() !=0){
+            ss << "\n+" << this->item->getCritChance() << " % crit chance";
+        }
+        if(this->item->getEvadeChance() !=0){
+            ss << "\n+" << this->item->getEvadeChance() << " % evade chance";
+        }
         ss << "\nValue: " << this->item->getValue();
 
         this->itemInfoLbl.setString(ss.str());
+        this->itemInfoContainer.setSize(sf::Vector2f(this->itemInfoLbl.getGlobalBounds().width + 10.f,
+                                                     this->itemInfoLbl.getGlobalBounds().height + 15.f));
     }
 }
 
@@ -400,10 +411,11 @@ void gui::ItemSlot::updateItemInfoPos(const sf::Vector2f &mousePos) {
 }
 
 void gui::ItemSlot::update(const sf::Vector2f &mousePos, int *updateSlot, bool inv) {
+
     //hover
     if(this->shape.getGlobalBounds().contains(mousePos)){
         //pressed
-        if(this->item){
+        if(this->item != nullptr){
             if(this->item->getIsNew()){
                 this->item->setIsNew(false);
             }
@@ -463,10 +475,12 @@ void gui::ItemSlot::render(sf::RenderTarget &target) {
         target.draw(this->downRight);
     }
 
-    if(this->item && !this->isEquipSlot){
+    if(this->item != nullptr && !this->isEquipSlot){
         if(this->item->getIsNew() || this->item->isEquipped()){
             target.draw(this->upRight);
         }
+        if(this->item->isConsumable())
+            target.draw(this->quantityLbl);
     }
 
     if(this->renderItemInfoContainer){
@@ -495,6 +509,14 @@ void gui::ItemSlot::setShapeTexture(const sf::Texture *texture, const sf::IntRec
 
 sf::IntRect* gui::ItemSlot::getIntRect() {
     return &this->intRect;
+}
+
+void gui::ItemSlot::updateQuantityLbl() {
+    if(this->item != nullptr){
+        std:stringstream ss;
+        ss << "x" << this->item->getQuantity();
+        this->quantityLbl.setString(ss.str());
+    }
 }
 
 

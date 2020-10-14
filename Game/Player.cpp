@@ -153,42 +153,6 @@ void Player::reloadEquipStats() {
  //   Player::playerStats.setDamageBonus(damageBonus);
 }
 
-string  Player::listEquipment() {
- /*   string desc = "";
-    desc+=  "Weapon: " + Player::weapon.getName() + "\n" +
-            " - " + Player::weapon.getDescription() + "\n" +
-            " - " + Player::weapon.getRarity() + "\n" +
-            " - " + to_string(Player::weapon.getValue()) + " gold\n" +
-            " - " + to_string(Player::weapon.getDamage()) + " dmg\n" +
-            "Shield: " + Player::shield.getName() + "\n" +
-            " - " + Player::shield.getDescription() + "\n" +
-            " - " + Player::shield.getRarity() + "\n" +
-            " - " + to_string(Player::shield.getValue()) + " gold\n" +
-            " - " + to_string(Player::shield.getArmor()) + " armor\n" +
-            "Head: " + Player::head.getName() + "\n" +
-            " - " + Player::head.getDescription() + "\n" +
-            " - " + Player::head.getRarity() + "\n" +
-            " - " + to_string(Player::head.getValue()) + " gold\n" +
-            " - " + to_string(Player::head.getArmor()) + " armor\n" +
-            "Chest: " + Player::chest.getName() + "\n" +
-            " - " + Player::chest.getDescription() + "\n" +
-            " - " + Player::chest.getRarity() + "\n" +
-            " - " + to_string(Player::chest.getValue()) + " gold\n" +
-            " - " + to_string(Player::chest.getArmor()) + " armor\n" +
-            "Arms: " + Player::arms.getName() + "\n" +
-            " - " + Player::arms.getDescription() + "\n" +
-            " - " + Player::arms.getRarity() + "\n" +
-            " - " + to_string(Player::arms.getValue()) + " gold\n" +
-            " - " + to_string(Player::arms.getArmor()) + " armor\n" +
-            "Legs: " + Player::legs.getName() + "\n"
-                                                " - " + Player::legs.getDescription() + "\n" +
-            " - " + Player::legs.getRarity() + "\n" +
-            " - " + to_string(Player::legs.getValue()) + " gold\n" +
-            " - " + to_string(Player::legs.getArmor()) + " armor\n";
-*/
-    return "desc";
-}
-
 string Player::listSpells(){
     string desc = "";
     string lock;
@@ -297,189 +261,6 @@ bool Player::exportSpells() {
         return true;
     }
 
-}
-
-bool Player::exportEquipment() {
-/*
-    ofstream file;
-    file.open("Equipment.txt");
-
-    if (!file.is_open()){
-        return false;
-    } else {
-        file<<Player::weapon.getItemType()+ " ";
-        file<<Player::weapon.getName() + " ";
-        file<<Player::weapon.getDescription() + " ";
-        file<<to_string(Player::weapon.getValue()) + " ";
-        file<<Player::weapon.getRarity() + " ";
-        file<< Player::weapon.getIconRect() + " ";
-        file<<to_string(Player::weapon.getDamage()) + " ";
-//        file<<Player::weapon.getWeaponType() + " ";
-//        file<<to_string(Player::weapon.getDurability()) + " \n";
-
-        file<<Player::shield.getItemType()+ " ";
-        file<<Player::shield.getName() + " ";
-        file<<Player::shield.getDescription() + " ";
-        file<<to_string(Player::shield.getValue()) + " ";
-        file<<Player::shield.getRarity() + " ";
-        file<< Player::shield.getIconRect() + " ";
-        file<<to_string(Player::shield.getArmor()) + " ";
-//        file<<Player::shield.getArmorType() + " \n";
-
-        file<<Player::head.getItemType()+ " ";
-        file<<Player::head.getName() + " ";
-        file<<Player::head.getDescription() + " ";
-        file<<to_string(Player::head.getValue()) + " ";
-        file<<Player::head.getRarity() + " ";
-        file<< Player::head.getIconRect() + " ";
-        file<<to_string(Player::head.getArmor()) + " ";
- //      file<<Player::head.getArmorType() + " \n";
-
-        file<<Player::chest.getItemType()+ " ";
-        file<<Player::chest.getName() + " ";
-        file<<Player::chest.getDescription() + " ";
-        file<<to_string(Player::chest.getValue()) + " ";
-        file<<Player::chest.getRarity() + " ";
-        file<< Player::chest.getIconRect() + " ";
-        file<<to_string(Player::chest.getArmor()) + " ";
-  //      file<<Player::chest.getArmorType() + " \n";
-
-        file<<Player::arms.getItemType()+ " ";
-        file<<Player::arms.getName() + " ";
-        file<<Player::arms.getDescription() + " ";
-        file<<to_string(Player::arms.getValue()) + " ";
-        file<<Player::arms.getRarity() + " ";
-        file<< Player::arms.getIconRect() + " ";
-        file<<to_string(Player::arms.getArmor()) + " ";
-  //      file<<Player::arms.getArmorType() + " \n";
-
-        file<<Player::legs.getItemType()+ " ";
-        file<<Player::legs.getName() + " ";
-        file<<Player::legs.getDescription() + " ";
-        file<<to_string(Player::legs.getValue()) + " ";
-        file<<Player::legs.getRarity() + " ";
-        file<< Player::legs.getIconRect() + " ";
-        file<<to_string(Player::legs.getArmor()) + " ";
-  //      file<<Player::legs.getArmorType() + " \n";
-
-        file.close();
-        return true;
-    }
-*/
-return false;
-}
-
-void Player::importEquipment() {
- /*   ifstream file;
-    file.open("Equipment.txt");
-
-    if (!file.is_open()){
-        cout<<"#Can't open Equipment.txt";
-    } else {
-        string word;
-
-        int newlineCont = 0;
-        int current;
-        Item i = Item();
-
-        while (file >> word) {
-            if(newlineCont == 0){
-                if(word == "W"){            //ITEM
-                    current = 1;
-                    newlineCont = 8;
-                    i.setItemType(word);
-                }else if(word == "E"){      //EQUIP
-                    current = 2;
-                    newlineCont = 7;
-                    i.setItemType(word);
-                }
-            }else{
-                switch(current){
-                    case 1:             //WEAPON
-                        if(newlineCont == 8){
-                            i.setName(word);
-                        }else if(newlineCont == 7){
-                            i.setDescription(word);
-                        }else if(newlineCont == 6){
-                            stringstream intValue(word);
-                            int value;
-                            intValue >> value;
-                            i.setValue(value);
-                        }else if(newlineCont == 5){
-                            i.setRarity(word);
-                        }else if(newlineCont == 4){
-//                            i.setIcon(word);
-                        }else if(newlineCont == 3){
-                            stringstream intValue(word);
-                            int damage;
-                            intValue >> damage;
-                            i.setDamage(damage);
-                        }else if(newlineCont == 2){
-                            i.setWeaponType(word);
-                        }else if(newlineCont == 1){
-                            stringstream intValue(word);
-                            int durability;
-                            intValue >> durability;
-
-                            i.setArmor(0);
-                            i.setArmorType("");
-
-                            Player::weapon = i;
-                        }
-
-                        newlineCont --;
-                        break;
-
-                    case 2:             //ARMATURE
-                        if(newlineCont == 7){
-                            i.setName(word);
-                        }else if(newlineCont == 6){
-                            i.setDescription(word);
-                        }else if(newlineCont == 5){
-                            stringstream intValue(word);
-                            int value;
-                            intValue >> value;
-                            i.setValue(value);
-                        }else if(newlineCont == 4){
-                            i.setRarity(word);
-                        }else if(newlineCont == 3){
-                    //        i.setIcon(word);
-                        }else if(newlineCont == 2){
-                            stringstream intValue(word);
-                            int armor;
-                            intValue >> armor;
-                            i.setArmor(armor);
-                        }else if(newlineCont == 1){
-                            i.setArmorType(word);
-
-                            i.setDamage(0);
-                            i.setWeaponType("");
-
-                            if(i.getArmorType() == "head"){
-                                Player::head = i;
-                            }else if(i.getArmorType() == "chest"){
-                                Player::chest = i;
-                            }else if(i.getArmorType() == "arms"){
-                                Player::arms = i;
-                            }else if(i.getArmorType() == "legs"){
-                                Player::legs = i;
-                            }else if(i.getArmorType() == "shield"){
-                                Player::shield = i;
-                            }
-                        }
-
-                        newlineCont --;
-                        break;
-
-                    default:
-                        cout<<"#Import error"<<endl;
-                        break;
-                }
-
-            }
-
-        }
-    }*/
 }
 
 Stats* Player::getPlayerStats() {
@@ -646,4 +427,58 @@ std::string Player::toStringEquipment() {
         ss << "Nothing";
 
     return ss.str();
+}
+
+int Player::getHpBonus() {
+    return 0;
+}
+
+int Player::getMpBonus() {
+    return 0;
+}
+
+int Player::getDamageBonus() {
+    return 0;
+}
+
+int Player::getArmorBonus() {
+    return 0;
+}
+
+float Player::getCritChanceBonus() {
+    return 0;
+}
+
+float Player::getEvadeChanceBonus() {
+    return 0;
+}
+
+Item *Player::getEquippedItem(int equip_slot) {
+    switch(equip_slot){
+        case 5:  // weapon
+            return this->weapon;
+        case 4: // shield
+            return this->shield;
+        case 3: // helmet
+            return this->head;
+        case 2: // chest
+            return this->chest;
+        case 1: // arms
+            return this->arms;
+        case 0: // legs
+            return this->legs;
+        default:
+            return nullptr;
+    }
+}
+
+void Player::setBonusStats(int hp, int mp, int dmg, int armor, float cc, float ec) {
+    this->playerStats->setMaxHpBonus(hp);
+    this->playerStats->setMaxMpBonus(mp);
+    this->playerStats->setDamageBonus(dmg);
+    this->playerStats->setArmorBonus(armor);
+    this->playerStats->setCritChanceBonus(cc);
+    this->playerStats->setEvadeChanceBonus(ec);
+    this->playerStats->checkHpLimit();
+    this->playerStats->checkMpLimit();
 }
