@@ -533,12 +533,14 @@ gui::ConfirmDialog::ConfirmDialog(float x, float y, std::string text, sf::Window
     this->dialog.setSize(sf::Vector2f(500.f, 150.f));
     this->dialog.setPosition(x, y);
     this->dialog.setFillColor(sf::Color(61, 61, 61, 230));
+    this->dialog.setOutlineColor(sf::Color(25, 25, 25, 200));
+    this->dialog.setOutlineThickness(10.f);
 
     this->text.setString(text);
     this->text.setFont(*font);
     this->text.setCharacterSize(characterSize);
     this->text.setPosition(this->dialog.getPosition().x + (this->dialog.getGlobalBounds().width / 2.f) -
-            this->text.getGlobalBounds().width / 2.f,
+                                   (this->text.getGlobalBounds().width / 2.f) - 10.f,
             this->dialog.getPosition().y + (this->dialog.getGlobalBounds().height / 2.f) -
             this->text.getGlobalBounds().height / 2.f - 30.f);
 
