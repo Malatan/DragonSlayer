@@ -78,6 +78,11 @@ CMakeFiles/DragonSlayer.dir/Components/AnimationComponent.cpp.obj: ../SFML_2.5.1
 CMakeFiles/DragonSlayer.dir/Components/AnimationComponent.cpp.obj: ../Components/AnimationComponent.cpp
 CMakeFiles/DragonSlayer.dir/Components/AnimationComponent.cpp.obj: ../Components/AnimationComponent.h
 
+CMakeFiles/DragonSlayer.dir/Components/BuffComponent.cpp.obj: ../Components/BuffComponent.cpp
+CMakeFiles/DragonSlayer.dir/Components/BuffComponent.cpp.obj: ../Components/BuffComponent.h
+CMakeFiles/DragonSlayer.dir/Components/BuffComponent.cpp.obj: ../Game/Buff.h
+CMakeFiles/DragonSlayer.dir/Components/BuffComponent.cpp.obj: ../Game/Stats.h
+
 CMakeFiles/DragonSlayer.dir/Components/HitBoxComponent.cpp.obj: ../SFML_2.5.1/include/SFML/Config.hpp
 CMakeFiles/DragonSlayer.dir/Components/HitBoxComponent.cpp.obj: ../SFML_2.5.1/include/SFML/Graphics.hpp
 CMakeFiles/DragonSlayer.dir/Components/HitBoxComponent.cpp.obj: ../SFML_2.5.1/include/SFML/Graphics/BlendMode.hpp
@@ -307,6 +312,7 @@ CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj: ../SFML_2.5.1/include/SFML/Window
 CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj: ../SFML_2.5.1/include/SFML/Window/WindowHandle.hpp
 CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj: ../SFML_2.5.1/include/SFML/Window/WindowStyle.hpp
 CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj: ../Components/AnimationComponent.h
+CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj: ../Components/BuffComponent.h
 CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj: ../Components/HitBoxComponent.h
 CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj: ../Components/MovementComponent.h
 CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj: ../Core/Game.cpp
@@ -404,6 +410,7 @@ CMakeFiles/DragonSlayer.dir/Core/GameState.cpp.obj: ../SFML_2.5.1/include/SFML/W
 CMakeFiles/DragonSlayer.dir/Core/GameState.cpp.obj: ../SFML_2.5.1/include/SFML/Window/WindowHandle.hpp
 CMakeFiles/DragonSlayer.dir/Core/GameState.cpp.obj: ../SFML_2.5.1/include/SFML/Window/WindowStyle.hpp
 CMakeFiles/DragonSlayer.dir/Core/GameState.cpp.obj: ../Components/AnimationComponent.h
+CMakeFiles/DragonSlayer.dir/Core/GameState.cpp.obj: ../Components/BuffComponent.h
 CMakeFiles/DragonSlayer.dir/Core/GameState.cpp.obj: ../Components/HitBoxComponent.h
 CMakeFiles/DragonSlayer.dir/Core/GameState.cpp.obj: ../Components/MovementComponent.h
 CMakeFiles/DragonSlayer.dir/Core/GameState.cpp.obj: ../Core/GameState.cpp
@@ -498,6 +505,7 @@ CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.obj: ../SFML_2.5.1/include/SF
 CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.obj: ../SFML_2.5.1/include/SFML/Window/WindowHandle.hpp
 CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.obj: ../SFML_2.5.1/include/SFML/Window/WindowStyle.hpp
 CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.obj: ../Components/AnimationComponent.h
+CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.obj: ../Components/BuffComponent.h
 CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.obj: ../Components/HitBoxComponent.h
 CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.obj: ../Components/MovementComponent.h
 CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.obj: ../Core/GameState.h
@@ -595,6 +603,7 @@ CMakeFiles/DragonSlayer.dir/Core/State.cpp.obj: ../SFML_2.5.1/include/SFML/Windo
 CMakeFiles/DragonSlayer.dir/Core/State.cpp.obj: ../SFML_2.5.1/include/SFML/Window/Window.hpp
 CMakeFiles/DragonSlayer.dir/Core/State.cpp.obj: ../SFML_2.5.1/include/SFML/Window/WindowHandle.hpp
 CMakeFiles/DragonSlayer.dir/Core/State.cpp.obj: ../SFML_2.5.1/include/SFML/Window/WindowStyle.hpp
+CMakeFiles/DragonSlayer.dir/Core/State.cpp.obj: ../Components/BuffComponent.h
 CMakeFiles/DragonSlayer.dir/Core/State.cpp.obj: ../Core/State.cpp
 CMakeFiles/DragonSlayer.dir/Core/State.cpp.obj: ../Core/State.h
 CMakeFiles/DragonSlayer.dir/Core/State.cpp.obj: ../Game/Buff.h
@@ -949,6 +958,7 @@ CMakeFiles/DragonSlayer.dir/Gui/CharacterTab.cpp.obj: ../SFML_2.5.1/include/SFML
 CMakeFiles/DragonSlayer.dir/Gui/CharacterTab.cpp.obj: ../SFML_2.5.1/include/SFML/Window/WindowHandle.hpp
 CMakeFiles/DragonSlayer.dir/Gui/CharacterTab.cpp.obj: ../SFML_2.5.1/include/SFML/Window/WindowStyle.hpp
 CMakeFiles/DragonSlayer.dir/Gui/CharacterTab.cpp.obj: ../Components/AnimationComponent.h
+CMakeFiles/DragonSlayer.dir/Gui/CharacterTab.cpp.obj: ../Components/BuffComponent.h
 CMakeFiles/DragonSlayer.dir/Gui/CharacterTab.cpp.obj: ../Components/HitBoxComponent.h
 CMakeFiles/DragonSlayer.dir/Gui/CharacterTab.cpp.obj: ../Components/MovementComponent.h
 CMakeFiles/DragonSlayer.dir/Gui/CharacterTab.cpp.obj: ../Core/GameState.h
@@ -1042,6 +1052,7 @@ CMakeFiles/DragonSlayer.dir/Gui/Gui.cpp.obj: ../SFML_2.5.1/include/SFML/Window/V
 CMakeFiles/DragonSlayer.dir/Gui/Gui.cpp.obj: ../SFML_2.5.1/include/SFML/Window/Window.hpp
 CMakeFiles/DragonSlayer.dir/Gui/Gui.cpp.obj: ../SFML_2.5.1/include/SFML/Window/WindowHandle.hpp
 CMakeFiles/DragonSlayer.dir/Gui/Gui.cpp.obj: ../SFML_2.5.1/include/SFML/Window/WindowStyle.hpp
+CMakeFiles/DragonSlayer.dir/Gui/Gui.cpp.obj: ../Components/BuffComponent.h
 CMakeFiles/DragonSlayer.dir/Gui/Gui.cpp.obj: ../Core/State.h
 CMakeFiles/DragonSlayer.dir/Gui/Gui.cpp.obj: ../Game/Buff.h
 CMakeFiles/DragonSlayer.dir/Gui/Gui.cpp.obj: ../Game/Inventory.h
@@ -1126,6 +1137,7 @@ CMakeFiles/DragonSlayer.dir/Gui/PauseMenu.cpp.obj: ../SFML_2.5.1/include/SFML/Wi
 CMakeFiles/DragonSlayer.dir/Gui/PauseMenu.cpp.obj: ../SFML_2.5.1/include/SFML/Window/Window.hpp
 CMakeFiles/DragonSlayer.dir/Gui/PauseMenu.cpp.obj: ../SFML_2.5.1/include/SFML/Window/WindowHandle.hpp
 CMakeFiles/DragonSlayer.dir/Gui/PauseMenu.cpp.obj: ../SFML_2.5.1/include/SFML/Window/WindowStyle.hpp
+CMakeFiles/DragonSlayer.dir/Gui/PauseMenu.cpp.obj: ../Components/BuffComponent.h
 CMakeFiles/DragonSlayer.dir/Gui/PauseMenu.cpp.obj: ../Core/State.h
 CMakeFiles/DragonSlayer.dir/Gui/PauseMenu.cpp.obj: ../Game/Buff.h
 CMakeFiles/DragonSlayer.dir/Gui/PauseMenu.cpp.obj: ../Game/Inventory.h
@@ -1371,6 +1383,7 @@ CMakeFiles/DragonSlayer.dir/main.cpp.obj: ../SFML_2.5.1/include/SFML/Window/Wind
 CMakeFiles/DragonSlayer.dir/main.cpp.obj: ../SFML_2.5.1/include/SFML/Window/WindowHandle.hpp
 CMakeFiles/DragonSlayer.dir/main.cpp.obj: ../SFML_2.5.1/include/SFML/Window/WindowStyle.hpp
 CMakeFiles/DragonSlayer.dir/main.cpp.obj: ../Components/AnimationComponent.h
+CMakeFiles/DragonSlayer.dir/main.cpp.obj: ../Components/BuffComponent.h
 CMakeFiles/DragonSlayer.dir/main.cpp.obj: ../Components/HitBoxComponent.h
 CMakeFiles/DragonSlayer.dir/main.cpp.obj: ../Components/MovementComponent.h
 CMakeFiles/DragonSlayer.dir/main.cpp.obj: ../Core/Game.h

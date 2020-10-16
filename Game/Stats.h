@@ -127,6 +127,9 @@ public:
     int getFinalArmor();
     float getFinalCritChance();
     float getFinalEvadeChance();
+
+    int gainHp(int gain_amount);
+    int gainMp(int gain_amount);
 };
 
 

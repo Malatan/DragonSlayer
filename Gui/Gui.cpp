@@ -297,7 +297,7 @@ gui::ItemSlot::ItemSlot(float x, float y, float width, float height, int id,
     this->quantityLbl.setFont(*this->font);
     this->quantityLbl.setCharacterSize(20.f);
     if(this->item != nullptr){
-        std:stringstream ss;
+        std::stringstream ss;
         ss << "x" << this->item->getQuantity();
         this->quantityLbl.setString(ss.str());
     }
@@ -396,6 +396,8 @@ void gui::ItemSlot::updateItemInfo() {
         if(this->item->getEvadeChance() !=0){
             ss << "\n+" << this->item->getEvadeChance() << " % evade chance";
         }
+        ss << "\n' " << this->item->getDescription() << "'";
+
         ss << "\nValue: " << this->item->getValue();
 
         this->itemInfoLbl.setString(ss.str());

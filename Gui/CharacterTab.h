@@ -97,6 +97,7 @@ public:
     bool closeCharacterTabByClicking(const sf::Vector2f& mousePos);
     void updateButtons();
     void equipUnEquipBtnFunction();
+    void useConsumable(Item* item);
     void deleteBtnFunction();
     void updateKeyboardInput();
     void update(const sf::Vector2f& mousePos);

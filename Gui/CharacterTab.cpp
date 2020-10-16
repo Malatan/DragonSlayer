@@ -528,6 +528,35 @@ void CharacterTab::equipUnequipItem(int equip_slot, Item *item, gui::ItemSlot* i
     this->updateEquipBonusLbl();
 }
 
+void CharacterTab::useConsumable(Item* item) {
+    bool empty = false;
+
+    if(item->getQuantity() > 0){
+        empty = item->use();
+        this->state->getBuffComponent()->applyItemBuff(item->getName(), this->player->getPlayerStats());
+    }
+
+
+
+
+
+
+
+
+
+
+    if(!item->use()){ // false se la quantita' = 0 dopo l'uso
+        // apply effect and delete item
+        empty = true;
+    } else{
+        // apply effect
+    }
+
+    if(empty){
+
+    }
+}
+
 void CharacterTab::equipUnEquipBtnFunction() {
     bool flag = false;
     for(auto i : this->inventorySlots){
@@ -553,7 +582,7 @@ void CharacterTab::equipUnEquipBtnFunction() {
                     this->equipUnequipItem(0, item, i, "BOOTS_ICON");
                     break;
                 case 6:
-                    std::cout<<"Can't equip consumables!\n";
+                    this->useConsumable(item);
                     break;
                 default:
                     break;
@@ -750,6 +779,8 @@ void CharacterTab::deleteItemFromInventory() {
     }
     this->updateEquipBonusLbl();
 }
+
+
 
 
 

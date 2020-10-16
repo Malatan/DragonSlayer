@@ -342,3 +342,27 @@ void Stats::checkMpLimit() {
         this->mp = this->maxMp+this->maxMpBonus;
 }
 
+int Stats::gainHp(int gain_amount) {
+    int restore_amount = gain_amount;
+    if((this->hp + gain_amount) > this->getFinalHp()){
+        restore_amount = this->getFinalHp() - this->hp;
+        this->hp = this->getFinalHp();
+    } // 250/300 150
+    else{
+        this->hp += gain_amount;
+    }
+    return restore_amount;
+}
+
+int Stats::gainMp(int gain_amount) {
+    int restore_amount = gain_amount;
+    if((this->mp + gain_amount) > this->getFinalMp()){
+        restore_amount = this->getFinalMp() - this->mp;
+        this->mp = this->getFinalMp();
+    } // 250/300 150
+    else{
+        this->mp += gain_amount;
+    }
+    return restore_amount;
+}
+

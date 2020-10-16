@@ -107,8 +107,21 @@ bool ResourcesHandler::loadPlayerInventoryTxt(Inventory *playerInventory) {
             item->setItemType(app);
             file >> app;
             item->setName(app);
+      //      file >> app;
+      //      item->setDescription(app);
+
             file >> app;
-            item->setDescription(app);
+            if(app == "'"){
+                std::stringstream ss;
+                file >> app;
+                while(app != "'"){
+                    ss << app << " ";
+                    file >> app;
+                }
+                item->setDescription(ss.str());
+            }
+
+
             file >> app;
             item->setValue(std::stoi(app));
             file >> app;

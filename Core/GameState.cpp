@@ -111,6 +111,31 @@ void GameState::initInventoryItemTextures(){
     }
 }
 
+void GameState::initBuffComponent() {
+    this->buffComponent = new BuffComponent();
+    // add all buffs to map
+    this->buffComponent->addBuff("HealthPotion(S)",
+            new Buff("HealthPotion(S)", 100, 0, 0, 0, 0.f, 0.f, true));
+
+    this->buffComponent->addBuff("HealthPotion(M)",
+            new Buff("HealthPotion(M)", 200, 0, 0, 0, 0.f, 0.f, true));
+
+    this->buffComponent->addBuff("HealthPotion(L)",
+            new Buff("HealthPotion(L)", 400, 0, 0, 0, 0.f, 0.f, true));
+
+    this->buffComponent->addBuff("ManaPotion(S)",
+            new Buff("ManaPotion(S)", 0, 100, 0, 0, 0.f, 0.f, true));
+
+    this->buffComponent->addBuff("ManaPotion(M)",
+            new Buff("ManaPotion(M)", 0, 200, 0, 0, 0.f, 0.f, true));
+
+    this->buffComponent->addBuff("ManaPotion(L)",
+            new Buff("ManaPotion(L)", 0, 400, 0, 0, 0.f, 0.f, true));
+
+    this->buffComponent->addBuff("DamagePotion(S)",
+            new Buff("DamagePotion(S)", 0, 0, 30, 0, 0.f, 0.f, 3));
+}
+
 //constructors/destructors
 GameState::GameState(sf::RenderWindow* window, std::stack<State*>* states, ResourcesHandler* rsHandler, sf::Font* font,
         bool* isFocused, sf::Event* sfEvent)
@@ -122,6 +147,7 @@ GameState::GameState(sf::RenderWindow* window, std::stack<State*>* states, Resou
     this->initPlayers();
     this->initCharacterTab(this->player);
     this->initHintsTab();
+    this->initBuffComponent();
 }
 
 GameState::~GameState() {
@@ -199,6 +225,8 @@ void GameState::updateInput(const float &dt) {
                     4, 7, 300, 200, 0, 350, 10.3, 17.3, 1, true));
         }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::R) && this->getKeyTime()){
             std::cout<<this->player->toStringEquipment();
+        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::N) && this->getKeyTime()){
+            std::cout<<this->buffComponent->toStringBuffs();
         }
     }
 }
@@ -288,6 +316,8 @@ void GameState::render(sf::RenderTarget* target) {
     mouseText.setString(ss.str());
     target->draw(mouseText);
 }
+
+
 
 
 

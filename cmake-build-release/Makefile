@@ -260,6 +260,33 @@ Components/AnimationComponent.cpp.s:
 	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Components/AnimationComponent.cpp.s
 .PHONY : Components/AnimationComponent.cpp.s
 
+Components/BuffComponent.obj: Components/BuffComponent.cpp.obj
+
+.PHONY : Components/BuffComponent.obj
+
+# target to build an object file
+Components/BuffComponent.cpp.obj:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Components/BuffComponent.cpp.obj
+.PHONY : Components/BuffComponent.cpp.obj
+
+Components/BuffComponent.i: Components/BuffComponent.cpp.i
+
+.PHONY : Components/BuffComponent.i
+
+# target to preprocess a source file
+Components/BuffComponent.cpp.i:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Components/BuffComponent.cpp.i
+.PHONY : Components/BuffComponent.cpp.i
+
+Components/BuffComponent.s: Components/BuffComponent.cpp.s
+
+.PHONY : Components/BuffComponent.s
+
+# target to generate assembly for a file
+Components/BuffComponent.cpp.s:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Components/BuffComponent.cpp.s
+.PHONY : Components/BuffComponent.cpp.s
+
 Components/HitBoxComponent.obj: Components/HitBoxComponent.cpp.obj
 
 .PHONY : Components/HitBoxComponent.obj
@@ -848,6 +875,9 @@ help:
 	@echo ... Components/AnimationComponent.obj
 	@echo ... Components/AnimationComponent.i
 	@echo ... Components/AnimationComponent.s
+	@echo ... Components/BuffComponent.obj
+	@echo ... Components/BuffComponent.i
+	@echo ... Components/BuffComponent.s
 	@echo ... Components/HitBoxComponent.obj
 	@echo ... Components/HitBoxComponent.i
 	@echo ... Components/HitBoxComponent.s

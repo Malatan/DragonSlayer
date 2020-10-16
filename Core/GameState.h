@@ -20,6 +20,8 @@ private:
     CharacterTab* cTab;
     Player* player;
 
+
+
     std::vector<Enemy*> enemis;
 
     sf::Text hints;
@@ -33,6 +35,7 @@ private:
     void initHintsTab();
     void initEquipSlotsTextures();
     void initInventoryItemTextures();
+    void initBuffComponent();
 
 public:
     GameState(sf::RenderWindow* window, std::stack<State*>* states, ResourcesHandler* rsHandler, sf::Font *font, bool* isFocused, sf::Event* sfEvent);

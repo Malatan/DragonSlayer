@@ -65,8 +65,6 @@ public:
     void setDescription(string description);
     string getDescription();
 
-    const Buff *getBuffs() const;
-
     void setValue(int value);
     int getValue();
 
@@ -101,13 +99,11 @@ public:
 
     void setEvadeChance(float evadeChance);
 
-
+    bool use();
     int getUsageType();
 
     //OTHER METHODS
     bool isConsumable();
-    bool addBuff(Buff in);
-    Buff getBuffbyIndex(int i);
     string listItem();
     std::string getItemUsageTypeString();
     void updateUsageType();

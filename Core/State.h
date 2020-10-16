@@ -13,6 +13,7 @@
 #include <stack>
 #include <map>
 #include "../Resources/ResourcesHandler.h"
+#include "../Components/BuffComponent.h"
 
 class State {
 private:
@@ -23,6 +24,7 @@ protected:
     sf::RenderWindow* window;
     ResourcesHandler* rsHandler;
     sf::Event* sfEvent;
+    BuffComponent* buffComponent;
 
     bool quit;
     bool paused;
@@ -46,6 +48,7 @@ public:
     const bool getKeyTime();
     ResourcesHandler *getRsHandler() const;
     const map<string, sf::Texture> &getTextures() const;
+    BuffComponent* getBuffComponent();
 
     //functions
     void endState();

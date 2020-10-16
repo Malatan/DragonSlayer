@@ -17,7 +17,8 @@ State::State(sf::RenderWindow *window, std::stack<State*>* states, ResourcesHand
 }
 
 State::~State() {
-
+    delete this->rsHandler;
+    delete this->buffComponent;
 }
 
 //accessors
@@ -31,6 +32,18 @@ const bool State::getKeyTime() {
         return true;
     }
     return false;
+}
+
+ResourcesHandler *State::getRsHandler() const {
+    return this->rsHandler;
+}
+
+const map<string, sf::Texture> &State::getTextures() const {
+    return this->textures;
+}
+
+BuffComponent *State::getBuffComponent() {
+    return this->buffComponent;
 }
 
 //functions
@@ -59,10 +72,6 @@ void State::updateKeyTime(const float &dt) {
 
 }
 
-ResourcesHandler *State::getRsHandler() const {
-    return this->rsHandler;
-}
 
-const map<string, sf::Texture> &State::getTextures() const {
-    return this->textures;
-}
+
+

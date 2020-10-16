@@ -39,15 +39,6 @@ Item::~Item() {
 
 }
 
-bool Item::addBuff(Buff in) {
-    for(int i=0; i<10; i++){
-        if(Item::buffs[i].getName() == ""){
-            Item::buffs[i] = in;
-            return true;
-        }
-    }
-    return false;
-}
 
 string Item::listItem() {
     stringstream ss;
@@ -95,9 +86,6 @@ string Item::getDescription() {
     return Item::description;
 }
 
-const Buff *Item::getBuffs() const {
-    return buffs;
-}
 
 int Item::getValue() {
     return Item::value;
@@ -153,11 +141,6 @@ int Item::getArmor() {
 
 void Item::setArmor(int armor) {
     Item::armor = armor;
-}
-
-Buff Item::getBuffbyIndex(int i) {
-
-    return Item::buffs[i];
 }
 
 std::string Item::getItemUsageTypeString() {
@@ -257,6 +240,14 @@ void Item::updateUsageType() {
     }else if(app == "potionS" || app == "potionM" || app == "potionL"){
         this->usageType = 6;
     }
+}
+
+bool Item::use() {
+    this->quantity--;
+    if(this->quantity <= 0)
+        return false;
+    else
+        return true;
 };
 
 
