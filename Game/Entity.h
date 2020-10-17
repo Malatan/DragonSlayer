@@ -39,6 +39,7 @@ public:
     virtual MovementComponent* getMovementComponent();
     virtual AnimationComponent* getAnimationComponent();
     virtual HitboxComponent* getHitboxComponent();
+    virtual const sf::Vector2f getPosition() const;
 
     //functions
     virtual void setPosition(const float x, const float y);

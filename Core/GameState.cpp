@@ -149,6 +149,32 @@ void GameState::initComponents() {
     this->initBuffComponent();
 }
 
+void GameState::initView() {
+    this->view.setSize(
+            sf::Vector2f(
+                    static_cast<float>(this->window->getSize().x / 1.3f),
+                    static_cast<float>(this->window->getSize().y / 1.3f)
+            )
+    );
+
+    this->view.setCenter(
+            sf::Vector2f(
+                    static_cast<float>(this->window->getSize().x / 2.f),
+                    static_cast<float>(this->window->getSize().y / 2.f)
+            )
+    );
+
+
+}
+
+void GameState::initDebugText() {
+    this->debugText.setFont(*this->font);
+    this->debugText.setCharacterSize(25);
+    this->debugText.setString("sss");
+    this->debugText.setPosition(5.f, 40.f);
+}
+
+
 //constructors/destructors
 GameState::GameState(sf::RenderWindow* window, std::stack<State*>* states, ResourcesHandler* rsHandler, sf::Font* font,
         bool* isFocused, sf::Event* sfEvent)
@@ -161,6 +187,8 @@ GameState::GameState(sf::RenderWindow* window, std::stack<State*>* states, Resou
     this->initCharacterTab(this->player);
     this->initHintsTab();
     this->initComponents();
+    this->initView();
+    this->initDebugText();
 }
 
 GameState::~GameState() {
@@ -267,6 +295,10 @@ void GameState::updateInput(const float &dt) {
 }
 
 void GameState::updatePlayerInput(const float &dt) {
+    if(this->getKeyTime()){
+        cout<<this->player->getHitboxComponent()->getCenter().x<<" "<<this->player->getHitboxComponent()->getCenter().y<<"\n";
+    }
+
     if(*this->windowIsFocused){
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
             this->player->move(dt, -1.f, 0.f);
@@ -277,6 +309,12 @@ void GameState::updatePlayerInput(const float &dt) {
             this->player->move(dt, 0.f, -1.f);
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
             this->player->move(dt, 0.f, 1.f);
+
+        if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) { // not working properly
+            sf::Vector2f diff = this->mousePosView - this->player->getHitboxComponent()->getCenter();
+
+            this->player->move(dt, diff.x, diff.y);
+        }
     }
 
 }
@@ -287,14 +325,28 @@ void GameState::updatePausedMenuButtons() {
     }
 }
 
+void GameState::updateView(const float &dt) {
+    this->view.setCenter(this->player->getHitboxComponent()->getCenter());
+}
+
+void GameState::updateDebugText() {
+//debbuging tool: show mouse pos coords
+    std::stringstream ss;
+    ss << "Mouse pos: " << this->mousePosView.x << " " << this->mousePosView.y;
+    this->debugText.setString(ss.str());
+}
+
 void GameState::update(const float& dt) {
-    this->updateMousePosition();
+    this->updateMousePosition(&this->view);
     this->updateKeyTime(dt);
     this->updateInput(dt);
-    this->popUpTextComponent->update(dt);
+
+    this->updateDebugText();
 
     if(!this->paused){ //unpaused update
+        this->updateView(dt);
         this->updatePlayerInput(dt);
+
         this->player->update(dt);
         for(auto i : this->enemis){
             i->update(dt);
@@ -302,6 +354,8 @@ void GameState::update(const float& dt) {
                 std::cout<<"Collision"<<"\n";
             }*/
         }
+
+        this->popUpTextComponent->update(dt);
 
     } else{ // paused update
         if(stato == 1){
@@ -322,14 +376,17 @@ void GameState::render(sf::RenderTarget* target) {
     if(!target){
         target = this->window;
     }
+    target->setView(this->view);
 
     this->player->render(*target, true);
     for(auto i : this->enemis){
         i->render(*target, true);
     }
 
+    target->setView(target->getDefaultView());
 
     target->draw(this->hints);
+    target->draw(this->debugText);
     if(this->paused){ // pause menu render
         if(stato == 1){
             this->pmenu->render(*target);
@@ -339,17 +396,14 @@ void GameState::render(sf::RenderTarget* target) {
 
     }
     this->popUpTextComponent->render(*target);
-
-    //debbuging tool: show mouse pos coords
-    sf::Text mouseText;
-    mouseText.setPosition(this->mousePosView.x, this->mousePosView.y - 15);
-    mouseText.setFont(*this->font);
-    mouseText.setCharacterSize(14);
-    std::stringstream ss;
-    ss << this->mousePosView.x << " " << this->mousePosView.y;
-    mouseText.setString(ss.str());
-    target->draw(mouseText);
 }
+
+
+
+
+
+
+
 
 
 

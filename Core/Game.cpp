@@ -120,7 +120,7 @@ void Game::update() {
 }
 
 void Game::render() {
-    this->window->clear();
+    this->window->clear(sf::Color::Cyan);
 
     //Render items
     if(!this->states.empty()){

@@ -114,7 +114,7 @@ void MainMenuState::render(sf::RenderTarget *target) {
     target->draw(this->background);
     this->renderButtons(*target);
 
-    //tool per il debug : mostre le coordinate del mouse
+  /*  //tool per il debug : mostre le coordinate del mouse
     sf::Text mouseText;
     mouseText.setPosition(this->mousePosView.x, this->mousePosView.y - 15);
     mouseText.setFont(this->font);
@@ -122,7 +122,7 @@ void MainMenuState::render(sf::RenderTarget *target) {
     std::stringstream ss;
     ss << this->mousePosView.x << " " << this->mousePosView.y;
     mouseText.setString(ss.str());
-    target->draw(mouseText);
+    target->draw(mouseText);*/
 
 }
 

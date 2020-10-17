@@ -16,17 +16,17 @@ class CharacterTab;
 class GameState : public State{
 private:
     sf::Font* font;
+    sf::View view;
+    sf::Text hints;
+    sf::Text debugText;
+
     PauseMenu* pmenu;
     CharacterTab* cTab;
     Player* player;
 
-
-
     std::vector<Enemy*> enemis;
-
-    sf::Text hints;
-
     int stato; // 0 = in giocata 1 = pause menu 2 = character tab
+
     //functions
     void initTextures();
     void initPauseMenu();
@@ -37,6 +37,8 @@ private:
     void initInventoryItemTextures();
     void initBuffComponent();
     void initComponents();
+    void initView();
+    void initDebugText();
 
 public:
     GameState(sf::RenderWindow* window, std::stack<State*>* states, ResourcesHandler* rsHandler, sf::Font *font, bool* isFocused, sf::Event* sfEvent);
@@ -48,6 +50,8 @@ public:
     void updateInput(const float &dt);
     void updatePlayerInput(const float& dt);
     void updatePausedMenuButtons();
+    void updateView(const float& dt);
+    void updateDebugText();
     void update(const float& dt);
     void render(sf::RenderTarget* target = nullptr);
 

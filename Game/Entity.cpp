@@ -77,6 +77,10 @@ void Entity::render(sf::RenderTarget& target) {
     target.draw(this->sprite);
 }
 
+const sf::Vector2f Entity::getPosition() const{
+    return this->sprite.getPosition();
+}
+
 
 
 

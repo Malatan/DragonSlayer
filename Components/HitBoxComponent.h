@@ -25,13 +25,14 @@ public:
     const sf::Vector2f& getPosition() const;
     const sf::FloatRect getGlobalBounds() const;
 
+
     //Modifiers
     void setPosition(const sf::Vector2f& position);
     void setPosition(const float x, const float y);
 
     //Functions
     bool intersects(const sf::FloatRect& frect);
-
+    sf::Vector2f getCenter();
     void update();
     void render(sf::RenderTarget& target);
 };

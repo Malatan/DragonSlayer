@@ -60,3 +60,8 @@ void HitboxComponent::render(sf::RenderTarget & target)
 {
     target.draw(this->hitbox);
 }
+
+sf::Vector2f HitboxComponent::getCenter() {
+    return sf::Vector2f(this->hitbox.getPosition().x + this->hitbox.getGlobalBounds().width/2.f,
+            this->hitbox.getPosition().y + this->hitbox.getGlobalBounds().height/2.f);
+}
