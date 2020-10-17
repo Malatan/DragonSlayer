@@ -1,2 +1,0 @@
-F:\Software\MinGW\bin\ar.exe qc ..\..\..\lib\libgmock_main.a  CMakeFiles/gmock_main.dir/src/gmock_main.cc.obj
-F:\Software\MinGW\bin\ranlib.exe ..\..\..\lib\libgmock_main.a
