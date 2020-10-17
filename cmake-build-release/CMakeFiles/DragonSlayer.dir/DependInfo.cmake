@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "F:/DragonSlayer/Components/BuffComponent.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Components/BuffComponent.cpp.obj"
   "F:/DragonSlayer/Components/HitBoxComponent.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Components/HitBoxComponent.cpp.obj"
   "F:/DragonSlayer/Components/MovementComponent.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Components/MovementComponent.cpp.obj"
+  "F:/DragonSlayer/Components/PopUpTextComponent.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Components/PopUpTextComponent.cpp.obj"
   "F:/DragonSlayer/Core/Game.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj"
   "F:/DragonSlayer/Core/GameState.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Core/GameState.cpp.obj"
   "F:/DragonSlayer/Core/MainMenuState.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.obj"

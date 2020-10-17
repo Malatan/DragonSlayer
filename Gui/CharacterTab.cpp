@@ -181,9 +181,9 @@ void CharacterTab::initInventoryContainer() {
     this->initInventorySlots();
 
     this->EquipUnEquipBtn = new gui::Button(
-            this->inventoryContainer.getPosition().x + 570.f,
-            this->inventoryContainer.getPosition().y + 580.f, 130.f, 40.f,
-            this->font, "Equip/Unequip", 20.f,
+            this->inventoryContainer.getPosition().x + 520.f,
+            this->inventoryContainer.getPosition().y + 580.f, 180.f, 40.f,
+            this->font, "Equip/Unequip/Use", 20.f,
             sf::Color(255, 255, 255, 255),
             sf::Color(160, 160, 160),
             sf::Color(20, 20, 20, 50),
@@ -195,8 +195,8 @@ void CharacterTab::initInventoryContainer() {
     this->EquipUnEquipBtn->setBorderLineThickness(5.f);
 
     this->deleteBtn = new gui::Button(
-            this->inventoryContainer.getPosition().x + 570.f,
-            this->inventoryContainer.getPosition().y + 640.f, 130.f, 40.f,
+            this->inventoryContainer.getPosition().x + 520.f,
+            this->inventoryContainer.getPosition().y + 640.f, 180.f, 40.f,
             this->font, "Delete item", 20.f,
             sf::Color(255, 255, 255, 255),
             sf::Color(160, 160, 160),
@@ -223,7 +223,7 @@ void CharacterTab::initInventoryContainer() {
     this->keysHintLbl.setFont(*this->font);
     this->keysHintLbl.setCharacterSize(20);
     this->keysHintLbl.setString("Hints: \n"
-                                "<E> equip/unequip selected item\n"
+                                "<E> equip/unequip/use selected item\n"
                                 "<Del> delete selected items");
     this->keysHintLbl.setPosition(this->goldLbl.getPosition().x,
                                   this->inventorySpaceLbl.getPosition().y + 30.f);
@@ -323,7 +323,8 @@ font(font), player(player), state(state), window(window), textures(textures), rs
     this->initStatsContainer();
     this->initEquipContainer();
     this->initInventoryContainer();
-
+    this->updateGoldLbl();
+    this->updateInventoryCapLbl();
 }
 
 CharacterTab::~CharacterTab() {
@@ -417,6 +418,25 @@ void CharacterTab::equipContainerRender(sf::RenderTarget &target) {
     }
 }
 
+void CharacterTab::updateGoldLbl() {
+    std::stringstream ss;
+    std::string gold = to_string(this->player->getGold());
+    unsigned len = gold.length();
+
+    for(int index =(int) len-3; index > 0; index -= 3)
+        gold.insert(index, ",");
+    ss << "Gold: " << gold;
+
+    this->goldLbl.setString(ss.str());
+}
+
+void CharacterTab::updateInventoryCapLbl() {
+    std::stringstream ss;
+    ss << "Inventory Capacity: " << this->player->getInventory()->getItemsSize()
+       << "/" << this->player->getInventory()->getCurrentMaxSpace();
+    this->inventorySpaceLbl.setString(ss.str());
+}
+
 void CharacterTab::invContainerUpdate(const sf::Vector2f &mousePos) {
     this->selectedItem = 0;
     std::stringstream ss;
@@ -434,15 +454,6 @@ void CharacterTab::invContainerUpdate(const sf::Vector2f &mousePos) {
     }
     ss << "Items selected: " << this->selectedItem;
     this->selectedNumberLbl.setString(ss.str());
-
-    ss.str("");
-    ss << "Gold: " << this->player->getGold();
-    this->goldLbl.setString(ss.str());
-
-    ss.str("");
-    ss << "Inventory Capacity: " << this->player->getInventory()->getItemsSize()
-        << "/" << this->player->getInventory()->getCurrentMaxSpace();
-    this->inventorySpaceLbl.setString(ss.str());
 
     if(this->selectedItem != 0){
         this->deleteBtn->setDisabled(false);
@@ -531,7 +542,7 @@ void CharacterTab::equipUnequipItem(int equip_slot, Item *item, gui::ItemSlot* i
 void CharacterTab::useConsumable(Item* item, gui::ItemSlot* i) {
     bool have_more = true;
 
-    if(item->getQuantity() > 0){
+    if(item->getQuantity() > 0 && item->getUsageType() == 6){
         have_more = item->use();
         this->state->getBuffComponent()->applyItemBuff(item->getName(), this->player->getPlayerStats());
         i->updateQuantityLbl();
@@ -730,7 +741,7 @@ void CharacterTab::deleteItemFromInventory() {
         }
     }
     this->player->getInventory()->sortByItemType();
-    initInventorySlots();
+    this->initInventorySlots();
     for(auto i : this->getInventorySlots()){
         i->setSlotTexture(&this->textures["ITEMS_SHEET"], 34.f);
         i->setDownRightTexture(&this->textures["SELECTED_ICON"]);
@@ -763,7 +774,10 @@ void CharacterTab::deleteItemFromInventory() {
         }
     }
     this->updateEquipBonusLbl();
+    this->updateInventoryCapLbl();
 }
+
+
 
 
 

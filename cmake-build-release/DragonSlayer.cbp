@@ -392,6 +392,12 @@
 			<Option target="DragonSlayer"/>
 			<Option target="unit_testing_run"/>
 		</Unit>
+		<Unit filename="F:/DragonSlayer/Components/PopUpTextComponent.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Components/PopUpTextComponent.h">
+			<Option target="DragonSlayer"/>
+		</Unit>
 		<Unit filename="F:/DragonSlayer/Core/Game.cpp">
 			<Option target="DragonSlayer"/>
 			<Option target="unit_testing_run"/>

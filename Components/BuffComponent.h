@@ -10,18 +10,19 @@
 #include <vector>
 #include "../Game/Stats.h"
 #include "../Game/Buff.h"
+#include "PopUpTextComponent.h"
 
 class BuffComponent {
 private:
+    PopUpTextComponent* popUpTextComponent;
     std::map<std::string, Buff*> buffs;
-
     std::vector<Buff*> playerBuffsList;
 
 
 protected:
 
 public:
-    BuffComponent();
+    BuffComponent(PopUpTextComponent* popUpTextComponent);
     virtual ~BuffComponent();
 
     void addBuff(std::string key, Buff* buff);

@@ -16,7 +16,7 @@ void Game::initWindow() {
 
     this->Title = "None";
     sf::VideoMode window_bounds = sf::VideoMode::getDesktopMode();
-    unsigned framerate_limit = 120;
+    unsigned framerate_limit = 144;
     bool veritcal_enabled = false;
     unsigned antialiasing_level = 0;
 
@@ -34,7 +34,7 @@ void Game::initWindow() {
     this->windowSettings.antialiasingLevel = antialiasing_level;
     this->window = new sf::RenderWindow(window_bounds,
                                         this->Title,
-                                        sf::Style::Default  ,
+                                        sf::Style::Close,
                                         this->windowSettings);
     this->window->setFramerateLimit(framerate_limit);
     this->window->setVerticalSyncEnabled(veritcal_enabled);

@@ -44,6 +44,8 @@ set(SOURCE_FILES
         Components/HitBoxComponent.h
         Components/BuffComponent.cpp
         Components/BuffComponent.h
+        Components/PopUpTextComponent.cpp
+        Components/PopUpTextComponent.h
         Resources/ResourcesHandler.cpp
         Resources/ResourcesHandler.h
         Resources/Resource.cpp

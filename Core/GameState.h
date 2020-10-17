@@ -36,6 +36,7 @@ private:
     void initEquipSlotsTextures();
     void initInventoryItemTextures();
     void initBuffComponent();
+    void initComponents();
 
 public:
     GameState(sf::RenderWindow* window, std::stack<State*>* states, ResourcesHandler* rsHandler, sf::Font *font, bool* isFocused, sf::Event* sfEvent);

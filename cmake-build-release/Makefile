@@ -341,6 +341,33 @@ Components/MovementComponent.cpp.s:
 	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Components/MovementComponent.cpp.s
 .PHONY : Components/MovementComponent.cpp.s
 
+Components/PopUpTextComponent.obj: Components/PopUpTextComponent.cpp.obj
+
+.PHONY : Components/PopUpTextComponent.obj
+
+# target to build an object file
+Components/PopUpTextComponent.cpp.obj:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Components/PopUpTextComponent.cpp.obj
+.PHONY : Components/PopUpTextComponent.cpp.obj
+
+Components/PopUpTextComponent.i: Components/PopUpTextComponent.cpp.i
+
+.PHONY : Components/PopUpTextComponent.i
+
+# target to preprocess a source file
+Components/PopUpTextComponent.cpp.i:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Components/PopUpTextComponent.cpp.i
+.PHONY : Components/PopUpTextComponent.cpp.i
+
+Components/PopUpTextComponent.s: Components/PopUpTextComponent.cpp.s
+
+.PHONY : Components/PopUpTextComponent.s
+
+# target to generate assembly for a file
+Components/PopUpTextComponent.cpp.s:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Components/PopUpTextComponent.cpp.s
+.PHONY : Components/PopUpTextComponent.cpp.s
+
 Core/Game.obj: Core/Game.cpp.obj
 
 .PHONY : Core/Game.obj
@@ -884,6 +911,9 @@ help:
 	@echo ... Components/MovementComponent.obj
 	@echo ... Components/MovementComponent.i
 	@echo ... Components/MovementComponent.s
+	@echo ... Components/PopUpTextComponent.obj
+	@echo ... Components/PopUpTextComponent.i
+	@echo ... Components/PopUpTextComponent.s
 	@echo ... Core/Game.obj
 	@echo ... Core/Game.i
 	@echo ... Core/Game.s

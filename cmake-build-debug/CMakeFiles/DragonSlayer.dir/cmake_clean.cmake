@@ -3,6 +3,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/DragonSlayer.dir/Components/BuffComponent.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Components/HitBoxComponent.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Components/MovementComponent.cpp.obj"
+  "CMakeFiles/DragonSlayer.dir/Components/PopUpTextComponent.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Core/Game.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Core/GameState.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.obj"

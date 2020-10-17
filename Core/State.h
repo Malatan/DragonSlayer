@@ -14,6 +14,7 @@
 #include <map>
 #include "../Resources/ResourcesHandler.h"
 #include "../Components/BuffComponent.h"
+#include "../Components/PopUpTextComponent.h"
 
 class State {
 private:
@@ -25,6 +26,7 @@ protected:
     ResourcesHandler* rsHandler;
     sf::Event* sfEvent;
     BuffComponent* buffComponent;
+    PopUpTextComponent* popUpTextComponent;
 
     bool quit;
     bool paused;
@@ -49,6 +51,7 @@ public:
     ResourcesHandler *getRsHandler() const;
     const map<string, sf::Texture> &getTextures() const;
     BuffComponent* getBuffComponent();
+    PopUpTextComponent* getPopUpTextComponent();
 
     //functions
     void endState();

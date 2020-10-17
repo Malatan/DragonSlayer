@@ -23,7 +23,7 @@ private:
     Inventory* inventory;
     int currentInventorySpace;
     Spell spells[30];           //TUTTE SPELL DEL GIOCO - ALCUNE SARANNO SBLOCCATE E ALTRE NO
-    int gold;
+    unsigned gold;
     Item* weapon;
     Item* shield;
     Item* head;
@@ -70,8 +70,9 @@ public:
     void setPlayerStats(Stats* playerStats);
     Inventory* getInventory();
     void setInventory(Inventory* invent);
-    int getGold();
-    void setGold(int gold);
+    unsigned getGold();
+    void setGold(unsigned gold);
+    void addGold(unsigned gold);
     Item* getEquippedItem(int equip_slot);
 
 

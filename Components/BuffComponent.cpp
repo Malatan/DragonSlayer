@@ -4,8 +4,8 @@
 
 #include "BuffComponent.h"
 
-BuffComponent::BuffComponent() {
-
+BuffComponent::BuffComponent(PopUpTextComponent* popUpTextComponent) {
+    this->popUpTextComponent = popUpTextComponent;
 }
 
 BuffComponent::~BuffComponent() {
@@ -17,10 +17,16 @@ BuffComponent::~BuffComponent() {
 void BuffComponent::applyItemBuff(std::string key, Stats *stats) {
     Buff* buff = this->buffs[key];
     if(buff->isInstant()){
-        std::cout<<stats->gainHp(buff->getAddHp());
-        std::cout<<"\n";
-        std::cout<<stats->gainMp(buff->getAddMp());
-        std::cout<<"\n";
+        if(buff->getAddHp() != 0){
+            int amount = stats->gainHp(buff->getAddHp());
+            this->popUpTextComponent->addPopUpTextCenter(HEAL_TAG, amount, "+", "Hp");
+        }
+
+        if(buff->getAddMp() != 0){
+            int amount = stats->gainMp(buff->getAddMp());
+            this->popUpTextComponent->addPopUpTextCenter(MANA_RESTORE_TAG, amount, "+", "Mp");
+        }
+
     }
     else{ // if not instant then add to list
         this->addPlayerBuff(buff);

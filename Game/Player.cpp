@@ -279,11 +279,11 @@ void Player::setInventory(Inventory* inventory) {
     this->inventory = inventory;
 }
 
-int Player::getGold() {
+unsigned Player::getGold() {
     return this->gold;
 }
 
-void Player::setGold(int gold) {
+void Player::setGold(unsigned gold) {
     this->gold = gold;
 }
 
@@ -457,4 +457,8 @@ void Player::setBonusStats(int hp, int mp, int dmg, int armor, float cc, float e
     this->playerStats->setEvadeChanceBonus(ec);
     this->playerStats->checkHpLimit();
     this->playerStats->checkMpLimit();
+}
+
+void Player::addGold(unsigned gold) {
+    this->gold += gold;
 }

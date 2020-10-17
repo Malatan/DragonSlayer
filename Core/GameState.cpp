@@ -42,7 +42,7 @@ void GameState::initPlayers() {
     this->player = new Player(this->window->getSize().x/2.f,
                               this->window->getSize().y/2.f, 2.f, 2.f,
                               this->textures["PLAYER_SHEET"]);
-    this->player->setGold(1000);
+    this->player->setGold(523561);
     this->player->getInventory()->setCurrentMaxSpace(90);
 
     // legge i valori di default del Stats dal Data/Stats.txt
@@ -66,12 +66,17 @@ void GameState::initCharacterTab(Player* player) {
 void GameState::initHintsTab() {
     this->hints.setFont(*this->font);
     this->hints.setCharacterSize(30);
-    this->hints.setString(" Press Esc to pause\n"
-                                " Press WASD to move\n"
-                                " Press I to print inventory\n"
-                                " Press C to open/close character tab and inventory\n"
-                                " Press B to print ResourcesHandler\n"
-                                " Press T in the character Tab to gain exp\n");
+    this->hints.setString(" Esc to pause\n"
+                          " WASD to move\n"
+                          " I to print inventory\n"
+                          " C to open/close character tab and inventory\n"
+                          " B to print ResourcesHandler\n"
+                          " M to gain gold\n"
+                          " N to print all buffs\n"
+                          " R to print player equipment\n"
+                          " G to add an item\n"
+                          " T to gain exp\n"
+                                );
 
     this->hints.setPosition(5.f, this->window->getSize().y - this->hints.getGlobalBounds().height + 20.f);
 }
@@ -112,7 +117,7 @@ void GameState::initInventoryItemTextures(){
 }
 
 void GameState::initBuffComponent() {
-    this->buffComponent = new BuffComponent();
+    this->buffComponent = new BuffComponent(this->popUpTextComponent);
     // add all buffs to map
     this->buffComponent->addBuff("HealthPotion(S)",
             new Buff("HealthPotion(S)", 100, 0, 0, 0, 0.f, 0.f, true));
@@ -136,6 +141,13 @@ void GameState::initBuffComponent() {
             new Buff("DamagePotion(S)", 0, 0, 30, 0, 0.f, 0.f, 3));
 }
 
+void GameState::initComponents() {
+    this->popUpTextComponent = new PopUpTextComponent(*this->font, this->window);
+
+
+    this->initBuffComponent();
+}
+
 //constructors/destructors
 GameState::GameState(sf::RenderWindow* window, std::stack<State*>* states, ResourcesHandler* rsHandler, sf::Font* font,
         bool* isFocused, sf::Event* sfEvent)
@@ -147,7 +159,7 @@ GameState::GameState(sf::RenderWindow* window, std::stack<State*>* states, Resou
     this->initPlayers();
     this->initCharacterTab(this->player);
     this->initHintsTab();
-    this->initBuffComponent();
+    this->initComponents();
 }
 
 GameState::~GameState() {
@@ -160,7 +172,6 @@ GameState::~GameState() {
 
 //functions
 void GameState::addItem(Item *item) {
-    std::cout<<this->player->getInventory()->getItemsSize()<<"\n";
     if(this->player->getInventory()->addItem(item)){
         this->player->getInventory()->sortByItemType();
         this->cTab->initInventorySlots();
@@ -208,25 +219,40 @@ void GameState::updateInput(const float &dt) {
     if (*this->windowIsFocused) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && this->getKeyTime()) {
             this->changeStato(1);
+
         } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::C) && this->getKeyTime()) {
             this->changeStato(2);
             this->cTab->unselectAll();
+
         } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::T) && this->getKeyTime()) {
             this->player->getPlayerStats()->addExp(100);
+            this->popUpTextComponent->addPopUpTextCenter(EXPERIENCE_TAG, 100, "+", "Exp");
+
         } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::B) && this->getKeyTime()){
             std::cout << this->rsHandler->toString();
+
         }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::I) && this->getKeyTime()){
             std::cout << this->player->getInventory()->listInventory();
+
         }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::G) && this->getKeyTime()){
             std::stringstream ss;
             ss << "Dragon Gloves" << rand();
             this->addItem(new Item("E-arms", ss.str(),
                     "powerful helmet", 5000, "Legendary",
                     4, 7, 300, 200, 0, 350, 10.3, 17.3, 1, true));
+            this->cTab->updateInventoryCapLbl();
+            this->popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG, ss.str(), "", " added to the inventory");
+
         }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::R) && this->getKeyTime()){
             std::cout<<this->player->toStringEquipment();
+
         }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::N) && this->getKeyTime()){
             std::cout<<this->buffComponent->toStringBuffs();
+
+        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::M) && this->getKeyTime()){
+            unsigned gold = rand();
+            this->player->addGold(gold);
+            this->cTab->updateGoldLbl();
         }
     }
 }
@@ -256,12 +282,10 @@ void GameState::update(const float& dt) {
     this->updateMousePosition();
     this->updateKeyTime(dt);
     this->updateInput(dt);
-
+    this->popUpTextComponent->update(dt);
 
     if(!this->paused){ //unpaused update
-
         this->updatePlayerInput(dt);
-
         this->player->update(dt);
         for(auto i : this->enemis){
             i->update(dt);
@@ -295,16 +319,17 @@ void GameState::render(sf::RenderTarget* target) {
         i->render(*target, true);
     }
 
+
     target->draw(this->hints);
     if(this->paused){ // pause menu render
         if(stato == 1){
             this->pmenu->render(*target);
         } else if(stato == 2){
-
             this->cTab->render(*target);
         }
 
     }
+    this->popUpTextComponent->render(*target);
 
     //debbuging tool: show mouse pos coords
     sf::Text mouseText;
@@ -316,6 +341,8 @@ void GameState::render(sf::RenderTarget* target) {
     mouseText.setString(ss.str());
     target->draw(mouseText);
 }
+
+
 
 
 

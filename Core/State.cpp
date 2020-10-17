@@ -19,6 +19,7 @@ State::State(sf::RenderWindow *window, std::stack<State*>* states, ResourcesHand
 State::~State() {
     delete this->rsHandler;
     delete this->buffComponent;
+    delete this->popUpTextComponent;
 }
 
 //accessors
@@ -70,6 +71,10 @@ void State::updateKeyTime(const float &dt) {
         this->keyTime += 60.f * dt;
     }
 
+}
+
+PopUpTextComponent *State::getPopUpTextComponent() {
+    return this->popUpTextComponent;
 }
 
 
