@@ -39,12 +39,19 @@ void Inventory::sortByItemType() {
     sort(this->items.begin(),this->items.end(),
             [](const Item* lhs , const Item* rhs)
             {
-                return lhs->getItemType() < rhs->getItemType()
-                ;
+                return lhs->getItemType() < rhs->getItemType();
             });
 }
 
 bool Inventory::addItem(Item* item) {
+    for(auto i : this->items){
+        if(i->getName() == item->getName()){
+            i->setQuantity(i->getQuantity()+item->getQuantity());
+            i->setIsNew(true);
+            return true;
+        }
+    }
+
     if(this->items.size() < *this->currentMaxSpace){
         this->items.push_back(item);
         return true;

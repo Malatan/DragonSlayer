@@ -76,6 +76,7 @@ void GameState::initHintsTab() {
                           " R to print player equipment\n"
                           " G to add an item\n"
                           " T to gain exp\n"
+                          " H to add potions\n"
                                 );
 
     this->hints.setPosition(5.f, this->window->getSize().y - this->hints.getGlobalBounds().height + 20.f);
@@ -234,7 +235,7 @@ void GameState::updateInput(const float &dt) {
         }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::I) && this->getKeyTime()){
             std::cout << this->player->getInventory()->listInventory();
 
-        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::G) && this->getKeyTime()){
+        } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::G) && this->getKeyTime()){
             std::stringstream ss;
             ss << "Dragon Gloves" << rand();
             this->addItem(new Item("E-arms", ss.str(),
@@ -242,6 +243,14 @@ void GameState::updateInput(const float &dt) {
                     4, 7, 300, 200, 0, 350, 10.3, 17.3, 1, true));
             this->cTab->updateInventoryCapLbl();
             this->popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG, ss.str(), "", " added to the inventory");
+
+        } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::H) && this->getKeyTime()){
+            unsigned n = rand();
+            this->addItem(new Item("C-potionS", "HealthPotion(S)",
+                                   "Restore 100 hp", 5, "Common",
+                                   0, 3, 0, 0, 0, 0, 0, 0, n, true));
+            this->cTab->updateInventoryCapLbl();
+            this->popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG, to_string(n), "", " HealthPotion(S) added to the inventory");
 
         }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::R) && this->getKeyTime()){
             std::cout<<this->player->toStringEquipment();

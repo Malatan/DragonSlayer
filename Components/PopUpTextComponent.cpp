@@ -6,19 +6,19 @@
 
 void PopUpTextComponent::initTagTemplates() {
     this->popUpTextTemplates[DEFAULT_TAG] = new PopUpText(this->font, "", 100.f, 100.f, 0.f, -1.f,
-            sf::Color::White, 25, 100.f, true, 200.f, 200.f, 2);
+            sf::Color::White, 25, 600.f, true, 200.f, 200.f, 2);
 
     this->popUpTextTemplates[NEGATIVE_TAG] = new PopUpText(this->font, "", 100.f, 100.f, 0.f, 1.f,
-            sf::Color::Red, 25, 100.f, true, 200.f, 200.f, 1);
+            sf::Color::Red, 25, 600.f, true, 200.f, 200.f, 1);
 
     this->popUpTextTemplates[EXPERIENCE_TAG] = new PopUpText(this->font, "", 100.f, 100.f, 0.f, -1.f,
-            sf::Color::Yellow, 30, 200.f, true, 200.f, 200.f, 2);
+            sf::Color::Yellow, 30, 600.f, true, 200.f, 200.f, 2);
 
     this->popUpTextTemplates[HEAL_TAG] = new PopUpText(this->font, "", 100.f, 100.f, 0.f, -1.f,
-            sf::Color::Green, 30, 200.f, true, 200.f, 200.f, 2);
+            sf::Color::Green, 30, 600.f, true, 200.f, 200.f, 2);
 
     this->popUpTextTemplates[MANA_RESTORE_TAG] = new PopUpText(this->font, "", 100.f, 100.f, 0.f, -1.f,
-            sf::Color::Blue, 30, 200.f, true, 200.f, 200.f, 2);
+            sf::Color::Blue, 30, 600.f, true, 200.f, 200.f, 2);
 
 }
 
