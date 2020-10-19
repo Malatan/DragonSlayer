@@ -7,6 +7,10 @@
 void GameState::initTextures() {
     this->rsHandler->addResouce("../Resources/Images/Sprites/Player/player_sheet.png", "player_sheet", "GameState");
     this->rsHandler->addResouce("../Resources/Images/Sprites/Enemy/wizard_Idle.png", "wizard_sheet", "GameState");
+    this->rsHandler->addResouce("../Resources/Images/Sprites/Npc/shop_npc_idle.png", "shop_npc_sheet", "GameState");
+
+    this->rsHandler->addResouce("../Resources/Images/chat.png", "chattable_icon", "GameState");
+
     this->rsHandler->addResouce("../Resources/Images/equipslot_sheet.png", "EquipSlotsSheet", "GameState");
     this->rsHandler->addResouce("../Resources/Images/items_sheet.png", "items_sheet", "GameState");
     this->rsHandler->addResouce("../Resources/Images/selectedIcon.png", "selected", "GameState");
@@ -20,6 +24,10 @@ void GameState::initTextures() {
 
     this->textures["PLAYER_SHEET"].loadFromImage(this->rsHandler->getResouceByKey("player_sheet")->getImage());
     this->textures["ENEMY_WIZARD_SHEET"].loadFromImage(this->rsHandler->getResouceByKey("wizard_sheet")->getImage());
+    this->textures["SHOP_NPC_SHEET"].loadFromImage(this->rsHandler->getResouceByKey("shop_npc_sheet")->getImage());
+
+    this->textures["CHATTABLE_ICON"].loadFromImage(this->rsHandler->getResouceByKey("chattable_icon")->getImage());
+
     this->textures["ITEMS_SHEET"].loadFromImage(this->rsHandler->getResouceByKey("items_sheet")->getImage());
     this->textures["EquipSlotsSheet"].loadFromImage(this->rsHandler->getResouceByKey("EquipSlotsSheet")->getImage());
     this->textures["SELECTED_ICON"].loadFromImage(this->rsHandler->getResouceByKey("selected")->getImage());
@@ -39,8 +47,7 @@ void GameState::initPauseMenu() {
 }
 
 void GameState::initPlayers() {
-    this->player = new Player(this->window->getSize().x/2.f,
-                              this->window->getSize().y/2.f, 2.f, 2.f,
+    this->player = new Player(300.f, 300.f, 2.f, 2.f,
                               this->textures["PLAYER_SHEET"]);
     this->player->setGold(523561);
     this->player->getInventory()->setCurrentMaxSpace(90);
@@ -52,15 +59,21 @@ void GameState::initPlayers() {
     this->rsHandler->loadPlayerInventoryTxt(this->player->getInventory());
 
     this->enemis.push_back(new Enemy(30.f, 30.f, 1.2f, 1.2f,
-                                     127.f, 134.f, 50.f, 65.f,
+                                     127.f, 136.f, 50.f, 65.f,
                                      this->textures["ENEMY_WIZARD_SHEET"]));
 
+    this->npcs.push_back(new Npc(SHOP, 30.f, 250.f, 1.5f, 1.5f,
+                                 this->textures["SHOP_NPC_SHEET"], this->textures["CHATTABLE_ICON"]));
 }
 
-void GameState::initCharacterTab(Player* player) {
-    this->cTab = new CharacterTab(this->window, this->font, player, this, this->getTextures(), this->rsHandler);
+void GameState::initCharacterTab() {
+    this->cTab = new CharacterTab(this->window, this->font, this->player, this, this->getTextures(), this->rsHandler);
     this->initEquipSlotsTextures();
     this->initInventoryItemTextures();
+}
+
+void GameState::initShopTab() {
+    this->shopTab = new ShopTab(this->window, this->font, this->player, this, this->rsHandler);
 }
 
 void GameState::initHintsTab() {
@@ -77,6 +90,7 @@ void GameState::initHintsTab() {
                           " G to add an item\n"
                           " T to gain exp\n"
                           " H to add potions\n"
+                          " E to interact with npcs\n"
                                 );
 
     this->hints.setPosition(5.f, this->window->getSize().y - this->hints.getGlobalBounds().height + 20.f);
@@ -184,7 +198,8 @@ GameState::GameState(sf::RenderWindow* window, std::stack<State*>* states, Resou
     this->initTextures();
     this->initPauseMenu();
     this->initPlayers();
-    this->initCharacterTab(this->player);
+    this->initCharacterTab();
+    this->initShopTab();
     this->initHintsTab();
     this->initComponents();
     this->initView();
@@ -195,7 +210,10 @@ GameState::~GameState() {
     delete this->pmenu;
     delete this->player;
     delete this->cTab;
+    delete this->shopTab;
     for(auto i : this->enemis)
+        delete i;
+    for(auto i : this->npcs)
         delete i;
 }
 
@@ -241,6 +259,7 @@ void GameState::changeStato(int stato) {
     } else{
         this->unpauseState();
         this->stato = 0;
+        this->window->setMouseCursorVisible(true);
     }
 }
 
@@ -290,14 +309,17 @@ void GameState::updateInput(const float &dt) {
             unsigned gold = rand();
             this->player->addGold(gold);
             this->cTab->updateGoldLbl();
+        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::E) && this->getKeyTime() && this->npcInteract){
+            this->changeStato(3);
+
         }
     }
 }
 
 void GameState::updatePlayerInput(const float &dt) {
-    if(this->getKeyTime()){
+/*    if(this->getKeyTime()){
         cout<<this->player->getHitboxComponent()->getCenter().x<<" "<<this->player->getHitboxComponent()->getCenter().y<<"\n";
-    }
+    }*/
 
     if(*this->windowIsFocused){
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
@@ -350,9 +372,10 @@ void GameState::update(const float& dt) {
         this->player->update(dt);
         for(auto i : this->enemis){
             i->update(dt);
-           /* if(this->player->getHitboxComponent()->intersects(i->getHitboxComponent()->getGlobalBounds())){
-                std::cout<<"Collision"<<"\n";
-            }*/
+        }
+        for(auto i : this->npcs){
+            i->update(dt);
+            this->npcInteract = i->updateCollsion(this->player);
         }
 
         this->popUpTextComponent->update(dt);
@@ -363,9 +386,14 @@ void GameState::update(const float& dt) {
             this->updatePausedMenuButtons();
 
         } else if(stato == 2){
+            this->updateMousePosition(nullptr);
             this->cTab->update(this->mousePosView);
             if(this->cTab->closeCharacterTabByClicking(this->mousePosView))
                 this->changeStato(0);
+            this->popUpTextComponent->update(dt);
+        } else if(stato == 3){
+            this->updateMousePosition(nullptr);
+            this->popUpTextComponent->update(dt);
         }
 
     }
@@ -382,19 +410,23 @@ void GameState::render(sf::RenderTarget* target) {
     for(auto i : this->enemis){
         i->render(*target, true);
     }
-
+    for(auto i : this->npcs){
+        i->render(*target, true);
+    }
     target->setView(target->getDefaultView());
 
     target->draw(this->hints);
-    target->draw(this->debugText);
     if(this->paused){ // pause menu render
         if(stato == 1){
             this->pmenu->render(*target);
         } else if(stato == 2){
             this->cTab->render(*target);
+        }else if(stato == 3){
+            this->shopTab->render(*target);
         }
 
     }
+    target->draw(this->debugText);
     this->popUpTextComponent->render(*target);
 }
 

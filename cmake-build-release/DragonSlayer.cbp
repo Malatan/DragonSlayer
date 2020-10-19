@@ -482,6 +482,12 @@
 			<Option target="DragonSlayer"/>
 			<Option target="unit_testing_run"/>
 		</Unit>
+		<Unit filename="F:/DragonSlayer/Game/Npc.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Game/Npc.h">
+			<Option target="DragonSlayer"/>
+		</Unit>
 		<Unit filename="F:/DragonSlayer/Game/Player.cpp">
 			<Option target="DragonSlayer"/>
 			<Option target="unit_testing_run"/>
@@ -529,6 +535,12 @@
 		<Unit filename="F:/DragonSlayer/Gui/PauseMenu.h">
 			<Option target="DragonSlayer"/>
 			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Gui/ShopTab.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Gui/ShopTab.h">
+			<Option target="DragonSlayer"/>
 		</Unit>
 		<Unit filename="F:/DragonSlayer/Resources/Resource.cpp">
 			<Option target="DragonSlayer"/>

@@ -48,7 +48,8 @@ Player::Player() {
 }
 
 Player::~Player() {
-
+    delete this->playerStats;
+    delete this->inventory;
 }
 
 //functions

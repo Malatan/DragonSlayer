@@ -10,8 +10,12 @@
 #include "../Game/Enemy.h"
 #include "../Gui/PauseMenu.h"
 #include "../Gui/CharacterTab.h"
+#include "../Gui/ShopTab.h"
+#include "../Game/Npc.h"
+
 
 class CharacterTab;
+class ShopTab;
 
 class GameState : public State{
 private:
@@ -22,16 +26,21 @@ private:
 
     PauseMenu* pmenu;
     CharacterTab* cTab;
+    ShopTab* shopTab;
     Player* player;
 
     std::vector<Enemy*> enemis;
-    int stato; // 0 = in giocata 1 = pause menu 2 = character tab
+    std::vector<Npc*> npcs;
+    int stato; // 0 = in giocata, 1 = pause, menu 2 = character, 3 = shop
+    bool npcInteract;
+
 
     //functions
     void initTextures();
     void initPauseMenu();
     void initPlayers();
-    void initCharacterTab(Player* player);
+    void initCharacterTab();
+    void initShopTab();
     void initHintsTab();
     void initEquipSlotsTextures();
     void initInventoryItemTextures();

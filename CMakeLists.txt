@@ -20,6 +20,8 @@ set(SOURCE_FILES
         Gui/PauseMenu.h
         Gui/CharacterTab.cpp
         Gui/CharacterTab.h
+        Gui/ShopTab.cpp
+        Gui/ShopTab.h
         Game/Entity.cpp
         Game/Entity.h
         Game/Player.cpp
@@ -36,6 +38,8 @@ set(SOURCE_FILES
         Game/Spell.h
         Game/Stats.h
         Game/Stats.cpp
+        Game/Npc.cpp
+        Game/Npc.h
         Components/MovementComponent.cpp
         Components/MovementComponent.h
         Components/AnimationComponent.cpp

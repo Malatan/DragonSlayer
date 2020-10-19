@@ -638,6 +638,33 @@ Game/Item.cpp.s:
 	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Item.cpp.s
 .PHONY : Game/Item.cpp.s
 
+Game/Npc.obj: Game/Npc.cpp.obj
+
+.PHONY : Game/Npc.obj
+
+# target to build an object file
+Game/Npc.cpp.obj:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Npc.cpp.obj
+.PHONY : Game/Npc.cpp.obj
+
+Game/Npc.i: Game/Npc.cpp.i
+
+.PHONY : Game/Npc.i
+
+# target to preprocess a source file
+Game/Npc.cpp.i:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Npc.cpp.i
+.PHONY : Game/Npc.cpp.i
+
+Game/Npc.s: Game/Npc.cpp.s
+
+.PHONY : Game/Npc.s
+
+# target to generate assembly for a file
+Game/Npc.cpp.s:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Npc.cpp.s
+.PHONY : Game/Npc.cpp.s
+
 Game/Player.obj: Game/Player.cpp.obj
 
 .PHONY : Game/Player.obj
@@ -800,6 +827,33 @@ Gui/PauseMenu.cpp.s:
 	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/PauseMenu.cpp.s
 .PHONY : Gui/PauseMenu.cpp.s
 
+Gui/ShopTab.obj: Gui/ShopTab.cpp.obj
+
+.PHONY : Gui/ShopTab.obj
+
+# target to build an object file
+Gui/ShopTab.cpp.obj:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/ShopTab.cpp.obj
+.PHONY : Gui/ShopTab.cpp.obj
+
+Gui/ShopTab.i: Gui/ShopTab.cpp.i
+
+.PHONY : Gui/ShopTab.i
+
+# target to preprocess a source file
+Gui/ShopTab.cpp.i:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/ShopTab.cpp.i
+.PHONY : Gui/ShopTab.cpp.i
+
+Gui/ShopTab.s: Gui/ShopTab.cpp.s
+
+.PHONY : Gui/ShopTab.s
+
+# target to generate assembly for a file
+Gui/ShopTab.cpp.s:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/ShopTab.cpp.s
+.PHONY : Gui/ShopTab.cpp.s
+
 Resources/Resource.obj: Resources/Resource.cpp.obj
 
 .PHONY : Resources/Resource.obj
@@ -944,6 +998,9 @@ help:
 	@echo ... Game/Item.obj
 	@echo ... Game/Item.i
 	@echo ... Game/Item.s
+	@echo ... Game/Npc.obj
+	@echo ... Game/Npc.i
+	@echo ... Game/Npc.s
 	@echo ... Game/Player.obj
 	@echo ... Game/Player.i
 	@echo ... Game/Player.s
@@ -962,6 +1019,9 @@ help:
 	@echo ... Gui/PauseMenu.obj
 	@echo ... Gui/PauseMenu.i
 	@echo ... Gui/PauseMenu.s
+	@echo ... Gui/ShopTab.obj
+	@echo ... Gui/ShopTab.i
+	@echo ... Gui/ShopTab.s
 	@echo ... Resources/Resource.obj
 	@echo ... Resources/Resource.i
 	@echo ... Resources/Resource.s
