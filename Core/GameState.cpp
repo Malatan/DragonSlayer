@@ -8,6 +8,8 @@ void GameState::initTextures() {
     this->rsHandler->addResouce("../Resources/Images/Sprites/Player/player_sheet.png", "player_sheet", "GameState");
     this->rsHandler->addResouce("../Resources/Images/Sprites/Enemy/wizard_Idle.png", "wizard_sheet", "GameState");
     this->rsHandler->addResouce("../Resources/Images/Sprites/Npc/shop_npc_idle.png", "shop_npc_sheet", "GameState");
+    this->rsHandler->addResouce("../Resources/Images/Sprites/Npc/priest_npc_idle.png", "priest_npc_sheet", "GameState");
+    this->rsHandler->addResouce("../Resources/Images/Sprites/Npc/wizard_npc_idle.png", "wizard_npc_sheet", "GameState");
 
     this->rsHandler->addResouce("../Resources/Images/chat.png", "chattable_icon", "GameState");
 
@@ -25,6 +27,8 @@ void GameState::initTextures() {
     this->textures["PLAYER_SHEET"].loadFromImage(this->rsHandler->getResouceByKey("player_sheet")->getImage());
     this->textures["ENEMY_WIZARD_SHEET"].loadFromImage(this->rsHandler->getResouceByKey("wizard_sheet")->getImage());
     this->textures["SHOP_NPC_SHEET"].loadFromImage(this->rsHandler->getResouceByKey("shop_npc_sheet")->getImage());
+    this->textures["PRIEST_NPC_SHEET"].loadFromImage(this->rsHandler->getResouceByKey("priest_npc_sheet")->getImage());
+    this->textures["WIZARD_NPC_SHEET"].loadFromImage(this->rsHandler->getResouceByKey("wizard_npc_sheet")->getImage());
 
     this->textures["CHATTABLE_ICON"].loadFromImage(this->rsHandler->getResouceByKey("chattable_icon")->getImage());
 
@@ -64,6 +68,10 @@ void GameState::initPlayers() {
 
     this->npcs.push_back(new Npc(SHOP, 30.f, 250.f, 1.5f, 1.5f,
                                  this->textures["SHOP_NPC_SHEET"], this->textures["CHATTABLE_ICON"]));
+    this->npcs.push_back(new Npc(PRIEST, 30.f, 350.f, 1.5f, 1.5f,
+                                 this->textures["PRIEST_NPC_SHEET"], this->textures["CHATTABLE_ICON"]));
+    this->npcs.push_back(new Npc(WIZARD, 30.f, 450.f, 0.7f, 0.7f,
+                                 this->textures["WIZARD_NPC_SHEET"], this->textures["CHATTABLE_ICON"]));
 }
 
 void GameState::initCharacterTab() {
@@ -196,7 +204,7 @@ GameState::GameState(sf::RenderWindow* window, std::stack<State*>* states, Resou
         : State(window, states, rsHandler, isFocused, sfEvent){
     this->font = font;
     this->stato = 0;
-    this->npcInteract = false;
+    this->npcInteract = NO_NPC;
     this->initTextures();
     this->initPauseMenu();
     this->initPlayers();
@@ -313,8 +321,22 @@ void GameState::updateInput(const float &dt) {
             this->cTab->updateGoldLbl();
             this->popUpTextComponent->addPopUpTextCenter(GOLD_TAG, gold, "+", " gold");
         }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::E) && this->getKeyTime()
-            && this->npcInteract){
-            this->changeStato(3);
+            && this->npcInteract != NO_NPC){
+            switch(this->npcInteract){
+                case SHOP:
+                    this->changeStato(3);
+                    break;
+                case PRIEST:
+                    std::cout<<"interacting with priest npc\n";
+                    break;
+                case WIZARD:
+                    std::cout<<"interacting with wizard npc\n";
+                    break;
+                default:
+                    std::cout<<"no npc\n";
+                    break;
+            }
+
 
         }
     }
@@ -379,7 +401,7 @@ void GameState::update(const float& dt) {
         }
         for(auto i : this->npcs){
             i->update(dt);
-            this->npcInteract = i->updateCollsion(this->player);
+            i->updateCollsion(this->player, &this->npcInteract);
         }
 
         this->popUpTextComponent->update(dt);

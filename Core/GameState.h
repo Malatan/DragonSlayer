@@ -32,7 +32,7 @@ private:
     std::vector<Enemy*> enemis;
     std::vector<Npc*> npcs;
     int stato; // 0 = in giocata, 1 = pause, menu 2 = character, 3 = shop
-    bool npcInteract;
+    npc_type npcInteract;
 
 
     //functions

@@ -10,7 +10,9 @@
 enum npc_type{
     DEFAULT,
     SHOP,
-    HEAL,
+    PRIEST,
+    WIZARD,
+    NO_NPC
 };
 
 class Npc : public Entity{
@@ -33,7 +35,7 @@ public:
     //funtions
     void updateAnimation(const float &dt);
     void update(const float &dt);
-    bool updateCollsion(Entity* entity);
+    void updateCollsion(Entity* entity, npc_type* type);
     void render(sf::RenderTarget& target, const bool show_hitbox = false);
 
 };

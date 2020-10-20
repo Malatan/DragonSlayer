@@ -16,7 +16,13 @@ void Npc::initAnimations() {
             this->animationComponent->addAnimation("IDLE", 10.f,
                                                    0, 0, 17, 0, 128 ,128);
             break;
-        case HEAL:
+        case PRIEST:
+            this->animationComponent->addAnimation("IDLE", 10.f,
+                                                   0, 0, 9, 0, 128 ,128);
+            break;
+        case WIZARD:
+            this->animationComponent->addAnimation("IDLE", 10.f,
+                                                   0, 0, 5, 0, 231 ,190);
             break;
     }
 }
@@ -28,7 +34,11 @@ void Npc::iniHitBoxComponents() {
         case SHOP:
             this->createHitboxComponent(this->sprite, 80.f, 50.f, 32.f, 64.f);
             break;
-        case HEAL:
+        case PRIEST:
+            this->createHitboxComponent(this->sprite, 80.f, 60.f, 32.f, 55.f);
+            break;
+        case WIZARD:
+            this->createHitboxComponent(this->sprite, 55.f, 36.f, 42.f, 64.f);
             break;
     }
 }
@@ -52,6 +62,8 @@ Npc::Npc(npc_type type, float x, float y, float scale_x, float scale_y, sf::Text
 
     this->overHeadContainer.setSize(sf::Vector2f(20.f, 20.f));
     this->overHeadContainer.setTexture(&texture);
+
+
 }
 
 Npc::~Npc() {
@@ -78,14 +90,17 @@ void Npc::render(sf::RenderTarget &target, const bool show_hitbox) {
         this->hitboxComponent->render(target);
 }
 
-bool Npc::updateCollsion(Entity *entity) {
-    if(entity->getHitboxComponent()->intersects(this->hitboxComponent->getGlobalBounds())){
-        this->overHeadContainer.setFillColor(sf::Color::White);
-        return true;
-    }else{
-        this->overHeadContainer.setFillColor(sf::Color(60,60,60,100));
-        return false;
+void Npc::updateCollsion(Entity *entity, npc_type* type) {
+    if(*type == NO_NPC || *type == this->type){
+        if(entity->getHitboxComponent()->intersects(this->hitboxComponent->getGlobalBounds())){
+            this->overHeadContainer.setFillColor(sf::Color::White);
+            *type = this->type;
+        } else{
+            this->overHeadContainer.setFillColor(sf::Color(60,60,60,100));
+            *type = NO_NPC;
+        }
     }
+
 }
 
 

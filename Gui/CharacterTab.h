@@ -9,6 +9,7 @@
 #include "../Game/Player.h"
 #include "../Core/State.h"
 #include "../Core/GameState.h"
+#include "../Game/Npc.h"
 
 class CharacterTab {
 private:
@@ -22,7 +23,7 @@ private:
     int selectedItem;
 
     bool openDialog;
-    bool* npcInteract;
+    npc_type* npcInteract;
 
     std::map<std::string, sf::Texture> textures;
     //container
@@ -69,7 +70,7 @@ protected:
 
 public:
     CharacterTab(sf::RenderWindow* window, sf::Font* font, Player* player, State* state, map<string,
-            sf::Texture> textures, ResourcesHandler* rsHandler, bool* npcInteract);
+            sf::Texture> textures, ResourcesHandler* rsHandler, npc_type* npcInteract);
     virtual ~CharacterTab();
 
     //initializers

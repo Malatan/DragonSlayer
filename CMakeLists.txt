@@ -63,6 +63,7 @@ else ()
 endif ()
 
 #SFML CONFIG
+set (SFML_DIR SFML_2.5.1/lib/cmake/SFML)
 set(SFML_ROOT "SFML_2.5.1")
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
 find_package(SFML REQUIRED COMPONENTS audio graphics window system)

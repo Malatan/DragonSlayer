@@ -269,7 +269,7 @@ void CharacterTab::initInventorySlots() {
 }
 
 CharacterTab::CharacterTab(sf::RenderWindow* window, sf::Font* font, Player* player, State* state,
-        map<string, sf::Texture> textures, ResourcesHandler* rsHandler, bool* npcInteract) :
+        map<string, sf::Texture> textures, ResourcesHandler* rsHandler, npc_type* npcInteract) :
 font(font), player(player), state(state), window(window), textures(textures), rsHandler(rsHandler), npcInteract(npcInteract)
 {
     this->openDialog = false;
@@ -483,7 +483,7 @@ void CharacterTab::invContainerUpdate(const sf::Vector2f &mousePos) {
         this->EquipUnEquipBtn->setDisabled(true);
     }
 
-    if(this->selectedItem != 0 && *this->npcInteract){
+    if(this->selectedItem != 0 && *this->npcInteract != NO_NPC){
         this->sellBtn->setDisabled(false);
     }else{
         this->sellBtn->setDisabled(true);

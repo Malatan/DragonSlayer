@@ -19,13 +19,15 @@
   <component name="ChangeListManager">
     <list default="true" id="5e176dfb-d06b-4a3a-ae60-4825526ebf88" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Components/PopUpTextComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Components/PopUpTextComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Components/PopUpTextComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Components/PopUpTextComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/GameState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/GameState.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/GameState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/GameState.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Npc.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Npc.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Npc.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Npc.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Gui/CharacterTab.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/CharacterTab.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Gui/CharacterTab.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/CharacterTab.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gui/Gui.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/Gui.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gui/Gui.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/Gui.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/Images/Sprites/Player/player.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/Makefile2" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -48,16 +50,16 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="cf.advertisement.text.has.clang-format" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Download/Alienator-master/Alienator-master" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Download/DragonSlayer/DragonSlayer" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.General" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\DragonSlayer\Gui" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="F:\CLion Projects\DragonSlayer\cmake-build-release" />
       <recent name="F:\CLion Projects\DragonSlayer\cmake-build-debug" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="F:\DragonSlayer\Gui" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -156,7 +158,9 @@
       <workItem from="1602884489246" duration="12707000" />
       <workItem from="1602942984352" duration="3096000" />
       <workItem from="1602952608115" duration="4576000" />
-      <workItem from="1603136692406" duration="14484000" />
+      <workItem from="1603136692406" duration="14899000" />
+      <workItem from="1603201356866" duration="10763000" />
+      <workItem from="1603233491818" duration="1506000" />
     </task>
     <servers />
   </component>
