@@ -180,8 +180,24 @@ void CharacterTab::initInventoryContainer() {
 
     this->initInventorySlots();
 
+    this->sellBtn = new gui::Button(
+            this->inventoryContainer.getPosition().x + 340.f,
+            this->inventoryContainer.getPosition().y + 580.f, 180.f, 40.f,
+            this->font, "Sell items", 20.f,
+            sf::Color(255, 255, 255, 255),
+            sf::Color(160, 160, 160),
+            sf::Color(20, 20, 20, 50),
+
+            sf::Color(70, 70, 70, 0),
+            sf::Color(150, 150, 150, 0),
+            sf::Color(130, 130, 130));
+    this->sellBtn->setBorderColor(sf::Color::White);
+    this->sellBtn->setBorderLineThickness(5.f);
+    this->sellBtn->setTooltipDisabled(false);
+    this->sellBtn->setTooltipText("You must be near a Npc for selling items");
+
     this->EquipUnEquipBtn = new gui::Button(
-            this->inventoryContainer.getPosition().x + 520.f,
+            this->inventoryContainer.getPosition().x + 540.f,
             this->inventoryContainer.getPosition().y + 580.f, 180.f, 40.f,
             this->font, "Equip/Unequip/Use", 20.f,
             sf::Color(255, 255, 255, 255),
@@ -195,9 +211,9 @@ void CharacterTab::initInventoryContainer() {
     this->EquipUnEquipBtn->setBorderLineThickness(5.f);
 
     this->deleteBtn = new gui::Button(
-            this->inventoryContainer.getPosition().x + 520.f,
+            this->inventoryContainer.getPosition().x + 540.f,
             this->inventoryContainer.getPosition().y + 640.f, 180.f, 40.f,
-            this->font, "Delete item", 20.f,
+            this->font, "Delete items", 20.f,
             sf::Color(255, 255, 255, 255),
             sf::Color(160, 160, 160),
             sf::Color(20, 20, 20, 50),
@@ -223,7 +239,7 @@ void CharacterTab::initInventoryContainer() {
     this->keysHintLbl.setFont(*this->font);
     this->keysHintLbl.setCharacterSize(20);
     this->keysHintLbl.setString("Hints: \n"
-                                "<E> equip/unequip/use selected item\n"
+                                "<R> equip/unequip/use selected item\n"
                                 "<Del> delete selected items");
     this->keysHintLbl.setPosition(this->goldLbl.getPosition().x,
                                   this->inventorySpaceLbl.getPosition().y + 30.f);
@@ -253,8 +269,8 @@ void CharacterTab::initInventorySlots() {
 }
 
 CharacterTab::CharacterTab(sf::RenderWindow* window, sf::Font* font, Player* player, State* state,
-        map<string, sf::Texture> textures, ResourcesHandler* rsHandler) :
-font(font), player(player), state(state), window(window), textures(textures), rsHandler(rsHandler)
+        map<string, sf::Texture> textures, ResourcesHandler* rsHandler, bool* npcInteract) :
+font(font), player(player), state(state), window(window), textures(textures), rsHandler(rsHandler), npcInteract(npcInteract)
 {
     this->openDialog = false;
     this->confirmDialog = nullptr;
@@ -333,6 +349,7 @@ CharacterTab::~CharacterTab() {
     delete this->addAgilityBtn;
     delete this->EquipUnEquipBtn;
     delete this->deleteBtn;
+    delete this->sellBtn;
     delete this->hpBar;
     delete this->mpBar;
     delete this->expBar;
@@ -466,8 +483,15 @@ void CharacterTab::invContainerUpdate(const sf::Vector2f &mousePos) {
         this->EquipUnEquipBtn->setDisabled(true);
     }
 
+    if(this->selectedItem != 0 && *this->npcInteract){
+        this->sellBtn->setDisabled(false);
+    }else{
+        this->sellBtn->setDisabled(true);
+    }
+
     this->EquipUnEquipBtn->update(mousePos);
     this->deleteBtn->update(mousePos);
+    this->sellBtn->update(mousePos);
 }
 
 void CharacterTab::invContainerRender(sf::RenderTarget &target) {
@@ -479,6 +503,7 @@ void CharacterTab::invContainerRender(sf::RenderTarget &target) {
     target.draw(this->keysHintLbl);
     this->EquipUnEquipBtn->render(target);
     this->deleteBtn->render(target);
+    this->sellBtn->render(target);
  /*   for(auto i : this->inventorySlots){
         i->render(target);
     }*/
@@ -593,11 +618,26 @@ void CharacterTab::equipUnEquipBtnFunction() {
 void CharacterTab::deleteBtnFunction() {
     std::stringstream ss;
     ss << "Are you sure you want to delete selected " << this->selectedItem << " items?";
-    if(!this->confirmDialog){
-        this->confirmDialog = new gui::ConfirmDialog(this->container.getPosition().x + (this->container.getGlobalBounds().width / 2.f) - 250.f,
-                                                     this->container.getPosition().y + (this->container.getGlobalBounds().height / 2.f) - 125.f,
-                                                     ss.str(), this->window, this->state, this->font, 25.f);
+    this->confirmDialog = new gui::ConfirmDialog(this->container.getPosition().x + (this->container.getGlobalBounds().width / 2.f) - 250.f,
+            this->container.getPosition().y + (this->container.getGlobalBounds().height / 2.f) - 125.f,
+            ss.str(), this->window, this->state, this->font, 25.f, DELETE_CONFIRM);
+    this->openDialog = true;
+}
+
+void CharacterTab::sellBtnFunction() {
+    std::stringstream ss;
+    int totValue = 0;
+    for(auto i : this->inventorySlots) {
+        if (i->getIsSelected()) {
+            totValue += i->getItem()->getQuantity() * i->getItem()->getValue();
+        }
     }
+    ss << "Selling selected " << this->selectedItem << " items for " << totValue << " gold";
+
+    this->confirmDialog = new gui::ConfirmDialog(this->container.getPosition().x + (this->container.getGlobalBounds().width / 2.f) - 250.f,
+            this->container.getPosition().y + (this->container.getGlobalBounds().height / 2.f) - 125.f,
+            ss.str(), this->window, this->state, this->font, 25.f, SELL_CONFIRM);
+    this->confirmDialog->setSellValue(totValue);
     this->openDialog = true;
 }
 
@@ -620,16 +660,19 @@ void CharacterTab::updateButtons() {
     } else if(this->EquipUnEquipBtn->isPressed() && this->state->getKeyTime()) {
         this->EquipUnEquipBtn->setButtonState(BTN_IDLE);
         this->equipUnEquipBtnFunction();
-    }
-    if(this->deleteBtn->isPressed() && this->state->getKeyTime()) {
+    } else if(this->deleteBtn->isPressed() && this->state->getKeyTime()) {
         this->deleteBtn->setButtonState(BTN_IDLE);
         this->deleteBtnFunction();
+    } else if(this->sellBtn->isPressed() && this->state->getKeyTime()) {
+        this->sellBtn->setButtonState(BTN_IDLE);
+        this->sellBtnFunction();
     }
 }
 
 void CharacterTab::updateKeyboardInput() {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && this->state->getKeyTime()) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::R) && this->state->getKeyTime()) {
         // equip / unequip
+        std::cout<<"e";
         if(this->selectedItem == 1){
             this->equipUnEquipBtnFunction();
         }
@@ -655,7 +698,28 @@ void CharacterTab::update(const sf::Vector2f& mousePos) {
         this->expBar->update(this->player->getPlayerStats()->getExp(), this->player->getPlayerStats()->getMaxExp());
     } else if(this->openDialog){
         if(this->confirmDialog->update(mousePos, &this->openDialog) == 1){
-            this->deleteItemFromInventory();
+            switch(this->confirmDialog->getDialogType()){
+                case DELETE_CONFIRM:{
+                    int seletected = this->selectedItem;
+                    this->deleteItemFromInventory();
+                    this->state->getPopUpTextComponent()->addPopUpTextCenter(
+                            DEFAULT_TAG, to_string(seletected), "You deleted", "items from your inventory");
+                    break;
+                }
+
+                case SELL_CONFIRM:{
+                    this->deleteItemFromInventory();
+                    this->player->addGold(this->confirmDialog->getSellValue());
+                    this->updateGoldLbl();
+                    this->state->getPopUpTextComponent()->addPopUpTextCenter(
+                            GOLD_TAG, to_string(this->confirmDialog->getSellValue()),
+                            "+", " gold");
+                    break;
+                }
+            }
+
+        }else if(this->confirmDialog->update(mousePos, &this->openDialog) == 0){
+            delete this->confirmDialog;
         }
     }
 }
@@ -776,6 +840,8 @@ void CharacterTab::deleteItemFromInventory() {
     this->updateEquipBonusLbl();
     this->updateInventoryCapLbl();
 }
+
+
 
 
 

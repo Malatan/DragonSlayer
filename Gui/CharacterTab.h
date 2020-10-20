@@ -22,6 +22,7 @@ private:
     int selectedItem;
 
     bool openDialog;
+    bool* npcInteract;
 
     std::map<std::string, sf::Texture> textures;
     //container
@@ -62,12 +63,13 @@ private:
     sf::Text keysHintLbl;
     gui::Button* EquipUnEquipBtn;
     gui::Button* deleteBtn;
+    gui::Button* sellBtn;
 
 protected:
 
 public:
     CharacterTab(sf::RenderWindow* window, sf::Font* font, Player* player, State* state, map<string,
-            sf::Texture> textures, ResourcesHandler* rsHandler);
+            sf::Texture> textures, ResourcesHandler* rsHandler, bool* npcInteract);
     virtual ~CharacterTab();
 
     //initializers
@@ -101,6 +103,7 @@ public:
     void equipUnEquipBtnFunction();
     void useConsumable(Item* item, gui::ItemSlot* i);
     void deleteBtnFunction();
+    void sellBtnFunction();
     void updateKeyboardInput();
     void update(const sf::Vector2f& mousePos);
     void render(sf::RenderTarget& target);

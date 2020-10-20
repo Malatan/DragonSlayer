@@ -8,7 +8,7 @@
 #include <SFML/Graphics.hpp>
 #include <sstream>
 
-enum TextTypes { DEFAULT_TAG, NEGATIVE_TAG, EXPERIENCE_TAG, HEAL_TAG, MANA_RESTORE_TAG};
+enum TextTypes { DEFAULT_TAG, NEGATIVE_TAG, EXPERIENCE_TAG, GOLD_TAG, HEAL_TAG, MANA_RESTORE_TAG};
 
 class PopUpTextComponent {
 private:

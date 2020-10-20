@@ -21,6 +21,11 @@ enum item_slot_states{
     SLOT_HOVER,
 };
 
+enum dialog_type{
+    DELETE_CONFIRM,
+    SELL_CONFIRM
+};
+
 namespace gui{
     class Button {
     private:
@@ -30,8 +35,11 @@ namespace gui{
         bool pressed;
         bool hover;
         bool disabled;
+        bool tooltipDisabled;
 
         sf::RectangleShape shape;
+        sf::RectangleShape tooltipContainer;
+        sf::Text tooltipText;
         sf::Font* font;
         sf::Text text;
 
@@ -57,6 +65,7 @@ namespace gui{
         const std::string getText() const;
         const short unsigned& getId() const;
         sf::Vector2f getPosition();
+        const bool isTooltipDisabled();
 
         //modifiers
         void setButtonState(button_states);
@@ -69,9 +78,13 @@ namespace gui{
         void setBorderLineThickness(float value);
         void setTextPosition(sf::Vector2f position);
         void setTextPositionAddY(float y);
+        void setTooltipText(std::string text);
+        void setTooltipDisabled(bool b);
+        void setDisabled(bool b);
 
         //functions
-        void setDisabled(bool b);
+
+        void updateTooltipPos(const sf::Vector2f& mousePos);
         void update(const sf::Vector2f& mousePos);
         void render(sf::RenderTarget& target);
 
@@ -195,16 +208,26 @@ namespace gui{
     class ConfirmDialog{
     private:
     protected:
+        dialog_type  dialogType;
+        unsigned sellValue;
+
         sf::Window* window;
         State* state;
+
         sf::RectangleShape dialog;
         Button* yesBtn;
         Button* noBtn;
         sf::Text text;
 
     public:
-        ConfirmDialog(float x, float y, std::string text, sf::Window* window, State* state, sf::Font* font, float characterSize);
+        ConfirmDialog(float x, float y, std::string text, sf::Window* window, State* state, sf::Font* font, float characterSize,
+                dialog_type dType);
         virtual ~ConfirmDialog();
+
+        void setSellValue(unsigned value);
+
+        dialog_type getDialogType();
+        unsigned getSellValue();
 
         int update(const sf::Vector2f& mousePos, bool* openDialog);
         void render(sf::RenderTarget& target);

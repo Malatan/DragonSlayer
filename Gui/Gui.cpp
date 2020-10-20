@@ -13,6 +13,7 @@ gui::Button::Button(float x, float y, float width, float height,
     this->buttonState = BTN_IDLE;
     this->id = id;
     this->disabled = false;
+    this->tooltipDisabled = true;
 
     this->shape.setPosition(sf::Vector2f(x,y));
     this->shape.setSize(sf::Vector2f(width, height));
@@ -39,6 +40,13 @@ gui::Button::Button(float x, float y, float width, float height,
     this->idleColor = idle_color;
     this->hoverColor = hover_color;
     this->activeColor = active_color;
+
+    //tooltip
+    this->tooltipContainer.setFillColor(sf::Color(71, 71, 71));
+
+    this->tooltipText.setFont(*this->font);
+    this->tooltipText.setCharacterSize(20);
+
 }
 
 gui::Button::~Button() {
@@ -62,6 +70,13 @@ const short unsigned &gui::Button::getId() const {
     return this->id;
 }
 
+const bool gui::Button::isTooltipDisabled() {
+    return this->tooltipDisabled;
+}
+
+sf::Vector2f gui::Button::getPosition() {
+    return this->shape.getPosition();
+}
 
 //modifiers
 void gui::Button::setPosition(float x, float y) {
@@ -108,10 +123,44 @@ void gui::Button::setTextPositionAddY(float y) {
     this->text.setPosition(this->text.getPosition().x, this->text.getPosition().y + y);
 }
 
+void gui::Button::setTooltipText(std::string text) {
+    this->tooltipText.setString(text);
+    this->tooltipContainer.setSize(sf::Vector2f(this->tooltipText.getGlobalBounds().width + 10.f,
+                                                 this->tooltipText.getGlobalBounds().height + 15.f));
+}
+
+void gui::Button::setTooltipDisabled(bool b) {
+    this->tooltipDisabled = b;
+}
+
+void gui::Button::setDisabled(bool b) {
+    if(b){
+        this->shape.setOutlineColor(sf::Color(128, 128, 128));
+        this->text.setFillColor(sf::Color(128, 128, 128));
+    } else{
+        this->shape.setOutlineColor(sf::Color::White);
+        this->text.setFillColor(sf::Color(this->textIdleColor));
+    }
+    this->disabled = b;
+}
+
+void gui::Button::setButtonState(button_states btnstates) {
+    this->buttonState = btnstates;
+}
 
 //functions
-void gui::Button::update(const sf::Vector2f& mousePos) {
+void gui::Button::updateTooltipPos(const sf::Vector2f &mousePos) {
+    this->tooltipContainer.setPosition(mousePos);
+    this->tooltipText.setPosition(this->tooltipContainer.getPosition().x + 5.f,
+                                  this->tooltipContainer.getPosition().y);
+}
 
+void gui::Button::update(const sf::Vector2f& mousePos) {
+    this->hover = false;
+    if(!this->tooltipDisabled && this->shape.getGlobalBounds().contains(mousePos)){
+        this->updateTooltipPos(mousePos);
+        this->hover = true;
+    }
     if(!this->disabled){
         //idle
         this->buttonState = BTN_IDLE;
@@ -119,9 +168,13 @@ void gui::Button::update(const sf::Vector2f& mousePos) {
         //hover
         if(this->shape.getGlobalBounds().contains(mousePos)){
             this->buttonState = BTN_HOVER;
+            this->hover = true;
             //pressed
             if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
                 this->buttonState = BTN_ACTIVE;
+            }
+            if(!this->tooltipDisabled){
+                this->updateTooltipPos(mousePos);
             }
         }
     }
@@ -146,26 +199,13 @@ void gui::Button::update(const sf::Vector2f& mousePos) {
 void gui::Button::render(sf::RenderTarget& target) {
     target.draw(this->shape);
     target.draw(this->text);
-}
-
-sf::Vector2f gui::Button::getPosition() {
-    return this->shape.getPosition();
-}
-
-void gui::Button::setDisabled(bool b) {
-    if(b){
-        this->shape.setOutlineColor(sf::Color(128, 128, 128));
-        this->text.setFillColor(sf::Color(128, 128, 128));
-    } else{
-        this->shape.setOutlineColor(sf::Color::White);
-        this->text.setFillColor(sf::Color(this->textIdleColor));
+    if(!this->tooltipDisabled && this->hover && this->disabled){
+        target.draw(this->tooltipContainer);
+        target.draw(this->tooltipText);
     }
-    this->disabled = b;
 }
 
-void gui::Button::setButtonState(button_states btnstates) {
-    this->buttonState = btnstates;
-}
+
 
 
 /*
@@ -292,10 +332,10 @@ gui::ItemSlot::ItemSlot(float x, float y, float width, float height, int id,
     this->itemInfoContainer.setFillColor(sf::Color(71, 71, 71));
 
     this->itemInfoLbl.setFont(*this->font);
-    this->itemInfoLbl.setCharacterSize(20.f);
+    this->itemInfoLbl.setCharacterSize(20);
 
     this->quantityLbl.setFont(*this->font);
-    this->quantityLbl.setCharacterSize(20.f);
+    this->quantityLbl.setCharacterSize(20);
     if(this->item != nullptr){
         std::stringstream ss;
         ss << "x" << this->item->getQuantity();
@@ -528,8 +568,11 @@ void gui::ItemSlot::updateQuantityLbl() {
  */
 
 
-gui::ConfirmDialog::ConfirmDialog(float x, float y, std::string text, sf::Window* window, State* state, sf::Font* font, float characterSize) :
+gui::ConfirmDialog::ConfirmDialog(float x, float y, std::string text, sf::Window* window, State* state, sf::Font* font, float characterSize,
+                                  dialog_type dType) :
     window(window), state(state){
+    this->sellValue = 0;
+    this->dialogType = dType;
     this->window->setMouseCursorVisible(true);
 
     this->dialog.setSize(sf::Vector2f(500.f, 150.f));
@@ -593,4 +636,16 @@ void gui::ConfirmDialog::render(sf::RenderTarget &target) {
     target.draw(this->text);
     this->yesBtn->render(target);
     this->noBtn->render(target);
+}
+
+dialog_type gui::ConfirmDialog::getDialogType() {
+    return this->dialogType;
+}
+
+void gui::ConfirmDialog::setSellValue(unsigned value) {
+    this->sellValue = value;
+}
+
+unsigned gui::ConfirmDialog::getSellValue() {
+    return this->sellValue;
 }

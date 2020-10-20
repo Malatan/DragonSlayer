@@ -67,7 +67,8 @@ void GameState::initPlayers() {
 }
 
 void GameState::initCharacterTab() {
-    this->cTab = new CharacterTab(this->window, this->font, this->player, this, this->getTextures(), this->rsHandler);
+    this->cTab = new CharacterTab(this->window, this->font, this->player,
+            this, this->getTextures(), this->rsHandler, &this->npcInteract);
     this->initEquipSlotsTextures();
     this->initInventoryItemTextures();
 }
@@ -86,7 +87,7 @@ void GameState::initHintsTab() {
                           " B to print ResourcesHandler\n"
                           " M to gain gold\n"
                           " N to print all buffs\n"
-                          " R to print player equipment\n"
+                          " Y to print player equipment\n"
                           " G to add an item\n"
                           " T to gain exp\n"
                           " H to add potions\n"
@@ -195,6 +196,7 @@ GameState::GameState(sf::RenderWindow* window, std::stack<State*>* states, Resou
         : State(window, states, rsHandler, isFocused, sfEvent){
     this->font = font;
     this->stato = 0;
+    this->npcInteract = false;
     this->initTextures();
     this->initPauseMenu();
     this->initPlayers();
@@ -299,7 +301,7 @@ void GameState::updateInput(const float &dt) {
             this->cTab->updateInventoryCapLbl();
             this->popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG, to_string(n), "", " HealthPotion(S) added to the inventory");
 
-        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::R) && this->getKeyTime()){
+        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Y) && this->getKeyTime()){
             std::cout<<this->player->toStringEquipment();
 
         }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::N) && this->getKeyTime()){
@@ -309,7 +311,9 @@ void GameState::updateInput(const float &dt) {
             unsigned gold = rand();
             this->player->addGold(gold);
             this->cTab->updateGoldLbl();
-        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::E) && this->getKeyTime() && this->npcInteract){
+            this->popUpTextComponent->addPopUpTextCenter(GOLD_TAG, gold, "+", " gold");
+        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::E) && this->getKeyTime()
+            && this->npcInteract){
             this->changeStato(3);
 
         }
