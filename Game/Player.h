@@ -73,6 +73,7 @@ public:
     unsigned getGold();
     void setGold(unsigned gold);
     void addGold(unsigned gold);
+    void minusGold(unsigned gold);
     Item* getEquippedItem(int equip_slot);
 
 

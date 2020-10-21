@@ -186,6 +186,41 @@ namespace gui{
         void render(sf::RenderTarget& target);
     };
 
+    class ShopSlot{
+    private:
+        sf::RectangleShape shape;
+        sf::Text priceLbl;
+        sf::Texture texture;
+        gui::Button* buyBtn;
+        Item* item;
+
+    private:
+        unsigned price;
+        std::string key;
+        bool equipment;
+    protected:
+
+    public:
+        //constructors/destructor
+        ShopSlot(float width, float height, float pos_x, float pos_y, std::string key, unsigned price, sf::Font* font, Item* item);
+        virtual ~ShopSlot();
+
+        //accessors
+        Item *getItem() const;
+        const unsigned getPrice() const;
+
+        //modifiers
+
+        void setSlotTexture(const sf::Texture *texture, float size);
+
+
+        //functions
+        bool isPressed();
+        void update(const sf::Vector2f &mousePos);
+        void render(sf::RenderTarget& target);
+
+    };
+
     class EquipSlots{
     private:
         ItemSlot head;

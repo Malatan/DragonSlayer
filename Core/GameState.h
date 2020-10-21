@@ -44,6 +44,7 @@ private:
     void initHintsTab();
     void initEquipSlotsTextures();
     void initInventoryItemTextures();
+    void initShopItemTextures();
     void initBuffComponent();
     void initComponents();
     void initView();
@@ -56,6 +57,8 @@ public:
     //functions
     void addItem(Item* item);
     void changeStato(int stato);
+    void updateTabsGoldLbl();
+    void updateTabsInvSpaceLbl();
     void updateInput(const float &dt);
     void updatePlayerInput(const float& dt);
     void updatePausedMenuButtons();

@@ -9,22 +9,43 @@
 
 class ShopTab {
 private:
+    sf::RectangleShape background;
     sf::RectangleShape container;
     sf::Text containerTitle;
+    sf::Text playerGoldLbl;
+    sf::Text playerInvSpaceLbl;
+    sf::RenderWindow* window;
+    sf::Font* font;
+    std::map<std::string, sf::Texture> textures;
 
     ResourcesHandler* rsHandler;
-    sf::RenderWindow* window;
     Player* player;
     State* state;
-    sf::Font* font;
+
+    std::map<std::string, Item*> items;
+    std::vector<gui::ShopSlot*> shopSlots;
+
+
 protected:
 
 public:
-    ShopTab(sf::RenderWindow* window, sf::Font* font, Player* player, State* state, ResourcesHandler* rsHandler);
+    ShopTab(sf::RenderWindow* window, sf::Font* font, Player* player, State *state, ResourcesHandler* rsHandler,
+            std::map<std::string, sf::Texture> textures);
     virtual ~ShopTab();
 
+    void initItemList();
+    void initShopSlots();
+
+    const vector<gui::ShopSlot *> &getShopSlots() const;
+    std::string toStringShopItems();
+    //functions
+    void buyItem(Item* item, const unsigned price);
+    bool closeTabByClicking(const sf::Vector2f& mousePos);
+    void updateGoldLbl();
+    void updateInvSpaceLbl();
     void update(const sf::Vector2f& mousePos);
     void render(sf::RenderTarget& target);
+
 };
 
 

@@ -649,3 +649,100 @@ void gui::ConfirmDialog::setSellValue(unsigned value) {
 unsigned gui::ConfirmDialog::getSellValue() {
     return this->sellValue;
 }
+
+/*
+ *                      SHOPSLOT
+ *
+ */
+
+//constructors/destructor
+gui::ShopSlot::ShopSlot(float width, float height, float pos_x, float pos_y, std::string key,
+                        unsigned price, sf::Font* font, Item* item) : key(key), item(item){
+
+    this->shape.setSize(sf::Vector2f(width, height));
+    this->shape.setPosition(pos_x, pos_y);
+
+    this->price = price * 1.5;
+
+    this->priceLbl.setString(to_string(this->price));
+    this->priceLbl.setFillColor(sf::Color::Yellow);
+    this->priceLbl.setFont(*font);
+    this->priceLbl.setCharacterSize(20.f);
+    this->priceLbl.setPosition(this->shape.getPosition().x + 4.f,
+            this->shape.getPosition().y + height - this->priceLbl.getGlobalBounds().height * 1.8f);
+
+    this->buyBtn = new gui::Button(
+            this->shape.getPosition().x,
+            this->shape.getPosition().y + height,
+            width, height/4.f,
+            font, "Buy", 20.f,
+            sf::Color(255, 255, 255, 255),
+            sf::Color(160, 160, 160),
+            sf::Color(20, 20, 20, 50),
+
+            sf::Color(70, 70, 70, 0),
+            sf::Color(150, 150, 150, 0),
+            sf::Color(130, 130, 130));
+    this->buyBtn->setBorderColor(sf::Color(90,90,90));
+    this->buyBtn->setBorderLineThickness(2.f);
+}
+
+gui::ShopSlot::~ShopSlot() {
+    delete this->buyBtn;
+}
+
+//accessors
+
+
+//modifiers
+
+void gui::ShopSlot::setSlotTexture(const sf::Texture *texture, float size) {
+    if(this->item != nullptr){
+        this->shape.setTexture(texture);
+        this->shape.setTextureRect(sf::IntRect(
+                this->item->getIconRectX() * size,
+                this->item->getIconRectY() * size,
+                size, size));
+        this->shape.setOutlineThickness(-3.f);
+        if(this->item->getRarity() == "Uncommon"){
+            this->shape.setOutlineColor(sf::Color::White);
+        } else if(this->item->getRarity() == "Common"){
+            this->shape.setOutlineColor(sf::Color::Green);
+        } else if(this->item->getRarity() == "Rare"){
+            this->shape.setOutlineColor(sf::Color::Blue);
+        } else if(this->item->getRarity() == "Epic"){
+            this->shape.setOutlineColor(sf::Color::Magenta);
+        } else if(this->item->getRarity() == "Legendary"){
+            this->shape.setOutlineColor(sf::Color(255,127,80));
+        }
+    }
+
+}
+
+
+//functions
+bool gui::ShopSlot::isPressed() {
+    return this->buyBtn->isPressed();
+}
+
+void gui::ShopSlot::update(const sf::Vector2f &mousePos) {
+    this->buyBtn->update(mousePos);
+}
+
+void gui::ShopSlot::render(sf::RenderTarget &target) {
+    target.draw(this->shape);
+    target.draw(this->priceLbl);
+    this->buyBtn->render(target);
+}
+
+Item *gui::ShopSlot::getItem() const {
+    return this->item;
+}
+
+const unsigned gui::ShopSlot::getPrice() const {
+    return this->price;
+}
+
+
+
+

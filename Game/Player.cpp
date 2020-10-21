@@ -463,3 +463,13 @@ void Player::setBonusStats(int hp, int mp, int dmg, int armor, float cc, float e
 void Player::addGold(unsigned gold) {
     this->gold += gold;
 }
+
+void Player::minusGold(unsigned gold) {
+    if(gold > this->gold){
+        gold = 0;
+    }else{
+        this->gold -= gold;
+    }
+
+
+}

@@ -42,6 +42,7 @@ public:
     Item(string itemType, string name, string description, int value, string rarity,
             int iconRectX, int iconRectY, int hp, int mp, int damage, int armor, float critchance, float evadechance, int quantity, bool isNew);
     Item();
+    Item(Item* item);
     virtual ~Item();
 
 

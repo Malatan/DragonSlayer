@@ -23,6 +23,7 @@ void GameState::initTextures() {
     this->rsHandler->addResouce("../Resources/Images/armorIcon.png", "armorIcon", "GameState");
     this->rsHandler->addResouce("../Resources/Images/glovesIcon.png", "glovesIcon", "GameState");
     this->rsHandler->addResouce("../Resources/Images/bootsIcon.png", "bootsIcon", "GameState");
+    this->rsHandler->addResouce("../Resources/Images/randomIcon.png", "randomIcon", "GameState");
 
     this->textures["PLAYER_SHEET"].loadFromImage(this->rsHandler->getResouceByKey("player_sheet")->getImage());
     this->textures["ENEMY_WIZARD_SHEET"].loadFromImage(this->rsHandler->getResouceByKey("wizard_sheet")->getImage());
@@ -42,6 +43,7 @@ void GameState::initTextures() {
     this->textures["ARMOR_ICON"].loadFromImage(this->rsHandler->getResouceByKey("armorIcon")->getImage());
     this->textures["GLOVES_ICON"].loadFromImage(this->rsHandler->getResouceByKey("glovesIcon")->getImage());
     this->textures["BOOTS_ICON"].loadFromImage(this->rsHandler->getResouceByKey("bootsIcon")->getImage());
+    this->textures["RANDOM_ICON"].loadFromImage(this->rsHandler->getResouceByKey("randomIcon")->getImage());
 }
 
 void GameState::initPauseMenu() {
@@ -53,7 +55,7 @@ void GameState::initPauseMenu() {
 void GameState::initPlayers() {
     this->player = new Player(300.f, 300.f, 2.f, 2.f,
                               this->textures["PLAYER_SHEET"]);
-    this->player->setGold(523561);
+    this->player->setGold(0);
     this->player->getInventory()->setCurrentMaxSpace(90);
 
     // legge i valori di default del Stats dal Data/Stats.txt
@@ -82,7 +84,9 @@ void GameState::initCharacterTab() {
 }
 
 void GameState::initShopTab() {
-    this->shopTab = new ShopTab(this->window, this->font, this->player, this, this->rsHandler);
+    this->shopTab = new ShopTab(this->window, this->font, this->player,
+            this, this->rsHandler, this->textures);
+    this->initShopItemTextures();
 }
 
 void GameState::initHintsTab() {
@@ -137,6 +141,12 @@ void GameState::initInventoryItemTextures(){
         i->setSlotTexture(&this->textures["ITEMS_SHEET"], 34.f);
         i->setDownRightTexture(&this->textures["SELECTED_ICON"]);
         i->setUpRightTexture(&this->textures["NEW_TAG"]);
+    }
+}
+
+void GameState::initShopItemTextures() {
+    for(auto i : this->shopTab->getShopSlots()){
+        i->setSlotTexture(&this->textures["ITEMS_SHEET"], 34.f);
     }
 }
 
@@ -230,6 +240,7 @@ GameState::~GameState() {
 //functions
 void GameState::addItem(Item *item) {
     if(this->player->getInventory()->addItem(item)){
+        std::cout<<item->getQuantity()<<"\n";
         this->player->getInventory()->sortByItemType();
         this->cTab->initInventorySlots();
         this->initInventoryItemTextures();
@@ -259,6 +270,7 @@ void GameState::addItem(Item *item) {
                 }
             }
         }
+        this->updateTabsInvSpaceLbl();
     }
 }
 
@@ -303,22 +315,25 @@ void GameState::updateInput(const float &dt) {
 
         } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::H) && this->getKeyTime()){
             unsigned n = rand();
-            this->addItem(new Item("C-potionS", "HealthPotion(S)",
-                                   "Restore 100 hp", 5, "Common",
-                                   0, 3, 0, 0, 0, 0, 0, 0, n, true));
-            this->cTab->updateInventoryCapLbl();
+            Item* item = new Item("C-potionS", "HealthPotion(S)",
+                                  "Restore 100 hp", 5, "Common",
+                                  0, 3, 0, 0, 0, 0, 0, 0, n, true);
+            this->addItem(item);
             this->popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG, to_string(n), "", " HealthPotion(S) added to the inventory");
-
+            delete item;
         }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Y) && this->getKeyTime()){
             std::cout<<this->player->toStringEquipment();
 
         }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::N) && this->getKeyTime()){
             std::cout<<this->buffComponent->toStringBuffs();
 
+        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::P) && this->getKeyTime()){
+            std::cout<<this->shopTab->toStringShopItems();
+
         }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::M) && this->getKeyTime()){
             unsigned gold = rand();
             this->player->addGold(gold);
-            this->cTab->updateGoldLbl();
+            this->updateTabsGoldLbl();
             this->popUpTextComponent->addPopUpTextCenter(GOLD_TAG, gold, "+", " gold");
         }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::E) && this->getKeyTime()
             && this->npcInteract != NO_NPC){
@@ -366,6 +381,17 @@ void GameState::updatePlayerInput(const float &dt) {
     }
 
 }
+
+void GameState::updateTabsGoldLbl() {
+    this->cTab->updateGoldLbl();
+    this->shopTab->updateGoldLbl();
+}
+
+void GameState::updateTabsInvSpaceLbl() {
+    this->cTab->updateInventoryCapLbl();
+    this->shopTab->updateInvSpaceLbl();
+}
+
 
 void GameState::updatePausedMenuButtons() {
     if(this->pmenu->isButtonPressed("QUIT")){
@@ -419,6 +445,9 @@ void GameState::update(const float& dt) {
             this->popUpTextComponent->update(dt);
         } else if(stato == 3){
             this->updateMousePosition(nullptr);
+            this->shopTab->update(this->mousePosView);
+            if(this->shopTab->closeTabByClicking(this->mousePosView))
+                this->changeStato(0);
             this->popUpTextComponent->update(dt);
         }
 
@@ -455,6 +484,10 @@ void GameState::render(sf::RenderTarget* target) {
     target->draw(this->debugText);
     this->popUpTextComponent->render(*target);
 }
+
+
+
+
 
 
 

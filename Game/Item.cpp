@@ -33,6 +33,12 @@ Item::Item(){
 
 }
 
+Item::Item(Item *item) : itemType(item->itemType), name(item->name), description(item->description), value(item->value),
+rarity(item->rarity), iconRectX(item->iconRectX), iconRectY(item->iconRectY), hp(item->hp), mp(item->mp), damage(item->damage),
+armor(item->armor), critChance(item->critChance), evadeChance(item->evadeChance), quantity(item->quantity), isNew(item->isNew),
+usageType(item->usageType), equipped(item->equipped){
+
+}
 
 
 Item::~Item() {
@@ -248,6 +254,9 @@ bool Item::use() {
         return false;
     else
         return true;
-};
+}
+
+
+
 
 
