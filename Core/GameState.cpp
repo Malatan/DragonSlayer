@@ -89,6 +89,11 @@ void GameState::initShopTab() {
     this->initShopItemTextures();
 }
 
+void GameState::initPriestTab() {
+    this->priestTab = new PriestTab(this->window, this->font, this->player,
+                                this, this->rsHandler, this->textures);
+}
+
 void GameState::initHintsTab() {
     this->hints.setFont(*this->font);
     this->hints.setCharacterSize(30);
@@ -220,6 +225,7 @@ GameState::GameState(sf::RenderWindow* window, std::stack<State*>* states, Resou
     this->initPlayers();
     this->initCharacterTab();
     this->initShopTab();
+    this->initPriestTab();
     this->initHintsTab();
     this->initComponents();
     this->initView();
@@ -231,6 +237,7 @@ GameState::~GameState() {
     delete this->player;
     delete this->cTab;
     delete this->shopTab;
+    delete this->priestTab;
     for(auto i : this->enemis)
         delete i;
     for(auto i : this->npcs)
@@ -342,7 +349,7 @@ void GameState::updateInput(const float &dt) {
                     this->changeStato(3);
                     break;
                 case PRIEST:
-                    std::cout<<"interacting with priest npc\n";
+                    this->changeStato(4);
                     break;
                 case WIZARD:
                     std::cout<<"interacting with wizard npc\n";
@@ -385,6 +392,7 @@ void GameState::updatePlayerInput(const float &dt) {
 void GameState::updateTabsGoldLbl() {
     this->cTab->updateGoldLbl();
     this->shopTab->updateGoldLbl();
+    this->priestTab->updateGoldLbl();
 }
 
 void GameState::updateTabsInvSpaceLbl() {
@@ -433,26 +441,34 @@ void GameState::update(const float& dt) {
         this->popUpTextComponent->update(dt);
 
     } else{ // paused update
-        if(stato == 1){
-            this->pmenu->update(this->mousePosView);
-            this->updatePausedMenuButtons();
-
-        } else if(stato == 2){
-            this->updateMousePosition(nullptr);
-            this->cTab->update(this->mousePosView);
-            if(this->cTab->closeCharacterTabByClicking(this->mousePosView))
-                this->changeStato(0);
-            this->popUpTextComponent->update(dt);
-        } else if(stato == 3){
-            this->updateMousePosition(nullptr);
-            this->shopTab->update(this->mousePosView);
-            if(this->shopTab->closeTabByClicking(this->mousePosView))
-                this->changeStato(0);
-            this->popUpTextComponent->update(dt);
+        switch(stato){
+            case 1:
+                this->pmenu->update(this->mousePosView);
+                this->updatePausedMenuButtons();
+                break;
+            case 2:
+                this->updateMousePosition(nullptr);
+                this->cTab->update(this->mousePosView);
+                if(this->cTab->closeCharacterTabByClicking(this->mousePosView))
+                    this->changeStato(0);
+                this->popUpTextComponent->update(dt);
+                break;
+            case 3:
+                this->updateMousePosition(nullptr);
+                this->shopTab->update(this->mousePosView);
+                if(this->shopTab->closeTabByClicking(this->mousePosView))
+                    this->changeStato(0);
+                this->popUpTextComponent->update(dt);
+                break;
+            case 4:
+                this->updateMousePosition(nullptr);
+                this->priestTab->update(this->mousePosView);
+                if(this->priestTab->closeTabByClicking(this->mousePosView))
+                    this->changeStato(0);
+                this->popUpTextComponent->update(dt);
+                break;
         }
-
     }
-
 }
 
 void GameState::render(sf::RenderTarget* target) {
@@ -472,18 +488,26 @@ void GameState::render(sf::RenderTarget* target) {
 
     target->draw(this->hints);
     if(this->paused){ // pause menu render
-        if(stato == 1){
-            this->pmenu->render(*target);
-        } else if(stato == 2){
-            this->cTab->render(*target);
-        }else if(stato == 3){
-            this->shopTab->render(*target);
+        switch(stato){
+            case 1:
+                this->pmenu->render(*target);
+                break;
+            case 2:
+                this->cTab->render(*target);
+                break;
+            case 3:
+                this->shopTab->render(*target);
+                break;
+            case 4:
+                this->priestTab->render(*target);
+                break;
         }
-
     }
     target->draw(this->debugText);
     this->popUpTextComponent->render(*target);
 }
+
+
 
 
 

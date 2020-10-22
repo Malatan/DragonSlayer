@@ -22,6 +22,8 @@ set(SOURCE_FILES
         Gui/CharacterTab.h
         Gui/ShopTab.cpp
         Gui/ShopTab.h
+        Gui/PriestTab.cpp
+        Gui/PriestTab.h
         Game/Entity.cpp
         Game/Entity.h
         Game/Player.cpp

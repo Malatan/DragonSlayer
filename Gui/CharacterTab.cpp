@@ -710,7 +710,7 @@ void CharacterTab::update(const sf::Vector2f& mousePos) {
                 case SELL_CONFIRM:{
                     this->deleteItemFromInventory();
                     this->player->addGold(this->confirmDialog->getSellValue());
-                    this->updateGoldLbl();
+                    dynamic_cast<GameState*>(this->state)->updateTabsGoldLbl();
                     this->state->getPopUpTextComponent()->addPopUpTextCenter(
                             GOLD_TAG, to_string(this->confirmDialog->getSellValue()),
                             "+", " gold");

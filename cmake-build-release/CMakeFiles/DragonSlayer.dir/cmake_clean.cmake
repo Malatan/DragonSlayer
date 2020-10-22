@@ -21,6 +21,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/DragonSlayer.dir/Gui/CharacterTab.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Gui/Gui.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Gui/PauseMenu.cpp.obj"
+  "CMakeFiles/DragonSlayer.dir/Gui/PriestTab.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Gui/ShopTab.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Resources/ResourcesHandler.cpp.obj"

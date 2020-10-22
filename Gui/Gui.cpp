@@ -150,7 +150,8 @@ void gui::Button::setButtonState(button_states btnstates) {
 
 //functions
 void gui::Button::updateTooltipPos(const sf::Vector2f &mousePos) {
-    this->tooltipContainer.setPosition(mousePos);
+    this->tooltipContainer.setPosition(sf::Vector2f(mousePos.x,
+            mousePos.y - this->tooltipContainer.getGlobalBounds().height));
     this->tooltipText.setPosition(this->tooltipContainer.getPosition().x + 5.f,
                                   this->tooltipContainer.getPosition().y);
 }
@@ -199,7 +200,7 @@ void gui::Button::update(const sf::Vector2f& mousePos) {
 void gui::Button::render(sf::RenderTarget& target) {
     target.draw(this->shape);
     target.draw(this->text);
-    if(!this->tooltipDisabled && this->hover && this->disabled){
+    if(!this->tooltipDisabled && this->hover){
         target.draw(this->tooltipContainer);
         target.draw(this->tooltipText);
     }

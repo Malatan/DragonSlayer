@@ -827,6 +827,33 @@ Gui/PauseMenu.cpp.s:
 	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/PauseMenu.cpp.s
 .PHONY : Gui/PauseMenu.cpp.s
 
+Gui/PriestTab.obj: Gui/PriestTab.cpp.obj
+
+.PHONY : Gui/PriestTab.obj
+
+# target to build an object file
+Gui/PriestTab.cpp.obj:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/PriestTab.cpp.obj
+.PHONY : Gui/PriestTab.cpp.obj
+
+Gui/PriestTab.i: Gui/PriestTab.cpp.i
+
+.PHONY : Gui/PriestTab.i
+
+# target to preprocess a source file
+Gui/PriestTab.cpp.i:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/PriestTab.cpp.i
+.PHONY : Gui/PriestTab.cpp.i
+
+Gui/PriestTab.s: Gui/PriestTab.cpp.s
+
+.PHONY : Gui/PriestTab.s
+
+# target to generate assembly for a file
+Gui/PriestTab.cpp.s:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/PriestTab.cpp.s
+.PHONY : Gui/PriestTab.cpp.s
+
 Gui/ShopTab.obj: Gui/ShopTab.cpp.obj
 
 .PHONY : Gui/ShopTab.obj
@@ -1019,6 +1046,9 @@ help:
 	@echo ... Gui/PauseMenu.obj
 	@echo ... Gui/PauseMenu.i
 	@echo ... Gui/PauseMenu.s
+	@echo ... Gui/PriestTab.obj
+	@echo ... Gui/PriestTab.i
+	@echo ... Gui/PriestTab.s
 	@echo ... Gui/ShopTab.obj
 	@echo ... Gui/ShopTab.i
 	@echo ... Gui/ShopTab.s
