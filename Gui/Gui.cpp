@@ -14,12 +14,22 @@ gui::Button::Button(float x, float y, float width, float height,
     this->id = id;
     this->disabled = false;
     this->tooltipDisabled = true;
+    this->backgroundDisabled = true;
+    if(text.empty())
+        this->textDisabled = true;
+    else
+        this->textDisabled = false;
+
 
     this->shape.setPosition(sf::Vector2f(x,y));
     this->shape.setSize(sf::Vector2f(width, height));
     this->shape.setFillColor(idle_color);
     this->shape.setOutlineThickness(1.f);
     this->shape.setOutlineColor(sf::Color::Transparent);
+
+    this->background.setPosition(sf::Vector2f(x,y));
+    this->background.setSize(sf::Vector2f(width, height));
+
 
     this->font = font;
     this->text.setFont(*this->font);
@@ -148,6 +158,15 @@ void gui::Button::setButtonState(button_states btnstates) {
     this->buttonState = btnstates;
 }
 
+void gui::Button::setBackgroundTexture(const sf::Texture* texture) {
+    this->background.setTexture(texture);
+}
+
+void gui::Button::setBackbgroundDisabled(bool b) {
+    this->backgroundDisabled = b;
+}
+
+
 //functions
 void gui::Button::updateTooltipPos(const sf::Vector2f &mousePos) {
     this->tooltipContainer.setPosition(sf::Vector2f(mousePos.x,
@@ -198,15 +217,22 @@ void gui::Button::update(const sf::Vector2f& mousePos) {
 }
 
 void gui::Button::render(sf::RenderTarget& target) {
+    if(!this->backgroundDisabled){
+        target.draw(this->background);
+    }
     target.draw(this->shape);
-    target.draw(this->text);
+    if(!this->textDisabled)
+        target.draw(this->text);
+
     if(!this->tooltipDisabled && this->hover){
         target.draw(this->tooltipContainer);
         target.draw(this->tooltipText);
     }
 }
 
-
+bool gui::Button::contains(const sf::Vector2f &mousePos) {
+    return this->shape.getGlobalBounds().contains(mousePos);
+}
 
 
 /*

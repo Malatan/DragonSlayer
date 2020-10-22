@@ -17,7 +17,6 @@ State::State(sf::RenderWindow *window, std::stack<State*>* states, ResourcesHand
 }
 
 State::~State() {
-    delete this->rsHandler;
     delete this->buffComponent;
     delete this->popUpTextComponent;
 }

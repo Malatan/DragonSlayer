@@ -36,8 +36,11 @@ namespace gui{
         bool hover;
         bool disabled;
         bool tooltipDisabled;
+        bool textDisabled;
+        bool backgroundDisabled;
 
         sf::RectangleShape shape;
+        sf::RectangleShape background;
         sf::RectangleShape tooltipContainer;
         sf::Text tooltipText;
         sf::Font* font;
@@ -81,9 +84,11 @@ namespace gui{
         void setTooltipText(std::string text);
         void setTooltipDisabled(bool b);
         void setDisabled(bool b);
+        void setBackgroundTexture(const sf::Texture* texture);
+        void setBackbgroundDisabled(bool b);
 
         //functions
-
+        bool contains(const sf::Vector2f& mousePos);
         void updateTooltipPos(const sf::Vector2f& mousePos);
         void update(const sf::Vector2f& mousePos);
         void render(sf::RenderTarget& target);
@@ -194,10 +199,11 @@ namespace gui{
         gui::Button* buyBtn;
         Item* item;
 
-    private:
         unsigned price;
         std::string key;
         bool equipment;
+
+
     protected:
 
     public:

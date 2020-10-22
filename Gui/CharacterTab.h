@@ -99,7 +99,7 @@ public:
     void updateGoldLbl();
     void updateInventoryCapLbl();
     void deleteItemFromInventory();
-    bool closeCharacterTabByClicking(const sf::Vector2f& mousePos);
+    bool closeCharacterTabByClicking(const sf::Vector2f& mousePos, gui::Button* cTab_Btn);
     void updateButtons();
     void equipUnEquipBtnFunction();
     void useConsumable(Item* item, gui::ItemSlot* i);

@@ -5,6 +5,7 @@
 #include "GameState.h"
 
 void GameState::initTextures() {
+
     this->rsHandler->addResouce("../Resources/Images/Sprites/Player/player_sheet.png", "player_sheet", "GameState");
     this->rsHandler->addResouce("../Resources/Images/Sprites/Enemy/wizard_Idle.png", "wizard_sheet", "GameState");
     this->rsHandler->addResouce("../Resources/Images/Sprites/Npc/shop_npc_idle.png", "shop_npc_sheet", "GameState");
@@ -12,6 +13,10 @@ void GameState::initTextures() {
     this->rsHandler->addResouce("../Resources/Images/Sprites/Npc/wizard_npc_idle.png", "wizard_npc_sheet", "GameState");
 
     this->rsHandler->addResouce("../Resources/Images/chat.png", "chattable_icon", "GameState");
+
+    this->rsHandler->addResouce("../Resources/Images/characterIcon.png", "characterIcon", "GameState");
+    this->rsHandler->addResouce("../Resources/Images/inventoryIcon.png", "inventoryIcon", "GameState");
+    this->rsHandler->addResouce("../Resources/Images/pauseMenuIcon.png", "pauseMenuIcon", "GameState");
 
     this->rsHandler->addResouce("../Resources/Images/equipslot_sheet.png", "EquipSlotsSheet", "GameState");
     this->rsHandler->addResouce("../Resources/Images/items_sheet.png", "items_sheet", "GameState");
@@ -32,6 +37,10 @@ void GameState::initTextures() {
     this->textures["WIZARD_NPC_SHEET"].loadFromImage(this->rsHandler->getResouceByKey("wizard_npc_sheet")->getImage());
 
     this->textures["CHATTABLE_ICON"].loadFromImage(this->rsHandler->getResouceByKey("chattable_icon")->getImage());
+
+    this->textures["CHARACTER_ICON"].loadFromImage(this->rsHandler->getResouceByKey("characterIcon")->getImage());
+    this->textures["INVENTORY_ICON"].loadFromImage(this->rsHandler->getResouceByKey("inventoryIcon")->getImage());
+    this->textures["PAUSEMENU_ICON"].loadFromImage(this->rsHandler->getResouceByKey("pauseMenuIcon")->getImage());
 
     this->textures["ITEMS_SHEET"].loadFromImage(this->rsHandler->getResouceByKey("items_sheet")->getImage());
     this->textures["EquipSlotsSheet"].loadFromImage(this->rsHandler->getResouceByKey("EquipSlotsSheet")->getImage());
@@ -212,6 +221,36 @@ void GameState::initDebugText() {
     this->debugText.setPosition(5.f, 40.f);
 }
 
+void GameState::initButtons() {
+    this->pauseMenuBtn = new gui::Button(
+            this->window->getSize().x - 100.f,
+            this->window->getSize().y - 90.f, 70.f, 70.f,
+            this->font, "", 20.f,
+            sf::Color(255, 255, 255, 255),
+            sf::Color(160, 160, 160),
+            sf::Color(20, 20, 20, 50),
+
+            sf::Color::Transparent,
+            sf::Color(70, 70, 70, 60),
+            sf::Color(130, 130, 130, 0));
+    this->pauseMenuBtn->setBackgroundTexture(&this->textures["PAUSEMENU_ICON"]);
+    this->pauseMenuBtn->setBackbgroundDisabled(false);
+
+    this->cTabBtn = new gui::Button(
+            this->pauseMenuBtn->getPosition().x - 100.f,
+            this->pauseMenuBtn->getPosition().y, 70.f, 70.f,
+            this->font, "", 20.f,
+            sf::Color(255, 255, 255, 255),
+            sf::Color(160, 160, 160),
+            sf::Color(20, 20, 20, 50),
+
+            sf::Color::Transparent,
+            sf::Color(70, 70, 70, 60),
+            sf::Color(130, 130, 130, 0));
+    this->cTabBtn->setBackgroundTexture(&this->textures["INVENTORY_ICON"]);
+    this->cTabBtn->setBackbgroundDisabled(false);
+
+}
 
 //constructors/destructors
 GameState::GameState(sf::RenderWindow* window, std::stack<State*>* states, ResourcesHandler* rsHandler, sf::Font* font,
@@ -230,6 +269,7 @@ GameState::GameState(sf::RenderWindow* window, std::stack<State*>* states, Resou
     this->initComponents();
     this->initView();
     this->initDebugText();
+    this->initButtons();
 }
 
 GameState::~GameState() {
@@ -238,6 +278,8 @@ GameState::~GameState() {
     delete this->cTab;
     delete this->shopTab;
     delete this->priestTab;
+    delete this->cTabBtn;
+    delete this->pauseMenuBtn;
     for(auto i : this->enemis)
         delete i;
     for(auto i : this->npcs)
@@ -247,7 +289,6 @@ GameState::~GameState() {
 //functions
 void GameState::addItem(Item *item) {
     if(this->player->getInventory()->addItem(item)){
-        std::cout<<item->getQuantity()<<"\n";
         this->player->getInventory()->sortByItemType();
         this->cTab->initInventorySlots();
         this->initInventoryItemTextures();
@@ -400,7 +441,6 @@ void GameState::updateTabsInvSpaceLbl() {
     this->shopTab->updateInvSpaceLbl();
 }
 
-
 void GameState::updatePausedMenuButtons() {
     if(this->pmenu->isButtonPressed("QUIT")){
         this->endState();
@@ -418,6 +458,17 @@ void GameState::updateDebugText() {
     this->debugText.setString(ss.str());
 }
 
+void GameState::updateButtons() {
+    if(this->cTabBtn->isPressed() && this->getKeyTime()){
+        this->cTabBtn->setButtonState(BTN_IDLE);
+        this->changeStato(2);
+        this->cTab->unselectAll();
+    } else if(this->pauseMenuBtn->isPressed() && this->getKeyTime()){
+        this->pauseMenuBtn->setButtonState(BTN_IDLE);
+        this->changeStato(1);
+    }
+}
+
 void GameState::update(const float& dt) {
     this->updateMousePosition(&this->view);
     this->updateKeyTime(dt);
@@ -428,6 +479,7 @@ void GameState::update(const float& dt) {
     if(!this->paused){ //unpaused update
         this->updateView(dt);
         this->updatePlayerInput(dt);
+        this->updateButtons();
 
         this->player->update(dt);
         for(auto i : this->enemis){
@@ -437,19 +489,22 @@ void GameState::update(const float& dt) {
             i->update(dt);
             i->updateCollsion(this->player, &this->npcInteract);
         }
-
+        this->updateMousePosition(nullptr);
+        this->cTabBtn->update(this->mousePosView);
+        this->pauseMenuBtn->update(this->mousePosView);
         this->popUpTextComponent->update(dt);
 
     } else{ // paused update
         switch(stato){
             case 1:
+                this->updateMousePosition(nullptr);
                 this->pmenu->update(this->mousePosView);
                 this->updatePausedMenuButtons();
                 break;
             case 2:
                 this->updateMousePosition(nullptr);
                 this->cTab->update(this->mousePosView);
-                if(this->cTab->closeCharacterTabByClicking(this->mousePosView))
+                if(this->cTab->closeCharacterTabByClicking(this->mousePosView, this->cTabBtn))
                     this->changeStato(0);
                 this->popUpTextComponent->update(dt);
                 break;
@@ -484,9 +539,12 @@ void GameState::render(sf::RenderTarget* target) {
     for(auto i : this->npcs){
         i->render(*target, true);
     }
-    target->setView(target->getDefaultView());
 
+    target->setView(target->getDefaultView());
+    this->cTabBtn->render(*target);
+    this->pauseMenuBtn->render(*target);
     target->draw(this->hints);
+
     if(this->paused){ // pause menu render
         switch(stato){
             case 1:
@@ -504,8 +562,12 @@ void GameState::render(sf::RenderTarget* target) {
         }
     }
     target->draw(this->debugText);
+
     this->popUpTextComponent->render(*target);
 }
+
+
+
 
 
 

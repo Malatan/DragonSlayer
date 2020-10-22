@@ -512,10 +512,10 @@ void CharacterTab::invContainerRender(sf::RenderTarget &target) {
     }
 }
 
-bool CharacterTab::closeCharacterTabByClicking(const sf::Vector2f& mousePos) {
+bool CharacterTab::closeCharacterTabByClicking(const sf::Vector2f& mousePos, gui::Button* cTab_Btn) {
     if(sf::Mouse::isButtonPressed(sf::Mouse::Left) &&
             this->backgorund.getGlobalBounds().contains(mousePos)
-       && !this->container.getGlobalBounds().contains(mousePos)){
+       && !this->container.getGlobalBounds().contains(mousePos) && !cTab_Btn->contains(mousePos)){
         return true;
     }
     return false;

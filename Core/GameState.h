@@ -25,6 +25,9 @@ private:
     sf::Text hints;
     sf::Text debugText;
 
+    gui::Button* cTabBtn;
+    gui::Button* pauseMenuBtn;
+
     PauseMenu* pmenu;
     CharacterTab* cTab;
     ShopTab* shopTab;
@@ -52,6 +55,7 @@ private:
     void initComponents();
     void initView();
     void initDebugText();
+    void initButtons();
 
 public:
     GameState(sf::RenderWindow* window, std::stack<State*>* states, ResourcesHandler* rsHandler, sf::Font *font, bool* isFocused, sf::Event* sfEvent);
@@ -67,6 +71,7 @@ public:
     void updatePausedMenuButtons();
     void updateView(const float& dt);
     void updateDebugText();
+    void updateButtons();
     void update(const float& dt);
     void render(sf::RenderTarget* target = nullptr);
 

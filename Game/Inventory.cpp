@@ -12,7 +12,7 @@ Inventory::Inventory() {
 }
 
 Inventory::~Inventory() {
-    delete this->currentMaxSpace;
+
 }
 
 void Inventory::setCurrentMaxSpace(int currentMaxSpace) {

@@ -19,7 +19,6 @@ protected:
     string itemType;
     string name;
     string description;
-    Buff buffs[10];
     int value;
     string rarity;
     int iconRectX;
