@@ -24,6 +24,8 @@
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="F:/DragonSlayer/Resources"/>
+					<Add directory="F:/DragonSlayer/unit_testing/../Resources"/>
 					<Add directory="F:/DragonSlayer/unit_testing/lib/googletest-master/googlemock/include"/>
 					<Add directory="F:/DragonSlayer/unit_testing/lib/googletest-master/googlemock"/>
 					<Add directory="F:/DragonSlayer/unit_testing/lib/googletest-master/googletest/include"/>
@@ -49,6 +51,8 @@
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="F:/DragonSlayer/Resources"/>
+					<Add directory="F:/DragonSlayer/unit_testing/../Resources"/>
 					<Add directory="F:/DragonSlayer/unit_testing/lib/googletest-master/googlemock/include"/>
 					<Add directory="F:/DragonSlayer/unit_testing/lib/googletest-master/googlemock"/>
 					<Add directory="F:/DragonSlayer/unit_testing/lib/googletest-master/googletest/include"/>
@@ -74,6 +78,8 @@
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="F:/DragonSlayer/Resources"/>
+					<Add directory="F:/DragonSlayer/unit_testing/../Resources"/>
 					<Add directory="F:/DragonSlayer/unit_testing/lib/googletest-master/googlemock/include"/>
 					<Add directory="F:/DragonSlayer/unit_testing/lib/googletest-master/googlemock"/>
 					<Add directory="F:/DragonSlayer/unit_testing/lib/googletest-master/googletest/include"/>
@@ -99,6 +105,8 @@
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="F:/DragonSlayer/Resources"/>
+					<Add directory="F:/DragonSlayer/unit_testing/../Resources"/>
 					<Add directory="F:/DragonSlayer/unit_testing/lib/googletest-master/googlemock/include"/>
 					<Add directory="F:/DragonSlayer/unit_testing/lib/googletest-master/googlemock"/>
 					<Add directory="F:/DragonSlayer/unit_testing/lib/googletest-master/googletest/include"/>
@@ -124,6 +132,8 @@
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="F:/DragonSlayer/Resources"/>
+					<Add directory="F:/DragonSlayer/unit_testing/../Resources"/>
 					<Add directory="F:/DragonSlayer/unit_testing/lib/googletest-master/googletest/include"/>
 					<Add directory="F:/DragonSlayer/unit_testing/lib/googletest-master/googletest"/>
 					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++"/>
@@ -147,6 +157,8 @@
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="F:/DragonSlayer/Resources"/>
+					<Add directory="F:/DragonSlayer/unit_testing/../Resources"/>
 					<Add directory="F:/DragonSlayer/unit_testing/lib/googletest-master/googletest/include"/>
 					<Add directory="F:/DragonSlayer/unit_testing/lib/googletest-master/googletest"/>
 					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++"/>
@@ -170,6 +182,8 @@
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="F:/DragonSlayer/Resources"/>
+					<Add directory="F:/DragonSlayer/unit_testing/../Resources"/>
 					<Add directory="F:/DragonSlayer/unit_testing/lib/googletest-master/googletest/include"/>
 					<Add directory="F:/DragonSlayer/unit_testing/lib/googletest-master/googletest"/>
 					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++"/>
@@ -193,6 +207,8 @@
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="F:/DragonSlayer/Resources"/>
+					<Add directory="F:/DragonSlayer/unit_testing/../Resources"/>
 					<Add directory="F:/DragonSlayer/unit_testing/lib/googletest-master/googletest/include"/>
 					<Add directory="F:/DragonSlayer/unit_testing/lib/googletest-master/googletest"/>
 					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++"/>

@@ -1,1 +1,1 @@
--IF:/DragonSlayer/unit_testing/lib/googletest-master/googletest/include -IF:/DragonSlayer/unit_testing/lib/googletest-master/googletest 
+-IF:/DragonSlayer/Resources -IF:/DragonSlayer/unit_testing/../Resources -IF:/DragonSlayer/unit_testing/lib/googletest-master/googletest/include -IF:/DragonSlayer/unit_testing/lib/googletest-master/googletest 

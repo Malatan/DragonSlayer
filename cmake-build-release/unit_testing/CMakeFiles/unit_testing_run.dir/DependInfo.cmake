@@ -20,12 +20,15 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "F:/DragonSlayer/Game/Entity.cpp" "F:/DragonSlayer/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Entity.cpp.obj"
   "F:/DragonSlayer/Game/Inventory.cpp" "F:/DragonSlayer/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Inventory.cpp.obj"
   "F:/DragonSlayer/Game/Item.cpp" "F:/DragonSlayer/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Item.cpp.obj"
+  "F:/DragonSlayer/Game/Npc.cpp" "F:/DragonSlayer/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Npc.cpp.obj"
   "F:/DragonSlayer/Game/Player.cpp" "F:/DragonSlayer/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Player.cpp.obj"
   "F:/DragonSlayer/Game/Spell.cpp" "F:/DragonSlayer/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Spell.cpp.obj"
   "F:/DragonSlayer/Game/Stats.cpp" "F:/DragonSlayer/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Stats.cpp.obj"
   "F:/DragonSlayer/Gui/CharacterTab.cpp" "F:/DragonSlayer/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/CharacterTab.cpp.obj"
   "F:/DragonSlayer/Gui/Gui.cpp" "F:/DragonSlayer/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/Gui.cpp.obj"
   "F:/DragonSlayer/Gui/PauseMenu.cpp" "F:/DragonSlayer/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/PauseMenu.cpp.obj"
+  "F:/DragonSlayer/Gui/PriestTab.cpp" "F:/DragonSlayer/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/PriestTab.cpp.obj"
+  "F:/DragonSlayer/Gui/ShopTab.cpp" "F:/DragonSlayer/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/ShopTab.cpp.obj"
   "F:/DragonSlayer/Resources/Resource.cpp" "F:/DragonSlayer/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/Resource.cpp.obj"
   "F:/DragonSlayer/Resources/ResourcesHandler.cpp" "F:/DragonSlayer/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/ResourcesHandler.cpp.obj"
   "F:/DragonSlayer/unit_testing/mainTest.cpp" "F:/DragonSlayer/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/mainTest.cpp.obj"
@@ -34,6 +37,8 @@ set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
+  "../Resources"
+  "../unit_testing/../Resources"
   "../unit_testing/lib/googletest-master/googletest/include"
   "../unit_testing/lib/googletest-master/googletest"
   "../SFML_2.5.1/include"

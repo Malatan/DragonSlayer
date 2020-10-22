@@ -602,6 +602,33 @@ __/Game/Item.cpp.s:
 	cd /d F:\DragonSlayer\cmake-build-release && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Item.cpp.s
 .PHONY : __/Game/Item.cpp.s
 
+__/Game/Npc.obj: __/Game/Npc.cpp.obj
+
+.PHONY : __/Game/Npc.obj
+
+# target to build an object file
+__/Game/Npc.cpp.obj:
+	cd /d F:\DragonSlayer\cmake-build-release && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Npc.cpp.obj
+.PHONY : __/Game/Npc.cpp.obj
+
+__/Game/Npc.i: __/Game/Npc.cpp.i
+
+.PHONY : __/Game/Npc.i
+
+# target to preprocess a source file
+__/Game/Npc.cpp.i:
+	cd /d F:\DragonSlayer\cmake-build-release && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Npc.cpp.i
+.PHONY : __/Game/Npc.cpp.i
+
+__/Game/Npc.s: __/Game/Npc.cpp.s
+
+.PHONY : __/Game/Npc.s
+
+# target to generate assembly for a file
+__/Game/Npc.cpp.s:
+	cd /d F:\DragonSlayer\cmake-build-release && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Npc.cpp.s
+.PHONY : __/Game/Npc.cpp.s
+
 __/Game/Player.obj: __/Game/Player.cpp.obj
 
 .PHONY : __/Game/Player.obj
@@ -764,6 +791,60 @@ __/Gui/PauseMenu.cpp.s:
 	cd /d F:\DragonSlayer\cmake-build-release && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/PauseMenu.cpp.s
 .PHONY : __/Gui/PauseMenu.cpp.s
 
+__/Gui/PriestTab.obj: __/Gui/PriestTab.cpp.obj
+
+.PHONY : __/Gui/PriestTab.obj
+
+# target to build an object file
+__/Gui/PriestTab.cpp.obj:
+	cd /d F:\DragonSlayer\cmake-build-release && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/PriestTab.cpp.obj
+.PHONY : __/Gui/PriestTab.cpp.obj
+
+__/Gui/PriestTab.i: __/Gui/PriestTab.cpp.i
+
+.PHONY : __/Gui/PriestTab.i
+
+# target to preprocess a source file
+__/Gui/PriestTab.cpp.i:
+	cd /d F:\DragonSlayer\cmake-build-release && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/PriestTab.cpp.i
+.PHONY : __/Gui/PriestTab.cpp.i
+
+__/Gui/PriestTab.s: __/Gui/PriestTab.cpp.s
+
+.PHONY : __/Gui/PriestTab.s
+
+# target to generate assembly for a file
+__/Gui/PriestTab.cpp.s:
+	cd /d F:\DragonSlayer\cmake-build-release && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/PriestTab.cpp.s
+.PHONY : __/Gui/PriestTab.cpp.s
+
+__/Gui/ShopTab.obj: __/Gui/ShopTab.cpp.obj
+
+.PHONY : __/Gui/ShopTab.obj
+
+# target to build an object file
+__/Gui/ShopTab.cpp.obj:
+	cd /d F:\DragonSlayer\cmake-build-release && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/ShopTab.cpp.obj
+.PHONY : __/Gui/ShopTab.cpp.obj
+
+__/Gui/ShopTab.i: __/Gui/ShopTab.cpp.i
+
+.PHONY : __/Gui/ShopTab.i
+
+# target to preprocess a source file
+__/Gui/ShopTab.cpp.i:
+	cd /d F:\DragonSlayer\cmake-build-release && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/ShopTab.cpp.i
+.PHONY : __/Gui/ShopTab.cpp.i
+
+__/Gui/ShopTab.s: __/Gui/ShopTab.cpp.s
+
+.PHONY : __/Gui/ShopTab.s
+
+# target to generate assembly for a file
+__/Gui/ShopTab.cpp.s:
+	cd /d F:\DragonSlayer\cmake-build-release && $(MAKE) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/ShopTab.cpp.s
+.PHONY : __/Gui/ShopTab.cpp.s
+
 __/Resources/Resource.obj: __/Resources/Resource.cpp.obj
 
 .PHONY : __/Resources/Resource.obj
@@ -906,6 +987,9 @@ help:
 	@echo ... __/Game/Item.obj
 	@echo ... __/Game/Item.i
 	@echo ... __/Game/Item.s
+	@echo ... __/Game/Npc.obj
+	@echo ... __/Game/Npc.i
+	@echo ... __/Game/Npc.s
 	@echo ... __/Game/Player.obj
 	@echo ... __/Game/Player.i
 	@echo ... __/Game/Player.s
@@ -924,6 +1008,12 @@ help:
 	@echo ... __/Gui/PauseMenu.obj
 	@echo ... __/Gui/PauseMenu.i
 	@echo ... __/Gui/PauseMenu.s
+	@echo ... __/Gui/PriestTab.obj
+	@echo ... __/Gui/PriestTab.i
+	@echo ... __/Gui/PriestTab.s
+	@echo ... __/Gui/ShopTab.obj
+	@echo ... __/Gui/ShopTab.i
+	@echo ... __/Gui/ShopTab.s
 	@echo ... __/Resources/Resource.obj
 	@echo ... __/Resources/Resource.i
 	@echo ... __/Resources/Resource.s

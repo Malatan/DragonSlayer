@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 # 'unit_testing' is the subproject name
 project(unit_testing)
+include_directories(../Resources)
 set(SOURCE_FILES
         mainTest.cpp
         Tests.cpp
@@ -20,6 +21,10 @@ set(SOURCE_FILES
         ../Gui/PauseMenu.h
         ../Gui/CharacterTab.cpp
         ../Gui/CharacterTab.h
+        ../Gui/ShopTab.h
+        ../Gui/ShopTab.cpp
+        ../Gui/PriestTab.h
+        ../Gui/PriestTab.cpp
         ../Game/Entity.cpp
         ../Game/Entity.h
         ../Game/Player.cpp
@@ -36,6 +41,8 @@ set(SOURCE_FILES
         ../Game/Spell.h
         ../Game/Stats.h
         ../Game/Stats.cpp
+        ../Game/Npc.h
+        ../Game/Npc.cpp
         ../Components/MovementComponent.cpp
         ../Components/MovementComponent.h
         ../Components/AnimationComponent.cpp
@@ -57,6 +64,7 @@ include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 # 'Google_Tests_run' is the target name
 # 'test1.cpp tests2.cpp' are source files with tests
 add_executable(unit_testing_run ${SOURCE_FILES})
+
 
 set(SFML_ROOT "../SFML_2.5.1")
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
