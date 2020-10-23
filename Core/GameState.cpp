@@ -71,6 +71,7 @@ void GameState::initPlayers() {
 
     // legge i valori di default del Stats dal Data/Stats.txt
     this->rsHandler->loadPlayerStatsTxt(this->player->getPlayerStats());
+    this->player->getPlayerStats()->updateMultipliers();
 
     // legge i valori di default dell 'inventario dal Data/Inventory.txt
     this->rsHandler->loadPlayerInventoryTxt(this->player->getInventory());
@@ -201,6 +202,7 @@ void GameState::initSpellComponent() {
 
     this->rsHandler->loadSpellList(this->spellComponent);
     std::cout<<this->spellComponent->toString();
+    std::cout<<this->spellComponent->toStringPlayer();
 }
 
 void GameState::initComponents() {
@@ -291,16 +293,16 @@ GameState::GameState(sf::RenderWindow* window, std::stack<State*>* states, Resou
     this->initPauseMenu();
     this->initPlayers();
 
+    this->initComponents();
+    this->initView();
+    this->initDebugText();
+    this->initButtons();
+
     this->initCharacterTab();
     this->initShopTab();
     this->initPriestTab();
     this->initSpellTab();
     this->initHintsTab();
-
-    this->initComponents();
-    this->initView();
-    this->initDebugText();
-    this->initButtons();
 }
 
 GameState::~GameState() {
@@ -328,6 +330,10 @@ BuffComponent *GameState::getBuffComponent() {
 
 PopUpTextComponent *GameState::getPopUpTextComponent() {
     return this->popUpTextComponent;
+}
+
+SpellComponent *GameState::getSpellComponent() {
+    return this->spellComponent;
 }
 
 //functions
@@ -386,7 +392,9 @@ void GameState::updateInput(const float &dt) {
             this->cTab->unselectAll();
 
         } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::T) && this->getKeyTime()) {
-            this->player->getPlayerStats()->addExp(100);
+            if(this->player->getPlayerStats()->addExp(100)){
+                this->updateTabsPlayerStatsLbl();
+            }
             this->popUpTextComponent->addPopUpTextCenter(EXPERIENCE_TAG, 100, "+", "Exp");
 
         } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::B) && this->getKeyTime()){
@@ -480,6 +488,11 @@ void GameState::updateTabsGoldLbl() {
 void GameState::updateTabsInvSpaceLbl() {
     this->cTab->updateInventoryCapLbl();
     this->shopTab->updateInvSpaceLbl();
+}
+
+void GameState::updateTabsPlayerStatsLbl() {
+    this->cTab->updatePlayerStatsLbl();
+    this->spellTab->updateSpellsInfoLbl();
 }
 
 void GameState::updatePausedMenuButtons() {
@@ -621,6 +634,10 @@ void GameState::render(sf::RenderTarget* target) {
 
     this->popUpTextComponent->render(*target);
 }
+
+
+
+
 
 
 

@@ -9,14 +9,24 @@
 #include "iostream"
 #include "fstream"
 
+enum spell_type{
+    FIRE,
+    WATER,
+    ICE,
+    ELECTRIC,
+    HOLY,
+    DEFAULT_SPELL_TYPE
+};
+
 using namespace std;
 
 class Spell {
 
 private:
-
+    spell_type spellType;
     string name;
     string type;
+    string description;
     int cost;
     int cooldown;
     int damage;
@@ -31,6 +41,9 @@ public:
     void setName(string name);
     string getType();
     void setType(string type);
+    spell_type getTypeEnum();
+    string getDescription();
+    void setDescription(string description);
     int getCost();
     void setCost(int cost);
     int getCooldown();
@@ -48,6 +61,7 @@ public:
     const std::string toString() const;
 
     Spell();
+    Spell(Spell* spell);
     virtual ~Spell();
 };
 

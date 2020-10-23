@@ -8,6 +8,7 @@
 #include <SFML/Graphics.hpp>
 #include "../Game/Item.h"
 #include "../Core/State.h"
+#include "libraries/RichText.hpp"
 
 enum button_states{
     BTN_IDLE = 0,
@@ -227,23 +228,32 @@ namespace gui{
 
     };
 
-    class EquipSlots{
+    class SpellSlot{
     private:
-        ItemSlot head;
-        ItemSlot chest;
-        ItemSlot arms;
-        ItemSlot legs;
-        ItemSlot weapon;
-        ItemSlot shield;
+        sf::RectangleShape shape;
+        sf::RectangleShape spellImage;
+        sfe::RichText spellInfoLbl;
+        sfe::RichText descriptionLbl;
+
+        Spell* spell;
+
+
     protected:
 
     public:
+        //constructors/destructor
+        SpellSlot(float width, float height, float pos_x, float pos_y, Spell* spell,
+                const sf::Texture* texture, float rect_size, sf::Font* font, unsigned int char_size);
+        virtual ~SpellSlot();
 
-        EquipSlots();
-        virtual  ~EquipSlots();
+        //accessor
+        sfe::RichText* getSpellInfoLbl();
+        Spell* getSpell();
 
-        void update(const sf::Vector2f& mousePos, int* updateSlot, bool inv);
+        //functions
+        void update(const sf::Vector2f& mousePos);
         void render(sf::RenderTarget& target);
+
     };
 
     class ConfirmDialog{

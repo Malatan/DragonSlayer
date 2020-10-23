@@ -32,6 +32,8 @@ private:
     int strength;
     int freePoints;
 
+    float spellDmgMultiplier;
+
     int maxHpBonus;
     int maxMpBonus;
     int damageBonus;
@@ -43,7 +45,7 @@ public:
 
     bool exportStats();
     string listStats();
-    void addExp(int earned);
+    bool addExp(int earned);
     void levelUp(int choise, int newExp);
     void addAttribute(int type);
     void checkHpLimit();
@@ -121,6 +123,8 @@ public:
 
     void setEvadeChanceBonus(float evadeChanceBonus);
 
+    float getSpellDmgMultiplier();
+
     int getFinalHp();
     int getFinalMp();
     int getFinalDamage();
@@ -130,6 +134,9 @@ public:
 
     int gainHp(int gain_amount);
     int gainMp(int gain_amount);
+
+    void updateSpellDmgMultiplier();
+    void updateMultipliers();
 };
 
 

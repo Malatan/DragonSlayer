@@ -392,7 +392,7 @@ void CharacterTab::unselectAll() {
 }
 
 void CharacterTab::statsContainerUpdate(const sf::Vector2f& mousePos) {
-    this->statsValue.setString(this->playerStatsToString());
+
     if(this->player->getPlayerStats()->getFreePoints() > 0) {
         this->addStrengthBtn->update(mousePos);
         this->addWisdomBtn->update(mousePos);
@@ -434,6 +434,10 @@ void CharacterTab::equipContainerRender(sf::RenderTarget &target) {
     for(auto i : this->equipSlots){
         i->render(target);
     }
+}
+
+void CharacterTab::updatePlayerStatsLbl() {
+    this->statsValue.setString(this->playerStatsToString());
 }
 
 void CharacterTab::updateGoldLbl() {
@@ -563,6 +567,7 @@ void CharacterTab::equipUnequipItem(int equip_slot, Item *item, gui::ItemSlot* i
 
     }
     this->updateEquipBonusLbl();
+    this->updatePlayerStatsLbl();
 }
 
 void CharacterTab::useConsumable(Item* item, gui::ItemSlot* i) {
@@ -647,16 +652,19 @@ void CharacterTab::updateButtons() {
         this->addStrengthBtn->setButtonState(BTN_IDLE);
         if(this->player->getPlayerStats()->getFreePoints() > 0){
             this->player->getPlayerStats()->addAttribute(0);
+            this->gState->updateTabsPlayerStatsLbl();
         }
     } else if(this->addWisdomBtn->isPressed() && this->gState->getKeyTime()){
         this->addWisdomBtn->setButtonState(BTN_IDLE);
         if(this->player->getPlayerStats()->getFreePoints() > 0){
             this->player->getPlayerStats()->addAttribute(1);
+            this->gState->updateTabsPlayerStatsLbl();
         }
     } else if(this->addAgilityBtn->isPressed() && this->gState->getKeyTime()){
         this->addAgilityBtn->setButtonState(BTN_IDLE);
         if(this->player->getPlayerStats()->getFreePoints() > 0){
             this->player->getPlayerStats()->addAttribute(2);
+            this->gState->updateTabsPlayerStatsLbl();
         }
     } else if(this->EquipUnEquipBtn->isPressed() && this->gState->getKeyTime()) {
         this->EquipUnEquipBtn->setButtonState(BTN_IDLE);
@@ -840,6 +848,7 @@ void CharacterTab::deleteItemFromInventory() {
     this->updateEquipBonusLbl();
     this->updateInventoryCapLbl();
 }
+
 
 
 

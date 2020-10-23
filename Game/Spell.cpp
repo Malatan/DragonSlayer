@@ -8,8 +8,22 @@ Spell::Spell() {
 
 }
 
+Spell::Spell(Spell *spell) : spellType(spell->spellType), name(spell->name), type(spell->type),
+description(spell->description), cost(spell->cost), cooldown(spell->cooldown), damage(spell->damage),
+aoe(spell->aoe), learned(spell->learned), intRectX(spell->intRectX), intRectY(spell->intRectY){
+}
+
 Spell::~Spell() {
 
+}
+
+
+string Spell::getDescription() {
+    return this->description;
+}
+
+void Spell::setDescription(string description) {
+    this->description = description;
 }
 
 bool Spell::isLearned() {
@@ -33,7 +47,20 @@ string Spell::getType() {
 }
 
 void Spell::setType(string type) {
-    Spell::type = type;
+    this->type = type;
+    if(type == "fire"){
+        this->spellType = FIRE;
+    } else if(type == "water"){
+        this->spellType = WATER;
+    }else if(type == "ice"){
+        this->spellType = ICE;
+    }else if(type == "electric"){
+        this->spellType = ELECTRIC;
+    }else if(type == "holy"){
+        this->spellType = HOLY;
+    }else{
+        this->spellType = DEFAULT_SPELL_TYPE;
+    }
 }
 
 int Spell::getCost() {
@@ -88,12 +115,21 @@ const std::string Spell::toString() const {
     std::stringstream ss;
     ss << "Name: " << this->name
        << " Type: " << this->type
+       << "(" << this->spellType << ")"
        << " Cost: " << this->cost
        << " CD: " << this->cooldown
        << " Damage: " << this->damage
        << " Aoe: " << this->aoe
        << " Learned: " << std::boolalpha << this->learned
-       << " IntRect: " << this->intRectX << "-" << this->intRectY;
+       << " IntRect: " << this->intRectX << "-" << this->intRectY
+       << " description: " << this->description;
 
     return ss.str();
 }
+
+spell_type Spell::getTypeEnum() {
+    return this->spellType;
+}
+
+
+

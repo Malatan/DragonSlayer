@@ -11,17 +11,25 @@
 class SpellComponent {
 private:
     std::vector<Spell*> spells;
+    std::vector<Spell*> playerSpells;
 
 protected:
 
 public:
+    //constructors/desctructor
     SpellComponent();
     virtual ~SpellComponent();
 
-    void addSpell(Spell* spell);
-    void sortSpellList();
+    //accessors
+    std::vector<Spell*> getSpells();
+    std::vector<Spell*> getPlayerSpells();
 
+    //functions
+    void addSpell(Spell* spell);
+    void addPlayerSpell(Spell* spell);
+    void sortSpellList();
     const std::string toString() const;
+    const std::string toStringPlayer() const;
 };
 
 

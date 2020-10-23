@@ -770,6 +770,94 @@ const unsigned gui::ShopSlot::getPrice() const {
     return this->price;
 }
 
+/*
+ *                      SPELLSLOT
+ *
+ */
+
+gui::SpellSlot::SpellSlot(float width, float height, float pos_x, float pos_y, Spell *spell,
+        const sf::Texture* texture, float rect_size, sf::Font* font, unsigned int char_size) : spell(spell) {
+
+    this->shape.setSize(sf::Vector2f(width, height));
+    this->shape.setPosition(pos_x, pos_y);
+    this->shape.setOutlineThickness(4.f);
+    switch(spell->getTypeEnum()){
+        case FIRE:
+            this->shape.setOutlineColor(sf::Color(235, 70, 59));
+            this->shape.setFillColor(sf::Color(235, 70, 59, 50));
+            break;
+        case WATER:
+            this->shape.setOutlineColor(sf::Color(50, 83, 173));
+            this->shape.setFillColor(sf::Color(50, 83, 173, 50));
+            break;
+        case ICE:
+            this->shape.setOutlineColor(sf::Color(92, 193, 247));
+            this->shape.setFillColor(sf::Color(92, 193, 247, 50));
+            break;
+        case ELECTRIC:
+            this->shape.setOutlineColor(sf::Color(126, 0, 222));
+            this->shape.setFillColor(sf::Color(126, 0, 222, 50));
+            break;
+        case HOLY:
+            this->shape.setOutlineColor(sf::Color(255, 254, 173));
+            this->shape.setFillColor(sf::Color(255, 254, 173, 50));
+            break;
+        default:
+            this->shape.setOutlineColor(sf::Color::White);
+            break;
+    }
 
 
+    float app = width / 4.0f;
+    this->spellImage.setSize(sf::Vector2f(app, app));
+    app = app /5.0f;
+    this->spellImage.setPosition(this->shape.getPosition().x,
+            this->shape.getPosition().y);
+    this->spellImage.setTexture(texture);
+    this->spellImage.setTextureRect(sf::IntRect(
+            spell->getIntRectX() * rect_size,
+            spell->getIntRectY() * rect_size,
+            rect_size, rect_size));
+    this->spellImage.setOutlineColor(sf::Color::White);
 
+    //init texts
+    this->spellInfoLbl.setFont(*font);
+    this->spellInfoLbl.setCharacterSize(char_size);
+  /*  this->spellInfoLbl << sf::Text::Bold << spell->getName() << "(" << spell->getType() << ")\n"
+                        << "Damage: " << sf::Color(34, 0, 79) << to_string(spell->getDamage()) << "\n" << sf::Color::White
+                        << "Cost: " << sf::Color::Blue << to_string(spell->getCost()) << sf::Color::White
+                        << "\nCooldown: " << to_string(spell->getCooldown()) << " turn/s"
+                        << "\nAoe: " << to_string(spell->getAoe()) << " target/s";*/
+
+    this->spellInfoLbl.setPosition(this->spellImage.getPosition().x + this->spellImage.getGlobalBounds().width ,
+            this->spellImage.getPosition().y);
+
+    this->descriptionLbl.setFont(*font);
+    this->descriptionLbl.setCharacterSize(char_size);
+    this->descriptionLbl << sf::Text::Italic << spell->getDescription();
+    this->descriptionLbl.setPosition(this->spellImage.getPosition().x + 10.f,
+            this->spellImage.getPosition().y + this->spellImage.getGlobalBounds().height + app);
+}
+
+gui::SpellSlot::~SpellSlot() {
+
+}
+
+void gui::SpellSlot::update(const sf::Vector2f &mousePos) {
+
+}
+
+void gui::SpellSlot::render(sf::RenderTarget &target) {
+    target.draw(this->shape);
+    target.draw(this->spellImage);
+    target.draw(this->spellInfoLbl);
+    target.draw(this->descriptionLbl);
+}
+
+sfe::RichText* gui::SpellSlot::getSpellInfoLbl() {
+    return &this->spellInfoLbl;
+}
+
+Spell *gui::SpellSlot::getSpell() {
+    return this->spell;
+}

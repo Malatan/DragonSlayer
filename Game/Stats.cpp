@@ -11,13 +11,15 @@ Stats::Stats(){
     this->armorBonus = 0;
     this->critChanceBonus = 0;
     this->evadeChanceBonus = 0;
+    this->spellDmgMultiplier = 1.f;
 }
 
 Stats::~Stats(){
 
 }
 
-void Stats::addExp(int earned) {
+bool Stats::addExp(int earned) {
+    bool leveledUp = false;
     this->exp = this->exp + earned;
 
     while(this->exp >= this->maxExp){                //SE RAGGIUNTA QNT NECESSARIA A LIVELLARE
@@ -27,9 +29,10 @@ void Stats::addExp(int earned) {
         int choise = 0;     //SCRIVERE CODICE PER EFFETTUARE SCELTA TRA 3 ATTRIBUTI
 
         this->levelUp(choise, newExp);
-
+        leveledUp = true;
     }
 
+    return leveledUp;
 //    Stats::exportStats();
 }
 
@@ -54,6 +57,7 @@ void Stats::addAttribute(int type) {
         this->evadeChance = this->evadeChance +3;
         this->freePoints --;
     }
+    this->updateMultipliers();
 }
 
 void Stats::levelUp(int choise, int newExp) {
@@ -364,5 +368,17 @@ int Stats::gainMp(int gain_amount) {
         this->mp += gain_amount;
     }
     return restore_amount;
+}
+
+void Stats::updateSpellDmgMultiplier() {
+    this->spellDmgMultiplier = 1.f + this->wisdom/10.f;
+}
+
+void Stats::updateMultipliers() {
+    this->updateSpellDmgMultiplier();
+}
+
+float Stats::getSpellDmgMultiplier() {
+    return this->spellDmgMultiplier;
 }
 

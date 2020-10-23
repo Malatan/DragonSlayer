@@ -935,6 +935,33 @@ Gui/SpellTab.cpp.s:
 	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/SpellTab.cpp.s
 .PHONY : Gui/SpellTab.cpp.s
 
+Gui/libraries/RichText.obj: Gui/libraries/RichText.cpp.obj
+
+.PHONY : Gui/libraries/RichText.obj
+
+# target to build an object file
+Gui/libraries/RichText.cpp.obj:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/libraries/RichText.cpp.obj
+.PHONY : Gui/libraries/RichText.cpp.obj
+
+Gui/libraries/RichText.i: Gui/libraries/RichText.cpp.i
+
+.PHONY : Gui/libraries/RichText.i
+
+# target to preprocess a source file
+Gui/libraries/RichText.cpp.i:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/libraries/RichText.cpp.i
+.PHONY : Gui/libraries/RichText.cpp.i
+
+Gui/libraries/RichText.s: Gui/libraries/RichText.cpp.s
+
+.PHONY : Gui/libraries/RichText.s
+
+# target to generate assembly for a file
+Gui/libraries/RichText.cpp.s:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/libraries/RichText.cpp.s
+.PHONY : Gui/libraries/RichText.cpp.s
+
 Resources/Resource.obj: Resources/Resource.cpp.obj
 
 .PHONY : Resources/Resource.obj
@@ -1112,6 +1139,9 @@ help:
 	@echo ... Gui/SpellTab.obj
 	@echo ... Gui/SpellTab.i
 	@echo ... Gui/SpellTab.s
+	@echo ... Gui/libraries/RichText.obj
+	@echo ... Gui/libraries/RichText.i
+	@echo ... Gui/libraries/RichText.s
 	@echo ... Resources/Resource.obj
 	@echo ... Resources/Resource.i
 	@echo ... Resources/Resource.s

@@ -96,6 +96,7 @@ public:
     void invContainerUpdate(const sf::Vector2f& mousePos);
     void invContainerRender(sf::RenderTarget& target);
 
+    void updatePlayerStatsLbl();
     void updateEquipBonusLbl();
     void updateGoldLbl();
     void updateInventoryCapLbl();

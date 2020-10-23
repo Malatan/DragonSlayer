@@ -182,6 +182,9 @@ bool ResourcesHandler::loadSpellList(SpellComponent *spellComponent) {
             spell->setName(app);
             file >> app;
             spell->setType(app);
+            file >> app;
+            std::replace(app.begin(), app.end(), '_', ' '); // replace all '_' to ' '
+            spell->setDescription(app);
 
             file >> app;
             spell->setCost(std::stoi(app));
@@ -199,6 +202,8 @@ bool ResourcesHandler::loadSpellList(SpellComponent *spellComponent) {
             file >> app;
             spell->setIntRectY(std::stoi(app));
             spellComponent->addSpell(spell);
+            if(spell->isLearned())
+                spellComponent->addPlayerSpell(spell);
             count--;
         }
     }

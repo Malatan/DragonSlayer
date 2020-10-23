@@ -6,6 +6,7 @@
 #define DRAGONSLAYER_SPELLTAB_H
 
 #include "CharacterTab.h"
+#include <iomanip>
 
 class GameState;
 
@@ -14,6 +15,7 @@ private:
     sf::RectangleShape background;
     sf::RectangleShape container;
     sf::Text containerTitle;
+    sfe::RichText infoLbl;
 
     sf::RenderWindow* window;
     sf::Font* font;
@@ -22,7 +24,10 @@ private:
     ResourcesHandler* rsHandler;
     Player* player;
     GameState* gState;
+    SpellComponent* spellComponent;
 
+    std::vector<gui::SpellSlot*> spellSlots;
+    std::string dmgMultiplier;
 protected:
 
 public:
@@ -30,8 +35,11 @@ public:
     std::map<std::string, sf::Texture> textures);
     virtual ~SpellTab();
 
+    void initSpellSlots();
+
     bool closeTabByClicking(const sf::Vector2f& mousePos, gui::Button* spellTab_Btn);
 
+    void updateSpellsInfoLbl();
     void update(const sf::Vector2f& mousePos);
     void render(sf::RenderTarget& target);
 };

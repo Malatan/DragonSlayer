@@ -81,12 +81,14 @@ public:
     //accessors
     BuffComponent* getBuffComponent();
     PopUpTextComponent* getPopUpTextComponent();
+    SpellComponent* getSpellComponent();
 
     //functions
     void addItem(Item* item);
     void changeStato(int stato);
     void updateTabsGoldLbl();
     void updateTabsInvSpaceLbl();
+    void updateTabsPlayerStatsLbl();
     void updateInput(const float &dt);
     void updatePlayerInput(const float& dt);
     void updatePausedMenuButtons();

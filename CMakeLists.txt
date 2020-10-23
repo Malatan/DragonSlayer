@@ -26,6 +26,8 @@ set(SOURCE_FILES
         Gui/PriestTab.h
         Gui/SpellTab.cpp
         Gui/SpellTab.h
+        Gui/libraries/RichText.hpp
+        Gui/libraries/RichText.cpp
         Game/Entity.cpp
         Game/Entity.h
         Game/Player.cpp
