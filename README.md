@@ -2,6 +2,7 @@
 
 Progetto scolastico
 
-mingw-w64 6.0
-SFML
-Google test
+mingw-w64 6.0<br/>
+SFML<br/>
+Google test<br/>
+RichText<br/>
