@@ -7,9 +7,10 @@
 
 #include "Gui.h"
 #include "../Game/Player.h"
-#include "../Core/State.h"
 #include "../Core/GameState.h"
 #include "../Game/Npc.h"
+
+class GameState;
 
 class CharacterTab {
 private:
@@ -17,7 +18,7 @@ private:
     sf::RenderWindow* window;
     sf::Font* font;
     Player* player;
-    State* state;
+    GameState* gState;
     int* updateSlot;
     gui::ConfirmDialog* confirmDialog;
     int selectedItem;

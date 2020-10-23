@@ -368,6 +368,33 @@ Components/PopUpTextComponent.cpp.s:
 	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Components/PopUpTextComponent.cpp.s
 .PHONY : Components/PopUpTextComponent.cpp.s
 
+Components/SpellComponent.obj: Components/SpellComponent.cpp.obj
+
+.PHONY : Components/SpellComponent.obj
+
+# target to build an object file
+Components/SpellComponent.cpp.obj:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Components/SpellComponent.cpp.obj
+.PHONY : Components/SpellComponent.cpp.obj
+
+Components/SpellComponent.i: Components/SpellComponent.cpp.i
+
+.PHONY : Components/SpellComponent.i
+
+# target to preprocess a source file
+Components/SpellComponent.cpp.i:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Components/SpellComponent.cpp.i
+.PHONY : Components/SpellComponent.cpp.i
+
+Components/SpellComponent.s: Components/SpellComponent.cpp.s
+
+.PHONY : Components/SpellComponent.s
+
+# target to generate assembly for a file
+Components/SpellComponent.cpp.s:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Components/SpellComponent.cpp.s
+.PHONY : Components/SpellComponent.cpp.s
+
 Core/Game.obj: Core/Game.cpp.obj
 
 .PHONY : Core/Game.obj
@@ -881,6 +908,33 @@ Gui/ShopTab.cpp.s:
 	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/ShopTab.cpp.s
 .PHONY : Gui/ShopTab.cpp.s
 
+Gui/SpellTab.obj: Gui/SpellTab.cpp.obj
+
+.PHONY : Gui/SpellTab.obj
+
+# target to build an object file
+Gui/SpellTab.cpp.obj:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/SpellTab.cpp.obj
+.PHONY : Gui/SpellTab.cpp.obj
+
+Gui/SpellTab.i: Gui/SpellTab.cpp.i
+
+.PHONY : Gui/SpellTab.i
+
+# target to preprocess a source file
+Gui/SpellTab.cpp.i:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/SpellTab.cpp.i
+.PHONY : Gui/SpellTab.cpp.i
+
+Gui/SpellTab.s: Gui/SpellTab.cpp.s
+
+.PHONY : Gui/SpellTab.s
+
+# target to generate assembly for a file
+Gui/SpellTab.cpp.s:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/SpellTab.cpp.s
+.PHONY : Gui/SpellTab.cpp.s
+
 Resources/Resource.obj: Resources/Resource.cpp.obj
 
 .PHONY : Resources/Resource.obj
@@ -995,6 +1049,9 @@ help:
 	@echo ... Components/PopUpTextComponent.obj
 	@echo ... Components/PopUpTextComponent.i
 	@echo ... Components/PopUpTextComponent.s
+	@echo ... Components/SpellComponent.obj
+	@echo ... Components/SpellComponent.i
+	@echo ... Components/SpellComponent.s
 	@echo ... Core/Game.obj
 	@echo ... Core/Game.i
 	@echo ... Core/Game.s
@@ -1052,6 +1109,9 @@ help:
 	@echo ... Gui/ShopTab.obj
 	@echo ... Gui/ShopTab.i
 	@echo ... Gui/ShopTab.s
+	@echo ... Gui/SpellTab.obj
+	@echo ... Gui/SpellTab.i
+	@echo ... Gui/SpellTab.s
 	@echo ... Resources/Resource.obj
 	@echo ... Resources/Resource.i
 	@echo ... Resources/Resource.s

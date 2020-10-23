@@ -29,7 +29,10 @@ void ShopTab::initShopSlots() {
 
 ShopTab::ShopTab(sf::RenderWindow *window, sf::Font *font, Player *player, State *state, ResourcesHandler *rsHandler,
                  std::map<std::string, sf::Texture> textures) : window(window), font(font), player(player),
-                 state(state), rsHandler(rsHandler), textures(textures){
+                 rsHandler(rsHandler), textures(textures){
+
+    this->gState = dynamic_cast<GameState*>(state);
+
     //init background
     this->background.setSize(sf::Vector2f(
             static_cast<float>(window->getSize().x),
@@ -109,17 +112,14 @@ void ShopTab::initItemList() {
 //functions
 void ShopTab::buyItem(Item* item, const unsigned price) {
     if(this->player->getGold() >= price){
-        GameState* gs = dynamic_cast<GameState*>(this->state);
         this->player->minusGold(price);
-
         Item* it = new Item(this->items[item->getName()]);
-        gs->addItem(it);
-
-        gs->updateTabsGoldLbl();
-        this->state->getPopUpTextComponent()->addPopUpTextCenter(DEFAULT,
+        this->gState->addItem(it);
+        this->gState->updateTabsGoldLbl();
+        this->gState->getPopUpTextComponent()->addPopUpTextCenter(DEFAULT,
                 "1 "+item->getName(),"You bought","for "+to_string(price)+" gold");
     }else{
-        this->state->getPopUpTextComponent()->addPopUpTextCenter(DEFAULT,
+        this->gState->getPopUpTextComponent()->addPopUpTextCenter(DEFAULT,
                 "Insufficient Gold","","");
     }
 }
@@ -155,7 +155,7 @@ void ShopTab::updateInvSpaceLbl() {
 void ShopTab::update(const sf::Vector2f &mousePos) {
     for(auto i : this->shopSlots){
         i->update(mousePos);
-        if(i->isPressed() && this->state->getKeyTime()){
+        if(i->isPressed() && this->gState->getKeyTime()){
             this->buyItem(i->getItem(), i->getPrice());
         }
     }

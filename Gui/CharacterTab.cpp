@@ -125,32 +125,32 @@ void CharacterTab::initEquipContainer() {
     this->equipSlots[5] = new gui::ItemSlot(
             this->equipContainer.getPosition().x + posX,
             this->equipContainer.getPosition().y + posY,
-            slotSize, slotSize, 5, this->window, this->font, nullptr, this->state, true
+            slotSize, slotSize, 5, this->window, this->font, nullptr, this->gState, true
     );
     this->equipSlots[4] = new gui::ItemSlot(
             this->equipContainer.getPosition().x + posX + 90.f,
             this->equipContainer.getPosition().y + posY, slotSize,
-            slotSize, 4, this->window, this->font, nullptr, this->state, true
+            slotSize, 4, this->window, this->font, nullptr, this->gState, true
     );
     this->equipSlots[3] = new gui::ItemSlot(
             this->equipContainer.getPosition().x + posX,
             this->equipContainer.getPosition().y + posY + 90.f,
-            slotSize, slotSize, 3, this->window, this->font, nullptr, this->state, true
+            slotSize, slotSize, 3, this->window, this->font, nullptr, this->gState, true
     );
     this->equipSlots[2] = new gui::ItemSlot(
             this->equipContainer.getPosition().x + posX + 90.f,
             this->equipContainer.getPosition().y + posY + 90.f,
-            slotSize, slotSize, 2, this->window, this->font, nullptr, this->state, true
+            slotSize, slotSize, 2, this->window, this->font, nullptr, this->gState, true
     );
     this->equipSlots[1] = new gui::ItemSlot(
             this->equipContainer.getPosition().x + posX,
             this->equipContainer.getPosition().y + posY + 180.f,
-            slotSize, slotSize, 1, this->window, this->font, nullptr, this->state, true
+            slotSize, slotSize, 1, this->window, this->font, nullptr, this->gState, true
     );
     this->equipSlots[0] = new gui::ItemSlot(
             this->equipContainer.getPosition().x + posX + 90.f,
             this->equipContainer.getPosition().y + posY + 180.f,
-            slotSize, slotSize, 0, this->window, this->font, nullptr, this->state, true
+            slotSize, slotSize, 0, this->window, this->font, nullptr, this->gState, true
     );
 
 
@@ -263,17 +263,18 @@ void CharacterTab::initInventorySlots() {
                 this->inventoryContainer.getPosition().x + 36.f + (modifierX * (i % max_per_row)),
                 this->inventoryContainer.getPosition().y + 70.f + (modifierY * yMultiplier) ,
                 60.f, 60.f, 6+i, this->window, this->font, this->player->getInventory()->getItem(i),
-                this->state, false
+                this->gState, false
         ));
     }
 }
 
 CharacterTab::CharacterTab(sf::RenderWindow* window, sf::Font* font, Player* player, State* state,
         map<string, sf::Texture> textures, ResourcesHandler* rsHandler, npc_type* npcInteract) :
-font(font), player(player), state(state), window(window), textures(textures), rsHandler(rsHandler), npcInteract(npcInteract)
+font(font), player(player), window(window), textures(textures), rsHandler(rsHandler), npcInteract(npcInteract)
 {
     this->openDialog = false;
     this->confirmDialog = nullptr;
+    this->gState = dynamic_cast<GameState*>(state);
     //init background
     this->backgorund.setSize(sf::Vector2f(
             static_cast<float>(window->getSize().x),
@@ -569,7 +570,7 @@ void CharacterTab::useConsumable(Item* item, gui::ItemSlot* i) {
 
     if(item->getQuantity() > 0 && item->getUsageType() == 6){
         have_more = item->use();
-        this->state->getBuffComponent()->applyItemBuff(item->getName(), this->player->getPlayerStats());
+        this->gState->getBuffComponent()->applyItemBuff(item->getName(), this->player->getPlayerStats());
         i->updateQuantityLbl();
     }
 
@@ -620,7 +621,7 @@ void CharacterTab::deleteBtnFunction() {
     ss << "Are you sure you want to delete selected " << this->selectedItem << " items?";
     this->confirmDialog = new gui::ConfirmDialog(this->container.getPosition().x + (this->container.getGlobalBounds().width / 2.f) - 250.f,
             this->container.getPosition().y + (this->container.getGlobalBounds().height / 2.f) - 125.f,
-            ss.str(), this->window, this->state, this->font, 25.f, DELETE_CONFIRM);
+            ss.str(), this->window, this->gState, this->font, 25.f, DELETE_CONFIRM);
     this->openDialog = true;
 }
 
@@ -636,47 +637,46 @@ void CharacterTab::sellBtnFunction() {
 
     this->confirmDialog = new gui::ConfirmDialog(this->container.getPosition().x + (this->container.getGlobalBounds().width / 2.f) - 250.f,
             this->container.getPosition().y + (this->container.getGlobalBounds().height / 2.f) - 125.f,
-            ss.str(), this->window, this->state, this->font, 25.f, SELL_CONFIRM);
+            ss.str(), this->window, this->gState, this->font, 25.f, SELL_CONFIRM);
     this->confirmDialog->setSellValue(totValue);
     this->openDialog = true;
 }
 
 void CharacterTab::updateButtons() {
-    if(this->addStrengthBtn->isPressed() && this->state->getKeyTime()){
+    if(this->addStrengthBtn->isPressed() && this->gState->getKeyTime()){
         this->addStrengthBtn->setButtonState(BTN_IDLE);
         if(this->player->getPlayerStats()->getFreePoints() > 0){
             this->player->getPlayerStats()->addAttribute(0);
         }
-    } else if(this->addWisdomBtn->isPressed() && this->state->getKeyTime()){
+    } else if(this->addWisdomBtn->isPressed() && this->gState->getKeyTime()){
         this->addWisdomBtn->setButtonState(BTN_IDLE);
         if(this->player->getPlayerStats()->getFreePoints() > 0){
             this->player->getPlayerStats()->addAttribute(1);
         }
-    } else if(this->addAgilityBtn->isPressed() && this->state->getKeyTime()){
+    } else if(this->addAgilityBtn->isPressed() && this->gState->getKeyTime()){
         this->addAgilityBtn->setButtonState(BTN_IDLE);
         if(this->player->getPlayerStats()->getFreePoints() > 0){
             this->player->getPlayerStats()->addAttribute(2);
         }
-    } else if(this->EquipUnEquipBtn->isPressed() && this->state->getKeyTime()) {
+    } else if(this->EquipUnEquipBtn->isPressed() && this->gState->getKeyTime()) {
         this->EquipUnEquipBtn->setButtonState(BTN_IDLE);
         this->equipUnEquipBtnFunction();
-    } else if(this->deleteBtn->isPressed() && this->state->getKeyTime()) {
+    } else if(this->deleteBtn->isPressed() && this->gState->getKeyTime()) {
         this->deleteBtn->setButtonState(BTN_IDLE);
         this->deleteBtnFunction();
-    } else if(this->sellBtn->isPressed() && this->state->getKeyTime()) {
+    } else if(this->sellBtn->isPressed() && this->gState->getKeyTime()) {
         this->sellBtn->setButtonState(BTN_IDLE);
         this->sellBtnFunction();
     }
 }
 
 void CharacterTab::updateKeyboardInput() {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::R) && this->state->getKeyTime()) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::R) && this->gState->getKeyTime()) {
         // equip / unequip
-        std::cout<<"e";
         if(this->selectedItem == 1){
             this->equipUnEquipBtnFunction();
         }
-    } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Delete) && this->state->getKeyTime()) {
+    } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Delete) && this->gState->getKeyTime()) {
         // equip / unequip
         if(this->selectedItem > 0){
             this->deleteBtnFunction();
@@ -702,7 +702,7 @@ void CharacterTab::update(const sf::Vector2f& mousePos) {
                 case DELETE_CONFIRM:{
                     int seletected = this->selectedItem;
                     this->deleteItemFromInventory();
-                    this->state->getPopUpTextComponent()->addPopUpTextCenter(
+                    this->gState->getPopUpTextComponent()->addPopUpTextCenter(
                             DEFAULT_TAG, to_string(seletected), "You deleted", "items from your inventory");
                     break;
                 }
@@ -710,8 +710,8 @@ void CharacterTab::update(const sf::Vector2f& mousePos) {
                 case SELL_CONFIRM:{
                     this->deleteItemFromInventory();
                     this->player->addGold(this->confirmDialog->getSellValue());
-                    dynamic_cast<GameState*>(this->state)->updateTabsGoldLbl();
-                    this->state->getPopUpTextComponent()->addPopUpTextCenter(
+                    this->gState->updateTabsGoldLbl();
+                    this->gState->getPopUpTextComponent()->addPopUpTextCenter(
                             GOLD_TAG, to_string(this->confirmDialog->getSellValue()),
                             "+", " gold");
                     break;

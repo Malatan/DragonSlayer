@@ -4,12 +4,11 @@
 
 #include "State.h"
 
-State::State(sf::RenderWindow *window, std::stack<State*>* states, ResourcesHandler* rsHandler, bool* isFocused, sf::Event* sfEvent) {
+State::State(sf::RenderWindow *window, std::stack<State*>* states, ResourcesHandler* rsHandler, sf::Event* sfEvent) {
     this->window = window;
     this->states = states;
     this->sfEvent =sfEvent;
     this->rsHandler = rsHandler;
-    this->windowIsFocused = isFocused;
     this->quit = false;
     this->paused = false;
     this->keyTime = 0.f;
@@ -17,8 +16,7 @@ State::State(sf::RenderWindow *window, std::stack<State*>* states, ResourcesHand
 }
 
 State::~State() {
-    delete this->buffComponent;
-    delete this->popUpTextComponent;
+
 }
 
 //accessors
@@ -42,9 +40,6 @@ const map<string, sf::Texture> &State::getTextures() const {
     return this->textures;
 }
 
-BuffComponent *State::getBuffComponent() {
-    return this->buffComponent;
-}
 
 //functions
 void State::endState() {
@@ -79,9 +74,7 @@ void State::updateKeyTime(const float &dt) {
 
 }
 
-PopUpTextComponent *State::getPopUpTextComponent() {
-    return this->popUpTextComponent;
-}
+
 
 
 

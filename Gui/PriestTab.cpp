@@ -84,8 +84,8 @@ void PriestTab::initButtons() {
 PriestTab::PriestTab(sf::RenderWindow *window, sf::Font *font, Player *player, State *state,
                      ResourcesHandler *rsHandler, std::map<std::string, sf::Texture> textures) :
                      window(window), font(font), player(player),
-                     state(state), rsHandler(rsHandler), textures(textures) {
-    this->gState = dynamic_cast<GameState*>(this->state);
+                     rsHandler(rsHandler), textures(textures) {
+    this->gState = dynamic_cast<GameState*>(state);
     //init background
     this->background.setSize(sf::Vector2f(
             static_cast<float>(window->getSize().x),
@@ -155,10 +155,10 @@ void PriestTab::buttonFunctions(short unsigned btnId) {
                 this->player->minusGold(cost);
                 this->gState->updateTabsGoldLbl();
                 this->player->getPlayerStats()->gainHp(this->player->getPlayerStats()->getFinalHp());
-                this->state->getPopUpTextComponent()->addPopUpTextCenter(
+                this->gState->getPopUpTextComponent()->addPopUpTextCenter(
                         HEAL_TAG, "Your hp has been restored", "", "");
             }else{
-                this->state->getPopUpTextComponent()->addPopUpTextCenter(
+                this->gState->getPopUpTextComponent()->addPopUpTextCenter(
                         DEFAULT_TAG, "Insufficient gold", "", "");
             }
         }
@@ -169,10 +169,10 @@ void PriestTab::buttonFunctions(short unsigned btnId) {
                 this->player->minusGold(cost);
                 this->gState->updateTabsGoldLbl();
                 this->player->getPlayerStats()->gainMp(this->player->getPlayerStats()->getFinalMp());
-                this->state->getPopUpTextComponent()->addPopUpTextCenter(
+                this->gState->getPopUpTextComponent()->addPopUpTextCenter(
                         MANA_RESTORE_TAG, "Your mp has been restored", "", "");
             }else{
-                this->state->getPopUpTextComponent()->addPopUpTextCenter(
+                this->gState->getPopUpTextComponent()->addPopUpTextCenter(
                         DEFAULT_TAG, "Insufficient gold", "", "");
             }
         }
@@ -182,10 +182,10 @@ void PriestTab::buttonFunctions(short unsigned btnId) {
             if(this->player->getGold() >= cost){
                 this->player->minusGold(cost);
                 this->gState->updateTabsGoldLbl();
-                this->state->getPopUpTextComponent()->addPopUpTextCenter(
+                this->gState->getPopUpTextComponent()->addPopUpTextCenter(
                         DEFAULT_TAG, "All your debuffs have been removed", "", "");
             }else{
-                this->state->getPopUpTextComponent()->addPopUpTextCenter(
+                this->gState->getPopUpTextComponent()->addPopUpTextCenter(
                         DEFAULT_TAG, "Insufficient gold", "", "");
             }
         }
@@ -197,10 +197,10 @@ void PriestTab::buttonFunctions(short unsigned btnId) {
                 this->gState->updateTabsGoldLbl();
                 this->player->getPlayerStats()->gainHp(this->player->getPlayerStats()->getFinalHp());
                 this->player->getPlayerStats()->gainMp(this->player->getPlayerStats()->getFinalMp());
-                this->state->getPopUpTextComponent()->addPopUpTextCenter(
+                this->gState->getPopUpTextComponent()->addPopUpTextCenter(
                         DEFAULT_TAG, "You have been recovered", "", "");
             }else{
-                this->state->getPopUpTextComponent()->addPopUpTextCenter(
+                this->gState->getPopUpTextComponent()->addPopUpTextCenter(
                         DEFAULT_TAG, "Insufficient gold", "", "");
             }
         }
@@ -211,16 +211,16 @@ void PriestTab::buttonFunctions(short unsigned btnId) {
 }
 
 void PriestTab::updateButtons() {
-    if(this->restoreHpBtn->isPressed() && this->state->getKeyTime()){
+    if(this->restoreHpBtn->isPressed() && this->gState->getKeyTime()){
         this->buttonFunctions(this->restoreHpBtn->getId());
 
-    } else if(this->restoreMpBtn->isPressed() && this->state->getKeyTime()){
+    } else if(this->restoreMpBtn->isPressed() && this->gState->getKeyTime()){
         this->buttonFunctions(this->restoreMpBtn->getId());
 
-    } else if(this->removeAllDebuffsBtn->isPressed() && this->state->getKeyTime()){
+    } else if(this->removeAllDebuffsBtn->isPressed() && this->gState->getKeyTime()){
         this->buttonFunctions(this->removeAllDebuffsBtn->getId());
 
-    } else if(this->recoverAllBtn->isPressed() && this->state->getKeyTime()){
+    } else if(this->recoverAllBtn->isPressed() && this->gState->getKeyTime()){
         this->buttonFunctions(this->recoverAllBtn->getId());
 
     }

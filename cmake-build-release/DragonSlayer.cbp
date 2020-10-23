@@ -424,6 +424,12 @@
 			<Option target="DragonSlayer"/>
 			<Option target="unit_testing_run"/>
 		</Unit>
+		<Unit filename="F:/DragonSlayer/Components/SpellComponent.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Components/SpellComponent.h">
+			<Option target="DragonSlayer"/>
+		</Unit>
 		<Unit filename="F:/DragonSlayer/Core/Game.cpp">
 			<Option target="DragonSlayer"/>
 			<Option target="unit_testing_run"/>
@@ -575,6 +581,12 @@
 		<Unit filename="F:/DragonSlayer/Gui/ShopTab.h">
 			<Option target="DragonSlayer"/>
 			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Gui/SpellTab.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Gui/SpellTab.h">
+			<Option target="DragonSlayer"/>
 		</Unit>
 		<Unit filename="F:/DragonSlayer/Resources/Resource.cpp">
 			<Option target="DragonSlayer"/>

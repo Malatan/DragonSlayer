@@ -17,6 +17,7 @@ void GameState::initTextures() {
     this->rsHandler->addResouce("../Resources/Images/characterIcon.png", "characterIcon", "GameState");
     this->rsHandler->addResouce("../Resources/Images/inventoryIcon.png", "inventoryIcon", "GameState");
     this->rsHandler->addResouce("../Resources/Images/pauseMenuIcon.png", "pauseMenuIcon", "GameState");
+    this->rsHandler->addResouce("../Resources/Images/spellIcon.png", "spellIcon", "GameState");
 
     this->rsHandler->addResouce("../Resources/Images/equipslot_sheet.png", "EquipSlotsSheet", "GameState");
     this->rsHandler->addResouce("../Resources/Images/items_sheet.png", "items_sheet", "GameState");
@@ -41,6 +42,7 @@ void GameState::initTextures() {
     this->textures["CHARACTER_ICON"].loadFromImage(this->rsHandler->getResouceByKey("characterIcon")->getImage());
     this->textures["INVENTORY_ICON"].loadFromImage(this->rsHandler->getResouceByKey("inventoryIcon")->getImage());
     this->textures["PAUSEMENU_ICON"].loadFromImage(this->rsHandler->getResouceByKey("pauseMenuIcon")->getImage());
+    this->textures["SPELL_ICON"].loadFromImage(this->rsHandler->getResouceByKey("spellIcon")->getImage());
 
     this->textures["ITEMS_SHEET"].loadFromImage(this->rsHandler->getResouceByKey("items_sheet")->getImage());
     this->textures["EquipSlotsSheet"].loadFromImage(this->rsHandler->getResouceByKey("EquipSlotsSheet")->getImage());
@@ -101,6 +103,11 @@ void GameState::initShopTab() {
 void GameState::initPriestTab() {
     this->priestTab = new PriestTab(this->window, this->font, this->player,
                                 this, this->rsHandler, this->textures);
+}
+
+void GameState::initSpellTab() {
+    this->spellTab = new SpellTab(this->window, this->font, this->player,
+                                     this, this->rsHandler, this->textures);
 }
 
 void GameState::initHintsTab() {
@@ -189,11 +196,19 @@ void GameState::initBuffComponent() {
             new Buff("DamagePotion(S)", 0, 0, 30, 0, 0.f, 0.f, 3));
 }
 
+void GameState::initSpellComponent() {
+    this->spellComponent = new SpellComponent();
+
+    this->rsHandler->loadSpellList(this->spellComponent);
+    std::cout<<this->spellComponent->toString();
+}
+
 void GameState::initComponents() {
     this->popUpTextComponent = new PopUpTextComponent(*this->font, this->window);
 
 
     this->initBuffComponent();
+    this->initSpellComponent();
 }
 
 void GameState::initView() {
@@ -236,9 +251,23 @@ void GameState::initButtons() {
     this->pauseMenuBtn->setBackgroundTexture(&this->textures["PAUSEMENU_ICON"]);
     this->pauseMenuBtn->setBackbgroundDisabled(false);
 
-    this->cTabBtn = new gui::Button(
+    this->spellTabBtn = new gui::Button(
             this->pauseMenuBtn->getPosition().x - 100.f,
             this->pauseMenuBtn->getPosition().y, 70.f, 70.f,
+            this->font, "", 20.f,
+            sf::Color(255, 255, 255, 255),
+            sf::Color(160, 160, 160),
+            sf::Color(20, 20, 20, 50),
+
+            sf::Color::Transparent,
+            sf::Color(70, 70, 70, 60),
+            sf::Color(130, 130, 130, 0));
+    this->spellTabBtn->setBackgroundTexture(&this->textures["SPELL_ICON"]);
+    this->spellTabBtn->setBackbgroundDisabled(false);
+
+    this->cTabBtn = new gui::Button(
+            this->spellTabBtn->getPosition().x - 100.f,
+            this->spellTabBtn->getPosition().y, 70.f, 70.f,
             this->font, "", 20.f,
             sf::Color(255, 255, 255, 255),
             sf::Color(160, 160, 160),
@@ -253,19 +282,21 @@ void GameState::initButtons() {
 }
 
 //constructors/destructors
-GameState::GameState(sf::RenderWindow* window, std::stack<State*>* states, ResourcesHandler* rsHandler, sf::Font* font,
-        bool* isFocused, sf::Event* sfEvent)
-        : State(window, states, rsHandler, isFocused, sfEvent){
+GameState::GameState(sf::RenderWindow* window, std::stack<State*>* states, ResourcesHandler* rsHandler, sf::Font* font, sf::Event* sfEvent)
+        : State(window, states, rsHandler, sfEvent){
     this->font = font;
     this->stato = 0;
     this->npcInteract = NO_NPC;
     this->initTextures();
     this->initPauseMenu();
     this->initPlayers();
+
     this->initCharacterTab();
     this->initShopTab();
     this->initPriestTab();
+    this->initSpellTab();
     this->initHintsTab();
+
     this->initComponents();
     this->initView();
     this->initDebugText();
@@ -279,11 +310,24 @@ GameState::~GameState() {
     delete this->shopTab;
     delete this->priestTab;
     delete this->cTabBtn;
+    delete this->spellTabBtn;
     delete this->pauseMenuBtn;
+    delete this->spellComponent;
+    delete this->buffComponent;
+    delete this->popUpTextComponent;
     for(auto i : this->enemis)
         delete i;
     for(auto i : this->npcs)
         delete i;
+}
+
+//accessors
+BuffComponent *GameState::getBuffComponent() {
+    return this->buffComponent;
+}
+
+PopUpTextComponent *GameState::getPopUpTextComponent() {
+    return this->popUpTextComponent;
 }
 
 //functions
@@ -334,7 +378,6 @@ void GameState::changeStato(int stato) {
 }
 
 void GameState::updateInput(const float &dt) {
-    if (*this->windowIsFocused) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && this->getKeyTime()) {
             this->changeStato(1);
 
@@ -402,7 +445,6 @@ void GameState::updateInput(const float &dt) {
 
 
         }
-    }
 }
 
 void GameState::updatePlayerInput(const float &dt) {
@@ -410,7 +452,6 @@ void GameState::updatePlayerInput(const float &dt) {
         cout<<this->player->getHitboxComponent()->getCenter().x<<" "<<this->player->getHitboxComponent()->getCenter().y<<"\n";
     }*/
 
-    if(*this->windowIsFocused){
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
             this->player->move(dt, -1.f, 0.f);
         }
@@ -426,7 +467,7 @@ void GameState::updatePlayerInput(const float &dt) {
 
             this->player->move(dt, diff.x, diff.y);
         }
-    }
+
 
 }
 
@@ -466,6 +507,9 @@ void GameState::updateButtons() {
     } else if(this->pauseMenuBtn->isPressed() && this->getKeyTime()){
         this->pauseMenuBtn->setButtonState(BTN_IDLE);
         this->changeStato(1);
+    } else if(this->spellTabBtn->isPressed() && this->getKeyTime()){
+        this->spellTabBtn->setButtonState(BTN_IDLE);
+        this->changeStato(5);
     }
 }
 
@@ -492,6 +536,7 @@ void GameState::update(const float& dt) {
         this->updateMousePosition(nullptr);
         this->cTabBtn->update(this->mousePosView);
         this->pauseMenuBtn->update(this->mousePosView);
+        this->spellTabBtn->update(this->mousePosView);
         this->popUpTextComponent->update(dt);
 
     } else{ // paused update
@@ -522,6 +567,13 @@ void GameState::update(const float& dt) {
                     this->changeStato(0);
                 this->popUpTextComponent->update(dt);
                 break;
+            case 5:
+                this->updateMousePosition(nullptr);
+                this->spellTab->update(this->mousePosView);
+                if(this->spellTab->closeTabByClicking(this->mousePosView, this->spellTabBtn))
+                    this->changeStato(0);
+                this->popUpTextComponent->update(dt);
+                break;
         }
     }
 }
@@ -543,6 +595,7 @@ void GameState::render(sf::RenderTarget* target) {
     target->setView(target->getDefaultView());
     this->cTabBtn->render(*target);
     this->pauseMenuBtn->render(*target);
+    this->spellTabBtn->render(*target);
     target->draw(this->hints);
 
     if(this->paused){ // pause menu render
@@ -559,12 +612,19 @@ void GameState::render(sf::RenderTarget* target) {
             case 4:
                 this->priestTab->render(*target);
                 break;
+            case 5:
+                this->spellTab->render(*target);
+                break;
         }
     }
     target->draw(this->debugText);
 
     this->popUpTextComponent->render(*target);
 }
+
+
+
+
 
 
 

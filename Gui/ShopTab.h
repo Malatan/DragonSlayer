@@ -7,6 +7,8 @@
 
 #include "CharacterTab.h"
 
+class GameState;
+
 class ShopTab {
 private:
     sf::RectangleShape background;
@@ -14,13 +16,13 @@ private:
     sf::Text containerTitle;
     sf::Text playerGoldLbl;
     sf::Text playerInvSpaceLbl;
+
     sf::RenderWindow* window;
     sf::Font* font;
     std::map<std::string, sf::Texture> textures;
-
     ResourcesHandler* rsHandler;
     Player* player;
-    State* state;
+    GameState* gState;
 
     std::map<std::string, Item*> items;
     std::vector<gui::ShopSlot*> shopSlots;

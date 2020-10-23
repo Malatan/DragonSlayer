@@ -23,6 +23,8 @@ private:
     int aoe;        //NUMERO DI NEMICI COLPIBILI DALLA SPELL
     bool learned;
 
+    int intRectX;
+    int intRectY;
 public:
 
     string getName();
@@ -39,7 +41,11 @@ public:
     void setAoe(int aoe);
     bool isLearned();
     void setLearned(bool learned);
-
+    int getIntRectX();
+    void setIntRectX(int intRectX);
+    int getIntRectY();
+    void setIntRectY(int intRectY);
+    const std::string toString() const;
 
     Spell();
     virtual ~Spell();

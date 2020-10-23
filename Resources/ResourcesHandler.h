@@ -8,6 +8,7 @@
 #include "Resource.h"
 #include "../Game/Stats.h"
 #include "../Game/Inventory.h"
+#include "../Components/SpellComponent.h"
 #include <SFML/Graphics.hpp>
 
 class ResourcesHandler {
@@ -31,6 +32,7 @@ public:
 
     bool loadPlayerStatsTxt(Stats* playerStats);
     bool loadPlayerInventoryTxt(Inventory* playerInventory);
+    bool loadSpellList(SpellComponent* spellComponent);
     std::string toString();
 };
 

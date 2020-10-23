@@ -24,6 +24,8 @@ set(SOURCE_FILES
         Gui/ShopTab.h
         Gui/PriestTab.cpp
         Gui/PriestTab.h
+        Gui/SpellTab.cpp
+        Gui/SpellTab.h
         Game/Entity.cpp
         Game/Entity.h
         Game/Player.cpp
@@ -50,6 +52,8 @@ set(SOURCE_FILES
         Components/HitBoxComponent.h
         Components/BuffComponent.cpp
         Components/BuffComponent.h
+        Components/SpellComponent.cpp
+        Components/SpellComponent.h
         Components/PopUpTextComponent.cpp
         Components/PopUpTextComponent.h
         Resources/ResourcesHandler.cpp

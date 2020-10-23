@@ -8,15 +8,24 @@
 #include "State.h"
 #include "../Game/Player.h"
 #include "../Game/Enemy.h"
+#include "../Game/Npc.h"
 #include "../Gui/PauseMenu.h"
 #include "../Gui/CharacterTab.h"
 #include "../Gui/ShopTab.h"
-#include "../Game/Npc.h"
+#include "../Gui/SpellTab.h"
 #include "../Gui/PriestTab.h"
+#include "../Components/BuffComponent.h"
+#include "../Components/PopUpTextComponent.h"
+#include "../Components/SpellComponent.h"
+
 
 class CharacterTab;
 class ShopTab;
 class PriestTab;
+class SpellTab;
+class BuffComponent;
+class PopUpTextComponent;
+class SpellComponent;
 
 class GameState : public State{
 private:
@@ -27,16 +36,22 @@ private:
 
     gui::Button* cTabBtn;
     gui::Button* pauseMenuBtn;
+    gui::Button* spellTabBtn;
 
     PauseMenu* pmenu;
     CharacterTab* cTab;
     ShopTab* shopTab;
     PriestTab* priestTab;
+    SpellTab* spellTab;
     Player* player;
+
+    BuffComponent* buffComponent;
+    PopUpTextComponent* popUpTextComponent;
+    SpellComponent* spellComponent;
 
     std::vector<Enemy*> enemis;
     std::vector<Npc*> npcs;
-    int stato; // 0 = in giocata, 1 = pause, menu 2 = character, 3 = shop, 4 = priest
+    int stato; // 0 = in giocata, 1 = pause, menu 2 = character, 3 = shop, 4 = priest, 5 = spell
     npc_type npcInteract;
 
 
@@ -47,19 +62,25 @@ private:
     void initCharacterTab();
     void initShopTab();
     void initPriestTab();
+    void initSpellTab();
     void initHintsTab();
     void initEquipSlotsTextures();
     void initInventoryItemTextures();
     void initShopItemTextures();
     void initBuffComponent();
+    void initSpellComponent();
     void initComponents();
     void initView();
     void initDebugText();
     void initButtons();
 
 public:
-    GameState(sf::RenderWindow* window, std::stack<State*>* states, ResourcesHandler* rsHandler, sf::Font *font, bool* isFocused, sf::Event* sfEvent);
+    GameState(sf::RenderWindow* window, std::stack<State*>* states, ResourcesHandler* rsHandler, sf::Font *font, sf::Event* sfEvent);
     virtual ~GameState();
+
+    //accessors
+    BuffComponent* getBuffComponent();
+    PopUpTextComponent* getPopUpTextComponent();
 
     //functions
     void addItem(Item* item);

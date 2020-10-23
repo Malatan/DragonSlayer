@@ -21,7 +21,6 @@ private:
 
     ResourcesHandler* rsHandler;
     Player* player;
-    State* state;
     GameState* gState;
 
     gui::Button* restoreHpBtn;          // id = 0

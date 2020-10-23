@@ -51,8 +51,8 @@ void MainMenuState::initButtons() {
                                                   idle_color, hover_color, active_color);
 }
 
-MainMenuState::MainMenuState(sf::RenderWindow *window, std::stack<State*>* states, ResourcesHandler* rsHandler, bool* isFocused, sf::Event* sfEvent)
-        : State(window, states, rsHandler, isFocused, sfEvent){
+MainMenuState::MainMenuState(sf::RenderWindow *window, std::stack<State*>* states, ResourcesHandler* rsHandler, sf::Event* sfEvent)
+        : State(window, states, rsHandler, sfEvent){
     this->initVariables();
     this->initBackground();
     this->initFonts();
@@ -67,9 +67,7 @@ MainMenuState::~MainMenuState() {
 }
 
 void MainMenuState::startNewGame() {
-    this->states->push(new GameState(this->window,
-            this->states, this->rsHandler, &this->font,
-            this->windowIsFocused, this->sfEvent));
+    this->states->push(new GameState(this->window, this->states, this->rsHandler, &this->font,this->sfEvent));
 }
 
 void MainMenuState::updateInput(const float &dt) {

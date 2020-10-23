@@ -4,6 +4,14 @@
 
 #include "Spell.h"
 
+Spell::Spell() {
+
+}
+
+Spell::~Spell() {
+
+}
+
 bool Spell::isLearned() {
     return learned;
 }
@@ -60,10 +68,32 @@ void Spell::setAoe(int aoe) {
     Spell::aoe = aoe;
 }
 
-Spell::Spell() {
-
+int Spell::getIntRectX() {
+    return this->intRectX;
 }
 
-Spell::~Spell() {
+void Spell::setIntRectX(int intRectX) {
+    this->intRectX = intRectX;
+}
 
+int Spell::getIntRectY() {
+    return this->intRectY;
+}
+
+void Spell::setIntRectY(int intRectY) {
+    this->intRectY = intRectY;
+}
+
+const std::string Spell::toString() const {
+    std::stringstream ss;
+    ss << "Name: " << this->name
+       << " Type: " << this->type
+       << " Cost: " << this->cost
+       << " CD: " << this->cooldown
+       << " Damage: " << this->damage
+       << " Aoe: " << this->aoe
+       << " Learned: " << std::boolalpha << this->learned
+       << " IntRect: " << this->intRectX << "-" << this->intRectY;
+
+    return ss.str();
 }

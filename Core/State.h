@@ -13,8 +13,7 @@
 #include <stack>
 #include <map>
 #include "../Resources/ResourcesHandler.h"
-#include "../Components/BuffComponent.h"
-#include "../Components/PopUpTextComponent.h"
+
 
 class State {
 private:
@@ -25,12 +24,9 @@ protected:
     sf::RenderWindow* window;
     ResourcesHandler* rsHandler;
     sf::Event* sfEvent;
-    BuffComponent* buffComponent;
-    PopUpTextComponent* popUpTextComponent;
 
     bool quit;
     bool paused;
-    bool* windowIsFocused;
     float keyTime;
     float keyTimeMax;
 
@@ -42,7 +38,7 @@ protected:
     std::map<std::string, sf::Texture> textures;
 
 public:
-    State(sf::RenderWindow* window, std::stack<State*>* states, ResourcesHandler* rsHandler, bool* isFocused, sf::Event* sfEvent);
+    State(sf::RenderWindow* window, std::stack<State*>* states, ResourcesHandler* rsHandler, sf::Event* sfEvent);
     virtual ~State();
 
     //accessors
@@ -50,8 +46,6 @@ public:
     const bool getKeyTime();
     ResourcesHandler *getRsHandler() const;
     const map<string, sf::Texture> &getTextures() const;
-    BuffComponent* getBuffComponent();
-    PopUpTextComponent* getPopUpTextComponent();
 
     //functions
     void endState();

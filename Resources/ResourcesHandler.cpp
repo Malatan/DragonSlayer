@@ -162,8 +162,47 @@ bool ResourcesHandler::loadPlayerInventoryTxt(Inventory *playerInventory) {
             playerInventory->sortByItemType();
         }
     }
-
     return true;
+}
+
+bool ResourcesHandler::loadSpellList(SpellComponent *spellComponent) {
+    Spell* spell;
+    ifstream file;
+    file.open("../Data/Spells.txt");
+    if (!file.is_open()){
+        cout<<"Resource load error: Could not load Spells.txt";
+    } else{
+        std::string app;
+        int count;
+        file >> count;
+        while(count != 0){
+            spell = new Spell();
+            file >> app;
+            std::replace(app.begin(), app.end(), '_', ' '); // replace all '_' to ' '
+            spell->setName(app);
+            file >> app;
+            spell->setType(app);
+
+            file >> app;
+            spell->setCost(std::stoi(app));
+            file >> app;
+            spell->setCooldown(std::stoi(app));
+            file >> app;
+            spell->setDamage(std::stoi(app));
+            file >> app;
+            spell->setAoe(std::stoi(app));
+
+            file >> app;
+            spell->setLearned(std::stoi(app));
+            file >> app;
+            spell->setIntRectX(std::stoi(app));
+            file >> app;
+            spell->setIntRectY(std::stoi(app));
+            spellComponent->addSpell(spell);
+            count--;
+        }
+    }
+    return false;
 }
 
 void ResourcesHandler::setEquipSlotsTextureIntRect(int equip_slot, sf::IntRect intRect) {
@@ -179,6 +218,7 @@ sf::IntRect ResourcesHandler::getEquipSlotTextureRect(int equip_slot) {
     }
     return sf::IntRect(0, 0, 0, 0);
 }
+
 
 
 
