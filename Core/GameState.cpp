@@ -111,6 +111,11 @@ void GameState::initSpellTab() {
                                      this, this->rsHandler, this->textures);
 }
 
+void GameState::initWizardTab() {
+    this->wizardTab = new WizardTab(this->window, this->font, this->player,
+                                    this, this->textures);
+}
+
 void GameState::initHintsTab() {
     this->hints.setFont(*this->font);
     this->hints.setCharacterSize(30);
@@ -302,6 +307,7 @@ GameState::GameState(sf::RenderWindow* window, std::stack<State*>* states, Resou
     this->initShopTab();
     this->initPriestTab();
     this->initSpellTab();
+    this->initWizardTab();
     this->initHintsTab();
 }
 
@@ -311,6 +317,7 @@ GameState::~GameState() {
     delete this->cTab;
     delete this->shopTab;
     delete this->priestTab;
+    delete this->wizardTab;
     delete this->cTabBtn;
     delete this->spellTabBtn;
     delete this->pauseMenuBtn;
@@ -444,7 +451,7 @@ void GameState::updateInput(const float &dt) {
                     this->changeStato(4);
                     break;
                 case WIZARD:
-                    std::cout<<"interacting with wizard npc\n";
+                    this->changeStato(6);
                     break;
                 default:
                     std::cout<<"no npc\n";
@@ -483,6 +490,7 @@ void GameState::updateTabsGoldLbl() {
     this->cTab->updateGoldLbl();
     this->shopTab->updateGoldLbl();
     this->priestTab->updateGoldLbl();
+    this->wizardTab->updateGoldLbl();
 }
 
 void GameState::updateTabsInvSpaceLbl() {
@@ -553,37 +561,39 @@ void GameState::update(const float& dt) {
         this->popUpTextComponent->update(dt);
 
     } else{ // paused update
+        this->updateMousePosition(nullptr);
         switch(stato){
             case 1:
-                this->updateMousePosition(nullptr);
                 this->pmenu->update(this->mousePosView);
                 this->updatePausedMenuButtons();
                 break;
             case 2:
-                this->updateMousePosition(nullptr);
                 this->cTab->update(this->mousePosView);
                 if(this->cTab->closeCharacterTabByClicking(this->mousePosView, this->cTabBtn))
                     this->changeStato(0);
                 this->popUpTextComponent->update(dt);
                 break;
             case 3:
-                this->updateMousePosition(nullptr);
                 this->shopTab->update(this->mousePosView);
                 if(this->shopTab->closeTabByClicking(this->mousePosView))
                     this->changeStato(0);
                 this->popUpTextComponent->update(dt);
                 break;
             case 4:
-                this->updateMousePosition(nullptr);
                 this->priestTab->update(this->mousePosView);
                 if(this->priestTab->closeTabByClicking(this->mousePosView))
                     this->changeStato(0);
                 this->popUpTextComponent->update(dt);
                 break;
             case 5:
-                this->updateMousePosition(nullptr);
                 this->spellTab->update(this->mousePosView);
                 if(this->spellTab->closeTabByClicking(this->mousePosView, this->spellTabBtn))
+                    this->changeStato(0);
+                this->popUpTextComponent->update(dt);
+                break;
+            case 6:
+                this->wizardTab->update(this->mousePosView);
+                if(this->wizardTab->closeTabByClicking(this->mousePosView))
                     this->changeStato(0);
                 this->popUpTextComponent->update(dt);
                 break;
@@ -628,12 +638,17 @@ void GameState::render(sf::RenderTarget* target) {
             case 5:
                 this->spellTab->render(*target);
                 break;
+            case 6:
+                this->wizardTab->render(*target);
+                break;
         }
     }
     target->draw(this->debugText);
 
     this->popUpTextComponent->render(*target);
 }
+
+
 
 
 

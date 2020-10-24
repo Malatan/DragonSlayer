@@ -93,7 +93,7 @@ void SpellTab::updateSpellsInfoLbl() {
         switch(i->getSpell()->getTypeEnum()){
             case HOLY:
                 (i->getSpellInfoLbl())->clear();
-                *(i->getSpellInfoLbl()) << sf::Text::Bold << i->getSpell()->getName() << "(" << i->getSpell()->getType() << ")\n"
+                *(i->getSpellInfoLbl()) << sf::Text::Bold << i->getSpell()->getName() << "(Lv." << to_string(i->getSpell()->getLevel()) << ")\n"
                 << "Effect: " << sf::Color(255, 60, 31) << to_string(i->getSpell()->getDamage())
                 << " x "<< this->dmgMultiplier << " = " << to_string((int)(i->getSpell()->getDamage()*this->player->getPlayerStats()->getSpellDmgMultiplier()))
                 << "\n" << sf::Color::White
@@ -102,7 +102,7 @@ void SpellTab::updateSpellsInfoLbl() {
                 break;
             default:
                 (i->getSpellInfoLbl())->clear();
-                *(i->getSpellInfoLbl()) << sf::Text::Bold << i->getSpell()->getName() << "(" << i->getSpell()->getType() << ")\n"
+                *(i->getSpellInfoLbl()) << sf::Text::Bold << i->getSpell()->getName() << "(Lv." << to_string(i->getSpell()->getLevel()) << ")\n"
                 << "Damage: " << sf::Color(255, 60, 31) << to_string(i->getSpell()->getDamage())
                 << " x "<< this->dmgMultiplier << " = " << to_string((int)(i->getSpell()->getDamage()*this->player->getPlayerStats()->getSpellDmgMultiplier()))
                 << "\n" << sf::Color::White

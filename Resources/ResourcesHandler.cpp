@@ -201,6 +201,7 @@ bool ResourcesHandler::loadSpellList(SpellComponent *spellComponent) {
             spell->setIntRectX(std::stoi(app));
             file >> app;
             spell->setIntRectY(std::stoi(app));
+            spell->setLevel(1);
             spellComponent->addSpell(spell);
             if(spell->isLearned())
                 spellComponent->addPlayerSpell(spell);

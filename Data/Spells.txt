@@ -1,4 +1,4 @@
-10
+11
 Fire_Ball fire casts_a_fire_ball 30 2 50 1 1 2 20
 Fire_Storm fire casts_a_fire_storm 60 3 40 3 1 3 20
 Frost_Spike ice casts_a_frost_spike 30 2 50 1 1 8 23

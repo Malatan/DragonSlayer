@@ -588,6 +588,12 @@
 		<Unit filename="F:/DragonSlayer/Gui/SpellTab.h">
 			<Option target="DragonSlayer"/>
 		</Unit>
+		<Unit filename="F:/DragonSlayer/Gui/WizardTab.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Gui/WizardTab.h">
+			<Option target="DragonSlayer"/>
+		</Unit>
 		<Unit filename="F:/DragonSlayer/Gui/libraries/RichText.cpp">
 			<Option target="DragonSlayer"/>
 		</Unit>

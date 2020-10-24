@@ -30,6 +30,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "F:/DragonSlayer/Gui/PriestTab.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Gui/PriestTab.cpp.obj"
   "F:/DragonSlayer/Gui/ShopTab.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Gui/ShopTab.cpp.obj"
   "F:/DragonSlayer/Gui/SpellTab.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Gui/SpellTab.cpp.obj"
+  "F:/DragonSlayer/Gui/WizardTab.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Gui/WizardTab.cpp.obj"
   "F:/DragonSlayer/Gui/libraries/RichText.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Gui/libraries/RichText.cpp.obj"
   "F:/DragonSlayer/Resources/Resource.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.obj"
   "F:/DragonSlayer/Resources/ResourcesHandler.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Resources/ResourcesHandler.cpp.obj"

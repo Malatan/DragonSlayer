@@ -14,6 +14,7 @@
 #include "../Gui/ShopTab.h"
 #include "../Gui/SpellTab.h"
 #include "../Gui/PriestTab.h"
+#include "../Gui/WizardTab.h"
 #include "../Components/BuffComponent.h"
 #include "../Components/PopUpTextComponent.h"
 #include "../Components/SpellComponent.h"
@@ -23,6 +24,7 @@ class CharacterTab;
 class ShopTab;
 class PriestTab;
 class SpellTab;
+class WizardTab;
 class BuffComponent;
 class PopUpTextComponent;
 class SpellComponent;
@@ -43,6 +45,7 @@ private:
     ShopTab* shopTab;
     PriestTab* priestTab;
     SpellTab* spellTab;
+    WizardTab* wizardTab;
     Player* player;
 
     BuffComponent* buffComponent;
@@ -51,7 +54,7 @@ private:
 
     std::vector<Enemy*> enemis;
     std::vector<Npc*> npcs;
-    int stato; // 0 = in giocata, 1 = pause, menu 2 = character, 3 = shop, 4 = priest, 5 = spell
+    int stato; // 0 = in giocata, 1 = pause, menu 2 = character, 3 = shop, 4 = priest, 5 = spell, 6 = wizard
     npc_type npcInteract;
 
 
@@ -63,6 +66,7 @@ private:
     void initShopTab();
     void initPriestTab();
     void initSpellTab();
+    void initWizardTab();
     void initHintsTab();
     void initEquipSlotsTextures();
     void initInventoryItemTextures();

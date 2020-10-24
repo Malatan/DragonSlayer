@@ -10,7 +10,7 @@ Spell::Spell() {
 
 Spell::Spell(Spell *spell) : spellType(spell->spellType), name(spell->name), type(spell->type),
 description(spell->description), cost(spell->cost), cooldown(spell->cooldown), damage(spell->damage),
-aoe(spell->aoe), learned(spell->learned), intRectX(spell->intRectX), intRectY(spell->intRectY){
+aoe(spell->aoe), learned(spell->learned), intRectX(spell->intRectX), intRectY(spell->intRectY), level(spell->level){
 }
 
 Spell::~Spell() {
@@ -64,7 +64,7 @@ void Spell::setType(string type) {
 }
 
 int Spell::getCost() {
-    return cost;
+    return this->cost*level;
 }
 
 void Spell::setCost(int cost) {
@@ -72,7 +72,7 @@ void Spell::setCost(int cost) {
 }
 
 int Spell::getCooldown() {
-    return cooldown;
+    return this->cooldown;
 }
 
 void Spell::setCooldown(int cooldown) {
@@ -80,7 +80,7 @@ void Spell::setCooldown(int cooldown) {
 }
 
 int Spell::getDamage() {
-    return damage;
+    return damage*level;
 }
 
 void Spell::setDamage(int damage) {
@@ -116,6 +116,7 @@ const std::string Spell::toString() const {
     ss << "Name: " << this->name
        << " Type: " << this->type
        << "(" << this->spellType << ")"
+       << " Lv: " << this->level
        << " Cost: " << this->cost
        << " CD: " << this->cooldown
        << " Damage: " << this->damage
@@ -130,6 +131,18 @@ const std::string Spell::toString() const {
 spell_type Spell::getTypeEnum() {
     return this->spellType;
 }
+
+int Spell::getLevel() {
+    return this->level;
+}
+
+void Spell::setLevel(int level) {
+    if(level > 5)
+        this->level = 5;
+    else
+        this->level = level;
+}
+
 
 
 

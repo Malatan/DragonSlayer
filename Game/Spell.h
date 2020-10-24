@@ -32,6 +32,7 @@ private:
     int damage;
     int aoe;        //NUMERO DI NEMICI COLPIBILI DALLA SPELL
     bool learned;
+    int level;
 
     int intRectX;
     int intRectY;
@@ -44,6 +45,8 @@ public:
     spell_type getTypeEnum();
     string getDescription();
     void setDescription(string description);
+    int getLevel();
+    void setLevel(int level);
     int getCost();
     void setCost(int cost);
     int getCooldown();

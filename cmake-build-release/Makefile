@@ -935,6 +935,33 @@ Gui/SpellTab.cpp.s:
 	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/SpellTab.cpp.s
 .PHONY : Gui/SpellTab.cpp.s
 
+Gui/WizardTab.obj: Gui/WizardTab.cpp.obj
+
+.PHONY : Gui/WizardTab.obj
+
+# target to build an object file
+Gui/WizardTab.cpp.obj:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/WizardTab.cpp.obj
+.PHONY : Gui/WizardTab.cpp.obj
+
+Gui/WizardTab.i: Gui/WizardTab.cpp.i
+
+.PHONY : Gui/WizardTab.i
+
+# target to preprocess a source file
+Gui/WizardTab.cpp.i:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/WizardTab.cpp.i
+.PHONY : Gui/WizardTab.cpp.i
+
+Gui/WizardTab.s: Gui/WizardTab.cpp.s
+
+.PHONY : Gui/WizardTab.s
+
+# target to generate assembly for a file
+Gui/WizardTab.cpp.s:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/WizardTab.cpp.s
+.PHONY : Gui/WizardTab.cpp.s
+
 Gui/libraries/RichText.obj: Gui/libraries/RichText.cpp.obj
 
 .PHONY : Gui/libraries/RichText.obj
@@ -1139,6 +1166,9 @@ help:
 	@echo ... Gui/SpellTab.obj
 	@echo ... Gui/SpellTab.i
 	@echo ... Gui/SpellTab.s
+	@echo ... Gui/WizardTab.obj
+	@echo ... Gui/WizardTab.i
+	@echo ... Gui/WizardTab.s
 	@echo ... Gui/libraries/RichText.obj
 	@echo ... Gui/libraries/RichText.i
 	@echo ... Gui/libraries/RichText.s
