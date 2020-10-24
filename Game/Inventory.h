@@ -30,6 +30,9 @@ public:
     void setCurrentMaxSpace(int currentMaxSpace);
     int getCurrentMaxSpace();
 
+    void expandInventorySpace(int n);
+    bool isExpandable();
+
     int getItemsSize();
     Item* getItem(int n);
     Item* getItem(std::string name);

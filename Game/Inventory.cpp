@@ -137,6 +137,18 @@ Item *Inventory::getItem(std::string name) {
     return nullptr;
 }
 
+void Inventory::expandInventorySpace(int n) {
+    if(*this->currentMaxSpace + n > MAX_SPACE){
+        *this->currentMaxSpace = MAX_SPACE;
+    }else{
+        *this->currentMaxSpace += n;
+    }
+}
+
+bool Inventory::isExpandable() {
+    return *this->currentMaxSpace < MAX_SPACE;
+}
+
 
 
 

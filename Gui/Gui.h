@@ -201,6 +201,10 @@ namespace gui{
         gui::Button* buyBtn;
         Item* item;
 
+        sf::RectangleShape itemInfoContainer;
+        sfe::RichText itemInfoLbl;
+        bool mouseHoverImage;
+
         unsigned price;
         std::string key;
         bool equipment;
@@ -223,6 +227,7 @@ namespace gui{
 
 
         //functions
+        void updateItemInfoContainerPos(const sf::Vector2f& mousePos);
         bool isPressed();
         void update(const sf::Vector2f &mousePos);
         void render(sf::RenderTarget& target);

@@ -67,7 +67,7 @@ void GameState::initPlayers() {
     this->player = new Player(300.f, 300.f, 2.f, 2.f,
                               this->textures["PLAYER_SHEET"]);
     this->player->setGold(0);
-    this->player->getInventory()->setCurrentMaxSpace(90);
+    this->player->getInventory()->setCurrentMaxSpace(35);
 
     // legge i valori di default del Stats dal Data/Stats.txt
     this->rsHandler->loadPlayerStatsTxt(this->player->getPlayerStats());

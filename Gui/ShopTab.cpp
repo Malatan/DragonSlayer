@@ -106,18 +106,43 @@ void ShopTab::initItemList() {
                                             200, "Common", 10, 3,
                                             0, 0, 0, 0, 0.f, 0.f,
                                             1, false);
+    this->items["UpgradeInventory"] = new Item("Upgrade", "UpgradeInventory", "Gives you extra 5 inventory capacity",
+                                            1500, "Legendary", 0, 30,
+                                            0, 0, 0, 0, 0.f, 0.f,
+                                            1, false);
 }
 
 
 //functions
 void ShopTab::buyItem(Item* item, const unsigned price) {
     if(this->player->getGold() >= price){
-        this->player->minusGold(price);
         Item* it = new Item(this->items[item->getName()]);
-        this->gState->addItem(it);
-        this->gState->updateTabsGoldLbl();
-        this->gState->getPopUpTextComponent()->addPopUpTextCenter(DEFAULT,
-                "1 "+item->getName(),"You bought","for "+to_string(price)+" gold");
+        if(it->getName() == "UpgradeInventory"){
+            if(this->player->getGold() < it->getValue()){
+                this->gState->getPopUpTextComponent()->addPopUpTextCenter(DEFAULT,
+                        "Insufficient Gold","","");
+            } else if(!this->player->getInventory()->isExpandable()){
+                this->gState->getPopUpTextComponent()->addPopUpTextCenter(DEFAULT,
+                        "Your inventory cannot be expanded anymore(Limit:" +
+                        to_string(this->player->getInventory()->MAX_SPACE),"",")");
+            } else{
+                this->player->minusGold(price);
+                this->player->getInventory()->expandInventorySpace(5);
+                this->gState->updateTabsGoldLbl();
+                this->gState->updateTabsInvSpaceLbl();
+                this->gState->getPopUpTextComponent()->addPopUpTextCenter(DEFAULT,
+                        to_string(this->player->getInventory()->getCurrentMaxSpace()-5)+"->","Inventory capacity +5 (",
+                        to_string(this->player->getInventory()->getCurrentMaxSpace()));
+            }
+
+        }else{
+            this->player->minusGold(price);
+            this->gState->addItem(it);
+            this->gState->updateTabsGoldLbl();
+            this->gState->getPopUpTextComponent()->addPopUpTextCenter(DEFAULT,
+                    "1 "+item->getName(),"You bought","for "+to_string(price)+" gold");
+        }
+
     }else{
         this->gState->getPopUpTextComponent()->addPopUpTextCenter(DEFAULT,
                 "Insufficient Gold","","");
@@ -167,8 +192,8 @@ void ShopTab::render(sf::RenderTarget &target) {
     target.draw(this->containerTitle);
     target.draw(this->playerInvSpaceLbl);
     target.draw(this->playerGoldLbl);
-    for(auto i : this->shopSlots){
-        i->render(target);
+    for (auto it = this->shopSlots.rbegin(); it != this->shopSlots.rend(); ++it){
+        (*it)->render(target);
     }
 }
 

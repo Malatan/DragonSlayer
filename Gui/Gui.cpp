@@ -690,6 +690,8 @@ unsigned gui::ConfirmDialog::getSellValue() {
 gui::ShopSlot::ShopSlot(float width, float height, float pos_x, float pos_y, std::string key,
                         unsigned price, sf::Font* font, Item* item) : key(key), item(item){
 
+    this->mouseHoverImage = false;
+
     this->shape.setSize(sf::Vector2f(width, height));
     this->shape.setPosition(pos_x, pos_y);
 
@@ -698,7 +700,7 @@ gui::ShopSlot::ShopSlot(float width, float height, float pos_x, float pos_y, std
     this->priceLbl.setString(to_string(this->price));
     this->priceLbl.setFillColor(sf::Color::Yellow);
     this->priceLbl.setFont(*font);
-    this->priceLbl.setCharacterSize(20.f);
+    this->priceLbl.setCharacterSize(20);
     this->priceLbl.setPosition(this->shape.getPosition().x + 4.f,
             this->shape.getPosition().y + height - this->priceLbl.getGlobalBounds().height * 1.8f);
 
@@ -716,6 +718,21 @@ gui::ShopSlot::ShopSlot(float width, float height, float pos_x, float pos_y, std
             sf::Color(130, 130, 130));
     this->buyBtn->setBorderColor(sf::Color(90,90,90));
     this->buyBtn->setBorderLineThickness(2.f);
+
+    this->itemInfoContainer.setFillColor(sf::Color(90,90,90));
+    this->itemInfoContainer.setOutlineColor(sf::Color(60,60,60));
+    this->itemInfoContainer.setOutlineThickness(3.f);
+
+    this->itemInfoLbl.setFont(*font);
+    this->itemInfoLbl.setCharacterSize(18);
+    this->itemInfoLbl << sf::Text::Bold << item->getName() << "\n"
+    << "Type: " << item->getItemType() << "\n"
+    << item->getRarity() << "\n"
+    << sf::Text::Italic << "' " << item->getDescription() << " '";
+
+    this->itemInfoContainer.setSize(sf::Vector2f(this->itemInfoLbl.getGlobalBounds().width + 10.f,
+                                                  this->itemInfoLbl.getGlobalBounds().height + 15.f));
+
 }
 
 gui::ShopSlot::~ShopSlot() {
@@ -723,7 +740,13 @@ gui::ShopSlot::~ShopSlot() {
 }
 
 //accessors
+Item *gui::ShopSlot::getItem() const {
+    return this->item;
+}
 
+const unsigned gui::ShopSlot::getPrice() const {
+    return this->price;
+}
 
 //modifiers
 
@@ -750,28 +773,36 @@ void gui::ShopSlot::setSlotTexture(const sf::Texture *texture, float size) {
 
 }
 
-
 //functions
 bool gui::ShopSlot::isPressed() {
     return this->buyBtn->isPressed();
 }
 
+void gui::ShopSlot::updateItemInfoContainerPos(const sf::Vector2f &mousePos) {
+    this->itemInfoContainer.setPosition(mousePos.x + 10.f,
+                                         mousePos.y);
+    this->itemInfoLbl.setPosition(this->itemInfoContainer.getPosition().x + 5.f,
+                                   this->itemInfoContainer.getPosition().y);
+}
+
 void gui::ShopSlot::update(const sf::Vector2f &mousePos) {
     this->buyBtn->update(mousePos);
+    if(this->shape.getGlobalBounds().contains(mousePos)){
+        this->mouseHoverImage = true;
+        this->updateItemInfoContainerPos(mousePos);
+    }else{
+        this->mouseHoverImage = false;
+    }
 }
 
 void gui::ShopSlot::render(sf::RenderTarget &target) {
     target.draw(this->shape);
     target.draw(this->priceLbl);
     this->buyBtn->render(target);
-}
-
-Item *gui::ShopSlot::getItem() const {
-    return this->item;
-}
-
-const unsigned gui::ShopSlot::getPrice() const {
-    return this->price;
+    if(this->mouseHoverImage){
+        target.draw(this->itemInfoContainer);
+        target.draw(this->itemInfoLbl);
+    }
 }
 
 /*
@@ -964,7 +995,6 @@ gui::WizardSpellSlot::~WizardSpellSlot() {
 Spell *gui::WizardSpellSlot::getSpell() {
     return this->spell;
 }
-
 
 //accessors
 sfe::RichText *gui::WizardSpellSlot::getSpellDescriptionLbl() {
