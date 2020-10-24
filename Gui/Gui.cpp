@@ -234,6 +234,10 @@ bool gui::Button::contains(const sf::Vector2f &mousePos) {
     return this->shape.getGlobalBounds().contains(mousePos);
 }
 
+void gui::Button::setBackgroundFilLColor(sf::Color color) {
+    this->shape.setFillColor(color);
+}
+
 
 /*
  *
@@ -861,3 +865,195 @@ sfe::RichText* gui::SpellSlot::getSpellInfoLbl() {
 Spell *gui::SpellSlot::getSpell() {
     return this->spell;
 }
+
+/*
+ *                      WIZARDSPELLSLOT
+ *
+ */
+
+//constructors/desctructor
+gui::WizardSpellSlot::WizardSpellSlot(float width, float height, float pos_x, float pos_y, Spell *spell,
+                                      const sf::Texture *texture, float rect_size, sf::Font *font,
+                                      unsigned int char_size) : spell(spell){
+    //init variables
+    this->mouseHoverImage = false;
+
+    //init containers
+    this->shape.setSize(sf::Vector2f(width, height));
+    this->shape.setPosition(pos_x, pos_y);
+    this->shape.setOutlineThickness(4.f);
+    switch(spell->getTypeEnum()){
+        case FIRE:
+            this->shape.setOutlineColor(sf::Color(235, 70, 59, 100));
+            this->shape.setFillColor(sf::Color(235, 70, 59, 50));
+            this->spellImage.setOutlineColor(sf::Color(235, 70, 59));
+            break;
+        case WATER:
+            this->shape.setOutlineColor(sf::Color(50, 83, 173, 100));
+            this->shape.setFillColor(sf::Color(50, 83, 173, 50));
+            this->spellImage.setOutlineColor(sf::Color(50, 83, 173));
+            break;
+        case ICE:
+            this->shape.setOutlineColor(sf::Color(92, 193, 247, 100));
+            this->shape.setFillColor(sf::Color(92, 193, 247, 50));
+            this->spellImage.setOutlineColor(sf::Color(92, 193, 247));
+            break;
+        case ELECTRIC:
+            this->shape.setOutlineColor(sf::Color(126, 0, 222, 100));
+            this->shape.setFillColor(sf::Color(126, 0, 222, 50));
+            this->spellImage.setOutlineColor(sf::Color(126, 0, 222));
+            break;
+        case HOLY:
+            this->shape.setOutlineColor(sf::Color(255, 254, 173, 100));
+            this->shape.setFillColor(sf::Color(255, 254, 173, 50));
+            this->spellImage.setOutlineColor(sf::Color(255, 254, 173));
+            break;
+        default:
+            this->shape.setOutlineColor(sf::Color::White);
+            break;
+    }
+
+    this->spellImage.setSize(sf::Vector2f(height - 20.f, height - 20.f));
+    this->spellImage.setPosition(this->shape.getPosition().x + 10.f,
+                                 this->shape.getPosition().y + 10.f);
+    this->spellImage.setTexture(texture);
+    this->spellImage.setTextureRect(sf::IntRect(
+            spell->getIntRectX() * rect_size,
+            spell->getIntRectY() * rect_size,
+            rect_size, rect_size));
+    this->spellImage.setOutlineThickness(3.f);
+    this->spellInfoContainer.setFillColor(sf::Color(90,90,90));
+    this->spellInfoContainer.setOutlineColor(sf::Color(60,60,60));
+    this->spellInfoContainer.setOutlineThickness(3.f);
+
+    //init texts
+    this->slotDescriptionLbl.setFont(*font);
+    this->slotDescriptionLbl.setCharacterSize(char_size);
+    this->slotDescriptionLbl.setPosition(this->spellImage.getPosition().x + this->spellImage.getGlobalBounds().width + 10.f,
+            this->spellImage.getPosition().y);
+
+    this->spellInfoLbl.setFont(*font);
+    this->spellInfoLbl.setCharacterSize(char_size);
+
+    //init btn
+    this->slotBtn = new gui::Button(
+            this->spellImage.getPosition().x + this->shape.getGlobalBounds().width - this->spellImage.getGlobalBounds().width - 40.f,
+            this->spellImage.getPosition().y + 10.f,
+            height, height - 40.f,
+            font, "upgrade", 18.f,
+            sf::Color(255, 255, 255, 255),
+            sf::Color(160, 160, 160),
+            sf::Color(20, 20, 20, 50),
+
+            sf::Color(70, 70, 70, 0),
+            sf::Color(150, 150, 150, 70),
+            sf::Color(130, 130, 130));
+    this->slotBtn->setBorderColor(sf::Color(120,120,120));
+    this->slotBtn->setBackgroundFilLColor(sf::Color(120,120,120, 120));
+    this->slotBtn->setBorderLineThickness(2.f);
+
+    this->updateBtnText();
+    this->updateSpellInfo();
+
+}
+
+gui::WizardSpellSlot::~WizardSpellSlot() {
+    delete this->slotBtn;
+}
+
+Spell *gui::WizardSpellSlot::getSpell() {
+    return this->spell;
+}
+
+
+//accessors
+sfe::RichText *gui::WizardSpellSlot::getSpellDescriptionLbl() {
+    return &this->slotDescriptionLbl;
+}
+
+sfe::RichText *gui::WizardSpellSlot::getSpellInfoLbl() {
+    return &this->spellInfoLbl;
+}
+
+//functions
+bool gui::WizardSpellSlot::isBtnPressed() {
+    return this->slotBtn->isPressed();
+}
+
+void gui::WizardSpellSlot::updateBtnText() {
+    if(!spell->isLearned()){
+        this->slotBtn->setText("Learn");
+    }else if(spell->isMaxed() && spell->isLearned()){
+        this->slotBtn->setText("Lv.Max");
+        this->slotBtn->setButtonState(BTN_IDLE);
+        this->slotBtn->setDisabled(true);
+    }else{
+        this->slotBtn->setText("Upgrade");
+    }
+}
+
+void gui::WizardSpellSlot::updateSpellInfo() {
+    this->spellInfoLbl.clear();
+    if(spell->isLearned() && spell->isMaxed()){
+        this->spellInfoLbl << sf::Text::Bold << spell->getName() << sf::Text::Regular
+        << "(Lv" << to_string(spell->getLevel()) << ")"
+        << "\n Damage: " << sf::Color(255, 60, 31) << to_string(spell->getFinalDamage()) << sf::Color::White
+        << "\n Cost: " << sf::Color::Blue << to_string(spell->getFinalCost()) << " mp" << sf::Color::White;
+    } else if(spell->isLearned()){
+        this->spellInfoLbl << sf::Text::Bold << spell->getName() << sf::Text::Regular
+        << "(Lv" << to_string(spell->getLevel()) << " -> Lv" << to_string(spell->getLevel()+1)<< ")"
+        << "\n Damage: " << sf::Color(255, 60, 31) << to_string(spell->getFinalDamage())
+        << " -> " << to_string(spell->getDamage()*(spell->getLevel()+1)) << sf::Color::White
+        << "\n Cost: " << sf::Color::Blue << to_string(spell->getFinalCost())
+        << " -> " << to_string(spell->getCost()*(spell->getLevel()+1)) << " mp" << sf::Color::White;
+    } else if(!spell->isLearned()){
+        this->spellInfoLbl << sf::Text::Bold << spell->getName() << sf::Text::Regular
+        << "(Lv" << to_string(spell->getLevel()-1) << " -> Lv1)"
+        << "\n Damage: " << sf::Color(255, 60, 31)
+        << "0 -> " << to_string(spell->getDamage()) << sf::Color::White
+        << "\n Cost: " << sf::Color::Blue
+        << "0 -> " << to_string(spell->getCost()) << " mp" << sf::Color::White;
+    }
+    this->spellInfoLbl << "\n Cooldown: " << to_string(spell->getCooldown()) << " turn/s"
+                       << "\n " << sf::Text::Italic << spell->getDescription();
+    this->spellInfoContainer.setSize(sf::Vector2f(this->spellInfoLbl.getGlobalBounds().width + 10.f,
+                                                 this->spellInfoLbl.getGlobalBounds().height + 15.f));
+}
+
+void gui::WizardSpellSlot::updateSpellInfoContainerPos(const sf::Vector2f& mousePos) {
+    this->spellInfoContainer.setPosition(mousePos.x,
+            mousePos.y - this->spellInfoContainer.getGlobalBounds().height);
+    this->spellInfoLbl.setPosition(this->spellInfoContainer.getPosition().x + 5.f,
+                                  this->spellInfoContainer.getPosition().y);
+}
+
+void gui::WizardSpellSlot::update(const sf::Vector2f &mousePos) {
+    this->slotBtn->update(mousePos);
+    if(this->spellImage.getGlobalBounds().contains(mousePos)){
+        this->mouseHoverImage = true;
+        this->updateSpellInfoContainerPos(mousePos);
+    }else{
+        this->mouseHoverImage = false;
+    }
+}
+
+void gui::WizardSpellSlot::render(sf::RenderTarget &target) {
+    target.draw(this->shape);
+    target.draw(this->spellImage);
+    target.draw(this->slotDescriptionLbl);
+    this->slotBtn->render(target);
+    if(this->mouseHoverImage){
+        target.draw(this->spellInfoContainer);
+        target.draw(this->spellInfoLbl);
+    }
+}
+
+
+
+
+
+
+
+
+
+

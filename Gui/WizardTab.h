@@ -7,6 +7,7 @@
 
 #include "SpellTab.h"
 
+
 class WizardTab {
 private:
     sf::RectangleShape background;
@@ -19,7 +20,9 @@ private:
     std::map<std::string, sf::Texture> textures;
     Player* player;
     GameState* gState;
+    SpellComponent* spellComponent;
 
+    std::vector<gui::WizardSpellSlot*> spellSlots;
 protected:
 
 public:
@@ -28,7 +31,11 @@ public:
             State *state, std::map<std::string, sf::Texture> textures);
     virtual ~WizardTab();
 
+    void initWizardSpellSlots();
+
     //functions
+    void updateSpellLevel(gui::WizardSpellSlot* spellSlot);
+    void updateSpellInfo();
     bool closeTabByClicking(const sf::Vector2f& mousePos);
     void updateGoldLbl();
     void update(const sf::Vector2f& mousePos);

@@ -198,13 +198,16 @@ bool ResourcesHandler::loadSpellList(SpellComponent *spellComponent) {
             file >> app;
             spell->setLearned(std::stoi(app));
             file >> app;
+            spell->setMaxLevel(std::stoi(app));
+            file >> app;
+            spell->setLearnCost(std::stoi(app));
+            file >> app;
             spell->setIntRectX(std::stoi(app));
             file >> app;
             spell->setIntRectY(std::stoi(app));
             spell->setLevel(1);
             spellComponent->addSpell(spell);
-            if(spell->isLearned())
-                spellComponent->addPlayerSpell(spell);
+            spellComponent->addPlayerSpell(spell);
             count--;
         }
     }

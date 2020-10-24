@@ -343,6 +343,9 @@ SpellComponent *GameState::getSpellComponent() {
     return this->spellComponent;
 }
 
+SpellTab *GameState::getSpellTab() {
+    return this->spellTab;
+}
 //functions
 void GameState::addItem(Item *item) {
     if(this->player->getInventory()->addItem(item)){
@@ -647,6 +650,8 @@ void GameState::render(sf::RenderTarget* target) {
 
     this->popUpTextComponent->render(*target);
 }
+
+
 
 
 

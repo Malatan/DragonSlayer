@@ -33,6 +33,8 @@ private:
     int aoe;        //NUMERO DI NEMICI COLPIBILI DALLA SPELL
     bool learned;
     int level;
+    int maxLevel;
+    int learnCost;
 
     int intRectX;
     int intRectY;
@@ -47,6 +49,10 @@ public:
     void setDescription(string description);
     int getLevel();
     void setLevel(int level);
+    int getMaxLevel();
+    void setMaxLevel(int max_level);
+    int getLearnCost();
+    void setLearnCost(int learnCost);
     int getCost();
     void setCost(int cost);
     int getCooldown();
@@ -62,7 +68,10 @@ public:
     int getIntRectY();
     void setIntRectY(int intRectY);
     const std::string toString() const;
-
+    bool isMaxed();
+    void levelUp();
+    int getFinalDamage();
+    int getFinalCost();
     Spell();
     Spell(Spell* spell);
     virtual ~Spell();

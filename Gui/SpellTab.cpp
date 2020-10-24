@@ -16,15 +16,17 @@ void SpellTab::initSpellSlots() {
     float yMultiplier = 0;
     int count = 0;
     for(auto i : this->spellComponent->getPlayerSpells()){
-        if((count % max_per_row) == 0 && count != 0){
-            yMultiplier ++;
+        if(i->isLearned()){
+            if((count % max_per_row) == 0 && count != 0){
+                yMultiplier ++;
+            }
+            this->spellSlots.push_back(new gui::SpellSlot(350.f, 150.f,
+                    this->container.getPosition().x + 35.f + (modifierX * (count % max_per_row)),
+                    this->container.getPosition().y + 80.f + (modifierY * yMultiplier) ,
+                    i, &this->textures["ITEMS_SHEET"], 34.f, this->font, 18
+            ));
+            count++;
         }
-        this->spellSlots.push_back(new gui::SpellSlot(350.f, 150.f,
-                this->container.getPosition().x + 35.f + (modifierX * (count % max_per_row)),
-                this->container.getPosition().y + 80.f + (modifierY * yMultiplier) ,
-                i, &this->textures["ITEMS_SHEET"], 34.f, this->font, 18
-                ));
-        count++;
     }
 }
 
@@ -94,19 +96,19 @@ void SpellTab::updateSpellsInfoLbl() {
             case HOLY:
                 (i->getSpellInfoLbl())->clear();
                 *(i->getSpellInfoLbl()) << sf::Text::Bold << i->getSpell()->getName() << "(Lv." << to_string(i->getSpell()->getLevel()) << ")\n"
-                << "Effect: " << sf::Color(255, 60, 31) << to_string(i->getSpell()->getDamage())
-                << " x "<< this->dmgMultiplier << " = " << to_string((int)(i->getSpell()->getDamage()*this->player->getPlayerStats()->getSpellDmgMultiplier()))
+                << sf::Text::Regular << "Effect: " << sf::Color(255, 60, 31) << to_string(i->getSpell()->getFinalDamage())
+                << " x "<< this->dmgMultiplier << " = " << to_string((int)(i->getSpell()->getFinalDamage()*this->player->getPlayerStats()->getSpellDmgMultiplier()))
                 << "\n" << sf::Color::White
-                << "Cost: " << sf::Color::Blue << to_string(i->getSpell()->getCost()) << " mp" << sf::Color::White
+                << "Cost: " << sf::Color::Blue << to_string(i->getSpell()->getFinalCost()) << " mp" << sf::Color::White
                 << "\nCooldown: " << to_string(i->getSpell()->getCooldown()) << " turn/s";
                 break;
             default:
                 (i->getSpellInfoLbl())->clear();
                 *(i->getSpellInfoLbl()) << sf::Text::Bold << i->getSpell()->getName() << "(Lv." << to_string(i->getSpell()->getLevel()) << ")\n"
-                << "Damage: " << sf::Color(255, 60, 31) << to_string(i->getSpell()->getDamage())
-                << " x "<< this->dmgMultiplier << " = " << to_string((int)(i->getSpell()->getDamage()*this->player->getPlayerStats()->getSpellDmgMultiplier()))
+                << sf::Text::Regular << "Damage: " << sf::Color(255, 60, 31) << to_string(i->getSpell()->getFinalDamage())
+                << " x "<< this->dmgMultiplier << " = " << to_string((int)(i->getSpell()->getFinalDamage()*this->player->getPlayerStats()->getSpellDmgMultiplier()))
                 << "\n" << sf::Color::White
-                << "Cost: " << sf::Color::Blue << to_string(i->getSpell()->getCost()) << " mp" << sf::Color::White
+                << "Cost: " << sf::Color::Blue << to_string(i->getSpell()->getFinalCost()) << " mp" << sf::Color::White
                 << "\nCooldown: " << to_string(i->getSpell()->getCooldown()) << " turn/s"
                 << "\nAoe: " << to_string(i->getSpell()->getAoe()) << " target/s";;
                 break;

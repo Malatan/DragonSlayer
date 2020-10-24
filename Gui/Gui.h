@@ -87,6 +87,7 @@ namespace gui{
         void setDisabled(bool b);
         void setBackgroundTexture(const sf::Texture* texture);
         void setBackbgroundDisabled(bool b);
+        void setBackgroundFilLColor(sf::Color color);
 
         //functions
         bool contains(const sf::Vector2f& mousePos);
@@ -254,6 +255,41 @@ namespace gui{
         void update(const sf::Vector2f& mousePos);
         void render(sf::RenderTarget& target);
 
+    };
+
+    class WizardSpellSlot{
+    private:
+        sf::RectangleShape shape;
+        sf::RectangleShape spellImage;
+        sfe::RichText slotDescriptionLbl;
+        Button* slotBtn;
+
+        sf::RectangleShape spellInfoContainer;
+        sfe::RichText spellInfoLbl;
+
+        Spell* spell;
+        bool mouseHoverImage;
+    protected:
+
+    public:
+        //constructors/destructor
+        WizardSpellSlot(float width, float height, float pos_x, float pos_y, Spell* spell,
+                  const sf::Texture* texture, float rect_size, sf::Font* font, unsigned int char_size);
+        virtual ~WizardSpellSlot();
+
+        //accessor
+        sfe::RichText* getSpellDescriptionLbl();
+        sfe::RichText* getSpellInfoLbl();
+        Spell* getSpell();
+
+
+        //functions
+        bool isBtnPressed();
+        void updateBtnText();
+        void updateSpellInfo();
+        void updateSpellInfoContainerPos(const sf::Vector2f& mousePos);
+        void update(const sf::Vector2f& mousePos);
+        void render(sf::RenderTarget& target);
     };
 
     class ConfirmDialog{

@@ -86,6 +86,7 @@ public:
     BuffComponent* getBuffComponent();
     PopUpTextComponent* getPopUpTextComponent();
     SpellComponent* getSpellComponent();
+    SpellTab* getSpellTab();
 
     //functions
     void addItem(Item* item);

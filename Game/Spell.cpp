@@ -10,7 +10,8 @@ Spell::Spell() {
 
 Spell::Spell(Spell *spell) : spellType(spell->spellType), name(spell->name), type(spell->type),
 description(spell->description), cost(spell->cost), cooldown(spell->cooldown), damage(spell->damage),
-aoe(spell->aoe), learned(spell->learned), intRectX(spell->intRectX), intRectY(spell->intRectY), level(spell->level){
+aoe(spell->aoe), learned(spell->learned), intRectX(spell->intRectX), intRectY(spell->intRectY), level(spell->level),
+learnCost(spell->learnCost), maxLevel(spell->maxLevel){
 }
 
 Spell::~Spell() {
@@ -64,7 +65,7 @@ void Spell::setType(string type) {
 }
 
 int Spell::getCost() {
-    return this->cost*level;
+    return this->cost;
 }
 
 void Spell::setCost(int cost) {
@@ -80,7 +81,7 @@ void Spell::setCooldown(int cooldown) {
 }
 
 int Spell::getDamage() {
-    return damage*level;
+    return damage;
 }
 
 void Spell::setDamage(int damage) {
@@ -117,13 +118,15 @@ const std::string Spell::toString() const {
        << " Type: " << this->type
        << "(" << this->spellType << ")"
        << " Lv: " << this->level
+       << "(max lv" << this->maxLevel << ")"
        << " Cost: " << this->cost
        << " CD: " << this->cooldown
        << " Damage: " << this->damage
        << " Aoe: " << this->aoe
        << " Learned: " << std::boolalpha << this->learned
        << " IntRect: " << this->intRectX << "-" << this->intRectY
-       << " description: " << this->description;
+       << " description: " << this->description
+       << " learn cost: " << this->learnCost;
 
     return ss.str();
 }
@@ -137,10 +140,44 @@ int Spell::getLevel() {
 }
 
 void Spell::setLevel(int level) {
-    if(level > 5)
-        this->level = 5;
+    if(level > this->maxLevel)
+        this->level = this->maxLevel;
     else
         this->level = level;
+}
+
+int Spell::getLearnCost() {
+    return this->learnCost;
+}
+
+void Spell::setLearnCost(int learnCost) {
+    this->learnCost = learnCost;
+}
+
+int Spell::getMaxLevel() {
+    return this->maxLevel;
+}
+
+void Spell::setMaxLevel(int max_level) {
+    this->maxLevel = max_level;
+}
+
+bool Spell::isMaxed() {
+    if(this->level == this->maxLevel)
+        return true;
+    return false;
+}
+
+void Spell::levelUp() {
+    this->setLevel(this->level+1);
+}
+
+int Spell::getFinalDamage() {
+    return this->damage*this->level;
+}
+
+int Spell::getFinalCost() {
+    return this->cost*this->level;
 }
 
 
