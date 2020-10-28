@@ -65,6 +65,9 @@ void MovementComponent::update(const float &dt) {
     //decelera lo sprite e controlla la velocita massima
     //fa movere lo sprite
 
+    //controllo hitbox collisions
+
+
     if(this->velocity.x > 0.f){//controlla per x positiva
         //controlla velocita massima per x positiva
         if(this->velocity.x > this->maxVelocity){
@@ -111,4 +114,18 @@ void MovementComponent::update(const float &dt) {
 
     //movimento finale
     this->sprite.move(this->velocity * dt);
+}
+
+void MovementComponent::stopVelocity() {
+    this->velocity.x = 0.f;
+    this->velocity.y = 0.f;
+
+}
+
+void MovementComponent::stopVelocityX() {
+    this->velocity.x = 0.f;
+}
+
+void MovementComponent::stopVelocityY() {
+    this->velocity.y = 0.f;
 }
