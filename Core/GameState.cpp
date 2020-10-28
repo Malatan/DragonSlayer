@@ -64,7 +64,7 @@ void GameState::initPauseMenu() {
 }
 
 void GameState::initPlayers() {
-    this->player = new Player(690.f, 120.f, 2.f, 2.f,
+    this->player = new Player(720.f, 130.f, 2.f, 2.f,
                               this->textures["PLAYER_SHEET"]);
     this->player->setGold(0);
     this->player->getInventory()->setCurrentMaxSpace(35);

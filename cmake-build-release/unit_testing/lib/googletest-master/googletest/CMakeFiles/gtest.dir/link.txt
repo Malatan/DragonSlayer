@@ -1,2 +1,2 @@
-C:\MinGW\bin\ar.exe qc ..\..\..\..\lib\libgtest.a  CMakeFiles/gtest.dir/src/gtest-all.cc.obj
-C:\MinGW\bin\ranlib.exe ..\..\..\..\lib\libgtest.a
+C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\ar.exe qc ..\..\..\..\lib\libgtest.a  CMakeFiles/gtest.dir/src/gtest-all.cc.obj
+C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\ranlib.exe ..\..\..\..\lib\libgtest.a

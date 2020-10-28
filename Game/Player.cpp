@@ -25,7 +25,7 @@ Player::Player(float x, float y, float scale_x, float scale_y, sf::Texture& text
     this->sprite.setScale(this->scale);
 
     this->createAnimationComponent(texture_sheet);
-    this->createMovementComponent(120.f, 8.f, 4.f);
+    this->createMovementComponent(200.f, 14.f, 6.f);
     this->createHitboxComponent(this->sprite, 46, 26.f, 50.f, 65.f);
     this->initAnimations();
 

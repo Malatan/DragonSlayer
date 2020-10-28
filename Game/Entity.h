@@ -49,6 +49,7 @@ public:
     virtual void move(const float& dt, const float x, const float y);
     virtual void setPositionY(const float y);
     virtual void setPositionX(const float x);
+    virtual void setSpritePositon(const sf::Vector2f pos);
 
     virtual void update(const float& dt);
     virtual void render(sf::RenderTarget& target);

@@ -75,53 +75,51 @@ void Map::updateTileCollision(Entity * entity, const float & dt) {
             sf::FloatRect playerBounds = entity->getGlobalBounds();
             sf::FloatRect wallBounds = this->tiles[y][x]->getGlobalBounds();
             sf::FloatRect nextPositionBounds = entity->getNextPositionBounds(dt);
-
-            if (!this->tiles[y][x]->IsTraversable() &&
-                this->tiles[y][x]->intersects(nextPositionBounds)
-                    ) {
-                //Bottom collision
-                if (playerBounds.top < wallBounds.top
-                    && playerBounds.top + playerBounds.height < wallBounds.top + wallBounds.height
-                    && playerBounds.left < wallBounds.left + wallBounds.width
-                    && playerBounds.left + playerBounds.width > wallBounds.left
-                        ){
-                    std::cout<<"bottom \n";
-                    entity->stopVelocityY();
-                    entity->setPositionY(wallBounds.top - playerBounds.height);
-                }
-                //Top collision
-                else if (playerBounds.top > wallBounds.top
-                         && playerBounds.top + playerBounds.height > wallBounds.top + wallBounds.height
-                         && playerBounds.left < wallBounds.left + wallBounds.width
-                         && playerBounds.left + playerBounds.width > wallBounds.left
-                        ){
-                    std::cout<<"top \n";
-                    entity->stopVelocityY();
-                    entity->setPositionY(wallBounds.top + wallBounds.height);
-                }
-                    //Right collision
-                if (playerBounds.left < wallBounds.left
-                         && playerBounds.left + playerBounds.width < wallBounds.left + wallBounds.width
-                         && playerBounds.top < wallBounds.top + wallBounds.height
-                         && playerBounds.top + playerBounds.height > wallBounds.top
-                        ){
-                        std::cout << "right \n";
-                        entity->stopVelocityX();
-                        entity->setPositionX(wallBounds.left - playerBounds.width);
-                }
-                //left collision
-                else if (playerBounds.left > wallBounds.left
-                         && playerBounds.left + playerBounds.width > wallBounds.left + wallBounds.width
-                         && playerBounds.top < wallBounds.top + wallBounds.height
-                         && playerBounds.top + playerBounds.height > wallBounds.top
-                        ){
-                        std::cout << "left \n";
-                        entity->stopVelocityX();
-                        entity->setPositionX(wallBounds.left + wallBounds.width);
-
-                }
-            }
-        }
+           if (!this->tiles[y][x]->IsTraversable() && this->tiles[y][x]->intersects(playerBounds)) {
+               /*   //Bottom collision
+                  if (playerBounds.top < wallBounds.top
+                      && playerBounds.top + playerBounds.height < wallBounds.top + wallBounds.height
+                      && playerBounds.left < wallBounds.left + wallBounds.width
+                      && playerBounds.left + playerBounds.width > wallBounds.left
+                          ){
+                      std::cout<<"bottom \n";
+                      entity->stopVelocityY();
+                      entity->setPositionY(wallBounds.top - playerBounds.height);
+                  }
+                  //Top collision
+                  else if (playerBounds.top > wallBounds.top
+                           && playerBounds.top + playerBounds.height > wallBounds.top + wallBounds.height
+                           && playerBounds.left < wallBounds.left + wallBounds.width
+                           && playerBounds.left + playerBounds.width > wallBounds.left
+                          ){
+                      std::cout<<"top \n";
+                      entity->stopVelocityY();
+                      entity->setPositionY(wallBounds.top + wallBounds.height);
+                  }
+                      //Right collision
+                  if (playerBounds.left < wallBounds.left
+                           && playerBounds.left + playerBounds.width < wallBounds.left + wallBounds.width
+                           && playerBounds.top < wallBounds.top + wallBounds.height
+                           && playerBounds.top + playerBounds.height > wallBounds.top
+                          ){
+                          std::cout << "right \n";
+                          entity->stopVelocityX();
+                          entity->setPositionX(wallBounds.left - playerBounds.width);
+                  }
+                  //left collision
+                  else if (playerBounds.left > wallBounds.left
+                           && playerBounds.left + playerBounds.width > wallBounds.left + wallBounds.width
+                           && playerBounds.top < wallBounds.top + wallBounds.height
+                           && playerBounds.top + playerBounds.height > wallBounds.top
+                          ){
+                          std::cout << "left \n";
+                          entity->stopVelocityX();
+                          entity->setPositionX(wallBounds.left + wallBounds.width);
+                  }*/
+                entity->stopVelocity();
+                entity->setSpritePositon(entity->getMovementComponent()->getPreviousPosition());
+           }
+         }
     }
 
 

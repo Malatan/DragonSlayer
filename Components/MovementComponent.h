@@ -25,7 +25,7 @@ private:
     float deceleration;
 
     sf::Vector2f velocity;
-
+    sf::Vector2f previousPosition;
 
 protected:
 
@@ -37,6 +37,7 @@ public:
     //accessors
     const float& getMaxVelocity() const;
     const sf::Vector2f& getVelocity() const;
+    const sf::Vector2f& getPreviousPosition() const;
 
     //functions
     const bool getState(const short unsigned state) const;

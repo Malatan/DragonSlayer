@@ -7,7 +7,7 @@
 MovementComponent::MovementComponent(sf::Sprite& sprite,
                                      float maxVelocity, float acceleration, float deceleration)
         : sprite(sprite), maxVelocity(maxVelocity), acceleration(acceleration), deceleration(deceleration){
-
+    this->previousPosition = this->sprite.getPosition();
 }
 
 MovementComponent::~MovementComponent() {
@@ -113,6 +113,7 @@ void MovementComponent::update(const float &dt) {
     }
 
     //movimento finale
+    this->previousPosition = this->sprite.getPosition();
     this->sprite.move(this->velocity * dt);
 }
 
@@ -128,4 +129,8 @@ void MovementComponent::stopVelocityX() {
 
 void MovementComponent::stopVelocityY() {
     this->velocity.y = 0.f;
+}
+
+const sf::Vector2f &MovementComponent::getPreviousPosition() const {
+    return this->previousPosition;
 }

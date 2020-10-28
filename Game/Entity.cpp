@@ -157,6 +157,10 @@ void Entity::setPositionX(const float x) {
         this->sprite.setPosition(x, this->sprite.getPosition().y);
 }
 
+void Entity::setSpritePositon(const sf::Vector2f pos) {
+    this->sprite.setPosition(pos);
+}
+
 
 
 

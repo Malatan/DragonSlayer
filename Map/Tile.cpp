@@ -1,6 +1,6 @@
 #include "Tile.h"
 
-const float Tile::TILE_SIZE = 90.0f;
+const float Tile::TILE_SIZE = 120.0f;
 
 Tile::Tile(float cx, float cy, int type, bool traversable) {
     this->cx = cx;
@@ -12,7 +12,7 @@ Tile::Tile(float cx, float cy, int type, bool traversable) {
     this->shape.setPosition(sf::Vector2f((cx - (Tile::TILE_SIZE / 2)), (cy - (Tile::TILE_SIZE / 2))));
     this->shape.setFillColor((type == 0)?(sf::Color::White):(sf::Color::Blue));
     this->shape.setOutlineColor(sf::Color::Red);
-    this->shape.setOutlineThickness(2.f);
+    this->shape.setOutlineThickness(-1.f);
 }
 
 Tile::~Tile() {
