@@ -40,13 +40,21 @@ public:
     virtual AnimationComponent* getAnimationComponent();
     virtual HitboxComponent* getHitboxComponent();
     virtual const sf::Vector2f getPosition() const;
+    virtual const sf::FloatRect getGlobalBounds() const;
+    virtual const sf::FloatRect getNextPositionBounds(const float& dt) const;
+    virtual const sf::Vector2i getGridPosition() const;
 
     //functions
     virtual void setPosition(const float x, const float y);
     virtual void move(const float& dt, const float x, const float y);
+    virtual void setPositionY(const float y);
+    virtual void setPositionX(const float x);
 
     virtual void update(const float& dt);
     virtual void render(sf::RenderTarget& target);
+    virtual void stopVelocity();
+    virtual void stopVelocityX();
+    virtual void stopVelocityY();
 };
 
 
