@@ -64,6 +64,12 @@ set(SOURCE_FILES
         Resources/ResourcesHandler.h
         Resources/Resource.cpp
         Resources/Resource.h
+        Map/Map.cpp
+        Map/Map.h
+        Map/MapGenerator.h
+        Map/MapGenerator.cpp
+        Map/Tile.h
+        Map/Tile.cpp
         )
 
 if (CMAKE_BUILD_TYPE STREQUAL "Release")
