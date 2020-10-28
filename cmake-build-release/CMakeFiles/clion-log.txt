@@ -1,6 +1,7 @@
-"F:\Software\CLion 2019.2.5\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Release -G "CodeBlocks - MinGW Makefiles" F:\DragonSlayer
--- Found SFML 2.5.1 in F:/DragonSlayer/SFML_2.5.1/lib/cmake/SFML
--- Found SFML 2.5.1 in F:/DragonSlayer/SFML_2.5.1/lib/cmake/SFML
+"C:\Program Files\JetBrains\CLion 2020.2.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Release -G "CodeBlocks - MinGW Makefiles" C:\PROGETTO\MAIN\DragonSlayer
+-- Found SFML 2.5.1 in C:/PROGETTO/MAIN/DragonSlayer/SFML_2.5.1/lib/cmake/SFML
+-- Could NOT find PythonInterp (missing: PYTHON_EXECUTABLE) 
+-- Found SFML 2.5.1 in C:/PROGETTO/MAIN/DragonSlayer/SFML_2.5.1/lib/cmake/SFML
 -- Configuring done
 -- Generating done
--- Build files have been written to: F:/DragonSlayer/cmake-build-release
+-- Build files have been written to: C:/PROGETTO/MAIN/DragonSlayer/cmake-build-release

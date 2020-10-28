@@ -1,1 +1,1 @@
--IF:/DragonSlayer/Resources -isystem F:/DragonSlayer/SFML_2.5.1/include 
+-IC:/PROGETTO/MAIN/DragonSlayer/Resources -isystem C:/PROGETTO/MAIN/DragonSlayer/SFML_2.5.1/include 
