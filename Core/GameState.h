@@ -18,6 +18,8 @@
 #include "../Components/BuffComponent.h"
 #include "../Components/PopUpTextComponent.h"
 #include "../Components/SpellComponent.h"
+#include "../Map/Map.h"
+#include "../Map/MapGenerator.h"
 
 
 class CharacterTab;
@@ -40,6 +42,8 @@ private:
     gui::Button* pauseMenuBtn;
     gui::Button* spellTabBtn;
 
+    Map* map;
+    MapGenerator* mg;
     PauseMenu* pmenu;
     CharacterTab* cTab;
     ShopTab* shopTab;
@@ -101,6 +105,7 @@ public:
     void updateDebugText();
     void updateButtons();
     void update(const float& dt);
+    void updateTileMap(const float& dt);
     void render(sf::RenderTarget* target = nullptr);
 
 };

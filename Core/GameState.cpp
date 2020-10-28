@@ -64,7 +64,7 @@ void GameState::initPauseMenu() {
 }
 
 void GameState::initPlayers() {
-    this->player = new Player(300.f, 300.f, 2.f, 2.f,
+    this->player = new Player(690.f, 120.f, 2.f, 2.f,
                               this->textures["PLAYER_SHEET"]);
     this->player->setGold(0);
     this->player->getInventory()->setCurrentMaxSpace(35);
@@ -309,6 +309,10 @@ GameState::GameState(sf::RenderWindow* window, std::stack<State*>* states, Resou
     this->initSpellTab();
     this->initWizardTab();
     this->initHintsTab();
+    mg = new MapGenerator();
+    map = mg->GenerateFromFile("../Data/dungeon.txt", 24, 79);
+    std::cout << map->printMap();
+    std::cout << "Fine";
 }
 
 GameState::~GameState() {
@@ -324,6 +328,8 @@ GameState::~GameState() {
     delete this->spellComponent;
     delete this->buffComponent;
     delete this->popUpTextComponent;
+    delete this->map;
+    delete this->mg;
     for(auto i : this->enemis)
         delete i;
     for(auto i : this->npcs)
@@ -540,7 +546,10 @@ void GameState::updateButtons() {
 void GameState::update(const float& dt) {
     this->updateMousePosition(&this->view);
     this->updateKeyTime(dt);
+
     this->updateInput(dt);
+
+    this->updateTileMap(dt);
 
     this->updateDebugText();
 
@@ -610,6 +619,7 @@ void GameState::render(sf::RenderTarget* target) {
     }
     target->setView(this->view);
 
+    this->map->render(target);
     this->player->render(*target, true);
     for(auto i : this->enemis){
         i->render(*target, true);
@@ -649,6 +659,11 @@ void GameState::render(sf::RenderTarget* target) {
     target->draw(this->debugText);
 
     this->popUpTextComponent->render(*target);
+}
+
+void GameState::updateTileMap(const float &dt) {
+    this->map->updateCollision(this->player);
+    this->map->updateTileCollision(this->player, dt);
 }
 
 
