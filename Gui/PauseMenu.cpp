@@ -48,13 +48,13 @@ const bool PauseMenu::isButtonPressed(const std::string key) {
     return this->buttons[key]->isPressed();
 }
 
-void PauseMenu::addButton(const std::string key, float y, const std::string text) {
+void PauseMenu::addButton(const std::string key, float y, const std::string text, unsigned char_size) {
     float width = 150.f;
     float height = 50.f;
     float center_x = this->container.getPosition().x + this->container.getSize().x / 2.f - width / 2.f;
     this->buttons[key] = new gui::Button(
             center_x, y, width, height,
-            this->font, text, 30,
+            this->font, text, char_size,
             sf::Color(200, 200, 200, 200),
             sf::Color(250, 250, 250, 250),
             sf::Color(20, 20, 20, 50),

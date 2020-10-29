@@ -30,7 +30,7 @@ public:
 
     //functions
     const bool isButtonPressed(const std::string key);
-    void addButton(const std::string key, float y, const std::string text);
+    void addButton(const std::string key, float y, const std::string text, unsigned char_size);
     void update(const sf::Vector2f& mousePos);
     void render(sf::RenderTarget& target);
 

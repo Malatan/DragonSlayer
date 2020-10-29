@@ -60,7 +60,10 @@ void GameState::initTextures() {
 void GameState::initPauseMenu() {
     this->pmenu = new PauseMenu(*this->window, this->font);
 
-    this->pmenu->addButton("QUIT", 400.f, "Quit");
+    this->pmenu->addButton("SPELL", 300.f, "Spells", 30);
+    this->pmenu->addButton("CHARACTER", 380.f, "Character", 30);
+    this->pmenu->addButton("BACK", 460.f, "Resume", 30);
+    this->pmenu->addButton("QUIT", 540.f, "QUIT", 50);
 }
 
 void GameState::initPlayers() {
@@ -532,6 +535,14 @@ void GameState::updateTabsPlayerStatsLbl() {
 void GameState::updatePausedMenuButtons() {
     if(this->pmenu->isButtonPressed("QUIT")){
         this->endState();
+    } else if(this->pmenu->isButtonPressed("BACK")){
+        this->changeStato(0);
+    } else if(this->pmenu->isButtonPressed("SPELL")){
+        this->changeStato(0);
+        this->changeStato(5);
+    }else if(this->pmenu->isButtonPressed("CHARACTER")){
+        this->changeStato(0);
+        this->changeStato(2);
     }
 }
 
