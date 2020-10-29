@@ -8,6 +8,7 @@ MovementComponent::MovementComponent(sf::Sprite& sprite,
                                      float maxVelocity, float acceleration, float deceleration)
         : sprite(sprite), maxVelocity(maxVelocity), acceleration(acceleration), deceleration(deceleration){
     this->previousPosition = this->sprite.getPosition();
+    this->speedControl = true;
 }
 
 MovementComponent::~MovementComponent() {
@@ -67,10 +68,9 @@ void MovementComponent::update(const float &dt) {
 
     //controllo hitbox collisions
 
-
     if(this->velocity.x > 0.f){//controlla per x positiva
         //controlla velocita massima per x positiva
-        if(this->velocity.x > this->maxVelocity){
+        if(this->velocity.x > this->maxVelocity && this->speedControl){
             this->velocity.x = this->maxVelocity;
         }
         //decelerazione per x positiva
@@ -80,7 +80,7 @@ void MovementComponent::update(const float &dt) {
         }
     } else if(this->velocity.x < 0.f){//controlla per x negativa
         //controlla velocita massima per x negativa
-        if(this->velocity.x < -this->maxVelocity){
+        if(this->velocity.x < -this->maxVelocity && this->speedControl){
             this->velocity.x = -this->maxVelocity;
         }
         //decelerazione per x negativa
@@ -92,7 +92,7 @@ void MovementComponent::update(const float &dt) {
 
     if(this->velocity.y > 0.f){//controlla per y positiva
         //controlla velocita massima per y positiva
-        if(this->velocity.y > this->maxVelocity){
+        if(this->velocity.y > this->maxVelocity && this->speedControl){
             this->velocity.y = this->maxVelocity;
         }
         //decelerazione per y positiva
@@ -102,7 +102,7 @@ void MovementComponent::update(const float &dt) {
         }
     } else if(this->velocity.y < 0.f){//controlla per y negativa
         //controlla velocita massima per y negativa
-        if(this->velocity.y < -this->maxVelocity){
+        if(this->velocity.y < -this->maxVelocity && this->speedControl){
             this->velocity.y = -this->maxVelocity;
         }
         //decelerazione per y negativa
@@ -133,4 +133,13 @@ void MovementComponent::stopVelocityY() {
 
 const sf::Vector2f &MovementComponent::getPreviousPosition() const {
     return this->previousPosition;
+}
+
+//modifers
+void MovementComponent::setVelocity(sf::Vector2f v) {
+    this->velocity = v;
+}
+
+void MovementComponent::enableSpeedControl(bool b) {
+    this->speedControl = b;
 }

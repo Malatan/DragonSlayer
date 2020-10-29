@@ -23,6 +23,7 @@ private:
     float maxVelocity;
     float acceleration;
     float deceleration;
+    bool speedControl;
 
     sf::Vector2f velocity;
     sf::Vector2f previousPosition;
@@ -33,6 +34,10 @@ protected:
 public:
     MovementComponent(sf::Sprite& sprite, float maxVelocity, float acceleration, float deceleration);
     virtual ~MovementComponent();
+
+    //modifers
+    void setVelocity(sf::Vector2f v);
+    void enableSpeedControl(bool b);
 
     //accessors
     const float& getMaxVelocity() const;

@@ -1,8 +1,9 @@
-#include <sstream>
+
 #include "Map.h"
 
 
-Map::Map(int height, int width) {
+Map::Map(int height, int width, State* state) {
+    this->gState = dynamic_cast<GameState*>(state);
 
     // Resize the tiles vector according to the width and height of the map.
     this->height = height;
@@ -28,14 +29,27 @@ Map::~Map() {
 void Map::updateCollision(Entity * entity){
 
     //World Bounds
-    if(entity->getPosition().x < 0.f)
-        entity->setPosition(0.0f, entity->getPosition().y);
-    else if(entity->getPosition().x  + entity->getGlobalBounds().width > ((float)this->width * Tile::TILE_SIZE))
-        entity->setPosition(((float)this->width * Tile::TILE_SIZE) - entity->getGlobalBounds().width, entity->getPosition().y);
-    if(entity->getPosition().y < 0.f)
-        entity->setPosition(entity->getPosition().x, 0.f);
-    else if(entity->getPosition().y + entity->getGlobalBounds().height > ((float)this->height * Tile::TILE_SIZE))
-        entity->setPosition(entity->getPosition().x, ((float)this->height * Tile::TILE_SIZE) - entity->getGlobalBounds().height);
+    if(entity->getPosition().x < 0.f){
+        entity->stopVelocity();
+        entity->setSpritePositon(entity->getMovementComponent()->getPreviousPosition());
+     //   entity->setPosition(0.0f, entity->getPosition().y);
+    }
+    else if(entity->getPosition().x  + entity->getGlobalBounds().width > (this->width * Tile::TILE_SIZE)){
+      //  entity->setPosition(((float)this->width * Tile::TILE_SIZE) - entity->getGlobalBounds().width, entity->getPosition().y);
+        entity->stopVelocity();
+        entity->setSpritePositon(entity->getMovementComponent()->getPreviousPosition());
+    }
+    if(entity->getPosition().y < 0.f){
+      //  entity->setPosition(entity->getPosition().x, 0.f);
+        entity->stopVelocity();
+        entity->setSpritePositon(entity->getMovementComponent()->getPreviousPosition());
+    }
+
+    else if(entity->getPosition().y + entity->getGlobalBounds().height > (this->height * Tile::TILE_SIZE)){
+      //  entity->setPosition(entity->getPosition().x, ((float)this->height * Tile::TILE_SIZE) - entity->getGlobalBounds().height);
+        entity->stopVelocity();
+        entity->setSpritePositon(entity->getMovementComponent()->getPreviousPosition());
+    }
 
     //Tiles
     
@@ -72,7 +86,7 @@ void Map::updateTileCollision(Entity * entity, const float & dt) {
      {
          for (int x = this->fromX; x < this->toX; x++){
             //TILES
-            sf::FloatRect playerBounds = entity->getGlobalBounds();
+            sf::FloatRect playerBounds = entity->getCollisionBoxComponent()->getCollisionEllipse().getGlobalBounds();
             sf::FloatRect wallBounds = this->tiles[y][x]->getGlobalBounds();
             sf::FloatRect nextPositionBounds = entity->getNextPositionBounds(dt);
            if (!this->tiles[y][x]->IsTraversable() && this->tiles[y][x]->intersects(playerBounds)) {

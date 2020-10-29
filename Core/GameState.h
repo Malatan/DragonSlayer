@@ -21,7 +21,6 @@
 #include "../Map/Map.h"
 #include "../Map/MapGenerator.h"
 
-
 class CharacterTab;
 class ShopTab;
 class PriestTab;
@@ -30,6 +29,8 @@ class WizardTab;
 class BuffComponent;
 class PopUpTextComponent;
 class SpellComponent;
+class Map;
+class MapGenerator;
 
 class GameState : public State{
 private:
@@ -60,7 +61,7 @@ private:
     std::vector<Npc*> npcs;
     int stato; // 0 = in giocata, 1 = pause, menu 2 = character, 3 = shop, 4 = priest, 5 = spell, 6 = wizard
     npc_type npcInteract;
-
+    bool noclip;
 
     //functions
     void initTextures();
@@ -81,16 +82,21 @@ private:
     void initView();
     void initDebugText();
     void initButtons();
+    void initMaps();
 
 public:
     GameState(sf::RenderWindow* window, std::stack<State*>* states, ResourcesHandler* rsHandler, sf::Font *font, sf::Event* sfEvent);
     virtual ~GameState();
+
+    //modifiers
+    void setNoclip(bool b);
 
     //accessors
     BuffComponent* getBuffComponent();
     PopUpTextComponent* getPopUpTextComponent();
     SpellComponent* getSpellComponent();
     SpellTab* getSpellTab();
+    const bool isNoclip() const;
 
     //functions
     void addItem(Item* item);

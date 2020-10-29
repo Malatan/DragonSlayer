@@ -10,10 +10,10 @@ void Player::initVariables() {
 }
 
 void Player::initAnimations() {
-    this->animationComponent->addAnimation("IDLE", 10.f,
-            0, 0, 14, 0, 64 ,64);
+    this->animationComponent->addAnimation("IDLE", 15.f,
+            0, 0, 3, 0, 50 ,37);
     this->animationComponent->addAnimation("WALK", 6.f,
-            0, 1, 7, 1, 64 ,64);
+            1, 1, 6, 1, 50 ,37);
 }
 
 //constructors/destructors
@@ -26,7 +26,8 @@ Player::Player(float x, float y, float scale_x, float scale_y, sf::Texture& text
 
     this->createAnimationComponent(texture_sheet);
     this->createMovementComponent(200.f, 14.f, 6.f);
-    this->createHitboxComponent(this->sprite, 46, 26.f, 50.f, 65.f);
+    this->createHitboxComponent(this->sprite, 27.f, 12.f, 41.f, 62.f);
+    this->createCollisionBoxComponent(&this->sprite, 48.f, 72.f, 9.f);
     this->initAnimations();
 
     this->setPosition(x, y);
@@ -59,8 +60,9 @@ void Player::updateAnimation(const float &dt) {
         this->animationComponent->play("IDLE", dt);
 
     } else if(this->movementComponent->getState(MOVING_LEFT)){
-        this->sprite.setOrigin(70.f, 0.f);
+        this->sprite.setOrigin(48.f, 0.f);
         this->sprite.setScale(-this->scale.x, this->scale.y);
+
         this->animationComponent->play("WALK", dt,
                                        this->movementComponent->getVelocity().x,
                                        this->movementComponent->getMaxVelocity());
@@ -68,6 +70,7 @@ void Player::updateAnimation(const float &dt) {
     } else if(this->movementComponent->getState(MOVING_RIGHT)){
         this->sprite.setOrigin(0.f, 0.f);
         this->sprite.setScale(this->scale.x, this->scale.y);
+
         this->animationComponent->play("WALK", dt,
                                        this->movementComponent->getVelocity().x,
                                        this->movementComponent->getMaxVelocity());
@@ -89,9 +92,11 @@ void Player::update(const float &dt) {
     this->movementComponent->update(dt);
     this->updateAnimation(dt);
     this->hitboxComponent->update();
+    this->collisionBoxComponent->update();
 }
 
 void Player::render(sf::RenderTarget &target, const bool show_hitbox) {
+    this->collisionBoxComponent->render(target);
     target.draw(this->sprite);
     if(show_hitbox)
         this->hitboxComponent->render(target);

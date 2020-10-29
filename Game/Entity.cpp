@@ -8,6 +8,8 @@
 void Entity::initVariables() {
     this->movementComponent = NULL;
     this->animationComponent = NULL;
+    this->hitboxComponent = NULL;
+    this->collisionBoxComponent = NULL;
 }
 
 Entity::Entity() {
@@ -18,6 +20,8 @@ Entity::Entity() {
 Entity::~Entity() {
     delete this->movementComponent;
     delete this->animationComponent;
+    delete this->hitboxComponent;
+    delete this->collisionBoxComponent;
 }
 
 //component functions
@@ -37,6 +41,10 @@ void Entity::createMovementComponent(const float maxVelocity, const float accele
 void Entity::createAnimationComponent(sf::Texture& texture_sheet) {
     this->animationComponent = new AnimationComponent(this->sprite, texture_sheet);
    // this->sprite.setScale(3,3);
+}
+
+void Entity::createCollisionBoxComponent(sf::Sprite *sprite, float offset_x, float offset_y, float radius) {
+    this->collisionBoxComponent = new CollisionBoxComponent(sprite, offset_x, offset_y, radius);
 }
 
 //accessors
@@ -64,7 +72,6 @@ void Entity::setPosition(const float x, const float y) {
     else
         this->sprite.setPosition(x, y);
 }
-
 
 void Entity::move(const float& dt, const float dir_x, const float dir_y) {
     if(this->movementComponent){
@@ -160,6 +167,12 @@ void Entity::setPositionX(const float x) {
 void Entity::setSpritePositon(const sf::Vector2f pos) {
     this->sprite.setPosition(pos);
 }
+
+CollisionBoxComponent *Entity::getCollisionBoxComponent() {
+    return this->collisionBoxComponent;
+}
+
+
 
 
 

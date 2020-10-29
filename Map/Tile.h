@@ -24,6 +24,7 @@ public:
 
     const sf::FloatRect getGlobalBounds() const;
     const bool intersects(const sf::FloatRect bounds) const;
+    const bool intersects(const sf::CircleShape bounds) const;
     void render(sf::RenderTarget* target);
 
     bool IsTraversable();

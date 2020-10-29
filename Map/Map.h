@@ -3,11 +3,13 @@
 
 #include "Tile.h"
 #include "../Game/Entity.h"
+#include "../Core/GameState.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
 
 class Map {
 private:
+    GameState* gState;
     int height;
     int width;
 
@@ -19,7 +21,7 @@ private:
 
 
 public:
-    Map(int heigth, int width);
+    Map(int heigth, int width, State* state);
     virtual ~Map();
     std::vector< std::vector<Tile*> > tiles;
 

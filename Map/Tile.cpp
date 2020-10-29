@@ -84,16 +84,20 @@ bool Tile::IsTraversable() {
     return this->traversable;
 }
 
-const sf::FloatRect Tile::getGlobalBounds() const
-{
+const sf::FloatRect Tile::getGlobalBounds() const{
     return this->shape.getGlobalBounds();
 }
 
-const bool Tile::intersects(const sf::FloatRect bounds) const
-{
+const bool Tile::intersects(const sf::FloatRect bounds) const{
     return this->shape.getGlobalBounds().intersects(bounds);
+}
+
+const bool Tile::intersects(const sf::CircleShape bounds) const {
+   // return this->shape.getGlobalBounds().intersects(bounds);
 }
 
 void Tile::render(sf::RenderTarget *target) {
     target->draw(this->shape);
 }
+
+

@@ -64,7 +64,7 @@ void GameState::initPauseMenu() {
 }
 
 void GameState::initPlayers() {
-    this->player = new Player(720.f, 130.f, 2.f, 2.f,
+    this->player = new Player(750.f, 130.f, 2.f, 2.f,
                               this->textures["PLAYER_SHEET"]);
     this->player->setGold(0);
     this->player->getInventory()->setCurrentMaxSpace(35);
@@ -131,6 +131,7 @@ void GameState::initHintsTab() {
                           " T to gain exp\n"
                           " H to add potions\n"
                           " E to interact with npcs\n"
+                          " X to noclip\n"
                                 );
 
     this->hints.setPosition(5.f, this->window->getSize().y - this->hints.getGlobalBounds().height + 20.f);
@@ -288,12 +289,20 @@ void GameState::initButtons() {
 
 }
 
+void GameState::initMaps() {
+    mg = new MapGenerator();
+    map = mg->GenerateFromFile("../Data/dungeon.txt", 24, 79, this);
+    std::cout << map->printMap();
+}
+
 //constructors/destructors
 GameState::GameState(sf::RenderWindow* window, std::stack<State*>* states, ResourcesHandler* rsHandler, sf::Font* font, sf::Event* sfEvent)
         : State(window, states, rsHandler, sfEvent){
     this->font = font;
     this->stato = 0;
     this->npcInteract = NO_NPC;
+    this->noclip = false;
+
     this->initTextures();
     this->initPauseMenu();
     this->initPlayers();
@@ -309,10 +318,7 @@ GameState::GameState(sf::RenderWindow* window, std::stack<State*>* states, Resou
     this->initSpellTab();
     this->initWizardTab();
     this->initHintsTab();
-    mg = new MapGenerator();
-    map = mg->GenerateFromFile("../Data/dungeon.txt", 24, 79);
-    std::cout << map->printMap();
-    std::cout << "Fine";
+    this->initMaps();
 }
 
 GameState::~GameState() {
@@ -406,6 +412,17 @@ void GameState::updateInput(const float &dt) {
         } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::C) && this->getKeyTime()) {
             this->changeStato(2);
             this->cTab->unselectAll();
+
+        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) && this->getKeyTime()) {
+            if(this->noclip){
+                this->noclip = false;
+                this->player->getMovementComponent()->enableSpeedControl(true);
+            }
+            else{
+                this->noclip = true;
+                this->player->getMovementComponent()->enableSpeedControl(false);
+            }
+
 
         } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::T) && this->getKeyTime()) {
             if(this->player->getPlayerStats()->addExp(100)){
@@ -663,8 +680,19 @@ void GameState::render(sf::RenderTarget* target) {
 
 void GameState::updateTileMap(const float &dt) {
     this->map->updateCollision(this->player);
-    this->map->updateTileCollision(this->player, dt);
+    if(!this->noclip)
+        this->map->updateTileCollision(this->player, dt);
 }
+
+void GameState::setNoclip(bool b) {
+    this->noclip = b;
+}
+
+const bool GameState::isNoclip() const {
+    return this->noclip;
+}
+
+
 
 
 

@@ -60,6 +60,8 @@ set(SOURCE_FILES
         Components/SpellComponent.h
         Components/PopUpTextComponent.cpp
         Components/PopUpTextComponent.h
+        Components/CollisionBoxComponent.cpp
+        Components/CollisionBoxComponent.h
         Resources/ResourcesHandler.cpp
         Resources/ResourcesHandler.h
         Resources/Resource.cpp

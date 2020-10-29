@@ -1,8 +1,5 @@
 #include "MapGenerator.h"
-#include <cstdlib>
-#include <ctime>
-#include <iostream>
-#include <fstream>
+
 
 MapGenerator::MapGenerator() {
 
@@ -12,8 +9,9 @@ MapGenerator::~MapGenerator() {
 
 }
 
-Map* MapGenerator::GenerateFromFile(std::string path, int height, int width) {
-    Map* map = new Map(height, width);
+Map* MapGenerator::GenerateFromFile(std::string path, int height, int width, State* state) {
+    this->gameState = dynamic_cast<GameState*>(state);
+    Map* map = new Map(height, width, state);
     char ch;
     std::fstream fin(path, std::fstream::in);
     int i=0;
