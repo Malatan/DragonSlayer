@@ -6,6 +6,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "F:/DragonSlayer/Components/AnimationComponent.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Components/AnimationComponent.cpp.obj"
   "F:/DragonSlayer/Components/BuffComponent.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Components/BuffComponent.cpp.obj"
+  "F:/DragonSlayer/Components/CollisionBoxComponent.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Components/CollisionBoxComponent.cpp.obj"
   "F:/DragonSlayer/Components/HitBoxComponent.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Components/HitBoxComponent.cpp.obj"
   "F:/DragonSlayer/Components/MovementComponent.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Components/MovementComponent.cpp.obj"
   "F:/DragonSlayer/Components/PopUpTextComponent.cpp" "F:/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Components/PopUpTextComponent.cpp.obj"

@@ -400,6 +400,12 @@
 			<Option target="DragonSlayer"/>
 			<Option target="unit_testing_run"/>
 		</Unit>
+		<Unit filename="F:/DragonSlayer/Components/CollisionBoxComponent.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Components/CollisionBoxComponent.h">
+			<Option target="DragonSlayer"/>
+		</Unit>
 		<Unit filename="F:/DragonSlayer/Components/HitBoxComponent.cpp">
 			<Option target="DragonSlayer"/>
 			<Option target="unit_testing_run"/>

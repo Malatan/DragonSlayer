@@ -287,6 +287,33 @@ Components/BuffComponent.cpp.s:
 	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Components/BuffComponent.cpp.s
 .PHONY : Components/BuffComponent.cpp.s
 
+Components/CollisionBoxComponent.obj: Components/CollisionBoxComponent.cpp.obj
+
+.PHONY : Components/CollisionBoxComponent.obj
+
+# target to build an object file
+Components/CollisionBoxComponent.cpp.obj:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Components/CollisionBoxComponent.cpp.obj
+.PHONY : Components/CollisionBoxComponent.cpp.obj
+
+Components/CollisionBoxComponent.i: Components/CollisionBoxComponent.cpp.i
+
+.PHONY : Components/CollisionBoxComponent.i
+
+# target to preprocess a source file
+Components/CollisionBoxComponent.cpp.i:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Components/CollisionBoxComponent.cpp.i
+.PHONY : Components/CollisionBoxComponent.cpp.i
+
+Components/CollisionBoxComponent.s: Components/CollisionBoxComponent.cpp.s
+
+.PHONY : Components/CollisionBoxComponent.s
+
+# target to generate assembly for a file
+Components/CollisionBoxComponent.cpp.s:
+	$(MAKE) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Components/CollisionBoxComponent.cpp.s
+.PHONY : Components/CollisionBoxComponent.cpp.s
+
 Components/HitBoxComponent.obj: Components/HitBoxComponent.cpp.obj
 
 .PHONY : Components/HitBoxComponent.obj
@@ -1175,6 +1202,9 @@ help:
 	@echo ... Components/BuffComponent.obj
 	@echo ... Components/BuffComponent.i
 	@echo ... Components/BuffComponent.s
+	@echo ... Components/CollisionBoxComponent.obj
+	@echo ... Components/CollisionBoxComponent.i
+	@echo ... Components/CollisionBoxComponent.s
 	@echo ... Components/HitBoxComponent.obj
 	@echo ... Components/HitBoxComponent.i
 	@echo ... Components/HitBoxComponent.s
