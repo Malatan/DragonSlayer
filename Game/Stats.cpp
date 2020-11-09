@@ -71,7 +71,9 @@ void Stats::levelUp(int choise, int newExp) {
     this->hp = this->maxHp + this->maxHpBonus;               //HP RIGENERATI
     this->maxMp = Stats::maxMp +25;
     this->mp = this->maxMp + this->maxMpBonus;               //MP RIGENERATI
-    this->armor = Stats::armor +2;
+    this->armor = this->armor + 4;
+    this->damage = this->damage +4;
+
 
     this->freePoints += 3;
 
@@ -123,24 +125,27 @@ bool Stats::exportStats() {
         file<<to_string(Stats::agility) + "\n";
         file<<to_string(Stats::wisdom) + "\n";
         file<<to_string(Stats::strength) + "\n";
+        file<<to_string(Stats::freePoints) + "\n";
+
+        return true;
     }
 
-    return true;
 
 }
 
 string Stats::listStats() {
     string desc = "";
-    desc+=   "LEVEL " + to_string(Stats::level) + " [" + to_string(Stats::exp)+ "/" + to_string(Stats::maxExp)+ " exp]\n"
-            +"HP - " + to_string(Stats::hp) + "/" + to_string(Stats::maxHp) + "\n"
-            +"MP - " + to_string(Stats::mp) + "/" + to_string(Stats::maxMp) + "\n"
-            +"Armor - " + to_string(Stats::armor + Stats::armorBonus) + "\n"
-            +"Damage - " + to_string(Stats::damage + Stats::damageBonus) + "\n"
-            +"Crtical Chance - " + to_string(Stats::critChance) + "%\n"
-            +"Evade Chance - " + to_string(Stats::evadeChance) + "%\n"
-            +"Agility - " + to_string(Stats::agility) + "\n"
-            +"Wisdom - " + to_string(Stats::wisdom) + "\n"
-            +"Strength - " + to_string(Stats::strength) + "\n";
+    desc += "LEVEL " + to_string(Stats::level) + " [" + to_string(Stats::exp) + "/" + to_string(Stats::maxExp) +
+            " exp]\n"
+            + "HP - " + to_string(Stats::hp) + "/" + to_string(Stats::maxHp) + "\n"
+            + "MP - " + to_string(Stats::mp) + "/" + to_string(Stats::maxMp) + "\n"
+            + "Armor - " + to_string(Stats::armor + Stats::armorBonus) + "\n"
+            + "Damage - " + to_string(Stats::damage + Stats::damageBonus) + "\n"
+            + "Crtical Chance - " + to_string((int) (Stats::critChance * 100)) + "%\n"
+            + "Evade Chance - " + to_string((int) (Stats::evadeChance * 100)) + "%\n"
+            + "Agility - " + to_string(Stats::agility) + "\n"
+            + "Wisdom - " + to_string(Stats::wisdom) + "\n"
+            + "Strength - " + to_string(Stats::strength) + "\n";
     return desc;
 }
 

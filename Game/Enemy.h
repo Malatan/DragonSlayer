@@ -25,8 +25,8 @@ private:
     int maxHp;
     int armor;
     int damage;
-    int critChance;
-    int evadeChance;
+    float critChance;
+    float evadeChance;
 
 
     //initializer functions
@@ -36,20 +36,26 @@ private:
 protected:
 
 public:
+    //CONSTRUCTOR & DESTRUCTOR
     Enemy(float x, float y,float scale_x ,float scale_y, sf::Texture& texture_sheet);
     Enemy(float x, float y,float scale_x ,float scale_y, float hitbox_offset_x, float hitbox_offset_y,
             float hitbox_width, float hitbox_height, sf::Texture& texture_sheet);
+    Enemy();
+    Enemy(string name, string type, int level, int hp, int maxHp, int armor, int damage, float critChance,
+          float evadeChance);
     virtual ~Enemy();
 
-    //funtions
+    //GRAPHICS
     void updateAnimation(const float &dt);
     virtual void update(const float &dt);
     void render(sf::RenderTarget& target, const bool show_hitbox = false);
 
+    //INVENTORY & STATS
     int takeDamage(int dmg);    //RETURN DMG reduced by Enemy ARMOR
-
+    void takeSpellDamage(int dmg);  //SPELL DMG ignores Enemy ARMOR
     string enemyDetails();
 
+    //GET & SET
     string getName();
     void setName(string name);
     string getType();
@@ -64,16 +70,10 @@ public:
     void setArmor(int armor);
     int getDamage();
     void setDamage(int damage);
-    int getCritChance();
-    void setCritChance(int critChance);
-    int getEvadeChance();
-    void setEvadeChance(int evadeChance);
-
-    Enemy();
-
-    Enemy(string name, string type, int level, int hp, int maxHp, int armor, int damage, int critChance,
-    int evadeChance);
-
+    float getCritChance();
+    void setCritChance(float critChance);
+    float getEvadeChance();
+    void setEvadeChance(float evadeChance);
 };
 
 

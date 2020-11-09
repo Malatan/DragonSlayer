@@ -29,6 +29,7 @@ private:
     string description;
     int cost;
     int cooldown;
+    int ready;      //CONT per il cooldown
     int damage;
     int aoe;        //NUMERO DI NEMICI COLPIBILI DALLA SPELL
     bool learned;
@@ -40,6 +41,17 @@ private:
     int intRectY;
 public:
 
+    //MANAGE SPELL
+    void refreshSpell();   //SCORRE IL CONT PER RIUSARE LA SPELL
+    bool isMaxed();
+    void levelUp();
+
+    //TOSTRING
+    const std::string toString() const;
+
+    //GET & SET
+    int getReady();
+    void setReady(int ready);
     string getName();
     void setName(string name);
     string getType();
@@ -67,11 +79,10 @@ public:
     void setIntRectX(int intRectX);
     int getIntRectY();
     void setIntRectY(int intRectY);
-    const std::string toString() const;
-    bool isMaxed();
-    void levelUp();
     int getFinalDamage();
     int getFinalCost();
+
+    //CONSTRUCTOR & DESTRUCTOR
     Spell();
     Spell(Spell* spell);
     virtual ~Spell();

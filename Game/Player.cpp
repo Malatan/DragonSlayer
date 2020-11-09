@@ -102,6 +102,10 @@ void Player::render(sf::RenderTarget &target, const bool show_hitbox) {
         this->hitboxComponent->render(target);
 }
 
+void Player::heal(int hp) {
+    this->playerStats->gainHp(hp);
+}
+
 string Player::playerDetails() {
     string desc = "";
 
@@ -109,7 +113,7 @@ string Player::playerDetails() {
            + "     HP[";
 
     int health =0;
-    for(int i=0; i<Player::getPlayerStats()->getMaxHp(); i=i+10){
+    for(int i=0; i<Player::getPlayerStats()->getFinalHp(); i=i+10){
         if(health <= Player::getPlayerStats()->getHp())
             desc+="#";
         else
@@ -117,23 +121,36 @@ string Player::playerDetails() {
         health += 10;
     }
 
-    desc+= to_string(Player::getPlayerStats()->getHp()) + "/" + to_string(Player::getPlayerStats()->getMaxHp()) + "]\n"
-           + "     Armor: " + to_string(Player::getPlayerStats()->getArmor() + Player::getPlayerStats()->getArmorBonus())
-           + "     Damage: " + to_string(Player::getPlayerStats()->getDamage() + Player::getPlayerStats()->getDamageBonus()) + "\n";
+    desc+= to_string(Player::getPlayerStats()->getHp()) + "/" + to_string(Player::getPlayerStats()->getFinalHp()) + "]\n"
+           + "     MP: " +to_string(Player::getPlayerStats()->getMp()) + "/" + to_string(Player::getPlayerStats()->getFinalMp())
+           + "     Armor: " + to_string(Player::getPlayerStats()->getFinalArmor())
+           + "     Damage: " + to_string(Player::getPlayerStats()->getFinalDamage())
+           + "     \nCrit: " + to_string(Player::getPlayerStats()->getFinalCritChance())
+           + "     Evade: " + to_string(Player::getPlayerStats()->getFinalEvadeChance()) + "\n";
 
     return desc;
 }
 
+bool Player::takeItem(Item *item) {
+    if(this->inventory->addItem(item))
+        return true;
+    else
+        return false;
+}
+
 int Player::takeDamage(int dmg) {
-   // dmg = dmg - this->playerStats.getArmor();
-   // int newHp = this->playerStats.getHp() - dmg;
-   // this->playerStats.setHp(newHp);
+    dmg = dmg - Player::playerStats->getFinalArmor();
+    if(dmg < 0){
+        dmg = 0;
+    }
+    int newHp = Player::playerStats->getHp() - dmg;
+    Player::playerStats->setHp(newHp);
 
     return dmg;
 }
 
 void Player::earnExp(int exp) {
-  //  this->playerStats.addExp(exp);       //SE CON EXP IL PLAYER SALE DI LIVELLO
+    Player::playerStats->addExp(exp);
 }
 
 void Player::learnSpell(string spell) {
@@ -144,42 +161,94 @@ void Player::learnSpell(string spell) {
     }
 }
 
-void Player::reloadEquipStats() {
- /*   int armorBonus = 0;
-    int damageBonus = 0;
+void Player::useSpell(string spell) {
+    int mana;
+    for(int i=0; i<30; i++){
+        if(Player::spells[i].getName() == spell)
+            mana = Player::spells[i].getCost();
+    }
+    Player::playerStats->setMp( Player::playerStats->getMp() - mana  );
+}
 
-    damageBonus += Player::weapon.getDamage();
-    armorBonus += Player::shield.getArmor();
-    armorBonus += Player::head.getArmor();
-    armorBonus += Player::chest.getArmor();
-    armorBonus += Player::arms.getArmor();
-    armorBonus += Player::legs.getArmor();*/
+Spell *Player::getSpells() {
+    return this->spells;
+}
 
- //   Player::playerStats.setArmorBonus(armorBonus);
- //   Player::playerStats.setDamageBonus(damageBonus);
+Spell *Player::getSpellbyIndex(int i) {
+    return &Player::spells[i];
+}
+
+bool Player::useItem(string item) {
+    int qnt = this->inventory->getItem(item)->getQuantity();
+    if(qnt > 0){
+        this->inventory->getItem(item)->setQuantity(qnt-1);
+        return true;
+    }else{
+        return false;
+    }
+}
+
+void Player::loadEquipment() {
+
+    for(auto i : this->inventory->items){
+        if(i->isEquipped()){
+            int use = i->getUsageType();
+            Player::setEquipItem(i, use);
+        }
+
+    }
+}
+
+void Player::reloadEquipBonus() {
+    int hp, mp, dmg, armor;
+    float cc, ec;
+
+    hp = weapon->getHp() + shield->getHp() + head->getHp() + chest->getHp() + arms->getHp() + legs->getHp();
+    mp = weapon->getMp() + shield->getMp() + head->getMp() + chest->getMp() + arms->getMp() + legs->getMp();
+    dmg = weapon->getDamage() + shield->getDamage() + head->getDamage() + chest->getDamage() + arms->getDamage() + legs->getDamage();
+    armor = weapon->getDamage() + shield->getDamage() + head->getDamage() + chest->getDamage() + arms->getDamage() + legs->getDamage();
+    cc = weapon->getCritChance() + shield->getCritChance() + head->getCritChance() + chest->getCritChance() + arms->getCritChance() + legs->getCritChance();
+    ec = weapon->getEvadeChance() + shield->getEvadeChance() + head->getEvadeChance() + chest->getEvadeChance() + arms->getEvadeChance() + legs->getEvadeChance();
+
+    Player::setBonusStats(hp, mp, dmg, armor, cc, ec);
+}
+
+string  Player::listEquipment() {
+    string equip = "";
+    equip += this->weapon->listItem() + "\n";
+    equip += this->shield->listItem() + "\n";
+    equip += this->head->listItem()   + "\n";
+    equip += this->chest->listItem()  + "\n";
+    equip += this->arms->listItem()   + "\n";
+    equip += this->legs->listItem()   + "\n";
+    return equip;
 }
 
 string Player::listSpells(){
     string desc = "";
-    string lock;
 
     for (int i=0; i<3; i++){
-        if(Player::spells[i].isLearned() == true)
-            lock = "UNLOCKED";
-        else
-            lock = "LOCKED";
+        if(Player::spells[i].isLearned() == true){
+            desc+= to_string(i+1) + ") ";
+            desc+=  Player::spells[i].getName()
+                    + " - " + to_string(Player::spells[i].getDamage()) + " damage\n"
+                    + " - target " + to_string(Player::spells[i].getAoe()) + " enemies\n"
+                    + " - " + to_string(Player::spells[i].getCost()) + " mp\n";
 
-        desc+=  Player::spells[i].getName() + "[" + lock +"]\n"
-                + " - " + Player::spells[i].getType() + "\n"
-                + " - " + to_string(Player::spells[i].getDamage()) + " damage\n"
-                + " - target " + to_string(Player::spells[i].getAoe()) + " enemies\n"
-                + " - " + to_string(Player::spells[i].getCost()) + " mp\n"
-                + " - " + to_string(Player::spells[i].getCooldown()) + "s cooldown \n";
+            if(Player::spells[i].getReady() == 0){
+                desc+= " - READY\n";
+            } else {
+                desc+= " - " + to_string(Player::spells[i].getReady()) + " TURN cooldown\n";
+            }
+        }
     }
-
-
-
     return desc;
+}
+
+void Player::refreshSpells() {
+    for(int i=0; i<30; i++){
+        Player::spells[i].refreshSpell();
+    }
 }
 
 void Player::importSpells() {
@@ -233,6 +302,7 @@ void Player::importSpells() {
                 }else{
                     spells[i].setLearned(false);
                 }
+                spells[i].setReady(0);
                 current = 0;
                 i++;
             }
@@ -328,7 +398,7 @@ bool Player::isSlotEquipped(int equip_slot) {
                 return true;
             else
                 return false;
-        case 3: // helmet
+        case 3: // head
             if(this->head)
                 return true;
             else
@@ -475,6 +545,4 @@ void Player::minusGold(unsigned gold) {
     }else{
         this->gold -= gold;
     }
-
-
 }

@@ -64,20 +64,30 @@ string Enemy::enemyDetails() {
 
     desc+= Enemy::name + " LIV." + to_string(Enemy::level) + "     HP[";
 
-    int health =0;
-    for(int i=0; i<Enemy::maxHp; i=i+10){
-        if(health <= Enemy::hp)
-            desc+="#";
-        else
-            desc+="-";
-        health += 10;
+    if(Enemy::hp <= 0){
+        desc+="DEAD";
+    }else {
+        int health = 0;
+        for (int i = 0; i < Enemy::maxHp; i = i + 10) {
+            if (health <= Enemy::hp)
+                desc += "#";
+            else
+                desc += "-";
+            health += 10;
+        }
+        desc+= to_string(Enemy::hp) + "/" + to_string(Enemy::maxHp);
     }
 
-    desc+= to_string(Enemy::hp) + "/" + to_string(Enemy::maxHp) + "]\n"
-           + "     Armor: " + to_string(Enemy::armor)
+    desc+= "]\n    Armor: " + to_string(Enemy::armor)
            + "     Damage: " + to_string(Enemy::damage) + "\n";
 
+
     return desc;
+}
+
+void Enemy::takeSpellDamage(int dmg) {
+    int newHp = Enemy::hp - dmg;
+    Enemy::hp = newHp;
 }
 
 int Enemy::takeDamage(int dmg) {
@@ -144,19 +154,19 @@ void Enemy::setDamage(int damage) {
     Enemy::damage = damage;
 }
 
-int Enemy::getCritChance() {
+float Enemy::getCritChance() {
     return critChance;
 }
 
-void Enemy::setCritChance(int critChance) {
+void Enemy::setCritChance(float critChance) {
     Enemy::critChance = critChance;
 }
 
-int Enemy::getEvadeChance() {
+float Enemy::getEvadeChance() {
     return evadeChance;
 }
 
-void Enemy::setEvadeChance(int evadeChance) {
+void Enemy::setEvadeChance(float evadeChance) {
     Enemy::evadeChance = evadeChance;
 }
 
@@ -168,7 +178,7 @@ Enemy::~Enemy() {
 
 }
 
-Enemy::Enemy(string name, string type, int level, int hp, int maxHp, int armor, int damage, int critChance,
-         int evadeChance) : name(name), type(type), level(level), hp(hp), maxHp(maxHp), armor(armor), damage(damage),
+Enemy::Enemy(string name, string type, int level, int hp, int maxHp, int armor, int damage, float critChance,
+             float evadeChance) : name(name), type(type), level(level), hp(hp), maxHp(maxHp), armor(armor), damage(damage),
                             critChance(critChance), evadeChance(evadeChance) {}
 

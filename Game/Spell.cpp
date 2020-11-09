@@ -18,6 +18,11 @@ Spell::~Spell() {
 
 }
 
+void Spell::refreshSpell() {
+    if(Spell::ready > 0)
+        Spell:ready --;
+}
+
 
 string Spell::getDescription() {
     return this->description;
@@ -46,6 +51,15 @@ void Spell::setName(string name) {
 string Spell::getType() {
     return type;
 }
+
+int Spell::getReady() {
+    return ready;
+}
+
+void Spell::setReady(int ready) {
+    Spell::ready = ready;
+}
+
 
 void Spell::setType(string type) {
     this->type = type;

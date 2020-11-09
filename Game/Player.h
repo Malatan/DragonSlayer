@@ -22,14 +22,14 @@ private:
     Stats* playerStats;
     Inventory* inventory;
     int currentInventorySpace;
-    Spell spells[30];           //TUTTE SPELL DEL GIOCO - ALCUNE SARANNO SBLOCCATE E ALTRE NO
+    Spell spells[30];   //contain all game's spells (locked/unlocked)
     unsigned gold;
-    Item* weapon;
-    Item* shield;
-    Item* head;
-    Item* chest;
-    Item* arms;
-    Item* legs;
+    Item* weapon;   //equip_slot = 5
+    Item* shield;   //equip_slot = 4
+    Item* head;     //equip_slot = 3
+    Item* chest;    //equip_slot = 2
+    Item* arms;     //equip_slot = 1
+    Item* legs;     //equip_slot = 0
 
     //initializer functions
     void initVariables();
@@ -38,44 +38,55 @@ private:
 protected:
 
 public:
+    //CONSTRUCTOR & DESTRUCTOR
     Player();
     Player(float x, float y, float scale_x, float scale_y, sf::Texture& texture_sheet);
     virtual ~Player();
 
 
-    //funtions
+    //GRAPHICS
     void updateAnimation(const float &dt);
     void update(const float &dt);
     void render(sf::RenderTarget& target, const bool show_hitbox = false);
 
-    void setEquipItem(Item* item, int equip_slot);
-    void setBonusStats(int hp, int mp, int dmg, int armor, float cc, float ec);
-    bool isSlotEquipped(int equip_slot);
-    void unequipItem(int equip_slot);
-
-    std::string toStringEquipment();
-
+    //BATTLE
     int takeDamage(int dmg);        //RETURN DMG reduced by Player ARMOR
+    void heal(int hp);
+    void useSpell(string spell);
+    void earnExp(int exp);
+    void refreshSpells();           //REFRESH cooldown spell
+    bool useItem(string item);
+
+    //TOSTRING
+    std::string toStringEquipment();
+    string listSpells();
+    string listEquipment();
     string playerDetails();
 
-
-    void reloadEquipStats();    //applica i bonus degli oggetti alle stats
-    string listSpells();
+    //INVENTORY & STATS
+    void setEquipItem(Item* item, int equip_slot);
+    void setBonusStats(int hp, int mp, int dmg, int armor, float cc, float ec);
+    void reloadEquipBonus();    //APPLY item bonus to player stats
+    void loadEquipment();       //SEARCH FOR equipped items in inventory
+    bool isSlotEquipped(int equip_slot);
+    void unequipItem(int equip_slot);
+    void addGold(unsigned gold);
+    void minusGold(unsigned gold);
     void importSpells();
     bool exportSpells();
     void learnSpell(string spell);
-    void earnExp(int exp);
+    bool takeItem(Item* item);
 
+    //GET & SET
     Stats* getPlayerStats();
     void setPlayerStats(Stats* playerStats);
     Inventory* getInventory();
     void setInventory(Inventory* invent);
     unsigned getGold();
     void setGold(unsigned gold);
-    void addGold(unsigned gold);
-    void minusGold(unsigned gold);
+    Spell* getSpells();
+    Spell* getSpellbyIndex(int index);
     Item* getEquippedItem(int equip_slot);
-
 
 };
 

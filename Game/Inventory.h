@@ -7,6 +7,8 @@
 #include <string>
 #include <sstream>
 #include "Item.h"
+#include "iostream"
+#include "fstream"
 #include <vector>
 #include <algorithm>
 
@@ -23,27 +25,30 @@ public:
     vector<Item*> items;
 
 public:
+    //CONSTRUCTOR & DESTRUCTOR
     Inventory();
     Inventory(int* currentSpace);
     virtual ~Inventory();
 
-    void setCurrentMaxSpace(int currentMaxSpace);
-    int getCurrentMaxSpace();
+    //TOSTRING
+    string listInventory();
+    string listConsumabiles();
 
+    //MANAGE INVENTORY
     void expandInventorySpace(int n);
     bool isExpandable();
+    bool removeItem(std::string name);
+    bool addItem(Item* item);
+    //bool exportInventory();
+    void sortByItemType();
+    void replaceItem(int index, Item* in);
 
+    //GET & SET
     int getItemsSize();
     Item* getItem(int n);
     Item* getItem(std::string name);
-
-    bool removeItem(std::string name);
-
-    bool addItem(Item* item);
-    bool exportInventory();
-    string listInventory();
-
-    void sortByItemType();
+    void setCurrentMaxSpace(int currentMaxSpace);
+    int getCurrentMaxSpace();
 };
 
 

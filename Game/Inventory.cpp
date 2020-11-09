@@ -35,6 +35,10 @@ Item *Inventory::getItem(int n) {
     return this->items.at(n);
 }
 
+void Inventory::replaceItem(int index, Item* in) {
+    items.at(index) = in;
+}
+
 void Inventory::sortByItemType() {
     sort(this->items.begin(),this->items.end(),
             [](const Item* lhs , const Item* rhs)
@@ -68,9 +72,22 @@ string Inventory::listInventory(){
     return desc;
 }
 
+string  Inventory::listConsumabiles() {
+    string desc = "";
+    int cont = 1;
+    for(auto i : this->items){
+        if(i->getUsageType() == 6){
+            desc += to_string(cont) + ") "+ i->listItem() + "\n";
+            cont ++;
+        }
+    }
+    return desc;
+}
+
+/*
 bool Inventory::exportInventory() {
 
-  /*  ofstream file;
+    ofstream file;
     file.open("Inventory.txt");
 
     if (!file.is_open()){
@@ -106,9 +123,10 @@ bool Inventory::exportInventory() {
 
         file.close();
         return true;
-    }*/
+    }
     return true;
 }
+*/
 
 bool Inventory::removeItem(std::string name) {
     auto iter = std::find_if(this->items.begin(), this->items.end(),
