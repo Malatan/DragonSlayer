@@ -30,11 +30,11 @@ void SpellTab::initSpellSlots() {
     }
 }
 
-SpellTab::SpellTab(sf::RenderWindow *window, sf::Font *font, Player *player, State *state, ResourcesHandler *rsHandler,
-                   std::map<std::string, sf::Texture> textures) : window(window), font(font), player(player),
-                   rsHandler(rsHandler), textures(textures){
-    this->gState = dynamic_cast<GameState*>(state);
-    this->spellComponent = this->gState->getSpellComponent();
+SpellTab::SpellTab(std::shared_ptr<sf::RenderWindow> window, sf::Font* font, std::shared_ptr<Player> player, State *state,
+                   std::shared_ptr<ResourcesHandler> rsHandler, std::map<std::string, sf::Texture> textures) : window(window),
+                   font(font), player(player), rsHandler(rsHandler), textures(textures){
+    gState = dynamic_cast<GameState*>(state);
+    spellComponent = this->gState->getSpellComponent();
 
     //init background
     this->background.setSize(sf::Vector2f(
@@ -76,12 +76,9 @@ SpellTab::~SpellTab() {
 }
 
 bool SpellTab::closeTabByClicking(const sf::Vector2f& mousePos, gui::Button* spellTab_Btn) {
-    if(sf::Mouse::isButtonPressed(sf::Mouse::Left) &&
-       this->background.getGlobalBounds().contains(mousePos)
-       && !this->container.getGlobalBounds().contains(mousePos) && !spellTab_Btn->contains(mousePos)){
-        return true;
-    }
-    return false;
+    return sf::Mouse::isButtonPressed(sf::Mouse::Left) &&
+           this->background.getGlobalBounds().contains(mousePos)
+           && !this->container.getGlobalBounds().contains(mousePos) && !spellTab_Btn->contains(mousePos);
 }
 
 void SpellTab::updateSpellsInfoLbl() {

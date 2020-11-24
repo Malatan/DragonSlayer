@@ -10,14 +10,9 @@
 #include "../Game/Inventory.h"
 #include "../Components/SpellComponent.h"
 #include <SFML/Graphics.hpp>
+#include <memory>
 
 class ResourcesHandler {
-private:
-    std::vector<Resource*> resources;
-    sf::IntRect equipSlotsTextureIntRects[6];
-
-protected:
-
 public:
     ResourcesHandler();
 
@@ -32,8 +27,12 @@ public:
 
     bool loadPlayerStatsTxt(Stats* playerStats);
     bool loadPlayerInventoryTxt(Inventory* playerInventory);
-    bool loadSpellList(SpellComponent* spellComponent);
+    bool loadSpellList(std::shared_ptr<SpellComponent> spellComponent);
     std::string toString();
+
+private:
+    std::vector<Resource*> resources;
+    sf::IntRect equipSlotsTextureIntRects[6];
 };
 
 

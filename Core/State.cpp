@@ -3,11 +3,14 @@
 //
 
 #include "State.h"
+State::State(){
 
-State::State(sf::RenderWindow *window, std::stack<State*>* states, ResourcesHandler* rsHandler, sf::Event* sfEvent) {
+};
+
+State::State(std::shared_ptr<sf::RenderWindow> window, std::stack<std::unique_ptr<State>>* states,
+             std::shared_ptr<ResourcesHandler> rsHandler) {
     this->window = window;
     this->states = states;
-    this->sfEvent =sfEvent;
     this->rsHandler = rsHandler;
     this->quit = false;
     this->paused = false;
@@ -21,56 +24,72 @@ State::~State() {
 
 //accessors
 const bool &State::getQuit() const {
-    return this->quit;
+    return quit;
 }
 
 const bool State::getKeyTime() {
-    if(this->keyTime >= this->keyTimeMax){
-        this->keyTime = 0.f;
+    if(keyTime >= keyTimeMax){
+        keyTime = 0.f;
         return true;
     }
     return false;
 }
 
-ResourcesHandler *State::getRsHandler() const {
-    return this->rsHandler;
+std::shared_ptr<ResourcesHandler> State::getRsHandler() const {
+    return rsHandler;
 }
 
 const map<string, sf::Texture> &State::getTextures() const {
-    return this->textures;
+    return textures;
 }
 
 
 //functions
 void State::endState() {
-    this->quit = true;
+    quit = true;
 }
 
 void State::pauseState() {
-    this->paused = true;
+    paused = true;
 }
 
 void State::unpauseState() {
-    this->paused = false;
+    paused = false;
 }
 
 void State::updateMousePosition(sf::View* view) {
-    this->mousePosScreen = sf::Mouse::getPosition();
-    this->mousePosWindow = sf::Mouse::getPosition(*this->window);
+    mousePosScreen = sf::Mouse::getPosition();
+    mousePosWindow = sf::Mouse::getPosition(*window);
 
     if(view)
-        this->window->setView(*view);
+        window->setView(*view);
 
 
-    this->mousePosView = this->window->mapPixelToCoords(sf::Mouse::getPosition(*this->window));
+    mousePosView = window->mapPixelToCoords(sf::Mouse::getPosition(*window));
 
-    this->window->setView(this->window->getDefaultView());
+    window->setView(window->getDefaultView());
 }
 
 void State::updateKeyTime(const float &dt) {
-    if(this->keyTime < this->keyTimeMax){
-        this->keyTime += 60.f * dt;
+    if(keyTime < keyTimeMax){
+        keyTime += 60.f * dt;
     }
+
+}
+
+const sf::Vector2f State::getMousePosView() const {
+    return mousePosView;
+}
+
+void State::render(sf::RenderTarget *target) {
+
+}
+
+void State::update(const float &dt) {
+
+}
+
+void State::updateInput(const float &dt) {
 
 }
 

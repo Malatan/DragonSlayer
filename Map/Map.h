@@ -8,6 +8,7 @@
 #include <vector>
 
 class Map {
+
 private:
     GameState* gState;
     int height;
@@ -27,9 +28,9 @@ public:
 
     std::string printMap();
 
-    void updateCollision(Entity * entity);
+    void updateCollision(std::shared_ptr<Player> player);
 
-    void updateTileCollision(Entity * entity, const float & dt);
+    void updateTileCollision(std::shared_ptr<Player> player, const float & dt);
 
     void drawTiles(sf::RenderWindow* window);
 

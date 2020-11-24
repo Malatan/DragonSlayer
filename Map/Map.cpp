@@ -26,57 +26,57 @@ Map::~Map() {
 
 }
 
-void Map::updateCollision(Entity * entity){
+void Map::updateCollision(std::shared_ptr<Player> player){
 
     //World Bounds
-    if(entity->getPosition().x < 0.f){
-        entity->stopVelocity();
-        entity->setSpritePositon(entity->getMovementComponent()->getPreviousPosition());
+    if(player->getPosition().x < 0.f){
+        player->stopVelocity();
+        player->setSpritePositon(player->getMovementComponent()->getPreviousPosition());
      //   entity->setPosition(0.0f, entity->getPosition().y);
     }
-    else if(entity->getPosition().x  + entity->getGlobalBounds().width > (this->width * Tile::TILE_SIZE)){
+    else if(player->getPosition().x  + player->getGlobalBounds().width > (this->width * Tile::TILE_SIZE)){
       //  entity->setPosition(((float)this->width * Tile::TILE_SIZE) - entity->getGlobalBounds().width, entity->getPosition().y);
-        entity->stopVelocity();
-        entity->setSpritePositon(entity->getMovementComponent()->getPreviousPosition());
+        player->stopVelocity();
+        player->setSpritePositon(player->getMovementComponent()->getPreviousPosition());
     }
-    if(entity->getPosition().y < 0.f){
+    if(player->getPosition().y < 0.f){
       //  entity->setPosition(entity->getPosition().x, 0.f);
-        entity->stopVelocity();
-        entity->setSpritePositon(entity->getMovementComponent()->getPreviousPosition());
+        player->stopVelocity();
+        player->setSpritePositon(player->getMovementComponent()->getPreviousPosition());
     }
 
-    else if(entity->getPosition().y + entity->getGlobalBounds().height > (this->height * Tile::TILE_SIZE)){
+    else if(player->getPosition().y + player->getGlobalBounds().height > (this->height * Tile::TILE_SIZE)){
       //  entity->setPosition(entity->getPosition().x, ((float)this->height * Tile::TILE_SIZE) - entity->getGlobalBounds().height);
-        entity->stopVelocity();
-        entity->setSpritePositon(entity->getMovementComponent()->getPreviousPosition());
+        player->stopVelocity();
+        player->setSpritePositon(player->getMovementComponent()->getPreviousPosition());
     }
 
     //Tiles
     
 }
 
-void Map::updateTileCollision(Entity * entity, const float & dt) {
+void Map::updateTileCollision(std::shared_ptr<Player> player, const float & dt) {
 
 
-    this->fromX = entity->getGridPosition().x - 1;
+    this->fromX = player->getGridPosition().x - 1;
     if (this->fromX < 0)
         this->fromX = 0;
     else if (this->fromX > this->width)
         this->fromX = this->width;
 
-    this->toX = entity->getGridPosition().x + 3;
+    this->toX = player->getGridPosition().x + 3;
     if (this->toX < 0)
         this->toX = 0;
     else if (this->toX > this->width)
         this->toX = this->width;
 
-    this->fromY = entity->getGridPosition().y - 1;
+    this->fromY = player->getGridPosition().y - 1;
     if (this->fromY < 0)
         this->fromY = 0;
     else if (this->fromY > this->height)
         this->fromY = this->height;
 
-    this->toY = entity->getGridPosition().y + 3;
+    this->toY = player->getGridPosition().y + 3;
     if (this->toY < 0)
         this->toY = 0;
     else if (this->toY > this->height)
@@ -86,9 +86,9 @@ void Map::updateTileCollision(Entity * entity, const float & dt) {
      {
          for (int x = this->fromX; x < this->toX; x++){
             //TILES
-            sf::FloatRect playerBounds = entity->getCollisionBoxComponent()->getCollisionEllipse().getGlobalBounds();
+            sf::FloatRect playerBounds = player->getCollisionBoxComponent()->getCollisionEllipse().getGlobalBounds();
             sf::FloatRect wallBounds = this->tiles[y][x]->getGlobalBounds();
-            sf::FloatRect nextPositionBounds = entity->getNextPositionBounds(dt);
+            sf::FloatRect nextPositionBounds = player->getNextPositionBounds(dt);
            if (!this->tiles[y][x]->IsTraversable() && this->tiles[y][x]->intersects(playerBounds)) {
                /*   //Bottom collision
                   if (playerBounds.top < wallBounds.top
@@ -130,8 +130,8 @@ void Map::updateTileCollision(Entity * entity, const float & dt) {
                           entity->stopVelocityX();
                           entity->setPositionX(wallBounds.left + wallBounds.width);
                   }*/
-                entity->stopVelocity();
-                entity->setSpritePositon(entity->getMovementComponent()->getPreviousPosition());
+               player->stopVelocity();
+               player->setSpritePositon(player->getMovementComponent()->getPreviousPosition());
            }
          }
     }

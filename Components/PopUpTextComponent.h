@@ -7,10 +7,27 @@
 
 #include <SFML/Graphics.hpp>
 #include <sstream>
+#include <memory>
 
 enum TextTypes { DEFAULT_TAG, NEGATIVE_TAG, EXPERIENCE_TAG, GOLD_TAG, HEAL_TAG, MANA_RESTORE_TAG};
 
 class PopUpTextComponent {
+public:
+    PopUpTextComponent(sf::Font font, std::shared_ptr<sf::RenderWindow> window);
+    virtual ~PopUpTextComponent();
+
+    //Functions
+    void addPopUpText(const unsigned tag_type, const float pos_x, const float pos_y,
+                      const std::string str, const std::string prefix, const std::string postfix);
+    void addPopUpText(const unsigned tag_type, const float pos_x, const float pos_y,
+                      const int i, const std::string prefix, const std::string postfix);
+
+    void addPopUpTextCenter(const unsigned tag_type, const std::string str, const std::string prefix, const std::string postfix);
+    void addPopUpTextCenter(const unsigned tag_type, const int i, const std::string prefix, const std::string postfix);
+
+    void update(const float &dt);
+    void render(sf::RenderTarget & target);
+
 private:
     class PopUpText {
     private:
@@ -26,7 +43,7 @@ private:
 
     public:
         PopUpText(sf::Font& font, std::string text, float pos_x, float pos_y, float dir_x, float dir_y,
-                sf::Color color, unsigned char_size, float lifetime, bool reverse, float speed, float acceleration, int fade_value) {
+                  sf::Color color, unsigned char_size, float lifetime, bool reverse, float speed, float acceleration, int fade_value) {
             this->text.setFont(font);
             this->text.setPosition(pos_x, pos_y);
             this->text.setFillColor(color);
@@ -39,7 +56,7 @@ private:
             this->speed = speed;
             this->acceleration = acceleration;
             this->fadeValue = fade_value;
-            this->reverse	= reverse;
+            this->reverse = reverse;
 
             if (this->reverse){
                 this->velocity.x = this->dirX * this->speed;
@@ -47,19 +64,19 @@ private:
             }
         }
 
-        PopUpText(PopUpText* tag, float pos_x, float pos_y, std::string str) {
-            this->text = tag->text;
-            this->text.setString(str);
-            this->text.setPosition(pos_x, pos_y);
+        PopUpText(std::shared_ptr<PopUpText> tag, float pos_x, float pos_y, std::string str) {
+            text = tag->text;
+            text.setString(str);
+            text.setPosition(pos_x, pos_y);
 
-            this->dirX = tag->dirX;
-            this->dirY = tag->dirY;
-            this->lifetime = tag->lifetime;
-            this->speed = tag->speed;
-            this->acceleration = tag->acceleration;
-            this->fadeValue = tag->fadeValue;
-            this->reverse = tag->reverse;
-            this->velocity = tag->velocity;
+            dirX = tag->dirX;
+            dirY = tag->dirY;
+            lifetime = tag->lifetime;
+            speed = tag->speed;
+            acceleration = tag->acceleration;
+            fadeValue = tag->fadeValue;
+            reverse = tag->reverse;
+            velocity = tag->velocity;
         }
 
         ~PopUpText() {
@@ -67,86 +84,69 @@ private:
         }
 
         //Accessor
-        inline const bool isExpired() const{ return this->lifetime <= 0.f; }
+        inline const bool isExpired() const{ return lifetime <= 0.f; }
 
         //Function
         void update(const float& dt) {
-            if (this->lifetime > 0.f) {
+            if (lifetime > 0.f) {
                 //Update the lifetime
-                this->lifetime -= 100.f * dt;
+                lifetime -= 100.f * dt;
 
                 //Accelerate
-                if (this->acceleration > 0.f) {
-                    if (this->reverse) {
-                        this->velocity.x -= this->dirX * this->acceleration * dt;
-                        this->velocity.y -= this->dirY * this->acceleration * dt;
+                if (acceleration > 0.f) {
+                    if (reverse) {
+                        velocity.x -= dirX * acceleration * dt;
+                        velocity.y -= dirY * acceleration * dt;
 
-                        if (abs(this->velocity.x) < 0.f)
-                            this->velocity.x = 0.f;
+                        if (abs(velocity.x) < 0.f)
+                            velocity.x = 0.f;
 
-                        if (abs(this->velocity.y) < 0.f)
-                            this->velocity.y = 0.f;
+                        if (abs(velocity.y) < 0.f)
+                            velocity.y = 0.f;
 
-                        this->text.move(this->velocity * dt);
+                        text.move(velocity * dt);
                     }
                     else {
-                        this->velocity.x += this->dirX * this->acceleration * dt;
-                        this->velocity.y += this->dirY * this->acceleration * dt;
+                        velocity.x += dirX * acceleration * dt;
+                        velocity.y += dirY * acceleration * dt;
 
-                        if (abs(this->velocity.x) > this->speed)
-                            this->velocity.x = this->dirX * this->speed;
+                        if (abs(velocity.x) > speed)
+                            velocity.x = dirX * speed;
 
-                        if (abs(this->velocity.y) > this->speed)
-                            this->velocity.y = this->dirY * this->speed;
+                        if (abs(velocity.y) > speed)
+                            velocity.y = dirY * speed;
 
-                        this->text.move(this->velocity * dt);
+                        text.move(velocity * dt);
                     }
                 }
                 else {
                     //Move the tag
-                    this->text.move(this->dirX * this->speed * dt, this->dirY * this->speed * dt);
+                    text.move(dirX * speed * dt, dirY * speed * dt);
                 }
 
-                if (this->fadeValue > 0 && this->text.getFillColor().a >= this->fadeValue) {
-                    this->text.setFillColor(sf::Color(
-                                            this->text.getFillColor().r,
-                                            this->text.getFillColor().g,
-                                            this->text.getFillColor().b,
-                                            this->text.getFillColor().a - this->fadeValue));
+                if (fadeValue > 0 && text.getFillColor().a >= fadeValue) {
+                    text.setFillColor(sf::Color(
+                            text.getFillColor().r,
+                            text.getFillColor().g,
+                            text.getFillColor().b,
+                            text.getFillColor().a - fadeValue));
                 }
             }
         }
 
         void render(sf::RenderTarget& target) {
-            target.draw(this->text);
+            target.draw(text);
         }
     };
 
-    sf::Window* window;
+    std::shared_ptr<sf::RenderWindow> window;
     sf::Font font;
-    std::map<unsigned, PopUpText*> popUpTextTemplates;
-    std::vector<PopUpText*> popUpTexts;
-
+    std::map<unsigned, std::shared_ptr<PopUpText>> popUpTextTemplates;
+    std::vector<std::shared_ptr<PopUpText>> popUpTexts;
     sf::Vector2f windowCenter;
 
     //Private functions
     void initTagTemplates();
-
-public:
-    PopUpTextComponent(sf::Font font, sf::Window* window);
-    virtual ~PopUpTextComponent();
-
-    //Functions
-    void addPopUpText(const unsigned tag_type, const float pos_x, const float pos_y,
-            const std::string str, const std::string prefix, const std::string postfix);
-    void addPopUpText(const unsigned tag_type, const float pos_x, const float pos_y,
-            const int i, const std::string prefix, const std::string postfix);
-
-    void addPopUpTextCenter(const unsigned tag_type, const std::string str, const std::string prefix, const std::string postfix);
-    void addPopUpTextCenter(const unsigned tag_type, const int i, const std::string prefix, const std::string postfix);
-
-    void update(const float &dt);
-    void render(sf::RenderTarget & target);
 };
 
 

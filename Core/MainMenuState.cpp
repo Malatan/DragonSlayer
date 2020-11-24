@@ -5,16 +5,16 @@
 #include "MainMenuState.h"
 
 void MainMenuState::initVariables() {
-    this->background.setSize(
+    background.setSize(
             sf::Vector2f(
-                    static_cast<float>(this->window->getSize().x),
-                    static_cast<float>(this->window->getSize().y)));
+                    static_cast<float>(window->getSize().x),
+                    static_cast<float>(window->getSize().y)));
 
-    this->rsHandler->addResouce("../Resources/Images/Backgrounds/mainMenuBG.png", "mainmenu background", "MainMenuState");
+    rsHandler->addResouce("../Resources/Images/Backgrounds/mainMenuBG.png", "mainmenu background", "MainMenuState");
 
-    this->backgroundTexture.loadFromImage(this->rsHandler->getResouceByKey("mainmenu background")->getImage());
+    backgroundTexture.loadFromImage(rsHandler->getResouceByKey("mainmenu background")->getImage());
 
-    this->background.setTexture(&this->backgroundTexture);
+    background.setTexture(&backgroundTexture);
 }
 
 void MainMenuState::initBackground() {
@@ -22,14 +22,14 @@ void MainMenuState::initBackground() {
 }
 
 void MainMenuState::initFonts() {
-    if(!this->font.loadFromFile("../Resources/Fonts/BreatheFire-65pg.ttf")){
+    if(!font.loadFromFile("../Resources/Fonts/BreatheFire-65pg.ttf")){
         throw("Errore: mainmenustate could not load font");
     }
 }
 
 void MainMenuState::initButtons() {
-    float centerX = this->window->getSize().x / 2.f;
-    float percentY = (this->window->getSize().y)/100.f;
+    float centerX = window->getSize().x / 2.f;
+    float percentY = (window->getSize().y)/100.f;
     float btnWidth = 200.f;
     float btnHeight = 40.f;
     sf::Color text_idle_color = sf::Color(71, 17, 13,250);
@@ -40,34 +40,33 @@ void MainMenuState::initButtons() {
     sf::Color hover_color = sf::Color(150, 150, 150, 0);
     sf::Color active_color = sf::Color(20, 20, 20, 0);
 
-    this->buttons["GAME_STATE"] = new gui::Button(centerX - (btnWidth/2.f), percentY * 70.f , btnWidth, btnHeight,
-                                                  &this->font, "Start Game", 40,
+    buttons["GAME_STATE"] = gui::Button(centerX - (btnWidth/2.f), percentY * 70.f , btnWidth, btnHeight,
+                                                  &font, "Start Game", 40,
                                                   text_idle_color ,text_hover_color, text_active_color,
                                                   idle_color, hover_color, active_color);
 
-    this->buttons["EXIT_STATE"] = new gui::Button(centerX - (btnWidth/2.f), percentY * 80.f, btnWidth, btnHeight,
-                                                  &this->font, "Quit", 40,
+    buttons["EXIT_STATE"] = gui::Button(centerX - (btnWidth/2.f), percentY * 80.f, btnWidth, btnHeight,
+                                                  &font, "Quit", 40,
                                                   text_idle_color ,text_hover_color, text_active_color,
                                                   idle_color, hover_color, active_color);
 }
 
-MainMenuState::MainMenuState(sf::RenderWindow *window, std::stack<State*>* states, ResourcesHandler* rsHandler, sf::Event* sfEvent)
-        : State(window, states, rsHandler, sfEvent){
-    this->initVariables();
-    this->initBackground();
-    this->initFonts();
-    this->initButtons();
+MainMenuState::MainMenuState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::unique_ptr<State>>* states,
+        std::shared_ptr<ResourcesHandler> rsHandler)
+        : State(window, states, rsHandler){
+    initVariables();
+    initBackground();
+    initFonts();
+    initButtons();
 }
 
 MainMenuState::~MainMenuState() {
-    auto it = this->buttons.begin();
-    for(it = this->buttons.begin(); it != this->buttons.end(); ++it){
-        delete it->second;
-    }
+
 }
 
 void MainMenuState::startNewGame() {
-    this->states->push(new GameState(this->window, this->states, this->rsHandler, &this->font,this->sfEvent));
+    states->push(std::make_unique<GameState>(window, states, rsHandler, &font));
+
 }
 
 void MainMenuState::updateInput(const float &dt) {
@@ -76,41 +75,41 @@ void MainMenuState::updateInput(const float &dt) {
 
 void MainMenuState::updateButtons() {
     // Aggiorna tutti i buttoni
-    for (auto &it : this->buttons){
-        it.second->update((this->mousePosView));
+    for (auto &it : buttons){
+        it.second.update((mousePosView));
     }
 
     //Nuovo gioco
-    if(this->buttons["GAME_STATE"]->isPressed()){
-        this->startNewGame();
+    if(buttons["GAME_STATE"].isPressed()){
+        startNewGame();
     }
 
     //Esce dal gioco
-    if(this->buttons["EXIT_STATE"]->isPressed()){
-        this->endState();
+    if(buttons["EXIT_STATE"].isPressed()){
+        endState();
     }
 }
 
 void MainMenuState::update(const float &dt) {
-    this->updateMousePosition();
-    this->updateInput(dt);
-    this->updateKeyTime(dt);
-    this->updateButtons();
+    updateMousePosition();
+    updateInput(dt);
+    updateKeyTime(dt);
+    updateButtons();
 }
 
 void MainMenuState::renderButtons(sf::RenderTarget& target) {
-    for (auto &it : this->buttons){
-        it.second->render(target);
+    for (auto &it : buttons){
+        it.second.render(target);
     }
 }
 
 void MainMenuState::render(sf::RenderTarget *target) {
     if(!target){
-        target = this->window;
+        target = window.get();
     }
 
-    target->draw(this->background);
-    this->renderButtons(*target);
+    target->draw(background);
+    renderButtons(*target);
 
   /*  //tool per il debug : mostre le coordinate del mouse
     sf::Text mouseText;

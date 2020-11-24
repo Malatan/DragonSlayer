@@ -17,20 +17,6 @@ enum movement_states{
 };
 
 class MovementComponent {
-private:
-    sf::Sprite& sprite;
-
-    float maxVelocity;
-    float acceleration;
-    float deceleration;
-    bool speedControl;
-
-    sf::Vector2f velocity;
-    sf::Vector2f previousPosition;
-
-protected:
-
-
 public:
     MovementComponent(sf::Sprite& sprite, float maxVelocity, float acceleration, float deceleration);
     virtual ~MovementComponent();
@@ -53,6 +39,16 @@ public:
     void stopVelocityX();
     void stopVelocityY();
 
+private:
+    sf::Sprite& sprite;
+
+    float maxVelocity;
+    float acceleration;
+    float deceleration;
+    bool speedControl;
+
+    sf::Vector2f velocity;
+    sf::Vector2f previousPosition;
 };
 
 #endif //DRAGONSLAYER_MOVEMENTCOMPONENT_H

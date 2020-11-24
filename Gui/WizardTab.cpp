@@ -4,6 +4,8 @@
 
 #include "WizardTab.h"
 
+#include <utility>
+
 void WizardTab::initWizardSpellSlots() {
     //init spellslots
     if(this->spellSlots.size() != 0){
@@ -29,10 +31,11 @@ void WizardTab::initWizardSpellSlots() {
 }
 
 //constructors/destructor
-WizardTab::WizardTab(sf::RenderWindow* window, sf::Font *font, Player *player, State *state, std::map<std::string, sf::Texture> textures)
-        : textures(textures), player(player), font(font), window(window){
-    this->gState = dynamic_cast<GameState*>(state);
-    this->spellComponent = this->gState->getSpellComponent();
+WizardTab::WizardTab(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* font, std::shared_ptr<Player> player, State *state,
+                     std::map<std::string, sf::Texture> textures)
+        : textures(std::move(textures)), player(std::move(player)), font(font), window(window){
+    gState = dynamic_cast<GameState*>(state);
+    spellComponent = this->gState->getSpellComponent();
 
     //init background
     this->background.setSize(sf::Vector2f(
@@ -94,12 +97,9 @@ void WizardTab::updateSpellInfo() {
 }
 
 bool WizardTab::closeTabByClicking(const sf::Vector2f& mousePos) {
-    if(sf::Mouse::isButtonPressed(sf::Mouse::Left) &&
-       this->background.getGlobalBounds().contains(mousePos)
-       && !this->container.getGlobalBounds().contains(mousePos)){
-        return true;
-    }
-    return false;
+    return sf::Mouse::isButtonPressed(sf::Mouse::Left) &&
+           this->background.getGlobalBounds().contains(mousePos)
+           && !this->container.getGlobalBounds().contains(mousePos);
 }
 
 void WizardTab::updateGoldLbl() {

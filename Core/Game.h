@@ -11,11 +11,34 @@
 #include "../Resources/ResourcesHandler.h"
 
 class Game {
+public:
+    //Constructors/Destructors
+    Game();
+    Game(bool unit_testing);
+    virtual ~Game();
+
+    //accessors
+    shared_ptr<sf::RenderWindow> getWindow();
+
+    //Functions
+    void endApplication();
+
+    //update
+    void updateDt();
+    void updateSFMLEvents();
+    void update();
+
+    //render
+    void render();
+
+    //core
+    void run();
+    void unitTestingRun();
+
 private:
     //Variables
-    ResourcesHandler* rsHandler;
-    sf::RenderWindow *window;
-private:
+    std::shared_ptr<ResourcesHandler> rsHandler;
+    std::shared_ptr<sf::RenderWindow> window;
     sf::Event sfEvent;
     std::vector<sf::VideoMode> videomodes;
     sf::ContextSettings windowSettings;
@@ -25,42 +48,15 @@ private:
     bool isFocused;
     bool unitTesting;
     sf::Time gameRunTime;
-    RunTimeClock* rtc;
+    std::shared_ptr<RunTimeClock> rtc;
 
-    std::stack<State*> states;
+    std::stack<std::unique_ptr<State>> states;
 
     std::string Title;
     //Initialization
     void initVariables();
     void initWindow();
     void initStates();
-
-public:
-    //Constructors/Destructors
-    Game();
-    Game(bool unit_testing);
-    virtual ~Game();
-
-    //accessors
-    sf::RenderWindow *getWindow();
-
-    //Functions
-
-    //regular
-    void endApplication();
-
-    //update
-    void updateDt();
-    void updateSFMLEvents();
-    void update();
-
-
-    //render
-    void render();
-
-    //core
-    void run();
-    void unitTestingRun();
 };
 
 

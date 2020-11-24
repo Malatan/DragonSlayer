@@ -6,7 +6,7 @@
 #define DRAGONSLAYER_NPC_H
 
 #include "Entity.h"
-
+#include "Player.h"
 enum npc_type{
     DEFAULT,
     SHOP,
@@ -16,17 +16,6 @@ enum npc_type{
 };
 
 class Npc : public Entity{
-private:
-    npc_type  type;
-
-    sf::RectangleShape overHeadContainer;
-
-
-    //initializer functions
-    void initVariables();
-    void initAnimations();
-    void iniHitBoxComponents();
-
 public:
     Npc();
     Npc(npc_type type, float x, float y, float scale_x, float scale_y, sf::Texture& texture_sheet, sf::Texture& texture);
@@ -35,9 +24,16 @@ public:
     //funtions
     void updateAnimation(const float &dt);
     void update(const float &dt);
-    void updateCollsion(Entity* entity, npc_type* type);
+    void updateCollsion(std::shared_ptr<Player> player, npc_type* type);
     void render(sf::RenderTarget& target, const bool show_hitbox = false);
 
+private:
+    npc_type  type;
+    sf::RectangleShape overHeadContainer;
+
+    //initializer functions
+    void initAnimations();
+    void iniHitBoxComponents();
 };
 
 

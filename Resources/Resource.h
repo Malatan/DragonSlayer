@@ -9,13 +9,6 @@
 #include <SFML/Graphics.hpp>
 
 class Resource {
-private:
-    sf::Image image;
-    std::string resourcePath;
-    std::string key;
-    std::string stateName;
-protected:
-
 public:
     Resource(std::string resourcePath, std::string key,std::string stateName);
     virtual ~Resource();
@@ -23,6 +16,12 @@ public:
     std::string getKey();
     const sf::Image getImage() const;
     std::string toString();
+
+private:
+    sf::Image image;
+    std::string resourcePath;
+    std::string key;
+    std::string stateName;
 };
 
 

@@ -7,23 +7,11 @@
 
 #include "HitBoxComponent.h"
 
+
 class CollisionBoxComponent {
-private:
-    sf::Sprite* sprite;
-    sf::CircleShape collisionEllipse;
-
-private:
-    float offsetX;
-    float offsetY;
-    float radius;
-    float modX;
-
-
-protected:
-
 public:
     //constructors/destructor
-    CollisionBoxComponent(sf::Sprite* sprite, float offset_x, float offset_y,float radius);
+    CollisionBoxComponent(sf::Sprite& sprite, float offset_x, float offset_y,float radius);
     virtual ~CollisionBoxComponent();
 
     //accessors
@@ -35,6 +23,15 @@ public:
     //functions
     void update();
     void render(sf::RenderTarget& target);
+
+private:
+    sf::Sprite& sprite;
+    sf::CircleShape collisionEllipse;
+
+    float offsetX;
+    float offsetY;
+    float radius;
+    float modX;
 };
 
 

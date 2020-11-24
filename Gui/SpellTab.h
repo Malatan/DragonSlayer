@@ -11,28 +11,9 @@
 class GameState;
 
 class SpellTab {
-private:
-    sf::RectangleShape background;
-    sf::RectangleShape container;
-    sf::Text containerTitle;
-    sfe::RichText infoLbl;
-
-    sf::RenderWindow* window;
-    sf::Font* font;
-    std::map<std::string, sf::Texture> textures;
-
-    ResourcesHandler* rsHandler;
-    Player* player;
-    GameState* gState;
-    SpellComponent* spellComponent;
-
-    std::vector<gui::SpellSlot*> spellSlots;
-    std::string dmgMultiplier;
-protected:
-
 public:
-    SpellTab(sf::RenderWindow* window, sf::Font* font, Player* player, State *state, ResourcesHandler* rsHandler,
-    std::map<std::string, sf::Texture> textures);
+    SpellTab(std::shared_ptr<sf::RenderWindow> window, sf::Font* font, std::shared_ptr<Player> player, State *state,
+             std::shared_ptr<ResourcesHandler> rsHandler, std::map<std::string, sf::Texture> textures);
     virtual ~SpellTab();
 
     void initSpellSlots();
@@ -42,6 +23,24 @@ public:
     void updateSpellsInfoLbl();
     void update(const sf::Vector2f& mousePos);
     void render(sf::RenderTarget& target);
+
+private:
+    sf::RectangleShape background;
+    sf::RectangleShape container;
+    sf::Text containerTitle;
+    sfe::RichText infoLbl;
+
+    std::shared_ptr<sf::RenderWindow> window;
+    sf::Font* font;
+    std::map<std::string, sf::Texture> textures;
+
+    std::shared_ptr<ResourcesHandler> rsHandler;
+    std::shared_ptr<Player> player;
+    GameState* gState;
+    std::shared_ptr<SpellComponent> spellComponent;
+
+    std::vector<gui::SpellSlot*> spellSlots;
+    std::string dmgMultiplier;
 };
 
 

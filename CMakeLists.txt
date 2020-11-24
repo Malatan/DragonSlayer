@@ -12,6 +12,8 @@ set(SOURCE_FILES
         Core/MainMenuState.h
         Core/GameState.cpp
         Core/GameState.h
+        Core/BattleState.cpp
+        Core/BattleState.h
         Core/RunTimeClock.cpp
         Core/RunTimeClock.h
         Gui/Gui.cpp
@@ -48,6 +50,10 @@ set(SOURCE_FILES
         Game/Stats.cpp
         Game/Npc.cpp
         Game/Npc.h
+        Game/Generator.cpp
+        Game/Generator.h
+        Game/Utils.h
+        Game/Utils.cpp
         Components/MovementComponent.cpp
         Components/MovementComponent.h
         Components/AnimationComponent.cpp

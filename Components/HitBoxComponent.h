@@ -6,16 +6,9 @@
 #define DRAGONSLAYER_HITBOXCOMPONENT_H
 
 #include <SFML/Graphics.hpp>
+#include <memory>
 
-class HitboxComponent
-{
-private:
-    sf::Sprite& sprite;
-    sf::RectangleShape hitbox;
-    sf::FloatRect nextPosition;
-    float offsetX;
-    float offsetY;
-
+class HitboxComponent {
 public:
     HitboxComponent(sf::Sprite& sprite,
                     float offset_x, float offset_y,
@@ -25,7 +18,7 @@ public:
     //Accessors
     const sf::Vector2f& getPosition() const;
     const sf::FloatRect getGlobalBounds() const;
-    const sf::FloatRect& getNextPosition(const sf::Vector2f& velocity);
+    const sf::FloatRect & getNextPosition(const sf::Vector2f& velocity);
 
 
     //Modifiers
@@ -39,6 +32,13 @@ public:
     sf::Vector2f getCenter();
     void update();
     void render(sf::RenderTarget& target);
+
+private:
+    sf::Sprite& sprite;
+    sf::RectangleShape hitbox;
+    sf::FloatRect nextPosition;
+    float offsetX;
+    float offsetY;
 };
 
 

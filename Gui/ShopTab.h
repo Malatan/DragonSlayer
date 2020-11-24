@@ -10,29 +10,9 @@
 class GameState;
 
 class ShopTab {
-private:
-    sf::RectangleShape background;
-    sf::RectangleShape container;
-    sf::Text containerTitle;
-    sf::Text playerGoldLbl;
-    sf::Text playerInvSpaceLbl;
-
-    sf::RenderWindow* window;
-    sf::Font* font;
-    std::map<std::string, sf::Texture> textures;
-    ResourcesHandler* rsHandler;
-    Player* player;
-    GameState* gState;
-
-    std::map<std::string, Item*> items;
-    std::vector<gui::ShopSlot*> shopSlots;
-
-
-protected:
-
 public:
-    ShopTab(sf::RenderWindow* window, sf::Font* font, Player* player, State *state, ResourcesHandler* rsHandler,
-            std::map<std::string, sf::Texture> textures);
+    ShopTab(std::shared_ptr<sf::RenderWindow> window, sf::Font* font, std::shared_ptr<Player> player, State *state,
+            std::shared_ptr<ResourcesHandler> rsHandler, std::map<std::string, sf::Texture> textures);
     virtual ~ShopTab();
 
     void initItemList();
@@ -48,6 +28,22 @@ public:
     void update(const sf::Vector2f& mousePos);
     void render(sf::RenderTarget& target);
 
+private:
+    sf::RectangleShape background;
+    sf::RectangleShape container;
+    sf::Text containerTitle;
+    sf::Text playerGoldLbl;
+    sf::Text playerInvSpaceLbl;
+
+    std::shared_ptr<sf::RenderWindow> window;
+    sf::Font* font;
+    std::map<std::string, sf::Texture> textures;
+    std::shared_ptr<ResourcesHandler> rsHandler;
+    std::shared_ptr<Player> player;
+    GameState* gState;
+
+    std::map<std::string, Item*> items;
+    std::vector<gui::ShopSlot*> shopSlots;
 };
 
 

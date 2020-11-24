@@ -6,22 +6,22 @@
 #include "Game.h"
 
 void Game::initVariables() {
-    this->window = NULL;
-    this->dt = 0.f;
+    window = NULL;
+    dt = 0.f;
 }
 
 void Game::initWindow() {
     std::ifstream ifs("../Resources/Config/window.ini");
-    this->videomodes = sf::VideoMode::getFullscreenModes();
+    videomodes = sf::VideoMode::getFullscreenModes();
 
-    this->Title = "None";
+    Title = "None";
     sf::VideoMode window_bounds = sf::VideoMode::getDesktopMode();
     unsigned framerate_limit = 144;
     bool veritcal_enabled = false;
     unsigned antialiasing_level = 0;
 
     if(ifs.is_open()){
-        std::getline(ifs,this->Title);
+        std::getline(ifs,Title);
         ifs >> window_bounds.width >> window_bounds.height;
         ifs >> framerate_limit;
         ifs >> veritcal_enabled;
@@ -31,52 +31,45 @@ void Game::initWindow() {
     }
     ifs.close();
 
-    this->windowSettings.antialiasingLevel = antialiasing_level;
-    this->window = new sf::RenderWindow(window_bounds,
-                                        this->Title,
+    windowSettings.antialiasingLevel = antialiasing_level;
+    window = std::make_shared<sf::RenderWindow>(window_bounds,
+                                        Title,
                                         sf::Style::Close,
-                                        this->windowSettings);
-    this->window->setFramerateLimit(framerate_limit);
-    this->window->setVerticalSyncEnabled(veritcal_enabled);
-    this->rtc = new RunTimeClock();
-    this->rsHandler = new ResourcesHandler();
+                                        windowSettings);
+    window->setFramerateLimit(framerate_limit);
+    window->setVerticalSyncEnabled(veritcal_enabled);
+    rtc = std::make_shared<RunTimeClock>();
+    rsHandler = std::make_shared<ResourcesHandler>();
 }
 
 
 void Game::initStates() {
-    this->states.push(new MainMenuState(this->window, &this->states, this->rsHandler, &this->sfEvent));
+    states.push(std::make_unique<MainMenuState>(window, &states, rsHandler));
 }
 
 //Constructors/Destructors
 Game::Game() {
-    this->isFocused = true;
-    this->unitTesting = false;
-    this->initWindow();
-    this->initStates();
+    isFocused = true;
+    unitTesting = false;
+    initWindow();
+    initStates();
 }
 
 Game::Game(bool unit_testing) {
-    this->isFocused = true;
-    this->unitTesting = unit_testing;
-    this->initWindow();
-    this->initStates();
+    isFocused = true;
+    unitTesting = unit_testing;
+    initWindow();
+    initStates();
 }
 
 Game::~Game() {
-    delete this->window;
-    delete this->rsHandler;
-    delete this->rtc;
-    while(this->states.empty()){
-        delete this->states.top();
-        this->states.pop();
-    }
 
 }
 
 void Game::updateDt() {
-    this->gameRunTime = this->dtClock.restart();
-    this->dt = gameRunTime.asSeconds();
-    this->rtc->addMilliseconds(gameRunTime.asMilliseconds());
+    gameRunTime = dtClock.restart();
+    dt = gameRunTime.asSeconds();
+    rtc->addMilliseconds(gameRunTime.asMilliseconds());
 }
 
 //Functions
@@ -85,71 +78,69 @@ void Game::endApplication() {
 }
 
 void Game::updateSFMLEvents() {
-    while(this->window->pollEvent(this->sfEvent)){
-        switch (this->sfEvent.type)
+    while(window->pollEvent(sfEvent)){
+        switch (sfEvent.type)
         {
             case sf::Event::Closed:       //check for CLOSED event
-                this->window->close();
+                window->close();
                 break;
             case sf::Event::GainedFocus:
-                this->isFocused = true;
+                isFocused = true;
                 break;
             case sf::Event::LostFocus:
-                this->isFocused = false;
+                isFocused = false;
                 break;
         }
     }
 }
 
 void Game::update() {
-
-    this->updateSFMLEvents();
-    if(!this->states.empty()){
-        if (this->window->hasFocus()) {
-            this->states.top()->update(this->dt);
-            if(this->states.top()->getQuit()){
-                this->states.top()->endState();
-                delete this->states.top();
-                this->states.pop();
+    updateSFMLEvents();
+    if(!states.empty()){
+        if (window->hasFocus()) {
+            states.top()->update(dt);
+            if(states.top()->getQuit()){
+                states.top()->endState();
+                states.pop();
             }
         }
     } else{
         //application end
-        this->endApplication();
-        this->window->close();
+        endApplication();
+        window->close();
     }
 }
 
 void Game::render() {
-    this->window->clear(sf::Color(30,30,30,150));
+    window->clear(sf::Color(30,30,30,150));
 
     //Render items
-    if(!this->states.empty()){
-        this->states.top()->render();
+    if(!states.empty()){
+        states.top()->render();
     }
 
-    this->window->display();
+    window->display();
 }
 
 void Game::run() {
-    while(this->window->isOpen()){
-        this->window->setTitle(this->Title+this->rtc->toString());
-        this->updateDt();
-        this->update();
-        this->render();
+    while(window->isOpen()){
+        window->setTitle(Title+rtc->toString());
+        updateDt();
+        update();
+        render();
     }
 }
 
 void Game::unitTestingRun() {
-    this->window->setVisible(false);
-    while(this->window->isOpen()){
-        this->updateDt();
-        this->update();
+    window->setVisible(false);
+    while(window->isOpen()){
+        updateDt();
+        update();
     }
 }
 
-sf::RenderWindow *Game::getWindow(){
-    return this->window;
+shared_ptr<sf::RenderWindow> Game::getWindow(){
+    return window;
 }
 
 

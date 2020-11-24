@@ -10,30 +10,9 @@
 class GameState;
 
 class PriestTab {
-private:
-    sf::RectangleShape background;
-    sf::RectangleShape container;
-    sf::Text containerTitle;
-    sf::RenderWindow* window;
-    sf::Font* font;
-    std::map<std::string, sf::Texture> textures;
-    sf::Text playerGoldLbl;
-
-    ResourcesHandler* rsHandler;
-    Player* player;
-    GameState* gState;
-
-    gui::Button* restoreHpBtn;          // id = 0
-    gui::Button* restoreMpBtn;          // id = 1
-    gui::Button* removeAllDebuffsBtn;   // id = 2
-    gui::Button* recoverAllBtn;         // id = 3
-
-
-protected:
-
 public:
-    PriestTab(sf::RenderWindow* window, sf::Font* font, Player* player, State *state, ResourcesHandler* rsHandler,
-    std::map<std::string, sf::Texture> textures);
+    PriestTab(std::shared_ptr<sf::RenderWindow> window, sf::Font* font, std::shared_ptr<Player> player, State *state,
+              std::shared_ptr<ResourcesHandler> rsHandler, std::map<std::string, sf::Texture> textures);
     virtual ~PriestTab();
 
     void initButtons();
@@ -44,6 +23,24 @@ public:
     void updateButtons();
     void update(const sf::Vector2f& mousePos);
     void render(sf::RenderTarget& target);
+
+private:
+    sf::RectangleShape background;
+    sf::RectangleShape container;
+    sf::Text containerTitle;
+    std::shared_ptr<sf::RenderWindow> window;
+    sf::Font* font;
+    std::map<std::string, sf::Texture> textures;
+    sf::Text playerGoldLbl;
+
+    std::shared_ptr<ResourcesHandler> rsHandler;
+    std::shared_ptr<Player> player;
+    GameState* gState;
+
+    gui::Button restoreHpBtn;          // id = 0
+    gui::Button restoreMpBtn;          // id = 1
+    gui::Button removeAllDebuffsBtn;   // id = 2
+    gui::Button recoverAllBtn;         // id = 3
 };
 
 

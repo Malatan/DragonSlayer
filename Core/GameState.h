@@ -6,6 +6,7 @@
 #define DRAGONSLAYER_GAMESTATE_H
 
 #include "State.h"
+#include "BattleState.h"
 #include "../Game/Player.h"
 #include "../Game/Enemy.h"
 #include "../Game/Npc.h"
@@ -33,35 +34,64 @@ class Map;
 class MapGenerator;
 
 class GameState : public State{
+public:
+    GameState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::unique_ptr<State>>* states,
+            std::shared_ptr<ResourcesHandler> rsHandler, sf::Font *font);
+    virtual ~GameState();
+
+    //accessors
+    std::shared_ptr<BuffComponent> getBuffComponent();
+    std::shared_ptr<PopUpTextComponent> getPopUpTextComponent();
+    std::shared_ptr<SpellComponent> getSpellComponent();
+    std::shared_ptr<SpellTab> getSpellTab();
+
+    //functions
+    void spawnEnemy(float x, float y, enemy_types type);
+    void addItem(Item* item);
+    void changeStato(int stato);
+    void updateTabsGoldLbl();
+    void updateTabsInvSpaceLbl();
+    void updateTabsPlayerStatsLbl();
+    void updateInput(const float &dt) override;
+    void updatePlayerInput(const float& dt);
+    void updatePausedMenuButtons();
+    void updateView(const float& dt);
+    void updateDebugText();
+    void updateButtons();
+    void update(const float& dt) override;
+    void updateTileMap(const float& dt);
+    void render(sf::RenderTarget* target) override;
+
 private:
     sf::Font* font;
     sf::View view;
     sf::Text hints;
     sf::Text debugText;
 
-    gui::Button* cTabBtn;
-    gui::Button* pauseMenuBtn;
-    gui::Button* spellTabBtn;
+    gui::Button cTabBtn;
+    gui::Button pauseMenuBtn;
+    gui::Button spellTabBtn;
 
     Map* map;
     MapGenerator* mg;
-    PauseMenu* pmenu;
-    CharacterTab* cTab;
-    ShopTab* shopTab;
-    PriestTab* priestTab;
-    SpellTab* spellTab;
-    WizardTab* wizardTab;
-    Player* player;
+    PauseMenu pmenu;
+    std::shared_ptr<CharacterTab> cTab;
+    std::shared_ptr<ShopTab> shopTab;
+    std::shared_ptr<PriestTab> priestTab;
+    std::shared_ptr<SpellTab> spellTab;
+    std::shared_ptr<WizardTab> wizardTab;
+    std::shared_ptr<Player> player;
 
-    BuffComponent* buffComponent;
-    PopUpTextComponent* popUpTextComponent;
-    SpellComponent* spellComponent;
+    std::shared_ptr<BuffComponent> buffComponent;
+    std::shared_ptr<PopUpTextComponent> popUpTextComponent;
+    std::shared_ptr<SpellComponent> spellComponent;
 
-    std::vector<Enemy*> enemis;
+    std::vector<Enemy*> enemies;
     std::vector<Npc*> npcs;
     int stato; // 0 = in giocata, 1 = pause, menu 2 = character, 3 = shop, 4 = priest, 5 = spell, 6 = wizard
     npc_type npcInteract;
     bool noclip;
+    int currentFloor;
 
     //functions
     void initTextures();
@@ -83,37 +113,6 @@ private:
     void initDebugText();
     void initButtons();
     void initMaps();
-
-public:
-    GameState(sf::RenderWindow* window, std::stack<State*>* states, ResourcesHandler* rsHandler, sf::Font *font, sf::Event* sfEvent);
-    virtual ~GameState();
-
-    //modifiers
-    void setNoclip(bool b);
-
-    //accessors
-    BuffComponent* getBuffComponent();
-    PopUpTextComponent* getPopUpTextComponent();
-    SpellComponent* getSpellComponent();
-    SpellTab* getSpellTab();
-    const bool isNoclip() const;
-
-    //functions
-    void addItem(Item* item);
-    void changeStato(int stato);
-    void updateTabsGoldLbl();
-    void updateTabsInvSpaceLbl();
-    void updateTabsPlayerStatsLbl();
-    void updateInput(const float &dt);
-    void updatePlayerInput(const float& dt);
-    void updatePausedMenuButtons();
-    void updateView(const float& dt);
-    void updateDebugText();
-    void updateButtons();
-    void update(const float& dt);
-    void updateTileMap(const float& dt);
-    void render(sf::RenderTarget* target = nullptr);
-
 };
 
 

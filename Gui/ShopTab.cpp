@@ -6,7 +6,7 @@
 
 void ShopTab::initShopSlots() {
     //init shop slots
-    if(this->shopSlots.size() != 0){
+    if(!this->shopSlots.empty()){
         this->shopSlots.clear();
     }
 
@@ -27,8 +27,8 @@ void ShopTab::initShopSlots() {
     }
 }
 
-ShopTab::ShopTab(sf::RenderWindow *window, sf::Font *font, Player *player, State *state, ResourcesHandler *rsHandler,
-                 std::map<std::string, sf::Texture> textures) : window(window), font(font), player(player),
+ShopTab::ShopTab(std::shared_ptr<sf::RenderWindow> window, sf::Font* font, std::shared_ptr<Player> player, State *state,
+                 std::shared_ptr<ResourcesHandler> rsHandler, std::map<std::string, sf::Texture> textures) : window(window), font(font), player(player),
                  rsHandler(rsHandler), textures(textures){
 
     this->gState = dynamic_cast<GameState*>(state);
@@ -124,7 +124,7 @@ void ShopTab::buyItem(Item* item, const unsigned price) {
             } else if(!this->player->getInventory()->isExpandable()){
                 this->gState->getPopUpTextComponent()->addPopUpTextCenter(DEFAULT,
                         "Your inventory cannot be expanded anymore(Limit:" +
-                        to_string(this->player->getInventory()->MAX_SPACE),"",")");
+                        to_string(Inventory::MAX_SPACE),"",")");
             } else{
                 this->player->minusGold(price);
                 this->player->getInventory()->expandInventorySpace(5);
@@ -150,12 +150,9 @@ void ShopTab::buyItem(Item* item, const unsigned price) {
 }
 
 bool ShopTab::closeTabByClicking(const sf::Vector2f& mousePos) {
-    if(sf::Mouse::isButtonPressed(sf::Mouse::Left) &&
-       this->background.getGlobalBounds().contains(mousePos)
-       && !this->container.getGlobalBounds().contains(mousePos)){
-        return true;
-    }
-    return false;
+    return sf::Mouse::isButtonPressed(sf::Mouse::Left) &&
+           this->background.getGlobalBounds().contains(mousePos)
+           && !this->container.getGlobalBounds().contains(mousePos);
 }
 
 void ShopTab::updateGoldLbl() {

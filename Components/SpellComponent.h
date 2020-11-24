@@ -7,29 +7,28 @@
 
 #include "../Game/Spell.h"
 #include <vector>
+#include <memory>
 
 class SpellComponent {
-private:
-    std::vector<Spell*> spells;
-    std::vector<Spell*> playerSpells;
-
-protected:
-
 public:
     //constructors/desctructor
     SpellComponent();
     virtual ~SpellComponent();
 
     //accessors
-    std::vector<Spell*> getSpells();
-    std::vector<Spell*> getPlayerSpells();
+    std::vector<std::shared_ptr<Spell>> getSpells();
+    std::vector<std::shared_ptr<Spell>> getPlayerSpells();
 
     //functions
-    void addSpell(Spell* spell);
-    void addPlayerSpell(Spell* spell);
+    void addSpell(Spell spell);
+    void addPlayerSpell(Spell spell);
     void sortSpellList();
     const std::string toString() const;
     const std::string toStringPlayer() const;
+
+private:
+    std::vector<std::shared_ptr<Spell>> spells;
+    std::vector<std::shared_ptr<Spell>> playerSpells;
 };
 
 

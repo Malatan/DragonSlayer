@@ -13,6 +13,7 @@
 #include <stack>
 #include <map>
 #include "../Resources/ResourcesHandler.h"
+#include <memory>
 
 
 class State {
@@ -20,10 +21,9 @@ private:
 
 
 protected:
-    std::stack<State*>* states;
-    sf::RenderWindow* window;
-    ResourcesHandler* rsHandler;
-    sf::Event* sfEvent;
+    std::stack<std::unique_ptr<State>>* states;
+    std::shared_ptr<sf::RenderWindow> window;
+    std::shared_ptr<ResourcesHandler> rsHandler;
 
     bool quit;
     bool paused;
@@ -38,14 +38,17 @@ protected:
     std::map<std::string, sf::Texture> textures;
 
 public:
-    State(sf::RenderWindow* window, std::stack<State*>* states, ResourcesHandler* rsHandler, sf::Event* sfEvent);
+    State();
+    State(std::shared_ptr<sf::RenderWindow> window, std::stack<std::unique_ptr<State>>* states,
+            std::shared_ptr<ResourcesHandler> rsHandler);
     virtual ~State();
 
     //accessors
     const bool& getQuit() const;
     const bool getKeyTime();
-    ResourcesHandler *getRsHandler() const;
+    std::shared_ptr<ResourcesHandler> getRsHandler() const;
     const map<string, sf::Texture> &getTextures() const;
+    const sf::Vector2f getMousePosView() const;
 
     //functions
     void endState();
@@ -54,9 +57,9 @@ public:
 
     virtual void updateMousePosition(sf::View* view = NULL);
     virtual void updateKeyTime(const float& dt);
-    virtual void updateInput(const float& dt) = 0;
-    virtual void update(const float& dt) = 0;
-    virtual void render(sf::RenderTarget* target = nullptr) = 0;
+    virtual void updateInput(const float& dt);
+    virtual void update(const float& dt);
+    virtual void render(sf::RenderTarget* target = nullptr);
 };
 
 

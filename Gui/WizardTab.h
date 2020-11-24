@@ -9,26 +9,10 @@
 
 
 class WizardTab {
-private:
-    sf::RectangleShape background;
-    sf::RectangleShape container;
-    sf::Text containerTitle;
-    sf::Text playerGoldLbl;
-
-    sf::RenderWindow* window;
-    sf::Font* font;
-    std::map<std::string, sf::Texture> textures;
-    Player* player;
-    GameState* gState;
-    SpellComponent* spellComponent;
-
-    std::vector<gui::WizardSpellSlot*> spellSlots;
-protected:
-
 public:
     //constructors/destructor
-    WizardTab(sf::RenderWindow* window, sf::Font* font, Player* player,
-            State *state, std::map<std::string, sf::Texture> textures);
+    WizardTab(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* font, std::shared_ptr<Player> player, State *state,
+            std::map<std::string, sf::Texture> textures);
     virtual ~WizardTab();
 
     void initWizardSpellSlots();
@@ -40,6 +24,21 @@ public:
     void updateGoldLbl();
     void update(const sf::Vector2f& mousePos);
     void render(sf::RenderTarget& target);
+
+private:
+    sf::RectangleShape background;
+    sf::RectangleShape container;
+    sf::Text containerTitle;
+    sf::Text playerGoldLbl;
+
+    std::shared_ptr<sf::RenderWindow> window;
+    sf::Font* font;
+    std::map<std::string, sf::Texture> textures;
+    std::shared_ptr<Player> player;
+    GameState* gState;
+    std::shared_ptr<SpellComponent> spellComponent;
+
+    std::vector<gui::WizardSpellSlot*> spellSlots;
 };
 
 

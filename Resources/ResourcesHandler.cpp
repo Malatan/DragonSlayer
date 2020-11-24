@@ -10,7 +10,7 @@ ResourcesHandler::ResourcesHandler() {
 }
 
 ResourcesHandler::~ResourcesHandler() {
-    for(auto i : this->resources){
+    for(auto i : resources){
         delete i;
     }
 }
@@ -92,7 +92,7 @@ bool ResourcesHandler::loadPlayerStatsTxt(Stats* playerStats) {
 }
 
 bool ResourcesHandler::loadPlayerInventoryTxt(Inventory *playerInventory) {
-    Item* item;
+    Item item;
     ifstream file;
     file.open("../Data/Inventory.txt");
     if (!file.is_open()){
@@ -102,11 +102,11 @@ bool ResourcesHandler::loadPlayerInventoryTxt(Inventory *playerInventory) {
         int count;
         file >> count;
         while(count != 0){
-            item = new Item();
+            item = Item();
             file >> app;
-            item->setItemType(app);
+            item.setItemType(app);
             file >> app;
-            item->setName(app);
+            item.setName(app);
       //      file >> app;
       //      item->setDescription(app);
 
@@ -118,42 +118,42 @@ bool ResourcesHandler::loadPlayerInventoryTxt(Inventory *playerInventory) {
                     ss << app << " ";
                     file >> app;
                 }
-                item->setDescription(ss.str());
+                item.setDescription(ss.str());
             }
 
 
             file >> app;
-            item->setValue(std::stoi(app));
+            item.setValue(std::stoi(app));
             file >> app;
-            item->setRarity(app);
+            item.setRarity(app);
 
-            if(item->getItemType().at(0) != 'C'){
+            if(item.getItemType().at(0) != 'C'){
                 file >> app;
-                item->setHp(std::stoi(app));
+                item.setHp(std::stoi(app));
                 file >> app;
-                item->setMp(std::stoi(app));
+                item.setMp(std::stoi(app));
                 file >> app;
-                item->setDamage(std::stoi(app));
+                item.setDamage(std::stoi(app));
                 file >> app;
-                item->setArmor(std::stoi(app));
+                item.setArmor(std::stoi(app));
                 file >> app;
-                item->setCritChance(std::stof(app));
+                item.setCritChance(std::stof(app));
                 file >> app;
-                item->setEvadeChance(std::stof(app));
+                item.setEvadeChance(std::stof(app));
 
-                item->setQuantity(1);
+                item.setQuantity(1);
             } else{ // consumable
                 file >> app;
-                item->setQuantity(std::stoi(app));
+                item.setQuantity(std::stoi(app));
             }
 
             file >> app;
-            item->setIconRectX(std::stoi(app));
+            item.setIconRectX(std::stoi(app));
             file >> app;
-            item->setIconRectY(std::stoi(app));
+            item.setIconRectY(std::stoi(app));
 
-            item->setIsNew(true);
-            item->updateUsageType();
+            item.setIsNew(true);
+            item.updateUsageType();
             playerInventory->addItem(item);
             count --;
         }
@@ -165,8 +165,8 @@ bool ResourcesHandler::loadPlayerInventoryTxt(Inventory *playerInventory) {
     return true;
 }
 
-bool ResourcesHandler::loadSpellList(SpellComponent *spellComponent) {
-    Spell* spell;
+bool ResourcesHandler::loadSpellList(std::shared_ptr<SpellComponent> spellComponent) {
+    Spell spell;
     ifstream file;
     file.open("../Data/Spells.txt");
     if (!file.is_open()){
@@ -176,36 +176,36 @@ bool ResourcesHandler::loadSpellList(SpellComponent *spellComponent) {
         int count;
         file >> count;
         while(count != 0){
-            spell = new Spell();
+            spell = Spell();
             file >> app;
             std::replace(app.begin(), app.end(), '_', ' '); // replace all '_' to ' '
-            spell->setName(app);
+            spell.setName(app);
             file >> app;
-            spell->setType(app);
+            spell.setType(app);
             file >> app;
             std::replace(app.begin(), app.end(), '_', ' '); // replace all '_' to ' '
-            spell->setDescription(app);
+            spell.setDescription(app);
 
             file >> app;
-            spell->setCost(std::stoi(app));
+            spell.setCost(std::stoi(app));
             file >> app;
-            spell->setCooldown(std::stoi(app));
+            spell.setCooldown(std::stoi(app));
             file >> app;
-            spell->setDamage(std::stoi(app));
+            spell.setDamage(std::stoi(app));
             file >> app;
-            spell->setAoe(std::stoi(app));
+            spell.setAoe(std::stoi(app));
 
             file >> app;
-            spell->setLearned(std::stoi(app));
+            spell.setLearned(std::stoi(app));
             file >> app;
-            spell->setMaxLevel(std::stoi(app));
+            spell.setMaxLevel(std::stoi(app));
             file >> app;
-            spell->setLearnCost(std::stoi(app));
+            spell.setLearnCost(std::stoi(app));
             file >> app;
-            spell->setIntRectX(std::stoi(app));
+            spell.setIntRectX(std::stoi(app));
             file >> app;
-            spell->setIntRectY(std::stoi(app));
-            spell->setLevel(1);
+            spell.setIntRectY(std::stoi(app));
+            spell.setLevel(1);
             spellComponent->addSpell(spell);
             spellComponent->addPlayerSpell(spell);
             count--;

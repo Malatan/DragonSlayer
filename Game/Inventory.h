@@ -4,13 +4,10 @@
 
 #ifndef DRAGONSLAYER_INVENTORY_H
 #define DRAGONSLAYER_INVENTORY_H
-#include <string>
-#include <sstream>
 #include "Item.h"
-#include "iostream"
-#include "fstream"
 #include <vector>
 #include <algorithm>
+#include <memory>
 
 using namespace std;
 
@@ -19,12 +16,7 @@ using namespace std;
 class Inventory {
 
 public:
-    const static int MAX_SPACE = 70;               //MASSIMO NUMERO DI SLOT OCCUPABILI NEL GIOCO
-    int* currentMaxSpace;           //MASSIMO NUMERO DI SLOT OCCUPABILI SECONDO I NOSTRI POWER UP DELL'INVENTARIO
-
-    vector<Item*> items;
-
-public:
+    const static int MAX_SPACE = 70; //MASSIMO NUMERO DI SLOT OCCUPABILI NEL GIOCO
     //CONSTRUCTOR & DESTRUCTOR
     Inventory();
     Inventory(int* currentSpace);
@@ -38,17 +30,20 @@ public:
     void expandInventorySpace(int n);
     bool isExpandable();
     bool removeItem(std::string name);
-    bool addItem(Item* item);
+    bool addItem(Item item);
     //bool exportInventory();
     void sortByItemType();
-    void replaceItem(int index, Item* in);
 
     //GET & SET
     int getItemsSize();
-    Item* getItem(int n);
-    Item* getItem(std::string name);
+    std::shared_ptr<Item> getItem(int n);
+    std::shared_ptr<Item> getItem(std::string name);
     void setCurrentMaxSpace(int currentMaxSpace);
     int getCurrentMaxSpace();
+
+private:
+    int* currentMaxSpace;           //MASSIMO NUMERO DI SLOT OCCUPABILI SECONDO I NOSTRI POWER UP DELL'INVENTARIO
+    vector<std::shared_ptr<Item>> items;
 };
 
 

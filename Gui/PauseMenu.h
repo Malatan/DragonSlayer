@@ -8,31 +8,23 @@
 #include "Gui.h"
 
 class PauseMenu {
-private:
-    sf::Font* font;
-    sf::Text menuText;
-
-    sf::RectangleShape backgorund;
-    sf::RectangleShape container;
-
-    std::map<std::string, gui::Button*> buttons;
-
-
-
-protected:
-
 public:
-    PauseMenu(sf::RenderWindow& window, sf::Font* font);
+    PauseMenu();
+    PauseMenu(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* font);
     virtual ~PauseMenu();
 
-    //accessor
-    std::map<std::string, gui::Button*>& getButtons();
-
     //functions
-    const bool isButtonPressed(const std::string key);
+    bool isButtonPressed(const std::string key);
     void addButton(const std::string key, float y, const std::string text, unsigned char_size);
     void update(const sf::Vector2f& mousePos);
     void render(sf::RenderTarget& target);
+
+private:
+    sf::Font* font;
+    sf::Text menuText;
+    sf::RectangleShape backgorund;
+    sf::RectangleShape container;
+    std::map<std::string, gui::Button> buttons;
 
 };
 

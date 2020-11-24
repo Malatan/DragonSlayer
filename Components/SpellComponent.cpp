@@ -10,31 +10,25 @@ SpellComponent::SpellComponent() {
 }
 
 SpellComponent::~SpellComponent() {
-    for(auto i : this->spells){
-        delete i;
-    }
-    for(auto i : this->playerSpells){
-        delete i;
-    }
+
 }
 
 //accessors
-std::vector<Spell *> SpellComponent::getSpells() {
-    return this->spells;
+std::vector<std::shared_ptr<Spell>> SpellComponent::getSpells() {
+    return spells;
 }
 
-std::vector<Spell *> SpellComponent::getPlayerSpells() {
-    return this->playerSpells;
+std::vector<std::shared_ptr<Spell>> SpellComponent::getPlayerSpells() {
+    return playerSpells;
 }
 
 //functions
-void SpellComponent::addSpell(Spell *spell) {
-    this->spells.push_back(spell);
+void SpellComponent::addSpell(Spell spell) {
+    spells.push_back(std::make_shared<Spell>(&spell));
 }
 
-void SpellComponent::addPlayerSpell(Spell *spell) {
-    Spell* newSpell = new Spell(spell);
-    this->playerSpells.push_back(newSpell);
+void SpellComponent::addPlayerSpell(Spell spell) {
+    playerSpells.push_back(std::make_shared<Spell>(&spell));
 }
 
 void SpellComponent::sortSpellList() {
@@ -44,7 +38,7 @@ void SpellComponent::sortSpellList() {
 const std::string SpellComponent::toString() const {
     std::stringstream ss;
     ss << "---------------Spell list---------------\n";
-    for(auto i : this->spells){
+    for(auto i : spells){
         ss << i->toString() << "\n";
     }
     ss << "----------------------------------------\n";
@@ -54,7 +48,7 @@ const std::string SpellComponent::toString() const {
 const std::string SpellComponent::toStringPlayer() const {
     std::stringstream ss;
     ss << "---------------Player Spell list---------------\n";
-    for(auto i : this->playerSpells){
+    for(auto i : playerSpells){
         ss << i->toString() << "\n";
     }
     ss << "------------------------------------------------\n";

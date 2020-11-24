@@ -436,6 +436,12 @@
 		<Unit filename="F:/DragonSlayer/Components/SpellComponent.h">
 			<Option target="DragonSlayer"/>
 		</Unit>
+		<Unit filename="F:/DragonSlayer/Core/BattleState.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Core/BattleState.h">
+			<Option target="DragonSlayer"/>
+		</Unit>
 		<Unit filename="F:/DragonSlayer/Core/Game.cpp">
 			<Option target="DragonSlayer"/>
 			<Option target="unit_testing_run"/>
@@ -500,6 +506,12 @@
 			<Option target="DragonSlayer"/>
 			<Option target="unit_testing_run"/>
 		</Unit>
+		<Unit filename="F:/DragonSlayer/Game/Generator.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Game/Generator.h">
+			<Option target="DragonSlayer"/>
+		</Unit>
 		<Unit filename="F:/DragonSlayer/Game/Inventory.cpp">
 			<Option target="DragonSlayer"/>
 			<Option target="unit_testing_run"/>
@@ -547,6 +559,12 @@
 		<Unit filename="F:/DragonSlayer/Game/Stats.h">
 			<Option target="DragonSlayer"/>
 			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Game/Utils.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="F:/DragonSlayer/Game/Utils.h">
+			<Option target="DragonSlayer"/>
 		</Unit>
 		<Unit filename="F:/DragonSlayer/Gui/CharacterTab.cpp">
 			<Option target="DragonSlayer"/>

@@ -11,18 +11,11 @@
 #include "../Game/Stats.h"
 #include "../Game/Buff.h"
 #include "PopUpTextComponent.h"
+#include <memory>
 
 class BuffComponent {
-private:
-    PopUpTextComponent* popUpTextComponent;
-    std::map<std::string, Buff*> buffs;
-    std::vector<Buff*> playerBuffsList;
-
-
-protected:
-
 public:
-    BuffComponent(PopUpTextComponent* popUpTextComponent);
+    BuffComponent(std::shared_ptr<PopUpTextComponent> popUpTextComponent);
     virtual ~BuffComponent();
 
     void addBuff(std::string key, Buff* buff);
@@ -31,6 +24,11 @@ public:
     void update();
 
     std::string toStringBuffs();
+
+private:
+    std::shared_ptr<PopUpTextComponent> popUpTextComponent;
+    std::map<std::string, Buff*> buffs;
+    std::vector<Buff*> playerBuffsList;
 };
 
 

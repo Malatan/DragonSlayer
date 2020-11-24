@@ -5,43 +5,39 @@
 #include "Player.h"
 
 //initializer functions
-void Player::initVariables() {
-
-}
-
 void Player::initAnimations() {
-    this->animationComponent->addAnimation("IDLE", 15.f,
+    animationComponent->addAnimation("IDLE", 15.f,
             0, 0, 3, 0, 50 ,37);
-    this->animationComponent->addAnimation("WALK", 6.f,
+    animationComponent->addAnimation("WALK", 6.f,
             1, 1, 6, 1, 50 ,37);
 }
 
 //constructors/destructors
 Player::Player(float x, float y, float scale_x, float scale_y, sf::Texture& texture_sheet) {
-    this->gold = 0;
+    gold = 0;
 
-    this->scale.x = scale_x;
-    this->scale.y = scale_y;
-    this->sprite.setScale(this->scale);
+    scale.x = scale_x;
+    scale.y = scale_y;
+    sprite.setScale(this->scale);
 
-    this->createAnimationComponent(texture_sheet);
-    this->createMovementComponent(200.f, 14.f, 6.f);
-    this->createHitboxComponent(this->sprite, 27.f, 12.f, 41.f, 62.f);
-    this->createCollisionBoxComponent(&this->sprite, 48.f, 72.f, 9.f);
-    this->initAnimations();
+    createAnimationComponent(texture_sheet);
+    createMovementComponent(200.f, 14.f, 6.f);
+    createHitboxComponent(sprite, 27.f, 12.f, 41.f, 62.f);
+    createCollisionBoxComponent(sprite, 48.f, 72.f, 9.f);
+    initAnimations();
 
-    this->setPosition(x, y);
+    setPosition(x, y);
 
-    this->currentInventorySpace = 30;
-    this->playerStats = new Stats();
-    this->inventory = new Inventory(&this->currentInventorySpace);
+    currentInventorySpace = 30;
+    playerStats = new Stats();
+    inventory = new Inventory(&currentInventorySpace);
 
-    this->weapon = nullptr;
-    this->shield = nullptr;
-    this->head = nullptr;
-    this->chest = nullptr;
-    this->arms = nullptr;
-    this->legs = nullptr;
+    weapon = nullptr;
+    shield = nullptr;
+    head = nullptr;
+    chest = nullptr;
+    arms = nullptr;
+    legs = nullptr;
 }
 
 Player::Player() {
@@ -56,54 +52,55 @@ Player::~Player() {
 //functions
 void Player::updateAnimation(const float &dt) {
 
-    if(this->movementComponent->getState(IDLE)){
-        this->animationComponent->play("IDLE", dt);
+    if(movementComponent->getState(IDLE)){
+        animationComponent->play("IDLE", dt);
 
-    } else if(this->movementComponent->getState(MOVING_LEFT)){
-        this->sprite.setOrigin(48.f, 0.f);
-        this->sprite.setScale(-this->scale.x, this->scale.y);
+    } else if(movementComponent->getState(MOVING_LEFT)){
+        sprite.setOrigin(48.f, 0.f);
+        sprite.setScale(-scale.x, scale.y);
 
-        this->animationComponent->play("WALK", dt,
-                                       this->movementComponent->getVelocity().x,
-                                       this->movementComponent->getMaxVelocity());
+        animationComponent->play("WALK", dt,
+                                       movementComponent->getVelocity().x,
+                                       movementComponent->getMaxVelocity());
 
-    } else if(this->movementComponent->getState(MOVING_RIGHT)){
-        this->sprite.setOrigin(0.f, 0.f);
-        this->sprite.setScale(this->scale.x, this->scale.y);
+    } else if(movementComponent->getState(MOVING_RIGHT)){
+        sprite.setOrigin(0.f, 0.f);
+        sprite.setScale(scale.x, scale.y);
 
-        this->animationComponent->play("WALK", dt,
-                                       this->movementComponent->getVelocity().x,
-                                       this->movementComponent->getMaxVelocity());
+        animationComponent->play("WALK", dt,
+                                       movementComponent->getVelocity().x,
+                                       movementComponent->getMaxVelocity());
 
-    } else if(this->movementComponent->getState(MOVING_UP)){
-        this->animationComponent->play("WALK", dt,
-                                       this->movementComponent->getVelocity().y,
-                                       this->movementComponent->getMaxVelocity());
+    } else if(movementComponent->getState(MOVING_UP)){
+        animationComponent->play("WALK", dt,
+                                       movementComponent->getVelocity().y,
+                                       movementComponent->getMaxVelocity());
 
-    } else if(this->movementComponent->getState(MOVING_DOWN)){
-        this->animationComponent->play("WALK", dt,
-                                       this->movementComponent->getVelocity().y,
-                                       this->movementComponent->getMaxVelocity());
+    } else if(movementComponent->getState(MOVING_DOWN)){
+        animationComponent->play("WALK", dt,
+                                       movementComponent->getVelocity().y,
+                                       movementComponent->getMaxVelocity());
 
     }
 }
 
 void Player::update(const float &dt) {
-    this->movementComponent->update(dt);
-    this->updateAnimation(dt);
-    this->hitboxComponent->update();
-    this->collisionBoxComponent->update();
+    movementComponent->update(dt);
+    updateAnimation(dt);
+    hitboxComponent->update();
+    collisionBoxComponent->update();
 }
 
-void Player::render(sf::RenderTarget &target, const bool show_hitbox) {
-    this->collisionBoxComponent->render(target);
-    target.draw(this->sprite);
+void Player::render(sf::RenderTarget &target, const bool show_hitbox, const bool show_clsBox) {
+    if(show_clsBox)
+        collisionBoxComponent->render(target);
+    target.draw(sprite);
     if(show_hitbox)
-        this->hitboxComponent->render(target);
+        hitboxComponent->render(target);
 }
 
 void Player::heal(int hp) {
-    this->playerStats->gainHp(hp);
+    playerStats->gainHp(hp);
 }
 
 string Player::playerDetails() {
@@ -131,13 +128,6 @@ string Player::playerDetails() {
     return desc;
 }
 
-bool Player::takeItem(Item *item) {
-    if(this->inventory->addItem(item))
-        return true;
-    else
-        return false;
-}
-
 int Player::takeDamage(int dmg) {
     dmg = dmg - Player::playerStats->getFinalArmor();
     if(dmg < 0){
@@ -149,18 +139,6 @@ int Player::takeDamage(int dmg) {
     return dmg;
 }
 
-void Player::earnExp(int exp) {
-    Player::playerStats->addExp(exp);
-}
-
-void Player::learnSpell(string spell) {
-    for(int i=0; i<3; i++){
-        if(spells[i].getName() == spell){
-            spells[i].setLearned(true);
-        }
-    }
-}
-
 void Player::useSpell(string spell) {
     int mana;
     for(int i=0; i<30; i++){
@@ -168,10 +146,6 @@ void Player::useSpell(string spell) {
             mana = Player::spells[i].getCost();
     }
     Player::playerStats->setMp( Player::playerStats->getMp() - mana  );
-}
-
-Spell *Player::getSpells() {
-    return this->spells;
 }
 
 Spell *Player::getSpellbyIndex(int i) {
@@ -188,47 +162,11 @@ bool Player::useItem(string item) {
     }
 }
 
-void Player::loadEquipment() {
-
-    for(auto i : this->inventory->items){
-        if(i->isEquipped()){
-            int use = i->getUsageType();
-            Player::setEquipItem(i, use);
-        }
-
-    }
-}
-
-void Player::reloadEquipBonus() {
-    int hp, mp, dmg, armor;
-    float cc, ec;
-
-    hp = weapon->getHp() + shield->getHp() + head->getHp() + chest->getHp() + arms->getHp() + legs->getHp();
-    mp = weapon->getMp() + shield->getMp() + head->getMp() + chest->getMp() + arms->getMp() + legs->getMp();
-    dmg = weapon->getDamage() + shield->getDamage() + head->getDamage() + chest->getDamage() + arms->getDamage() + legs->getDamage();
-    armor = weapon->getDamage() + shield->getDamage() + head->getDamage() + chest->getDamage() + arms->getDamage() + legs->getDamage();
-    cc = weapon->getCritChance() + shield->getCritChance() + head->getCritChance() + chest->getCritChance() + arms->getCritChance() + legs->getCritChance();
-    ec = weapon->getEvadeChance() + shield->getEvadeChance() + head->getEvadeChance() + chest->getEvadeChance() + arms->getEvadeChance() + legs->getEvadeChance();
-
-    Player::setBonusStats(hp, mp, dmg, armor, cc, ec);
-}
-
-string  Player::listEquipment() {
-    string equip = "";
-    equip += this->weapon->listItem() + "\n";
-    equip += this->shield->listItem() + "\n";
-    equip += this->head->listItem()   + "\n";
-    equip += this->chest->listItem()  + "\n";
-    equip += this->arms->listItem()   + "\n";
-    equip += this->legs->listItem()   + "\n";
-    return equip;
-}
-
 string Player::listSpells(){
     string desc = "";
 
     for (int i=0; i<3; i++){
-        if(Player::spells[i].isLearned() == true){
+        if(Player::spells[i].isLearned()){
             desc+= to_string(i+1) + ") ";
             desc+=  Player::spells[i].getName()
                     + " - " + to_string(Player::spells[i].getDamage()) + " damage\n"
@@ -251,137 +189,41 @@ void Player::refreshSpells() {
     }
 }
 
-void Player::importSpells() {
-    ifstream file;
-    file.open("Spells.txt");
-
-    if (!file.is_open()){
-        cout<<"#Can't open Spells.txt";
-    } else {
-        string word;
-        int current = 0;
-        int i = 0;
-
-        while (file >> word) {
-            if(current == 0){
-                spells[i].setName(word);
-                current ++;
-            }else if(current == 1){
-                spells[i].setType(word);
-                current ++;
-            }else if(current == 2){
-                stringstream intCost(word);
-                int cost;
-                intCost >> cost;
-                spells[i].setCost(cost);
-                current ++;
-            }else if(current == 3){
-                stringstream intCooldown(word);
-                int cooldown;
-                intCooldown >> cooldown;
-                spells[i].setCooldown(cooldown);
-                current ++;
-            }else if(current == 4){
-                stringstream intDamage(word);
-                int damage;
-                intDamage >> damage;
-                spells[i].setDamage(damage);
-                current ++;
-            }else if(current == 5){
-                stringstream intAoe(word);
-                int aoe;
-                intAoe >> aoe;
-                spells[i].setAoe(aoe);
-                current ++;
-            }else if(current == 6){
-                stringstream intLearned(word);
-                int learned;
-                intLearned >> learned;
-                if(learned == 1){
-                    spells[i].setLearned(true);
-                }else{
-                    spells[i].setLearned(false);
-                }
-                spells[i].setReady(0);
-                current = 0;
-                i++;
-            }
-        }
-    }
-}
-
-bool Player::exportSpells() {
-
-    ofstream file;
-    file.open("Spells.txt");
-
-    if(!file.is_open()) {
-        return false;
-    } else {
-        int learn;
-        for (int i=0; i<3; i++) {
-            file<<Player::spells[i].getName() + " ";
-            file<<Player::spells[i].getType() + " ";
-            file<<to_string(Player::spells[i].getCost()) + " ";
-            file<<to_string(Player::spells[i].getCooldown()) + " ";
-            file<<to_string(Player::spells[i].getDamage()) + " ";
-            file<<to_string(Player::spells[i].getAoe()) + " ";
-            if(Player::spells[i].isLearned())
-                learn = 1;
-            else
-                learn = 0;
-            file<<to_string(learn) + " \n";
-        }
-
-        file.close();
-        return true;
-    }
-
-}
-
 Stats* Player::getPlayerStats() {
-    return this->playerStats;
-}
-
-void Player::setPlayerStats(Stats* playerStats) {
-    this->playerStats = playerStats;
+    return playerStats;
 }
 
 Inventory* Player::getInventory() {
-    return this->inventory;
-}
-
-void Player::setInventory(Inventory* inventory) {
-    this->inventory = inventory;
+    return inventory;
 }
 
 unsigned Player::getGold() {
-    return this->gold;
+    return gold;
 }
 
 void Player::setGold(unsigned gold) {
     this->gold = gold;
 }
 
-void Player::setEquipItem(Item *item, int equip_slot) {
+void Player::setEquipItem(std::shared_ptr<Item> item, int equip_slot) {
     switch(equip_slot){
         case 5:  // weapon
-            this->weapon = item;
+            weapon = item;
             break;
         case 4: // shield
-            this->shield = item;
+            shield = item;
             break;
         case 3: // helmet
-            this->head = item;
+            head = item;
             break;
         case 2: // chest
-            this->chest = item;
+            chest = item;
             break;
         case 1: // arms
-            this->arms = item;
+            arms = item;
             break;
         case 0: // legs
-            this->legs = item;
+            legs = item;
             break;
     }
 }
@@ -389,32 +231,32 @@ void Player::setEquipItem(Item *item, int equip_slot) {
 bool Player::isSlotEquipped(int equip_slot) {
     switch(equip_slot){
         case 5:  // weapon
-            if(this->weapon != nullptr)
+            if(weapon != nullptr)
                 return true;
             else
                 return false;
         case 4: // shield
-            if(this->shield)
+            if(shield)
                 return true;
             else
                 return false;
         case 3: // head
-            if(this->head)
+            if(head)
                 return true;
             else
                 return false;
         case 2: // chest
-            if(this->chest)
+            if(chest)
                 return true;
             else
                 return false;
         case 1: // arms
-            if(this->arms)
+            if(arms)
                 return true;
             else
                 return false;
         case 0: // legs
-            if(this->legs)
+            if(legs)
                 return true;
             else
                 return false;
@@ -426,39 +268,39 @@ bool Player::isSlotEquipped(int equip_slot) {
 void Player::unequipItem(int equip_slot) {
     switch(equip_slot){
         case 5:  // weapon
-            if(this->weapon != nullptr){
-                this->weapon->setEquipped(false);
-                this->weapon = nullptr;
+            if(weapon != nullptr){
+                weapon->setEquipped(false);
+                weapon = nullptr;
             }
             break;
         case 4: // shield
-            if(this->shield != nullptr){
-                this->shield->setEquipped(false);
-                this->shield = nullptr;
+            if(shield != nullptr){
+                shield->setEquipped(false);
+                shield = nullptr;
             }
             break;
         case 3: // helmet
-            if(this->head != nullptr){
-                this->head->setEquipped(false);
-                this->head = nullptr;
+            if(head != nullptr){
+                head->setEquipped(false);
+                head = nullptr;
             }
             break;
         case 2: // chest
-            if(this->chest != nullptr){
-                this->chest->setEquipped(false);
-                this->chest = nullptr;
+            if(chest != nullptr){
+                chest->setEquipped(false);
+                chest = nullptr;
             }
             break;
         case 1: // arms
-            if(this->arms != nullptr){
-                this->arms->setEquipped(false);
-                this->arms = nullptr;
+            if(arms != nullptr){
+                arms->setEquipped(false);
+                arms = nullptr;
             }
             break;
         case 0: // legs
-            if(this->legs != nullptr){
-                this->legs->setEquipped(false);
-                this->legs = nullptr;
+            if(legs != nullptr){
+                legs->setEquipped(false);
+                legs = nullptr;
             }
             break;
     }
@@ -467,72 +309,72 @@ void Player::unequipItem(int equip_slot) {
 std::string Player::toStringEquipment() {
     std::stringstream ss;
     ss << "\nWeapon: ";
-    if(this->weapon != nullptr)
-        ss << this->weapon->getName();
+    if(weapon != nullptr)
+        ss << weapon->getName();
     else
         ss << "Nothing";
 
     ss << "\nShield: ";
-    if(this->shield != nullptr)
-        ss << this->shield->getName();
+    if(shield != nullptr)
+        ss << shield->getName();
     else
         ss << "Nothing";
 
     ss << "\nHead: ";
-    if(this->head != nullptr)
-        ss << this->head->getName();
+    if(head != nullptr)
+        ss << head->getName();
     else
         ss << "Nothing";
 
     ss << "\nChest: ";
-    if(this->chest != nullptr)
-        ss << this->chest->getName();
+    if(chest != nullptr)
+        ss << chest->getName();
     else
         ss << "Nothing";
 
     ss << "\nArms: ";
-    if(this->arms != nullptr)
-        ss << this->arms->getName();
+    if(arms != nullptr)
+        ss << arms->getName();
     else
         ss << "Nothing";
 
     ss << "\nLegs: ";
-    if(this->legs != nullptr)
-        ss << this->legs->getName();
+    if(legs != nullptr)
+        ss << legs->getName();
     else
         ss << "Nothing";
 
     return ss.str();
 }
 
-Item *Player::getEquippedItem(int equip_slot) {
+std::shared_ptr<Item> Player::getEquippedItem(int equip_slot) {
     switch(equip_slot){
         case 5:  // weapon
-            return this->weapon;
+            return weapon;
         case 4: // shield
-            return this->shield;
+            return shield;
         case 3: // helmet
-            return this->head;
+            return head;
         case 2: // chest
-            return this->chest;
+            return chest;
         case 1: // arms
-            return this->arms;
+            return arms;
         case 0: // legs
-            return this->legs;
+            return legs;
         default:
             return nullptr;
     }
 }
 
 void Player::setBonusStats(int hp, int mp, int dmg, int armor, float cc, float ec) {
-    this->playerStats->setMaxHpBonus(hp);
-    this->playerStats->setMaxMpBonus(mp);
-    this->playerStats->setDamageBonus(dmg);
-    this->playerStats->setArmorBonus(armor);
-    this->playerStats->setCritChanceBonus(cc);
-    this->playerStats->setEvadeChanceBonus(ec);
-    this->playerStats->checkHpLimit();
-    this->playerStats->checkMpLimit();
+    playerStats->setMaxHpBonus(hp);
+    playerStats->setMaxMpBonus(mp);
+    playerStats->setDamageBonus(dmg);
+    playerStats->setArmorBonus(armor);
+    playerStats->setCritChanceBonus(cc);
+    playerStats->setEvadeChanceBonus(ec);
+    playerStats->checkHpLimit();
+    playerStats->checkMpLimit();
 }
 
 void Player::addGold(unsigned gold) {
@@ -541,7 +383,7 @@ void Player::addGold(unsigned gold) {
 
 void Player::minusGold(unsigned gold) {
     if(gold > this->gold){
-        gold = 0;
+        this->gold = 0;
     }else{
         this->gold -= gold;
     }
