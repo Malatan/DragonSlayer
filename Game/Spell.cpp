@@ -25,7 +25,7 @@ void Spell::refreshSpell() {
 
 
 string Spell::getDescription() {
-    return this->description;
+    return description;
 }
 
 void Spell::setDescription(string description) {
@@ -64,22 +64,22 @@ void Spell::setReady(int ready) {
 void Spell::setType(string type) {
     this->type = type;
     if(type == "fire"){
-        this->spellType = FIRE;
+        spellType = FIRE;
     } else if(type == "water"){
-        this->spellType = WATER;
+        spellType = WATER;
     }else if(type == "ice"){
-        this->spellType = ICE;
+        spellType = ICE;
     }else if(type == "electric"){
-        this->spellType = ELECTRIC;
+        spellType = ELECTRIC;
     }else if(type == "holy"){
-        this->spellType = HOLY;
+        spellType = HOLY;
     }else{
-        this->spellType = DEFAULT_SPELL_TYPE;
+        spellType = DEFAULT_SPELL_TYPE;
     }
 }
 
 int Spell::getCost() {
-    return this->cost;
+    return cost;
 }
 
 void Spell::setCost(int cost) {
@@ -87,7 +87,7 @@ void Spell::setCost(int cost) {
 }
 
 int Spell::getCooldown() {
-    return this->cooldown;
+    return cooldown;
 }
 
 void Spell::setCooldown(int cooldown) {
@@ -111,7 +111,7 @@ void Spell::setAoe(int aoe) {
 }
 
 int Spell::getIntRectX() {
-    return this->intRectX;
+    return intRectX;
 }
 
 void Spell::setIntRectX(int intRectX) {
@@ -119,7 +119,7 @@ void Spell::setIntRectX(int intRectX) {
 }
 
 int Spell::getIntRectY() {
-    return this->intRectY;
+    return intRectY;
 }
 
 void Spell::setIntRectY(int intRectY) {
@@ -128,40 +128,40 @@ void Spell::setIntRectY(int intRectY) {
 
 const std::string Spell::toString() const {
     std::stringstream ss;
-    ss << "Name: " << this->name
-       << " Type: " << this->type
-       << "(" << this->spellType << ")"
-       << " Lv: " << this->level
-       << "(max lv" << this->maxLevel << ")"
-       << " Cost: " << this->cost
-       << " CD: " << this->cooldown
-       << " Damage: " << this->damage
-       << " Aoe: " << this->aoe
-       << " Learned: " << std::boolalpha << this->learned
-       << " IntRect: " << this->intRectX << "-" << this->intRectY
-       << " description: " << this->description
-       << " learn cost: " << this->learnCost;
+    ss << "Name: " << name
+       << " Type: " << type
+       << "(" << spellType << ")"
+       << " Lv: " << level
+       << "(max lv" << maxLevel << ")"
+       << " Cost: " << cost
+       << " CD: " << cooldown
+       << " Damage: " << damage
+       << " Aoe: " << aoe
+       << " Learned: " << std::boolalpha << learned
+       << " IntRect: " << intRectX << "-" << intRectY
+       << " description: " << description
+       << " learn cost: " << learnCost;
 
     return ss.str();
 }
 
 spell_type Spell::getTypeEnum() {
-    return this->spellType;
+    return spellType;
 }
 
 int Spell::getLevel() {
-    return this->level;
+    return level;
 }
 
 void Spell::setLevel(int level) {
-    if(level > this->maxLevel)
-        this->level = this->maxLevel;
+    if(level > maxLevel)
+        this->level = maxLevel;
     else
         this->level = level;
 }
 
 int Spell::getLearnCost() {
-    return this->learnCost;
+    return learnCost;
 }
 
 void Spell::setLearnCost(int learnCost) {
@@ -169,29 +169,35 @@ void Spell::setLearnCost(int learnCost) {
 }
 
 int Spell::getMaxLevel() {
-    return this->maxLevel;
+    return maxLevel;
 }
 
 void Spell::setMaxLevel(int max_level) {
-    this->maxLevel = max_level;
+    maxLevel = max_level;
 }
 
 bool Spell::isMaxed() {
-    if(this->level == this->maxLevel)
-        return true;
-    return false;
+    return level == maxLevel;
 }
 
 void Spell::levelUp() {
-    this->setLevel(this->level+1);
+    setLevel(level+1);
 }
 
 int Spell::getFinalDamage() {
-    return this->damage*this->level;
+    return damage*level;
 }
 
 int Spell::getFinalCost() {
-    return this->cost*this->level;
+    return cost*level;
+}
+
+Spell::Spell(spell_type spellType, string name, string type, string description, int cost, int cooldown, int ready, int damage,
+        int aoe, bool learned, int level, int maxLevel, int learnCost, int intRectX, int intRectY) :
+        spellType(spellType), name(std::move(name)), type(std::move(type)), description(std::move(description)), cost(cost),
+        cooldown(cooldown), ready(ready), damage(damage), aoe(aoe), learned(learned), level(level), maxLevel(maxLevel),
+        learnCost(learnCost), intRectX(intRectX), intRectY(intRectY) {
+
 }
 
 

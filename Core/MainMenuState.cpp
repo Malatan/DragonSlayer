@@ -4,6 +4,8 @@
 
 #include "MainMenuState.h"
 
+#include <utility>
+
 void MainMenuState::initVariables() {
     background.setSize(
             sf::Vector2f(
@@ -53,7 +55,7 @@ void MainMenuState::initButtons() {
 
 MainMenuState::MainMenuState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::unique_ptr<State>>* states,
         std::shared_ptr<ResourcesHandler> rsHandler)
-        : State(window, states, rsHandler){
+        : State(std::move(window), states, std::move(rsHandler)){
     initVariables();
     initBackground();
     initFonts();

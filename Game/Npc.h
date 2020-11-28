@@ -24,7 +24,7 @@ public:
     //funtions
     void updateAnimation(const float &dt);
     void update(const float &dt);
-    void updateCollsion(std::shared_ptr<Player> player, npc_type* type);
+    void updateCollsion(const std::shared_ptr<Player>& player, npc_type* type);
     void render(sf::RenderTarget& target, const bool show_hitbox = false);
 
 private:

@@ -23,8 +23,8 @@ public:
     void addSpell(Spell spell);
     void addPlayerSpell(Spell spell);
     void sortSpellList();
-    const std::string toString() const;
-    const std::string toStringPlayer() const;
+    std::string toString() const;
+    std::string toStringPlayer() const;
 
 private:
     std::vector<std::shared_ptr<Spell>> spells;

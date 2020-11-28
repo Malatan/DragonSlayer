@@ -22,7 +22,7 @@ public:
     void addSeconds(int s);
     void addMinutes(int m);
     void addHours(int h);
-    const std::string toString() const;
+    std::string toString() const;
 
 };
 

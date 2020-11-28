@@ -15,6 +15,14 @@
 #include "fstream"
 #include "Spell.h"
 
+enum player_equip_slot{
+    LEGS_SLOT = 0,
+    ARMS_SLOT = 1,
+    CHEST_SLOT = 2,
+    HEAD_SLOT = 3,
+    SHIELD_SLOT = 4,
+    WEAPON_SLOT = 5
+};
 
 class Player : public Entity{
 public:
@@ -23,22 +31,15 @@ public:
     Player(float x, float y, float scale_x, float scale_y, sf::Texture& texture_sheet);
     virtual ~Player();
 
-    //GRAPHICS
+    //functions
+    bool hasShield();
+    bool isDead();
     void updateAnimation(const float &dt);
     void update(const float &dt) override;
-    void render(sf::RenderTarget& target, bool show_hitbox = false, const bool show_clsBox = false);
-
-    //BATTLE
-    int takeDamage(int dmg);        //RETURN DMG reduced by Player ARMOR
-    void heal(int hp);
-    void useSpell(string spell);
-    void refreshSpells();           //REFRESH cooldown spell
-    bool useItem(string item);
+    void render(sf::RenderTarget& target, bool show_hitbox = false, bool show_clsBox = false);
 
     //TOSTRING
     std::string toStringEquipment();
-    string listSpells();
-    string playerDetails();
 
     //INVENTORY & STATS
     void setEquipItem(std::shared_ptr<Item> item, int equip_slot);
@@ -49,20 +50,30 @@ public:
     void minusGold(unsigned gold);
 
     //GET & SET
-    Stats* getPlayerStats();
-    Inventory* getInventory();
+    std::string getEquippedWeaponType();
+    std::shared_ptr<Stats> getPlayerStats();
+    std::shared_ptr<Inventory> getInventory();
     unsigned getGold();
     void setGold(unsigned gold);
-    Spell* getSpellbyIndex(int index);
     std::shared_ptr<Item> getEquippedItem(int equip_slot);
+    void setAnimation(entity_animation animation);
+    void setAnimation(entity_animation animation, entity_animation next_animation);
+    void setNextAnimation(entity_animation next_animation);
+    void setDefense(bool b);
+    bool isDefense() const;
 
 private:
     //variables
-    Stats* playerStats;
-    Inventory* inventory;
+    std::shared_ptr<Stats> playerStats;
+    std::shared_ptr<Inventory> inventory;
     int currentInventorySpace;
-    Spell spells[30];   //contain all game's spells (locked/unlocked)
     unsigned gold;
+    bool defense;
+
+    bool animationDone;
+    entity_animation animationEnum;
+    entity_animation nextAnimationEnum;
+
     std::shared_ptr<Item> weapon;   //equip_slot = 5
     std::shared_ptr<Item> shield;   //equip_slot = 4
     std::shared_ptr<Item> head;     //equip_slot = 3

@@ -6,9 +6,9 @@
 
 void PopUpTextComponent::initTagTemplates() {
     popUpTextTemplates[DEFAULT_TAG] = std::make_shared<PopUpText>(font, "", 100.f, 100.f, 0.f, -1.f,
-            sf::Color::White, 25, 2000.f, true, 200.f, 200.f, 2);
+            sf::Color::White, 25, 5000.f, true, 100.f, 200.f, 1);
 
-    popUpTextTemplates[NEGATIVE_TAG] = std::make_shared<PopUpText>(font, "", 100.f, 100.f, 0.f, 1.f,
+    popUpTextTemplates[NEGATIVE_TAG] = std::make_shared<PopUpText>(font, "", 100.f, 100.f, 0.f, -1.f,
             sf::Color::Red, 25, 2000.f, true, 200.f, 200.f, 1);
 
     popUpTextTemplates[EXPERIENCE_TAG] = std::make_shared<PopUpText>(font, "", 100.f, 100.f, 0.f, -1.f,
@@ -26,7 +26,7 @@ void PopUpTextComponent::initTagTemplates() {
 }
 
 //Constructor / Destructor
-PopUpTextComponent::PopUpTextComponent(sf::Font font, std::shared_ptr<sf::RenderWindow> window) {
+PopUpTextComponent::PopUpTextComponent(const sf::Font& font, const std::shared_ptr<sf::RenderWindow>& window) {
     this->font = font;
     this->window = window;
 
@@ -42,31 +42,39 @@ PopUpTextComponent::~PopUpTextComponent() {
 
 //Functions
 void PopUpTextComponent::addPopUpText(const unsigned tag_type, const float pos_x, const float pos_y,
-        const std::string str, const std::string prefix = "", const std::string postfix = "") {
+        const std::string& str, const std::string& prefix, const std::string& postfix, float delay) {
     std::stringstream ss;
     ss << prefix << " " << str << " " << postfix;
-    popUpTexts.push_back(std::make_shared<PopUpText>(popUpTextTemplates[tag_type], pos_x, pos_y, ss.str()));
+    popUpTexts.push_back(std::make_shared<PopUpText>(popUpTextTemplates[tag_type], pos_x, pos_y, ss.str(), delay));
 }
 
 void PopUpTextComponent::addPopUpText(const unsigned tag_type, const float pos_x, const float pos_y,
-        const int i, const std::string prefix = "", const std::string postfix = "") {
+        const int i, const std::string& prefix, const std::string& postfix, float delay) {
     std::stringstream ss;
     ss << prefix << " " << i << " " << postfix;
-    popUpTexts.push_back(std::make_shared<PopUpText>(popUpTextTemplates[tag_type], pos_x, pos_y, ss.str()));
+    popUpTexts.push_back(std::make_shared<PopUpText>(popUpTextTemplates[tag_type], pos_x, pos_y, ss.str(), delay));
 }
 
 void PopUpTextComponent::addPopUpTextCenter(const unsigned tag_type,
-        const std::string str, const std::string prefix = "", const std::string postfix = "") {
+        const std::string& str, const std::string& prefix = "", const std::string& postfix = "", float delay) {
     std::stringstream ss;
     ss << prefix << " " << str << " " << postfix;
-    popUpTexts.push_back(std::make_shared<PopUpText>(popUpTextTemplates[tag_type],windowCenter.x, windowCenter.y, ss.str()));
+    popUpTexts.push_back(std::make_shared<PopUpText>(
+            popUpTextTemplates[tag_type],
+            windowCenter.x,
+            windowCenter.y,
+            ss.str(), delay));
 }
 
 void PopUpTextComponent::addPopUpTextCenter(const unsigned tag_type,
-        const int i, const std::string prefix = "", const std::string postfix = "") {
+        const int i, const std::string& prefix = "", const std::string& postfix = "", float delay) {
     std::stringstream ss;
     ss << prefix << " " << i << " " << postfix;
-    popUpTexts.push_back(std::make_shared<PopUpText>(popUpTextTemplates[tag_type],windowCenter.x, windowCenter.y, ss.str()));
+    popUpTexts.push_back(std::make_shared<PopUpText>(
+            popUpTextTemplates[tag_type],
+            windowCenter.x,
+            windowCenter.y,
+            ss.str(), delay));
 }
 
 void PopUpTextComponent::update(const float & dt) {
@@ -80,7 +88,7 @@ void PopUpTextComponent::update(const float & dt) {
 }
 
 void PopUpTextComponent::render(sf::RenderTarget & target) {
-    for (auto i : popUpTexts) {
+    for (const auto& i : popUpTexts) {
         i->render(target);
     }
 }

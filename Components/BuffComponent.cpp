@@ -4,46 +4,65 @@
 
 #include "BuffComponent.h"
 
+#include <utility>
+
 BuffComponent::BuffComponent(std::shared_ptr<PopUpTextComponent> popUpTextComponent) {
-    this->popUpTextComponent = popUpTextComponent;
+    this->popUpTextComponent = std::move(popUpTextComponent);
 }
 
 BuffComponent::~BuffComponent() {
-    for(auto b : buffs){
-        delete b.second;
-    }
+
 }
 
-void BuffComponent::applyItemBuff(std::string key, Stats *stats) {
-    Buff* buff = this->buffs[key];
+void BuffComponent::applyItemBuff(const std::string& key, const std::shared_ptr<Stats>& stats, bool popup_text_center,
+        float popup_text_x, float popup_text_y) {
+    std::shared_ptr<Buff> buff = buffs[key];
     if(buff->isInstant()){
+        TextTypes tag_type = DEFAULT_TAG;
+        std::string text;
+        std::string prefix;
+        std::string postfix;
         if(buff->getAddHp() != 0){
             int amount = stats->gainHp(buff->getAddHp());
-            popUpTextComponent->addPopUpTextCenter(HEAL_TAG, amount, "+", "Hp");
+            tag_type = HEAL_TAG;
+            text = to_string(amount);
+            prefix = "+";
+            postfix = "Hp";
         }
 
         if(buff->getAddMp() != 0){
             int amount = stats->gainMp(buff->getAddMp());
-            popUpTextComponent->addPopUpTextCenter(MANA_RESTORE_TAG, amount, "+", "Mp");
+            tag_type = MANA_RESTORE_TAG;
+            text = to_string(amount);
+            prefix = "+";
+            postfix = "Mp";
         }
 
+        if(popup_text_center)
+            popUpTextComponent->addPopUpTextCenter(tag_type, text, prefix, postfix);
+        else{
+            popUpTextComponent->addPopUpText(tag_type,
+                                             popup_text_x,
+                                             popup_text_y,
+                                             text, prefix, postfix);
+        }
     }
     else{ // if not instant then add to list
-        this->addPlayerBuff(buff);
+        addPlayerBuff(buff);
     }
 }
 
-void BuffComponent::addBuff(std::string key, Buff *buff) {
-    buffs.insert(std::pair<std::string, Buff*>(key, buff));
+void BuffComponent::addBuff(const std::string& key, const std::shared_ptr<Buff>& buff) {
+    buffs.insert(std::pair<std::string, std::shared_ptr<Buff>>(key, buff));
 }
 
-void BuffComponent::addPlayerBuff(Buff *buff) {
+void BuffComponent::addPlayerBuff(const std::shared_ptr<Buff>& buff) {
     playerBuffsList.push_back(buff);
 }
 
 std::string BuffComponent::toStringBuffs() {
     std::stringstream ss;
-    for(auto i : buffs){
+    for(const auto& i : buffs){
         ss << i.second->toString();
     }
 

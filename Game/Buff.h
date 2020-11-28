@@ -31,8 +31,8 @@ public:
     virtual ~Buff();
 
     //accessors
-    const int getTurns() const;
-    const bool isInstant() const;
+    int getTurns() const;
+    bool isInstant() const;
     const string &getName() const;
 
     int getAddHp() const;

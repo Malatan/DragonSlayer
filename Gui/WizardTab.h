@@ -18,7 +18,7 @@ public:
     void initWizardSpellSlots();
 
     //functions
-    void updateSpellLevel(gui::WizardSpellSlot* spellSlot);
+    void updateSpellLevel(const std::shared_ptr<gui::WizardSpellSlot>& spellSlot);
     void updateSpellInfo();
     bool closeTabByClicking(const sf::Vector2f& mousePos);
     void updateGoldLbl();
@@ -38,7 +38,7 @@ private:
     GameState* gState;
     std::shared_ptr<SpellComponent> spellComponent;
 
-    std::vector<gui::WizardSpellSlot*> spellSlots;
+    std::vector<std::shared_ptr<gui::WizardSpellSlot>> spellSlots;
 };
 
 

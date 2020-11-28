@@ -45,10 +45,10 @@ public:
 
     //accessors
     const bool& getQuit() const;
-    const bool getKeyTime();
+    bool getKeyTime();
     std::shared_ptr<ResourcesHandler> getRsHandler() const;
     const map<string, sf::Texture> &getTextures() const;
-    const sf::Vector2f getMousePosView() const;
+    sf::Vector2f getMousePosView() const;
 
     //functions
     void endState();

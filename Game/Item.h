@@ -11,16 +11,36 @@
 
 using namespace std;
 
+enum item_rarity{
+    UNCOMMON,
+    COMMON,
+    RARE,
+    EPIC,
+    LEGENDARY
+};
+
+enum item_usage_type{
+    LEGS_USAGE = 0,
+    ARMS_USAGE = 1,
+    CHEST_USAGE = 2,
+    HEAD_USAGE = 3,
+    SHIELD_USAGE = 4,
+    WEAPON_USAGE = 5,
+    CONSUMABLE_USAGE =6,
+    DEFAULT_USAGE
+};
+
 class Item {
 
 protected:
 
-    int usageType;      // 6-Consumable/5-Weapon/4-Shield/3-Head/2-Chest/1-Arms/0-Legs
+    item_usage_type usageType;      // 6-Consumable/5-Weapon/4-Shield/3-Head/2-Chest/1-Arms/0-Legs
     string itemType;    // ITEM/WEAPON/ARMATURE
     string name;
     string description;
     int value;
     string rarity;
+    item_rarity rarityEnum;
     int iconRectX;
     int iconRectY;
     bool isNew;
@@ -38,13 +58,16 @@ protected:
 public:
 
     //CONSTRUCTOR & DESTRUCTOR
-    Item(string itemType, string name, string description, int value, string rarity,
-            int iconRectX, int iconRectY, int hp, int mp, int damage, int armor, float critchance, float evadechance, int quantity, bool isNew);
+    Item(string itemType, string name, string description, int value, item_rarity rarity,
+            int iconRectX, int iconRectY, int hp, int mp, int damage, int armor, float critchance,
+            float evadechance, int quantity, bool isNew);
     Item();
     Item(Item* item);
     virtual ~Item();
 
     //MANAGE ITEM
+    void updateRarityString();
+    void updateRarityEnum();
     bool use();
     bool isConsumable();
     void updateUsageType();
@@ -71,6 +94,7 @@ public:
     int getValue();
     void setRarity(string rarity);
     string getRarity() const;
+    item_rarity getRarityEnum() const;
     void setIconRectX(int x);
     int getIconRectX();
     void setIconRectY(int y);

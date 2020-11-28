@@ -9,16 +9,39 @@ void Player::initAnimations() {
     animationComponent->addAnimation("IDLE", 15.f,
             0, 0, 3, 0, 50 ,37);
     animationComponent->addAnimation("WALK", 6.f,
-            1, 1, 6, 1, 50 ,37);
+            0, 1, 5, 1, 50 ,37);
+    animationComponent->addAnimation("ATTACK", 6.f,
+            0, 3, 13, 3, 50 ,37);
+    animationComponent->addAnimation("ATTACK2", 9.f,
+            0, 4, 8, 4, 50 ,37);
+
+    animationComponent->addAnimation("ATTACK3", 9.f,
+            0, 6, 13, 6, 50 ,37);
+    animationComponent->addAnimation("ATTACK4", 9.f,
+            0, 7, 13, 7, 50 ,37);
+
+    animationComponent->addAnimation("CAST", 9.f,
+            0, 2, 8, 2, 50 ,37);
+    animationComponent->addAnimation("SHIELD", 9.f,
+            0, 2, 8, 2, 50 ,37);
+    animationComponent->addAnimation("GETHIT", 9.f,
+            0, 5, 10, 5, 50 ,37);
+    animationComponent->addAnimation("DEATH", 9.f,
+            0, 5, 6, 5, 50 ,37);
 }
 
 //constructors/destructors
 Player::Player(float x, float y, float scale_x, float scale_y, sf::Texture& texture_sheet) {
     gold = 0;
+    defense = false;
 
     scale.x = scale_x;
     scale.y = scale_y;
     sprite.setScale(this->scale);
+
+    animationEnum = IDLE_ANIMATION;
+    nextAnimationEnum = IDLE_ANIMATION;
+    animationDone = false;
 
     createAnimationComponent(texture_sheet);
     createMovementComponent(200.f, 14.f, 6.f);
@@ -29,8 +52,8 @@ Player::Player(float x, float y, float scale_x, float scale_y, sf::Texture& text
     setPosition(x, y);
 
     currentInventorySpace = 30;
-    playerStats = new Stats();
-    inventory = new Inventory(&currentInventorySpace);
+    playerStats = std::make_shared<Stats>();
+    inventory = std::make_shared<Inventory>(&currentInventorySpace);
 
     weapon = nullptr;
     shield = nullptr;
@@ -40,21 +63,55 @@ Player::Player(float x, float y, float scale_x, float scale_y, sf::Texture& text
     legs = nullptr;
 }
 
+bool Player::hasShield() {
+    if(shield)
+        return true;
+    else
+        return false;
+}
+
 Player::Player() {
 
 }
 
 Player::~Player() {
-    delete this->playerStats;
-    delete this->inventory;
+
 }
 
 //functions
 void Player::updateAnimation(const float &dt) {
-
     if(movementComponent->getState(IDLE)){
-        animationComponent->play("IDLE", dt);
-
+        switch(animationEnum){
+            case IDLE_ANIMATION:
+                animationDone = animationComponent->play("IDLE", dt);
+                break;
+            case ATTACK_ANIMATION:
+                animationDone = animationComponent->play("ATTACK", dt);
+                break;
+            case ATTACK2_ANIMATION:
+                animationDone = animationComponent->play("ATTACK2", dt);
+                break;
+            case ATTACK3_ANIMATION:
+                animationDone = animationComponent->play("ATTACK3", dt);
+                break;
+            case ATTACK4_ANIMATION:
+                animationDone = animationComponent->play("ATTACK4", dt);
+                break;
+            case SHIELD_ANIMATION:
+                animationDone = animationComponent->play("SHIELD", dt);
+                break;
+            case CAST_ANIMATION:
+                animationDone = animationComponent->play("CAST", dt);
+                break;
+            case GETHIT_ANIMATION:
+                animationDone = animationComponent->play("GETHIT", dt);
+                break;
+            case DEATH_ANIMATION:
+                animationDone = animationComponent->play("DEATH", dt);
+                break;
+        }
+        if(animationDone)
+            animationEnum = nextAnimationEnum;
     } else if(movementComponent->getState(MOVING_LEFT)){
         sprite.setOrigin(48.f, 0.f);
         sprite.setScale(-scale.x, scale.y);
@@ -99,101 +156,11 @@ void Player::render(sf::RenderTarget &target, const bool show_hitbox, const bool
         hitboxComponent->render(target);
 }
 
-void Player::heal(int hp) {
-    playerStats->gainHp(hp);
-}
-
-string Player::playerDetails() {
-    string desc = "";
-
-    desc+= "PLAYER LIV." + to_string(Player::getPlayerStats()->getLevel())
-           + "     HP[";
-
-    int health =0;
-    for(int i=0; i<Player::getPlayerStats()->getFinalHp(); i=i+10){
-        if(health <= Player::getPlayerStats()->getHp())
-            desc+="#";
-        else
-            desc+="-";
-        health += 10;
-    }
-
-    desc+= to_string(Player::getPlayerStats()->getHp()) + "/" + to_string(Player::getPlayerStats()->getFinalHp()) + "]\n"
-           + "     MP: " +to_string(Player::getPlayerStats()->getMp()) + "/" + to_string(Player::getPlayerStats()->getFinalMp())
-           + "     Armor: " + to_string(Player::getPlayerStats()->getFinalArmor())
-           + "     Damage: " + to_string(Player::getPlayerStats()->getFinalDamage())
-           + "     \nCrit: " + to_string(Player::getPlayerStats()->getFinalCritChance())
-           + "     Evade: " + to_string(Player::getPlayerStats()->getFinalEvadeChance()) + "\n";
-
-    return desc;
-}
-
-int Player::takeDamage(int dmg) {
-    dmg = dmg - Player::playerStats->getFinalArmor();
-    if(dmg < 0){
-        dmg = 0;
-    }
-    int newHp = Player::playerStats->getHp() - dmg;
-    Player::playerStats->setHp(newHp);
-
-    return dmg;
-}
-
-void Player::useSpell(string spell) {
-    int mana;
-    for(int i=0; i<30; i++){
-        if(Player::spells[i].getName() == spell)
-            mana = Player::spells[i].getCost();
-    }
-    Player::playerStats->setMp( Player::playerStats->getMp() - mana  );
-}
-
-Spell *Player::getSpellbyIndex(int i) {
-    return &Player::spells[i];
-}
-
-bool Player::useItem(string item) {
-    int qnt = this->inventory->getItem(item)->getQuantity();
-    if(qnt > 0){
-        this->inventory->getItem(item)->setQuantity(qnt-1);
-        return true;
-    }else{
-        return false;
-    }
-}
-
-string Player::listSpells(){
-    string desc = "";
-
-    for (int i=0; i<3; i++){
-        if(Player::spells[i].isLearned()){
-            desc+= to_string(i+1) + ") ";
-            desc+=  Player::spells[i].getName()
-                    + " - " + to_string(Player::spells[i].getDamage()) + " damage\n"
-                    + " - target " + to_string(Player::spells[i].getAoe()) + " enemies\n"
-                    + " - " + to_string(Player::spells[i].getCost()) + " mp\n";
-
-            if(Player::spells[i].getReady() == 0){
-                desc+= " - READY\n";
-            } else {
-                desc+= " - " + to_string(Player::spells[i].getReady()) + " TURN cooldown\n";
-            }
-        }
-    }
-    return desc;
-}
-
-void Player::refreshSpells() {
-    for(int i=0; i<30; i++){
-        Player::spells[i].refreshSpell();
-    }
-}
-
-Stats* Player::getPlayerStats() {
+std::shared_ptr<Stats> Player::getPlayerStats() {
     return playerStats;
 }
 
-Inventory* Player::getInventory() {
+std::shared_ptr<Inventory> Player::getInventory() {
     return inventory;
 }
 
@@ -387,4 +354,37 @@ void Player::minusGold(unsigned gold) {
     }else{
         this->gold -= gold;
     }
+}
+
+void Player::setAnimation(entity_animation animation) {
+    animationEnum = animation;
+}
+
+void Player::setAnimation(entity_animation animation, entity_animation next_animation) {
+    animationEnum = animation;
+    nextAnimationEnum = next_animation;
+}
+
+void Player::setNextAnimation(entity_animation next_animation) {
+    nextAnimationEnum = next_animation;
+}
+
+std::string Player::getEquippedWeaponType() {
+    if(weapon){
+        return weapon->getItemUsageTypeString();
+    }else{
+        return "Empty Handed";
+    }
+}
+
+void Player::setDefense(bool b) {
+    defense = b;
+}
+
+bool Player::isDefense() const {
+    return defense;
+}
+
+bool Player::isDead() {
+    return playerStats->getHp() == 0;
 }

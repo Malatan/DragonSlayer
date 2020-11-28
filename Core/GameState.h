@@ -86,7 +86,7 @@ private:
     std::shared_ptr<PopUpTextComponent> popUpTextComponent;
     std::shared_ptr<SpellComponent> spellComponent;
 
-    std::vector<Enemy*> enemies;
+    std::vector<std::shared_ptr<Enemy>> enemies;
     std::vector<Npc*> npcs;
     int stato; // 0 = in giocata, 1 = pause, menu 2 = character, 3 = shop, 4 = priest, 5 = spell, 6 = wizard
     npc_type npcInteract;

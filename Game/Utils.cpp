@@ -24,5 +24,6 @@ std::vector<int> utils::generateRandomNumbers(int from, int to, int n, bool rese
 bool utils::trueFalse(float probability, bool resetSeed) {
     if(resetSeed)
         srand((unsigned) time(nullptr));
-    return (rand() % 100) < probability;
+    int res = (rand() % 100);
+    return  res < probability;
 }

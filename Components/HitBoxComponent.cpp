@@ -27,7 +27,7 @@ const sf::Vector2f & HitboxComponent::getPosition() const {
     return hitbox.getPosition();
 }
 
-const sf::FloatRect HitboxComponent::getGlobalBounds() const {
+sf::FloatRect HitboxComponent::getGlobalBounds() const {
     return hitbox.getGlobalBounds();
 }
 
@@ -56,8 +56,8 @@ void HitboxComponent::render(sf::RenderTarget & target) {
 }
 
 sf::Vector2f HitboxComponent::getCenter() {
-    return sf::Vector2f(hitbox.getPosition().x + hitbox.getGlobalBounds().width/2.f,
-            hitbox.getPosition().y + hitbox.getGlobalBounds().height/2.f);
+    return {hitbox.getPosition().x + hitbox.getGlobalBounds().width/2.f,
+            hitbox.getPosition().y + hitbox.getGlobalBounds().height/2.f};
 }
 
 const sf::FloatRect & HitboxComponent::getNextPosition(const sf::Vector2f &velocity){

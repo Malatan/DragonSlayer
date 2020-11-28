@@ -11,6 +11,20 @@
 #include "../Components/CollisionBoxComponent.h"
 #include <iostream>
 
+enum entity_animation{
+    IDLE_ANIMATION,
+    ATTACK_ANIMATION,
+    ATTACK2_ANIMATION,
+    ATTACK3_ANIMATION,
+    ATTACK4_ANIMATION,
+    SHIELD_ANIMATION,
+    WALK_ANIMATION,
+    CAST_ANIMATION,
+    GETHIT_ANIMATION,
+    DEATH_ANIMATION,
+    CORPSE_ANIMATION
+};
+
 class Entity {
 
 public:

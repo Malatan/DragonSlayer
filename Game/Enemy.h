@@ -35,8 +35,10 @@ public:
     virtual ~Enemy();
 
     //functions
+    bool isDead() const;
     void generateNameByType();
-    void copyStats(Enemy* enemy);
+    void copyStats(std::shared_ptr<Enemy> enemy);
+    int getHit(int hit_damage, bool spell_damage);
     void generateEnemyStats(int floor);
     void updateAnimation(const float &dt);
     void update(const float &dt) override;
@@ -50,7 +52,9 @@ public:
     int getWisdom() const;
     int getStrength() const;
     int getHp() const;
+    void setHp(int new_hp);
     int getMp() const;
+    void setMp(int new_mp);
     int getMaxHp() const;
     int getMaxMp() const;
     int getArmor() const;
@@ -58,6 +62,11 @@ public:
     float getCritChance() const;
     float getEvadeChance() const;
     std::string toString();
+    void setAnimation(entity_animation animation);
+    void setAnimation(entity_animation animation, entity_animation next_animation);
+    void setNextAnimation(entity_animation next_animation);
+    void setDefense(bool b);
+    bool isDefense() const;
 private:
     //variables
     string name;
@@ -76,6 +85,10 @@ private:
     int wisdom;
     int strength;
 
+    bool defense;
+    bool animationDone;
+    entity_animation animationEnum;
+    entity_animation nextAnimationEnum;
     //initializer functions
     void initAnimations();
 };

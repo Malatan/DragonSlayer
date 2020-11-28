@@ -8,8 +8,8 @@
 
 void WizardTab::initWizardSpellSlots() {
     //init spellslots
-    if(this->spellSlots.size() != 0){
-        this->spellSlots.clear();
+    if(!spellSlots.empty()){
+        spellSlots.clear();
     }
 
     int max_per_row = 3;
@@ -17,14 +17,14 @@ void WizardTab::initWizardSpellSlots() {
     float modifierY = 100.f;
     float yMultiplier = 0;
     int count = 0;
-    for(auto i : this->spellComponent->getPlayerSpells()){
+    for(const auto& i : spellComponent->getPlayerSpells()){
         if((count % max_per_row) == 0 && count != 0){
             yMultiplier ++;
         }
-        this->spellSlots.push_back(new gui::WizardSpellSlot(350.f, 80.f,
-                this->container.getPosition().x + 35.f + (modifierX * (count % max_per_row)),
-                this->container.getPosition().y + 80.f + (modifierY * yMultiplier) ,
-                i, &this->textures["ITEMS_SHEET"], 34.f, this->font, 18
+        spellSlots.push_back(std::make_shared<gui::WizardSpellSlot>(350.f, 80.f,
+                container.getPosition().x + 35.f + (modifierX * (count % max_per_row)),
+                container.getPosition().y + 80.f + (modifierY * yMultiplier) ,
+                i, &textures["ITEMS_SHEET"], 34.f, font, 18
         ));
         count++;
     }
@@ -35,48 +35,47 @@ WizardTab::WizardTab(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* 
                      std::map<std::string, sf::Texture> textures)
         : textures(std::move(textures)), player(std::move(player)), font(font), window(window){
     gState = dynamic_cast<GameState*>(state);
-    spellComponent = this->gState->getSpellComponent();
+    spellComponent = gState->getSpellComponent();
 
     //init background
-    this->background.setSize(sf::Vector2f(
+    background.setSize(sf::Vector2f(
             static_cast<float>(window->getSize().x),
             static_cast<float>(window->getSize().y)));
-    this->background.setFillColor(sf::Color(20, 20, 20, 100));
+    background.setFillColor(sf::Color(20, 20, 20, 100));
 
     //init container
-    this->container.setSize(sf::Vector2f(1170.f,820.f));
-    this->container.setFillColor(sf::Color(20, 20, 20, 200));
+    container.setSize(sf::Vector2f(1170.f,820.f));
+    container.setFillColor(sf::Color(20, 20, 20, 200));
 
-    this->container.setPosition(sf::Vector2f(
-            static_cast<float>(window->getSize().x) / 2.f - this->container.getSize().x / 2.f,
+    container.setPosition(sf::Vector2f(
+            static_cast<float>(window->getSize().x) / 2.f - container.getSize().x / 2.f,
             40.f));
 
     //init text
-    this->containerTitle.setFont(*this->font);
-    this->containerTitle.setFillColor(sf::Color(255, 255, 255, 200));
-    this->containerTitle.setCharacterSize(40);
-    this->containerTitle.setString("Wizard");
-    this->containerTitle.setPosition(
-            this->container.getPosition().x + (this->container.getGlobalBounds().width/2.f) - (this->containerTitle.getGlobalBounds().width/2.f),
-            this->container.getPosition().y + 10.f);
+    containerTitle.setFont(*this->font);
+    containerTitle.setFillColor(sf::Color(255, 255, 255, 200));
+    containerTitle.setCharacterSize(40);
+    containerTitle.setString("Wizard");
+    containerTitle.setPosition(
+            container.getPosition().x + (container.getGlobalBounds().width/2.f) - (containerTitle.getGlobalBounds().width/2.f),
+            container.getPosition().y + 10.f);
 
-    this->playerGoldLbl.setFont(*this->font);
-    this->playerGoldLbl.setCharacterSize(30);
-    this->playerGoldLbl.setPosition(this->container.getPosition().x + 20.f, 800.f);
+    playerGoldLbl.setFont(*this->font);
+    playerGoldLbl.setCharacterSize(30);
+    playerGoldLbl.setPosition(container.getPosition().x + 20.f, 800.f);
 
-    this->updateGoldLbl();
-    this->initWizardSpellSlots();
-    this->updateSpellInfo();
+    updateGoldLbl();
+    initWizardSpellSlots();
+    updateSpellInfo();
 }
 
 WizardTab::~WizardTab() {
-    for(auto i : this->spellSlots)
-        delete i;
+
 }
 
 //functions
 void WizardTab::updateSpellInfo() {
-    for(auto i : this->spellSlots){
+    for(const auto& i : spellSlots){
         (i->getSpellDescriptionLbl())->clear();
         if(i->getSpell()->isMaxed() && i->getSpell()->isLearned()){
             *(i->getSpellDescriptionLbl()) << sf::Text::Bold << sf::Color::White << i->getSpell()->getName()
@@ -98,67 +97,67 @@ void WizardTab::updateSpellInfo() {
 
 bool WizardTab::closeTabByClicking(const sf::Vector2f& mousePos) {
     return sf::Mouse::isButtonPressed(sf::Mouse::Left) &&
-           this->background.getGlobalBounds().contains(mousePos)
-           && !this->container.getGlobalBounds().contains(mousePos);
+           background.getGlobalBounds().contains(mousePos)
+           && !container.getGlobalBounds().contains(mousePos);
 }
 
 void WizardTab::updateGoldLbl() {
     std::stringstream ss;
-    std::string gold = to_string(this->player->getGold());
+    std::string gold = to_string(player->getGold());
     unsigned len = gold.length();
 
     for(int index =(int) len-3; index > 0; index -= 3)
         gold.insert(index, ",");
     ss << "Gold: " << gold;
 
-    this->playerGoldLbl.setString(ss.str());
+    playerGoldLbl.setString(ss.str());
 }
 
-void WizardTab::updateSpellLevel(gui::WizardSpellSlot *i) {
+void WizardTab::updateSpellLevel(const std::shared_ptr<gui::WizardSpellSlot>& i) {
     int upgrade_cost;
     if(i->getSpell()->isLearned())
         upgrade_cost = i->getSpell()->getLearnCost()*(i->getSpell()->getLevel()+1);
     else
         upgrade_cost = i->getSpell()->getLearnCost()*i->getSpell()->getLevel();
 
-    if(this->player->getGold() >= upgrade_cost){
-        this->player->minusGold(upgrade_cost);
+    if(player->getGold() >= upgrade_cost){
+        player->minusGold(upgrade_cost);
 
         if(i->getSpell()->isLearned())
             i->getSpell()->levelUp();
         else{
             i->getSpell()->setLearned(true);
-            this->gState->getSpellTab()->initSpellSlots();
+            gState->getSpellTab()->initSpellSlots();
         }
 
 
         i->updateBtnText();
         i->updateSpellInfo();
-        this->updateSpellInfo();
-        this->gState->updateTabsGoldLbl();
-        this->gState->getSpellTab()->updateSpellsInfoLbl();
-        this->gState->getPopUpTextComponent()->addPopUpTextCenter(DEFAULT_TAG, i->getSpell()->getName(), "", " lv + 1 !");
+        updateSpellInfo();
+        gState->updateTabsGoldLbl();
+        gState->getSpellTab()->updateSpellsInfoLbl();
+        gState->getPopUpTextComponent()->addPopUpTextCenter(DEFAULT_TAG, i->getSpell()->getName(), "", " lv + 1 !");
     }else{
-        this->gState->getPopUpTextComponent()->addPopUpTextCenter(DEFAULT_TAG, "Insufficient Gold", "", "");
+        gState->getPopUpTextComponent()->addPopUpTextCenter(DEFAULT_TAG, "Insufficient Gold", "", "");
     }
 
 }
 
 void WizardTab::update(const sf::Vector2f &mousePos) {
-    for(auto i : this->spellSlots){
+    for(const auto& i : spellSlots){
         i->update(mousePos);
-        if(i->isBtnPressed() && this->gState->getKeyTime()){
-            this->updateSpellLevel(i);
+        if(i->isBtnPressed() && gState->getKeyTime()){
+            updateSpellLevel(i);
         }
     }
 }
 
 void WizardTab::render(sf::RenderTarget &target) {
-    target.draw(this->background);
-    target.draw(this->container);
-    target.draw(this->containerTitle);
-    target.draw(this->playerGoldLbl);
-    for(auto i : this->spellSlots){
+    target.draw(background);
+    target.draw(container);
+    target.draw(containerTitle);
+    target.draw(playerGoldLbl);
+    for(const auto& i : spellSlots){
         i->render(target);
     }
 }

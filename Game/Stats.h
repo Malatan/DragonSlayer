@@ -44,12 +44,13 @@ private:
 public:
 
     //MANAGE STATS
-    bool exportStats();
     bool addExp(int earned);
     void levelUp(int choise, int newExp);
     void addAttribute(int type);
     void checkHpLimit();
     void checkMpLimit();
+    int getHit(int hit_damage, float block_percentage);
+    bool consumeMana(int mana_consumed);
     int gainHp(int gain_amount);
     int gainMp(int gain_amount);
 
@@ -59,11 +60,10 @@ public:
     int getFinalArmor();
     float getFinalCritChance();
     float getFinalEvadeChance();
+    std::string getFinalCritChanceFixed();
+    std::string getFinalEvadeChanceFixed();
     void updateSpellDmgMultiplier();
     void updateMultipliers();
-
-    //TOSTRING
-    string listStats();
 
     //CONSTRUCTOR & DESTRUCTOR
     Stats();

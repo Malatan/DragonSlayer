@@ -39,11 +39,11 @@ PauseMenu::~PauseMenu() {
 }
 
 //functions
-bool PauseMenu::isButtonPressed(const std::string key) {
+bool PauseMenu::isButtonPressed(const std::string& key) {
     return buttons[key].isPressed();
 }
 
-void PauseMenu::addButton(const std::string key, float y, const std::string text, unsigned char_size) {
+void PauseMenu::addButton(const std::string& key, float y, const std::string& text, unsigned char_size) {
     float width = 150.f;
     float height = 50.f;
     float center_x = container.getPosition().x + container.getSize().x / 2.f - width / 2.f;

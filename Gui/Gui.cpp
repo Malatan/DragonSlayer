@@ -5,6 +5,7 @@
 #include "Gui.h"
 #include <iostream>
 #include <sstream>
+#include <utility>
 gui::Button::Button(){
 
 };
@@ -99,6 +100,10 @@ void gui::Button::setSize(sf::Vector2f size) {
 
 void gui::Button::setText(const std::string text) {
     this->text.setString(text);
+    this->text.setPosition(
+            (shape.getPosition().x + shape.getGlobalBounds().width /2.f) - this->text.getGlobalBounds().width/2.f,
+            (shape.getPosition().y + shape.getGlobalBounds().height /2.f) - this->text.getGlobalBounds().height/1.5f
+    );
 }
 
 void gui::Button::setId(const short unsigned id) {
@@ -131,13 +136,15 @@ void gui::Button::setTooltipDisabled(bool b) {
     tooltipDisabled = b;
 }
 
-void gui::Button::setDisabled(bool b) {
-    if(b){
-        shape.setOutlineColor(sf::Color(128, 128, 128));
-        text.setFillColor(sf::Color(128, 128, 128));
-    } else{
-        shape.setOutlineColor(sf::Color::White);
-        text.setFillColor(sf::Color(textIdleColor));
+void gui::Button::setDisabled(bool b, bool change_color) {
+    if(change_color){
+        if(b){
+            shape.setOutlineColor(sf::Color(128, 128, 128));
+            text.setFillColor(sf::Color(128, 128, 128));
+        } else{
+            shape.setOutlineColor(sf::Color::White);
+            text.setFillColor(sf::Color(textIdleColor));
+        }
     }
     disabled = b;
 }
@@ -257,10 +264,8 @@ gui::ProgressBar::ProgressBar(float x, float y, float width, float height, int m
     text.setFont(*font);
     text.setStyle(sf::Text::Bold);
     text.setCharacterSize(15.f);
-    text.setOrigin(text.getGlobalBounds().width / 2.f,
-            text.getGlobalBounds().height / 2.f);
-    text.setPosition(barShape.getPosition().x + (barShape.getGlobalBounds().width / 2.f),
-            barShape.getPosition().y + (barShape.getGlobalBounds().height / 2.8f));
+    text.setPosition(barShape.getPosition().x + (barShape.getGlobalBounds().width / 2.f) - text.getGlobalBounds().width/2.f,
+            barShape.getPosition().y + (barShape.getGlobalBounds().height / 2.f) - text.getGlobalBounds().height/2.f);
 
 }
 
@@ -301,15 +306,18 @@ void gui::ProgressBar::update(float current, int max) {
     ss << current << "/" << max;
     this->max = max;
     currentValue = current;
-    this->text.setString(ss.str());
-    this->progressPercentage = (float)this->currentValue / (float)this->max;
-    if(this->progressPercentage == 1){
-        progressShape.setSize(sf::Vector2f(barShape.getGlobalBounds().width * progressPercentage -4.f,
-                                                 progressShape.getGlobalBounds().height));
-    } else{
+    text.setString(ss.str());
+    text.setPosition(barShape.getPosition().x + (barShape.getGlobalBounds().width / 2.f) - text.getGlobalBounds().width/2.f,
+                     barShape.getPosition().y + (barShape.getGlobalBounds().height / 2.f) - text.getGlobalBounds().height);
+    progressPercentage = (float)currentValue / (float)max;
+    if(progressPercentage == 0.f){
         progressShape.setSize(sf::Vector2f(barShape.getGlobalBounds().width * progressPercentage,
-                                                 progressShape.getGlobalBounds().height));
+                                           progressShape.getGlobalBounds().height));
+    }else{
+        progressShape.setSize(sf::Vector2f(barShape.getGlobalBounds().width * progressPercentage - 4.f,
+                                           progressShape.getGlobalBounds().height));
     }
+
 
 }
 
@@ -332,7 +340,7 @@ gui::ItemSlot::ItemSlot(){
 
 gui::ItemSlot::ItemSlot(float x, float y, float width, float height, int id,
         std::shared_ptr<sf::RenderWindow> window, sf::Font *font, const std::shared_ptr<Item>& item, State* state, bool isEquipSlot)
-    : window(window), font(font), item(item), id(id), isEquipSlot(isEquipSlot){
+    : window(std::move(window)), font(font), item(item), id(id), isEquipSlot(isEquipSlot){
     renderItemInfoContainer = false;
     isSelected = false;
     shape.setPosition(sf::Vector2f(x,y));
@@ -456,7 +464,7 @@ void gui::ItemSlot::updateItemInfo() {
         if(item->getDamage() !=0){
             ss << "\n+" << item->getDamage() << " dmg";
         }
-        if(item->getArmor() !=0){
+        if(item->getArmor() !=0 && item->getUsageType() != 4){
             ss << "\n+" << item->getArmor() << " armor";
         }
         if(item->getCritChance() !=0){
@@ -692,7 +700,7 @@ gui::ShopSlot::ShopSlot(){
 };
 
 gui::ShopSlot::ShopSlot(float width, float height, float pos_x, float pos_y, std::string key,
-                        unsigned int price, sf::Font* font, Item* item) : key(key), item(item){
+                        unsigned int price, sf::Font* font, Item* item) : key(std::move(key)), item(item){
 
     this->mouseHoverImage = false;
 
@@ -817,68 +825,68 @@ gui::SpellSlot::SpellSlot(){
 
 };
 
-gui::SpellSlot::SpellSlot(float width, float height, float pos_x, float pos_y,  std::shared_ptr<Spell> spell,
+gui::SpellSlot::SpellSlot(float width, float height, float pos_x, float pos_y,  const std::shared_ptr<Spell>& spell,
         const sf::Texture* texture, float rect_size, sf::Font* font, unsigned int char_size) : spell(spell) {
 
-    this->shape.setSize(sf::Vector2f(width, height));
-    this->shape.setPosition(pos_x, pos_y);
-    this->shape.setOutlineThickness(4.f);
+    shape.setSize(sf::Vector2f(width, height));
+    shape.setPosition(pos_x, pos_y);
+    shape.setOutlineThickness(4.f);
     switch(spell->getTypeEnum()){
         case FIRE:
-            this->shape.setOutlineColor(sf::Color(235, 70, 59));
-            this->shape.setFillColor(sf::Color(235, 70, 59, 50));
+            shape.setOutlineColor(sf::Color(235, 70, 59));
+            shape.setFillColor(sf::Color(235, 70, 59, 50));
             break;
         case WATER:
-            this->shape.setOutlineColor(sf::Color(50, 83, 173));
-            this->shape.setFillColor(sf::Color(50, 83, 173, 50));
+            shape.setOutlineColor(sf::Color(50, 83, 173));
+            shape.setFillColor(sf::Color(50, 83, 173, 50));
             break;
         case ICE:
-            this->shape.setOutlineColor(sf::Color(92, 193, 247));
-            this->shape.setFillColor(sf::Color(92, 193, 247, 50));
+            shape.setOutlineColor(sf::Color(92, 193, 247));
+            shape.setFillColor(sf::Color(92, 193, 247, 50));
             break;
         case ELECTRIC:
-            this->shape.setOutlineColor(sf::Color(126, 0, 222));
-            this->shape.setFillColor(sf::Color(126, 0, 222, 50));
+            shape.setOutlineColor(sf::Color(126, 0, 222));
+            shape.setFillColor(sf::Color(126, 0, 222, 50));
             break;
         case HOLY:
-            this->shape.setOutlineColor(sf::Color(255, 254, 173));
-            this->shape.setFillColor(sf::Color(255, 254, 173, 50));
+            shape.setOutlineColor(sf::Color(255, 254, 173));
+            shape.setFillColor(sf::Color(255, 254, 173, 50));
             break;
         default:
-            this->shape.setOutlineColor(sf::Color::White);
+            shape.setOutlineColor(sf::Color::White);
             break;
     }
 
 
     float app = width / 4.0f;
-    this->spellImage.setSize(sf::Vector2f(app, app));
+    spellImage.setSize(sf::Vector2f(app, app));
     app = app /5.0f;
-    this->spellImage.setPosition(this->shape.getPosition().x,
-            this->shape.getPosition().y);
-    this->spellImage.setTexture(texture);
-    this->spellImage.setTextureRect(sf::IntRect(
+    spellImage.setPosition(shape.getPosition().x,
+            shape.getPosition().y);
+    spellImage.setTexture(texture);
+    spellImage.setTextureRect(sf::IntRect(
             spell->getIntRectX() * rect_size,
             spell->getIntRectY() * rect_size,
             rect_size, rect_size));
-    this->spellImage.setOutlineColor(sf::Color::White);
+    spellImage.setOutlineColor(sf::Color::White);
 
     //init texts
-    this->spellInfoLbl.setFont(*font);
-    this->spellInfoLbl.setCharacterSize(char_size);
+    spellInfoLbl.setFont(*font);
+    spellInfoLbl.setCharacterSize(char_size);
   /*  this->spellInfoLbl << sf::Text::Bold << spell->getName() << "(" << spell->getType() << ")\n"
                         << "Damage: " << sf::Color(34, 0, 79) << to_string(spell->getDamage()) << "\n" << sf::Color::White
                         << "Cost: " << sf::Color::Blue << to_string(spell->getCost()) << sf::Color::White
                         << "\nCooldown: " << to_string(spell->getCooldown()) << " turn/s"
                         << "\nAoe: " << to_string(spell->getAoe()) << " target/s";*/
 
-    this->spellInfoLbl.setPosition(this->spellImage.getPosition().x + this->spellImage.getGlobalBounds().width ,
-            this->spellImage.getPosition().y);
+    spellInfoLbl.setPosition(spellImage.getPosition().x + spellImage.getGlobalBounds().width ,
+            spellImage.getPosition().y);
 
-    this->descriptionLbl.setFont(*font);
-    this->descriptionLbl.setCharacterSize(char_size);
-    this->descriptionLbl << sf::Text::Italic << spell->getDescription();
-    this->descriptionLbl.setPosition(this->spellImage.getPosition().x + 10.f,
-            this->spellImage.getPosition().y + this->spellImage.getGlobalBounds().height + app);
+    descriptionLbl.setFont(*font);
+    descriptionLbl.setCharacterSize(char_size);
+    descriptionLbl << sf::Text::Italic << spell->getDescription();
+    descriptionLbl.setPosition(spellImage.getPosition().x + 10.f,
+            spellImage.getPosition().y + spellImage.getGlobalBounds().height + app);
 }
 
 gui::SpellSlot::~SpellSlot() {
@@ -890,14 +898,14 @@ void gui::SpellSlot::update(const sf::Vector2f &mousePos) {
 }
 
 void gui::SpellSlot::render(sf::RenderTarget &target) {
-    target.draw(this->shape);
-    target.draw(this->spellImage);
-    target.draw(this->spellInfoLbl);
-    target.draw(this->descriptionLbl);
+    target.draw(shape);
+    target.draw(spellImage);
+    target.draw(spellInfoLbl);
+    target.draw(descriptionLbl);
 }
 
 sfe::RichText* gui::SpellSlot::getSpellInfoLbl() {
-    return &this->spellInfoLbl;
+    return &spellInfoLbl;
 }
 
 std::shared_ptr<Spell> gui::SpellSlot::getSpell() {
@@ -914,7 +922,7 @@ gui::WizardSpellSlot::WizardSpellSlot(){
 
 };
 
-gui::WizardSpellSlot::WizardSpellSlot(float width, float height, float pos_x, float pos_y, std::shared_ptr<Spell> spell,
+gui::WizardSpellSlot::WizardSpellSlot(float width, float height, float pos_x, float pos_y, const std::shared_ptr<Spell>& spell,
                                       const sf::Texture *texture, float rect_size, sf::Font *font,
                                       unsigned int char_size) : spell(spell){
     //init variables
@@ -1107,8 +1115,10 @@ gui::PlayerStatusPanel::PlayerStatusPanel(std::shared_ptr<Player> player, float 
     shape.setSize(sf::Vector2f(160.f, 90.f));
     shape.setPosition(x, y);
     shape.setFillColor(sf::Color(20, 20, 20));
+    shape.setOutlineColor(sf::Color::Green);
+    shape.setOutlineThickness(5.f);
 
-    infoText.setPosition(x + 5.f, y + 5.f);
+    infoText.setPosition(x + 5.f, y + 2.f);
     infoText.setFont(*this->font);
     infoText.setCharacterSize(20);
     stringstream ss;
@@ -1141,6 +1151,14 @@ void gui::PlayerStatusPanel::render(sf::RenderTarget &target) {
     mpBar.render(target);
 }
 
+void gui::PlayerStatusPanel::setShapeOutlineColor(sf::Color color) {
+    shape.setOutlineColor(color);
+}
+
+void gui::PlayerStatusPanel::setShapeOutlineThickness(float thickness) {
+    shape.setOutlineThickness(thickness);
+}
+
 /*
  *                      EnemyStatusPanel
  *
@@ -1152,7 +1170,7 @@ gui::EnemyStatusPanel::EnemyStatusPanel() {
 }
 
 gui::EnemyStatusPanel::EnemyStatusPanel(const std::shared_ptr<Enemy>& enemy, float x, float y,
-        sf::Font *font, sf::Texture& selected_icon_texture, State* state, int id)
+        sf::Font *font, sf::Texture& selected_icon_texture, State* state, unsigned int id)
         : enemy(enemy), font(font), state(state), idPos(id){
     isSelected = false;
     isHovered = false;
@@ -1168,9 +1186,9 @@ gui::EnemyStatusPanel::EnemyStatusPanel(const std::shared_ptr<Enemy>& enemy, flo
 
     selectedIcon.setTexture(&selected_icon_texture);
     selectedIcon.setSize(sf::Vector2f(150.f, 40.f));
-    selectedIcon.setPosition(x + 15.f, y - 60.f);
+    selectedIcon.setPosition(x + 15.f, y - 50.f);
 
-    infoText.setPosition(x + 5.f, y + 5.f);
+    infoText.setPosition(x + 5.f, y + 2.f);
     infoText.setFont(*this->font);
     infoText.setCharacterSize(20);
     stringstream ss;
@@ -1189,10 +1207,12 @@ gui::EnemyStatusPanel::~EnemyStatusPanel() {
 
 }
 
-void gui::EnemyStatusPanel::update(const sf::Vector2f &mousePos, const float &dt, int& selected_id) {
+void gui::EnemyStatusPanel::update(const sf::Vector2f &mousePos, const float &dt,
+        unsigned int& selected_id, const int current_enemy_pos, const bool player_turn) {
     hpBar.update(enemy->getHp(), enemy->getMaxHp());
     mpBar.update(enemy->getMp(), enemy->getMaxMp());
     isSelected = selected_id == idPos;
+
     if(shape.getGlobalBounds().contains(mousePos)){
         shape.setOutlineColor(sf::Color::Cyan);
         shape.setOutlineThickness(5.f);
@@ -1206,7 +1226,15 @@ void gui::EnemyStatusPanel::update(const sf::Vector2f &mousePos, const float &dt
             isSelected = !isSelected;
         }
     }else{
-        shape.setOutlineThickness(0.f);
+        if(current_enemy_pos == idPos && !player_turn){
+            shape.setOutlineColor(sf::Color::Red);
+            shape.setOutlineThickness(5.f);
+        }else if(isSelected){
+            shape.setOutlineColor(sf::Color::Magenta);
+            shape.setOutlineThickness(5.f);
+        }
+        else
+            shape.setOutlineThickness(0.f);
         isHovered = false;
     }
     if((selected_id == idPos) || isHovered)
@@ -1234,4 +1262,363 @@ void gui::EnemyStatusPanel::selectedIconAnimation(const float &dt) {
         selectedIconAnimationKeyTime = 0.f;
         isSelectedIconAnimated = !isSelectedIconAnimated;
     }
+}
+
+/*
+ *                      ActionRow
+ *
+ */
+
+gui::ActionRow::ActionRow(float width, float height, float x, float y, const std::shared_ptr<Spell>& spell, float spellDmgMultiplier,
+                          sf::Font* font, sf::Texture& action_texture) :
+                          font(font), spell(spell), spellDmgMultiplier(spellDmgMultiplier) {
+    mouseHoverImage = false;
+    isCd = false;
+    cdRemain = 0;
+    shape.setSize(sf::Vector2f(width, height));
+    shape.setPosition(x, y);
+    shape.setOutlineThickness(4.f);
+    switch(spell->getTypeEnum()){
+        case FIRE:
+            shape.setOutlineColor(sf::Color(235, 70, 59, 100));
+            shape.setFillColor(sf::Color(235, 70, 59, 50));
+            imageShape.setOutlineColor(sf::Color(235, 70, 59));
+            break;
+        case WATER:
+            shape.setOutlineColor(sf::Color(50, 83, 173, 100));
+            shape.setFillColor(sf::Color(50, 83, 173, 50));
+            imageShape.setOutlineColor(sf::Color(50, 83, 173));
+            break;
+        case ICE:
+            shape.setOutlineColor(sf::Color(92, 193, 247, 100));
+            shape.setFillColor(sf::Color(92, 193, 247, 50));
+            imageShape.setOutlineColor(sf::Color(92, 193, 247));
+            break;
+        case ELECTRIC:
+            shape.setOutlineColor(sf::Color(126, 0, 222, 100));
+            shape.setFillColor(sf::Color(126, 0, 222, 50));
+            imageShape.setOutlineColor(sf::Color(126, 0, 222));
+            break;
+        case HOLY:
+            shape.setOutlineColor(sf::Color(255, 254, 173, 100));
+            shape.setFillColor(sf::Color(255, 254, 173, 50));
+            imageShape.setOutlineColor(sf::Color(255, 254, 173));
+            break;
+        case DEFAULT_SPELL_TYPE:
+            shape.setOutlineColor(sf::Color(200, 200, 200, 100));
+            shape.setFillColor(sf::Color(150, 150, 150, 50));
+            imageShape.setOutlineColor(sf::Color(200, 200, 200));
+            break;
+    }
+
+    imageShape.setSize(sf::Vector2f(height - 10.f, height - 10.f));
+    imageShape.setPosition(shape.getPosition().x + 5.f,
+                           shape.getPosition().y + 5.f);
+    imageShape.setTexture(&action_texture);
+    imageShape.setTextureRect(sf::IntRect(
+            spell->getIntRectX() * 34,
+            spell->getIntRectY() * 34,
+            34.f, 34.f));
+    imageShape.setOutlineThickness(3.f);
+
+    titleLbl.setFont(*font);
+    titleLbl.setCharacterSize(15);
+    titleLbl.setPosition(imageShape.getPosition().x + imageShape.getGlobalBounds().width + 10.f,
+                         imageShape.getPosition().y);
+    if(spell->getTypeEnum() == DEFAULT_SPELL_TYPE)
+        titleLbl.setString(spell->getName());
+    else{
+        stringstream ss;
+        ss << spell->getName() << " Lv." << spell->getLevel();
+        titleLbl.setString(ss.str());
+    }
+
+    costLbl.setFont(*font);
+    costLbl.setCharacterSize(15);
+    costLbl.setPosition(titleLbl.getPosition().x,
+                        titleLbl.getPosition().y + titleLbl.getGlobalBounds().height + 5.f);
+    if(spell->getFinalCost() == 0){
+        costLbl << "Cost: N/A";
+    }else{
+        costLbl << "Cost: " << sf::Color::Blue << to_string(spell->getFinalCost()) << " Mana";
+    }
+
+    cdLbl.setFont(*font);
+    cdLbl.setCharacterSize(15);
+    cdLbl.setPosition(costLbl.getPosition().x + 120.f,
+                      costLbl.getPosition().y);
+
+
+    useBtn = gui::Button(
+            shape.getPosition().x + shape.getGlobalBounds().width - height * 2.f - 20.f,
+            shape.getPosition().y + 5.f,
+            height * 2.f, height - 10.f,
+            font, "USE", 18.f,
+            sf::Color(255, 255, 255, 255),
+            sf::Color(160, 160, 160),
+            sf::Color(20, 20, 20, 50),
+
+            sf::Color(70, 70, 70, 0),
+            sf::Color(150, 150, 150, 70),
+            sf::Color(130, 130, 130));
+    useBtn.setBorderColor(sf::Color(120,120,120));
+    useBtn.setBackgroundFilLColor(sf::Color(120,120,120, 120));
+    useBtn.setBorderLineThickness(2.f);
+
+    actionInfoLbl.setFont(*this->font);
+    actionInfoLbl.setCharacterSize(20);
+    actionInfoLbl << sf::Text::Bold << spell->getName() << sf::Text::Regular;
+    if(spell->getTypeEnum() != DEFAULT_SPELL_TYPE){
+        stringstream ss;
+        ss << spell->getFinalDamage() << " x" << spellDmgMultiplier << " = " << getActionFinalDamage();
+        actionInfoLbl << "(Lv" << to_string(spell->getLevel()) << ")";
+        if(spell->getName() == "Cleanse"){
+            actionInfoLbl << "\n Effect: Remove all debuffs";
+        }else if(spell->getName() == "Heal"){
+            ss.str("");
+            ss << spellDmgMultiplier;
+            actionInfoLbl << "\n Effect: " << sf::Color::Red << to_string(spell->getDamage())
+            << " x " << ss.str() << " = " << to_string(getActionFinalDamage());
+        }else if(spell->getName() == "Meditation"){
+            ss.str("");
+            ss << spellDmgMultiplier;
+            actionInfoLbl << "\n Effect: " << sf::Color::Blue << to_string(spell->getDamage())
+            << " x " << ss.str() << " = " << to_string(getActionFinalDamage());
+        }else{
+            actionInfoLbl << "\n Damage: " << sf::Color(255, 60, 31) << ss.str();
+        }
+    }
+    actionInfoLbl << sf::Color::White;
+    if(spell->getFinalCost() == 0){
+        actionInfoLbl << "\n Cost: N/A";
+    }else{
+        actionInfoLbl << "\n Cost: " << sf::Color::Blue << to_string(spell->getFinalCost()) ;
+    }
+    actionInfoLbl << sf::Color::White;
+    if(spell->getCooldown() == 0){
+        actionInfoLbl << "\n Cooldown: N/A";
+    }else{
+        actionInfoLbl << "\n Cooldown: " << to_string(spell->getCooldown()) << " turn/s";
+    }
+    actionInfoLbl << "\n " << sf::Text::Italic << spell->getDescription();
+
+    actionInfoContainer.setFillColor(sf::Color(90,90,90));
+    actionInfoContainer.setOutlineColor(sf::Color(60,60,60));
+    actionInfoContainer.setOutlineThickness(3.f);
+    actionInfoContainer.setSize(sf::Vector2f(actionInfoLbl.getGlobalBounds().width + 10.f,
+                                             actionInfoLbl.getGlobalBounds().height + 15.f));
+}
+
+gui::ActionRow::~ActionRow() {
+
+}
+
+bool gui::ActionRow::isUseBtnPressed() const {
+    return useBtn.isPressed();
+}
+
+void gui::ActionRow::updateInfoContainer(const sf::Vector2f& mousePos) {
+    actionInfoContainer.setPosition(mousePos.x,
+                                   mousePos.y - actionInfoContainer.getGlobalBounds().height);
+    actionInfoLbl.setPosition(actionInfoContainer.getPosition().x + 5.f,
+                             actionInfoContainer.getPosition().y);
+}
+
+void gui::ActionRow::update(const sf::Vector2f &mousePos, const float &dt) {
+    useBtn.update(mousePos);
+    if(imageShape.getGlobalBounds().contains(mousePos)){
+        mouseHoverImage = true;
+        updateInfoContainer(mousePos);
+    }else{
+        mouseHoverImage = false;
+    }
+}
+
+void gui::ActionRow::render(sf::RenderTarget &target) {
+    target.draw(shape);
+    target.draw(imageShape);
+    target.draw(titleLbl);
+    target.draw(costLbl);
+    if(isCd)
+        target.draw(cdLbl);
+    useBtn.render(target);
+    if(mouseHoverImage){
+        target.draw(actionInfoContainer);
+        target.draw(actionInfoLbl);
+    }
+
+}
+
+std::shared_ptr<Spell> gui::ActionRow::getAction() const{
+    return spell;
+}
+
+int gui::ActionRow::getActionFinalDamage() const {
+    return spell->getFinalDamage()*spellDmgMultiplier;
+}
+
+void gui::ActionRow::startCd() {
+    if(spell->getCooldown() > 0){
+        isCd = true;
+        cdRemain = spell->getCooldown();
+        useBtn.setText("NOT READY");
+        useBtn.setDisabled(true);
+        stringstream ss;
+        ss << cdRemain << " turn/s remaining";
+        cdLbl.setString(ss.str());
+    }
+}
+
+void gui::ActionRow::updateCd() {
+    if(isCd && cdRemain > 0){
+        cdRemain -= 1;
+        stringstream ss;
+        ss << cdRemain << " turn/s remaining";
+        cdLbl.setString(ss.str());
+        if(cdRemain == 0)
+            endCd();
+    }
+}
+
+void gui::ActionRow::endCd() {
+    isCd = false;
+    useBtn.setText("USE");
+    useBtn.setDisabled(false);
+}
+
+void gui::ActionRow::setUseBtnState(button_states btn_state) {
+    useBtn.setButtonState(btn_state);
+}
+
+/*
+ *                      ItemRow
+ *
+ */
+
+gui::ItemRow::ItemRow(float width, float height, float x, float y, const std::shared_ptr<Item> &item, sf::Font *font,
+                      sf::Texture &item_texture) : font(font), item(item) {
+    mouseHoverImage = false;
+    shape.setSize(sf::Vector2f(width, height));
+    shape.setPosition(x, y);
+    shape.setOutlineColor(sf::Color(50, 50, 50));
+    shape.setFillColor(sf::Color(50, 50, 50, 150));
+    shape.setOutlineThickness(4.f);
+
+    imageShape.setSize(sf::Vector2f(height - 10.f, height - 10.f));
+    imageShape.setPosition(shape.getPosition().x + 5.f,
+                           shape.getPosition().y + 5.f);
+    imageShape.setTexture(&item_texture);
+    imageShape.setTextureRect(sf::IntRect(
+            item->getIconRectX() * 34,
+            item->getIconRectY() * 34,
+            34.f, 34.f));
+    imageShape.setOutlineThickness(3.f);
+    switch(item->getRarityEnum()){
+        case UNCOMMON:
+            imageShape.setOutlineColor(sf::Color::White);
+            break;
+        case COMMON:
+            imageShape.setOutlineColor(sf::Color::Green);
+            break;
+        case RARE:
+            imageShape.setOutlineColor(sf::Color::Blue);
+            break;
+        case EPIC:
+            imageShape.setOutlineColor(sf::Color::Magenta);
+            break;
+        case LEGENDARY:
+            imageShape.setOutlineColor(sf::Color(255,127,80));
+            break;
+    }
+
+    titleLbl.setFont(*font);
+    titleLbl.setCharacterSize(15);
+    titleLbl.setPosition(imageShape.getPosition().x + imageShape.getGlobalBounds().width + 10.f,
+                         imageShape.getPosition().y);
+    titleLbl.setString(item->getName());
+
+    quantityLbl.setFont(*font);
+    quantityLbl.setCharacterSize(15);
+    quantityLbl.setPosition(titleLbl.getPosition().x,
+                        titleLbl.getPosition().y + titleLbl.getGlobalBounds().height + 5.f);
+    updateQuantityLbl();
+
+    useBtn = gui::Button(
+            shape.getPosition().x + shape.getGlobalBounds().width - height * 2.f - 20.f,
+            shape.getPosition().y + 5.f,
+            height * 2.f, height - 10.f,
+            font, "USE", 18.f,
+            sf::Color(255, 255, 255, 255),
+            sf::Color(160, 160, 160),
+            sf::Color(20, 20, 20, 50),
+
+            sf::Color(70, 70, 70, 0),
+            sf::Color(150, 150, 150, 70),
+            sf::Color(130, 130, 130));
+    useBtn.setBorderColor(sf::Color(120,120,120));
+    useBtn.setBackgroundFilLColor(sf::Color(120,120,120, 120));
+    useBtn.setBorderLineThickness(2.f);
+
+    infoLbl.setFont(*this->font);
+    infoLbl.setCharacterSize(15);
+    infoLbl << sf::Text::Bold << item->getName() << "\n" << sf::Text::Regular
+            << "Type: " << item->getItemType() << "\n" << imageShape.getOutlineColor()
+            << item->getRarity() << sf::Color::White << "\n'" << item->getDescription() << "'\n";
+
+    infoContainer.setFillColor(sf::Color(90,90,90));
+    infoContainer.setOutlineColor(sf::Color(60,60,60));
+    infoContainer.setOutlineThickness(3.f);
+    infoContainer.setSize(sf::Vector2f(infoLbl.getGlobalBounds().width + 10.f,
+                                       infoLbl.getGlobalBounds().height + 10.f));
+}
+
+gui::ItemRow::~ItemRow() {
+
+}
+
+bool gui::ItemRow::isUseBtnPressed() const {
+    return useBtn.isPressed();
+}
+
+void gui::ItemRow::updateQuantityLbl() {
+    stringstream ss;
+    ss << "Quantity: " << item->getQuantity();
+    quantityLbl.setString(ss.str());
+}
+
+void gui::ItemRow::updateInfoContainer(const sf::Vector2f &mousePos) {
+    infoContainer.setPosition(mousePos.x,
+                                    mousePos.y - infoContainer.getGlobalBounds().height);
+    infoLbl.setPosition(infoContainer.getPosition().x + 5.f,
+                              infoContainer.getPosition().y);
+}
+
+void gui::ItemRow::update(const sf::Vector2f &mousePos) {
+    useBtn.update(mousePos);
+    if(imageShape.getGlobalBounds().contains(mousePos)){
+        mouseHoverImage = true;
+        updateInfoContainer(mousePos);
+    }else{
+        mouseHoverImage = false;
+    }
+}
+
+void gui::ItemRow::render(sf::RenderTarget &target) {
+    target.draw(shape);
+    target.draw(imageShape);
+    target.draw(titleLbl);
+    target.draw(quantityLbl);
+    useBtn.render(target);
+    if(mouseHoverImage){
+        target.draw(infoContainer);
+        target.draw(infoLbl);
+    }
+}
+
+void gui::ItemRow::setUseBtnState(button_states btn_state) {
+    useBtn.setButtonState(btn_state);
+}
+
+std::shared_ptr<Item> gui::ItemRow::getItem() const {
+    return item;
 }

@@ -18,6 +18,11 @@ enum spell_type{
     DEFAULT_SPELL_TYPE
 };
 
+enum spell_base_effect{
+    HEAL_BASE_POINT = 60,
+    MEDITATION_BASE_POINT = 40
+};
+
 using namespace std;
 
 class Spell {
@@ -84,6 +89,9 @@ public:
 
     //CONSTRUCTOR & DESTRUCTOR
     Spell();
+    Spell(spell_type spellType, string name, string type, string description, int cost,
+          int cooldown, int ready, int damage, int aoe, bool learned, int level, int maxLevel, int learnCost,
+          int intRectX, int intRectY);
     Spell(Spell* spell);
     virtual ~Spell();
 };

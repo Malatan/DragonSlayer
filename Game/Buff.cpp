@@ -4,12 +4,14 @@
 
 #include "Buff.h"
 
+#include <utility>
+
 Buff::Buff() {
 
 }
 
 Buff::Buff(std::string name, int add_hp, int add_mp, int add_damage, int add_armor, float add_critchance,
-           float add_evadechance, int turns) : name(name), addHp(add_hp), addMp(add_mp), addDamage(add_damage), addArmor(add_armor),
+           float add_evadechance, int turns) : name(std::move(name)), addHp(add_hp), addMp(add_mp), addDamage(add_damage), addArmor(add_armor),
                                                addCritChance(add_critchance), addEvadeChance(add_evadechance), turns(turns){
 
     this->instant = false;
@@ -44,7 +46,7 @@ float Buff::getAddEvadeChance() const {
 }
 
 Buff::Buff(std::string name, int add_hp, int add_mp, int add_damage, int add_armor, float add_critchance,
-           float add_evadechance, bool instant) : name(name), addHp(add_hp), addMp(add_mp), addDamage(add_damage), addArmor(add_armor),
+           float add_evadechance, bool instant) : name(std::move(name)), addHp(add_hp), addMp(add_mp), addDamage(add_damage), addArmor(add_armor),
                                                addCritChance(add_critchance), addEvadeChance(add_evadechance), instant(instant){
     this->turns = 0;
 }
@@ -80,11 +82,11 @@ std::string Buff::toString() {
     return ss.str();
 }
 
-const int Buff::getTurns() const{
+int Buff::getTurns() const{
     return this->turns;
 }
 
-const bool Buff::isInstant() const {
+bool Buff::isInstant() const {
     return this->instant;
 }
 

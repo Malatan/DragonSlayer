@@ -12,12 +12,12 @@ AnimationComponent::~AnimationComponent() {
 
 }
 //accessor
-const bool &AnimationComponent::isDone(const std::string key){
+const bool &AnimationComponent::isDone(const std::string& key){
     return animations[key]->isDone();
 }
 
 //functions
-void AnimationComponent::addAnimation(const std::string key,float animation_timer,
+void AnimationComponent::addAnimation(const std::string& key,float animation_timer,
                                       int start_frame_x, int start_frame_y,
                                       int frames_x, int frames_y,
                                       int width, int height) {
@@ -28,11 +28,12 @@ void AnimationComponent::addAnimation(const std::string key,float animation_time
             width, height);
 }
 
-const bool& AnimationComponent::play(const std::string key, const float &dt) {
+const bool& AnimationComponent::play(const std::string& key, const float &dt) {
     animations[key]->play(dt);
     return animations[key]->isDone();
 }
-const bool& AnimationComponent::play(const std::string key, const float &dt, const float &modifier, const float &modifier_max) {
-    animations[key]->play(dt, abs(modifier / modifier_max));
+
+const bool& AnimationComponent::play(const std::string& key, const float &dt, const float &modifier, const float &modifier_max) {
+    animations[key]->play(dt, std::abs(modifier / modifier_max));
     return  animations[key]->isDone();
 }

@@ -12,7 +12,7 @@ class GameState;
 
 class SpellTab {
 public:
-    SpellTab(std::shared_ptr<sf::RenderWindow> window, sf::Font* font, std::shared_ptr<Player> player, State *state,
+    SpellTab(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* font, std::shared_ptr<Player> player, State *state,
              std::shared_ptr<ResourcesHandler> rsHandler, std::map<std::string, sf::Texture> textures);
     virtual ~SpellTab();
 
@@ -39,7 +39,7 @@ private:
     GameState* gState;
     std::shared_ptr<SpellComponent> spellComponent;
 
-    std::vector<gui::SpellSlot*> spellSlots;
+    std::vector<std::shared_ptr<gui::SpellSlot>> spellSlots;
     std::string dmgMultiplier;
 };
 

@@ -6,6 +6,10 @@
 #define DRAGONSLAYER_BATTLESTATE_H
 #include <string>
 #include <sstream>
+#include <cmath>
+#include "State.h"
+#include "../Gui/Gui.h"
+#include "../Gui/CharacterTab.h"
 #include "../Game/Item.h"
 #include "../Game/Inventory.h"
 #include "../Game/Stats.h"
@@ -13,25 +17,46 @@
 #include "../Game/Spell.h"
 #include "../Game/Enemy.h"
 #include "../Game/Generator.h"
-#include "../Gui/Gui.h"
-#include "State.h"
 #include "../Game/Utils.h"
 #include "../Components/PopUpTextComponent.h"
+#include "../Components/BuffComponent.h"
+
+class CharacterTab;
+
+enum panel_types{
+    ACTION_PANEL,
+    INVENTORY_PANEL,
+    ESCAPE_PANEL,
+    DEFAULT_PANEL
+};
 
 class BattleState : public State{
     const static int MAX_ENEMIES = 5;
     std::shared_ptr<Player> player;
-    std::unique_ptr<Enemy> enemies[MAX_ENEMIES];
+    std::shared_ptr<Enemy> enemyLeader;
     std::vector<std::shared_ptr<Enemy>> enemiesModels;
     Player* playerModel;
-    Item drops[MAX_ENEMIES];
+    std::shared_ptr<BuffComponent> buffComponent;
     std::shared_ptr<PopUpTextComponent> popUpTextComponent;
+    std::shared_ptr<SpellComponent> spellComponent;
+    std::shared_ptr<CharacterTab> cTab;
 
-    int floor;              //castle FLOOR - affects droprate
-    int killCounter = 0;    //CONT killed enemies
-    int enemyCount;         //NUMBER of tota{}l enemies
-    int currentPanel;       // 0 = nothing, 1 = action, 2 = inventory, 3 = escape
-    int selectedId;
+    std::vector<unsigned int> enemiesMoveOrder;
+    int floor;
+    panel_types currentPanel;
+    unsigned int selectedId;
+    int enemyCount;
+    float criticalhitMultiplier;
+    float playerBlockPercentage;
+
+    unsigned int turnCount;
+    bool battleEnd;
+    bool whoseTurn; // true = player , false = enemies
+    bool enemyMoveDone;
+    unsigned int enemiesMoves;
+    float turnLengthKeyTime;
+    float turnLengthMaxKeyTime;
+    bool countPlayerTurnTimer;
 
     sf::Font* font;
     sf::Texture backgroundTexture;
@@ -41,6 +66,29 @@ class BattleState : public State{
     gui::Button actionBtn;
     sf::RectangleShape itemActionPanel;
     gui::Button itemActionBtn;
+
+    //player stats panel
+    sf::RectangleShape playerStatsPanel;
+    sf::Text playerStatsPanelTitle;
+    sf::Text playerStatsNameLbl;
+    sf::Text playerStatsValueLbl;
+
+    //enemy stats panel
+    sf::RectangleShape enemyStatsPanel;
+    sf::Text enemyStatsPanelTitle;
+    sf::Text enemyStatsNameLbl;
+    sf::Text enemyStatsValueLbl;
+
+    //action and inventory panel
+    int currentActionPage;
+    int maxActionPage;
+    int currentInvPage;
+    int maxInvPage;
+    std::vector<std::unique_ptr<gui::ActionRow>> actionRows;
+    std::vector<std::unique_ptr<gui::ItemRow>> itemRows;
+    sf::Text pageLbl;
+    gui::Button nextPageBtn;
+    gui::Button previousPageBtn;
 
     //escape panel
     float escapeChance;
@@ -55,29 +103,38 @@ class BattleState : public State{
     gui::PlayerStatusPanel playerStatusPanel;
     gui::EnemyStatusPanel enemiesStatusPanel[5];
 
+    sf::RectangleShape turnPanel;
+    sf::Text turnPanelTitle;
+    sf::Text turnPanelLbl;
+    sf::Text turnPanelActionLbl;
+
 public:
     //constructors/destructor
     BattleState(std::shared_ptr<sf::RenderWindow> window, std::shared_ptr<Player> player, std::stack<std::unique_ptr<State>>* states,
-                std::shared_ptr<PopUpTextComponent> popUpTextComponent,
-                std::shared_ptr<ResourcesHandler> rsHandler, std::map<std::string, sf::Texture> textures,
-                sf::Font *font, Enemy* enemy, int floor);
+                std::shared_ptr<PopUpTextComponent> popUpTextComponent, std::shared_ptr<SpellComponent> spellComponent,
+                std::shared_ptr<BuffComponent> buffComponent, std::shared_ptr<ResourcesHandler> rsHandler,
+                std::map<std::string, sf::Texture> textures, sf::Font *font, std::shared_ptr<Enemy> enemy,
+                int floor, std::shared_ptr<CharacterTab> cTab);
     ~BattleState() override;
 
     void initResources();
     void initButtons();
     void initBattleFieldComponents();
     void initEscapePanel();
+    void initStatsPanel();
+    void initActionPanel();
+    void initInventoryPanel();
     void spawnEnemy(sf::Vector2f pos, enemy_types type, bool generateStats);
-    void generateModels(Enemy* enemy);
+    void generateModels();
 
-    bool battle();      //TRUE if player WIN
-    bool playerTurn();  //TRUE depends on CheckWin()
-    bool enemyTurn(int enemyIndex);   //TRUE if player DIES
-    bool checkWin();    //TRUE if all enemies are DEAD
-    void dropItem(int enemyIndex);
-
-
-    void updatePlayerInput(const float &dt);
+    void playerBattle(unsigned int rowIndex);
+    void useItem(unsigned int row_index);
+    void endPlayerTurn();
+    void enemyBattle(const float& dt);
+    void endBattle();
+    void updateTurnPanel();
+    void updatePageLbl(panel_types type);
+    void updateEnemyStatsLbl(const std::shared_ptr<Enemy>& enemy);
     void updateButtons();
     void updateInput(const float &dt) override;
     void update(const float& dt) override;

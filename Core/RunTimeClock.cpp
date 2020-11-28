@@ -47,7 +47,7 @@ void RunTimeClock::addHours(int h) {
     this->hours += h;
 }
 
-const std::string RunTimeClock::toString() const {
+std::string RunTimeClock::toString() const {
     std::ostringstream oss;
     oss << " Run time: " << this->hours << ":" << this->minutes << ":" << this->seconds << ":" << this->milliseconds;
 

@@ -14,16 +14,16 @@ public:
     virtual ~AnimationComponent();
 
     //accessor
-    const bool& isDone(const std::string key);
+    const bool& isDone(const std::string& key);
 
     //functions
-    void addAnimation(const std::string key,
+    void addAnimation(const std::string& key,
                       float animation_timer, int start_frame_x,
                       int start_frame_y, int frames_x, int frames_y,
                       int width, int height);
 
-    const bool& play(const std::string key, const float &dt);
-    const bool& play(const std::string key, const float &dt, const float &modifier, const float &modifier_max);
+    const bool& play(const std::string& key, const float &dt);
+    const bool& play(const std::string& key, const float &dt, const float &modifier, const float &modifier_max);
 
 private:
     class Animation{
@@ -45,64 +45,63 @@ private:
         Animation(sf::Sprite& sprite, sf::Texture& texture_sheet,
                   float animation_timer, int start_frame_x, int start_frame_y, int frames_x, int frames_y, int width, int height)
                 : sprite(sprite), textureSheet(texture_sheet), animationTimer(animation_timer), timer(0.f), done(false), width(width), height(height){
-            this->startRect = sf::IntRect(start_frame_x * width, start_frame_y * height, width, height);
-            this->currentRect = this->startRect;
-            this->endRect = sf::IntRect(frames_x * width, frames_y * height, width, height);
+            startRect = sf::IntRect(start_frame_x * width, start_frame_y * height, width, height);
+            currentRect = startRect;
+            endRect = sf::IntRect(frames_x * width, frames_y * height, width, height);
 
             this->sprite.setTexture(this->textureSheet, true);
-            this->sprite.setTextureRect(this->startRect);
+            this->sprite.setTextureRect(startRect);
         }
         //accessor
         const bool& isDone() const{
-            return this->done;
+            return done;
         }
-
         //functions
         const bool& play(const float &dt){
             //update timer
-            this->done = false;
-            this->timer += 100.f * dt;
-            if(this->timer >= this->animationTimer){
+            done = false;
+            timer += 100.f * dt;
+            if(timer >= animationTimer){
                 //reset timer
-                this->timer = 0.f;
+                timer = 0.f;
                 //animate
-                if(this->currentRect != this->endRect){
-                    this->currentRect.left += this->width;
+                if(currentRect != endRect){
+                    currentRect.left += width;
+                    sprite.setTextureRect(currentRect);
                 } else{  //reset
-                    this->currentRect.left = this->startRect.left;
-                    this->done = true;
+                    currentRect.left = startRect.left;
+                    done = true;
                 }
-                this->sprite.setTextureRect(this->currentRect);
             }
 
-            return this->done;
+            return done;
         }
 
-        const bool play(const float &dt, float mod_percent){ // mod_percent serve a modificare la velocita dell'animazione
+        bool play(const float &dt, float mod_percent){ // mod_percent serve a modificare la velocita dell'animazione
             //update timer                                   // esempio: camminata lenta a camminata con max velocita(corsa)
-            this->done = false;
+            done = false;
             if(mod_percent < 0.5f){
                 mod_percent = 0.5f;
             }
-            this->timer += mod_percent * 100.f * dt;
-            if(this->timer >= this->animationTimer){
+            timer += mod_percent * 100.f * dt;
+            if(timer >= animationTimer){
                 //reset timer
-                this->timer = 0.f;
+                timer = 0.f;
                 //animate
-                if(this->currentRect != this->endRect){
-                    this->currentRect.left += this->width;
+                if(currentRect != endRect){
+                    currentRect.left += width;
                 } else{  //reset
-                    this->currentRect.left = this->startRect.left;
-                    this->done = true;
+                    currentRect.left = startRect.left;
+                    done = true;
                 }
-                this->sprite.setTextureRect(this->currentRect);
+                sprite.setTextureRect(currentRect);
             }
-            return this->done;
+            return done;
         }
 
         void reset(){
-            this->timer = this->animationTimer;
-            this->currentRect = this->startRect;
+            timer = animationTimer;
+            currentRect = startRect;
         }
 
     };

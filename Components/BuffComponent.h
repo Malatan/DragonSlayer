@@ -18,17 +18,18 @@ public:
     BuffComponent(std::shared_ptr<PopUpTextComponent> popUpTextComponent);
     virtual ~BuffComponent();
 
-    void addBuff(std::string key, Buff* buff);
-    void addPlayerBuff(Buff* buff);
-    void applyItemBuff(std::string key, Stats* stats);
+    void addBuff(const std::string& key, const std::shared_ptr<Buff>& buff);
+    void addPlayerBuff(const std::shared_ptr<Buff>& buff);
+    void applyItemBuff(const std::string& key, const std::shared_ptr<Stats>& stats, bool popup_text_center, float popup_text_x = 0.f,
+            float popup_text_y = 0.f);
     void update();
 
     std::string toStringBuffs();
 
 private:
     std::shared_ptr<PopUpTextComponent> popUpTextComponent;
-    std::map<std::string, Buff*> buffs;
-    std::vector<Buff*> playerBuffsList;
+    std::map<std::string, std::shared_ptr<Buff>> buffs;
+    std::vector<std::shared_ptr<Buff>> playerBuffsList;
 };
 
 

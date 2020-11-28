@@ -11,14 +11,14 @@ class GameState;
 
 class ShopTab {
 public:
-    ShopTab(std::shared_ptr<sf::RenderWindow> window, sf::Font* font, std::shared_ptr<Player> player, State *state,
+    ShopTab(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* font, std::shared_ptr<Player> player, State *state,
             std::shared_ptr<ResourcesHandler> rsHandler, std::map<std::string, sf::Texture> textures);
     virtual ~ShopTab();
 
     void initItemList();
     void initShopSlots();
 
-    const vector<gui::ShopSlot *> &getShopSlots() const;
+    const vector<std::shared_ptr<gui::ShopSlot>> &getShopSlots() const;
     std::string toStringShopItems();
     //functions
     void buyItem(Item* item, const unsigned price);
@@ -43,7 +43,7 @@ private:
     GameState* gState;
 
     std::map<std::string, Item*> items;
-    std::vector<gui::ShopSlot*> shopSlots;
+    std::vector<std::shared_ptr<gui::ShopSlot>> shopSlots;
 };
 
 

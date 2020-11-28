@@ -78,7 +78,7 @@ void Npc::render(sf::RenderTarget &target, const bool show_hitbox) {
         hitboxComponent->render(target);
 }
 
-void Npc::updateCollsion(std::shared_ptr<Player> player, npc_type* type) {
+void Npc::updateCollsion(const std::shared_ptr<Player>& player, npc_type* type) {
     if(*type == NO_NPC || *type == this->type){
         if(player->getHitboxComponent()->intersects(hitboxComponent->getGlobalBounds())){
             overHeadContainer.setFillColor(sf::Color::White);

@@ -35,7 +35,7 @@ void SpellComponent::sortSpellList() {
 
 }
 
-const std::string SpellComponent::toString() const {
+std::string SpellComponent::toString() const {
     std::stringstream ss;
     ss << "---------------Spell list---------------\n";
     for(auto i : spells){
@@ -45,7 +45,7 @@ const std::string SpellComponent::toString() const {
     return ss.str();
 }
 
-const std::string SpellComponent::toStringPlayer() const {
+std::string SpellComponent::toStringPlayer() const {
     std::stringstream ss;
     ss << "---------------Player Spell list---------------\n";
     for(auto i : playerSpells){

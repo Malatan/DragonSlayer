@@ -13,17 +13,19 @@ enum TextTypes { DEFAULT_TAG, NEGATIVE_TAG, EXPERIENCE_TAG, GOLD_TAG, HEAL_TAG, 
 
 class PopUpTextComponent {
 public:
-    PopUpTextComponent(sf::Font font, std::shared_ptr<sf::RenderWindow> window);
+    PopUpTextComponent(const sf::Font& font, const std::shared_ptr<sf::RenderWindow>& window);
     virtual ~PopUpTextComponent();
 
     //Functions
-    void addPopUpText(const unsigned tag_type, const float pos_x, const float pos_y,
-                      const std::string str, const std::string prefix, const std::string postfix);
-    void addPopUpText(const unsigned tag_type, const float pos_x, const float pos_y,
-                      const int i, const std::string prefix, const std::string postfix);
+    void addPopUpText(unsigned tag_type, float pos_x, float pos_y,
+                      const std::string& str, const std::string& prefix, const std::string& postfix, float delay = 0.f);
+    void addPopUpText(unsigned tag_type, float pos_x, float pos_y,
+                      int i, const std::string& prefix, const std::string& postfix, float delay = 0.f);
 
-    void addPopUpTextCenter(const unsigned tag_type, const std::string str, const std::string prefix, const std::string postfix);
-    void addPopUpTextCenter(const unsigned tag_type, const int i, const std::string prefix, const std::string postfix);
+    void addPopUpTextCenter(unsigned tag_type, const std::string& str, const std::string& prefix, const std::string& postfix,
+            float delay = 0.f);
+    void addPopUpTextCenter(unsigned tag_type, int i, const std::string& prefix, const std::string& postfix,
+            float delay = 0.f);
 
     void update(const float &dt);
     void render(sf::RenderTarget & target);
@@ -37,19 +39,22 @@ private:
         float lifetime;
         float speed;
         float acceleration;
+        float delay;
         sf::Vector2f velocity;
         int fadeValue;
         bool reverse;
 
     public:
-        PopUpText(sf::Font& font, std::string text, float pos_x, float pos_y, float dir_x, float dir_y,
-                  sf::Color color, unsigned char_size, float lifetime, bool reverse, float speed, float acceleration, int fade_value) {
+        PopUpText(sf::Font& font, const std::string& text, float pos_x, float pos_y, float dir_x, float dir_y,
+                  sf::Color color, unsigned char_size, float lifetime, bool reverse, float speed, float acceleration,
+                  int fade_value) {
             this->text.setFont(font);
             this->text.setPosition(pos_x, pos_y);
             this->text.setFillColor(color);
             this->text.setCharacterSize(char_size);
             this->text.setString(text);
 
+            this->delay = 0.f;
             this->dirX = dir_x;
             this->dirY = dir_y;
             this->lifetime = lifetime;
@@ -64,11 +69,12 @@ private:
             }
         }
 
-        PopUpText(std::shared_ptr<PopUpText> tag, float pos_x, float pos_y, std::string str) {
+        PopUpText(const std::shared_ptr<PopUpText>& tag, float pos_x, float pos_y, const std::string& str, float delay) {
             text = tag->text;
             text.setString(str);
-            text.setPosition(pos_x, pos_y);
+            text.setPosition(pos_x - text.getGlobalBounds().width/2.f, pos_y);
 
+            this->delay = delay;
             dirX = tag->dirX;
             dirY = tag->dirY;
             lifetime = tag->lifetime;
@@ -84,52 +90,48 @@ private:
         }
 
         //Accessor
-        inline const bool isExpired() const{ return lifetime <= 0.f; }
+        inline bool isExpired() const{ return lifetime <= 0.f; }
 
         //Function
         void update(const float& dt) {
-            if (lifetime > 0.f) {
-                //Update the lifetime
-                lifetime -= 100.f * dt;
-
-                //Accelerate
-                if (acceleration > 0.f) {
-                    if (reverse) {
-                        velocity.x -= dirX * acceleration * dt;
-                        velocity.y -= dirY * acceleration * dt;
-
-                        if (abs(velocity.x) < 0.f)
-                            velocity.x = 0.f;
-
-                        if (abs(velocity.y) < 0.f)
-                            velocity.y = 0.f;
-
-                        text.move(velocity * dt);
+            if(delay > 0){
+                delay -= 100.f * dt;
+            }else{
+                if (lifetime > 0.f) {
+                    //Update the lifetime
+                    lifetime -= 100.f * dt;
+                    //Accelerate
+                    if (acceleration > 0.f) {
+                        if (reverse) {
+                            velocity.x -= dirX * acceleration * dt;
+                            velocity.y -= dirY * acceleration * dt;
+                            if (std::abs(velocity.x) < 0.f)
+                                velocity.x = 0.f;
+                            if (std::abs(velocity.y) < 0.f)
+                                velocity.y = 0.f;
+                            text.move(velocity * dt);
+                        }
+                        else {
+                            velocity.x += dirX * acceleration * dt;
+                            velocity.y += dirY * acceleration * dt;
+                            if (std::abs(velocity.x) > speed)
+                                velocity.x = dirX * speed;
+                            if (std::abs(velocity.y) > speed)
+                                velocity.y = dirY * speed;
+                            text.move(velocity * dt);
+                        }
                     }
                     else {
-                        velocity.x += dirX * acceleration * dt;
-                        velocity.y += dirY * acceleration * dt;
-
-                        if (abs(velocity.x) > speed)
-                            velocity.x = dirX * speed;
-
-                        if (abs(velocity.y) > speed)
-                            velocity.y = dirY * speed;
-
-                        text.move(velocity * dt);
+                        //Move the tag
+                        text.move(dirX * speed * dt, dirY * speed * dt);
                     }
-                }
-                else {
-                    //Move the tag
-                    text.move(dirX * speed * dt, dirY * speed * dt);
-                }
-
-                if (fadeValue > 0 && text.getFillColor().a >= fadeValue) {
-                    text.setFillColor(sf::Color(
-                            text.getFillColor().r,
-                            text.getFillColor().g,
-                            text.getFillColor().b,
-                            text.getFillColor().a - fadeValue));
+                    if (fadeValue > 0 && text.getFillColor().a >= fadeValue) {
+                        text.setFillColor(sf::Color(
+                                text.getFillColor().r,
+                                text.getFillColor().g,
+                                text.getFillColor().b,
+                                text.getFillColor().a - fadeValue));
+                    }
                 }
             }
         }

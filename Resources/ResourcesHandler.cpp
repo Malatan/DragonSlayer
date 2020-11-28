@@ -4,39 +4,39 @@
 
 #include "ResourcesHandler.h"
 
+#include <utility>
+
 
 ResourcesHandler::ResourcesHandler() {
 
 }
 
 ResourcesHandler::~ResourcesHandler() {
-    for(auto i : resources){
-        delete i;
-    }
+
 }
 
-bool ResourcesHandler::checkIfKeyExist(std::string key) {
-    for(auto i : this->resources){
-        if(i->getKey().compare(key) == 0){
+bool ResourcesHandler::checkIfKeyExist(const std::string& key) {
+    for(const auto& i : resources){
+        if(i->getKey() == key){
             return true;
         }
     }
     return false;
 }
 
-bool ResourcesHandler::addResouce(std::string path, std::string key, std::string state_name) {
-    for(auto i : this->resources){
-        if(i->getKey().compare(key) == 0){
+bool ResourcesHandler::addResouce(std::string path, const std::string& key, std::string state_name) {
+    for(const auto& i : resources){
+        if(i->getKey() == key){
             return false;
         }
     }
-    this->resources.push_back(new Resource(path, key, state_name));
+    resources.push_back(std::make_shared<Resource>(std::move(path), key, std::move(state_name)));
     return true;
 }
 
-Resource *ResourcesHandler::getResouceByKey(std::string key) {
-    for(auto i : this->resources){
-        if(i->getKey().compare(key) == 0)
+std::shared_ptr<Resource> ResourcesHandler::getResouceByKey(const std::string& key) {
+    for(auto i : resources){
+        if(i->getKey() == key)
             return i;
     }
 
@@ -44,14 +44,14 @@ Resource *ResourcesHandler::getResouceByKey(std::string key) {
 }
 
 std::string ResourcesHandler::toString() {
-    std::string app = "";
-    for(auto i : this->resources){
+    std::string app;
+    for(const auto& i : resources){
         app += i->toString() + "\n";
     }
     return app;
 }
 
-bool ResourcesHandler::loadPlayerStatsTxt(Stats* playerStats) {
+bool ResourcesHandler::loadPlayerStatsTxt(const std::shared_ptr<Stats>& playerStats) {
     ifstream file;
     file.open("../Data/Stats.txt");
     if (!file.is_open()){
@@ -91,7 +91,7 @@ bool ResourcesHandler::loadPlayerStatsTxt(Stats* playerStats) {
     return true;
 }
 
-bool ResourcesHandler::loadPlayerInventoryTxt(Inventory *playerInventory) {
+bool ResourcesHandler::loadPlayerInventoryTxt(const std::shared_ptr<Inventory>& playerInventory) {
     Item item;
     ifstream file;
     file.open("../Data/Inventory.txt");
@@ -165,7 +165,7 @@ bool ResourcesHandler::loadPlayerInventoryTxt(Inventory *playerInventory) {
     return true;
 }
 
-bool ResourcesHandler::loadSpellList(std::shared_ptr<SpellComponent> spellComponent) {
+bool ResourcesHandler::loadSpellList(const std::shared_ptr<SpellComponent>& spellComponent) {
     Spell spell;
     ifstream file;
     file.open("../Data/Spells.txt");
@@ -216,16 +216,16 @@ bool ResourcesHandler::loadSpellList(std::shared_ptr<SpellComponent> spellCompon
 
 void ResourcesHandler::setEquipSlotsTextureIntRect(int equip_slot, sf::IntRect intRect) {
     if(equip_slot < 6 && equip_slot >= 0){
-        this->equipSlotsTextureIntRects[equip_slot] = intRect;
+        equipSlotsTextureIntRects[equip_slot] = intRect;
     }
 
 }
 
 sf::IntRect ResourcesHandler::getEquipSlotTextureRect(int equip_slot) {
     if(equip_slot < 6 && equip_slot >= 0){
-        return this->equipSlotsTextureIntRects[equip_slot];
+        return equipSlotsTextureIntRects[equip_slot];
     }
-    return sf::IntRect(0, 0, 0, 0);
+    return {0, 0, 0, 0};
 }
 
 

@@ -9,35 +9,119 @@ void Enemy::initAnimations() {
     switch(type){
         case WITCH:
             animationComponent->addAnimation("IDLE", 10.f,
+                    0, 2, 7, 2, 250 ,250);
+            animationComponent->addAnimation("ATTACK", 10.f,
                     0, 0, 7, 0, 250 ,250);
+            animationComponent->addAnimation("ATTACK2", 10.f,
+                    0, 1, 7, 1, 250 ,250);
+            animationComponent->addAnimation("WALK", 10.f,
+                    0, 3, 7, 3, 250 ,250);
+            animationComponent->addAnimation("GETHIT", 20.f,
+                    0, 4, 2, 4, 250 ,250);
+            animationComponent->addAnimation("DEATH", 10.f,
+                    0, 5, 6, 5, 250 ,250);
+            animationComponent->addAnimation("CORPSE", 10.f,
+                    6, 5, 6, 5, 250 ,250);
             break;
         case SKELETON:
             animationComponent->addAnimation("IDLE", 10.f,
-                    0, 0, 10, 0, 24 ,32);
+                    0, 2, 10, 2, 100 ,100);
+            animationComponent->addAnimation("ATTACK", 10.f,
+                    0, 0, 10, 0, 100 ,100);
+            animationComponent->addAnimation("WALK", 10.f,
+                    0, 1, 8, 1, 100 ,100);
+            animationComponent->addAnimation("GETHIT", 10.f,
+                    0, 3, 7, 3, 100 ,100);
+            animationComponent->addAnimation("DEATH", 10.f,
+                    0, 4, 10, 4, 100 ,100);
+            animationComponent->addAnimation("CORPSE", 10.f,
+                    10, 4, 10, 4, 100 ,100);
             break;
         case SKELETON_2:
             animationComponent->addAnimation("IDLE", 10.f,
-                    0, 0, 3, 0, 150 ,150);
+                    0, 2, 3, 2, 150 ,150);
+            animationComponent->addAnimation("ATTACK", 10.f,
+                    0, 0, 7, 0, 150 ,150);
+            animationComponent->addAnimation("SHIELD", 10.f,
+                    0, 4, 3, 4, 150 ,150);
+            animationComponent->addAnimation("WALK", 10.f,
+                    0, 1, 3, 1, 150 ,150);
+            animationComponent->addAnimation("GETHIT", 10.f,
+                    0, 3, 3, 3, 150 ,150);
+            animationComponent->addAnimation("DEATH", 10.f,
+                    0, 5, 3, 5, 150 ,150);
+            animationComponent->addAnimation("CORPSE", 10.f,
+                    3, 5, 3, 5, 150 ,150);
             break;
         case FLYING_EYE:
             animationComponent->addAnimation("IDLE", 10.f,
                     0, 0, 7, 0, 150 ,150);
+            animationComponent->addAnimation("ATTACK", 10.f,
+                    0, 1, 7, 1, 150 ,150);
+            animationComponent->addAnimation("WALK", 10.f,
+                    0, 0, 7, 0, 150 ,150);
+            animationComponent->addAnimation("GETHIT", 10.f,
+                    0, 2, 3, 2, 150 ,150);
+            animationComponent->addAnimation("DEATH", 10.f,
+                    0, 3, 3, 3, 150 ,150);
+            animationComponent->addAnimation("CORPSE", 10.f,
+                    3, 3, 3, 3, 150 ,150);
             break;
         case GOBLIN:
             animationComponent->addAnimation("IDLE", 10.f,
-                    0, 0, 3, 0, 150 ,150);
+                    0, 2, 3, 2, 150 ,150);
+            animationComponent->addAnimation("ATTACK", 10.f,
+                    0, 1, 7, 1, 150 ,150);
+            animationComponent->addAnimation("WALK", 10.f,
+                    0, 0, 7, 0, 150 ,150);
+            animationComponent->addAnimation("GETHIT", 10.f,
+                    0, 3, 3, 3, 150 ,150);
+            animationComponent->addAnimation("DEATH", 10.f,
+                    0, 4, 3, 4, 150 ,150);
+            animationComponent->addAnimation("CORPSE", 10.f,
+                    3, 4, 3, 4, 150 ,150);
             break;
         case MUSHROOM:
             animationComponent->addAnimation("IDLE", 10.f,
-                    0, 0, 3, 0, 150 ,150);
+                    0, 2, 3, 2, 150 ,150);
+            animationComponent->addAnimation("ATTACK", 10.f,
+                    0, 1, 7, 1, 150 ,150);
+            animationComponent->addAnimation("WALK", 10.f,
+                    0, 0, 7, 0, 150 ,150);
+            animationComponent->addAnimation("GETHIT", 10.f,
+                    0, 3, 3, 3, 150 ,150);
+            animationComponent->addAnimation("DEATH", 10.f,
+                    0, 4, 3, 4, 150 ,150);
+            animationComponent->addAnimation("CORPSE", 10.f,
+                    3, 4, 3, 4, 150 ,150);
             break;
         case BANDIT_HEAVY:
             animationComponent->addAnimation("IDLE", 10.f,
                     0, 0, 3, 0, 48 ,48);
+            animationComponent->addAnimation("ATTACK", 10.f,
+                    3, 2, 7, 2, 48 ,48);
+            animationComponent->addAnimation("WALK", 10.f,
+                    0, 1, 7, 1, 48 ,48);
+            animationComponent->addAnimation("GETHIT", 15.f,
+                    0, 4, 2, 4, 48 ,48);
+            animationComponent->addAnimation("DEATH", 10.f,
+                    1, 4, 4, 4, 48 ,48);
+            animationComponent->addAnimation("CORPSE", 10.f,
+                    4, 4, 4, 4, 48 ,48);
             break;
         case BANDIT_LIGHT:
             animationComponent->addAnimation("IDLE", 10.f,
                     0, 0, 3, 0, 48 ,48);
+            animationComponent->addAnimation("ATTACK", 10.f,
+                    3, 2, 7, 2, 48 ,48);
+            animationComponent->addAnimation("WALK", 10.f,
+                    0, 1, 7, 1, 48 ,48);
+            animationComponent->addAnimation("GETHIT", 15.f,
+                    0, 4, 2, 4, 48 ,48);
+            animationComponent->addAnimation("DEATH", 10.f,
+                    1, 4, 4, 4, 48 ,48);
+            animationComponent->addAnimation("CORPSE", 10.f,
+                    4, 4, 4, 4, 48 ,48);
             break;
     }
 
@@ -50,6 +134,10 @@ Enemy::Enemy(enemy_types type, float x, float y, float scale_x ,float scale_y, f
     scale.x = scale_x;
     scale.y = scale_y;
     sprite.setScale(scale);
+    animationEnum = IDLE_ANIMATION;
+    nextAnimationEnum = IDLE_ANIMATION;
+    animationDone = false;
+    defense = false;
 
     createAnimationComponent(texture_sheet);
     createHitboxComponent(sprite, hitbox_offset_x, hitbox_offset_y, hitbox_width, hitbox_height);
@@ -76,7 +164,7 @@ void Enemy::generateNameByType() {
             name = "Skeleton";
             break;
         case SKELETON_2:
-            name = "Skeleton 2";
+            name = "Skeleton Soldier";
             break;
         case FLYING_EYE:
             name = "Flying eye";
@@ -99,7 +187,7 @@ void Enemy::generateNameByType() {
     }
 }
 
-void Enemy::copyStats(Enemy *enemy) {
+void Enemy::copyStats(std::shared_ptr<Enemy> enemy) {
     level = enemy->getLevel();
     agility = enemy->getAgility();
     wisdom = enemy->getWisdom();
@@ -129,7 +217,7 @@ void Enemy::generateEnemyStats(int floor) {
             armor = 15 * (mod + (strength/10.f));
             damage = 25 * (mod + (wisdom/10.f));
             critChance = 10.f + mod + (strength/10.f);  //%
-            evadeChance = 12.8f + mod + (agility/10.f);  //%
+            evadeChance = 3.8f + mod + (agility/10.f);  //%
             mp = maxMp;
             hp = maxHp;
             break;
@@ -143,7 +231,7 @@ void Enemy::generateEnemyStats(int floor) {
             armor = 15 * (mod + (strength/10.f));
             damage = 20 * (mod + (wisdom/10.f));
             critChance = 12.f + mod + (strength/10.f);  //%
-            evadeChance = 11.4f + mod + (agility/10.f);  //%
+            evadeChance = 3.4f + mod + (agility/10.f);  //%
             mp = maxMp;
             hp = maxHp;
             break;
@@ -157,7 +245,7 @@ void Enemy::generateEnemyStats(int floor) {
             armor = 20 * (mod + (strength/10.f));
             damage = 28 * (mod + (wisdom/10.f));
             critChance = 13.f + mod + (strength/10.f);  //%
-            evadeChance = 8.f + mod + (agility/10.f);  //%
+            evadeChance = 2.f + mod + (agility/10.f);  //%
             mp = maxMp;
             hp = maxHp;
             break;
@@ -171,7 +259,7 @@ void Enemy::generateEnemyStats(int floor) {
             armor = 10 * (mod + (strength/10.f));
             damage = 20 * (mod + (wisdom/10.f));
             critChance = 10.f + mod + (strength/10.f);  //%
-            evadeChance = 20.8f + mod + (agility/10.f);  //%
+            evadeChance = 5.8f + mod + (agility/10.f);  //%
             mp = maxMp;
             hp = maxHp;
             break;
@@ -185,7 +273,7 @@ void Enemy::generateEnemyStats(int floor) {
             armor = 18 * (mod + (strength/10.f));
             damage = 22 * (mod + (wisdom/10.f));
             critChance = 14.f + mod + (strength/10.f);  //%
-            evadeChance = 10.f + mod + (agility/10.f);  //%
+            evadeChance = 2.f + mod + (agility/10.f);  //%
             mp = maxMp;
             hp = maxHp;
             break;
@@ -199,7 +287,7 @@ void Enemy::generateEnemyStats(int floor) {
             armor = 12 * (mod + (strength/10.f));
             damage = 20 * (mod + (wisdom/10.f));
             critChance = 16.f + mod + (strength/10.f);  //%
-            evadeChance = 11.0f + mod + (agility/10.f);  //%
+            evadeChance = 2.0f + mod + (agility/10.f);  //%
             mp = maxMp;
             hp = maxHp;
             break;
@@ -213,7 +301,7 @@ void Enemy::generateEnemyStats(int floor) {
             armor = 25 * (mod + (strength/10.f));
             damage = 35 * (mod + (wisdom/10.f));
             critChance = 19.f + mod + (strength/10.f);  //%
-            evadeChance = 15.8f + mod + (agility/10.f);  //%
+            evadeChance = 3.8f + mod + (agility/10.f);  //%
             mp = maxMp;
             hp = maxHp;
             break;
@@ -227,7 +315,7 @@ void Enemy::generateEnemyStats(int floor) {
             armor = 20 * (mod + (strength/10.f));
             damage = 27 * (mod + (wisdom/10.f));
             critChance = 16.f + mod + (strength/10.f);  //%
-            evadeChance = 12.8f + mod + (agility/10.f);  //%
+            evadeChance = 3.8f + mod + (agility/10.f);  //%
             mp = maxMp;
             hp = maxHp;
             break;
@@ -238,7 +326,34 @@ void Enemy::generateEnemyStats(int floor) {
 }
 
 void Enemy::updateAnimation(const float &dt) {
-    animationComponent->play("IDLE", dt);
+    switch(animationEnum){
+        case IDLE_ANIMATION:
+            animationDone = animationComponent->play("IDLE", dt);
+            break;
+        case ATTACK_ANIMATION:
+            animationDone = animationComponent->play("ATTACK", dt);
+            break;
+        case ATTACK2_ANIMATION:
+            animationDone = animationComponent->play("ATTACK2", dt);
+            break;
+        case SHIELD_ANIMATION:
+            animationDone = animationComponent->play("SHIELD", dt);
+            break;
+        case WALK_ANIMATION:
+            animationDone = animationComponent->play("WALK", dt);
+            break;
+        case GETHIT_ANIMATION:
+            animationDone = animationComponent->play("GETHIT", dt);
+            break;
+        case DEATH_ANIMATION:
+            animationDone = animationComponent->play("DEATH", dt);
+            break;
+        case CORPSE_ANIMATION:
+            animationDone = animationComponent->play("CORPSE", dt);
+            break;
+    }
+    if(animationDone)
+        animationEnum = nextAnimationEnum;
 }
 
 void Enemy::update(const float &dt) {
@@ -355,6 +470,53 @@ int Enemy::getMp() const {
 std::string Enemy::getName() const {
     return name;
 }
+
+void Enemy::setAnimation(entity_animation animation) {
+    animationEnum = animation;
+}
+
+void Enemy::setAnimation(entity_animation animation, entity_animation next_animation) {
+    animationEnum = animation;
+    nextAnimationEnum = next_animation;
+}
+
+
+void Enemy::setNextAnimation(entity_animation next_animation) {
+    nextAnimationEnum = next_animation;
+}
+
+int Enemy::getHit(int hit_damage, bool spell_damage) {
+    if(!spell_damage){
+        hit_damage -= armor;
+        if(hit_damage < 0)
+            hit_damage = 1;
+    }
+    hp -= hit_damage;
+    if(hp < 0)
+        hp = 0;
+    return hit_damage;
+}
+
+void Enemy::setHp(int new_hp) {
+    hp = new_hp;
+}
+
+void Enemy::setMp(int new_mp) {
+    mp = new_mp;
+}
+
+bool Enemy::isDead() const {
+    return hp == 0;
+}
+
+void Enemy::setDefense(bool b) {
+    defense = b;
+}
+
+bool Enemy::isDefense() const {
+    return defense;
+}
+
 
 
 

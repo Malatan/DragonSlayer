@@ -57,7 +57,7 @@ namespace gui{
         void setTextPositionAddY(float y);
         void setTooltipText(std::string text);
         void setTooltipDisabled(bool b);
-        void setDisabled(bool b);
+        void setDisabled(bool b, bool change_color = true);
         void setBackgroundTexture(const sf::Texture* texture);
         void setBackbgroundDisabled(bool b);
         void setBackgroundFilLColor(sf::Color color);
@@ -225,7 +225,7 @@ namespace gui{
     public:
         //constructors/destructor
         SpellSlot();
-        SpellSlot(float width, float height, float pos_x, float pos_y,  std::shared_ptr<Spell> spell,
+        SpellSlot(float width, float height, float pos_x, float pos_y, const std::shared_ptr<Spell>& spell,
                 const sf::Texture* texture, float rect_size, sf::Font* font, unsigned int char_size);
         virtual ~SpellSlot();
 
@@ -249,7 +249,7 @@ namespace gui{
     public:
         //constructors/destructor
         WizardSpellSlot();
-        WizardSpellSlot(float width, float height, float pos_x, float pos_y, std::shared_ptr<Spell> spell,
+        WizardSpellSlot(float width, float height, float pos_x, float pos_y, const std::shared_ptr<Spell>& spell,
                   const sf::Texture* texture, float rect_size, sf::Font* font, unsigned int char_size);
         virtual ~WizardSpellSlot();
 
@@ -309,6 +309,8 @@ namespace gui{
         PlayerStatusPanel(std::shared_ptr<Player> player, float x, float y, sf::Font* font);
         virtual ~PlayerStatusPanel();
 
+        void setShapeOutlineColor(sf::Color color);
+        void setShapeOutlineThickness(float thickness);
         //functions
         void update(const sf::Vector2f& mousePos);
         void render(sf::RenderTarget& target);
@@ -326,12 +328,13 @@ namespace gui{
     public:
         EnemyStatusPanel();
         EnemyStatusPanel(const std::shared_ptr<Enemy>& enemy, float x, float y, sf::Font* font,
-                sf::Texture& selected_icon_texture, State* state, int id);
+                sf::Texture& selected_icon_texture, State* state, unsigned int id);
         virtual ~EnemyStatusPanel();
 
         //functions
         void selectedIconAnimation(const float& dt);
-        void update(const sf::Vector2f& mousePos, const float &dt, int& selected_id);
+        void update(const sf::Vector2f& mousePos, const float &dt,
+                unsigned int& selected_id, int current_enemy_pos, bool player_turn);
         void render(sf::RenderTarget& target);
 
     private:
@@ -342,7 +345,7 @@ namespace gui{
         float selectedIconAnimationMaxKeyTime;
         bool isSelectedIconAnimated;
 
-        int idPos;
+        unsigned int idPos;
         State* state;
         std::shared_ptr<Enemy> enemy;
         sf::Font* font;
@@ -351,6 +354,69 @@ namespace gui{
         gui::ProgressBar hpBar;
         gui::ProgressBar mpBar;
         sf::RectangleShape selectedIcon;
+    };
+
+    class ActionRow{
+    public:
+        ActionRow(float width, float height, float x, float y, const std::shared_ptr<Spell>& spell, float spellDmgMultiplier,
+                sf::Font* font, sf::Texture& action_texture);
+        virtual ~ActionRow();
+
+
+        void setUseBtnState(button_states btn_state);
+        std::shared_ptr<Spell> getAction() const;
+        int getActionFinalDamage() const;
+        void startCd();
+        void updateCd();
+        void endCd();
+
+        bool isUseBtnPressed() const;
+        void updateInfoContainer(const sf::Vector2f& mousePos);
+        void update(const sf::Vector2f& mousePos, const float &dt);
+        void render(sf::RenderTarget& target);
+    private:
+        float spellDmgMultiplier;
+        bool isCd;
+        unsigned int cdRemain;
+        std::shared_ptr<Spell> spell;
+        sf::Font* font;
+        sf::RectangleShape shape;
+        sf::RectangleShape imageShape;
+        sf::Text titleLbl;
+        sfe::RichText costLbl;
+        sf::Text cdLbl;
+        gui::Button useBtn;
+
+        bool mouseHoverImage;
+        sf::RectangleShape actionInfoContainer;
+        sfe::RichText actionInfoLbl;
+    };
+
+    class ItemRow{
+    public:
+        ItemRow(float width, float height, float x, float y, const std::shared_ptr<Item>& item,
+                  sf::Font* font, sf::Texture& item_texture);
+        virtual ~ItemRow();
+
+        std::shared_ptr<Item> getItem() const;
+        void setUseBtnState(button_states btn_state);
+        bool isUseBtnPressed() const;
+        void updateQuantityLbl();
+        void updateInfoContainer(const sf::Vector2f& mousePos);
+        void update(const sf::Vector2f& mousePos);
+        void render(sf::RenderTarget& target);
+    private:
+        std::shared_ptr<Item> item;
+        sf::Font* font;
+        sf::RectangleShape shape;
+        sf::RectangleShape imageShape;
+        sf::Text titleLbl;
+        sf::Text quantityLbl;
+        gui::Button useBtn;
+
+        bool mouseHoverImage;
+        sf::RectangleShape infoContainer;
+        sfe::RichText infoLbl;
     };
 }
 

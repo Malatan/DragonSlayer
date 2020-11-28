@@ -3,40 +3,43 @@
 //
 
 #include "Item.h"
+
+#include <utility>
 #include "Buff.h"
 
-Item::Item(string itemType, string name, string description, int value, string rarity, int iconRectX,
+Item::Item(string itemType, string name, string description, int value, item_rarity rarity, int iconRectX,
            int iconRectY, int hp, int mp, int damage, int armor, float critchance, float evadechance, int quantity, bool isNew) :
-           itemType(itemType), name(name), description(description),
-           value(value), rarity(rarity), iconRectX(iconRectX), iconRectY(iconRectY),
+           itemType(std::move(itemType)), name(std::move(name)), description(std::move(description)),
+           value(value), rarityEnum(rarity), iconRectX(iconRectX), iconRectY(iconRectY),
            hp(hp), mp(hp), damage(damage), armor(armor), critChance(critchance), evadeChance(evadechance), quantity(quantity),
            isNew(isNew){
-    this->equipped = false;
-    this->updateUsageType();
+    equipped = false;
+    updateUsageType();
+    updateRarityString();
 }
 
 Item::Item(){
-    this->equipped = false;
-    this->value = 0;
-    this->iconRectX = 0;
-    this->iconRectY = 0;
-    this->isNew = true;
-    this->hp= 0;
-    this->mp= 0;
-    this->damage= 0;
-    this->armor= 0;
-    this->critChance= 0;
-    this->evadeChance= 0;
-    this->quantity= 0;
-    this->usageType = 7;
-
-
+    equipped = false;
+    value = 0;
+    iconRectX = 0;
+    iconRectY = 0;
+    isNew = true;
+    hp= 0;
+    mp= 0;
+    damage= 0;
+    armor= 0;
+    critChance= 0;
+    evadeChance= 0;
+    quantity= 0;
+    usageType = DEFAULT_USAGE;
+    rarityEnum = UNCOMMON;
+    updateRarityString();
 }
 
 Item::Item(Item *item) : itemType(item->itemType), name(item->name), description(item->description), value(item->value),
 rarity(item->rarity), iconRectX(item->iconRectX), iconRectY(item->iconRectY), hp(item->hp), mp(item->mp), damage(item->damage),
 armor(item->armor), critChance(item->critChance), evadeChance(item->evadeChance), quantity(item->quantity), isNew(item->isNew),
-usageType(item->usageType), equipped(item->equipped){
+usageType(item->usageType), equipped(item->equipped), rarityEnum(item->rarityEnum){
 
 }
 
@@ -48,48 +51,49 @@ Item::~Item() {
 
 string Item::listItem() {
     stringstream ss;
-    ss << "Itemtype: " << this->itemType
-        << " type: " << this->usageType
-        << " name: " << this->name
-        << " desc: " << this->description
-        << " value: " << this->value
-        << " rarity: " << this->rarity
-        << " hp: " << this->hp
-        << " mp: " << this->mp
-        << " damage: " << this->damage
-        << " armor: " << this->armor
-        << " critchance: " << this->critChance
-        << " evadechance: " << this->evadeChance
-        << " quantity: " << this->quantity
-        << " iconRect: " << this->iconRectX
-        << "-" << this->iconRectY;
+    ss << "Itemtype: " << itemType
+        << " type: " << usageType
+        << " name: " << name
+        << " desc: " << description
+        << " value: " << value
+        << " rarity: " << rarity
+        << "(" << rarityEnum << ")"
+        << " hp: " << hp
+        << " mp: " << mp
+        << " damage: " << damage
+        << " armor: " << armor
+        << " critchance: " << critChance
+        << " evadechance: " << evadeChance
+        << " quantity: " << quantity
+        << " iconRect: " << iconRectX
+        << "-" << iconRectY;
 
     return ss.str();
 }
 
 
 void Item::setItemType(string itemType) {
-    Item::itemType = itemType;
+    this->itemType = std::move(itemType);
 }
 
 string Item::getItemType() const {
-    return Item::itemType;
+    return itemType;
 }
 
 void Item::setName(string name) {
-    Item::name = name;
+    this->name = std::move(name);
 }
 
 string Item::getName() const {
-    return Item::name;
+    return this->name;
 }
 
 void Item::setDescription(string description) {
-    Item::description = description;
+    this->description = std::move(description);
 }
 
 string Item::getDescription() {
-    return Item::description;
+    return this->description;
 }
 
 
@@ -114,23 +118,24 @@ string Item::getRarity() const {
 }
 
 void Item::setRarity(string rarity) {
-    Item::rarity = rarity;
+    this->rarity = std::move(rarity);
+    updateRarityEnum();
 }
 
 int Item::getIconRectX() {
-    return this->iconRectX;
+    return iconRectX;
 }
 
 void Item::setIconRectX(int x) {
-    this->iconRectX = x;
+    iconRectX = x;
 }
 
 int Item::getIconRectY() {
-    return this->iconRectY;
+    return iconRectY;
 }
 
 void Item::setIconRectY(int y) {
-    this->iconRectY = y;
+    iconRectY = y;
 }
 
 int Item::getDamage() {
@@ -138,19 +143,19 @@ int Item::getDamage() {
 }
 
 void Item::setDamage(int damage) {
-    Item::damage = damage;
+    this->damage = damage;
 }
 
 int Item::getArmor() {
-    return Item::armor;
+    return armor;
 }
 
 void Item::setArmor(int armor) {
-    Item::armor = armor;
+    this->armor = armor;
 }
 
 std::string Item::getItemUsageTypeString() {
-    std::string app = this->itemType.substr(2);
+    std::string app = itemType.substr(2);
     if(app == "head"){
         app = "Helmet";
     } else if(app == "chest"){
@@ -172,25 +177,23 @@ std::string Item::getItemUsageTypeString() {
 }
 
 void Item::setIsNew(bool b) {
-    this->isNew = b;
+    isNew = b;
 }
 
 bool Item::getIsNew() {
-    return this->isNew;
+    return isNew;
 }
 
 void Item::setEquipped(bool b) {
-    this->equipped = b;
+    equipped = b;
 }
 
 bool Item::isEquipped() {
-    return this->equipped;
+    return equipped;
 }
 
 bool Item::isConsumable() {
-    if(this->getItemType().at(0) == 'C')
-        return true;
-    return false;
+    return getItemType().at(0) == 'C';
 }
 
 int Item::getHp() const {
@@ -198,7 +201,7 @@ int Item::getHp() const {
 }
 
 void Item::setHp(int hp) {
-    Item::hp = hp;
+    this->hp = hp;
 }
 
 int Item::getMp() const {
@@ -206,7 +209,7 @@ int Item::getMp() const {
 }
 
 void Item::setMp(int mp) {
-    Item::mp = mp;
+    this->mp = mp;
 }
 
 float Item::getCritChance() const {
@@ -214,7 +217,7 @@ float Item::getCritChance() const {
 }
 
 void Item::setCritChance(float critChance) {
-    Item::critChance = critChance;
+    this->critChance = critChance;
 }
 
 float Item::getEvadeChance() const {
@@ -222,38 +225,73 @@ float Item::getEvadeChance() const {
 }
 
 void Item::setEvadeChance(float evadeChance) {
-    Item::evadeChance = evadeChance;
+    this->evadeChance = evadeChance;
 }
 
 int Item::getUsageType() {
-    return this->usageType;
+    return usageType;
 }
 
 void Item::updateUsageType() {
-    std::string app = this->itemType.substr(2);
+    std::string app = itemType.substr(2);
     if(app == "head"){
-        this->usageType = 3;
+        usageType = HEAD_USAGE;
     } else if(app == "chest"){
-        this->usageType = 2;
+        usageType = CHEST_USAGE;
     } else if(app == "arms"){
-        this->usageType = 1;
+        usageType = ARMS_USAGE;
     } else if(app == "legs"){
-        this->usageType = 0;
+        usageType = LEGS_USAGE;
     } else if(app == "sword" || app == "axe" || app == "bow"){
-        this->usageType = 5;
+        usageType = WEAPON_USAGE;
     } else if(app == "shield"){
-        this->usageType = 4;
+        usageType = SHIELD_USAGE;
     }else if(app == "potionS" || app == "potionM" || app == "potionL"){
-        this->usageType = 6;
+        usageType = CONSUMABLE_USAGE;
     }
 }
 
 bool Item::use() {
-    this->quantity--;
-    if(this->quantity <= 0)
-        return false;
-    else
-        return true;
+    quantity--;
+    return quantity > 0;
+}
+
+void Item::updateRarityString() {
+    switch(rarityEnum){
+        case UNCOMMON:
+            rarity = "Uncommon";
+            break;
+        case COMMON:
+            rarity = "Common";
+            break;
+        case RARE:
+            rarity = "Rare";
+            break;
+        case EPIC:
+            rarity = "Epic";
+            break;
+        case LEGENDARY:
+            rarity = "Legendary";
+            break;
+    }
+}
+
+void Item::updateRarityEnum() {
+    if(rarity == "Uncommon"){
+        rarityEnum = UNCOMMON;
+    } else if(rarity == "Common"){
+        rarityEnum = COMMON;
+    } else if(rarity == "Rare"){
+        rarityEnum = RARE;
+    } else if(rarity == "Epic"){
+        rarityEnum = EPIC;
+    } else if(rarity == "Legendary"){
+        rarityEnum = LEGENDARY;
+    }
+}
+
+item_rarity Item::getRarityEnum() const {
+    return rarityEnum;
 }
 
 

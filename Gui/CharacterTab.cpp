@@ -4,25 +4,29 @@
 
 #include "CharacterTab.h"
 
+#include <utility>
+
+#include <utility>
+
 //initializers
 
 void CharacterTab::initStatsContainer() {
 //containere per le statistiche
-    this->statsContainer.setFillColor(sf::Color(50, 50, 50, 100));
-    this->statsContainer.setSize(sf::Vector2f(((this->container.getGlobalBounds().width - 60.f) / 3.f) - 120.f, 720.f));
-    this->statsContainer.setPosition(this->container.getPosition().x + 20.f,
-                                          this->container.getPosition().y + 60.f);
+    statsContainer.setFillColor(sf::Color(50, 50, 50, 100));
+    statsContainer.setSize(sf::Vector2f(((container.getGlobalBounds().width - 60.f) / 3.f) - 120.f, 720.f));
+    statsContainer.setPosition(container.getPosition().x + 20.f,
+                                          container.getPosition().y + 60.f);
 
-    this->statsContainerTitle.setString("-Stats-");
-    this->statsContainerTitle.setFillColor(sf::Color(255, 255, 255, 200));
-    this->statsContainerTitle.setFont(*this->font);
-    this->statsContainerTitle.setCharacterSize(27);
-    this->statsContainerTitle.setPosition(this->statsContainer.getPosition().x + this->statsContainer.getGlobalBounds().width/2.f
-            - this->statsContainerTitle.getGlobalBounds().width/2.f,
-            this->statsContainer.getPosition().y);
+    statsContainerTitle.setString("-Stats-");
+    statsContainerTitle.setFillColor(sf::Color(255, 255, 255, 200));
+    statsContainerTitle.setFont(*font);
+    statsContainerTitle.setCharacterSize(27);
+    statsContainerTitle.setPosition(statsContainer.getPosition().x + statsContainer.getGlobalBounds().width/2.f
+            - statsContainerTitle.getGlobalBounds().width/2.f,
+            statsContainer.getPosition().y);
 
 
-    this->statsName.setString("Level:\n"
+    statsName.setString("Level:\n"
                               "Exp:\n"
                               "Max Hp:\n"
                               "Max Mp:\n"
@@ -35,34 +39,34 @@ void CharacterTab::initStatsContainer() {
                               "Wisdom:\n"
                               "Agility:\n"
                               "Available Points:\n");
-    this->statsName.setFillColor(sf::Color(255, 255, 255, 200));
-    this->statsName.setFont(*this->font);
-    this->statsName.setCharacterSize(21);
-    this->statsName.setPosition(this->statsContainer.getPosition().x + 10.f,
-                                this->statsContainer.getPosition().y + 50.f);
+    statsName.setFillColor(sf::Color(255, 255, 255, 200));
+    statsName.setFont(*font);
+    statsName.setCharacterSize(21);
+    statsName.setPosition(statsContainer.getPosition().x + 10.f,
+                                statsContainer.getPosition().y + 50.f);
 
-    this->statsValue.setString(this->playerStatsToString());
-    this->statsValue.setFont(*this->font);
-    this->statsValue.setCharacterSize(21);
-    this->statsValue.setPosition(this->statsContainer.getPosition().x + 160.f,
-                                 this->statsContainer.getPosition().y + 50.f);
+    statsValue.setString(playerStatsToString());
+    statsValue.setFont(*font);
+    statsValue.setCharacterSize(21);
+    statsValue.setPosition(statsContainer.getPosition().x + 160.f,
+                                 statsContainer.getPosition().y + 50.f);
 
-    this->attributesHints.setString("Hints:\n"
+    attributesHints.setString("Hints:\n"
                                     "Strength: increases your hp and\n"
                                     "   armor\n"
                                     "Wisdom: increases your mp\n"
                                     "Agility: increases your evade and\n"
                                     "   critical chance\n");
-    this->attributesHints.setFont(*this->font);
-    this->attributesHints.setCharacterSize(20);
-    this->attributesHints.setPosition(this->statsContainer.getPosition().x + 10.f,
-                                      this->statsContainer.getPosition().y + 500.f);
+    attributesHints.setFont(*font);
+    attributesHints.setCharacterSize(20);
+    attributesHints.setPosition(statsContainer.getPosition().x + 10.f,
+                                      statsContainer.getPosition().y + 500.f);
 
     //add attributes btns
     float btnSide = 17.f;
-    this->addStrengthBtn = gui::Button(
-            this->statsValue.getPosition().x + 60.f, this->statsValue.getPosition().y + 268.f, btnSide, btnSide,
-            this->font, "+", 48.f,
+    addStrengthBtn = gui::Button(
+            statsValue.getPosition().x + 60.f, statsValue.getPosition().y + 268.f, btnSide, btnSide,
+            font, "+", 48.f,
             sf::Color(200, 200, 200, 200),
             sf::Color(250, 250, 250, 250),
             sf::Color(20, 20, 20, 50),
@@ -71,9 +75,9 @@ void CharacterTab::initStatsContainer() {
             sf::Color(150, 150, 150, 0),
             sf::Color(20, 20, 20, 0));
 
-    this->addWisdomBtn = gui::Button(
-            this->statsValue.getPosition().x + 60.f, this->statsValue.getPosition().y + 294.f, btnSide, btnSide,
-            this->font, "+", 48.f,
+    addWisdomBtn = gui::Button(
+            statsValue.getPosition().x + 60.f, statsValue.getPosition().y + 294.f, btnSide, btnSide,
+            font, "+", 48.f,
             sf::Color(200, 200, 200, 200),
             sf::Color(250, 250, 250, 250),
             sf::Color(20, 20, 20, 50),
@@ -82,9 +86,9 @@ void CharacterTab::initStatsContainer() {
             sf::Color(150, 150, 150, 0),
             sf::Color(20, 20, 20, 0));
 
-    this->addAgilityBtn = gui::Button(
-            this->statsValue.getPosition().x + 60.f, this->statsValue.getPosition().y + 320.f, btnSide, btnSide,
-            this->font, "+", 48.f,
+    addAgilityBtn = gui::Button(
+            statsValue.getPosition().x + 60.f, statsValue.getPosition().y + 320.f, btnSide, btnSide,
+            font, "+", 48.f,
             sf::Color(200, 200, 200, 200),
             sf::Color(250, 250, 250, 250),
             sf::Color(20, 20, 20, 50),
@@ -93,97 +97,97 @@ void CharacterTab::initStatsContainer() {
             sf::Color(150, 150, 150, 0),
             sf::Color(20, 20, 20, 0));
 
-    this->addStrengthBtn.setTextPositionAddY(-22.f);
-    this->addWisdomBtn.setTextPositionAddY(-22.f);
-    this->addAgilityBtn.setTextPositionAddY(-22.f);
+    addStrengthBtn.setTextPositionAddY(-22.f);
+    addWisdomBtn.setTextPositionAddY(-22.f);
+    addAgilityBtn.setTextPositionAddY(-22.f);
 }
 
 void CharacterTab::initEquipContainer() {
-    this->equipContainer.setFillColor(sf::Color(70, 70, 70, 100));
-    this->equipContainer.setSize(sf::Vector2f(190.f, this->statsContainer.getGlobalBounds().height));
-    this->equipContainer.setPosition(this->statsContainer.getPosition().x + this->statsContainer.getGlobalBounds().width + 10.f,
-                                     this->container.getPosition().y + 60.f);
+    equipContainer.setFillColor(sf::Color(70, 70, 70, 100));
+    equipContainer.setSize(sf::Vector2f(190.f, statsContainer.getGlobalBounds().height));
+    equipContainer.setPosition(statsContainer.getPosition().x + statsContainer.getGlobalBounds().width + 10.f,
+                                     container.getPosition().y + 60.f);
 
-    this->equipContainerTitle.setString("-Equipment-");
-    this->equipContainerTitle.setFillColor(sf::Color(255, 255, 255, 200));
-    this->equipContainerTitle.setFont(*this->font);
-    this->equipContainerTitle.setCharacterSize(27);
-    this->equipContainerTitle.setPosition(this->equipContainer.getPosition().x + this->equipContainer.getGlobalBounds().width/2.f
-                                          - this->equipContainerTitle.getGlobalBounds().width/2.f,
-                                          this->equipContainer.getPosition().y);
+    equipContainerTitle.setString("-Equipment-");
+    equipContainerTitle.setFillColor(sf::Color(255, 255, 255, 200));
+    equipContainerTitle.setFont(*font);
+    equipContainerTitle.setCharacterSize(27);
+    equipContainerTitle.setPosition(equipContainer.getPosition().x + equipContainer.getGlobalBounds().width/2.f
+                                          - equipContainerTitle.getGlobalBounds().width/2.f,
+                                          equipContainer.getPosition().y);
 
-    this->equipBonusLbl.setString("Equip Effects:\n");
-    this->equipBonusLbl.setFont(*this->font);
-    this->equipBonusLbl.setCharacterSize(18);
-    this->equipBonusLbl.setPosition(this->equipContainer.getPosition().x + 10.f,
-                                    this->equipContainer.getPosition().y + 320.f);
+    equipBonusLbl.setString("Equip Effects:\n");
+    equipBonusLbl.setFont(*font);
+    equipBonusLbl.setCharacterSize(18);
+    equipBonusLbl.setPosition(equipContainer.getPosition().x + 10.f,
+                                    equipContainer.getPosition().y + 320.f);
 
     float posX = 15.f;
     float posY = 40.f;
     float slotSize = 70.f;
 
-    this->equipSlots[5] = std::make_unique<gui::ItemSlot>(
-            this->equipContainer.getPosition().x + posX,
-            this->equipContainer.getPosition().y + posY,
-            slotSize, slotSize, 5, this->window, this->font, nullptr, state, true
+    equipSlots[WEAPON_SLOT] = std::make_unique<gui::ItemSlot>(
+            equipContainer.getPosition().x + posX,
+            equipContainer.getPosition().y + posY,
+            slotSize, slotSize, 5, window, font, nullptr, state, true
     );
-    this->equipSlots[4] = std::make_unique<gui::ItemSlot>(
-            this->equipContainer.getPosition().x + posX + 90.f,
-            this->equipContainer.getPosition().y + posY, slotSize,
-            slotSize, 4, this->window, this->font, nullptr, state, true
+    equipSlots[SHIELD_USAGE] = std::make_unique<gui::ItemSlot>(
+            equipContainer.getPosition().x + posX + 90.f,
+            equipContainer.getPosition().y + posY, slotSize,
+            slotSize, 4, window, font, nullptr, state, true
     );
-    this->equipSlots[3] = std::make_unique<gui::ItemSlot>(
-            this->equipContainer.getPosition().x + posX,
-            this->equipContainer.getPosition().y + posY + 90.f,
-            slotSize, slotSize, 3, this->window, this->font, nullptr, state, true
+    equipSlots[HEAD_USAGE] = std::make_unique<gui::ItemSlot>(
+            equipContainer.getPosition().x + posX,
+            equipContainer.getPosition().y + posY + 90.f,
+            slotSize, slotSize, 3, window, font, nullptr, state, true
     );
-    this->equipSlots[2] = std::make_unique<gui::ItemSlot>(
-            this->equipContainer.getPosition().x + posX + 90.f,
-            this->equipContainer.getPosition().y + posY + 90.f,
-            slotSize, slotSize, 2, this->window, this->font, nullptr, state, true
+    equipSlots[CHEST_USAGE] = std::make_unique<gui::ItemSlot>(
+            equipContainer.getPosition().x + posX + 90.f,
+            equipContainer.getPosition().y + posY + 90.f,
+            slotSize, slotSize, 2, window, font, nullptr, state, true
     );
-    this->equipSlots[1] = std::make_unique<gui::ItemSlot>(
-            this->equipContainer.getPosition().x + posX,
-            this->equipContainer.getPosition().y + posY + 180.f,
-            slotSize, slotSize, 1, this->window, this->font, nullptr, state, true
+    equipSlots[ARMS_USAGE] = std::make_unique<gui::ItemSlot>(
+            equipContainer.getPosition().x + posX,
+            equipContainer.getPosition().y + posY + 180.f,
+            slotSize, slotSize, 1, window, font, nullptr, state, true
     );
-    this->equipSlots[0] = std::make_unique<gui::ItemSlot>(
-            this->equipContainer.getPosition().x + posX + 90.f,
-            this->equipContainer.getPosition().y + posY + 180.f,
-            slotSize, slotSize, 0, this->window, this->font, nullptr, state, true
+    equipSlots[LEGS_USAGE] = std::make_unique<gui::ItemSlot>(
+            equipContainer.getPosition().x + posX + 90.f,
+            equipContainer.getPosition().y + posY + 180.f,
+            slotSize, slotSize, 0, window, font, nullptr, state, true
     );
 
 
 }
 
 void CharacterTab::initInventoryContainer() {
-    this->inventoryContainer.setFillColor(sf::Color(90, 90, 90, 100));
-    this->inventoryContainer.setSize(sf::Vector2f(this->container.getGlobalBounds().width - 60.f
-    -this->statsContainer.getGlobalBounds().width -this->equipContainer.getGlobalBounds().width
-            , this->statsContainer.getGlobalBounds().height));
-    this->inventoryContainer.setPosition(this->equipContainer.getPosition().x + this->equipContainer.getGlobalBounds().width + 10.f,
-            this->equipContainer.getPosition().y );
+    inventoryContainer.setFillColor(sf::Color(90, 90, 90, 100));
+    inventoryContainer.setSize(sf::Vector2f(container.getGlobalBounds().width - 60.f
+    -statsContainer.getGlobalBounds().width -equipContainer.getGlobalBounds().width
+            , statsContainer.getGlobalBounds().height));
+    inventoryContainer.setPosition(equipContainer.getPosition().x + equipContainer.getGlobalBounds().width + 10.f,
+            equipContainer.getPosition().y );
 
-    this->invContainerTitle.setString("-Inventory-");
-    this->invContainerTitle.setFillColor(sf::Color(255, 255, 255, 200));
-    this->invContainerTitle.setFont(*this->font);
-    this->invContainerTitle.setCharacterSize(27);
-    this->invContainerTitle.setPosition(this->inventoryContainer.getPosition().x + this->inventoryContainer.getGlobalBounds().width/2.f
-                                        - this->invContainerTitle.getGlobalBounds().width/2.f,
-                                        this->inventoryContainer.getPosition().y);
+    invContainerTitle.setString("-Inventory-");
+    invContainerTitle.setFillColor(sf::Color(255, 255, 255, 200));
+    invContainerTitle.setFont(*font);
+    invContainerTitle.setCharacterSize(27);
+    invContainerTitle.setPosition(inventoryContainer.getPosition().x + inventoryContainer.getGlobalBounds().width/2.f
+                                        - invContainerTitle.getGlobalBounds().width/2.f,
+                                        inventoryContainer.getPosition().y);
 
-    this->selectedNumberLbl.setFont(*this->font);
-    this->selectedNumberLbl.setCharacterSize(15);
-    this->selectedNumberLbl.setString("Items selected: ");
-    this->selectedNumberLbl.setPosition(this->inventoryContainer.getPosition().x + 20.f,
-            this->inventoryContainer.getPosition().y + 30.f);
+    selectedNumberLbl.setFont(*font);
+    selectedNumberLbl.setCharacterSize(15);
+    selectedNumberLbl.setString("Items selected: ");
+    selectedNumberLbl.setPosition(inventoryContainer.getPosition().x + 20.f,
+            inventoryContainer.getPosition().y + 30.f);
 
-    this->initInventorySlots();
+    initInventorySlots();
 
-    this->sellBtn = gui::Button(
-            this->inventoryContainer.getPosition().x + 340.f,
-            this->inventoryContainer.getPosition().y + 580.f, 180.f, 40.f,
-            this->font, "Sell items", 20.f,
+    sellBtn = gui::Button(
+            inventoryContainer.getPosition().x + 340.f,
+            inventoryContainer.getPosition().y + 580.f, 180.f, 40.f,
+            font, "Sell items", 20.f,
             sf::Color(255, 255, 255, 255),
             sf::Color(160, 160, 160),
             sf::Color(20, 20, 20, 50),
@@ -191,15 +195,15 @@ void CharacterTab::initInventoryContainer() {
             sf::Color(70, 70, 70, 0),
             sf::Color(150, 150, 150, 0),
             sf::Color(130, 130, 130));
-    this->sellBtn.setBorderColor(sf::Color::White);
-    this->sellBtn.setBorderLineThickness(5.f);
-    this->sellBtn.setTooltipDisabled(false);
-    this->sellBtn.setTooltipText("You must be near a Npc for selling items");
+    sellBtn.setBorderColor(sf::Color::White);
+    sellBtn.setBorderLineThickness(5.f);
+    sellBtn.setTooltipDisabled(false);
+    sellBtn.setTooltipText("You must be near a Npc for selling items");
 
-    this->EquipUnEquipBtn = gui::Button(
-            this->inventoryContainer.getPosition().x + 540.f,
-            this->inventoryContainer.getPosition().y + 580.f, 180.f, 40.f,
-            this->font, "Equip/Unequip/Use", 20.f,
+    EquipUnEquipBtn = gui::Button(
+            inventoryContainer.getPosition().x + 540.f,
+            inventoryContainer.getPosition().y + 580.f, 180.f, 40.f,
+            font, "Equip/Unequip/Use", 20.f,
             sf::Color(255, 255, 255, 255),
             sf::Color(160, 160, 160),
             sf::Color(20, 20, 20, 50),
@@ -207,13 +211,13 @@ void CharacterTab::initInventoryContainer() {
             sf::Color(70, 70, 70, 0),
             sf::Color(150, 150, 150, 0),
             sf::Color(130, 130, 130));
-    this->EquipUnEquipBtn.setBorderColor(sf::Color::White);
-    this->EquipUnEquipBtn.setBorderLineThickness(5.f);
+    EquipUnEquipBtn.setBorderColor(sf::Color::White);
+    EquipUnEquipBtn.setBorderLineThickness(5.f);
 
-    this->deleteBtn = gui::Button(
-            this->inventoryContainer.getPosition().x + 540.f,
-            this->inventoryContainer.getPosition().y + 640.f, 180.f, 40.f,
-            this->font, "Delete items", 20.f,
+    deleteBtn = gui::Button(
+            inventoryContainer.getPosition().x + 540.f,
+            inventoryContainer.getPosition().y + 640.f, 180.f, 40.f,
+            font, "Delete items", 20.f,
             sf::Color(255, 255, 255, 255),
             sf::Color(160, 160, 160),
             sf::Color(20, 20, 20, 50),
@@ -221,57 +225,58 @@ void CharacterTab::initInventoryContainer() {
             sf::Color(70, 70, 70, 0),
             sf::Color(150, 150, 150, 0),
             sf::Color(130, 130, 130));
-    this->deleteBtn.setBorderColor(sf::Color::White);
-    this->deleteBtn.setBorderLineThickness(5.f);
+    deleteBtn.setBorderColor(sf::Color::White);
+    deleteBtn.setBorderLineThickness(5.f);
 
-    this->goldLbl.setFont(*this->font);
-    this->goldLbl.setCharacterSize(20);
-    this->goldLbl.setString("Inventory Capacity:");
-    this->goldLbl.setPosition(this->inventoryContainer.getPosition().x + 40.f,
-                              this->EquipUnEquipBtn.getPosition().y);
+    goldLbl.setFont(*font);
+    goldLbl.setCharacterSize(20);
+    goldLbl.setString("Inventory Capacity:");
+    goldLbl.setPosition(inventoryContainer.getPosition().x + 40.f,
+                              EquipUnEquipBtn.getPosition().y);
 
-    this->inventorySpaceLbl.setFont(*this->font);
-    this->inventorySpaceLbl.setCharacterSize(20);
-    this->inventorySpaceLbl.setString("Gold:");
-    this->inventorySpaceLbl.setPosition(this->goldLbl.getPosition().x,
-                                        this->goldLbl.getPosition().y + 30.f);
+    inventorySpaceLbl.setFont(*font);
+    inventorySpaceLbl.setCharacterSize(20);
+    inventorySpaceLbl.setString("Gold:");
+    inventorySpaceLbl.setPosition(goldLbl.getPosition().x,
+                                        goldLbl.getPosition().y + 30.f);
 
-    this->keysHintLbl.setFont(*this->font);
-    this->keysHintLbl.setCharacterSize(20);
-    this->keysHintLbl.setString("Hints: \n"
+    keysHintLbl.setFont(*font);
+    keysHintLbl.setCharacterSize(20);
+    keysHintLbl.setString("Hints: \n"
                                 "<R> equip/unequip/use selected item\n"
                                 "<Del> delete selected items");
-    this->keysHintLbl.setPosition(this->goldLbl.getPosition().x,
-                                  this->inventorySpaceLbl.getPosition().y + 30.f);
+    keysHintLbl.setPosition(goldLbl.getPosition().x,
+                                  inventorySpaceLbl.getPosition().y + 30.f);
 }
 
 void CharacterTab::initInventorySlots() {
     //init inventory slots
-    if(this->inventorySlots.size() != 0){
-        this->inventorySlots.clear();
+    if(!inventorySlots.empty()){
+        inventorySlots.clear();
     }
 
     int max_per_row = 10;
     float modifierX = 70.f;
     float modifierY = 70.f;
     float yMultiplier = 0;
-    for(int i = 0 ; i < this->player->getInventory()->getItemsSize() ; i++){
+    for(int i = 0 ; i < player->getInventory()->getItemsSize() ; i++){
         if((i % max_per_row) == 0 && i != 0){
             yMultiplier ++;
         }
-        this->inventorySlots.push_back(std::make_unique<gui::ItemSlot>(
-                this->inventoryContainer.getPosition().x + 36.f + (modifierX * (i % max_per_row)),
-                this->inventoryContainer.getPosition().y + 70.f + (modifierY * yMultiplier) ,
-                60.f, 60.f, 6+i, this->window, this->font, this->player->getInventory()->getItem(i),
+        inventorySlots.push_back(std::make_unique<gui::ItemSlot>(
+                inventoryContainer.getPosition().x + 36.f + (modifierX * (i % max_per_row)),
+                inventoryContainer.getPosition().y + 70.f + (modifierY * yMultiplier) ,
+                60.f, 60.f, 6+i, window, font, player->getInventory()->getItem(i),
                 state, false
         ));
     }
 }
 
-CharacterTab::CharacterTab(std::shared_ptr<sf::RenderWindow> window, sf::Font* font,
+CharacterTab::CharacterTab(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* font,
         std::shared_ptr<Player> player, State* state, map<string, sf::Texture> textures,
         std::shared_ptr<ResourcesHandler> rsHandler, npc_type* npcInteract) :
-font(font), player(player), window(window), textures(textures), rsHandler(rsHandler), npcInteract(npcInteract) {
+font(font), player(std::move(player)), window(window), textures(std::move(textures)),
+rsHandler(std::move(rsHandler)), npcInteract(npcInteract) {
     openDialog = false;
     gState = dynamic_cast<GameState*>(state);
     this->state = state;
@@ -285,63 +290,63 @@ font(font), player(player), window(window), textures(textures), rsHandler(rsHand
 
 
     //initi container
-    this->container.setSize(sf::Vector2f(
+    container.setSize(sf::Vector2f(
             static_cast<float>(window->getSize().x / 1.1f),
             static_cast<float>(window->getSize().y - 100.f )));
-    this->container.setFillColor(sf::Color(20, 20, 20, 200));
+    container.setFillColor(sf::Color(20, 20, 20, 200));
 
-    this->container.setPosition(sf::Vector2f(
-            static_cast<float>(window->getSize().x) / 2.f - this->container.getSize().x / 2.f,
+    container.setPosition(sf::Vector2f(
+            static_cast<float>(window->getSize().x) / 2.f - container.getSize().x / 2.f,
             40.f));
 
     //init text
-    this->tabText.setFont(*this->font);
-    this->tabText.setFillColor(sf::Color(255, 255, 255, 200));
-    this->tabText.setCharacterSize(30);
-    this->tabText.setString("Character Tab");
-    this->tabText.setPosition(
-            this->container.getPosition().x + 20.f,
-            this->container.getPosition().y + 10.f);
+    tabText.setFont(*this->font);
+    tabText.setFillColor(sf::Color(255, 255, 255, 200));
+    tabText.setCharacterSize(30);
+    tabText.setString("Character Tab");
+    tabText.setPosition(
+            container.getPosition().x + 20.f,
+            container.getPosition().y + 10.f);
 
-    this->hpBarLbl.setCharacterSize(20);
-    this->hpBarLbl.setFont(*this->font);
-    this->hpBarLbl.setString("Hp:");
-    this->hpBarLbl.setPosition(
-            this->tabText.getPosition().x + 300.f,
-            this->tabText.getPosition().y + 10.f);
+    hpBarLbl.setCharacterSize(20);
+    hpBarLbl.setFont(*this->font);
+    hpBarLbl.setString("Hp:");
+    hpBarLbl.setPosition(
+            tabText.getPosition().x + 300.f,
+            tabText.getPosition().y + 10.f);
 
-    this->hpBar = gui::ProgressBar(this->hpBarLbl.getPosition().x + 35.f, this->tabText.getPosition().y + 10.f, 150.f, 25.f,
+    hpBar = gui::ProgressBar(hpBarLbl.getPosition().x + 35.f, tabText.getPosition().y + 10.f, 150.f, 25.f,
                                        0, this->player->getPlayerStats()->getMaxHp(), this->player->getPlayerStats()->getHp(), font);
-    this->hpBar.setProgressShapeColor(sf::Color::Red);
+    hpBar.setProgressShapeColor(sf::Color::Red);
 
-    this->mpBarLbl.setCharacterSize(20);
-    this->mpBarLbl.setFont(*this->font);
-    this->mpBarLbl.setString("Mp:");
-    this->mpBarLbl.setPosition(
-            this->hpBarLbl.getPosition().x + 230.f,
-            this->tabText.getPosition().y + 10.f);
+    mpBarLbl.setCharacterSize(20);
+    mpBarLbl.setFont(*this->font);
+    mpBarLbl.setString("Mp:");
+    mpBarLbl.setPosition(
+            hpBarLbl.getPosition().x + 230.f,
+            tabText.getPosition().y + 10.f);
 
-    this->mpBar = gui::ProgressBar(this->mpBarLbl.getPosition().x + 35.f, this->tabText.getPosition().y + 10.f, 150.f, 25.f,
+    mpBar = gui::ProgressBar(mpBarLbl.getPosition().x + 35.f, tabText.getPosition().y + 10.f, 150.f, 25.f,
                                        0, this->player->getPlayerStats()->getMaxMp(), this->player->getPlayerStats()->getMp(), font);
-    this->mpBar.setProgressShapeColor(sf::Color::Blue);
+    mpBar.setProgressShapeColor(sf::Color::Blue);
 
-    this->expBarLbl.setCharacterSize(20);
-    this->expBarLbl.setFont(*this->font);
-    this->expBarLbl.setString("Exp:");
-    this->expBarLbl.setPosition(
-            this->mpBarLbl.getPosition().x + 230.f,
-            this->tabText.getPosition().y + 10.f);
+    expBarLbl.setCharacterSize(20);
+    expBarLbl.setFont(*this->font);
+    expBarLbl.setString("Exp:");
+    expBarLbl.setPosition(
+            mpBarLbl.getPosition().x + 230.f,
+            tabText.getPosition().y + 10.f);
 
-    this->expBar = gui::ProgressBar(this->expBarLbl.getPosition().x + 35.f, this->tabText.getPosition().y + 10.f, 150.f, 25.f,
+    expBar = gui::ProgressBar(expBarLbl.getPosition().x + 35.f, tabText.getPosition().y + 10.f, 150.f, 25.f,
                                        0, this->player->getPlayerStats()->getMaxExp(), this->player->getPlayerStats()->getExp(), font);
-    this->expBar.setProgressShapeColor(sf::Color::Green);
+    expBar.setProgressShapeColor(sf::Color::Green);
 
 
-    this->initStatsContainer();
-    this->initEquipContainer();
-    this->initInventoryContainer();
-    this->updateGoldLbl();
-    this->updateInventoryCapLbl();
+    initStatsContainer();
+    initEquipContainer();
+    initInventoryContainer();
+    updateGoldLbl();
+    updateInventoryCapLbl();
 }
 
 CharacterTab::~CharacterTab() {
@@ -357,137 +362,137 @@ unique_ptr<gui::ItemSlot> * CharacterTab::getEquipSlots() {
 //functions
 std::string CharacterTab::playerStatsToString() {
     std::stringstream ss;
-    ss << this->player->getPlayerStats()->getLevel()  << "\n"
-            <<this->player->getPlayerStats()->getExp() <<"/" << this->player->getPlayerStats()->getMaxExp() << "\n"
-            <<this->player->getPlayerStats()->getFinalHp() << "\n"
-            <<this->player->getPlayerStats()->getFinalMp() << "\n"
-            <<this->player->getPlayerStats()->getFinalDamage() << "\n"
-            <<this->player->getPlayerStats()->getFinalArmor() << "\n"
-            <<this->player->getPlayerStats()->getFinalCritChance() << "%\n"
-            <<this->player->getPlayerStats()->getFinalEvadeChance() << "%\n\n\n\n"
-            <<this->player->getPlayerStats()->getStrength() << "\n"
-            <<this->player->getPlayerStats()->getWisdom() << "\n"
-            <<this->player->getPlayerStats()->getAgility() << "\n"
-            <<this->player->getPlayerStats()->getFreePoints() << "\n";
+    ss << player->getPlayerStats()->getLevel()  << "\n"
+            <<player->getPlayerStats()->getExp() <<"/" << player->getPlayerStats()->getMaxExp() << "\n"
+            <<player->getPlayerStats()->getFinalHp() << "\n"
+            <<player->getPlayerStats()->getFinalMp() << "\n"
+            <<player->getPlayerStats()->getFinalDamage() << "\n"
+            <<player->getPlayerStats()->getFinalArmor() << "\n"
+            <<player->getPlayerStats()->getFinalCritChance() << "%\n"
+            <<player->getPlayerStats()->getFinalEvadeChance() << "%\n\n\n\n"
+            <<player->getPlayerStats()->getStrength() << "\n"
+            <<player->getPlayerStats()->getWisdom() << "\n"
+            <<player->getPlayerStats()->getAgility() << "\n"
+            <<player->getPlayerStats()->getFreePoints() << "\n";
     return ss.str();
 }
 
 void CharacterTab::unselectAll() {
-    for(auto &i : this->inventorySlots){
+    for(auto &i : inventorySlots){
         i->setSelectedBool(false);
     }
 }
 
 void CharacterTab::statsContainerUpdate(const sf::Vector2f& mousePos) {
 
-    if(this->player->getPlayerStats()->getFreePoints() > 0) {
-        this->addStrengthBtn.update(mousePos);
-        this->addWisdomBtn.update(mousePos);
-        this->addAgilityBtn.update(mousePos);
+    if(player->getPlayerStats()->getFreePoints() > 0) {
+        addStrengthBtn.update(mousePos);
+        addWisdomBtn.update(mousePos);
+        addAgilityBtn.update(mousePos);
     }
 }
 
 void CharacterTab::statsContainerRender(sf::RenderTarget &target) {
-    target.draw(this->statsContainer);
-    target.draw(this->statsContainerTitle);
-    target.draw(this->statsName);
-    target.draw(this->statsValue);
-    target.draw(this->attributesHints);
-    if(this->player->getPlayerStats()->getFreePoints() > 0) {
-        this->addStrengthBtn.render(target);
-        this->addWisdomBtn.render(target);
-        this->addAgilityBtn.render(target);
+    target.draw(statsContainer);
+    target.draw(statsContainerTitle);
+    target.draw(statsName);
+    target.draw(statsValue);
+    target.draw(attributesHints);
+    if(player->getPlayerStats()->getFreePoints() > 0) {
+        addStrengthBtn.render(target);
+        addWisdomBtn.render(target);
+        addAgilityBtn.render(target);
     }
 }
 
 void CharacterTab::equipContainerUpdate(const sf::Vector2f &mousePos) {
 
-    for(auto &i : this->equipSlots){
-        if(*this->updateSlot < 6 || *this->updateSlot == 100){
-            if(*this->updateSlot != 100) {
-                this->equipSlots[*this->updateSlot]->update(mousePos, this->updateSlot, false);
+    for(auto &i : equipSlots){
+        if(*updateSlot < 6 || *updateSlot == 100){
+            if(*updateSlot != 100) {
+                equipSlots[*updateSlot]->update(mousePos, updateSlot, false);
             }
-            else if(*this->updateSlot){
-                i->update(mousePos, this->updateSlot, false);
+            else if(*updateSlot){
+                i->update(mousePos, updateSlot, false);
             }
         }
     }
 }
 
 void CharacterTab::equipContainerRender(sf::RenderTarget &target) {
-    target.draw(this->equipContainer);
-    target.draw(this->equipContainerTitle);
-    target.draw(this->equipBonusLbl);
-    for(auto &i : this->equipSlots){
+    target.draw(equipContainer);
+    target.draw(equipContainerTitle);
+    target.draw(equipBonusLbl);
+    for(auto &i : equipSlots){
         i->render(target);
     }
 }
 
 void CharacterTab::updatePlayerStatsLbl() {
-    this->statsValue.setString(this->playerStatsToString());
+    statsValue.setString(playerStatsToString());
 }
 
 void CharacterTab::updateGoldLbl() {
     std::stringstream ss;
-    std::string gold = to_string(this->player->getGold());
+    std::string gold = to_string(player->getGold());
     unsigned len = gold.length();
 
     for(int index =(int) len-3; index > 0; index -= 3)
         gold.insert(index, ",");
     ss << "Gold: " << gold;
 
-    this->goldLbl.setString(ss.str());
+    goldLbl.setString(ss.str());
 }
 
 void CharacterTab::updateInventoryCapLbl() {
     std::stringstream ss;
-    ss << "Inventory Capacity: " << this->player->getInventory()->getItemsSize()
-       << "/" << this->player->getInventory()->getCurrentMaxSpace();
-    this->inventorySpaceLbl.setString(ss.str());
+    ss << "Inventory Capacity: " << player->getInventory()->getItemsSize()
+       << "/" << player->getInventory()->getCurrentMaxSpace();
+    inventorySpaceLbl.setString(ss.str());
 }
 
 void CharacterTab::invContainerUpdate(const sf::Vector2f &mousePos) {
-    this->selectedItem = 0;
+    selectedItem = 0;
     std::stringstream ss;
-    for(auto &i : this->inventorySlots){
+    for(auto &i : inventorySlots){
         if(i->getIsSelected())
-            this->selectedItem++;
-        if(*this->updateSlot > 5){
-            if(*this->updateSlot != 100 && *this->updateSlot > 5) {
-                this->inventorySlots[(*this->updateSlot - 6)]->update(mousePos, this->updateSlot, true);
+            selectedItem++;
+        if(*updateSlot > 5){
+            if(*updateSlot != 100 && *updateSlot > 5) {
+                inventorySlots[(*updateSlot - 6)]->update(mousePos, updateSlot, true);
             }
             else{
-                i->update(mousePos, this->updateSlot, true);
+                i->update(mousePos, updateSlot, true);
             }
         }
     }
-    ss << "Items selected: " << this->selectedItem;
-    this->selectedNumberLbl.setString(ss.str());
+    ss << "Items selected: " << selectedItem;
+    selectedNumberLbl.setString(ss.str());
 
-    this->deleteBtn.setDisabled(this->selectedItem == 0);
-    this->EquipUnEquipBtn.setDisabled(this->selectedItem != 1);
+    deleteBtn.setDisabled(selectedItem == 0);
+    EquipUnEquipBtn.setDisabled(selectedItem != 1);
 
-    this->sellBtn.setDisabled(!(this->selectedItem != 0 && *this->npcInteract != NO_NPC));
+    sellBtn.setDisabled(!(selectedItem != 0 && *npcInteract != NO_NPC));
 
-    this->EquipUnEquipBtn.update(mousePos);
-    this->deleteBtn.update(mousePos);
-    this->sellBtn.update(mousePos);
+    EquipUnEquipBtn.update(mousePos);
+    deleteBtn.update(mousePos);
+    sellBtn.update(mousePos);
 }
 
 void CharacterTab::invContainerRender(sf::RenderTarget &target) {
-    target.draw(this->inventoryContainer);
-    target.draw(this->invContainerTitle);
-    target.draw(this->selectedNumberLbl);
-    target.draw(this->goldLbl);
-    target.draw(this->inventorySpaceLbl);
-    target.draw(this->keysHintLbl);
-    this->EquipUnEquipBtn.render(target);
-    this->deleteBtn.render(target);
-    this->sellBtn.render(target);
+    target.draw(inventoryContainer);
+    target.draw(invContainerTitle);
+    target.draw(selectedNumberLbl);
+    target.draw(goldLbl);
+    target.draw(inventorySpaceLbl);
+    target.draw(keysHintLbl);
+    EquipUnEquipBtn.render(target);
+    deleteBtn.render(target);
+    sellBtn.render(target);
  /*   for(auto i : this->inventorySlots){
         i->render(target);
     }*/
-    for (auto it = this->inventorySlots.rbegin(); it != this->inventorySlots.rend(); it++){
+    for (auto it = inventorySlots.rbegin(); it != inventorySlots.rend(); it++){
         (*it)->render(target);
     }
 }
@@ -498,90 +503,90 @@ bool CharacterTab::closeCharacterTabByClicking(const sf::Vector2f& mousePos, gui
            && !container.getGlobalBounds().contains(mousePos) && !cTab_Btn->contains(mousePos);
 }
 
-void CharacterTab::equipUnequipItem(int equip_slot, std::shared_ptr<Item> item, std::unique_ptr<gui::ItemSlot>& i, std::string typeIcon) {
+void CharacterTab::equipUnequipItem(int equip_slot, const std::shared_ptr<Item>& item,
+        std::unique_ptr<gui::ItemSlot>& i, const std::string& typeIcon) {
     if(!item->isEquipped() && !player->isSlotEquipped(equip_slot)){ // equip item
         player->setEquipItem(item, equip_slot);
-        this->equipSlots[equip_slot]->setItem(item);
-        this->equipSlots[equip_slot]->updateItemInfo();
-        this->equipSlots[equip_slot]->setShapeTexture(i->getShape()->getTexture(),
+        equipSlots[equip_slot]->setItem(item);
+        equipSlots[equip_slot]->updateItemInfo();
+        equipSlots[equip_slot]->setShapeTexture(i->getShape()->getTexture(),
                                                       i->getIntRect());
-        this->equipSlots[equip_slot]->getShape()->setOutlineColor(i->getShape()->getOutlineColor());
+        equipSlots[equip_slot]->getShape()->setOutlineColor(i->getShape()->getOutlineColor());
         item->setEquipped(true);
-        i->setUpRightTexture(&this->textures[typeIcon]);
+        i->setUpRightTexture(&textures[typeIcon]);
         i->setSelectedBool(false);
 
-    } else if(item->isEquipped() && this->player->isSlotEquipped(equip_slot)){ // unequip item
-        this->player->unequipItem(equip_slot);
-        this->equipSlots[equip_slot]->setItem(nullptr);
-        this->equipSlots[equip_slot]->setSlotTexture(&this->textures["EquipSlotsSheet"],
-                this->rsHandler->getEquipSlotTextureRect(equip_slot));
-        this->equipSlots[equip_slot]->getShape()->setOutlineColor(sf::Color::Transparent);
+    } else if(item->isEquipped() && player->isSlotEquipped(equip_slot)){ // unequip item
+        player->unequipItem(equip_slot);
+        equipSlots[equip_slot]->setItem(nullptr);
+        equipSlots[equip_slot]->setSlotTexture(&textures["EquipSlotsSheet"],
+                rsHandler->getEquipSlotTextureRect(equip_slot));
+        equipSlots[equip_slot]->getShape()->setOutlineColor(sf::Color::Transparent);
         item->setEquipped(false);
         i->setSelectedBool(false);
 
-    } else if(!item->isEquipped() && this->player->isSlotEquipped(equip_slot)){ // unequip then equip
-        this->player->unequipItem(equip_slot);
-        this->equipSlots[equip_slot]->setItem(nullptr);
-        this->equipSlots[equip_slot]->setSlotTexture(&this->textures["EquipSlotsSheet"],
-                this->rsHandler->getEquipSlotTextureRect(equip_slot));
-        this->equipSlots[equip_slot]->getShape()->setOutlineColor(sf::Color::Transparent);
+    } else if(!item->isEquipped() && player->isSlotEquipped(equip_slot)){ // unequip then equip
+        player->unequipItem(equip_slot);
+        equipSlots[equip_slot]->setItem(nullptr);
+        equipSlots[equip_slot]->setSlotTexture(&textures["EquipSlotsSheet"],
+                rsHandler->getEquipSlotTextureRect(equip_slot));
+        equipSlots[equip_slot]->getShape()->setOutlineColor(sf::Color::Transparent);
         item->setEquipped(false);
 
-        this->player->setEquipItem(item, equip_slot);
-        this->equipSlots[equip_slot]->setItem(item);
-        this->equipSlots[equip_slot]->updateItemInfo();
-        this->equipSlots[equip_slot]->setShapeTexture(i->getShape()->getTexture(),
-                                                      i->getIntRect());
-        this->equipSlots[equip_slot]->getShape()->setOutlineColor(i->getShape()->getOutlineColor());
+        player->setEquipItem(item, equip_slot);
+        equipSlots[equip_slot]->setItem(item);
+        equipSlots[equip_slot]->updateItemInfo();
+        equipSlots[equip_slot]->setShapeTexture(i->getShape()->getTexture(), i->getIntRect());
+        equipSlots[equip_slot]->getShape()->setOutlineColor(i->getShape()->getOutlineColor());
         item->setEquipped(true);
-        i->setUpRightTexture(&this->textures[typeIcon]);
+        i->setUpRightTexture(&textures[typeIcon]);
         i->setSelectedBool(false);
 
     }
-    this->updateEquipBonusLbl();
-    this->updatePlayerStatsLbl();
+    updateEquipBonusLbl();
+    updatePlayerStatsLbl();
 }
 
-void CharacterTab::useConsumable(std::shared_ptr<Item> item, std::unique_ptr<gui::ItemSlot>& i) {
+void CharacterTab::useConsumable(const std::shared_ptr<Item>& item, std::unique_ptr<gui::ItemSlot>& i) {
     bool have_more = true;
-
     if(item->getQuantity() > 0 && item->getUsageType() == 6){
         have_more = item->use();
-        this->gState->getBuffComponent()->applyItemBuff(item->getName(), this->player->getPlayerStats());
+        gState->getBuffComponent()->applyItemBuff(item->getName(), player->getPlayerStats(), true);
         i->updateQuantityLbl();
+
     }
 
     if(!have_more){
-        this->deleteItemFromInventory();
+        deleteItemFromInventory();
     }
 }
 
 void CharacterTab::equipUnEquipBtnFunction() {
     bool flag = false;
-    for(auto &i : this->inventorySlots){
+    for(auto &i : inventorySlots){
         if(i->getIsSelected()){
-            std::shared_ptr<Item> item = this->player->getInventory()->getItem(i->getItem()->getName());
+            std::shared_ptr<Item> item = player->getInventory()->getItem(i->getItem()->getName());
             switch(i->getItem()->getUsageType()){
                 case 5:
-                    this->equipUnequipItem(5, item, i, "WEAPON_ICON");
+                    equipUnequipItem(5, item, i, "WEAPON_ICON");
                     break;
                 case 4:
-                    this->equipUnequipItem(4, item, i, "SHIELD_ICON");
+                    equipUnequipItem(4, item, i, "SHIELD_ICON");
                     break;
                 case 3:
-                    this->equipUnequipItem(3, item, i, "HELMET_ICON");
+                    equipUnequipItem(3, item, i, "HELMET_ICON");
                     break;
                 case 2:
-                    this->equipUnequipItem(2, item, i, "ARMOR_ICON");
+                    equipUnequipItem(2, item, i, "ARMOR_ICON");
                     break;
                 case 1:
-                    this->equipUnequipItem(1, item, i, "GLOVES_ICON");
+                    equipUnequipItem(1, item, i, "GLOVES_ICON");
                     break;
                 case 0:
-                    this->equipUnequipItem(0, item, i, "BOOTS_ICON");
+                    equipUnequipItem(0, item, i, "BOOTS_ICON");
                     break;
                 case 6:
-                    this->useConsumable(item, i);
+                    useConsumable(item, i);
                     break;
                 default:
                     break;
@@ -595,104 +600,104 @@ void CharacterTab::equipUnEquipBtnFunction() {
 
 void CharacterTab::deleteBtnFunction() {
     std::stringstream ss;
-    ss << "Are you sure you want to delete selected " << this->selectedItem << " items?";
-    this->confirmDialog = gui::ConfirmDialog(this->container.getPosition().x + (this->container.getGlobalBounds().width / 2.f) - 250.f,
-            this->container.getPosition().y + (this->container.getGlobalBounds().height / 2.f) - 125.f,
-            ss.str(), this->window, state, this->font, 25.f, DELETE_CONFIRM);
-    this->openDialog = true;
+    ss << "Are you sure you want to delete selected " << selectedItem << " items?";
+    confirmDialog = gui::ConfirmDialog(container.getPosition().x + (container.getGlobalBounds().width / 2.f) - 250.f,
+            container.getPosition().y + (container.getGlobalBounds().height / 2.f) - 125.f,
+            ss.str(), window, state, font, 25.f, DELETE_CONFIRM);
+    openDialog = true;
 }
 
 void CharacterTab::sellBtnFunction() {
     std::stringstream ss;
     int totValue = 0;
-    for(auto &i : this->inventorySlots) {
+    for(auto &i : inventorySlots) {
         if (i->getIsSelected()) {
             totValue += i->getItem()->getQuantity() * i->getItem()->getValue();
         }
     }
-    ss << "Selling selected " << this->selectedItem << " items for " << totValue << " gold";
+    ss << "Selling selected " << selectedItem << " items for " << totValue << " gold";
 
-    this->confirmDialog = gui::ConfirmDialog(this->container.getPosition().x + (this->container.getGlobalBounds().width / 2.f) - 250.f,
-            this->container.getPosition().y + (this->container.getGlobalBounds().height / 2.f) - 125.f,
-            ss.str(), this->window, state, this->font, 25.f, SELL_CONFIRM);
-    this->confirmDialog.setSellValue(totValue);
-    this->openDialog = true;
+    confirmDialog = gui::ConfirmDialog(container.getPosition().x + (container.getGlobalBounds().width / 2.f) - 250.f,
+            container.getPosition().y + (container.getGlobalBounds().height / 2.f) - 125.f,
+            ss.str(), window, state, font, 25.f, SELL_CONFIRM);
+    confirmDialog.setSellValue(totValue);
+    openDialog = true;
 }
 
 void CharacterTab::updateButtons() {
-    if(this->addStrengthBtn.isPressed() && state->getKeyTime()){
-        this->addStrengthBtn.setButtonState(BTN_IDLE);
-        if(this->player->getPlayerStats()->getFreePoints() > 0){
-            this->player->getPlayerStats()->addAttribute(0);
-            this->gState->updateTabsPlayerStatsLbl();
+    if(addStrengthBtn.isPressed() && state->getKeyTime()){
+        addStrengthBtn.setButtonState(BTN_IDLE);
+        if(player->getPlayerStats()->getFreePoints() > 0){
+            player->getPlayerStats()->addAttribute(0);
+            gState->updateTabsPlayerStatsLbl();
         }
-    } else if(this->addWisdomBtn.isPressed() && state->getKeyTime()){
-        this->addWisdomBtn.setButtonState(BTN_IDLE);
-        if(this->player->getPlayerStats()->getFreePoints() > 0){
-            this->player->getPlayerStats()->addAttribute(1);
-            this->gState->updateTabsPlayerStatsLbl();
+    } else if(addWisdomBtn.isPressed() && state->getKeyTime()){
+        addWisdomBtn.setButtonState(BTN_IDLE);
+        if(player->getPlayerStats()->getFreePoints() > 0){
+            player->getPlayerStats()->addAttribute(1);
+            gState->updateTabsPlayerStatsLbl();
         }
-    } else if(this->addAgilityBtn.isPressed() && state->getKeyTime()){
-        this->addAgilityBtn.setButtonState(BTN_IDLE);
-        if(this->player->getPlayerStats()->getFreePoints() > 0){
-            this->player->getPlayerStats()->addAttribute(2);
-            this->gState->updateTabsPlayerStatsLbl();
+    } else if(addAgilityBtn.isPressed() && state->getKeyTime()){
+        addAgilityBtn.setButtonState(BTN_IDLE);
+        if(player->getPlayerStats()->getFreePoints() > 0){
+            player->getPlayerStats()->addAttribute(2);
+            gState->updateTabsPlayerStatsLbl();
         }
-    } else if(this->EquipUnEquipBtn.isPressed() && state->getKeyTime()) {
-        this->EquipUnEquipBtn.setButtonState(BTN_IDLE);
-        this->equipUnEquipBtnFunction();
-    } else if(this->deleteBtn.isPressed() && state->getKeyTime()) {
-        this->deleteBtn.setButtonState(BTN_IDLE);
-        this->deleteBtnFunction();
-    } else if(this->sellBtn.isPressed() && state->getKeyTime()) {
-        this->sellBtn.setButtonState(BTN_IDLE);
-        this->sellBtnFunction();
+    } else if(EquipUnEquipBtn.isPressed() && state->getKeyTime()) {
+        EquipUnEquipBtn.setButtonState(BTN_IDLE);
+        equipUnEquipBtnFunction();
+    } else if(deleteBtn.isPressed() && state->getKeyTime()) {
+        deleteBtn.setButtonState(BTN_IDLE);
+        deleteBtnFunction();
+    } else if(sellBtn.isPressed() && state->getKeyTime()) {
+        sellBtn.setButtonState(BTN_IDLE);
+        sellBtnFunction();
     }
 }
 
 void CharacterTab::updateKeyboardInput() {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::R) && state->getKeyTime()) {
         // equip / unequip
-        if(this->selectedItem == 1){
-            this->equipUnEquipBtnFunction();
+        if(selectedItem == 1){
+            equipUnEquipBtnFunction();
         }
     } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Delete) && state->getKeyTime()) {
         // equip / unequip
-        if(this->selectedItem > 0){
-            this->deleteBtnFunction();
+        if(selectedItem > 0){
+            deleteBtnFunction();
         }
     }
 }
 
 void CharacterTab::update(const sf::Vector2f& mousePos) {
-    this->updateButtons();
-    this->updateKeyboardInput();
+    updateButtons();
+    updateKeyboardInput();
 
-    if(!this->openDialog){
-        this->statsContainerUpdate(mousePos);
-        this->equipContainerUpdate(mousePos);
-        this->invContainerUpdate(mousePos);
+    if(!openDialog){
+        statsContainerUpdate(mousePos);
+        equipContainerUpdate(mousePos);
+        invContainerUpdate(mousePos);
 
-        this->hpBar.update(this->player->getPlayerStats()->getHp(), this->player->getPlayerStats()->getFinalHp());
-        this->mpBar.update(this->player->getPlayerStats()->getMp(), this->player->getPlayerStats()->getFinalMp());
-        this->expBar.update(this->player->getPlayerStats()->getExp(), this->player->getPlayerStats()->getMaxExp());
-    } else if(this->openDialog){
-        if(this->confirmDialog.update(mousePos, &this->openDialog) == 1){
-            switch(this->confirmDialog.getDialogType()){
+        hpBar.update(player->getPlayerStats()->getHp(), player->getPlayerStats()->getFinalHp());
+        mpBar.update(player->getPlayerStats()->getMp(), player->getPlayerStats()->getFinalMp());
+        expBar.update(player->getPlayerStats()->getExp(), player->getPlayerStats()->getMaxExp());
+    } else if(openDialog){
+        if(confirmDialog.update(mousePos, &openDialog) == 1){
+            switch(confirmDialog.getDialogType()){
                 case DELETE_CONFIRM:{
-                    int seletected = this->selectedItem;
-                    this->deleteItemFromInventory();
-                    this->gState->getPopUpTextComponent()->addPopUpTextCenter(
+                    int seletected = selectedItem;
+                    deleteItemFromInventory();
+                    gState->getPopUpTextComponent()->addPopUpTextCenter(
                             DEFAULT_TAG, to_string(seletected), "You deleted", "items from your inventory");
                     break;
                 }
 
                 case SELL_CONFIRM:{
-                    this->deleteItemFromInventory();
-                    this->player->addGold(this->confirmDialog.getSellValue());
-                    this->gState->updateTabsGoldLbl();
-                    this->gState->getPopUpTextComponent()->addPopUpTextCenter(
-                            GOLD_TAG, to_string(this->confirmDialog.getSellValue()),
+                    deleteItemFromInventory();
+                    player->addGold(confirmDialog.getSellValue());
+                    gState->updateTabsGoldLbl();
+                    gState->getPopUpTextComponent()->addPopUpTextCenter(
+                            GOLD_TAG, to_string(confirmDialog.getSellValue()),
                             "+", " gold");
                     break;
                 }
@@ -705,23 +710,23 @@ void CharacterTab::update(const sf::Vector2f& mousePos) {
 }
 
 void CharacterTab::render(sf::RenderTarget &target) {
-    target.draw(this->backgorund);
-    target.draw(this->container);
-    target.draw(this->tabText);
+    target.draw(backgorund);
+    target.draw(container);
+    target.draw(tabText);
 
-    target.draw(this->hpBarLbl);
-    this->hpBar.render(target);
-    target.draw(this->mpBarLbl);
-    this->mpBar.render(target);
-    target.draw(this->expBarLbl);
-    this->expBar.render(target);
+    target.draw(hpBarLbl);
+    hpBar.render(target);
+    target.draw(mpBarLbl);
+    mpBar.render(target);
+    target.draw(expBarLbl);
+    expBar.render(target);
 
-    this->statsContainerRender(target);
-    this->invContainerRender(target);
-    this->equipContainerRender(target);
+    statsContainerRender(target);
+    invContainerRender(target);
+    equipContainerRender(target);
 
-    if(this->openDialog){
-        this->confirmDialog.render(target);
+    if(openDialog){
+        confirmDialog.render(target);
     }
 }
 
@@ -737,13 +742,14 @@ void CharacterTab::updateEquipBonusLbl() {
     float critChanceBonus = 0;
     float evadeChanceBonus = 0;
     for(int i = 0 ; i < 6 ; i++){
-        if(this->player->isSlotEquipped(i)){
-            hpBonus += this->player->getEquippedItem(i)->getHp();
-            mpBonus += this->player->getEquippedItem(i)->getMp();
-            dmgBonus += this->player->getEquippedItem(i)->getDamage();
-            armorBonus += this->player->getEquippedItem(i)->getArmor();
-            critChanceBonus += this->player->getEquippedItem(i)->getCritChance();
-            evadeChanceBonus += this->player->getEquippedItem(i)->getEvadeChance();
+        if(player->isSlotEquipped(i)){
+            hpBonus += player->getEquippedItem(i)->getHp();
+            mpBonus += player->getEquippedItem(i)->getMp();
+            dmgBonus += player->getEquippedItem(i)->getDamage();
+            if(player->getEquippedItem(i)->getUsageType() != 4)
+                armorBonus += player->getEquippedItem(i)->getArmor();
+            critChanceBonus += player->getEquippedItem(i)->getCritChance();
+            evadeChanceBonus += player->getEquippedItem(i)->getEvadeChance();
         }
     }
     std::stringstream ss;
@@ -761,64 +767,76 @@ void CharacterTab::updateEquipBonusLbl() {
     if(evadeChanceBonus != 0)
         ss << " + " << evadeChanceBonus << " % evade chance\n";
 
-    this->equipBonusLbl.setString(ss.str());
+    equipBonusLbl.setString(ss.str());
 
-    this->player->setBonusStats(hpBonus, mpBonus, dmgBonus, armorBonus, critChanceBonus, evadeChanceBonus);
+    player->setBonusStats(hpBonus, mpBonus, dmgBonus, armorBonus, critChanceBonus, evadeChanceBonus);
 }
 
 void CharacterTab::deleteItemFromInventory() {
-    for(auto &i : this->inventorySlots){
+    for(auto &i : inventorySlots){
         if(i->getIsSelected()){
             if(i->getItem()->isEquipped()){
                 int equip_slot = i->getItem()->getUsageType();
-                this->player->unequipItem(equip_slot);
-                this->equipSlots[equip_slot]->setItem(nullptr);
-                this->equipSlots[equip_slot]->setSlotTexture(&this->textures["EquipSlotsSheet"],
-                        this->rsHandler->getEquipSlotTextureRect(equip_slot));
-                this->equipSlots[equip_slot]->getShape()->setOutlineColor(sf::Color::Transparent);
+                player->unequipItem(equip_slot);
+                equipSlots[equip_slot]->setItem(nullptr);
+                equipSlots[equip_slot]->setSlotTexture(&textures["EquipSlotsSheet"],
+                        rsHandler->getEquipSlotTextureRect(equip_slot));
+                equipSlots[equip_slot]->getShape()->setOutlineColor(sf::Color::Transparent);
             }
-            this->player->getInventory()->removeItem(i->getItem()->getName());
-            this->selectedItem--;
+            player->getInventory()->removeItem(i->getItem()->getName());
+            selectedItem--;
         }
         if(selectedItem == 0){
             break;
         }
     }
-    this->player->getInventory()->sortByItemType();
-    this->initInventorySlots();
-    for(auto &i : this->getInventorySlots()){
-        i->setSlotTexture(&this->textures["ITEMS_SHEET"], 34.f);
-        i->setDownRightTexture(&this->textures["SELECTED_ICON"]);
-        i->setUpRightTexture(&this->textures["NEW_TAG"]);
+    player->getInventory()->sortByItemType();
+    initInventorySlots();
+    for(auto &i : getInventorySlots()){
+        i->setSlotTexture(&textures["ITEMS_SHEET"], 34.f);
+        i->setDownRightTexture(&textures["SELECTED_ICON"]);
+        i->setUpRightTexture(&textures["NEW_TAG"]);
     }
-    for(auto &i : this->inventorySlots){
+    for(auto &i : inventorySlots){
         if(i->getItem()->isEquipped()){
             switch(i->getItem()->getUsageType()){
                 case 5:
-                    i->setUpRightTexture(&this->textures["WEAPON_ICON"]);
+                    i->setUpRightTexture(&textures["WEAPON_ICON"]);
                     break;
                 case 4:
-                    i->setUpRightTexture(&this->textures["SHIELD_ICON"]);
+                    i->setUpRightTexture(&textures["SHIELD_ICON"]);
                     break;
                 case 3:
-                    i->setUpRightTexture(&this->textures["HELMET_ICON"]);
+                    i->setUpRightTexture(&textures["HELMET_ICON"]);
                     break;
                 case 2:
-                    i->setUpRightTexture(&this->textures["ARMOR_ICON"]);
+                    i->setUpRightTexture(&textures["ARMOR_ICON"]);
                     break;
                 case 1:
-                    i->setUpRightTexture(&this->textures["GLOVES_ICON"]);
+                    i->setUpRightTexture(&textures["GLOVES_ICON"]);
                     break;
                 case 0:
-                    i->setUpRightTexture(&this->textures["BOOTS_ICON"]);
+                    i->setUpRightTexture(&textures["BOOTS_ICON"]);
                     break;
                 default:
                     break;
             }
         }
     }
-    this->updateEquipBonusLbl();
-    this->updateInventoryCapLbl();
+    updateEquipBonusLbl();
+    gState->updateTabsInvSpaceLbl();
+}
+
+void CharacterTab::deleteConsumableInBattle(const std::shared_ptr<Item>& item) {
+    player->getInventory()->removeItem(item->getName());
+    player->getInventory()->sortByItemType();
+    initInventorySlots();
+    for(auto &i : getInventorySlots()){
+        i->setSlotTexture(&textures["ITEMS_SHEET"], 34.f);
+        i->setDownRightTexture(&textures["SELECTED_ICON"]);
+        i->setUpRightTexture(&textures["NEW_TAG"]);
+    }
+    gState->updateTabsInvSpaceLbl();
 }
 
 

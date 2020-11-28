@@ -14,7 +14,7 @@ class GameState;
 
 class CharacterTab {
 public:
-    CharacterTab(std::shared_ptr<sf::RenderWindow> window, sf::Font* font, std::shared_ptr<Player> player, State* state, map<string,
+    CharacterTab(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* font, std::shared_ptr<Player> player, State* state, map<string,
             sf::Texture> textures, std::shared_ptr<ResourcesHandler> rsHandler, npc_type* npcInteract);
     virtual ~CharacterTab();
 
@@ -31,7 +31,7 @@ public:
     //functions
     std::string playerStatsToString();
 
-    void equipUnequipItem(int equip_slot, std::shared_ptr<Item> item, std::unique_ptr<gui::ItemSlot>& i, std::string typeIcon);
+    void equipUnequipItem(int equip_slot, const std::shared_ptr<Item>& item, std::unique_ptr<gui::ItemSlot>& i, const std::string& typeIcon);
     void unselectAll();
     void statsContainerUpdate(const sf::Vector2f& mousePos);
     void statsContainerRender(sf::RenderTarget& target);
@@ -45,10 +45,11 @@ public:
     void updateGoldLbl();
     void updateInventoryCapLbl();
     void deleteItemFromInventory();
+    void deleteConsumableInBattle(const std::shared_ptr<Item>& item);
     bool closeCharacterTabByClicking(const sf::Vector2f& mousePos, gui::Button* cTab_Btn);
     void updateButtons();
     void equipUnEquipBtnFunction();
-    void useConsumable(std::shared_ptr<Item> item, std::unique_ptr<gui::ItemSlot>& i);
+    void useConsumable(const std::shared_ptr<Item>& item, std::unique_ptr<gui::ItemSlot>& i);
     void deleteBtnFunction();
     void sellBtnFunction();
     void updateKeyboardInput();

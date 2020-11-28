@@ -13,12 +13,12 @@ void GameState::initTextures() {
     rsHandler->addResouce("../Resources/Images/Sprites/Npc/priest_npc_idle.png", "priest_npc_sheet", "GameState");
     rsHandler->addResouce("../Resources/Images/Sprites/Npc/wizard_npc_idle.png", "wizard_npc_sheet", "GameState");
 
-    rsHandler->addResouce("../Resources/Images/Sprites/Enemy/wizard_Idle.png", "wizard_enemy_sheet", "GameState");
-    rsHandler->addResouce("../Resources/Images/Sprites/Enemy/Flying eye/Flight.png", "FlyingEye_enemy_sheet", "GameState");
-    rsHandler->addResouce("../Resources/Images/Sprites/Enemy/Goblin/Idle.png", "Goblin_enemy_sheet", "GameState");
-    rsHandler->addResouce("../Resources/Images/Sprites/Enemy/Mushroom/Idle.png", "Mushroom_enemy_sheet", "GameState");
-    rsHandler->addResouce("../Resources/Images/Sprites/Enemy/Skeleton/Skeleton Idle.png", "Skeleton_enemy_sheet", "GameState");
-    rsHandler->addResouce("../Resources/Images/Sprites/Enemy/Skeleton2/Idle.png", "Skeleton_2_enemy_sheet", "GameState");
+    rsHandler->addResouce("../Resources/Images/Sprites/Enemy/Witch/sprite_sheet.png", "wizard_enemy_sheet", "GameState");
+    rsHandler->addResouce("../Resources/Images/Sprites/Enemy/Flying eye/sprite_sheet.png", "FlyingEye_enemy_sheet", "GameState");
+    rsHandler->addResouce("../Resources/Images/Sprites/Enemy/Goblin/sprite_sheet.png", "Goblin_enemy_sheet", "GameState");
+    rsHandler->addResouce("../Resources/Images/Sprites/Enemy/Mushroom/sprite_sheet.png", "Mushroom_enemy_sheet", "GameState");
+    rsHandler->addResouce("../Resources/Images/Sprites/Enemy/Skeleton/sprite_sheet.png", "Skeleton_enemy_sheet", "GameState");
+    rsHandler->addResouce("../Resources/Images/Sprites/Enemy/Skeleton2/sprite_sheet.png", "Skeleton_2_enemy_sheet", "GameState");
     rsHandler->addResouce("../Resources/Images/Sprites/Enemy/HeavyBandit/HeavyBandit.png", "BanditHeavy_enemy_sheet", "GameState");
     rsHandler->addResouce("../Resources/Images/Sprites/Enemy/LightBandit/LightBandit.png", "BanditLight_enemy_sheet", "GameState");
 
@@ -102,7 +102,7 @@ void GameState::initPlayers() {
     spawnEnemy(1232.f, 386.f,GOBLIN);
     spawnEnemy(1349.f, 393.f,MUSHROOM);
     spawnEnemy(1280.f, 159.f,BANDIT_LIGHT);
-    spawnEnemy(1360.f, 159.f,SKELETON);
+    spawnEnemy(960.f, 159.f,SKELETON);
     spawnEnemy(1104.f, 159.f,SKELETON_2);
     spawnEnemy(1190.f, 159.f,FLYING_EYE);
     spawnEnemy(1356.f, 271.f,BANDIT_HEAVY);
@@ -111,7 +111,7 @@ void GameState::initPlayers() {
     npcs.push_back(new Npc(WIZARD, 30.f, 450.f, 0.7f, 0.7f,
                                  textures["WIZARD_NPC_SHEET"], textures["CHATTABLE_ICON"]));
     npcs.push_back(new Npc(SHOP, 30.f, 250.f, 1.5f, 1.5f,
-                       textures["SHOP_NPC_SHEET"], textures["CHATTABLE_ICON"]));
+                      textures["SHOP_NPC_SHEET"], textures["CHATTABLE_ICON"]));
     npcs.push_back(new Npc(PRIEST, 30.f, 350.f, 1.5f, 1.5f,
                        textures["PRIEST_NPC_SHEET"], textures["CHATTABLE_ICON"]));
 }
@@ -125,7 +125,7 @@ void GameState::initCharacterTab() {
 
 void GameState::initShopTab() {
     shopTab = std::make_shared<ShopTab>(window, font, player, this, rsHandler, textures);
-    this->initShopItemTextures();
+    initShopItemTextures();
 }
 
 void GameState::initPriestTab() {
@@ -164,27 +164,27 @@ void GameState::initHintsTab() {
 void GameState::initEquipSlotsTextures(){
     //weapon
     rsHandler->setEquipSlotsTextureIntRect(5 , sf::IntRect(0, 0, 67, 67));
-    cTab->getEquipSlots()[5]->setSlotTexture(&textures["EquipSlotsSheet"],
+    cTab->getEquipSlots()[WEAPON_SLOT]->setSlotTexture(&textures["EquipSlotsSheet"],
             sf::IntRect(0, 0, 67, 67));
     //shield
     rsHandler->setEquipSlotsTextureIntRect(4 , sf::IntRect(67, 0, 67, 67));
-    cTab->getEquipSlots()[4]->setSlotTexture(&textures["EquipSlotsSheet"],
+    cTab->getEquipSlots()[SHIELD_SLOT]->setSlotTexture(&textures["EquipSlotsSheet"],
             sf::IntRect(67, 0, 67, 67));
     //head
     rsHandler->setEquipSlotsTextureIntRect(3 , sf::IntRect(134, 0, 67, 67));
-    cTab->getEquipSlots()[3]->setSlotTexture(&textures["EquipSlotsSheet"],
+    cTab->getEquipSlots()[HEAD_SLOT]->setSlotTexture(&textures["EquipSlotsSheet"],
             sf::IntRect(134, 0, 67, 67));
     //chest
     rsHandler->setEquipSlotsTextureIntRect(2 , sf::IntRect(201, 0, 67, 67));
-    cTab->getEquipSlots()[2]->setSlotTexture(&textures["EquipSlotsSheet"],
+    cTab->getEquipSlots()[CHEST_SLOT]->setSlotTexture(&textures["EquipSlotsSheet"],
             sf::IntRect(201, 0, 67, 67));
     //arms
     rsHandler->setEquipSlotsTextureIntRect(1 , sf::IntRect(268, 0, 67, 67));
-    cTab->getEquipSlots()[1]->setSlotTexture(&textures["EquipSlotsSheet"],
+    cTab->getEquipSlots()[ARMS_SLOT]->setSlotTexture(&textures["EquipSlotsSheet"],
             sf::IntRect(268, 0, 67, 67));
     //legs
     rsHandler->setEquipSlotsTextureIntRect(0 , sf::IntRect(335, 0, 67, 67));
-    cTab->getEquipSlots()[0]->setSlotTexture(&textures["EquipSlotsSheet"],
+    cTab->getEquipSlots()[LEGS_USAGE]->setSlotTexture(&textures["EquipSlotsSheet"],
             sf::IntRect(335, 0, 67, 67));
 }
 
@@ -197,8 +197,8 @@ void GameState::initInventoryItemTextures(){
 }
 
 void GameState::initShopItemTextures() {
-    for(auto i : this->shopTab->getShopSlots()){
-        i->setSlotTexture(&this->textures["ITEMS_SHEET"], 34.f);
+    for(const auto& i : shopTab->getShopSlots()){
+        i->setSlotTexture(&textures["ITEMS_SHEET"], 34.f);
     }
 }
 
@@ -206,25 +206,44 @@ void GameState::initBuffComponent() {
     buffComponent = std::make_shared<BuffComponent>(popUpTextComponent);
     // add all buffs to map
     buffComponent->addBuff("HealthPotion(S)",
-            new Buff("HealthPotion(S)", 100, 0, 0, 0, 0.f, 0.f, true));
+            std::make_shared<Buff>("HealthPotion(S)", 100, 0, 0, 0,
+                    0.f, 0.f, true));
 
     buffComponent->addBuff("HealthPotion(M)",
-            new Buff("HealthPotion(M)", 200, 0, 0, 0, 0.f, 0.f, true));
+            std::make_shared<Buff>("HealthPotion(M)", 200, 0, 0, 0,
+                    0.f, 0.f, true));
 
     buffComponent->addBuff("HealthPotion(L)",
-            new Buff("HealthPotion(L)", 400, 0, 0, 0, 0.f, 0.f, true));
+            std::make_shared<Buff>("HealthPotion(L)", 400, 0, 0, 0,
+                    0.f, 0.f, true));
 
     buffComponent->addBuff("ManaPotion(S)",
-            new Buff("ManaPotion(S)", 0, 100, 0, 0, 0.f, 0.f, true));
+            std::make_shared<Buff>("ManaPotion(S)", 0, 100, 0, 0,
+                    0.f, 0.f, true));
 
     buffComponent->addBuff("ManaPotion(M)",
-            new Buff("ManaPotion(M)", 0, 200, 0, 0, 0.f, 0.f, true));
+            std::make_shared<Buff>("ManaPotion(M)", 0, 200, 0, 0,
+                    0.f, 0.f, true));
 
     buffComponent->addBuff("ManaPotion(L)",
-            new Buff("ManaPotion(L)", 0, 400, 0, 0, 0.f, 0.f, true));
+            std::make_shared<Buff>("ManaPotion(L)", 0, 400, 0, 0,
+                    0.f, 0.f, true));
 
     buffComponent->addBuff("DamagePotion(S)",
-            new Buff("DamagePotion(S)", 0, 0, 30, 0, 0.f, 0.f, 3));
+            std::make_shared<Buff>("DamagePotion(S)", 0, 0, 100, 0,
+                    0.f, 0.f, 3));
+
+    buffComponent->addBuff("DefensePotion(S)",
+            std::make_shared<Buff>("DefensePotion(S)", 0, 0, 0, 100,
+                    0.f, 0.f, 3));
+
+    buffComponent->addBuff("CriticalHitChancePotion(S)",
+            std::make_shared<Buff>("CriticalHitChancePotion(S)", 0, 0, 0, 0,
+                    10.f, 0.f, 3));
+
+    buffComponent->addBuff("EvadeChancePotion(S)",
+            std::make_shared<Buff>("EvadeChancePotion(S)", 0, 0, 100, 0,
+                    0.f, 10.f, 3));
 }
 
 void GameState::initSpellComponent() {
@@ -240,25 +259,23 @@ void GameState::initComponents() {
 }
 
 void GameState::initView() {
-    this->view.setSize(
+    view.setSize(
             sf::Vector2f(
-                    static_cast<float>(this->window->getSize().x / 1.3f),
-                    static_cast<float>(this->window->getSize().y / 1.3f)
+                    static_cast<float>(window->getSize().x / 1.3f),
+                    static_cast<float>(window->getSize().y / 1.3f)
             )
     );
 
-    this->view.setCenter(
+    view.setCenter(
             sf::Vector2f(
-                    static_cast<float>(this->window->getSize().x / 2.f),
-                    static_cast<float>(this->window->getSize().y / 2.f)
+                    static_cast<float>(window->getSize().x / 2.f),
+                    static_cast<float>(window->getSize().y / 2.f)
             )
     );
-
-
 }
 
 void GameState::initDebugText() {
-    debugText.setFont(*this->font);
+    debugText.setFont(*font);
     debugText.setCharacterSize(25);
     debugText.setString("sss");
     debugText.setPosition(5.f, 40.f);
@@ -318,7 +335,7 @@ void GameState::initMaps() {
 //constructors/destructors
 GameState::GameState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::unique_ptr<State>>* states,
                      std::shared_ptr<ResourcesHandler> rsHandler, sf::Font *font)
-        : State(window, states, rsHandler){
+        : State(std::move(window), states, std::move(rsHandler)){
     this->font = font;
     stato = 0;
     npcInteract = NO_NPC;
@@ -349,8 +366,6 @@ GameState::~GameState() {
     delete mg;
     for(auto i : npcs)
         delete i;
-    for(auto i : enemies)
-        delete i;
 }
 
 //accessors
@@ -371,86 +386,86 @@ std::shared_ptr<SpellTab> GameState::getSpellTab() {
 }
 //functions
 void GameState::addItem(Item *item) {
-    if(this->player->getInventory()->addItem(item)){
-        this->player->getInventory()->sortByItemType();
-        this->cTab->initInventorySlots();
-        this->initInventoryItemTextures();
-        for(auto &i : this->cTab->getInventorySlots()){
+    if(player->getInventory()->addItem(item)){
+        player->getInventory()->sortByItemType();
+        cTab->initInventorySlots();
+        initInventoryItemTextures();
+        for(auto &i : cTab->getInventorySlots()){
             if(i->getItem()->isEquipped()){
                 switch(i->getItem()->getUsageType()){
                     case 5:
-                        i->setUpRightTexture(&this->textures["WEAPON_ICON"]);
+                        i->setUpRightTexture(&textures["WEAPON_ICON"]);
                         break;
                     case 4:
-                        i->setUpRightTexture(&this->textures["SHIELD_ICON"]);
+                        i->setUpRightTexture(&textures["SHIELD_ICON"]);
                         break;
                     case 3:
-                        i->setUpRightTexture(&this->textures["HELMET_ICON"]);
+                        i->setUpRightTexture(&textures["HELMET_ICON"]);
                         break;
                     case 2:
-                        i->setUpRightTexture(&this->textures["ARMOR_ICON"]);
+                        i->setUpRightTexture(&textures["ARMOR_ICON"]);
                         break;
                     case 1:
-                        i->setUpRightTexture(&this->textures["GLOVES_ICON"]);
+                        i->setUpRightTexture(&textures["GLOVES_ICON"]);
                         break;
                     case 0:
-                        i->setUpRightTexture(&this->textures["BOOTS_ICON"]);
+                        i->setUpRightTexture(&textures["BOOTS_ICON"]);
                         break;
                     default:
                         break;
                 }
             }
         }
-        this->updateTabsInvSpaceLbl();
+        updateTabsInvSpaceLbl();
     }
 }
 
 void GameState::spawnEnemy(float x, float y, enemy_types type) {
     switch(type){
         case WITCH:
-            enemies.push_back(new Enemy(WITCH, x, y, 1.2f, 1.2f,
+            enemies.push_back(std::make_shared<Enemy>(WITCH, x, y, 1.2f, 1.2f,
                                        127.f, 136.f, 50.f, 65.f,
                                        150.f, 200.f, 9.f,
                                        textures["ENEMY_WIZARD_SHEET"], currentFloor));
             break;
         case SKELETON:
-            enemies.push_back(new Enemy(SKELETON, x, y, 2.f, 2.3f,
-                                       0.f, 15.f, 40.f, 60.f,
-                                       19.f, 73.f, 8.f,
+            enemies.push_back(std::make_shared<Enemy>(SKELETON, x, y, 2.f, 2.3f,
+                                       85.f, 100.f, 40.f, 60.f,
+                                       105.f, 159.f, 8.f,
                                        textures["ENEMY_SKELETON_SHEET"], currentFloor));
             break;
         case SKELETON_2:
-            enemies.push_back(new Enemy(SKELETON_2, x, y, 1.2f, 1.2f,
+            enemies.push_back(std::make_shared<Enemy>(SKELETON_2, x, y, 1.2f, 1.2f,
                                        70.f, 60.f, 50.f, 63.f,
                                        95.f, 122.f, 10.f,
                                        textures["ENEMY_SKELETON_2_SHEET"], currentFloor));
             break;
         case FLYING_EYE:
-            enemies.push_back(new Enemy(FLYING_EYE, x, y, 1.3f, 1.3f,
+            enemies.push_back(std::make_shared<Enemy>(FLYING_EYE, x, y, 1.3f, 1.3f,
                                        72.f, 85.f, 58.f, 60.f,
                                        100.f, 142.f, 11.f,
                                        textures["ENEMY_FLYINGEYE_SHEET"], currentFloor));
             break;
         case GOBLIN:
-            enemies.push_back(new Enemy(GOBLIN, x, y, 1.2f, 1.4f,
+            enemies.push_back(std::make_shared<Enemy>(GOBLIN, x, y, 1.2f, 1.4f,
                                        70.f, 94.f, 40.f, 48.f,
                                        90.f, 142.f, 8.f,
                                        textures["ENEMY_GOBLIN_SHEET"], currentFloor));
             break;
         case MUSHROOM:
-            enemies.push_back(new Enemy(MUSHROOM, x, y, 1.4f, 1.4f,
+            enemies.push_back(std::make_shared<Enemy>(MUSHROOM, x, y, 1.4f, 1.4f,
                                        87.f, 87.f, 38.f, 57.f,
                                        106.f, 143.f, 8.f,
                                        textures["ENEMY_MUSHROOM_SHEET"], currentFloor));
             break;
         case BANDIT_HEAVY:
-            enemies.push_back(new Enemy(BANDIT_HEAVY, x, y, 1.8f, 1.8f,
+            enemies.push_back(std::make_shared<Enemy>(BANDIT_HEAVY, x, y, 1.8f, 1.8f,
                                        25.f, 15.f, 45.f, 68.f,
                                        47.f, 83.f, 9.f,
                                        textures["ENEMY_BANDITHEAVY_SHEET"], currentFloor));
             break;
         case BANDIT_LIGHT:
-            enemies.push_back(new Enemy(BANDIT_LIGHT, x, y, 1.8f, 1.8f,
+            enemies.push_back(std::make_shared<Enemy>(BANDIT_LIGHT, x, y, 1.8f, 1.8f,
                                        25.f, 15.f, 45.f, 68.f,
                                        47.f, 83.f, 9.f,
                                        textures["ENEMY_BANDITLIGHT_SHEET"], currentFloor));
@@ -462,89 +477,89 @@ void GameState::spawnEnemy(float x, float y, enemy_types type) {
 }
 
 void GameState::changeStato(int stato) {
-    if(!this->paused){
-        this->pauseState();
+    if(!paused){
+        pauseState();
         this->stato = stato;
     } else{
-        this->unpauseState();
+        unpauseState();
         this->stato = 0;
-        this->window->setMouseCursorVisible(true);
+        window->setMouseCursorVisible(true);
     }
 }
 
 void GameState::updateInput(const float &dt) {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && this->getKeyTime()) {
-            this->changeStato(1);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && getKeyTime()) {
+            changeStato(1);
 
-        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::C) && this->getKeyTime()) {
-            this->changeStato(2);
-            this->cTab->unselectAll();
+        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::C) && getKeyTime()) {
+            changeStato(2);
+            cTab->unselectAll();
 
-        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) && this->getKeyTime()) {
-            if(this->noclip){
-                this->noclip = false;
-                this->player->getMovementComponent()->enableSpeedControl(true);
+        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) && getKeyTime()) {
+            if(noclip){
+                noclip = false;
+                player->getMovementComponent()->enableSpeedControl(true);
             }
             else{
-                this->noclip = true;
-                this->player->getMovementComponent()->enableSpeedControl(false);
+                noclip = true;
+                player->getMovementComponent()->enableSpeedControl(false);
             }
 
 
-        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::T) && this->getKeyTime()) {
-            if(this->player->getPlayerStats()->addExp(100)){
-                this->updateTabsPlayerStatsLbl();
+        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::T) && getKeyTime()) {
+            if(player->getPlayerStats()->addExp(100)){
+                updateTabsPlayerStatsLbl();
             }
-            this->popUpTextComponent->addPopUpTextCenter(EXPERIENCE_TAG, 100, "+", "Exp");
+            popUpTextComponent->addPopUpTextCenter(EXPERIENCE_TAG, 100, "+", "Exp");
 
-        } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::B) && this->getKeyTime()){
-            std::cout << this->rsHandler->toString();
+        } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::B) && getKeyTime()){
+            std::cout << rsHandler->toString();
 
-        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::I) && this->getKeyTime()){
-            std::cout << this->player->getInventory()->listInventory();
+        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::I) && getKeyTime()){
+            std::cout << player->getInventory()->listInventory();
 
-        } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::G) && this->getKeyTime()){
+        } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::G) && getKeyTime()){
             std::stringstream ss;
             ss << "Dragon Gloves" << rand();
-            this->addItem(new Item("E-arms", ss.str(),
-                    "powerful helmet", 5000, "Legendary",
+            addItem(new Item("E-arms", ss.str(),
+                    "powerful helmet", 5000, LEGENDARY,
                     4, 7, 300, 200, 0, 350, 10.3, 17.3, 1, true));
-            this->cTab->updateInventoryCapLbl();
-            this->popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG, ss.str(), "", " added to the inventory");
+            cTab->updateInventoryCapLbl();
+            popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG, ss.str(), "", " added to the inventory");
 
-        } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::H) && this->getKeyTime()){
+        } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::H) && getKeyTime()){
             unsigned n = rand();
             Item* item = new Item("C-potionS", "HealthPotion(S)",
-                                  "Restore 100 hp", 5, "Common",
+                                  "Restore 100 hp", 5, COMMON,
                                   0, 3, 0, 0, 0, 0, 0, 0, n, true);
-            this->addItem(item);
-            this->popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG, to_string(n), "", " HealthPotion(S) added to the inventory");
+            addItem(item);
+            popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG, to_string(n), "", " HealthPotion(S) added to the inventory");
             delete item;
-        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Y) && this->getKeyTime()){
-            std::cout<<this->player->toStringEquipment();
+        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Y) && getKeyTime()){
+            std::cout<<player->toStringEquipment();
 
-        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::N) && this->getKeyTime()){
-            std::cout<<this->buffComponent->toStringBuffs();
+        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::N) && getKeyTime()){
+            std::cout<<buffComponent->toStringBuffs();
 
-        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::P) && this->getKeyTime()){
-            std::cout<<this->shopTab->toStringShopItems();
+        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::P) && getKeyTime()){
+            std::cout<<shopTab->toStringShopItems();
 
-        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::M) && this->getKeyTime()){
+        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::M) && getKeyTime()){
             unsigned gold = rand();
-            this->player->addGold(gold);
-            this->updateTabsGoldLbl();
-            this->popUpTextComponent->addPopUpTextCenter(GOLD_TAG, gold, "+", " gold");
-        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::E) && this->getKeyTime()
-            && this->npcInteract != NO_NPC){
-            switch(this->npcInteract){
+            player->addGold(gold);
+            updateTabsGoldLbl();
+            popUpTextComponent->addPopUpTextCenter(GOLD_TAG, gold, "+", " gold");
+        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::E) && getKeyTime()
+            && npcInteract != NO_NPC){
+            switch(npcInteract){
                 case SHOP:
-                    this->changeStato(3);
+                    changeStato(3);
                     break;
                 case PRIEST:
-                    this->changeStato(4);
+                    changeStato(4);
                     break;
                 case WIZARD:
-                    this->changeStato(6);
+                    changeStato(6);
                     break;
                 default:
                     std::cout<<"no npc\n";
@@ -556,8 +571,8 @@ void GameState::updateInput(const float &dt) {
 }
 
 void GameState::updatePlayerInput(const float &dt) {
-/*    if(this->getKeyTime()){
-        cout<<this->player->getHitboxComponent()->getCenter().x<<" "<<this->player->getHitboxComponent()->getCenter().y<<"\n";
+/*    if(getKeyTime()){
+        cout<<player->getHitboxComponent()->getCenter().x<<" "<<player->getHitboxComponent()->getCenter().y<<"\n";
     }*/
 
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
@@ -571,142 +586,144 @@ void GameState::updatePlayerInput(const float &dt) {
             player->move(dt, 0.f, 1.f);
 
      /*   if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) { // not working properly
-            sf::Vector2f diff = this->mousePosView - this->player->getHitboxComponent()->getCenter();
+            sf::Vector2f diff = mousePosView - player->getHitboxComponent()->getCenter();
 
-            this->player->move(dt, diff.x, diff.y);
+            player->move(dt, diff.x, diff.y);
         }*/
 
 
 }
 
 void GameState::updateTabsGoldLbl() {
-    this->cTab->updateGoldLbl();
-    this->shopTab->updateGoldLbl();
-    this->priestTab->updateGoldLbl();
-    this->wizardTab->updateGoldLbl();
+    cTab->updateGoldLbl();
+    shopTab->updateGoldLbl();
+    priestTab->updateGoldLbl();
+    wizardTab->updateGoldLbl();
 }
 
 void GameState::updateTabsInvSpaceLbl() {
-    this->cTab->updateInventoryCapLbl();
-    this->shopTab->updateInvSpaceLbl();
+    cTab->updateInventoryCapLbl();
+    shopTab->updateInvSpaceLbl();
 }
 
 void GameState::updateTabsPlayerStatsLbl() {
-    this->cTab->updatePlayerStatsLbl();
-    this->spellTab->updateSpellsInfoLbl();
+    cTab->updatePlayerStatsLbl();
+    spellTab->updateSpellsInfoLbl();
 }
 
 void GameState::updatePausedMenuButtons() {
-    if(this->pmenu.isButtonPressed("QUIT")){
-        this->endState();
-    } else if(this->pmenu.isButtonPressed("BACK")){
-        this->changeStato(0);
-    } else if(this->pmenu.isButtonPressed("SPELL")){
-        this->changeStato(0);
-        this->changeStato(5);
-    }else if(this->pmenu.isButtonPressed("CHARACTER")){
-        this->changeStato(0);
-        this->changeStato(2);
+    if(pmenu.isButtonPressed("QUIT")){
+        endState();
+    } else if(pmenu.isButtonPressed("BACK")){
+        changeStato(0);
+    } else if(pmenu.isButtonPressed("SPELL")){
+        changeStato(0);
+        changeStato(5);
+    }else if(pmenu.isButtonPressed("CHARACTER")){
+        changeStato(0);
+        changeStato(2);
     }
 }
 
 void GameState::updateView(const float &dt) {
-    this->view.setCenter(this->player->getHitboxComponent()->getCenter());
+    view.setCenter(player->getHitboxComponent()->getCenter());
 }
 
 void GameState::updateDebugText() {
 //debbuging tool: show mouse pos coords
     std::stringstream ss;
-    ss << "Mouse pos: " << this->mousePosView.x << " " << this->mousePosView.y;
-    this->debugText.setString(ss.str());
+    ss << "Mouse pos: " << mousePosView.x << " " << mousePosView.y;
+    debugText.setString(ss.str());
 }
 
 void GameState::updateButtons() {
-    if(this->cTabBtn.isPressed() && this->getKeyTime()){
-        this->cTabBtn.setButtonState(BTN_IDLE);
-        this->changeStato(2);
-        this->cTab->unselectAll();
-    } else if(this->pauseMenuBtn.isPressed() && this->getKeyTime()){
-        this->pauseMenuBtn.setButtonState(BTN_IDLE);
-        this->changeStato(1);
-    } else if(this->spellTabBtn.isPressed() && this->getKeyTime()){
-        this->spellTabBtn.setButtonState(BTN_IDLE);
-        this->changeStato(5);
+    if(cTabBtn.isPressed() && getKeyTime()){
+        cTabBtn.setButtonState(BTN_IDLE);
+        changeStato(2);
+        cTab->unselectAll();
+    } else if(pauseMenuBtn.isPressed() && getKeyTime()){
+        pauseMenuBtn.setButtonState(BTN_IDLE);
+        changeStato(1);
+    } else if(spellTabBtn.isPressed() && getKeyTime()){
+        spellTabBtn.setButtonState(BTN_IDLE);
+        changeStato(5);
     }
 }
 
 void GameState::update(const float& dt) {
-    this->updateMousePosition(&this->view);
-    this->updateKeyTime(dt);
+    updateMousePosition(&view);
+    updateKeyTime(dt);
 
-    this->updateInput(dt);
+    updateInput(dt);
 
-    this->updateTileMap(dt);
+    updateTileMap(dt);
 
-    this->updateDebugText();
+    updateDebugText();
 
-    if(!this->paused){ //unpaused update
-        this->updateView(dt);
-        this->updatePlayerInput(dt);
-        this->updateButtons();
+    if(!paused){ //unpaused update
+        updateView(dt);
+        updatePlayerInput(dt);
+        updateButtons();
 
-        this->player->update(dt);
-        for(auto i : this->enemies){
+        player->update(dt);
+        for(const auto& i : enemies){
             i->update(dt);
             if(i->getHitboxComponent()->intersects(player->getHitboxComponent()->getGlobalBounds())){
                 states->push(std::make_unique<BattleState>(
-                        window, player, states, popUpTextComponent,
-                        rsHandler, textures,font, i, currentFloor));
+                        window, player, states,
+                        popUpTextComponent, spellComponent, buffComponent,
+                        rsHandler, textures,font, i, currentFloor, cTab));
+                //cTab->updatePlayerStatsLbl();
                 player->setPosition(750.f, 130.f);
                 player->stopVelocity();
             }
         }
-        for(auto i : this->npcs){
+        for(auto i : npcs){
             i->update(dt);
-            i->updateCollsion(this->player, &this->npcInteract);
+            i->updateCollsion(player, &npcInteract);
         }
-        this->updateMousePosition(nullptr);
-        this->cTabBtn.update(this->mousePosView);
-        this->pauseMenuBtn.update(this->mousePosView);
-        this->spellTabBtn.update(this->mousePosView);
-        this->popUpTextComponent->update(dt);
+        updateMousePosition(nullptr);
+        cTabBtn.update(mousePosView);
+        pauseMenuBtn.update(mousePosView);
+        spellTabBtn.update(mousePosView);
+        popUpTextComponent->update(dt);
 
     } else{ // paused update
-        this->updateMousePosition(nullptr);
+        updateMousePosition(nullptr);
         switch(stato){
             case 1:
-                this->pmenu.update(this->mousePosView);
-                this->updatePausedMenuButtons();
+                pmenu.update(mousePosView);
+                updatePausedMenuButtons();
                 break;
             case 2:
-                this->cTab->update(this->mousePosView);
-                if(this->cTab->closeCharacterTabByClicking(this->mousePosView, &this->cTabBtn))
-                    this->changeStato(0);
-                this->popUpTextComponent->update(dt);
+                cTab->update(mousePosView);
+                if(cTab->closeCharacterTabByClicking(mousePosView, &cTabBtn))
+                    changeStato(0);
+                popUpTextComponent->update(dt);
                 break;
             case 3:
-                this->shopTab->update(this->mousePosView);
-                if(this->shopTab->closeTabByClicking(this->mousePosView))
-                    this->changeStato(0);
-                this->popUpTextComponent->update(dt);
+                shopTab->update(mousePosView);
+                if(shopTab->closeTabByClicking(mousePosView))
+                    changeStato(0);
+                popUpTextComponent->update(dt);
                 break;
             case 4:
-                this->priestTab->update(this->mousePosView);
-                if(this->priestTab->closeTabByClicking(this->mousePosView))
-                    this->changeStato(0);
-                this->popUpTextComponent->update(dt);
+                priestTab->update(mousePosView);
+                if(priestTab->closeTabByClicking(mousePosView))
+                    changeStato(0);
+                popUpTextComponent->update(dt);
                 break;
             case 5:
-                this->spellTab->update(this->mousePosView);
-                if(this->spellTab->closeTabByClicking(this->mousePosView, &this->spellTabBtn))
-                    this->changeStato(0);
-                this->popUpTextComponent->update(dt);
+                spellTab->update(mousePosView);
+                if(spellTab->closeTabByClicking(mousePosView, &spellTabBtn))
+                    changeStato(0);
+                popUpTextComponent->update(dt);
                 break;
             case 6:
-                this->wizardTab->update(this->mousePosView);
-                if(this->wizardTab->closeTabByClicking(this->mousePosView))
-                    this->changeStato(0);
-                this->popUpTextComponent->update(dt);
+                wizardTab->update(mousePosView);
+                if(wizardTab->closeTabByClicking(mousePosView))
+                    changeStato(0);
+                popUpTextComponent->update(dt);
                 break;
         }
     }
@@ -716,54 +733,54 @@ void GameState::render(sf::RenderTarget* target) {
     if(!target){
         target = window.get();
     }
-    target->setView(this->view);
+    target->setView(view);
 
-    this->map->render(target);
-    this->player->render(*target, true, true);
-    for(auto i : this->enemies){
+    map->render(target);
+    player->render(*target, true, true);
+    for(auto i : enemies){
         i->render(*target, true, true);
     }
-    for(auto i : this->npcs){
+    for(auto i : npcs){
         i->render(*target, true);
     }
 
     target->setView(target->getDefaultView());
-    this->cTabBtn.render(*target);
-    this->pauseMenuBtn.render(*target);
-    this->spellTabBtn.render(*target);
-    target->draw(this->hints);
+    cTabBtn.render(*target);
+    pauseMenuBtn.render(*target);
+    spellTabBtn.render(*target);
+    target->draw(hints);
 
-    if(this->paused){ // pause menu render
+    if(paused){ // pause menu render
         switch(stato){
             case 1:
-                this->pmenu.render(*target);
+                pmenu.render(*target);
                 break;
             case 2:
-                this->cTab->render(*target);
+                cTab->render(*target);
                 break;
             case 3:
-                this->shopTab->render(*target);
+                shopTab->render(*target);
                 break;
             case 4:
-                this->priestTab->render(*target);
+                priestTab->render(*target);
                 break;
             case 5:
-                this->spellTab->render(*target);
+                spellTab->render(*target);
                 break;
             case 6:
-                this->wizardTab->render(*target);
+                wizardTab->render(*target);
                 break;
         }
     }
-    target->draw(this->debugText);
+    target->draw(debugText);
 
-    this->popUpTextComponent->render(*target);
+    popUpTextComponent->render(*target);
 }
 
 void GameState::updateTileMap(const float &dt) {
-    this->map->updateCollision(this->player);
-    if(!this->noclip)
-        this->map->updateTileCollision(this->player, dt);
+    map->updateCollision(player);
+    if(!noclip)
+        map->updateTileCollision(player, dt);
 }
 
 

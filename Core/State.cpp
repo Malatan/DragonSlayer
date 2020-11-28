@@ -3,15 +3,17 @@
 //
 
 #include "State.h"
+
+#include <utility>
 State::State(){
 
 };
 
 State::State(std::shared_ptr<sf::RenderWindow> window, std::stack<std::unique_ptr<State>>* states,
              std::shared_ptr<ResourcesHandler> rsHandler) {
-    this->window = window;
+    this->window = std::move(window);
     this->states = states;
-    this->rsHandler = rsHandler;
+    this->rsHandler = std::move(rsHandler);
     this->quit = false;
     this->paused = false;
     this->keyTime = 0.f;
@@ -27,7 +29,7 @@ const bool &State::getQuit() const {
     return quit;
 }
 
-const bool State::getKeyTime() {
+bool State::getKeyTime() {
     if(keyTime >= keyTimeMax){
         keyTime = 0.f;
         return true;
@@ -77,7 +79,7 @@ void State::updateKeyTime(const float &dt) {
 
 }
 
-const sf::Vector2f State::getMousePosView() const {
+sf::Vector2f State::getMousePosView() const {
     return mousePosView;
 }
 

@@ -21,17 +21,17 @@ public:
 
     void setEquipSlotsTextureIntRect(int equip_slot, sf::IntRect intRect);
     sf::IntRect getEquipSlotTextureRect(int equip_slot);
-    bool checkIfKeyExist(std::string key);
-    bool addResouce(std::string path, std::string key, std::string state_name);
-    Resource* getResouceByKey(std::string key);
+    bool checkIfKeyExist(const std::string& key);
+    bool addResouce(std::string path, const std::string& key, std::string state_name);
+    std::shared_ptr<Resource> getResouceByKey(const std::string& key);
 
-    bool loadPlayerStatsTxt(Stats* playerStats);
-    bool loadPlayerInventoryTxt(Inventory* playerInventory);
-    bool loadSpellList(std::shared_ptr<SpellComponent> spellComponent);
+    bool loadPlayerStatsTxt(const std::shared_ptr<Stats>& playerStats);
+    bool loadPlayerInventoryTxt(const std::shared_ptr<Inventory>& playerInventory);
+    bool loadSpellList(const std::shared_ptr<SpellComponent>& spellComponent);
     std::string toString();
 
 private:
-    std::vector<Resource*> resources;
+    std::vector<std::shared_ptr<Resource>> resources;
     sf::IntRect equipSlotsTextureIntRects[6];
 };
 

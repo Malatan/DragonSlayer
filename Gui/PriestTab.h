@@ -11,7 +11,7 @@ class GameState;
 
 class PriestTab {
 public:
-    PriestTab(std::shared_ptr<sf::RenderWindow> window, sf::Font* font, std::shared_ptr<Player> player, State *state,
+    PriestTab(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* font, std::shared_ptr<Player> player, State *state,
               std::shared_ptr<ResourcesHandler> rsHandler, std::map<std::string, sf::Texture> textures);
     virtual ~PriestTab();
 
@@ -25,6 +25,11 @@ public:
     void render(sf::RenderTarget& target);
 
 private:
+    static const unsigned int RECOVER_HP_COST = 400;
+    static const unsigned int RECOVER_MP_COST = 400;
+    static const unsigned int REM_DEBUFFS_COST = 300;
+    static const unsigned int RECOVER_ALL_COST = 600;
+
     sf::RectangleShape background;
     sf::RectangleShape container;
     sf::Text containerTitle;
