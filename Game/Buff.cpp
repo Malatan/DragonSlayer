@@ -10,11 +10,29 @@ Buff::Buff() {
 
 }
 
-Buff::Buff(std::string name, int add_hp, int add_mp, int add_damage, int add_armor, float add_critchance,
-           float add_evadechance, int turns) : name(std::move(name)), addHp(add_hp), addMp(add_mp), addDamage(add_damage), addArmor(add_armor),
-                                               addCritChance(add_critchance), addEvadeChance(add_evadechance), turns(turns){
+Buff::Buff(Buff *buff) : name(buff->name), description(buff->description), keyWord(buff->keyWord), addHp(buff->addHp), addMp(buff->addMp),
+                         addDamage(buff->addDamage), addArmor(buff->addArmor), addCritChance(buff->addCritChance),
+                         addEvadeChance(buff->addEvadeChance), turns(buff->turns), instant(buff->instant), debuff(buff->debuff),
+                         intRectX(buff->intRectX), intRectY(buff->intRectY){
 
-    this->instant = false;
+}
+
+Buff::Buff(std::string name, std::string description, std::string key_word, int add_hp, int add_mp, int add_damage, int add_armor, float add_critchance,
+           float add_evadechance, int turns, bool is_debuff, int intRectX, int intRectY) :
+           name(std::move(name)), description(std::move(description)), keyWord(std::move(key_word)), addHp(add_hp), addMp(add_mp),
+           addDamage(add_damage), addArmor(add_armor), addCritChance(add_critchance), addEvadeChance(add_evadechance), turns(turns),
+           instant(false), debuff(is_debuff), intRectX(intRectX), intRectY(intRectY){
+}
+
+Buff::Buff(std::string name, std::string description, std::string key_word, int add_hp, int add_mp, int add_damage, int add_armor, float add_critchance,
+           float add_evadechance, bool instant, bool is_debuff, int intRectX, int intRectY) :
+           name(std::move(name)), description(std::move(description)), keyWord(std::move(key_word)), addHp(add_hp), addMp(add_mp),
+           addDamage(add_damage), addArmor(add_armor), addCritChance(add_critchance), addEvadeChance(add_evadechance), turns(0),
+           instant(instant), debuff(is_debuff), intRectX(intRectX), intRectY(intRectY){
+}
+
+Buff::~Buff() {
+
 }
 
 const string &Buff::getName() const {
@@ -45,50 +63,71 @@ float Buff::getAddEvadeChance() const {
     return addEvadeChance;
 }
 
-Buff::Buff(std::string name, int add_hp, int add_mp, int add_damage, int add_armor, float add_critchance,
-           float add_evadechance, bool instant) : name(std::move(name)), addHp(add_hp), addMp(add_mp), addDamage(add_damage), addArmor(add_armor),
-                                               addCritChance(add_critchance), addEvadeChance(add_evadechance), instant(instant){
-    this->turns = 0;
-}
-
-
-Buff::~Buff() {
-
-}
-
 std::string Buff::toString() {
     std::stringstream ss;
-    ss << "name: " << this->name;
-    if(this->addHp != 0){
-        ss << " add_hp: " << this->addHp;
+    ss << "name: " << name;
+    if(addHp != 0){
+        ss << " add_hp: " << addHp;
     }
-    if(this->addMp != 0){
-        ss << " add_mp: " << this->addMp;
+    if(addMp != 0){
+        ss << " add_mp: " << addMp;
     }
-    if(this->addDamage != 0){
-        ss << " add_dmg: " << this->addDamage;
+    if(addDamage != 0){
+        ss << " add_dmg: " << addDamage;
     }
-    if(this->addArmor != 0){
-        ss << " add_armor: " << this->addArmor;
+    if(addArmor != 0){
+        ss << " add_armor: " << addArmor;
     }
-    if(this->addCritChance != 0){
-        ss << " add_cc: " << this->addCritChance;
+    if(addCritChance != 0){
+        ss << " add_criticalchance: " << addCritChance<< "%";
     }
-    if(this->addEvadeChance != 0){
-        ss << " add_ev: " << this->addEvadeChance;
+    if(addEvadeChance != 0){
+        ss << " add_evadechance: " << addEvadeChance << "%";
     }
 
-    ss << " turns: " << this->turns << "\n";
+    ss << " turns: " << turns << "\n";
     return ss.str();
 }
 
 int Buff::getTurns() const{
-    return this->turns;
+    return turns;
 }
 
 bool Buff::isInstant() const {
-    return this->instant;
+    return instant;
 }
+
+int Buff::getIntRectX() const {
+    return intRectX;
+}
+
+int Buff::getIntRectY() const {
+    return intRectY;
+}
+
+bool Buff::isDebuff() const {
+    return debuff;
+}
+
+std::string Buff::getKeyWord() const {
+    return keyWord;
+}
+
+std::string Buff::getDescription() const {
+    return description;
+}
+
+void Buff::setTurns(int new_turns) {
+    turns = new_turns;
+}
+
+void Buff::updateLifeTime() {
+    turns--;
+    if(turns < 0)
+        turns = 0;
+}
+
+
 
 
 

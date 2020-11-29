@@ -8,73 +8,81 @@
 
 void GameState::initTextures() {
 
-    rsHandler->addResouce("../Resources/Images/Sprites/Player/player_sheet.png", "player_sheet", "GameState");
-    rsHandler->addResouce("../Resources/Images/Sprites/Npc/shop_npc_idle.png", "shop_npc_sheet", "GameState");
-    rsHandler->addResouce("../Resources/Images/Sprites/Npc/priest_npc_idle.png", "priest_npc_sheet", "GameState");
-    rsHandler->addResouce("../Resources/Images/Sprites/Npc/wizard_npc_idle.png", "wizard_npc_sheet", "GameState");
+    rsHandler->addResource("../Resources/Images/Sprites/Player/player_sheet.png", "player_sheet", "GameState");
+    rsHandler->addResource("../Resources/Images/Sprites/Npc/shop_npc_idle.png", "shop_npc_sheet", "GameState");
+    rsHandler->addResource("../Resources/Images/Sprites/Npc/priest_npc_idle.png", "priest_npc_sheet", "GameState");
+    rsHandler->addResource("../Resources/Images/Sprites/Npc/wizard_npc_idle.png", "wizard_npc_sheet", "GameState");
 
-    rsHandler->addResouce("../Resources/Images/Sprites/Enemy/Witch/sprite_sheet.png", "wizard_enemy_sheet", "GameState");
-    rsHandler->addResouce("../Resources/Images/Sprites/Enemy/Flying eye/sprite_sheet.png", "FlyingEye_enemy_sheet", "GameState");
-    rsHandler->addResouce("../Resources/Images/Sprites/Enemy/Goblin/sprite_sheet.png", "Goblin_enemy_sheet", "GameState");
-    rsHandler->addResouce("../Resources/Images/Sprites/Enemy/Mushroom/sprite_sheet.png", "Mushroom_enemy_sheet", "GameState");
-    rsHandler->addResouce("../Resources/Images/Sprites/Enemy/Skeleton/sprite_sheet.png", "Skeleton_enemy_sheet", "GameState");
-    rsHandler->addResouce("../Resources/Images/Sprites/Enemy/Skeleton2/sprite_sheet.png", "Skeleton_2_enemy_sheet", "GameState");
-    rsHandler->addResouce("../Resources/Images/Sprites/Enemy/HeavyBandit/HeavyBandit.png", "BanditHeavy_enemy_sheet", "GameState");
-    rsHandler->addResouce("../Resources/Images/Sprites/Enemy/LightBandit/LightBandit.png", "BanditLight_enemy_sheet", "GameState");
+    rsHandler->addResource("../Resources/Images/Sprites/Enemy/Witch/sprite_sheet.png", "wizard_enemy_sheet",
+                           "GameState");
+    rsHandler->addResource("../Resources/Images/Sprites/Enemy/Flying eye/sprite_sheet.png", "FlyingEye_enemy_sheet",
+                           "GameState");
+    rsHandler->addResource("../Resources/Images/Sprites/Enemy/Goblin/sprite_sheet.png", "Goblin_enemy_sheet",
+                           "GameState");
+    rsHandler->addResource("../Resources/Images/Sprites/Enemy/Mushroom/sprite_sheet.png", "Mushroom_enemy_sheet",
+                           "GameState");
+    rsHandler->addResource("../Resources/Images/Sprites/Enemy/Skeleton/sprite_sheet.png", "Skeleton_enemy_sheet",
+                           "GameState");
+    rsHandler->addResource("../Resources/Images/Sprites/Enemy/Skeleton2/sprite_sheet.png", "Skeleton_2_enemy_sheet",
+                           "GameState");
+    rsHandler->addResource("../Resources/Images/Sprites/Enemy/HeavyBandit/HeavyBandit.png", "BanditHeavy_enemy_sheet",
+                           "GameState");
+    rsHandler->addResource("../Resources/Images/Sprites/Enemy/LightBandit/LightBandit.png", "BanditLight_enemy_sheet",
+                           "GameState");
 
-    rsHandler->addResouce("../Resources/Images/chat.png", "chattable_icon", "GameState");
+    rsHandler->addResource("../Resources/Images/chat.png", "chattable_icon", "GameState");
 
-    rsHandler->addResouce("../Resources/Images/characterIcon.png", "characterIcon", "GameState");
-    rsHandler->addResouce("../Resources/Images/inventoryIcon.png", "inventoryIcon", "GameState");
-    rsHandler->addResouce("../Resources/Images/pauseMenuIcon.png", "pauseMenuIcon", "GameState");
-    rsHandler->addResouce("../Resources/Images/spellIcon.png", "spellIcon", "GameState");
+    rsHandler->addResource("../Resources/Images/characterIcon.png", "characterIcon", "GameState");
+    rsHandler->addResource("../Resources/Images/inventoryIcon.png", "inventoryIcon", "GameState");
+    rsHandler->addResource("../Resources/Images/pauseMenuIcon.png", "pauseMenuIcon", "GameState");
+    rsHandler->addResource("../Resources/Images/spellIcon.png", "spellIcon", "GameState");
 
-    rsHandler->addResouce("../Resources/Images/equipslot_sheet.png", "EquipSlotsSheet", "GameState");
-    rsHandler->addResouce("../Resources/Images/items_sheet.png", "items_sheet", "GameState");
-    rsHandler->addResouce("../Resources/Images/selectedIcon.png", "selected", "GameState");
-    rsHandler->addResouce("../Resources/Images/new.png", "newTag", "GameState");
-    rsHandler->addResouce("../Resources/Images/weaponIcon.png", "weaponIcon", "GameState");
-    rsHandler->addResouce("../Resources/Images/shieldIcon.png", "shieldIcon", "GameState");
-    rsHandler->addResouce("../Resources/Images/helmetIcon.png", "helmetIcon", "GameState");
-    rsHandler->addResouce("../Resources/Images/armorIcon.png", "armorIcon", "GameState");
-    rsHandler->addResouce("../Resources/Images/glovesIcon.png", "glovesIcon", "GameState");
-    rsHandler->addResouce("../Resources/Images/bootsIcon.png", "bootsIcon", "GameState");
-    rsHandler->addResouce("../Resources/Images/randomIcon.png", "randomIcon", "GameState");
-    rsHandler->addResouce("../Resources/Images/arrow_down.png", "arrowDownIcon", "GameState");
+    rsHandler->addResource("../Resources/Images/equipslot_sheet.png", "EquipSlotsSheet", "GameState");
+    rsHandler->addResource("../Resources/Images/items_sheet.png", "items_sheet", "GameState");
+    rsHandler->addResource("../Resources/Images/selectedIcon.png", "selected", "GameState");
+    rsHandler->addResource("../Resources/Images/new.png", "newTag", "GameState");
+    rsHandler->addResource("../Resources/Images/weaponIcon.png", "weaponIcon", "GameState");
+    rsHandler->addResource("../Resources/Images/shieldIcon.png", "shieldIcon", "GameState");
+    rsHandler->addResource("../Resources/Images/helmetIcon.png", "helmetIcon", "GameState");
+    rsHandler->addResource("../Resources/Images/armorIcon.png", "armorIcon", "GameState");
+    rsHandler->addResource("../Resources/Images/glovesIcon.png", "glovesIcon", "GameState");
+    rsHandler->addResource("../Resources/Images/bootsIcon.png", "bootsIcon", "GameState");
+    rsHandler->addResource("../Resources/Images/randomIcon.png", "randomIcon", "GameState");
+    rsHandler->addResource("../Resources/Images/arrow_down.png", "arrowDownIcon", "GameState");
 
-    textures["PLAYER_SHEET"].loadFromImage(rsHandler->getResouceByKey("player_sheet")->getImage());
-    textures["SHOP_NPC_SHEET"].loadFromImage(rsHandler->getResouceByKey("shop_npc_sheet")->getImage());
-    textures["PRIEST_NPC_SHEET"].loadFromImage(rsHandler->getResouceByKey("priest_npc_sheet")->getImage());
-    textures["WIZARD_NPC_SHEET"].loadFromImage(rsHandler->getResouceByKey("wizard_npc_sheet")->getImage());
+    textures["PLAYER_SHEET"].loadFromImage(rsHandler->getResourceByKey("player_sheet")->getImage());
+    textures["SHOP_NPC_SHEET"].loadFromImage(rsHandler->getResourceByKey("shop_npc_sheet")->getImage());
+    textures["PRIEST_NPC_SHEET"].loadFromImage(rsHandler->getResourceByKey("priest_npc_sheet")->getImage());
+    textures["WIZARD_NPC_SHEET"].loadFromImage(rsHandler->getResourceByKey("wizard_npc_sheet")->getImage());
 
-    textures["ENEMY_WIZARD_SHEET"].loadFromImage(rsHandler->getResouceByKey("wizard_enemy_sheet")->getImage());
-    textures["ENEMY_FLYINGEYE_SHEET"].loadFromImage(rsHandler->getResouceByKey("FlyingEye_enemy_sheet")->getImage());
-    textures["ENEMY_GOBLIN_SHEET"].loadFromImage(rsHandler->getResouceByKey("Goblin_enemy_sheet")->getImage());
-    textures["ENEMY_MUSHROOM_SHEET"].loadFromImage(rsHandler->getResouceByKey("Mushroom_enemy_sheet")->getImage());
-    textures["ENEMY_SKELETON_SHEET"].loadFromImage(rsHandler->getResouceByKey("Skeleton_enemy_sheet")->getImage());
-    textures["ENEMY_SKELETON_2_SHEET"].loadFromImage(rsHandler->getResouceByKey("Skeleton_2_enemy_sheet")->getImage());
-    textures["ENEMY_BANDITHEAVY_SHEET"].loadFromImage(rsHandler->getResouceByKey("BanditHeavy_enemy_sheet")->getImage());
-    textures["ENEMY_BANDITLIGHT_SHEET"].loadFromImage(rsHandler->getResouceByKey("BanditLight_enemy_sheet")->getImage());
+    textures["ENEMY_WIZARD_SHEET"].loadFromImage(rsHandler->getResourceByKey("wizard_enemy_sheet")->getImage());
+    textures["ENEMY_FLYINGEYE_SHEET"].loadFromImage(rsHandler->getResourceByKey("FlyingEye_enemy_sheet")->getImage());
+    textures["ENEMY_GOBLIN_SHEET"].loadFromImage(rsHandler->getResourceByKey("Goblin_enemy_sheet")->getImage());
+    textures["ENEMY_MUSHROOM_SHEET"].loadFromImage(rsHandler->getResourceByKey("Mushroom_enemy_sheet")->getImage());
+    textures["ENEMY_SKELETON_SHEET"].loadFromImage(rsHandler->getResourceByKey("Skeleton_enemy_sheet")->getImage());
+    textures["ENEMY_SKELETON_2_SHEET"].loadFromImage(rsHandler->getResourceByKey("Skeleton_2_enemy_sheet")->getImage());
+    textures["ENEMY_BANDITHEAVY_SHEET"].loadFromImage(rsHandler->getResourceByKey("BanditHeavy_enemy_sheet")->getImage());
+    textures["ENEMY_BANDITLIGHT_SHEET"].loadFromImage(rsHandler->getResourceByKey("BanditLight_enemy_sheet")->getImage());
 
-    textures["CHATTABLE_ICON"].loadFromImage(rsHandler->getResouceByKey("chattable_icon")->getImage());
+    textures["CHATTABLE_ICON"].loadFromImage(rsHandler->getResourceByKey("chattable_icon")->getImage());
 
-    textures["CHARACTER_ICON"].loadFromImage(rsHandler->getResouceByKey("characterIcon")->getImage());
-    textures["INVENTORY_ICON"].loadFromImage(rsHandler->getResouceByKey("inventoryIcon")->getImage());
-    textures["PAUSEMENU_ICON"].loadFromImage(rsHandler->getResouceByKey("pauseMenuIcon")->getImage());
-    textures["SPELL_ICON"].loadFromImage(rsHandler->getResouceByKey("spellIcon")->getImage());
+    textures["CHARACTER_ICON"].loadFromImage(rsHandler->getResourceByKey("characterIcon")->getImage());
+    textures["INVENTORY_ICON"].loadFromImage(rsHandler->getResourceByKey("inventoryIcon")->getImage());
+    textures["PAUSEMENU_ICON"].loadFromImage(rsHandler->getResourceByKey("pauseMenuIcon")->getImage());
+    textures["SPELL_ICON"].loadFromImage(rsHandler->getResourceByKey("spellIcon")->getImage());
 
-    textures["ITEMS_SHEET"].loadFromImage(rsHandler->getResouceByKey("items_sheet")->getImage());
-    textures["EquipSlotsSheet"].loadFromImage(rsHandler->getResouceByKey("EquipSlotsSheet")->getImage());
-    textures["SELECTED_ICON"].loadFromImage(rsHandler->getResouceByKey("selected")->getImage());
-    textures["NEW_TAG"].loadFromImage(rsHandler->getResouceByKey("newTag")->getImage());
-    textures["WEAPON_ICON"].loadFromImage(rsHandler->getResouceByKey("weaponIcon")->getImage());
-    textures["SHIELD_ICON"].loadFromImage(rsHandler->getResouceByKey("shieldIcon")->getImage());
-    textures["HELMET_ICON"].loadFromImage(rsHandler->getResouceByKey("helmetIcon")->getImage());
-    textures["ARMOR_ICON"].loadFromImage(rsHandler->getResouceByKey("armorIcon")->getImage());
-    textures["GLOVES_ICON"].loadFromImage(rsHandler->getResouceByKey("glovesIcon")->getImage());
-    textures["BOOTS_ICON"].loadFromImage(rsHandler->getResouceByKey("bootsIcon")->getImage());
-    textures["RANDOM_ICON"].loadFromImage(rsHandler->getResouceByKey("randomIcon")->getImage());
-    textures["ARROWDOWN_ICON"].loadFromImage(rsHandler->getResouceByKey("arrowDownIcon")->getImage());
+    textures["ITEMS_SHEET"].loadFromImage(rsHandler->getResourceByKey("items_sheet")->getImage());
+    textures["EquipSlotsSheet"].loadFromImage(rsHandler->getResourceByKey("EquipSlotsSheet")->getImage());
+    textures["SELECTED_ICON"].loadFromImage(rsHandler->getResourceByKey("selected")->getImage());
+    textures["NEW_TAG"].loadFromImage(rsHandler->getResourceByKey("newTag")->getImage());
+    textures["WEAPON_ICON"].loadFromImage(rsHandler->getResourceByKey("weaponIcon")->getImage());
+    textures["SHIELD_ICON"].loadFromImage(rsHandler->getResourceByKey("shieldIcon")->getImage());
+    textures["HELMET_ICON"].loadFromImage(rsHandler->getResourceByKey("helmetIcon")->getImage());
+    textures["ARMOR_ICON"].loadFromImage(rsHandler->getResourceByKey("armorIcon")->getImage());
+    textures["GLOVES_ICON"].loadFromImage(rsHandler->getResourceByKey("glovesIcon")->getImage());
+    textures["BOOTS_ICON"].loadFromImage(rsHandler->getResourceByKey("bootsIcon")->getImage());
+    textures["RANDOM_ICON"].loadFromImage(rsHandler->getResourceByKey("randomIcon")->getImage());
+    textures["ARROWDOWN_ICON"].loadFromImage(rsHandler->getResourceByKey("arrowDownIcon")->getImage());
 }
 
 void GameState::initPauseMenu() {
@@ -203,47 +211,97 @@ void GameState::initShopItemTextures() {
 }
 
 void GameState::initBuffComponent() {
-    buffComponent = std::make_shared<BuffComponent>(popUpTextComponent);
+    buffComponent = std::make_shared<BuffComponent>(popUpTextComponent, this, font);
     // add all buffs to map
     buffComponent->addBuff("HealthPotion(S)",
-            std::make_shared<Buff>("HealthPotion(S)", 100, 0, 0, 0,
-                    0.f, 0.f, true));
+            std::make_shared<Buff>("HealthPotion(S)", "Recovers your hp by 100", "HealthPotion",
+                    100, 0, 0, 0, 0.f, 0.f, true,
+                    false,7, 22));
 
     buffComponent->addBuff("HealthPotion(M)",
-            std::make_shared<Buff>("HealthPotion(M)", 200, 0, 0, 0,
-                    0.f, 0.f, true));
+            std::make_shared<Buff>("HealthPotion(M)", "Recovers your hp by 200", "HealthPotion",
+                    200, 0, 0, 0, 0.f, 0.f, true,
+                    false, 7, 22));
 
     buffComponent->addBuff("HealthPotion(L)",
-            std::make_shared<Buff>("HealthPotion(L)", 400, 0, 0, 0,
-                    0.f, 0.f, true));
+            std::make_shared<Buff>("HealthPotion(L)", "Recovers your hp by 400", "HealthPotion",
+                    400, 0, 0, 0, 0.f, 0.f, true,
+                    false, 7, 22));
 
     buffComponent->addBuff("ManaPotion(S)",
-            std::make_shared<Buff>("ManaPotion(S)", 0, 100, 0, 0,
-                    0.f, 0.f, true));
+            std::make_shared<Buff>("ManaPotion(S)", "Recovers your mp by 100", "ManaPotion",
+                    0, 100, 0, 0, 0.f, 0.f, true,
+                    false, 9, 22));
 
     buffComponent->addBuff("ManaPotion(M)",
-            std::make_shared<Buff>("ManaPotion(M)", 0, 200, 0, 0,
-                    0.f, 0.f, true));
+            std::make_shared<Buff>("ManaPotion(M)", "Recovers your mp by 200", "ManaPotion",
+                    0, 200, 0, 0, 0.f, 0.f, true,
+                    false, 9, 22));
 
     buffComponent->addBuff("ManaPotion(L)",
-            std::make_shared<Buff>("ManaPotion(L)", 0, 400, 0, 0,
-                    0.f, 0.f, true));
+            std::make_shared<Buff>("ManaPotion(L)", "Recovers your mp by 400", "ManaPotion",
+                    0, 400, 0, 0, 0.f, 0.f, true,
+                    false, 9, 22));
 
     buffComponent->addBuff("DamagePotion(S)",
-            std::make_shared<Buff>("DamagePotion(S)", 0, 0, 100, 0,
-                    0.f, 0.f, 3));
+            std::make_shared<Buff>("DamagePotion(S)", "Boosts your attack by 100 for 3 turns", "DamagePotion",
+                    0, 0, 100, 0, 0.f, 0.f, 3,
+                    false, 6 ,26));
+
+    buffComponent->addBuff("DamagePotion(M)",
+            std::make_shared<Buff>("DamagePotion(M)", "Boosts your attack by 300 for 3 turns", "DamagePotion",
+                    0, 0, 300, 0, 0.f, 0.f, 3,
+                    false, 6 ,26));
+
+    buffComponent->addBuff("DamagePotion(L)",
+            std::make_shared<Buff>("DamagePotion(L)", "Boosts your attack by 600 for 3 turns", "DamagePotion",
+                    0, 0, 600, 0, 0.f, 0.f, 3,
+                    false, 6 ,26));
 
     buffComponent->addBuff("DefensePotion(S)",
-            std::make_shared<Buff>("DefensePotion(S)", 0, 0, 0, 100,
-                    0.f, 0.f, 3));
+            std::make_shared<Buff>("DefensePotion(S)", "Boosts your armor by 100 for 3 turns", "DefensePotion",
+                    0, 0, 0, 100, 0.f, 0.f, 3,
+                    false, 4, 26));
+
+    buffComponent->addBuff("DefensePotion(M)",
+            std::make_shared<Buff>("DefensePotion(M)", "Boosts your armor by 300 for 3 turns", "DefensePotion",
+                    0, 0, 0, 300, 0.f, 0.f, 3,
+                    false, 4, 26));
+
+    buffComponent->addBuff("DefensePotion(L)",
+            std::make_shared<Buff>("DefensePotion(L)", "Boosts your armor by 600 for 3 turns", "DefensePotion",
+                    0, 0, 0, 600, 0.f, 0.f, 3,
+                    false, 4, 26));
 
     buffComponent->addBuff("CriticalHitChancePotion(S)",
-            std::make_shared<Buff>("CriticalHitChancePotion(S)", 0, 0, 0, 0,
-                    10.f, 0.f, 3));
+            std::make_shared<Buff>("CriticalHitChancePotion(S)", "Boosts your critical hit chance by 10% for 3 turns",
+                    "CriticalHitChancePotion", 0, 0, 0, 0, 10.f, 0.f,
+                    3, false, 1, 26));
+
+    buffComponent->addBuff("CriticalHitChancePotion(M)",
+            std::make_shared<Buff>("CriticalHitChancePotion(M)", "Boosts your critical hit chance by 15% for 3 turns",
+                    "CriticalHitChancePotion", 0, 0, 0, 0, 15.f, 0.f,
+                    3, false, 1, 26));
+
+    buffComponent->addBuff("CriticalHitChancePotion(L)",
+            std::make_shared<Buff>("CriticalHitChancePotion(L)", "Boosts your critical hit chance by 25% for 3 turns",
+                    "CriticalHitChancePotion", 0, 0, 0, 0, 25.f, 0.f,
+                    3, false, 1, 26));
 
     buffComponent->addBuff("EvadeChancePotion(S)",
-            std::make_shared<Buff>("EvadeChancePotion(S)", 0, 0, 100, 0,
-                    0.f, 10.f, 3));
+            std::make_shared<Buff>("EvadeChancePotion(S)", "Boosts your evade chance by 10% for 3 turns",
+                    "EvadeChancePotion", 0, 0, 0, 0, 0.f, 10.f,3,
+                    false, 3, 26));
+
+    buffComponent->addBuff("EvadeChancePotion(M)",
+            std::make_shared<Buff>("EvadeChancePotion(M)", "Boosts your evade chance by 15% for 3 turns",
+                    "EvadeChancePotion", 0, 0, 0, 0, 0.f, 15.f,3,
+                    false, 3, 26));
+
+    buffComponent->addBuff("EvadeChancePotion(L)",
+            std::make_shared<Buff>("EvadeChancePotion(L)", "Boosts your evade chance by 25% for 3 turns",
+                    "EvadeChancePotion", 0, 0, 0, 0, 0.f, 25.f,3,
+                    false, 3, 26));
 }
 
 void GameState::initSpellComponent() {
@@ -476,13 +534,13 @@ void GameState::spawnEnemy(float x, float y, enemy_types type) {
     }
 }
 
-void GameState::changeStato(int stato) {
+void GameState::changeStato(int current_stato) {
     if(!paused){
         pauseState();
-        this->stato = stato;
+        stato = current_stato;
     } else{
         unpauseState();
-        this->stato = 0;
+        stato = 0;
         window->setMouseCursorVisible(true);
     }
 }
@@ -494,18 +552,9 @@ void GameState::updateInput(const float &dt) {
         } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::C) && getKeyTime()) {
             changeStato(2);
             cTab->unselectAll();
-
         } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) && getKeyTime()) {
-            if(noclip){
-                noclip = false;
-                player->getMovementComponent()->enableSpeedControl(true);
-            }
-            else{
-                noclip = true;
-                player->getMovementComponent()->enableSpeedControl(false);
-            }
-
-
+            player->getMovementComponent()->enableSpeedControl(noclip);
+            noclip = !noclip;
         } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::T) && getKeyTime()) {
             if(player->getPlayerStats()->addExp(100)){
                 updateTabsPlayerStatsLbl();
@@ -520,7 +569,7 @@ void GameState::updateInput(const float &dt) {
 
         } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::G) && getKeyTime()){
             std::stringstream ss;
-            ss << "Dragon Gloves" << rand();
+            ss << "Dragon Gloves" << utils::generateRandomNumber(100, 99999, false);
             addItem(new Item("E-arms", ss.str(),
                     "powerful helmet", 5000, LEGENDARY,
                     4, 7, 300, 200, 0, 350, 10.3, 17.3, 1, true));
@@ -528,7 +577,7 @@ void GameState::updateInput(const float &dt) {
             popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG, ss.str(), "", " added to the inventory");
 
         } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::H) && getKeyTime()){
-            unsigned n = rand();
+            int n = utils::generateRandomNumber(10, 30, false);
             Item* item = new Item("C-potionS", "HealthPotion(S)",
                                   "Restore 100 hp", 5, COMMON,
                                   0, 3, 0, 0, 0, 0, 0, 0, n, true);
@@ -545,7 +594,7 @@ void GameState::updateInput(const float &dt) {
             std::cout<<shopTab->toStringShopItems();
 
         }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::M) && getKeyTime()){
-            unsigned gold = rand();
+            int gold = utils::generateRandomNumber(999, 9999, false);
             player->addGold(gold);
             updateTabsGoldLbl();
             popUpTextComponent->addPopUpTextCenter(GOLD_TAG, gold, "+", " gold");
@@ -653,11 +702,8 @@ void GameState::updateButtons() {
 void GameState::update(const float& dt) {
     updateMousePosition(&view);
     updateKeyTime(dt);
-
     updateInput(dt);
-
     updateTileMap(dt);
-
     updateDebugText();
 
     if(!paused){ //unpaused update
@@ -687,6 +733,7 @@ void GameState::update(const float& dt) {
         pauseMenuBtn.update(mousePosView);
         spellTabBtn.update(mousePosView);
         popUpTextComponent->update(dt);
+        buffComponent->update(dt, mousePosView);
 
     } else{ // paused update
         updateMousePosition(nullptr);
@@ -737,7 +784,7 @@ void GameState::render(sf::RenderTarget* target) {
 
     map->render(target);
     player->render(*target, true, true);
-    for(auto i : enemies){
+    for(const auto& i : enemies){
         i->render(*target, true, true);
     }
     for(auto i : npcs){
@@ -774,6 +821,7 @@ void GameState::render(sf::RenderTarget* target) {
     }
     target->draw(debugText);
 
+    buffComponent->render(*target);
     popUpTextComponent->render(*target);
 }
 

@@ -137,7 +137,6 @@ namespace gui{
         virtual ~ItemSlot();
 
         //accessors
-        int getId();
         bool hasItem();
         bool getIsSelected();
         std::shared_ptr<Item> getItem();
@@ -154,7 +153,6 @@ namespace gui{
         void setUpRightTexture(sf::Texture* texture);
 
         //functions
-        void itemInfo(const sf::Vector2f& mousePos);
         void updateQuantityLbl();
         void updateItemInfo();
         void updateItemInfoPos(const sf::Vector2f& mousePos);
@@ -301,6 +299,34 @@ namespace gui{
         Button yesBtn;
         Button noBtn;
         sf::Text text;
+    };
+
+    class BuffSlot{
+    public:
+        //constructors/desctructor
+        BuffSlot();
+        BuffSlot(float x, float y, float width, float height,
+                std::shared_ptr<Buff> buff, const sf::Texture& buff_texture, sf::Font* font);
+        virtual ~BuffSlot();
+
+        void setBuff(std::shared_ptr<Buff> new_buff, bool updateLbl = false);
+        std::shared_ptr<Buff> getBuff() const;
+
+        //functions
+        void updateLifeTime();
+        void updateDescriptionLbl();
+        void updateInfoContainer(const sf::Vector2f& mousePos);
+        void update(const sf::Vector2f& mousePos);
+        void render(sf::RenderTarget& target);
+
+    private:
+        bool mouseHoverImage;
+        std::shared_ptr<Buff> buff;
+
+        sf::RectangleShape shape;
+        sf::RectangleShape infoContainer;
+        sf::Text infoLbl;
+        sf::Text lifeTimeLbl;
     };
 
     class PlayerStatusPanel{

@@ -92,3 +92,7 @@ void PopUpTextComponent::render(sf::RenderTarget & target) {
         i->render(target);
     }
 }
+
+sf::Font PopUpTextComponent::getFont() {
+    return font;
+}

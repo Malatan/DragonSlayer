@@ -373,6 +373,7 @@ gui::ItemSlot::ItemSlot(float x, float y, float width, float height, int id,
 
     quantityLbl.setFont(*font);
     quantityLbl.setCharacterSize(20);
+    quantityLbl.setFillColor(sf::Color(0, 0, 0));
     if(item != nullptr){
         std::stringstream ss;
         ss << "x" << item->getQuantity();
@@ -386,10 +387,6 @@ gui::ItemSlot::ItemSlot(float x, float y, float width, float height, int id,
 
 gui::ItemSlot::~ItemSlot() {
 
-}
-
-int gui::ItemSlot::getId() {
-    return id;
 }
 
 bool gui::ItemSlot::getIsSelected() {
@@ -443,10 +440,6 @@ void gui::ItemSlot::setUpRightTexture(sf::Texture *texture) {
 
 void gui::ItemSlot::setSelectedBool(bool b) {
     isSelected = b;
-}
-
-void gui::ItemSlot::itemInfo(const sf::Vector2f &mousePos) {
-
 }
 
 void gui::ItemSlot::updateItemInfo() {
@@ -1622,3 +1615,106 @@ void gui::ItemRow::setUseBtnState(button_states btn_state) {
 std::shared_ptr<Item> gui::ItemRow::getItem() const {
     return item;
 }
+
+/*
+ *                      BuffSlot
+ *
+ */
+
+//constructors/desctructor
+gui::BuffSlot::BuffSlot() {
+
+}
+
+gui::BuffSlot::BuffSlot(float x, float y, float width, float height, std::shared_ptr<Buff> buff,
+                        const sf::Texture &buff_texture, sf::Font *font) : buff(buff), mouseHoverImage(false){
+    shape.setSize(sf::Vector2f(width, height));
+    shape.setPosition(x, y);
+    shape.setTexture(&buff_texture);
+    shape.setTextureRect(sf::IntRect(
+            buff->getIntRectX() * 34,
+            buff->getIntRectY() * 34,
+            34.f, 34.f));
+    shape.setOutlineThickness(1.f);
+    if(this->buff->isDebuff()){
+        shape.setOutlineColor(sf::Color::Red);
+    }else{
+        shape.setOutlineColor(sf::Color::Green);
+    }
+    stringstream ss;
+    infoLbl.setFont(*font);
+    infoLbl.setCharacterSize(20);
+    ss << buff->getName() << std::endl << buff->getDescription();
+    infoLbl.setString(ss.str());
+
+    ss.str("");
+    ss << "Time remaining: " << buff->getTurns() << " turn/s";
+    lifeTimeLbl.setFont(*font);
+    lifeTimeLbl.setCharacterSize(17);
+    lifeTimeLbl.setPosition(infoLbl.getPosition().x, infoLbl.getPosition().y + infoLbl.getGlobalBounds().height);
+    lifeTimeLbl.setString(ss.str());
+
+    infoContainer.setFillColor(sf::Color(90,90,90));
+    infoContainer.setOutlineColor(sf::Color(60,60,60));
+    infoContainer.setOutlineThickness(3.f);
+    infoContainer.setSize(sf::Vector2f(infoLbl.getGlobalBounds().width + 10.f,
+                                       infoLbl.getGlobalBounds().height + lifeTimeLbl.getGlobalBounds().height + 10.f));
+}
+
+gui::BuffSlot::~BuffSlot() = default;
+
+//functions
+void gui::BuffSlot::updateInfoContainer(const sf::Vector2f &mousePos) {
+    stringstream ss;
+    ss << "Time remaining: " << buff->getTurns() << " turn/s";
+    lifeTimeLbl.setString(ss.str());
+    infoContainer.setPosition(mousePos.x + 10.f, mousePos.y);
+    infoLbl.setPosition(infoContainer.getPosition().x + 5.f, infoContainer.getPosition().y);
+    lifeTimeLbl.setPosition(infoLbl.getPosition().x, infoLbl.getPosition().y + infoLbl.getGlobalBounds().height + 4.f);
+}
+
+void gui::BuffSlot::updateLifeTime() {
+    int new_turns = buff->getTurns();
+    new_turns--;
+    if(new_turns < 0)
+        new_turns = 0;
+    buff->setTurns(new_turns);
+}
+
+void gui::BuffSlot::update(const sf::Vector2f &mousePos) {
+    if(shape.getGlobalBounds().contains(mousePos)){
+        mouseHoverImage = true;
+        updateInfoContainer(mousePos);
+    }else{
+        mouseHoverImage = false;
+    }
+}
+
+void gui::BuffSlot::render(sf::RenderTarget &target) {
+    target.draw(shape);
+    if(mouseHoverImage){
+        target.draw(infoContainer);
+        target.draw(infoLbl);
+        target.draw(lifeTimeLbl);
+    }
+}
+
+std::shared_ptr<Buff> gui::BuffSlot::getBuff() const {
+    return buff;
+}
+
+void gui::BuffSlot::setBuff(std::shared_ptr<Buff> new_buff, bool updateLbl) {
+    buff = std::move(new_buff);
+    if(updateLbl)
+        updateDescriptionLbl();
+}
+
+void gui::BuffSlot::updateDescriptionLbl() {
+    stringstream ss;
+    ss << buff->getName() << std::endl << buff->getDescription();
+    infoLbl.setString(ss.str());
+    infoContainer.setSize(sf::Vector2f(infoLbl.getGlobalBounds().width + 10.f,
+            infoLbl.getGlobalBounds().height + lifeTimeLbl.getGlobalBounds().height + 10.f));
+}
+
+

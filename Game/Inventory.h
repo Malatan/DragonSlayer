@@ -11,10 +11,7 @@
 
 using namespace std;
 
-
-
 class Inventory {
-
 public:
     const static int MAX_SPACE = 70; //MASSIMO NUMERO DI SLOT OCCUPABILI NEL GIOCO
     //CONSTRUCTOR & DESTRUCTOR
@@ -22,23 +19,19 @@ public:
     Inventory(int* currentSpace);
     virtual ~Inventory();
 
-    //TOSTRING
-    string listInventory();
-    string listConsumabiles();
-
-    //MANAGE INVENTORY
+    //functions
     void expandInventorySpace(int n);
     bool isExpandable();
     bool removeItem(std::string name);
-    bool addItem(Item item);
-    //bool exportInventory();
+    bool addItem(Item *item);
     void sortByItemType();
+    string listInventory();
 
     //GET & SET
     int getItemsSize();
     std::shared_ptr<Item> getItem(int n);
     std::shared_ptr<Item> getItem(std::string name);
-    void setCurrentMaxSpace(int currentMaxSpace);
+    void setCurrentMaxSpace(int current_maxSpace);
     int getCurrentMaxSpace();
 
 private:

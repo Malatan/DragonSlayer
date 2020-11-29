@@ -8,28 +8,41 @@
 #include <iostream>
 #include <map>
 #include <vector>
+#include <memory>
+#include "PopUpTextComponent.h"
 #include "../Game/Stats.h"
 #include "../Game/Buff.h"
-#include "PopUpTextComponent.h"
-#include <memory>
+#include "../Gui/Gui.h"
+#include "../Core/GameState.h"
+
+class GameState;
 
 class BuffComponent {
 public:
-    BuffComponent(std::shared_ptr<PopUpTextComponent> popUpTextComponent);
+    BuffComponent(std::shared_ptr<PopUpTextComponent> popUpTextComponent, State *state, sf::Font* font);
     virtual ~BuffComponent();
+
+
 
     void addBuff(const std::string& key, const std::shared_ptr<Buff>& buff);
     void addPlayerBuff(const std::shared_ptr<Buff>& buff);
     void applyItemBuff(const std::string& key, const std::shared_ptr<Stats>& stats, bool popup_text_center, float popup_text_x = 0.f,
             float popup_text_y = 0.f);
-    void update();
+    void updateBuffBar();
+    void updatePlayerBuffList();
+    void update(const float& dt, const sf::Vector2f& mousePos);
+    void render(sf::RenderTarget& target);
 
-    std::string toStringBuffs();
+    std::string toStringBuffs() const;
+    std::string toStringPlayerBuffs() const;
 
 private:
     std::shared_ptr<PopUpTextComponent> popUpTextComponent;
+    GameState* gState;
+    sf::Font* font;
     std::map<std::string, std::shared_ptr<Buff>> buffs;
     std::vector<std::shared_ptr<Buff>> playerBuffsList;
+    std::vector<std::unique_ptr<gui::BuffSlot>> buffBar;
 };
 
 

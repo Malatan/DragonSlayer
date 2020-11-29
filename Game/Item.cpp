@@ -96,7 +96,6 @@ string Item::getDescription() {
     return this->description;
 }
 
-
 int Item::getValue() {
     return Item::value;
 }
@@ -292,6 +291,12 @@ void Item::updateRarityEnum() {
 
 item_rarity Item::getRarityEnum() const {
     return rarityEnum;
+}
+
+std::string Item::sortKeyWord() {
+    stringstream ss;
+    ss << itemType << rarity << name;
+    return ss.str();
 }
 
 

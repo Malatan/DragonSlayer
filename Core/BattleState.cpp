@@ -7,7 +7,7 @@
 #include <utility>
 
 void BattleState::initResources() {
-    rsHandler->addResouce("../Resources/Images/Backgrounds/battleBG.png", "battleBG", "BattleState");
+    rsHandler->addResource("../Resources/Images/Backgrounds/battleBG.png", "battleBG", "BattleState");
 }
 
 void BattleState::initBattleFieldComponents() {
@@ -48,7 +48,6 @@ void BattleState::initBattleFieldComponents() {
     turnPanelTitle.setPosition(turnPanel.getPosition().x + turnPanel.getGlobalBounds().width / 2.f -
                                turnPanelTitle.getGlobalBounds().width / 2.f,
                                turnPanel.getPosition().y);
-
 
     turnPanelLbl.setFont(*font);
     turnPanelLbl.setCharacterSize(25);
@@ -476,10 +475,10 @@ BattleState::BattleState(std::shared_ptr<sf::RenderWindow> window, std::shared_p
     enemyMoveDone = false;
     countPlayerTurnTimer = false;
     enemyCount = 0;
-    battleEnd = false;
     turnCount = 1;
     criticalhitMultiplier = 1.75f;
     enemiesMoves = 10;
+    battleResult = NOT_FINISHED;
 
     initResources();
     initBattleFieldComponents();
@@ -488,7 +487,7 @@ BattleState::BattleState(std::shared_ptr<sf::RenderWindow> window, std::shared_p
     background.setSize(sf::Vector2f(
             static_cast<float>(this->window->getSize().x),
             static_cast<float>(this->window->getSize().y)));
-    backgroundTexture.loadFromImage(this->rsHandler->getResouceByKey("battleBG")->getImage());
+    backgroundTexture.loadFromImage(this->rsHandler->getResourceByKey("battleBG")->getImage());
     background.setTexture(&backgroundTexture);
     mainActionPanel.setSize(sf::Vector2f(
             static_cast<float>(this->window->getSize().x),
@@ -515,47 +514,47 @@ BattleState::~BattleState() {
     delete playerModel;
 }
 
-void BattleState::playerBattle(unsigned int rowIndex) {
+void BattleState::playerBattle(unsigned int row_index) {
     if (whoseTurn) {
-        if ((actionRows[rowIndex]->getAction()->getTypeEnum() == DEFAULT_SPELL_TYPE &&
-             actionRows[rowIndex]->getAction()->getName() != "Normal attack") ||
-             actionRows[rowIndex]->getAction()->getTypeEnum() == HOLY ||
-             actionRows[rowIndex]->getAction()->getAoe() == 5){// i spell che non fanno i danni
-            if(player->getPlayerStats()->consumeMana(actionRows[rowIndex]->getAction()->getFinalCost())){
-                if (actionRows[rowIndex]->getAction()->getName() == "Defense") {
+        if ((actionRows[row_index]->getAction()->getTypeEnum() == DEFAULT_SPELL_TYPE &&
+             actionRows[row_index]->getAction()->getName() != "Normal attack") ||
+            actionRows[row_index]->getAction()->getTypeEnum() == HOLY ||
+            actionRows[row_index]->getAction()->getAoe() == 5){// i spell che non fanno i danni
+            if(player->getPlayerStats()->consumeMana(actionRows[row_index]->getAction()->getFinalCost())){
+                if (actionRows[row_index]->getAction()->getName() == "Defense") {
                     playerModel->setAnimation(CAST_ANIMATION, IDLE_ANIMATION);
                     player->setDefense(true);
                     popUpTextComponent->addPopUpText(DEFAULT_TAG,
                             playerModel->getPosition().x,
                             playerModel->getPosition().y - 100.f,
                             "DEFENSE", "", "");
-                } else if (actionRows[rowIndex]->getAction()->getName() == "Meditation") {
+                } else if (actionRows[row_index]->getAction()->getName() == "Meditation") {
                     playerModel->setAnimation(CAST_ANIMATION, IDLE_ANIMATION);
-                    int mp_restored = player->getPlayerStats()->gainMp(actionRows[rowIndex]->getActionFinalDamage());
+                    int mp_restored = player->getPlayerStats()->gainMp(actionRows[row_index]->getActionFinalDamage());
                     popUpTextComponent->addPopUpText(MANA_RESTORE_TAG,
                             playerModel->getPosition().x,
                             playerModel->getPosition().y - 100.f,
                             mp_restored, "MEDITATION\n+", "MP");
 
-                } else if (actionRows[rowIndex]->getAction()->getName() == "Cleanse") {
+                } else if (actionRows[row_index]->getAction()->getName() == "Cleanse") {
                     playerModel->setAnimation(CAST_ANIMATION, IDLE_ANIMATION);
                     popUpTextComponent->addPopUpText(DEFAULT_TAG,
                             playerModel->getPosition().x,
                             playerModel->getPosition().y - 100.f,
                             "CLEANSE", "", "");
-                } else if (actionRows[rowIndex]->getAction()->getName() == "Heal") {
+                } else if (actionRows[row_index]->getAction()->getName() == "Heal") {
                     playerModel->setAnimation(CAST_ANIMATION, IDLE_ANIMATION);
-                    int hp_restored = player->getPlayerStats()->gainHp(actionRows[rowIndex]->getActionFinalDamage());
+                    int hp_restored = player->getPlayerStats()->gainHp(actionRows[row_index]->getActionFinalDamage());
                     popUpTextComponent->addPopUpText(HEAL_TAG,
                             playerModel->getPosition().x,
                             playerModel->getPosition().y - 100.f,
                             hp_restored, "HEAL\n+", "HP");
-                } else if(actionRows[rowIndex]->getAction()->getAoe() == 5){ // aoe spells
+                } else if(actionRows[row_index]->getAction()->getAoe() == 5){ // aoe spells
                     std::vector<unsigned int> deadEnemiesIndex;
                     for (unsigned int i = 0 ; i < enemyCount ; i++) {
                         if(!enemiesModels[enemiesMoveOrder[i]]->isDead()){
                             int dmg_dealt = enemiesModels[enemiesMoveOrder[i]]->getHit(
-                                    actionRows[rowIndex]->getActionFinalDamage(),true);
+                                    actionRows[row_index]->getActionFinalDamage(), true);
                             enemiesModels[enemiesMoveOrder[i]]->setAnimation(GETHIT_ANIMATION, IDLE_ANIMATION);
                             popUpTextComponent->addPopUpText(NEGATIVE_TAG,
                                                              enemyPos[enemiesMoveOrder[i]].getPosition().x,
@@ -572,8 +571,9 @@ void BattleState::playerBattle(unsigned int rowIndex) {
                                                                i), enemiesMoveOrder.end());
                             enemyCount--;
                             selectedId = 10;
-                            if(enemyCount == 0)
-                                battleEnd = true;
+                            if(enemyCount == 0){
+                                battleResult = WIN;
+                            }
                         }
                     }
                     playerModel->setAnimation(CAST_ANIMATION, IDLE_ANIMATION);
@@ -581,14 +581,14 @@ void BattleState::playerBattle(unsigned int rowIndex) {
                     popUpTextComponent->addPopUpText(MANA_RESTORE_TAG,
                                                      playerModel->getPosition().x,
                                                      playerModel->getPosition().y - 100.f,
-                                                     actionRows[rowIndex]->getAction()->getFinalCost(), "-", "");
+                                                     actionRows[row_index]->getAction()->getFinalCost(), "-", "");
 
                     stringstream ss;
-                    ss << "You casted " << actionRows[rowIndex]->getAction()->getName() << " to the field!";
+                    ss << "You casted " << actionRows[row_index]->getAction()->getName() << " to the field!";
                     popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG,
                                                            ss.str(), "", "");
                 }
-                actionRows[rowIndex]->startCd();
+                actionRows[row_index]->startCd();
                 endPlayerTurn();
             }else{
                 popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG,
@@ -596,8 +596,8 @@ void BattleState::playerBattle(unsigned int rowIndex) {
             }
         } else { // i spell che fanno i danni
             if (selectedId < 5) {
-                if(player->getPlayerStats()->consumeMana(actionRows[rowIndex]->getAction()->getFinalCost())){
-                    if(actionRows[rowIndex]->getAction()->getName() == "Normal attack"){
+                if(player->getPlayerStats()->consumeMana(actionRows[row_index]->getAction()->getFinalCost())){
+                    if(actionRows[row_index]->getAction()->getName() == "Normal attack"){
                         //player attack animation determine
                         if(player->getEquippedWeaponType() == "Melee"){
                             playerModel->setAnimation(ATTACK_ANIMATION, IDLE_ANIMATION);
@@ -632,7 +632,7 @@ void BattleState::playerBattle(unsigned int rowIndex) {
                             enemiesModels[selectedId]->setAnimation(GETHIT_ANIMATION, IDLE_ANIMATION);
 
                             stringstream ss;
-                            ss << "You used " << actionRows[rowIndex]->getAction()->getName() << " on '"
+                            ss << "You used " << actionRows[row_index]->getAction()->getName() << " on '"
                                << enemiesModels[selectedId]->getName() << "Lv." << enemiesModels[selectedId]->getLevel();
                             popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG,
                                                                    ss.str(), "", "");
@@ -642,10 +642,10 @@ void BattleState::playerBattle(unsigned int rowIndex) {
                                     enemiesModels[selectedId]->getPosition().y - 100.f,
                                     "MISS", "", "");
                         }
-                    }else if(actionRows[rowIndex]->getAction()->getAoe() == 1){
-                        actionRows[rowIndex]->startCd();
+                    }else if(actionRows[row_index]->getAction()->getAoe() == 1){
+                        actionRows[row_index]->startCd();
                         int dmg_dealt = enemiesModels[selectedId]->getHit(
-                                actionRows[rowIndex]->getActionFinalDamage(),true);
+                                actionRows[row_index]->getActionFinalDamage(), true);
                         playerModel->setAnimation(CAST_ANIMATION, IDLE_ANIMATION);
                         enemiesModels[selectedId]->setAnimation(GETHIT_ANIMATION, IDLE_ANIMATION);
                         popUpTextComponent->addPopUpText(NEGATIVE_TAG,
@@ -656,10 +656,10 @@ void BattleState::playerBattle(unsigned int rowIndex) {
                         popUpTextComponent->addPopUpText(MANA_RESTORE_TAG,
                                                          playerModel->getPosition().x,
                                                          playerModel->getPosition().y - 100.f,
-                                                         actionRows[rowIndex]->getAction()->getFinalCost(), "-", "");
+                                                         actionRows[row_index]->getAction()->getFinalCost(), "-", "");
 
                         stringstream ss;
-                        ss << "You used " << actionRows[rowIndex]->getAction()->getName() << " on '"
+                        ss << "You used " << actionRows[row_index]->getAction()->getName() << " on '"
                            << enemiesModels[selectedId]->getName() << "Lv." << enemiesModels[selectedId]->getLevel();
                         popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG,
                                                                ss.str(), "", "");
@@ -672,8 +672,9 @@ void BattleState::playerBattle(unsigned int rowIndex) {
                                                            selectedId), enemiesMoveOrder.end());
                         enemyCount--;
                         selectedId = 10;
-                        if(enemyCount == 0)
-                            battleEnd = true;
+                        if(enemyCount == 0){
+                            battleResult = WIN;
+                        }
                     }
                     endPlayerTurn();
 
@@ -797,16 +798,11 @@ void BattleState::enemyBattle(const float &dt) {
         turnLengthKeyTime = 0.f;
         enemiesMoves--;
         enemyMoveDone = false;
+        if(player->isDead()){
+            battleResult = LOST;
+        }
         if (enemiesMoves == 0) {
-            if(player->isDead())
-                battleEnd = true;
-            playerStatusPanel.setShapeOutlineThickness(5.f);
-            player->setDefense(false);
-            whoseTurn = true;
-            turnCount++;
-            for(auto &i : actionRows){
-                i->updateCd();
-            }
+            endEnemyTurn();
         }
     }
     turnPanelTitle.setPosition(turnPanel.getPosition().x + turnPanel.getGlobalBounds().width / 2.f -
@@ -820,8 +816,37 @@ void BattleState::enemyBattle(const float &dt) {
                                    turnPanelLbl.getPosition().y + turnPanelLbl.getGlobalBounds().height + 15.f);
 }
 
+void BattleState::endEnemyTurn() {
+    playerStatusPanel.setShapeOutlineThickness(5.f);
+    player->setDefense(false);
+    whoseTurn = true;
+    turnCount++;
+    for(auto &i : actionRows){
+        i->updateCd();
+    }
+    buffComponent->updatePlayerBuffList();
+}
+
 void BattleState::endBattle() {
-    endState();
+    switch(battleResult){
+        case WIN:
+            popUpTextComponent->addPopUpTextCenter(GOLD_TAG,
+                    "You've won the battle!", "", "");
+            endState();
+            break;
+        case LOST:
+            popUpTextComponent->addPopUpTextCenter(GOLD_TAG,
+                    "You've lost the battle!", "", "");
+            endState();
+            break;
+        case ESCAPED:
+            popUpTextComponent->addPopUpTextCenter(GOLD_TAG,
+                    "You abandoned the battle", "", "");
+            endState();
+            break;
+        case NOT_FINISHED:
+            break;
+    }
 }
 
 void BattleState::updateTurnPanel() {
@@ -934,7 +959,7 @@ void BattleState::update(const float &dt) {
             playerStatusPanel.setShapeOutlineThickness(0.f);
         }
     } else {
-        if(battleEnd)
+        if(battleResult != NOT_FINISHED)
             endBattle();
         else if (!whoseTurn)
             enemyBattle(dt);
@@ -955,6 +980,7 @@ void BattleState::update(const float &dt) {
 
     updateEnemyStatsLbl(enemiesModels[selectedId]);
     updateTurnPanel();
+    buffComponent->update(dt, mousePosView);
     popUpTextComponent->update(dt);
     switch (currentPanel) {
         case DEFAULT_PANEL:
@@ -1014,7 +1040,7 @@ void BattleState::update(const float &dt) {
                     if (utils::trueFalse(escapeChance * 10.f, false)) {
                         enemyLeader->setHp(enemiesModels[0]->getHp());
                         enemyLeader->setMp(enemiesModels[0]->getMp());
-                        endState();
+                        battleResult = ESCAPED;
                     } else {
                         popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG, "", "You failed to escape!", "");
                         endPlayerTurn();
@@ -1094,9 +1120,10 @@ void BattleState::render(sf::RenderTarget *target) {
         if(!enemiesModels[i]->isDead())
             enemiesStatusPanel[i].render(*target);
     }
+    buffComponent->render(*target);
     popUpTextComponent->render(*target);
 
-   /* //tool per il debug : mostre le coordinate del mouse
+    //tool per il debug : mostre le coordinate del mouse
     sf::Text mouseText;
     mouseText.setPosition(this->mousePosView.x, this->mousePosView.y - 15);
     mouseText.setFont(*font);
@@ -1104,8 +1131,9 @@ void BattleState::render(sf::RenderTarget *target) {
     std::stringstream ss;
     ss << this->mousePosView.x << " " << this->mousePosView.y;
     mouseText.setString(ss.str());
-    target->draw(mouseText);*/
+    target->draw(mouseText);
 }
+
 
 
 

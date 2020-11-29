@@ -24,7 +24,7 @@ bool ResourcesHandler::checkIfKeyExist(const std::string& key) {
     return false;
 }
 
-bool ResourcesHandler::addResouce(std::string path, const std::string& key, std::string state_name) {
+bool ResourcesHandler::addResource(std::string path, const std::string& key, std::string state_name) {
     for(const auto& i : resources){
         if(i->getKey() == key){
             return false;
@@ -34,7 +34,7 @@ bool ResourcesHandler::addResouce(std::string path, const std::string& key, std:
     return true;
 }
 
-std::shared_ptr<Resource> ResourcesHandler::getResouceByKey(const std::string& key) {
+std::shared_ptr<Resource> ResourcesHandler::getResourceByKey(const std::string& key) {
     for(auto i : resources){
         if(i->getKey() == key)
             return i;
@@ -154,7 +154,7 @@ bool ResourcesHandler::loadPlayerInventoryTxt(const std::shared_ptr<Inventory>& 
 
             item.setIsNew(true);
             item.updateUsageType();
-            playerInventory->addItem(item);
+            playerInventory->addItem(&item);
             count --;
         }
 

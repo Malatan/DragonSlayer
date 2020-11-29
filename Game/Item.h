@@ -62,10 +62,11 @@ public:
             int iconRectX, int iconRectY, int hp, int mp, int damage, int armor, float critchance,
             float evadechance, int quantity, bool isNew);
     Item();
-    Item(Item* item);
+    explicit Item(Item* item);
     virtual ~Item();
 
-    //MANAGE ITEM
+    //functions
+    std::string sortKeyWord();
     void updateRarityString();
     void updateRarityEnum();
     bool use();

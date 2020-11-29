@@ -22,12 +22,20 @@
 #include "../Components/BuffComponent.h"
 
 class CharacterTab;
+class BuffComponent;
 
 enum panel_types{
     ACTION_PANEL,
     INVENTORY_PANEL,
     ESCAPE_PANEL,
     DEFAULT_PANEL
+};
+
+enum battle_result{
+    WIN,
+    LOST,
+    ESCAPED,
+    NOT_FINISHED
 };
 
 class BattleState : public State{
@@ -41,6 +49,7 @@ class BattleState : public State{
     std::shared_ptr<SpellComponent> spellComponent;
     std::shared_ptr<CharacterTab> cTab;
 
+    battle_result battleResult;
     std::vector<unsigned int> enemiesMoveOrder;
     int floor;
     panel_types currentPanel;
@@ -50,7 +59,6 @@ class BattleState : public State{
     float playerBlockPercentage;
 
     unsigned int turnCount;
-    bool battleEnd;
     bool whoseTurn; // true = player , false = enemies
     bool enemyMoveDone;
     unsigned int enemiesMoves;
@@ -127,10 +135,11 @@ public:
     void spawnEnemy(sf::Vector2f pos, enemy_types type, bool generateStats);
     void generateModels();
 
-    void playerBattle(unsigned int rowIndex);
+    void playerBattle(unsigned int row_index);
     void useItem(unsigned int row_index);
     void endPlayerTurn();
     void enemyBattle(const float& dt);
+    void endEnemyTurn();
     void endBattle();
     void updateTurnPanel();
     void updatePageLbl(panel_types type);

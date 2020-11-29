@@ -1,4 +1,4 @@
-19
+26
 E-head Helm ' a normal helmet ' 50 Rare 30 0 0 20 0 0 11 13
 C-potionS HealthPotion(S) ' Restore 100 hp ' 50 Common 18 0 3
 W-sword Sword ' a normal sword ' 100 Epic 0 20 30 0 3 0 4 5
@@ -18,3 +18,10 @@ C-potionL ManaPotion(L) ' Restore 400 mp ' 200 Common 12 10 3
 C-potionS DefensePotion(S) ' Increases armor by 100 for 3 turns ' 100 Rare 3 2 3
 C-potionS CriticalHitChancePotion(S) ' Increases critical hit chance by 10% for 3 turns ' 100 Rare 4 1 3
 C-potionS EvadeChancePotion(S) ' Increases evade chance by 10% for 3 turns ' 100 Rare 5 6 3
+E-shield Shied25 ' Dodge 78% damage when raised ' 503 Legendary 0 0 0 78 0 0 9 12
+E-chest Chest1 ' a common chest armor ' 54 Common 100 50 0 50 0 0 2 13
+E-legs Legs2 ' a pair of low quality boots ' 15 Uncommon 20 15 0 10 0 0 0 14
+C-potionS EvadeChancePotion(M) ' Increases evade chance by 15% for 3 turns ' 500 Rare 5 13 3
+C-potionS EvadeChancePotion(L) ' Increases evade chance by 25% for 3 turns ' 1000 Rare 5 6 2
+C-potionS DamagePotion(M) ' Increases damage by 300 for 3 turns ' 500 Rare 2 8 3
+C-potionS DefensePotion(L) ' Increases armor by 600 for 3 turns ' 1000 Rare 3 2 2

@@ -12,9 +12,9 @@ void MainMenuState::initVariables() {
                     static_cast<float>(window->getSize().x),
                     static_cast<float>(window->getSize().y)));
 
-    rsHandler->addResouce("../Resources/Images/Backgrounds/mainMenuBG.png", "mainmenu background", "MainMenuState");
+    rsHandler->addResource("../Resources/Images/Backgrounds/mainMenuBG.png", "mainmenu background", "MainMenuState");
 
-    backgroundTexture.loadFromImage(rsHandler->getResouceByKey("mainmenu background")->getImage());
+    backgroundTexture.loadFromImage(rsHandler->getResourceByKey("mainmenu background")->getImage());
 
     background.setTexture(&backgroundTexture);
 }

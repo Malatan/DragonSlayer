@@ -48,7 +48,7 @@ public:
     //functions
     void spawnEnemy(float x, float y, enemy_types type);
     void addItem(Item* item);
-    void changeStato(int stato);
+    void changeStato(int current_stato);
     void updateTabsGoldLbl();
     void updateTabsInvSpaceLbl();
     void updateTabsPlayerStatsLbl();
