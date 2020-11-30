@@ -1,1 +1,1 @@
--ID:/DragonSlayer/Resources -ID:/DragonSlayer/unit_testing/../Resources -isystem D:/DragonSlayer/unit_testing/lib/googletest-master/googletest/include -isystem D:/DragonSlayer/unit_testing/lib/googletest-master/googletest 
+-IC:/PROGETTO/MAIN/DragonSlayer/Resources -IC:/PROGETTO/MAIN/DragonSlayer/unit_testing/../Resources -isystem C:/PROGETTO/MAIN/DragonSlayer/unit_testing/lib/googletest-master/googletest/include -isystem C:/PROGETTO/MAIN/DragonSlayer/unit_testing/lib/googletest-master/googletest 

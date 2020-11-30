@@ -2,79 +2,73 @@
 
 const float Tile::TILE_SIZE = 120.0f;
 
-Tile::Tile(float cx, float cy, int type, bool traversable) {
+
+Tile::Tile(float cx, float cy, bool traversable) {
     this->cx = cx;
     this->cy = cy;
-    this->type = type;
+    this->up = false;
+    this->down = false;
+    this->right = false;
+    this->left = false;
+    this->type = VOID;
     this->traversable = traversable;
 
     this->shape = sf::RectangleShape(sf::Vector2f(Tile::TILE_SIZE, Tile::TILE_SIZE));
     this->shape.setPosition(sf::Vector2f((cx - (Tile::TILE_SIZE / 2)), (cy - (Tile::TILE_SIZE / 2))));
-    this->shape.setFillColor((type == 0)?(sf::Color::White):(sf::Color::Blue));
-    this->shape.setOutlineColor(sf::Color::Red);
-    this->shape.setOutlineThickness(-1.f);
+
+   // this->shape.setOutlineColor(sf::Color::Red);
+   // this->shape.setOutlineThickness(-1.f);
 }
 
 Tile::~Tile() {
 
 }
 
-char Tile::GetType() {
+types Tile::GetType() {
     return this->type;
 }
 
-void Tile::SetType(int type) {
-    this->type = type;
-    if(type == 0) {
-        this->traversable = true;
-        this->shape.setFillColor(sf::Color::White);
-    } else {
-        this->traversable = false;
-        this->shape.setFillColor(sf::Color::Blue);
-    }
-}
-
-
 void Tile::SetType(char type){
-    this->type = type;
     switch (type) {
         case ' ': {
-            this->traversable = true;
-            this->shape.setFillColor(sf::Color::White);
+            this->type = FLOOR;
+            traversable = true;
+            shape.setFillColor(sf::Color::White);
             break;
         }
         case '.':{
+            this->type = VOID;
             this->traversable = false;
             this->shape.setFillColor(sf::Color::Black);
             break;
         }
         case '#':{
+            this->type = WALL;
             this->traversable = false;
-            this->shape.setFillColor(sf::Color::Blue);
             break;
         }
         case '+':{
+            this->type = CLOSEDOOR;
             this->traversable = false;
-            this->shape.setFillColor(sf::Color::Green);
             break;
         }
         case '-':{
+            this->type = OPENDOOR;
             this->traversable = true;
             break;
         }
         case '<':{
+            this->type = DOWNSTAIRS;
             this->traversable = false;
-            this->shape.setFillColor(sf::Color::Yellow);
             break;
         }
         case '>':{
+            this->type = UPSTAIRS;
             this->traversable = false;
-            this->shape.setFillColor(sf::Color::Red);
             break;
         }
         case ',':{
             this->traversable = true;
-            this->shape.setFillColor(sf::Color::White);
             break;
         }
     }
@@ -92,12 +86,49 @@ const bool Tile::intersects(const sf::FloatRect bounds) const{
     return this->shape.getGlobalBounds().intersects(bounds);
 }
 
-const bool Tile::intersects(const sf::CircleShape bounds) const {
-   // return this->shape.getGlobalBounds().intersects(bounds);
-}
-
 void Tile::render(sf::RenderTarget *target) {
     target->draw(this->shape);
+}
+
+void Tile::changeType(types type) {
+    this->type = type;
+}
+
+void Tile::setTileTexture(const sf::Texture *texture, sf::IntRect intRect) {
+    this->shape.setTexture(texture);
+    this->shape.setTextureRect(intRect);
+}
+
+bool Tile::isUp() const {
+    return up;
+}
+
+void Tile::setUp(bool up) {
+    Tile::up = up;
+}
+
+bool Tile::isDown() const {
+    return down;
+}
+
+void Tile::setDown(bool down) {
+    Tile::down = down;
+}
+
+bool Tile::isRight() const {
+    return right;
+}
+
+void Tile::setRight(bool right) {
+    Tile::right = right;
+}
+
+bool Tile::isLeft() const {
+    return left;
+}
+
+void Tile::setLeft(bool left) {
+    Tile::left = left;
 }
 
 
