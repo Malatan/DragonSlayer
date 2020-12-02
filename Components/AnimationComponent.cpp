@@ -8,13 +8,7 @@ AnimationComponent::AnimationComponent(sf::Sprite &sprite, sf::Texture &texture_
         : sprite(sprite), textureSheet(texture_sheet){
 }
 
-AnimationComponent::~AnimationComponent() {
-
-}
-//accessor
-const bool &AnimationComponent::isDone(const std::string& key){
-    return animations[key]->isDone();
-}
+AnimationComponent::~AnimationComponent() = default;
 
 //functions
 void AnimationComponent::addAnimation(const std::string& key,float animation_timer,

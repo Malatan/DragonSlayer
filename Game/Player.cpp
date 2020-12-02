@@ -49,7 +49,7 @@ Player::Player(float x, float y, float scale_x, float scale_y, sf::Texture& text
     createCollisionBoxComponent(sprite, 48.f, 72.f, 9.f);
     initAnimations();
 
-    setPosition(x, y);
+    Player::setPosition(x, y);
 
     currentInventorySpace = 30;
     playerStats = std::make_shared<Stats>();
@@ -70,13 +70,9 @@ bool Player::hasShield() {
         return false;
 }
 
-Player::Player() {
+Player::Player() = default;
 
-}
-
-Player::~Player() {
-
-}
+Player::~Player() = default;
 
 //functions
 void Player::updateAnimation(const float &dt) {
@@ -128,12 +124,7 @@ void Player::updateAnimation(const float &dt) {
                                        movementComponent->getVelocity().x,
                                        movementComponent->getMaxVelocity());
 
-    } else if(movementComponent->getState(MOVING_UP)){
-        animationComponent->play("WALK", dt,
-                                       movementComponent->getVelocity().y,
-                                       movementComponent->getMaxVelocity());
-
-    } else if(movementComponent->getState(MOVING_DOWN)){
+    } else if(movementComponent->getState(MOVING_UP) || movementComponent->getState(MOVING_DOWN)){
         animationComponent->play("WALK", dt,
                                        movementComponent->getVelocity().y,
                                        movementComponent->getMaxVelocity());
@@ -164,33 +155,35 @@ std::shared_ptr<Inventory> Player::getInventory() {
     return inventory;
 }
 
-unsigned Player::getGold() {
+unsigned Player::getGold() const {
     return gold;
 }
 
-void Player::setGold(unsigned gold) {
-    this->gold = gold;
+void Player::setGold(unsigned new_gold) {
+    this->gold = new_gold;
 }
 
-void Player::setEquipItem(std::shared_ptr<Item> item, int equip_slot) {
+void Player::setEquipItem(const std::shared_ptr<Item>& equip_item, int equip_slot) {
     switch(equip_slot){
         case 5:  // weapon
-            weapon = item;
+            weapon = equip_item;
             break;
         case 4: // shield
-            shield = item;
+            shield = equip_item;
             break;
         case 3: // helmet
-            head = item;
+            head = equip_item;
             break;
         case 2: // chest
-            chest = item;
+            chest = equip_item;
             break;
         case 1: // arms
-            arms = item;
+            arms = equip_item;
             break;
         case 0: // legs
-            legs = item;
+            legs = equip_item;
+            break;
+        default:
             break;
     }
 }
@@ -270,6 +263,8 @@ void Player::unequipItem(int equip_slot) {
                 legs = nullptr;
             }
             break;
+        default:
+            break;
     }
 }
 
@@ -344,28 +339,20 @@ void Player::setBonusStats(int hp, int mp, int dmg, int armor, float cc, float e
     playerStats->checkMpLimit();
 }
 
-void Player::addGold(unsigned gold) {
-    this->gold += gold;
+void Player::addGold(unsigned add_amount) {
+    gold += add_amount;
 }
 
-void Player::minusGold(unsigned gold) {
-    if(gold > this->gold){
-        this->gold = 0;
+void Player::minusGold(unsigned minus_amount) {
+    if(minus_amount > gold){
+        gold = 0;
     }else{
-        this->gold -= gold;
+        gold -= minus_amount;
     }
-}
-
-void Player::setAnimation(entity_animation animation) {
-    animationEnum = animation;
 }
 
 void Player::setAnimation(entity_animation animation, entity_animation next_animation) {
     animationEnum = animation;
-    nextAnimationEnum = next_animation;
-}
-
-void Player::setNextAnimation(entity_animation next_animation) {
     nextAnimationEnum = next_animation;
 }
 
@@ -387,4 +374,11 @@ bool Player::isDefense() const {
 
 bool Player::isDead() {
     return playerStats->getHp() == 0;
+}
+
+void Player::setPosition(float x, float y) {
+    if(hitboxComponent)
+        hitboxComponent->setPosition(x, y);
+    else
+        sprite.setPosition(x, y);
 }

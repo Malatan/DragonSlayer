@@ -5,6 +5,21 @@
 #include "Stats.h"
 
 Stats::Stats(){
+    level = 1;
+    exp = 0;
+    maxExp = 0;
+    hp = 0;
+    maxHp = 0;
+    mp = 0;
+    maxMp = 0;
+    damage = 0;
+    armor = 0;
+    critChance = 0.f;
+    evadeChance = 0.f;
+    agility = 0;
+    wisdom = 0;
+    strength = 0;
+    freePoints = 0;
     maxHpBonus = 0;
     maxMpBonus = 0;
     damageBonus = 0;
@@ -14,9 +29,7 @@ Stats::Stats(){
     spellDmgMultiplier = 1.f;
 }
 
-Stats::~Stats(){
-
-}
+Stats::~Stats()= default;
 
 bool Stats::addExp(int earned) {
     bool leveledUp = false;
@@ -33,29 +46,33 @@ bool Stats::addExp(int earned) {
     }
 
     return leveledUp;
-//    Stats::exportStats();
 }
 
-void Stats::addAttribute(int type) {
-    if(type == 0){ //strength
-        strength++;
+void Stats::addAttribute(attribute type, int quantity) {
+    switch(type){
+        case AGILITY:
+            agility += quantity;
 
-        maxHp = maxHp +25;
-        hp = maxHp;
-        armor = armor +2;
-        freePoints --;
-    }else if(type == 1){ //wisdom
-        wisdom ++;
+            critChance = critChance + (0.4f * (float)quantity);
+            evadeChance = evadeChance + (0.3f * (float)quantity);
+            freePoints --;
+            break;
+        case WISDOM:
+            wisdom += quantity;
 
-        maxMp = Stats::maxMp +25;
-        mp = Stats::maxMp;
-        freePoints --;
-    }else if(type ==2){ //agility
-        agility ++;
+            maxMp = maxMp + (15 * quantity);
+            mp = maxMp;
+            freePoints --;
+            break;
+        case STRENGTH:
+            strength += quantity;
 
-        critChance = critChance +5;
-        evadeChance = evadeChance +3;
-        freePoints --;
+            maxHp = maxHp + (15 * quantity);
+            hp = maxHp;
+            armor = armor + (2 * quantity);
+            damage = damage + (2 * quantity);
+            freePoints --;
+            break;
     }
     updateMultipliers();
 }
@@ -63,211 +80,184 @@ void Stats::addAttribute(int type) {
 void Stats::levelUp(int choise, int newExp) {
     level ++;
     exp = newExp;
-    maxExp = Stats::maxExp +25;          //EXP MAX PER LIVELLARE AUMENTATA
+    maxExp = Stats::maxExp + 25;          //EXP MAX PER LIVELLARE AUMENTATA
 
-    maxHp = Stats::maxHp +25;
+    maxHp = Stats::maxHp + 25;
     hp = maxHp + maxHpBonus;               //HP RIGENERATI
-    maxMp = Stats::maxMp +25;
+    maxMp = Stats::maxMp + 25;
     mp = maxMp + maxMpBonus;               //MP RIGENERATI
     armor = armor + 4;
-    damage = damage +4;
+    damage = damage + 4;
 
     freePoints += 3;
-    switch (choise) {           //SCELTA TRA AGILITY WISDOM E STRENGTH
-        case 1:     //STRENGTH
-            strength++;
-            maxHp = maxHp + 25;
-            hp = maxHp;
-            armor = armor + 2;
-            break;
-        case 2:     //AGILITY
-            agility ++;
-            critChance = critChance + 0.5f;
-            evadeChance = evadeChance + 0.5f;
-            break;
-        case 3:     //WISDOM
-            wisdom ++;
-            maxMp = maxMp + 25;
-            mp = maxMp;
-            break;
-        default:
-            break;
-    }
 }
 
 int Stats::getLevel() {
     return level;
 }
 
-void Stats::setLevel(int level) {
-    Stats::level = level;
+void Stats::setLevel(int new_level) {
+    level = new_level;
 }
 
 int Stats::getExp() {
     return exp;
 }
 
-void Stats::setExp(int exp) {
-    Stats::exp = exp;
+void Stats::setExp(int new_exp) {
+    exp = new_exp;
 }
 
 int Stats::getMaxExp() {
     return maxExp;
 }
 
-void Stats::setMaxExp(int maxExp) {
-    Stats::maxExp = maxExp;
+void Stats::setMaxExp(int new_maxExp) {
+    maxExp = new_maxExp;
 }
 
 int Stats::getHp() {
     return hp;
 }
 
-void Stats::setHp(int hp) {
-    Stats::hp = hp;
+void Stats::setHp(int new_hp) {
+    hp = new_hp;
 }
 
 int Stats::getMaxHp() {
     return maxHp;
 }
 
-void Stats::setMaxHp(int maxHp) {
-    Stats::maxHp = maxHp;
+void Stats::setMaxHp(int new_maxHp) {
+    maxHp = new_maxHp;
 }
 
 int Stats::getMp() {
     return mp;
 }
 
-void Stats::setMp(int mp) {
-    Stats::mp = mp;
+void Stats::setMp(int new_mp) {
+    mp = new_mp;
 }
 
 int Stats::getMaxMp() {
     return maxMp;
 }
 
-void Stats::setMaxMp(int maxMp) {
-    Stats::maxMp = maxMp;
+void Stats::setMaxMp(int new_maxMp) {
+    maxMp = new_maxMp;
 }
 
 int Stats::getArmor() {
     return armor;
 }
 
-void Stats::setArmor(int armor) {
-    Stats::armor = armor;
+void Stats::setArmor(int new_armor) {
+    armor = new_armor;
 }
 
 int Stats::getDamage() {
     return damage;
 }
 
-void Stats::setDamage(int damage) {
-    Stats::damage = damage;
+void Stats::setDamage(int new_damage) {
+    damage = new_damage;
 }
 
 float Stats::getCritChance() {
     return critChance;
 }
 
-void Stats::setCritChance(float critChance) {
-    Stats::critChance = critChance;
+void Stats::setCritChance(float new_critChance) {
+    critChance = new_critChance;
 }
 
 float Stats::getEvadeChance() {
     return evadeChance;
 }
 
-void Stats::setEvadeChance(float evadeChance) {
-    Stats::evadeChance = evadeChance;
+void Stats::setEvadeChance(float new_evadeChance) {
+    evadeChance = new_evadeChance;
 }
 
 int Stats::getAgility() {
     return agility;
 }
 
-void Stats::setAgility(int agility) {
-    this->agility = agility;
-    critChance = critChance + (0.5f * agility);
-    evadeChance = evadeChance + (0.5f * agility);
+void Stats::setAgility(int new_agility) {
+    agility = new_agility;
 }
 
 int Stats::getWisdom() {
     return wisdom;
 }
 
-void Stats::setWisdom(int wisdom) {
-    Stats::wisdom = wisdom;
-    maxMp = maxMp + (25 * wisdom);
-    mp = maxMp;
+void Stats::setWisdom(int new_wisdom) {
+    wisdom = new_wisdom;
 }
 
 int Stats::getStrength(){
     return strength;
 }
 
-void Stats::setStrength(int strength) {
-    this->strength = strength;
-    maxHp = maxHp + (25 * strength);
-    hp = maxHp;
-    armor = armor + (2 * strength);
+void Stats::setStrength(int new_strength) {
+    strength = new_strength;
 }
 
 int Stats::getFreePoints() {
     return freePoints;
 }
 
-void Stats::setFreePoints(int freePoints) {
-    this->freePoints = freePoints;
+void Stats::setFreePoints(int new_freePoints) {
+    freePoints = new_freePoints;
 }
 
 int Stats::getMaxHpBonus() const {
     return maxHpBonus;
 }
 
-void Stats::setMaxHpBonus(int maxHpBonus) {
-    Stats::maxHpBonus = maxHpBonus;
+void Stats::setMaxHpBonus(int new_maxHpBonus) {
+    maxHpBonus = new_maxHpBonus;
 }
 
 int Stats::getMaxMpBonus() const {
     return maxMpBonus;
 }
 
-void Stats::setMaxMpBonus(int maxMpBonus) {
-    Stats::maxMpBonus = maxMpBonus;
+void Stats::setMaxMpBonus(int new_maxMpBonus) {
+    maxMpBonus = new_maxMpBonus;
 }
 
 int Stats::getDamageBonus() const {
     return damageBonus;
 }
 
-void Stats::setDamageBonus(int damageBonus) {
-    Stats::damageBonus = damageBonus;
+void Stats::setDamageBonus(int new_damageBonus) {
+    damageBonus = new_damageBonus;
 }
 
 int Stats::getArmorBonus() const {
     return armorBonus;
 }
 
-void Stats::setArmorBonus(int armorBonus) {
-    Stats::armorBonus = armorBonus;
+void Stats::setArmorBonus(int new_armorBonus) {
+    armorBonus = new_armorBonus;
 }
 
 float Stats::getCritChanceBonus() const {
     return critChanceBonus;
 }
 
-void Stats::setCritChanceBonus(float critChanceBonus) {
-    Stats::critChanceBonus = critChanceBonus;
+void Stats::setCritChanceBonus(float new_critChanceBonus) {
+    critChanceBonus = new_critChanceBonus;
 }
 
 float Stats::getEvadeChanceBonus() const {
     return evadeChanceBonus;
 }
 
-void Stats::setEvadeChanceBonus(float evadeChanceBonus) {
-    Stats::evadeChanceBonus = evadeChanceBonus;
+void Stats::setEvadeChanceBonus(float new_evadeChanceBonus) {
+    evadeChanceBonus = new_evadeChanceBonus;
 }
 
 int Stats::getFinalHp() {
@@ -329,7 +319,7 @@ int Stats::gainMp(int gain_amount) {
 }
 
 void Stats::updateSpellDmgMultiplier() {
-    spellDmgMultiplier = 1.f + wisdom/10.f;
+    spellDmgMultiplier = 1.f + (float)wisdom/10.f;
 }
 
 void Stats::updateMultipliers() {
@@ -352,12 +342,14 @@ std::string Stats::getFinalEvadeChanceFixed() {
     return ss.str();
 }
 
-int Stats::getHit(int hit_damage, float block_percentage) {
-    //reduce damage with armor
-    hit_damage -= getFinalArmor();
-    //reduce damage with block
-    hit_damage -= (float)(hit_damage/100.f) * block_percentage;
-
+int Stats::getHit(int hit_damage, float block_percentage, bool spell_damage) {
+    if(!spell_damage){
+        //reduce damage with armor
+        hit_damage -= getFinalArmor();
+        //reduce damage with block
+        if(block_percentage > 0.f)
+            hit_damage -= (int)(((float)hit_damage/100.f) * block_percentage);
+    }
     if(hit_damage < 0)
         hit_damage = 1;
     hp -= hit_damage;
@@ -373,5 +365,13 @@ bool Stats::consumeMana(int mana_consumed) {
     if(mp < 0)
         mp = 0;
     return true;
+}
+
+void Stats::refillHp() {
+    hp = getFinalHp();
+}
+
+void Stats::refillMp() {
+    mp = getFinalMp();
 }
 

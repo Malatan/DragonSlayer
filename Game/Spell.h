@@ -26,74 +26,68 @@ enum spell_base_effect{
 using namespace std;
 
 class Spell {
-
-private:
-    spell_type spellType;
-    string name;
-    string type;
-    string description;
-    int cost;
-    int cooldown;
-    int ready;      //CONT per il cooldown
-    int damage;
-    int aoe;        //NUMERO DI NEMICI COLPIBILI DALLA SPELL
-    bool learned;
-    int level;
-    int maxLevel;
-    int learnCost;
-
-    int intRectX;
-    int intRectY;
 public:
-
     //MANAGE SPELL
-    void refreshSpell();   //SCORRE IL CONT PER RIUSARE LA SPELL
-    bool isMaxed();
+    bool isMaxed() const;
     void levelUp();
 
     //TOSTRING
-    const std::string toString() const;
+    std::string toString() const;
 
     //GET & SET
-    int getReady();
-    void setReady(int ready);
     string getName();
-    void setName(string name);
+    void setName(string new_name);
     string getType();
-    void setType(string type);
+    void setType(spell_type new_spell_type);
     spell_type getTypeEnum();
     string getDescription();
-    void setDescription(string description);
-    int getLevel();
-    void setLevel(int level);
-    int getMaxLevel();
+    void setDescription(string new_description);
+    int getLevel() const;
+    void setLevel(int new_level);
     void setMaxLevel(int max_level);
-    int getLearnCost();
-    void setLearnCost(int learnCost);
-    int getCost();
-    void setCost(int cost);
-    int getCooldown();
-    void setCooldown(int cooldown);
-    int getDamage();
-    void setDamage(int damage);
-    int getAoe();
-    void setAoe(int aoe);
-    bool isLearned();
-    void setLearned(bool learned);
-    int getIntRectX();
-    void setIntRectX(int intRectX);
-    int getIntRectY();
-    void setIntRectY(int intRectY);
-    int getFinalDamage();
-    int getFinalCost();
+    int getLearnCost() const;
+    void setLearnCost(int new_learnCost);
+    int getCost() const;
+    void setCost(int new_cost);
+    int getCooldown() const;
+    void setCooldown(int new_cooldown);
+    int getDamage() const;
+    void setDamage(int new_damage);
+    int getAoe() const;
+    void setAoe(int new_aoe);
+    bool isLearned() const;
+    void setLearned(bool is_learned);
+    int getIntRectX() const;
+    void setIntRectX(int new_intRectX);
+    int getIntRectY() const;
+    void setIntRectY(int new_intRectY);
+    int getFinalDamage() const;
+    int getFinalCost() const;
 
     //CONSTRUCTOR & DESTRUCTOR
     Spell();
     Spell(spell_type spellType, string name, string type, string description, int cost,
-          int cooldown, int ready, int damage, int aoe, bool learned, int level, int maxLevel, int learnCost,
+          int cooldown, int damage, int aoe, bool learned, int level, int maxLevel, int learnCost,
           int intRectX, int intRectY);
-    Spell(Spell* spell);
+    explicit Spell(Spell* spell);
     virtual ~Spell();
+
+private:
+    spell_type spellType{};
+    string name;
+    string type;
+    string description;
+    int cost{};
+    int cooldown{};
+    int damage{};
+    int aoe{};        //NUMERO DI NEMICI COLPIBILI DALLA SPELL
+    bool learned{};
+    int level{};
+    int maxLevel{};
+    int learnCost{};
+
+    int intRectX{};
+    int intRectY{};
 };
 
 

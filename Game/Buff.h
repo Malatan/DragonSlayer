@@ -6,6 +6,9 @@
 #define DRAGONSLAYER_BUFF_H
 #include <iostream>
 #include <sstream>
+#include <memory>
+#include "Stats.h"
+
 using namespace std;
 
 class Buff {
@@ -14,17 +17,17 @@ private:
     string name;
     string description;
     string keyWord;
-    int addHp;
-    int addMp;
-    int addDamage;
-    int addArmor;
-    float addCritChance;
-    float addEvadeChance;
-    int turns;
-    bool instant;
-    bool debuff;
-    int intRectX;
-    int intRectY;
+    int addHp{};
+    int addMp{};
+    int addDamage{};
+    int addArmor{};
+    float addCritChance{};
+    float addEvadeChance{};
+    int turns{};
+    bool instant{};
+    bool debuff{};
+    int intRectX{};
+    int intRectY{};
 
 public:
     Buff();
@@ -38,7 +41,6 @@ public:
     void updateLifeTime();
 
     //accessors
-    void setTurns(int new_turns);
     int getTurns() const;
     bool isInstant() const;
     const string &getName() const;

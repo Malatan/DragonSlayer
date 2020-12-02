@@ -3,15 +3,17 @@
 //
 #ifndef DRAGONSLAYER_GENERATOR_H
 #define DRAGONSLAYER_GENERATOR_H
-#include "Enemy.h"
+
 #include "iostream"
 #include "fstream"
+#include "Item.h"
+#include "Utils.h"
 
 
 class Generator {
 
 public:
-    Item generateItem(int floor, Enemy enemy);
+    static Item generateItem(int floor, unsigned int enemy_level);
 
     Generator();
     virtual ~Generator();

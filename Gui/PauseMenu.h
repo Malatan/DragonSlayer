@@ -20,7 +20,7 @@ public:
     void render(sf::RenderTarget& target);
 
 private:
-    sf::Font* font;
+    sf::Font* font{};
     sf::Text menuText;
     sf::RectangleShape backgorund;
     sf::RectangleShape container;

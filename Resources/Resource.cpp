@@ -4,27 +4,26 @@
 
 #include "Resource.h"
 
-Resource::Resource(std::string resourcePath, std::string key,std::string stateName)  :
+Resource::Resource(const std::string& resourcePath, const std::string& key,const std::string& stateName)  :
         resourcePath(resourcePath), key(key), stateName(stateName){
 
     if(!image.loadFromFile(resourcePath)){
-        throw("Resource load error: " + stateName + "-" + key + " path:" + resourcePath);
+        std::cout<<"Resource load error: " << stateName << "-" << key << " path:" << resourcePath;
     }
 }
 
-Resource::~Resource() {
-}
+Resource::~Resource() = default;
 
 std::string Resource::getKey() {
     return key;
 }
 
-const sf::Image Resource::getImage() const{
+sf::Image Resource::getImage() const{
     return image;
 }
 
 std::string Resource::toString() {
-    std::string app = "";
+    std::string app;
     app += "State: " + stateName;
     app += " Key: " + key;
     app += " Path: " + resourcePath;

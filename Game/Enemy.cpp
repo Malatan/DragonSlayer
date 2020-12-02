@@ -130,29 +130,38 @@ void Enemy::initAnimations() {
 //constructors/destructors
 Enemy::Enemy(enemy_types type, float x, float y, float scale_x ,float scale_y, float hitbox_offset_x, float hitbox_offset_y,
              float hitbox_width, float hitbox_height, float clsBox_offset_x, float clsBox_offset_y, float clsBox_radius,
-             sf::Texture& texture_sheet, int floor) : type(type){
+             sf::Texture& texture_sheet, int floor, unsigned int id) : type(type), Id(id){
     scale.x = scale_x;
     scale.y = scale_y;
     sprite.setScale(scale);
     animationEnum = IDLE_ANIMATION;
     nextAnimationEnum = IDLE_ANIMATION;
     animationDone = false;
-    defense = false;
 
     createAnimationComponent(texture_sheet);
     createHitboxComponent(sprite, hitbox_offset_x, hitbox_offset_y, hitbox_width, hitbox_height);
     createCollisionBoxComponent(sprite, clsBox_offset_x, clsBox_offset_y, clsBox_radius);
     initAnimations();
 
-    setPosition(x, y);
-    if(floor > 0)
-        generateEnemyStats(floor);
+    Enemy::setPosition(x, y);
+    stats = std::make_shared<Stats>();
+    //floor 1 = 1-10, 2 = 11-20, 3 = 21-30, 4 = 31-40, 5 = 41-50
+    int level = utils::generateRandomNumber((floor-1)*10+1, floor*10, false);
+    stats->setLevel(level);
+    generateEnemyStats(level, floor);
     generateNameByType();
 }
 
-Enemy::~Enemy() {
-
+Enemy::Enemy(enemy_types type, int level, int floor, unsigned int id) : type(type), Id(id){
+    scale.x = 1.f;
+    scale.y = 1.f;
+    stats = std::make_shared<Stats>();
+    stats->setLevel(level);
+    generateNameByType();
+    generateEnemyStats(level, floor);
 }
+
+Enemy::~Enemy() = default;
 
 //functions
 void Enemy::generateNameByType() {
@@ -187,137 +196,122 @@ void Enemy::generateNameByType() {
     }
 }
 
-void Enemy::copyStats(std::shared_ptr<Enemy> enemy) {
-    level = enemy->getLevel();
-    agility = enemy->getAgility();
-    wisdom = enemy->getWisdom();
-    strength = enemy->getStrength();
-    maxHp = enemy->getMaxHp();
-    maxMp = enemy->getMaxMp();
-    armor = enemy->getArmor();
-    damage = enemy->getDamage();
-    critChance = enemy->getCritChance();  //%
-    evadeChance = enemy->getEvadeChance();  //%
-    mp = enemy->getMp();
-    hp = enemy->getHp();
-}
-
-void Enemy::generateEnemyStats(int floor) {
-    //floor 1 = 1-10, 2 = 11-20, 3 = 21-30, 4 = 31-40, 5 = 41-50
-    int level = utils::generateRandomNumber((floor-1)*10+1, floor*10, false);
-    float mod = (level/10.f) + floor;
+void Enemy::generateEnemyStats(int level, int floor) {
+    // genera un modificatore di mod tra -0.5f e 1.f
+    float modModifier = (float)utils::generateRandomNumber(-50, 100, false)/100.f;
+    float mod = ((float)level/10.f) + (float)floor + modModifier;
     switch(type){
         case WITCH:
-            this->level = level;
-            agility = 2 * mod;
-            wisdom = 4 * mod;
-            strength = 2 * mod;
-            maxHp = 100 * (mod + (strength/10.f));
-            maxMp = 200 * (mod + (wisdom/10.f));
-            armor = 15 * (mod + (strength/10.f));
-            damage = 25 * (mod + (wisdom/10.f));
-            critChance = 10.f + mod + (strength/10.f);  //%
-            evadeChance = 3.8f + mod + (agility/10.f);  //%
-            mp = maxMp;
-            hp = maxHp;
+            stats->setLevel(level);
+            stats->setAgility((int)(2 * mod));
+            stats->setWisdom((int)(4 * mod));
+            stats->setStrength((int)(2 * mod));
+            stats->setMaxHp(100 * (int)(mod + ((float)stats->getStrength()/10.f)));
+            stats->setMaxMp(200 * (int)(mod + ((float)stats->getWisdom()/10.f)));
+            stats->setArmor(15 * (int)(mod + ((float)stats->getStrength()/10.f)));
+            stats->setDamage(25 * (int)(mod + ((float)stats->getStrength()/10.f)));
+            stats->setCritChance(10.f + mod + ((float)stats->getAgility()/10.f));
+            stats->setEvadeChance(3.8f + mod + ((float)stats->getAgility()/10.f));
+            stats->refillHp();
+            stats->refillMp();
             break;
         case SKELETON:
-            this->level = level;
-            agility = 3 * mod;
-            wisdom = 2 * mod;
-            strength = 3 * mod;
-            maxHp = 130 * (mod + (strength/10.f));
-            maxMp = 100 * (mod + (wisdom/10.f));
-            armor = 15 * (mod + (strength/10.f));
-            damage = 20 * (mod + (wisdom/10.f));
-            critChance = 12.f + mod + (strength/10.f);  //%
-            evadeChance = 3.4f + mod + (agility/10.f);  //%
-            mp = maxMp;
-            hp = maxHp;
+            stats->setLevel(level);
+            stats->setAgility((int)(3 * mod));
+            stats->setWisdom((int)(2 * mod));
+            stats->setStrength((int)(3 * mod));
+            stats->setMaxHp(130 * (int)(mod + ((float)stats->getStrength()/10.f)));
+            stats->setMaxMp(200 * (int)(mod + ((float)stats->getWisdom()/10.f)));
+            stats->setArmor(15 * (int)(mod + ((float)stats->getStrength()/10.f)));
+            stats->setDamage(20 * (int)(mod + ((float)stats->getStrength()/10.f)));
+            stats->setCritChance(12.f + mod + ((float)stats->getAgility()/10.f));
+            stats->setEvadeChance(3.4f + mod + ((float)stats->getAgility()/10.f));
+            stats->refillHp();
+            stats->refillMp();
             break;
         case SKELETON_2:
-            this->level = level;
-            agility = 3 * mod;
-            wisdom = 2 * mod;
-            strength = 3 * mod;
-            maxHp = 150 * (mod + (strength/10.f));
-            maxMp = 100 * (mod + (wisdom/10.f));
-            armor = 20 * (mod + (strength/10.f));
-            damage = 28 * (mod + (wisdom/10.f));
-            critChance = 13.f + mod + (strength/10.f);  //%
-            evadeChance = 2.f + mod + (agility/10.f);  //%
-            mp = maxMp;
-            hp = maxHp;
+            stats->setLevel(level);
+            stats->setAgility((int)(3 * mod));
+            stats->setWisdom((int)(2 * mod));
+            stats->setStrength((int)(3 * mod));
+            stats->setMaxHp(150 * (int)(mod + ((float)stats->getStrength()/10.f)));
+            stats->setMaxMp(100 * (int)(mod + ((float)stats->getWisdom()/10.f)));
+            stats->setArmor(20 * (int)(mod + ((float)stats->getStrength()/10.f)));
+            stats->setDamage(28 * (int)(mod + ((float)stats->getStrength()/10.f)));
+            stats->setCritChance(13.f + mod + ((float)stats->getAgility()/10.f));
+            stats->setEvadeChance(2.f + mod + ((float)stats->getAgility()/10.f));
+            stats->refillHp();
+            stats->refillMp();
             break;
         case FLYING_EYE:
-            this->level = level;
-            agility = 4 * mod;
-            wisdom = 2 * mod;
-            strength = 2 * mod;
-            maxHp = 100 * (mod + (strength/10.f));
-            maxMp = 100 * (mod + (wisdom/10.f));
-            armor = 10 * (mod + (strength/10.f));
-            damage = 20 * (mod + (wisdom/10.f));
-            critChance = 10.f + mod + (strength/10.f);  //%
-            evadeChance = 5.8f + mod + (agility/10.f);  //%
-            mp = maxMp;
-            hp = maxHp;
+            stats->setLevel(level);
+            stats->setAgility((int)(4 * mod));
+            stats->setWisdom((int)(2 * mod));
+            stats->setStrength((int)(2 * mod));
+            stats->setMaxHp(100 * (int)(mod + ((float)stats->getStrength()/10.f)));
+            stats->setMaxMp(100 * (int)(mod + ((float)stats->getWisdom()/10.f)));
+            stats->setArmor(10 * (int)(mod + ((float)stats->getStrength()/10.f)));
+            stats->setDamage(20 * (int)(mod + ((float)stats->getStrength()/10.f)));
+            stats->setCritChance(10.f + mod + ((float)stats->getAgility()/10.f));
+            stats->setEvadeChance(5.8f + mod + ((float)stats->getAgility()/10.f));
+            stats->refillHp();
+            stats->refillMp();
             break;
         case GOBLIN:
-            this->level = level;
-            agility = 3 * mod;
-            wisdom = 2 * mod;
-            strength = 3 * mod;
-            maxHp = 140 * (mod + (strength/10.f));
-            maxMp = 100 * (mod + (wisdom/10.f));
-            armor = 18 * (mod + (strength/10.f));
-            damage = 22 * (mod + (wisdom/10.f));
-            critChance = 14.f + mod + (strength/10.f);  //%
-            evadeChance = 2.f + mod + (agility/10.f);  //%
-            mp = maxMp;
-            hp = maxHp;
+            stats->setLevel(level);
+            stats->setAgility((int)(3 * mod));
+            stats->setWisdom((int)(2 * mod));
+            stats->setStrength((int)(3 * mod));
+            stats->setMaxHp(140 * (int)(mod + ((float)stats->getStrength()/10.f)));
+            stats->setMaxMp(100 * (int)(mod + ((float)stats->getWisdom()/10.f)));
+            stats->setArmor(18 * (int)(mod + ((float)stats->getStrength()/10.f)));
+            stats->setDamage(22 * (int)(mod + ((float)stats->getStrength()/10.f)));
+            stats->setCritChance(14.f + mod + ((float)stats->getAgility()/10.f));
+            stats->setEvadeChance(2.f + mod + ((float)stats->getAgility()/10.f));
+            stats->refillHp();
+            stats->refillMp();
             break;
         case MUSHROOM:
-            this->level = level;
-            agility = 3 * mod;
-            wisdom = 3 * mod;
-            strength = 2 * mod;
-            maxHp = 130 * (mod + (strength/10.f));
-            maxMp = 120 * (mod + (wisdom/10.f));
-            armor = 12 * (mod + (strength/10.f));
-            damage = 20 * (mod + (wisdom/10.f));
-            critChance = 16.f + mod + (strength/10.f);  //%
-            evadeChance = 2.0f + mod + (agility/10.f);  //%
-            mp = maxMp;
-            hp = maxHp;
+            stats->setLevel(level);
+            stats->setAgility((int)(3 * mod));
+            stats->setWisdom((int)(3 * mod));
+            stats->setStrength((int)(2 * mod));
+            stats->setMaxHp(130 * (int)(mod + ((float)stats->getStrength()/10.f)));
+            stats->setMaxMp(120 * (int)(mod + ((float)stats->getWisdom()/10.f)));
+            stats->setArmor(12 * (int)(mod + ((float)stats->getStrength()/10.f)));
+            stats->setDamage(20 * (int)(mod + ((float)stats->getStrength()/10.f)));
+            stats->setCritChance(16.f + mod + ((float)stats->getAgility()/10.f));
+            stats->setEvadeChance(2.f + mod + ((float)stats->getAgility()/10.f));
+            stats->refillHp();
+            stats->refillMp();
             break;
         case BANDIT_HEAVY:
-            this->level = level;
-            agility = 4 * mod;
-            wisdom = 4 * mod;
-            strength = 4 * mod;
-            maxHp = 200 * (mod + (strength/10.f));
-            maxMp = 180 * (mod + (wisdom/10.f));
-            armor = 25 * (mod + (strength/10.f));
-            damage = 35 * (mod + (wisdom/10.f));
-            critChance = 19.f + mod + (strength/10.f);  //%
-            evadeChance = 3.8f + mod + (agility/10.f);  //%
-            mp = maxMp;
-            hp = maxHp;
+            stats->setLevel(level);
+            stats->setAgility((int)(4 * mod));
+            stats->setWisdom((int)(4 * mod));
+            stats->setStrength((int)(4 * mod));
+            stats->setMaxHp(200 * (int)(mod + ((float)stats->getStrength()/10.f)));
+            stats->setMaxMp(180 * (int)(mod + ((float)stats->getWisdom()/10.f)));
+            stats->setArmor(25 * (int)(mod + ((float)stats->getStrength()/10.f)));
+            stats->setDamage(35 * (int)(mod + ((float)stats->getStrength()/10.f)));
+            stats->setCritChance(18.f + mod + ((float)stats->getAgility()/10.f));
+            stats->setEvadeChance(3.8f + mod + ((float)stats->getAgility()/10.f));
+            stats->refillHp();
+            stats->refillMp();
             break;
         case BANDIT_LIGHT:
-            this->level = level;
-            agility = 3 * mod;
-            wisdom = 2 * mod;
-            strength = 3 * mod;
-            maxHp = 160 * (mod + (strength/10.f));
-            maxMp = 100 * (mod + (wisdom/10.f));
-            armor = 20 * (mod + (strength/10.f));
-            damage = 27 * (mod + (wisdom/10.f));
-            critChance = 16.f + mod + (strength/10.f);  //%
-            evadeChance = 3.8f + mod + (agility/10.f);  //%
-            mp = maxMp;
-            hp = maxHp;
+            stats->setLevel(level);
+            stats->setAgility((int)(3 * mod));
+            stats->setWisdom((int)(2 * mod));
+            stats->setStrength((int)(3 * mod));
+            stats->setMaxHp(160 * (int)(mod + ((float)stats->getStrength()/10.f)));
+            stats->setMaxMp(100 * (int)(mod + ((float)stats->getWisdom()/10.f)));
+            stats->setArmor(20 * (int)(mod + ((float)stats->getStrength()/10.f)));
+            stats->setDamage(27 * (int)(mod + ((float)stats->getStrength()/10.f)));
+            stats->setCritChance(15.f + mod + ((float)stats->getAgility()/10.f));
+            stats->setEvadeChance(3.8f + mod + ((float)stats->getAgility()/10.f));
+            stats->refillHp();
+            stats->refillMp();
             break;
         default:
             std::cout<<"No such enemy: " << type;
@@ -404,75 +398,32 @@ std::string Enemy::toString() {
             ss << "Enemy type: BANDIT_LIGHT" << std::endl;
             break;
     }
+    ss << "id: " << Id << std::endl;
     ss << "Name: " << name << std::endl;
-    ss << "Level: " << level << std::endl;
-    ss << "Hp/Max hp: " << hp << "/" << maxHp << std::endl;
-    ss << "Mp/Max mp: " << mp << "/" << maxMp << std::endl;
-    ss << "Damage: " << damage << std::endl;
-    ss << "Armor: " << armor << std::endl;
-    ss << "Crit chance: " << critChance << " %" << std::endl;
-    ss << "Evade chance: " << evadeChance << " %" << std::endl;
-    ss << "Agility: " << agility << std::endl;
-    ss << "Wisdom: " << wisdom << std::endl;
-    ss << "Strength: " << strength << std::endl;
-
+    ss << "Level: " << stats->getLevel() << std::endl;
+    ss << "Hp/Max hp: " << stats->getHp() << "/" << stats->getFinalHp() << std::endl;
+    ss << "Mp/Max mp: " << stats->getMp() << "/" << stats->getFinalMp() << std::endl;
+    ss << "Damage: " << stats->getFinalDamage() << std::endl;
+    ss << "Armor: " << stats->getFinalArmor() << std::endl;
+    ss << "Crit chance: " << stats->getFinalCritChance() << " %" << std::endl;
+    ss << "Evade chance: " << stats->getFinalEvadeChance() << " %" << std::endl;
+    ss << "Agility: " << stats->getAgility() << std::endl;
+    ss << "Wisdom: " << stats->getWisdom() << std::endl;
+    ss << "Strength: " << stats->getStrength() << std::endl;
+    ss << "Followers: " << followers.size() << std::endl;
+    if(!followers.empty()){
+        ss << "----------------Followers----------------" << std::endl;
+        for(const auto& i : followers){
+            ss << i->toString() << std::endl;
+        }
+        ss << "----------------END Followers END----------------" << std::endl;
+    }
+    ss << " -----------------END Enemy Info END----------------- " << std::endl;
     return ss.str();
-}
-
-int Enemy::getLevel() const{
-    return level;
-}
-
-int Enemy::getAgility() const {
-    return agility;
-}
-
-int Enemy::getWisdom() const {
-    return wisdom;
-}
-
-int Enemy::getStrength() const {
-    return strength;
-}
-
-int Enemy::getMaxHp() const {
-    return maxHp;
-}
-
-int Enemy::getMaxMp() const {
-    return maxMp;
-}
-
-int Enemy::getArmor() const {
-    return armor;
-}
-
-int Enemy::getDamage() const {
-    return damage;
-}
-
-float Enemy::getCritChance() const {
-    return critChance;
-}
-
-float Enemy::getEvadeChance() const {
-    return evadeChance;
-}
-
-int Enemy::getHp() const {
-    return hp;
-}
-
-int Enemy::getMp() const {
-    return mp;
 }
 
 std::string Enemy::getName() const {
     return name;
-}
-
-void Enemy::setAnimation(entity_animation animation) {
-    animationEnum = animation;
 }
 
 void Enemy::setAnimation(entity_animation animation, entity_animation next_animation) {
@@ -480,42 +431,48 @@ void Enemy::setAnimation(entity_animation animation, entity_animation next_anima
     nextAnimationEnum = next_animation;
 }
 
-
-void Enemy::setNextAnimation(entity_animation next_animation) {
-    nextAnimationEnum = next_animation;
+const vector<std::shared_ptr<Enemy>> &Enemy::getFollowers() const {
+    return followers;
 }
 
-int Enemy::getHit(int hit_damage, bool spell_damage) {
-    if(!spell_damage){
-        hit_damage -= armor;
-        if(hit_damage < 0)
-            hit_damage = 1;
+void Enemy::addFollower(const std::shared_ptr<Enemy>& new_follower) {
+    if(followers.size() < 4){
+        followers.push_back(new_follower);
     }
-    hp -= hit_damage;
-    if(hp < 0)
-        hp = 0;
-    return hit_damage;
 }
 
-void Enemy::setHp(int new_hp) {
-    hp = new_hp;
-}
-
-void Enemy::setMp(int new_mp) {
-    mp = new_mp;
+int Enemy::getFollowersNumber() {
+    return followers.size();
 }
 
 bool Enemy::isDead() const {
-    return hp == 0;
+    return stats->getHp() == 0;
 }
 
-void Enemy::setDefense(bool b) {
-    defense = b;
+const std::shared_ptr<Stats> &Enemy::getStats() const {
+    return stats;
 }
 
-bool Enemy::isDefense() const {
-    return defense;
+void Enemy::setStats(std::shared_ptr<Stats> new_stats) {
+    stats = std::move(new_stats);
 }
+
+void Enemy::setId(unsigned int new_id) {
+    Id = new_id;
+}
+
+unsigned int Enemy::getId() const {
+    return Id;
+}
+
+void Enemy::setPosition(float x, float y) {
+    if(hitboxComponent)
+        hitboxComponent->setPosition(x, y);
+    else
+        sprite.setPosition(x, y);
+}
+
+
 
 
 

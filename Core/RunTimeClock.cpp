@@ -14,9 +14,7 @@ RunTimeClock::RunTimeClock() {
 
 }
 
-RunTimeClock::~RunTimeClock() {
-
-}
+RunTimeClock::~RunTimeClock() = default;
 
 void RunTimeClock::addMilliseconds(int ms) {
     this->milliseconds += ms;

@@ -33,7 +33,7 @@ enum item_usage_type{
 class Item {
 
 protected:
-
+    unsigned int Id;
     item_usage_type usageType;      // 6-Consumable/5-Weapon/4-Shield/3-Head/2-Chest/1-Arms/0-Legs
     string itemType;    // ITEM/WEAPON/ARMATURE
     string name;
@@ -58,10 +58,10 @@ protected:
 public:
 
     //CONSTRUCTOR & DESTRUCTOR
+    Item();
     Item(string itemType, string name, string description, int value, item_rarity rarity,
             int iconRectX, int iconRectY, int hp, int mp, int damage, int armor, float critchance,
-            float evadechance, int quantity, bool isNew);
-    Item();
+            float evadechance, int quantity, bool isNew, unsigned int id);
     explicit Item(Item* item);
     virtual ~Item();
 
@@ -70,7 +70,7 @@ public:
     void updateRarityString();
     void updateRarityEnum();
     bool use();
-    bool isConsumable();
+    bool isConsumable() const;
     void updateUsageType();
 
     //TOSTRING
@@ -78,40 +78,42 @@ public:
     std::string getItemUsageTypeString();
 
     //GET & SET
+    void setId(unsigned int new_id);
+    unsigned int getId() const;
     int getUsageType();
-    int getQuantity();
-    void setQuantity(int quantity);
-    int getDamage();
-    void setDamage(int damage);
-    int getArmor();
-    void setArmor(int armor);
-    void setItemType(string itemType);
+    int getQuantity() const;
+    void setQuantity(int new_quantity);
+    int getDamage() const;
+    void setDamage(int new_damage);
+    int getArmor() const;
+    void setArmor(int new_armor);
+    void setItemType(string new_itemType);
     string getItemType() const;
-    void setName(string name);
+    void setName(string new_name);
     string getName() const;
-    void setDescription(string description);
+    void setDescription(string new_description);
     string getDescription();
-    void setValue(int value);
-    int getValue();
-    void setRarity(string rarity);
+    void setValue(int new_value);
+    int getValue() const;
+    void setRarity(string new_rarity);
     string getRarity() const;
     item_rarity getRarityEnum() const;
     void setIconRectX(int x);
-    int getIconRectX();
+    int getIconRectX() const;
     void setIconRectY(int y);
-    int getIconRectY();
+    int getIconRectY() const;
     void setIsNew(bool b);
-    bool getIsNew();
+    bool getIsNew() const;
     void setEquipped(bool b);
-    bool isEquipped();
+    bool isEquipped() const;
     int getHp() const;
-    void setHp(int hp);
+    void setHp(int new_hp);
     int getMp() const;
-    void setMp(int mp);
+    void setMp(int new_mp);
     float getCritChance() const;
-    void setCritChance(float critChance);
+    void setCritChance(float new_critChance);
     float getEvadeChance() const;
-    void setEvadeChance(float evadeChance);
+    void setEvadeChance(float new_evadeChance);
 };
 
 

@@ -20,6 +20,8 @@ void Npc::initAnimations() {
             animationComponent->addAnimation("IDLE", 10.f,
                                                    0, 0, 5, 0, 231 ,190);
             break;
+        case NO_NPC:
+            break;
     }
 }
 
@@ -36,12 +38,12 @@ void Npc::iniHitBoxComponents() {
         case WIZARD:
             createHitboxComponent(sprite, 55.f, 36.f, 42.f, 64.f);
             break;
+        case NO_NPC:
+            break;
     }
 }
 
-Npc::Npc() {
-
-}
+Npc::Npc() = default;
 
 Npc::Npc(npc_type type, float x, float y, float scale_x, float scale_y, sf::Texture &texture_sheet, sf::Texture& texture) {
     this->type = type;
@@ -51,14 +53,12 @@ Npc::Npc(npc_type type, float x, float y, float scale_x, float scale_y, sf::Text
     createAnimationComponent(texture_sheet);
     initAnimations();
     iniHitBoxComponents();
-    setPosition(x, y);
+    Npc::setPosition(x, y);
     overHeadContainer.setSize(sf::Vector2f(20.f, 20.f));
     overHeadContainer.setTexture(&texture);
 }
 
-Npc::~Npc() {
-
-}
+Npc::~Npc() = default;
 
 void Npc::updateAnimation(const float &dt) {
     animationComponent->play("IDLE", dt);
@@ -78,18 +78,24 @@ void Npc::render(sf::RenderTarget &target, const bool show_hitbox) {
         hitboxComponent->render(target);
 }
 
-void Npc::updateCollsion(const std::shared_ptr<Player>& player, npc_type* type) {
-    if(*type == NO_NPC || *type == this->type){
+void Npc::updateCollsion(const std::shared_ptr<Player>& player, npc_type* current_type) {
+    if(*current_type == NO_NPC || *current_type == this->type){
         if(player->getHitboxComponent()->intersects(hitboxComponent->getGlobalBounds())){
             overHeadContainer.setFillColor(sf::Color::White);
-            *type = this->type;
+            *current_type = this->type;
         } else{
             overHeadContainer.setFillColor(sf::Color(60,60,60,100));
-            *type = NO_NPC;
+            *current_type = NO_NPC;
         }
     }
 }
 
+void Npc::setPosition(float x, float y) {
+    if(hitboxComponent)
+        hitboxComponent->setPosition(x, y);
+    else
+        sprite.setPosition(x, y);
+}
 
 
 

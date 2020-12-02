@@ -4,7 +4,6 @@
 
 #include "BattleState.h"
 
-#include <utility>
 
 void BattleState::initResources() {
     rsHandler->addResource("../Resources/Images/Backgrounds/battleBG.png", "battleBG", "BattleState");
@@ -72,10 +71,10 @@ void BattleState::initEscapePanel() {
     stringstream ss;
     int highestAgility = 0;
     for (const auto &i : enemiesModels) {
-        if (i->getAgility() > highestAgility)
-            highestAgility = i->getAgility();
+        if (i->getStats()->getAgility() > highestAgility)
+            highestAgility = i->getStats()->getAgility();
     }
-    escapeChance = player->getPlayerStats()->getAgility() - highestAgility;
+    escapeChance = (float)(player->getPlayerStats()->getAgility() - highestAgility);
     if (escapeChance <= 0.f)
         escapeChance = 1.5f;
     if (escapeChance > 10.f)
@@ -130,18 +129,8 @@ void BattleState::initStatsPanel() {
     playerStatsValueLbl.setCharacterSize(20);
     playerStatsValueLbl.setPosition(playerStatsNameLbl.getPosition().x + 150.f,
                                     playerStatsNameLbl.getPosition().y);
-    stringstream ss;
-    ss << player->getPlayerStats()->getLevel() << "\n"
-       << player->getPlayerStats()->getFinalHp() << "\n"
-       << player->getPlayerStats()->getFinalMp() << "\n"
-       << player->getPlayerStats()->getFinalDamage() << "\n"
-       << player->getPlayerStats()->getFinalArmor() << "\n"
-       << player->getPlayerStats()->getFinalCritChance() << "%\n"
-       << player->getPlayerStats()->getFinalEvadeChance() << "%\n"
-       << player->getPlayerStats()->getStrength() << "\n"
-       << player->getPlayerStats()->getWisdom() << "\n"
-       << player->getPlayerStats()->getAgility() << "\n";
-    playerStatsValueLbl.setString(ss.str());
+
+    updatePlayerStatsLbl();
 
     enemyStatsPanel.setSize(sf::Vector2f(
             playerStatsPanel.getGlobalBounds().width,
@@ -199,7 +188,7 @@ void BattleState::initActionPanel() {
 
     std::shared_ptr<Spell> spell = std::make_shared<Spell>(
             DEFAULT_SPELL_TYPE, "Normal attack", "normal", "Attack enemy with your main hand weapon",
-            0, 0, 0, 0, 1, true,
+            0, 0, 0, 1, true,
             1, 1, 0, 1, 30);
     actionRows.push_back(std::make_unique<gui::ActionRow>(
             525.f, 50.f,
@@ -212,13 +201,13 @@ void BattleState::initActionPanel() {
         playerBlockPercentage = 15.f;
         ss << "Raise your hands and defend yourself this turn by blocking " << playerBlockPercentage << "% of incoming damage";
     }else{
-        playerBlockPercentage = player->getEquippedItem(SHIELD_SLOT)->getArmor();
+        playerBlockPercentage = (float)player->getEquippedItem(SHIELD_SLOT)->getArmor();
         ss << "Raise your shield and defend yourself this turn by blocking "
         << playerBlockPercentage << "% of incoming damage";
     }
     spell = std::make_shared<Spell>(
             DEFAULT_SPELL_TYPE, "Defense", "normal", ss.str(),
-            0, 0, 0, 0, 1, true,
+            0, 0, 0, 1, true,
             1, 1, 0, 2, 30);
     actionRows.push_back(std::make_unique<gui::ActionRow>(
             525.f, 50.f,
@@ -230,7 +219,7 @@ void BattleState::initActionPanel() {
         if (spellComponent->getPlayerSpells()[i]->isLearned()) {
             actionRows.push_back(std::make_unique<gui::ActionRow>(
                     525.f, 50.f,
-                    actionPanel.getPosition().x + 15.f, actionPanel.getPosition().y + 15.f + (count * columnMod),
+                    actionPanel.getPosition().x + 15.f, actionPanel.getPosition().y + 15.f + ((float)count * columnMod),
                     spellComponent->getPlayerSpells()[i], player->getPlayerStats()->getSpellDmgMultiplier(),
                     font, textures["ITEMS_SHEET"]
             ));
@@ -271,12 +260,12 @@ void BattleState::initInventoryPanel() {
     if(!itemRows.empty())
         itemRows.clear();
     for (int i = 0; i < player->getInventory()->getItemsSize(); i++) {
-        if (player->getInventory()->getItem(i)->getUsageType() == 6) {
+        if (player->getInventory()->getItemByIndex(i)->getUsageType() == 6) {
             itemRows.push_back(std::make_unique<gui::ItemRow>(
                     525.f, 50.f,
                     itemActionPanel.getPosition().x + 15.f,
-                    itemActionPanel.getPosition().y + 15.f + (count * columnMod),
-                    player->getInventory()->getItem(i), font, textures["ITEMS_SHEET"]
+                    itemActionPanel.getPosition().y + 15.f + ((float)count * columnMod),
+                    player->getInventory()->getItemByIndex(i), font, textures["ITEMS_SHEET"]
             ));
             total_count++;
             if (count == 3) {
@@ -289,87 +278,73 @@ void BattleState::initInventoryPanel() {
     maxInvPage = std::ceil(total_count / 4.f);
 }
 
-void BattleState::spawnEnemy(sf::Vector2f pos, enemy_types type, bool generateStats) {
+void BattleState::spawnEnemyModel(sf::Vector2f pos, enemy_types type, unsigned int enemy_id) {
     std::shared_ptr<Enemy> enemy;
     switch (type) {
         case WITCH:
             enemy = std::make_shared<Enemy>(WITCH, pos.x, pos.y, -3.2f, 3.2f,
                                             0.f, 0.f, 0.f, 0.f,
                                             0.f, 0.f, 0.f,
-                                            textures["ENEMY_WIZARD_SHEET"], 0);
+                                            textures["ENEMY_WIZARD_SHEET"], 0, enemy_id);
             enemy->setOrigin(125.f, 167.f);
-            if (generateStats)
-                enemy->generateEnemyStats(floor);
+         //   if (generateStats)
+        //        enemy->generateEnemyStats(floor);
             enemiesModels.push_back(enemy);
             break;
         case SKELETON:
             enemy = std::make_shared<Enemy>(SKELETON, pos.x, pos.y, -4.f, 5.f,
                                             0.f, 0.f, 0.f, 0.f,
                                             0.f, 0.f, 0.f,
-                                            textures["ENEMY_SKELETON_SHEET"], 0);
+                                            textures["ENEMY_SKELETON_SHEET"], 0, enemy_id);
             enemy->setOrigin(50.f, 69.f);
-            if (generateStats)
-                enemy->generateEnemyStats(floor);
             enemiesModels.push_back(enemy);
             break;
         case SKELETON_2:
             enemy = std::make_shared<Enemy>(SKELETON_2, pos.x, pos.y, -3.2f, 3.2f,
                                             0.f, 0.f, 0.f, 0.f,
                                             0.f, 0.f, 0.f,
-                                            textures["ENEMY_SKELETON_2_SHEET"], 0);
+                                            textures["ENEMY_SKELETON_2_SHEET"], 0, enemy_id);
             enemy->setOrigin(80.f, 100.f);
-            if (generateStats)
-                enemy->generateEnemyStats(floor);
             enemiesModels.push_back(enemy);
             break;
         case FLYING_EYE:
             enemy = std::make_shared<Enemy>(FLYING_EYE, pos.x, pos.y, -3.3f, 3.3f,
                                             0.f, 0.f, 0.f, 0.f,
                                             0.f, 0.f, 0.f,
-                                            textures["ENEMY_FLYINGEYE_SHEET"], 0);
+                                            textures["ENEMY_FLYINGEYE_SHEET"], 0, enemy_id);
             enemy->setOrigin(75.f, 110.f);
-            if (generateStats)
-                enemy->generateEnemyStats(floor);
             enemiesModels.push_back(enemy);
             break;
         case GOBLIN:
             enemy = std::make_shared<Enemy>(GOBLIN, pos.x, pos.y, -3.0f, 3.0f,
                                             0.f, 0.f, 0.f, 0.f,
                                             0.f, 0.f, 0.f,
-                                            textures["ENEMY_GOBLIN_SHEET"], 0);
+                                            textures["ENEMY_GOBLIN_SHEET"], 0, enemy_id);
             enemy->setOrigin(75.f, 100.f);
-            if (generateStats)
-                enemy->generateEnemyStats(floor);
             enemiesModels.push_back(enemy);
             break;
         case MUSHROOM:
             enemy = std::make_shared<Enemy>(MUSHROOM, pos.x, pos.y, -3.4f, 3.4f,
                                             0.f, 0.f, 0.f, 0.f,
                                             0.f, 0.f, 0.f,
-                                            textures["ENEMY_MUSHROOM_SHEET"], 0);
+                                            textures["ENEMY_MUSHROOM_SHEET"], 0, enemy_id);
             enemy->setOrigin(75.f, 100.f);
-            if (generateStats)
-                enemy->generateEnemyStats(floor);
             enemiesModels.push_back(enemy);
             break;
         case BANDIT_HEAVY:
             enemy = std::make_shared<Enemy>(BANDIT_HEAVY, pos.x, pos.y, 4.3f, 4.3f,
                                             0.f, 0.f, 0.f, 0.f,
                                             0.f, 0.f, 0.f,
-                                            textures["ENEMY_BANDITHEAVY_SHEET"], 0);
+                                            textures["ENEMY_BANDITHEAVY_SHEET"], 0, enemy_id);
             enemy->setOrigin(24.f, 46.f);
-            if (generateStats)
-                enemy->generateEnemyStats(floor);
             enemiesModels.push_back(enemy);
             break;
         case BANDIT_LIGHT:
             enemy = std::make_shared<Enemy>(BANDIT_LIGHT, pos.x, pos.y, 4.f, 4.f,
                                             0.f, 0.f, 0.f, 0.f,
                                             0.f, 0.f, 0.f,
-                                            textures["ENEMY_BANDITLIGHT_SHEET"], 0);
+                                            textures["ENEMY_BANDITLIGHT_SHEET"], 0, enemy_id);
             enemy->setOrigin(24.f, 46.f);
-            if (generateStats)
-                enemy->generateEnemyStats(floor);
             enemiesModels.push_back(enemy);
             break;
         default:
@@ -379,41 +354,40 @@ void BattleState::spawnEnemy(sf::Vector2f pos, enemy_types type, bool generateSt
 }
 
 void BattleState::generateModels() {
-    playerModel = new Player(220.f, 300.f, 5.f, 5.f, textures["PLAYER_SHEET"]);
+    playerModel = std::make_shared<Player>(220.f, 300.f, 5.f, 5.f, textures["PLAYER_SHEET"]);
     playerModel->setOrigin(20, 33);
     playerModel->setPosition(220.f, 475.f);
 
-    enemyCount = utils::generateRandomNumber(1, floor + 1, false);
-    if (enemyCount > MAX_ENEMIES)
-        enemyCount = MAX_ENEMIES;
+    enemyCount = enemyLeader->getFollowersNumber() + 1;
+    //inizializza il vettore ordine di azione dei nemici
     for(unsigned int i = 0 ; i < enemyCount ; i++){
         enemiesMoveOrder.push_back(i);
     }
     std::reverse(enemiesMoveOrder.begin(), enemiesMoveOrder.end());
 
-    std::vector<int> enemyEnums = utils::generateRandomNumbers(0, 7, enemyCount - 1, false);
-    spawnEnemy(enemyPos[0].getPosition(), enemyLeader->getType(), false);
-    enemiesModels[0]->copyStats(enemyLeader);
+   // spawnEnemyModel(enemyPos[0].getPosition(), enemyLeader->getType(), false);
+   // enemiesModels[0]->copyStats(enemyLeader);
+    spawnEnemyModel(enemyPos[0].getPosition(), enemyLeader->getType(), enemyLeader->getId());
+    enemiesModels[0]->setStats(enemyLeader->getStats());
 
-    for (unsigned int i = 0; i < enemyEnums.size(); i++) {
-        spawnEnemy(enemyPos[i + 1].getPosition(), static_cast<enemy_types>(enemyEnums[i]), true);
+    int alive_followers_count = 1;
+    for (unsigned int i = 0; i < enemyLeader->getFollowers().size(); i++) {
+        if(!enemyLeader->getFollowers()[i]->isDead()){
+            spawnEnemyModel(enemyPos[i + 1].getPosition(),
+                    enemyLeader->getFollowers()[i]->getType(), enemyLeader->getFollowers()[i]->getId());
+            enemiesModels[i + 1]->setStats(enemyLeader->getFollowers()[i]->getStats());
+            alive_followers_count++;
+        }
     }
 
-    for (unsigned int i = 0; i < enemiesModels.size(); i++) {
+    for (unsigned int i = 0; i < alive_followers_count; i++) {
         enemiesStatusPanel[i] = gui::EnemyStatusPanel(enemiesModels[i], enemyPos[i].getPosition().x,
                                                       enemyPos[i].getPosition().y - 200.f, font,
                                                       textures["ARROWDOWN_ICON"], this, i);
     }
-
     playerStatusPanel = gui::PlayerStatusPanel(player, playerPos.getPosition().x,
                                                playerPos.getPosition().y - playerModel->getGlobalBounds().height -
                                                150.f, font);
-
-
-    /*spawnEnemy(enemyPos[1].getPosition(), GOBLIN);
-      spawnEnemy(enemyPos[2].getPosition(), SKELETON);
-      spawnEnemy(enemyPos[3].getPosition(), SKELETON_2);
-      spawnEnemy(enemyPos[4].getPosition(), FLYING_EYE);*/
 }
 
 void BattleState::initButtons() {
@@ -479,6 +453,7 @@ BattleState::BattleState(std::shared_ptr<sf::RenderWindow> window, std::shared_p
     criticalhitMultiplier = 1.75f;
     enemiesMoves = 10;
     battleResult = NOT_FINISHED;
+    potionUsed = false;
 
     initResources();
     initBattleFieldComponents();
@@ -495,24 +470,20 @@ BattleState::BattleState(std::shared_ptr<sf::RenderWindow> window, std::shared_p
     mainActionPanel.setPosition(0.f, static_cast<float>(this->window->getSize().y - 300.f));
     mainActionPanel.setFillColor(sf::Color(80, 80, 80));
 
+    tipsLbl.setFont(*font);
+    tipsLbl.setCharacterSize(20);
+    tipsLbl.setString("Tips: You can use 1 potion and perfom 1 action each turn");
+    tipsLbl.setPosition(mainActionPanel.getPosition().x + 3.f,
+                        mainActionPanel.getPosition().y - tipsLbl.getGlobalBounds().height - 3.f);
+
     initButtons();
     initActionPanel();
     initInventoryPanel();
     initEscapePanel();
     initStatsPanel();
-    /*  this->player = player;
-      this->enemyCount = enemyCount;
-      this->floor = floor;
-
-      for(int i=0; i<enemyCount; i++){
-          this->enemies[i] = enemies[i];
-      }
-  */
 }
 
-BattleState::~BattleState() {
-    delete playerModel;
-}
+BattleState::~BattleState() = default;
 
 void BattleState::playerBattle(unsigned int row_index) {
     if (whoseTurn) {
@@ -553,8 +524,8 @@ void BattleState::playerBattle(unsigned int row_index) {
                     std::vector<unsigned int> deadEnemiesIndex;
                     for (unsigned int i = 0 ; i < enemyCount ; i++) {
                         if(!enemiesModels[enemiesMoveOrder[i]]->isDead()){
-                            int dmg_dealt = enemiesModels[enemiesMoveOrder[i]]->getHit(
-                                    actionRows[row_index]->getActionFinalDamage(), true);
+                            int dmg_dealt = enemiesModels[enemiesMoveOrder[i]]->getStats()->getHit(
+                                    actionRows[row_index]->getActionFinalDamage(), 0.f, true);
                             enemiesModels[enemiesMoveOrder[i]]->setAnimation(GETHIT_ANIMATION, IDLE_ANIMATION);
                             popUpTextComponent->addPopUpText(NEGATIVE_TAG,
                                                              enemyPos[enemiesMoveOrder[i]].getPosition().x,
@@ -571,7 +542,7 @@ void BattleState::playerBattle(unsigned int row_index) {
                                                                i), enemiesMoveOrder.end());
                             enemyCount--;
                             selectedId = 10;
-                            if(enemyCount == 0){
+                            if(enemyCount == 0 || enemyLeader->isDead()){
                                 battleResult = WIN;
                             }
                         }
@@ -611,19 +582,19 @@ void BattleState::playerBattle(unsigned int row_index) {
                             }
                         }
                         // enemy evade determine
-                        if(!utils::trueFalse(enemiesModels[selectedId]->getEvadeChance(), false)){
+                        if(!utils::trueFalse(enemiesModels[selectedId]->getStats()->getFinalEvadeChance(), false)){
                             // player critical hit determine
-                            int dmg_dealt = 0;
                             if(utils::trueFalse(player->getPlayerStats()->getFinalCritChance(), false)){
-                                dmg_dealt = enemiesModels[selectedId]->getHit(
-                                        player->getPlayerStats()->getFinalDamage() * criticalhitMultiplier, false);
+                                int dmg_dealt = enemiesModels[selectedId]->getStats()->getHit(
+                                        (int)((float)player->getPlayerStats()->getFinalDamage() * criticalhitMultiplier),
+                                        0.f, false);
                                 popUpTextComponent->addPopUpText(NEGATIVE_TAG,
                                                                  enemyPos[selectedId].getPosition().x,
                                                                  enemyPos[selectedId].getPosition().y - 100.f,
                                                                  dmg_dealt, "Critical Hit!\n-", "");
                             }else{
-                                dmg_dealt = enemiesModels[selectedId]->getHit(
-                                        player->getPlayerStats()->getFinalDamage(), false);
+                                int dmg_dealt = enemiesModels[selectedId]->getStats()->getHit(
+                                        player->getPlayerStats()->getFinalDamage(), 0.f, false);
                                 popUpTextComponent->addPopUpText(NEGATIVE_TAG,
                                                                  enemyPos[selectedId].getPosition().x,
                                                                  enemyPos[selectedId].getPosition().y - 100.f,
@@ -633,7 +604,7 @@ void BattleState::playerBattle(unsigned int row_index) {
 
                             stringstream ss;
                             ss << "You used " << actionRows[row_index]->getAction()->getName() << " on '"
-                               << enemiesModels[selectedId]->getName() << "Lv." << enemiesModels[selectedId]->getLevel();
+                               << enemiesModels[selectedId]->getName() << "Lv." << enemiesModels[selectedId]->getStats()->getLevel();
                             popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG,
                                                                    ss.str(), "", "");
                         }else{
@@ -644,8 +615,8 @@ void BattleState::playerBattle(unsigned int row_index) {
                         }
                     }else if(actionRows[row_index]->getAction()->getAoe() == 1){
                         actionRows[row_index]->startCd();
-                        int dmg_dealt = enemiesModels[selectedId]->getHit(
-                                actionRows[row_index]->getActionFinalDamage(), true);
+                        int dmg_dealt = enemiesModels[selectedId]->getStats()->getHit(
+                                actionRows[row_index]->getActionFinalDamage(), 0.f, true);
                         playerModel->setAnimation(CAST_ANIMATION, IDLE_ANIMATION);
                         enemiesModels[selectedId]->setAnimation(GETHIT_ANIMATION, IDLE_ANIMATION);
                         popUpTextComponent->addPopUpText(NEGATIVE_TAG,
@@ -660,7 +631,7 @@ void BattleState::playerBattle(unsigned int row_index) {
 
                         stringstream ss;
                         ss << "You used " << actionRows[row_index]->getAction()->getName() << " on '"
-                           << enemiesModels[selectedId]->getName() << "Lv." << enemiesModels[selectedId]->getLevel();
+                           << enemiesModels[selectedId]->getName() << "Lv." << enemiesModels[selectedId]->getStats()->getLevel();
                         popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG,
                                                                ss.str(), "", "");
 
@@ -672,7 +643,7 @@ void BattleState::playerBattle(unsigned int row_index) {
                                                            selectedId), enemiesMoveOrder.end());
                         enemyCount--;
                         selectedId = 10;
-                        if(enemyCount == 0){
+                        if(enemyCount == 0 || enemyLeader->isDead()){
                             battleResult = WIN;
                         }
                     }
@@ -695,14 +666,14 @@ void BattleState::playerBattle(unsigned int row_index) {
 
 void BattleState::useItem(unsigned int row_index) {
     if (whoseTurn) {
+        potionUsed = true;
         if(itemRows[row_index]->getItem()->use()){
 
         }else{  // empty after use
             cTab->deleteConsumableInBattle(itemRows[row_index]->getItem());
             initInventoryPanel();
         }
-        buffComponent->applyItemBuff(itemRows[row_index]->getItem()->getName(),
-                                     player->getPlayerStats(), false,
+        buffComponent->applyItemBuff(itemRows[row_index]->getItem()->getName(), false,
                                      playerModel->getPosition().x,
                                      playerModel->getPosition().y - 100.f);
         itemRows[row_index]->updateQuantityLbl();
@@ -712,7 +683,8 @@ void BattleState::useItem(unsigned int row_index) {
         popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG,
                                                ss.str(), "", "");
         playerModel->setAnimation(CAST_ANIMATION, IDLE_ANIMATION);
-        endPlayerTurn();
+        updatePlayerStatsLbl();
+        //endPlayerTurn();
     }else{
         popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG,
                 "Wait for your turn!", "", "");
@@ -736,7 +708,7 @@ void BattleState::enemyBattle(const float &dt) {
     if (!enemyMoveDone) {
         ss.str("");
         ss << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getName() << " Lv."
-           << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getLevel() << " is deciding...";
+           << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->getLevel() << " is deciding...";
         turnPanelActionLbl.setString(ss.str());
     }
     if (turnLengthKeyTime < turnLengthMaxKeyTime) {
@@ -748,7 +720,8 @@ void BattleState::enemyBattle(const float &dt) {
             if (!utils::trueFalse(player->getPlayerStats()->getFinalEvadeChance(), false)) {
                 int dmg_dealt;
                 //enemy criticalhit determine
-                bool critical_hit = utils::trueFalse(enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getCritChance(), false);
+                bool critical_hit = utils::trueFalse(
+                        enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->getFinalCritChance(),false);
                 float critical_hit_multiplier = 1.f;
                 std::string critical_hit_prefix;
                 if(critical_hit){
@@ -757,8 +730,8 @@ void BattleState::enemyBattle(const float &dt) {
                 }
                 if(player->isDefense()){
                     dmg_dealt = player->getPlayerStats()->getHit(
-                            enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getDamage() * critical_hit_multiplier,
-                            playerBlockPercentage);
+                            (int)((float)enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->getFinalDamage()
+                            * critical_hit_multiplier), playerBlockPercentage, false);
                     popUpTextComponent->addPopUpText(DEFAULT_TAG,
                                                      playerModel->getPosition().x,
                                                      playerModel->getPosition().y - 120.f,
@@ -771,8 +744,8 @@ void BattleState::enemyBattle(const float &dt) {
 
                 }else{
                     dmg_dealt = player->getPlayerStats()->getHit(
-                            enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getDamage() * critical_hit_multiplier,
-                            0.f);
+                            (int)((float)enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->getFinalDamage()
+                            * critical_hit_multiplier), 0.f, false);
                     if(player->isDead()){
                         playerModel->setAnimation(DEATH_ANIMATION, CORPSE_ANIMATION);
                     }else{
@@ -791,7 +764,7 @@ void BattleState::enemyBattle(const float &dt) {
             }
             ss.str("");
             ss << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getName() << "Lv."
-               << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getLevel() << " uses Normal Attack";
+               << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->getLevel() << " uses Normal Attack";
             turnPanelActionLbl.setString(ss.str());
         }
     } else {
@@ -820,33 +793,62 @@ void BattleState::endEnemyTurn() {
     playerStatusPanel.setShapeOutlineThickness(5.f);
     player->setDefense(false);
     whoseTurn = true;
+    potionUsed = false;
     turnCount++;
     for(auto &i : actionRows){
         i->updateCd();
     }
     buffComponent->updatePlayerBuffList();
+    updatePlayerStatsLbl();
 }
 
 void BattleState::endBattle() {
+    stringstream battle_report;
+    battle_report << "--------------------Battle Report--------------------" << std::endl;
+    battle_report << "Battle result: ";
     switch(battleResult){
         case WIN:
             popUpTextComponent->addPopUpTextCenter(GOLD_TAG,
                     "You've won the battle!", "", "");
+            battle_report << "Won" << std::endl;
             endState();
             break;
         case LOST:
             popUpTextComponent->addPopUpTextCenter(GOLD_TAG,
                     "You've lost the battle!", "", "");
+            battle_report << "Lost" << std::endl;
             endState();
             break;
         case ESCAPED:
             popUpTextComponent->addPopUpTextCenter(GOLD_TAG,
                     "You abandoned the battle", "", "");
+            battle_report << "Escaped" << std::endl;
             endState();
             break;
         case NOT_FINISHED:
             break;
     }
+    battle_report << "Player is alive: " << std::boolalpha << !player->isDead() << std::endl;
+    battle_report << "Enemy leader is alive: " << std::boolalpha << !enemyLeader->isDead() << std::endl;
+    battle_report << "Enemy followers count: " << enemyLeader->getFollowersNumber() << std::endl;
+    battle_report << "------------------End-Battle Report-End------------------" << std::endl;
+    if(battleResult != NOT_FINISHED)
+        std::cout<< battle_report.str();
+}
+
+void BattleState::updatePlayerStatsLbl() {
+    stringstream ss;
+    ss << player->getPlayerStats()->getLevel() << "\n"
+       << player->getPlayerStats()->getFinalHp() << "\n"
+       << player->getPlayerStats()->getFinalMp() << "\n"
+       << player->getPlayerStats()->getFinalDamage() << "\n"
+       << player->getPlayerStats()->getFinalArmor() << "\n"
+       << player->getPlayerStats()->getFinalCritChance() << "%\n"
+       << player->getPlayerStats()->getFinalEvadeChance() << "%\n"
+       << player->getPlayerStats()->getStrength() << "\n"
+       << player->getPlayerStats()->getWisdom() << "\n"
+       << player->getPlayerStats()->getAgility() << "\n";
+    playerStatsValueLbl.setString(ss.str());
 }
 
 void BattleState::updateTurnPanel() {
@@ -858,7 +860,7 @@ void BattleState::updateTurnPanel() {
         turnPanelLbl.setString("Player is deciding...");
         if (selectedId < 5) {
             ss << "Enemy selected: " << enemiesModels[selectedId]->getName()
-               << " Lv." << enemiesModels[selectedId]->getLevel();
+               << " Lv." << enemiesModels[selectedId]->getStats()->getLevel();
         } else {
             ss << "Enemy selected: None";
         }
@@ -900,13 +902,13 @@ void BattleState::updatePageLbl(panel_types type) {
 void BattleState::updateEnemyStatsLbl(const std::shared_ptr<Enemy> &enemy) {
     stringstream ss;
     if (selectedId < 5) {
-        ss << enemy->getLevel() << "\n"
-           << enemy->getMaxHp() << "\n"
-           << enemy->getMaxMp() << "\n"
-           << enemy->getDamage() << "\n"
-           << enemy->getArmor() << "\n"
-           << enemy->getCritChance() << "%\n"
-           << enemy->getEvadeChance() << "%\n";
+        ss << enemy->getStats()->getLevel() << "\n"
+           << enemy->getStats()->getFinalHp() << "\n"
+           << enemy->getStats()->getFinalMp() << "\n"
+           << enemy->getStats()->getFinalDamage() << "\n"
+           << enemy->getStats()->getFinalArmor() << "\n"
+           << enemy->getStats()->getFinalCritChance() << "%\n"
+           << enemy->getStats()->getFinalEvadeChance() << "%\n";
 
     } else {
         ss << "-\n"
@@ -947,7 +949,7 @@ void BattleState::updateButtons() {
 void BattleState::update(const float &dt) {
     updateInput(dt);
     updateKeyTime(dt);
-    updateMousePosition();
+    updateMousePosition(nullptr);
     updateButtons();
     if (countPlayerTurnTimer) {
         if (turnLengthKeyTime < turnLengthMaxKeyTime){
@@ -1017,7 +1019,12 @@ void BattleState::update(const float &dt) {
                     itemRows[i]->update(mousePosView);
                     if (itemRows[i]->isUseBtnPressed() && getKeyTime()) {
                         itemRows[i]->setUseBtnState(BTN_IDLE);
-                        useItem(i);
+                        if(!potionUsed)
+                            useItem(i);
+                        else{
+                            popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG,
+                                                             "You can only use 1 potion per turn! ", "", "");
+                        }
                     }
                 }
             }
@@ -1038,8 +1045,6 @@ void BattleState::update(const float &dt) {
             if (escapeConfirmBtn.isPressed() && getKeyTime()) {
                 if (whoseTurn) {
                     if (utils::trueFalse(escapeChance * 10.f, false)) {
-                        enemyLeader->setHp(enemiesModels[0]->getHp());
-                        enemyLeader->setMp(enemiesModels[0]->getMp());
                         battleResult = ESCAPED;
                     } else {
                         popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG, "", "You failed to escape!", "");
@@ -1061,6 +1066,7 @@ void BattleState::render(sf::RenderTarget *target) {
 
     target->draw(background);
     target->draw(mainActionPanel);
+    target->draw(tipsLbl);
     target->draw(playerStatsPanel);
     target->draw(playerStatsPanelTitle);
     target->draw(playerStatsNameLbl);
@@ -1133,6 +1139,8 @@ void BattleState::render(sf::RenderTarget *target) {
     mouseText.setString(ss.str());
     target->draw(mouseText);
 }
+
+
 
 
 

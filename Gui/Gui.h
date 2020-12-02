@@ -40,6 +40,7 @@ namespace gui{
 
         //accessors
         bool isPressed() const;
+        bool isDisabled() const;
         const short unsigned& getId() const;
         sf::Vector2f getPosition();
         sf::FloatRect getGlobalBounds() const;
@@ -49,13 +50,12 @@ namespace gui{
         void setPosition(float x, float y);
         void setPosition(sf::Vector2f pos);
         void setSize(sf::Vector2f size);
-        void setText(const std::string text);
-        void setId(const short unsigned id);
+        void setText(const std::string& new_text);
+        void setId(short unsigned new_id);
         void setBorderColor(sf::Color color);
         void setBorderLineThickness(float value);
-        void setTextPosition(sf::Vector2f position);
         void setTextPositionAddY(float y);
-        void setTooltipText(std::string text);
+        void setTooltipText(const std::string& new_text);
         void setTooltipDisabled(bool b);
         void setDisabled(bool b, bool change_color = true);
         void setBackgroundTexture(const sf::Texture* texture);
@@ -69,20 +69,20 @@ namespace gui{
         void render(sf::RenderTarget& target);
 
     private:
-        short unsigned buttonState;
-        short unsigned id;
+        short unsigned buttonState{};
+        short unsigned id{};
 
-        bool hover;
-        bool disabled;
-        bool tooltipDisabled;
-        bool textDisabled;
-        bool backgroundDisabled;
+        bool hover{};
+        bool disabled{};
+        bool tooltipDisabled{};
+        bool textDisabled{};
+        bool backgroundDisabled{};
 
         sf::RectangleShape shape;
         sf::RectangleShape background;
         sf::RectangleShape tooltipContainer;
         sf::Text tooltipText;
-        sf::Font* font;
+        sf::Font* font{};
         sf::Text text;
 
         sf::Color textIdleColor;
@@ -105,27 +105,23 @@ namespace gui{
         sf::Vector2f getPosition();
 
         //modifiers
-        void setMax(int max);
-        void setMin(int min);
-        void setCurrentValue(int currentValue);
-        void setText(std::string text);
-        void setBarShapeColor(sf::Color color);
+        void setText(const std::string& new_text);
         void setProgressShapeColor(sf::Color color);
 
         //functions
-        void update(float current, int max);
+        void update(int current, int max_value);
         void render(sf::RenderTarget& target);
 
     private:
-        sf::Font* font;
+        sf::Font* font{};
         sf::Text text;
         sf::RectangleShape barShape;
         sf::RectangleShape progressShape;
 
-        int min;
-        int max;
-        int currentValue;
-        float progressPercentage;
+        int min{};
+        int max{};
+        int currentValue{};
+        float progressPercentage{};
     };
 
     class ItemSlot{
@@ -138,19 +134,19 @@ namespace gui{
 
         //accessors
         bool hasItem();
-        bool getIsSelected();
+        bool getIsSelected() const;
         std::shared_ptr<Item> getItem();
         sf::RectangleShape* getShape();
         sf::IntRect* getIntRect();
 
         //modifiers
-        void setItem(std::shared_ptr<Item> item);
-        void setShapeTexture(const sf::Texture *texture, const sf::IntRect* intRect);
-        void setSlotTexture(const sf::Texture *texture, float size);
-        void setSlotTexture(sf::Texture* texture, sf::IntRect intRect);
+        void setItem(std::shared_ptr<Item> new_item);
+        void setShapeTexture(const sf::Texture *new_shape_texture, const sf::IntRect* texture_intRect);
+        void setSlotTexture(const sf::Texture *new_texture, float size);
+        void setSlotTexture(sf::Texture* new_texture, sf::IntRect texture_intRect);
         void setSelectedBool(bool b);
-        void setDownRightTexture(sf::Texture* texture);
-        void setUpRightTexture(sf::Texture* texture);
+        void setDownRightTexture(sf::Texture* new_texture);
+        void setUpRightTexture(sf::Texture* new_texture);
 
         //functions
         void updateQuantityLbl();
@@ -160,21 +156,21 @@ namespace gui{
         void render(sf::RenderTarget& target);
 
     private:
-        short unsigned slotState;
-        bool renderItemInfoContainer;
-        bool isSelected;
-        bool isEquipSlot;
-        int id;
+        short unsigned slotState{};
+        bool renderItemInfoContainer{};
+        bool isSelected{};
+        bool isEquipSlot{};
+        int id{};
 
         std::shared_ptr<Item> item;
-        State* state;
+        State* state{};
         std::shared_ptr<sf::RenderWindow> window;
         sf::RectangleShape shape;
         sf::RectangleShape cover;
         sf::RectangleShape downRight;
         sf::RectangleShape upRight;
         sf::IntRect intRect;
-        sf::Font* font;
+        sf::Font* font{};
         sf::Texture texture;
 
         sf::RectangleShape itemInfoContainer;
@@ -186,7 +182,7 @@ namespace gui{
     public:
         //constructors/destructor
         ShopSlot();
-        ShopSlot(float width, float height, float pos_x, float pos_y, std::string key, unsigned price, sf::Font* font, Item* item);
+        ShopSlot(float width, float height, float pos_x, float pos_y, sf::Font* font, Item* item);
         virtual ~ShopSlot();
 
         //accessors
@@ -195,7 +191,7 @@ namespace gui{
 
         //modifiers
 
-        void setSlotTexture(const sf::Texture *texture, float size);
+        void setSlotTexture(const sf::Texture *slot_texture, float size);
 
 
         //functions
@@ -208,15 +204,14 @@ namespace gui{
         sf::RectangleShape shape;
         sf::Text priceLbl;
         sf::Texture texture;
-        gui::Button* buyBtn;
-        Item* item;
+        gui::Button buyBtn;
+        Item* item{};
 
         sf::RectangleShape itemInfoContainer;
         sfe::RichText itemInfoLbl;
-        bool mouseHoverImage;
+        bool mouseHoverImage{};
 
-        unsigned int price;
-        std::string key;
+        unsigned int price{};
     };
 
     class SpellSlot{
@@ -253,7 +248,6 @@ namespace gui{
 
         //accessor
         sfe::RichText* getSpellDescriptionLbl();
-        sfe::RichText* getSpellInfoLbl();
         std::shared_ptr<Spell> getSpell();
 
         //functions
@@ -274,7 +268,7 @@ namespace gui{
         sfe::RichText spellInfoLbl;
 
         std::shared_ptr<Spell> spell;
-        bool mouseHoverImage;
+        bool mouseHoverImage{};
     };
 
     class ConfirmDialog{
@@ -286,15 +280,15 @@ namespace gui{
 
         void setSellValue(unsigned value);
         dialog_type getDialogType();
-        unsigned getSellValue();
+        unsigned getSellValue() const;
 
         int update(const sf::Vector2f& mousePos, bool* openDialog);
         void render(sf::RenderTarget& target);
 
     protected:
-        dialog_type  dialogType;
-        unsigned sellValue;
-        State* state;
+        dialog_type dialogType{};
+        unsigned sellValue{};
+        State* state{};
         sf::RectangleShape dialog;
         Button yesBtn;
         Button noBtn;
@@ -306,21 +300,20 @@ namespace gui{
         //constructors/desctructor
         BuffSlot();
         BuffSlot(float x, float y, float width, float height,
-                std::shared_ptr<Buff> buff, const sf::Texture& buff_texture, sf::Font* font);
+                const std::shared_ptr<Buff>& buff, const sf::Texture& buff_texture, sf::Font* font);
         virtual ~BuffSlot();
 
         void setBuff(std::shared_ptr<Buff> new_buff, bool updateLbl = false);
         std::shared_ptr<Buff> getBuff() const;
 
         //functions
-        void updateLifeTime();
         void updateDescriptionLbl();
         void updateInfoContainer(const sf::Vector2f& mousePos);
         void update(const sf::Vector2f& mousePos);
         void render(sf::RenderTarget& target);
 
     private:
-        bool mouseHoverImage;
+        bool mouseHoverImage{};
         std::shared_ptr<Buff> buff;
 
         sf::RectangleShape shape;
@@ -335,7 +328,6 @@ namespace gui{
         PlayerStatusPanel(std::shared_ptr<Player> player, float x, float y, sf::Font* font);
         virtual ~PlayerStatusPanel();
 
-        void setShapeOutlineColor(sf::Color color);
         void setShapeOutlineThickness(float thickness);
         //functions
         void update(const sf::Vector2f& mousePos);
@@ -343,7 +335,7 @@ namespace gui{
 
     private:
         std::shared_ptr<Player> player;
-        sf::Font* font;
+        sf::Font* font{};
         sf::RectangleShape shape;
         sf::Text infoText;
         gui::ProgressBar hpBar;
@@ -360,21 +352,21 @@ namespace gui{
         //functions
         void selectedIconAnimation(const float& dt);
         void update(const sf::Vector2f& mousePos, const float &dt,
-                unsigned int& selected_id, int current_enemy_pos, bool player_turn);
+                unsigned int& selected_id, unsigned int current_enemy_pos, bool player_turn);
         void render(sf::RenderTarget& target);
 
     private:
-        bool isHovered;
-        bool isSelected;
+        bool isHovered{};
+        bool isSelected{};
 
-        float selectedIconAnimationKeyTime;
-        float selectedIconAnimationMaxKeyTime;
-        bool isSelectedIconAnimated;
+        float selectedIconAnimationKeyTime{};
+        float selectedIconAnimationMaxKeyTime{};
+        bool isSelectedIconAnimated{};
 
-        unsigned int idPos;
-        State* state;
+        unsigned int idPos{};
+        State* state{};
         std::shared_ptr<Enemy> enemy;
-        sf::Font* font;
+        sf::Font* font{};
         sf::RectangleShape shape;
         sf::Text infoText;
         gui::ProgressBar hpBar;

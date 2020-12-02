@@ -6,7 +6,7 @@
 
 //constructors/destructor
 CollisionBoxComponent::CollisionBoxComponent(sf::Sprite& sprite, float offset_x, float offset_y,float radius)
-    : sprite(sprite), offsetX(offset_x), offsetY(offset_y), radius(radius){
+    : sprite(sprite), offsetX(offset_x), offsetY(offset_y){
     modX = 0;
     collisionEllipse = sf::CircleShape(radius);
     collisionEllipse.setScale(2.5f, 0.3f);
@@ -14,9 +14,7 @@ CollisionBoxComponent::CollisionBoxComponent(sf::Sprite& sprite, float offset_x,
     collisionEllipse.setFillColor(sf::Color(45,45,45));
 }
 
-CollisionBoxComponent::~CollisionBoxComponent() {
-
-}
+CollisionBoxComponent::~CollisionBoxComponent() = default;
 
 //accessors
 sf::CircleShape &CollisionBoxComponent::getCollisionEllipse(){

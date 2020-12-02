@@ -14,14 +14,13 @@ class Game {
 public:
     //Constructors/Destructors
     Game();
-    Game(bool unit_testing);
     virtual ~Game();
 
     //accessors
     shared_ptr<sf::RenderWindow> getWindow();
 
     //Functions
-    void endApplication();
+    static void endApplication();
 
     //update
     void updateDt();
@@ -33,20 +32,16 @@ public:
 
     //core
     void run();
-    void unitTestingRun();
 
 private:
     //Variables
     std::shared_ptr<ResourcesHandler> rsHandler;
     std::shared_ptr<sf::RenderWindow> window;
-    sf::Event sfEvent;
-    std::vector<sf::VideoMode> videomodes;
+    sf::Event sfEvent{};
     sf::ContextSettings windowSettings;
 
     sf::Clock dtClock;
-    float dt; //delta time
-    bool isFocused;
-    bool unitTesting;
+    float dt{}; //delta time
     sf::Time gameRunTime;
     std::shared_ptr<RunTimeClock> rtc;
 

@@ -4,10 +4,7 @@
 
 #include "State.h"
 
-#include <utility>
-State::State(){
-
-};
+State::State()= default;
 
 State::State(std::shared_ptr<sf::RenderWindow> window, std::stack<std::unique_ptr<State>>* states,
              std::shared_ptr<ResourcesHandler> rsHandler) {
@@ -20,9 +17,7 @@ State::State(std::shared_ptr<sf::RenderWindow> window, std::stack<std::unique_pt
     this->keyTimeMax = 10.f;
 }
 
-State::~State() {
-
-}
+State::~State() = default;
 
 //accessors
 const bool &State::getQuit() const {
@@ -35,10 +30,6 @@ bool State::getKeyTime() {
         return true;
     }
     return false;
-}
-
-std::shared_ptr<ResourcesHandler> State::getRsHandler() const {
-    return rsHandler;
 }
 
 const map<string, sf::Texture> &State::getTextures() const {
@@ -60,9 +51,6 @@ void State::unpauseState() {
 }
 
 void State::updateMousePosition(sf::View* view) {
-    mousePosScreen = sf::Mouse::getPosition();
-    mousePosWindow = sf::Mouse::getPosition(*window);
-
     if(view)
         window->setView(*view);
 
@@ -77,10 +65,6 @@ void State::updateKeyTime(const float &dt) {
         keyTime += 60.f * dt;
     }
 
-}
-
-sf::Vector2f State::getMousePosView() const {
-    return mousePosView;
 }
 
 void State::render(sf::RenderTarget *target) {

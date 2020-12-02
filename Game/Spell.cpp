@@ -4,9 +4,7 @@
 
 #include "Spell.h"
 
-Spell::Spell() {
-
-}
+Spell::Spell() = default;
 
 Spell::Spell(Spell *spell) : spellType(spell->spellType), name(spell->name), type(spell->type),
 description(spell->description), cost(spell->cost), cooldown(spell->cooldown), damage(spell->damage),
@@ -14,119 +12,109 @@ aoe(spell->aoe), learned(spell->learned), intRectX(spell->intRectX), intRectY(sp
 learnCost(spell->learnCost), maxLevel(spell->maxLevel){
 }
 
-Spell::~Spell() {
-
-}
-
-void Spell::refreshSpell() {
-    if(Spell::ready > 0)
-        Spell:ready --;
-}
-
+Spell::~Spell() = default;
 
 string Spell::getDescription() {
     return description;
 }
 
-void Spell::setDescription(string description) {
-    this->description = description;
+void Spell::setDescription(string new_description) {
+    description = std::move(new_description);
 }
 
-bool Spell::isLearned() {
+bool Spell::isLearned() const {
     return learned;
 }
 
-void Spell::setLearned(bool learned) {
-    Spell::learned = learned;
+void Spell::setLearned(bool is_learned) {
+    learned = is_learned;
 }
 
 string Spell::getName() {
     return name;
 }
 
-void Spell::setName(string name) {
-    Spell::name = name;
+void Spell::setName(string new_name) {
+    name = std::move(new_name);
 }
 
 string Spell::getType() {
     return type;
 }
 
-int Spell::getReady() {
-    return ready;
-}
-
-void Spell::setReady(int ready) {
-    Spell::ready = ready;
-}
-
-
-void Spell::setType(string type) {
-    this->type = type;
-    if(type == "fire"){
-        spellType = FIRE;
-    } else if(type == "water"){
-        spellType = WATER;
-    }else if(type == "ice"){
-        spellType = ICE;
-    }else if(type == "electric"){
-        spellType = ELECTRIC;
-    }else if(type == "holy"){
-        spellType = HOLY;
-    }else{
-        spellType = DEFAULT_SPELL_TYPE;
+void Spell::setType(spell_type new_spell_type) {
+    spellType = new_spell_type;
+    switch(spellType){
+        case FIRE:
+            type = "Fire";
+            break;
+        case WATER:
+            type = "Water";
+            break;
+        case ICE:
+            type = "Ice";
+            break;
+        case ELECTRIC:
+            type = "Electric";
+            break;
+        case HOLY:
+            type = "Holy";
+            break;
+        case DEFAULT_SPELL_TYPE:
+            type = "Default";
+            break;
     }
 }
 
-int Spell::getCost() {
+int Spell::getCost() const {
     return cost;
 }
 
-void Spell::setCost(int cost) {
-    Spell::cost = cost;
+void Spell::setCost(int new_cost) {
+    Spell::cost = new_cost;
 }
 
-int Spell::getCooldown() {
+int Spell::getCooldown() const {
     return cooldown;
 }
 
-void Spell::setCooldown(int cooldown) {
-    Spell::cooldown = cooldown;
+void Spell::setCooldown(int new_cooldown) {
+    Spell::cooldown = new_cooldown;
 }
 
-int Spell::getDamage() {
+int Spell::getDamage() const {
     return damage;
 }
 
-void Spell::setDamage(int damage) {
-    Spell::damage = damage;
+void Spell::setDamage(int new_damage) {
+    Spell::damage = new_damage;
 }
 
-int Spell::getAoe() {
+int Spell::getAoe() const {
     return aoe;
 }
 
-void Spell::setAoe(int aoe) {
-    Spell::aoe = aoe;
+void Spell::setAoe(int new_aoe) {
+    Spell::aoe = new_aoe;
 }
 
-int Spell::getIntRectX() {
+int Spell::getIntRectX() const {
     return intRectX;
 }
 
-void Spell::setIntRectX(int intRectX) {
-    this->intRectX = intRectX;
+void Spell::setIntRectX(int new_intRectX) {
+    intRectX = new_intRectX;
 }
 
-int Spell::getIntRectY() {
+int Spell::getIntRectY() const {
     return intRectY;
 }
 
-void Spell::setIntRectY(int intRectY) {
-    this->intRectY = intRectY;
+void Spell::setIntRectY(int new_intRectY) {
+    intRectY = new_intRectY;
 }
 
-const std::string Spell::toString() const {
+std::string Spell::toString() const {
     std::stringstream ss;
     ss << "Name: " << name
        << " Type: " << type
@@ -149,34 +137,30 @@ spell_type Spell::getTypeEnum() {
     return spellType;
 }
 
-int Spell::getLevel() {
+int Spell::getLevel() const {
     return level;
 }
 
-void Spell::setLevel(int level) {
-    if(level > maxLevel)
-        this->level = maxLevel;
+void Spell::setLevel(int new_level) {
+    if(new_level > maxLevel)
+        level = maxLevel;
     else
-        this->level = level;
+        level = new_level;
 }
 
-int Spell::getLearnCost() {
+int Spell::getLearnCost() const {
     return learnCost;
 }
 
-void Spell::setLearnCost(int learnCost) {
-    this->learnCost = learnCost;
-}
-
-int Spell::getMaxLevel() {
-    return maxLevel;
+void Spell::setLearnCost(int new_learnCost) {
+    learnCost = new_learnCost;
 }
 
 void Spell::setMaxLevel(int max_level) {
     maxLevel = max_level;
 }
 
-bool Spell::isMaxed() {
+bool Spell::isMaxed() const {
     return level == maxLevel;
 }
 
@@ -184,18 +168,18 @@ void Spell::levelUp() {
     setLevel(level+1);
 }
 
-int Spell::getFinalDamage() {
+int Spell::getFinalDamage() const {
     return damage*level;
 }
 
-int Spell::getFinalCost() {
+int Spell::getFinalCost() const {
     return cost*level;
 }
 
-Spell::Spell(spell_type spellType, string name, string type, string description, int cost, int cooldown, int ready, int damage,
+Spell::Spell(spell_type spellType, string name, string type, string description, int cost, int cooldown, int damage,
         int aoe, bool learned, int level, int maxLevel, int learnCost, int intRectX, int intRectY) :
         spellType(spellType), name(std::move(name)), type(std::move(type)), description(std::move(description)), cost(cost),
-        cooldown(cooldown), ready(ready), damage(damage), aoe(aoe), learned(learned), level(level), maxLevel(maxLevel),
+        cooldown(cooldown), damage(damage), aoe(aoe), learned(learned), level(level), maxLevel(maxLevel),
         learnCost(learnCost), intRectX(intRectX), intRectY(intRectY) {
 
 }

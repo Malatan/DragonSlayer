@@ -6,13 +6,12 @@
 #include "Game.h"
 
 void Game::initVariables() {
-    window = NULL;
+    window = nullptr;
     dt = 0.f;
 }
 
 void Game::initWindow() {
     std::ifstream ifs("../Resources/Config/window.ini");
-    videomodes = sf::VideoMode::getFullscreenModes();
 
     Title = "None";
     sf::VideoMode window_bounds = sf::VideoMode::getDesktopMode();
@@ -49,22 +48,12 @@ void Game::initStates() {
 
 //Constructors/Destructors
 Game::Game() {
-    isFocused = true;
-    unitTesting = false;
+    initVariables();
     initWindow();
     initStates();
 }
 
-Game::Game(bool unit_testing) {
-    isFocused = true;
-    unitTesting = unit_testing;
-    initWindow();
-    initStates();
-}
-
-Game::~Game() {
-
-}
+Game::~Game() = default;
 
 void Game::updateDt() {
     gameRunTime = dtClock.restart();
@@ -78,17 +67,10 @@ void Game::endApplication() {
 }
 
 void Game::updateSFMLEvents() {
-    while(window->pollEvent(sfEvent)){
-        switch (sfEvent.type)
-        {
+    while(window->pollEvent(sfEvent)) {
+        switch (sfEvent.type) {
             case sf::Event::Closed:       //check for CLOSED event
                 window->close();
-                break;
-            case sf::Event::GainedFocus:
-                isFocused = true;
-                break;
-            case sf::Event::LostFocus:
-                isFocused = false;
                 break;
         }
     }
@@ -99,7 +81,7 @@ void Game::update() {
     if(!states.empty()){
         if (window->hasFocus()) {
             states.top()->update(dt);
-            if(states.top()->getQuit()){
+            if(states.top()->getQuit()) {
                 states.top()->endState();
                 states.pop();
             }
@@ -116,7 +98,7 @@ void Game::render() {
 
     //Render items
     if(!states.empty()){
-        states.top()->render();
+        states.top()->render(nullptr);
     }
 
     window->display();
@@ -128,14 +110,6 @@ void Game::run() {
         updateDt();
         update();
         render();
-    }
-}
-
-void Game::unitTestingRun() {
-    window->setVisible(false);
-    while(window->isOpen()){
-        updateDt();
-        update();
     }
 }
 

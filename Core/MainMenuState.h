@@ -11,7 +11,7 @@ class MainMenuState : public State {
 public:
     MainMenuState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::unique_ptr<State>>* states,
                   std::shared_ptr<ResourcesHandler> rsHandler);
-    virtual ~MainMenuState();
+    ~MainMenuState() override;
 
     //functions
     void startNewGame();

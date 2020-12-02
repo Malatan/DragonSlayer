@@ -31,67 +31,52 @@ public:
     //CONSTRUCTOR & DESTRUCTOR
     Enemy(enemy_types type, float x, float y,float scale_x ,float scale_y, float hitbox_offset_x, float hitbox_offset_y,
             float hitbox_width, float hitbox_height, float clsBox_offset_x, float clsBox_offset_y, float clsBox_radius,
-            sf::Texture& texture_sheet, int floor = 0);
-    virtual ~Enemy();
+            sf::Texture& texture_sheet, int floor, unsigned int id);
+    Enemy(enemy_types type, int level, int floor, unsigned int id);
+    ~Enemy() override;
+
+    //variables
+    static const unsigned int MAX_FOLLOWERS = 4;
+
+    //follwers
+    void addFollower(const std::shared_ptr<Enemy>& new_follower);
+    int getFollowersNumber();
+    const vector<std::shared_ptr<Enemy>> &getFollowers() const;
 
     //functions
+    void setPosition(float x, float y) override;
     bool isDead() const;
     void generateNameByType();
-    void copyStats(std::shared_ptr<Enemy> enemy);
-    int getHit(int hit_damage, bool spell_damage);
-    void generateEnemyStats(int floor);
+    void generateEnemyStats(int level, int floor);
     void updateAnimation(const float &dt);
     void update(const float &dt) override;
     void render(sf::RenderTarget& target, bool show_hitbox = false, bool show_clsBox = false);
 
     //getters/setters
+    void setId(unsigned int new_id);
+    unsigned int getId() const;
     enemy_types getType() const;
     std::string getName() const;
-    int getLevel() const;
-    int getAgility() const;
-    int getWisdom() const;
-    int getStrength() const;
-    int getHp() const;
-    void setHp(int new_hp);
-    int getMp() const;
-    void setMp(int new_mp);
-    int getMaxHp() const;
-    int getMaxMp() const;
-    int getArmor() const;
-    int getDamage() const;
-    float getCritChance() const;
-    float getEvadeChance() const;
     std::string toString();
-    void setAnimation(entity_animation animation);
     void setAnimation(entity_animation animation, entity_animation next_animation);
-    void setNextAnimation(entity_animation next_animation);
-    void setDefense(bool b);
-    bool isDefense() const;
+    void setStats(std::shared_ptr<Stats> new_stats);
+    const std::shared_ptr<Stats> &getStats() const;
+
 private:
     //variables
+    unsigned int Id;
     string name;
     enemy_types type;
 
-    int level;
-    int hp;
-    int maxHp;
-    int mp;
-    int maxMp;
-    int armor;
-    int damage;
-    float critChance;
-    float evadeChance;
-    int agility;
-    int wisdom;
-    int strength;
+    bool animationDone{};
+    entity_animation animationEnum{};
+    entity_animation nextAnimationEnum{};
 
-    bool defense;
-    bool animationDone;
-    entity_animation animationEnum;
-    entity_animation nextAnimationEnum;
+    std::vector<std::shared_ptr<Enemy>> followers;
+    std::shared_ptr<Stats> stats;
+
     //initializer functions
     void initAnimations();
 };
-
 
 #endif //DRAGONSLAYER_ENEMY_H

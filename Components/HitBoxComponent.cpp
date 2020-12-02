@@ -18,9 +18,7 @@ HitboxComponent::HitboxComponent(sf::Sprite& sprite,
     hitbox.setOutlineColor(sf::Color::Green);
 }
 
-HitboxComponent::~HitboxComponent() {
-
-}
+HitboxComponent::~HitboxComponent() = default;
 
 //Accessors
 const sf::Vector2f & HitboxComponent::getPosition() const {

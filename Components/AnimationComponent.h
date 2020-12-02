@@ -13,9 +13,6 @@ public:
     AnimationComponent(sf::Sprite& sprite, sf::Texture& texture_sheet);
     virtual ~AnimationComponent();
 
-    //accessor
-    const bool& isDone(const std::string& key);
-
     //functions
     void addAnimation(const std::string& key,
                       float animation_timer, int start_frame_x,

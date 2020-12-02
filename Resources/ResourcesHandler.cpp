@@ -4,25 +4,11 @@
 
 #include "ResourcesHandler.h"
 
-#include <utility>
-
-
-ResourcesHandler::ResourcesHandler() {
-
+ResourcesHandler::ResourcesHandler(){
+    IdCounter = 1000;
 }
 
-ResourcesHandler::~ResourcesHandler() {
-
-}
-
-bool ResourcesHandler::checkIfKeyExist(const std::string& key) {
-    for(const auto& i : resources){
-        if(i->getKey() == key){
-            return true;
-        }
-    }
-    return false;
-}
+ResourcesHandler::~ResourcesHandler() = default;
 
 bool ResourcesHandler::addResource(std::string path, const std::string& key, std::string state_name) {
     for(const auto& i : resources){
@@ -57,34 +43,35 @@ bool ResourcesHandler::loadPlayerStatsTxt(const std::shared_ptr<Stats>& playerSt
     if (!file.is_open()){
         cout<<"Resource load error: Could not load Stats.txt";
     } else{
-        float app;
-        file >> app;
-        playerStats->setLevel(app);
-        file >> app;
+        float appf;
+        int appi;
+        file >> appi;
+        playerStats->setLevel(appi);
+        file >> appi;
         playerStats->setExp(0);
-        playerStats->setMaxExp(app);
-        file >> app;
-        playerStats->setMaxHp(app);
-        playerStats->setHp(app);
-        file >> app;
-        playerStats->setMaxMp(app);
-        playerStats->setMp(app);
-        file >> app;
-        playerStats->setArmor(app);
-        file >> app;
-        playerStats->setDamage(app);
-        file >> app;
-        playerStats->setCritChance(app);
-        file >> app;
-        playerStats->setEvadeChance(app);
-        file >> app;
-        playerStats->setStrength(app);
-        file >> app;
-        playerStats->setWisdom(app);
-        file >> app;
-        playerStats->setAgility(app);
-        file >> app;
-        playerStats->setFreePoints(app);
+        playerStats->setMaxExp(appi);
+        file >> appi;
+        playerStats->setMaxHp(appi);
+        playerStats->setHp(appi);
+        file >> appi;
+        playerStats->setMaxMp(appi);
+        playerStats->setMp(appi);
+        file >> appi;
+        playerStats->setArmor(appi);
+        file >> appi;
+        playerStats->setDamage(appi);
+        file >> appf;
+        playerStats->setCritChance(appf);
+        file >> appf;
+        playerStats->setEvadeChance(appf);
+        file >> appi;
+        playerStats->addAttribute(STRENGTH, appi);
+        file >> appi;
+        playerStats->addAttribute(WISDOM, appi);
+        file >> appi;
+        playerStats->addAttribute(AGILITY, appi);
+        file >> appi;
+        playerStats->setFreePoints(appi);
     }
 
     file.close();
@@ -154,6 +141,7 @@ bool ResourcesHandler::loadPlayerInventoryTxt(const std::shared_ptr<Inventory>& 
 
             item.setIsNew(true);
             item.updateUsageType();
+            item.setId(generateId());
             playerInventory->addItem(&item);
             count --;
         }
@@ -178,12 +166,12 @@ bool ResourcesHandler::loadSpellList(const std::shared_ptr<SpellComponent>& spel
         while(count != 0){
             spell = Spell();
             file >> app;
-            std::replace(app.begin(), app.end(), '_', ' '); // replace all '_' to ' '
+            std::replace(app.begin(), app.end(), '_', ' ');
             spell.setName(app);
             file >> app;
-            spell.setType(app);
+            spell.setType(static_cast<spell_type>(std::stoi(app)));
             file >> app;
-            std::replace(app.begin(), app.end(), '_', ' '); // replace all '_' to ' '
+            std::replace(app.begin(), app.end(), '_', ' ');
             spell.setDescription(app);
 
             file >> app;
@@ -227,6 +215,12 @@ sf::IntRect ResourcesHandler::getEquipSlotTextureRect(int equip_slot) {
     }
     return {0, 0, 0, 0};
 }
+
+unsigned int ResourcesHandler::generateId() {
+    IdCounter++;
+    return IdCounter-1;
+}
+
 
 
 

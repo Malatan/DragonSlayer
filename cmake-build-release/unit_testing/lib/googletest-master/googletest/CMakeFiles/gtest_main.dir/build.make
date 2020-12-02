@@ -53,19 +53,19 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2020.2.3\bin\cmake\win\bin\cmake.exe"
+CMAKE_COMMAND = "E:\CLion 2019.2.5\bin\cmake\win\bin\cmake.exe"
 
 # The command to remove a file.
-RM = "C:\Program Files\JetBrains\CLion 2020.2.3\bin\cmake\win\bin\cmake.exe" -E rm -f
+RM = "E:\CLion 2019.2.5\bin\cmake\win\bin\cmake.exe" -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\PROGETTO\MAIN\DragonSlayer
+CMAKE_SOURCE_DIR = E:\DragonSlayer
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\PROGETTO\MAIN\DragonSlayer\cmake-build-release
+CMAKE_BINARY_DIR = E:\DragonSlayer\cmake-build-release
 
 # Include any dependencies generated for this target.
 include unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/depend.make
@@ -79,16 +79,16 @@ include unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/
 unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.obj: unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/flags.make
 unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.obj: unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/includes_CXX.rsp
 unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.obj: ../unit_testing/lib/googletest-master/googletest/src/gtest_main.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\PROGETTO\MAIN\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.obj"
-	cd /d C:\PROGETTO\MAIN\DragonSlayer\cmake-build-release\unit_testing\lib\googletest-master\googletest && C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\gtest_main.dir\src\gtest_main.cc.obj -c C:\PROGETTO\MAIN\DragonSlayer\unit_testing\lib\googletest-master\googletest\src\gtest_main.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.obj"
+	cd /d E:\DragonSlayer\cmake-build-release\unit_testing\lib\googletest-master\googletest && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\gtest_main.dir\src\gtest_main.cc.obj -c E:\DragonSlayer\unit_testing\lib\googletest-master\googletest\src\gtest_main.cc
 
 unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gtest_main.dir/src/gtest_main.cc.i"
-	cd /d C:\PROGETTO\MAIN\DragonSlayer\cmake-build-release\unit_testing\lib\googletest-master\googletest && C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\PROGETTO\MAIN\DragonSlayer\unit_testing\lib\googletest-master\googletest\src\gtest_main.cc > CMakeFiles\gtest_main.dir\src\gtest_main.cc.i
+	cd /d E:\DragonSlayer\cmake-build-release\unit_testing\lib\googletest-master\googletest && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E E:\DragonSlayer\unit_testing\lib\googletest-master\googletest\src\gtest_main.cc > CMakeFiles\gtest_main.dir\src\gtest_main.cc.i
 
 unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gtest_main.dir/src/gtest_main.cc.s"
-	cd /d C:\PROGETTO\MAIN\DragonSlayer\cmake-build-release\unit_testing\lib\googletest-master\googletest && C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\PROGETTO\MAIN\DragonSlayer\unit_testing\lib\googletest-master\googletest\src\gtest_main.cc -o CMakeFiles\gtest_main.dir\src\gtest_main.cc.s
+	cd /d E:\DragonSlayer\cmake-build-release\unit_testing\lib\googletest-master\googletest && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S E:\DragonSlayer\unit_testing\lib\googletest-master\googletest\src\gtest_main.cc -o CMakeFiles\gtest_main.dir\src\gtest_main.cc.s
 
 # Object files for target gtest_main
 gtest_main_OBJECTS = \
@@ -100,9 +100,9 @@ gtest_main_EXTERNAL_OBJECTS =
 lib/libgtest_main.a: unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.obj
 lib/libgtest_main.a: unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/build.make
 lib/libgtest_main.a: unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\PROGETTO\MAIN\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library ..\..\..\..\lib\libgtest_main.a"
-	cd /d C:\PROGETTO\MAIN\DragonSlayer\cmake-build-release\unit_testing\lib\googletest-master\googletest && $(CMAKE_COMMAND) -P CMakeFiles\gtest_main.dir\cmake_clean_target.cmake
-	cd /d C:\PROGETTO\MAIN\DragonSlayer\cmake-build-release\unit_testing\lib\googletest-master\googletest && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\gtest_main.dir\link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=E:\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library ..\..\..\..\lib\libgtest_main.a"
+	cd /d E:\DragonSlayer\cmake-build-release\unit_testing\lib\googletest-master\googletest && $(CMAKE_COMMAND) -P CMakeFiles\gtest_main.dir\cmake_clean_target.cmake
+	cd /d E:\DragonSlayer\cmake-build-release\unit_testing\lib\googletest-master\googletest && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\gtest_main.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/build: lib/libgtest_main.a
@@ -110,10 +110,10 @@ unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/build: l
 .PHONY : unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/build
 
 unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/clean:
-	cd /d C:\PROGETTO\MAIN\DragonSlayer\cmake-build-release\unit_testing\lib\googletest-master\googletest && $(CMAKE_COMMAND) -P CMakeFiles\gtest_main.dir\cmake_clean.cmake
+	cd /d E:\DragonSlayer\cmake-build-release\unit_testing\lib\googletest-master\googletest && $(CMAKE_COMMAND) -P CMakeFiles\gtest_main.dir\cmake_clean.cmake
 .PHONY : unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/clean
 
 unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\PROGETTO\MAIN\DragonSlayer C:\PROGETTO\MAIN\DragonSlayer\unit_testing\lib\googletest-master\googletest C:\PROGETTO\MAIN\DragonSlayer\cmake-build-release C:\PROGETTO\MAIN\DragonSlayer\cmake-build-release\unit_testing\lib\googletest-master\googletest C:\PROGETTO\MAIN\DragonSlayer\cmake-build-release\unit_testing\lib\googletest-master\googletest\CMakeFiles\gtest_main.dir\DependInfo.cmake --color=$(COLOR)
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" E:\DragonSlayer E:\DragonSlayer\unit_testing\lib\googletest-master\googletest E:\DragonSlayer\cmake-build-release E:\DragonSlayer\cmake-build-release\unit_testing\lib\googletest-master\googletest E:\DragonSlayer\cmake-build-release\unit_testing\lib\googletest-master\googletest\CMakeFiles\gtest_main.dir\DependInfo.cmake --color=$(COLOR)
 .PHONY : unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/depend
 

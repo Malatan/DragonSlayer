@@ -11,7 +11,7 @@
 class CollisionBoxComponent {
 public:
     //constructors/destructor
-    CollisionBoxComponent(sf::Sprite& sprite, float offset_x, float offset_y,float radius);
+    CollisionBoxComponent(sf::Sprite& sprite, float offset_x, float offset_y, float radius);
     virtual ~CollisionBoxComponent();
 
     //accessors
@@ -30,7 +30,6 @@ private:
 
     float offsetX;
     float offsetY;
-    float radius;
     float modX;
 };
 

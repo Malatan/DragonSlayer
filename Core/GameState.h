@@ -46,7 +46,7 @@ public:
     std::shared_ptr<SpellTab> getSpellTab();
 
     //functions
-    void spawnEnemy(float x, float y, enemy_types type);
+    void spawnEnemy(float x, float y, enemy_types type, unsigned int enemy_followers = 5);
     void addItem(Item* item);
     void changeStato(int current_stato);
     void updateTabsGoldLbl();
@@ -72,8 +72,8 @@ private:
     gui::Button pauseMenuBtn;
     gui::Button spellTabBtn;
 
-    Map* map;
-    MapGenerator* mg;
+    Map* map{};
+    MapGenerator* mg{};
     PauseMenu pmenu;
     std::shared_ptr<CharacterTab> cTab;
     std::shared_ptr<ShopTab> shopTab;

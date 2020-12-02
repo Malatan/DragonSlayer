@@ -36,9 +36,7 @@ PopUpTextComponent::PopUpTextComponent(const sf::Font& font, const std::shared_p
     initTagTemplates();
 }
 
-PopUpTextComponent::~PopUpTextComponent() {
-
-}
+PopUpTextComponent::~PopUpTextComponent() = default;
 
 //Functions
 void PopUpTextComponent::addPopUpText(const unsigned tag_type, const float pos_x, const float pos_y,
@@ -91,8 +89,4 @@ void PopUpTextComponent::render(sf::RenderTarget & target) {
     for (const auto& i : popUpTexts) {
         i->render(target);
     }
-}
-
-sf::Font PopUpTextComponent::getFont() {
-    return font;
 }

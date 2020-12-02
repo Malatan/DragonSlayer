@@ -8,12 +8,7 @@ Inventory::Inventory(int* currentSpace) {
     currentMaxSpace = currentSpace;
 }
 
-Inventory::Inventory() {
-}
-
-Inventory::~Inventory() {
-
-}
+Inventory::~Inventory() = default;
 
 void Inventory::setCurrentMaxSpace(int current_maxSpace) {
     if(current_maxSpace > MAX_SPACE){
@@ -31,7 +26,7 @@ int Inventory::getItemsSize() {
     return items.size();
 }
 
-std::shared_ptr<Item> Inventory::getItem(int n) {
+std::shared_ptr<Item> Inventory::getItemByIndex(int n) {
     return items.at(n);
 }
 
@@ -45,7 +40,7 @@ void Inventory::sortByItemType() {
 
 bool Inventory::addItem(Item *item) {
     for(const auto& i : items){
-        if(i->getName() == item->getName()){
+        if(i->getName() == item->getName() && i->getUsageType() == CONSUMABLE_USAGE){
             i->setQuantity(i->getQuantity() + item->getQuantity());
             i->setIsNew(true);
             return true;
@@ -68,10 +63,10 @@ string Inventory::listInventory(){
     return desc;
 }
 
-bool Inventory::removeItem(std::string name) {
+bool Inventory::removeItemById(unsigned int id) {
     auto iter = std::find_if(items.begin(), items.end(),
                              [&](const std::shared_ptr<Item>& p){
-        return p->getName() == name;
+        return p->getId() == id;
     });
 
     if ( iter != items.end()){
@@ -82,10 +77,10 @@ bool Inventory::removeItem(std::string name) {
     return false;
 }
 
-std::shared_ptr<Item> Inventory::getItem(std::string name) {
+std::shared_ptr<Item> Inventory::getItemById(unsigned int id) {
     auto iter = std::find_if(items.begin(), items.end(),
                              [&](const std::shared_ptr<Item>& p){
-                                 return p->getName() == name;
+                                 return p->getId() == id;
                              });
 
     if ( iter != items.end()){
@@ -107,6 +102,8 @@ void Inventory::expandInventorySpace(int n) {
 bool Inventory::isExpandable() {
     return *currentMaxSpace < MAX_SPACE;
 }
+
+
 
 
 

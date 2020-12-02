@@ -3,9 +3,7 @@
 //
 
 #include "PauseMenu.h"
-PauseMenu::PauseMenu(){
-
-};
+PauseMenu::PauseMenu()= default;
 
 PauseMenu::PauseMenu(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* font) : font(font){
     //init background
@@ -34,9 +32,7 @@ PauseMenu::PauseMenu(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* 
             container.getPosition().y + 20.f);
 }
 
-PauseMenu::~PauseMenu() {
-
-}
+PauseMenu::~PauseMenu() = default;
 
 //functions
 bool PauseMenu::isButtonPressed(const std::string& key) {

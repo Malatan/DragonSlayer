@@ -16,13 +16,11 @@ public:
     virtual ~SpellComponent();
 
     //accessors
-    std::vector<std::shared_ptr<Spell>> getSpells();
     std::vector<std::shared_ptr<Spell>> getPlayerSpells();
 
     //functions
     void addSpell(Spell spell);
     void addPlayerSpell(Spell spell);
-    void sortSpellList();
     std::string toString() const;
     std::string toStringPlayer() const;
 

@@ -16,8 +16,6 @@ public:
     PopUpTextComponent(const sf::Font& font, const std::shared_ptr<sf::RenderWindow>& window);
     virtual ~PopUpTextComponent();
 
-    sf::Font getFont();
-
     //Functions
     void addPopUpText(unsigned tag_type, float pos_x, float pos_y,
                       const std::string& str, const std::string& prefix, const std::string& postfix, float delay = 0.f);
@@ -87,9 +85,7 @@ private:
             velocity = tag->velocity;
         }
 
-        ~PopUpText() {
-
-        }
+        ~PopUpText() = default;
 
         //Accessor
         inline bool isExpired() const{ return lifetime <= 0.f; }

@@ -5,19 +5,11 @@
 #include "SpellComponent.h"
 
 //constructors/desctructor
-SpellComponent::SpellComponent() {
+SpellComponent::SpellComponent() = default;
 
-}
-
-SpellComponent::~SpellComponent() {
-
-}
+SpellComponent::~SpellComponent() = default;
 
 //accessors
-std::vector<std::shared_ptr<Spell>> SpellComponent::getSpells() {
-    return spells;
-}
-
 std::vector<std::shared_ptr<Spell>> SpellComponent::getPlayerSpells() {
     return playerSpells;
 }
@@ -31,14 +23,10 @@ void SpellComponent::addPlayerSpell(Spell spell) {
     playerSpells.push_back(std::make_shared<Spell>(&spell));
 }
 
-void SpellComponent::sortSpellList() {
-
-}
-
 std::string SpellComponent::toString() const {
     std::stringstream ss;
     ss << "---------------Spell list---------------\n";
-    for(auto i : spells){
+    for(const auto& i : spells){
         ss << i->toString() << "\n";
     }
     ss << "----------------------------------------\n";
@@ -48,7 +36,7 @@ std::string SpellComponent::toString() const {
 std::string SpellComponent::toStringPlayer() const {
     std::stringstream ss;
     ss << "---------------Player Spell list---------------\n";
-    for(auto i : playerSpells){
+    for(const auto& i : playerSpells){
         ss << i->toString() << "\n";
     }
     ss << "------------------------------------------------\n";

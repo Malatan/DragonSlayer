@@ -4,8 +4,6 @@
 
 #include "ShopTab.h"
 
-#include <utility>
-
 void ShopTab::initShopSlots() {
     //init shop slots
     if(!shopSlots.empty()){
@@ -17,14 +15,13 @@ void ShopTab::initShopSlots() {
     float modifierY = 120.f;
     float yMultiplier = 0;
     int count = 0;
-    for(auto i : items){
+    for(const auto& i : items){
         if((count % max_per_row) == 0 && count != 0){
             yMultiplier ++;
         }
         shopSlots.push_back(std::make_shared<gui::ShopSlot>(80.f, 80.f,
-                container.getPosition().x + 35.f + (modifierX * (count % max_per_row)),
-                container.getPosition().y + 80.f + (modifierY * yMultiplier) ,
-                i.second->getName(), i.second->getValue(), font, i.second));
+                container.getPosition().x + 35.f + (modifierX * (float)(count % max_per_row)),
+                container.getPosition().y + 80.f + (modifierY * yMultiplier), font, i.second));
         count++;
     }
 }
@@ -82,31 +79,31 @@ void ShopTab::initItemList() {
     items["HealthPotion(S)"] = new Item("C-potionS", "HealthPotion(S)", "Restore 100 hp",
             50, COMMON, 0, 3,
             0, 0, 0, 0, 0.f, 0.f,
-            1, false);
+            1, false, rsHandler->generateId());
     items["HealthPotion(M)"] = new Item("C-potionM", "HealthPotion(M)", "Restore 200 hp",
                                               100, COMMON, 7, 2,
                                               0, 0, 0, 0, 0.f, 0.f,
-                                              1, false);
+                                              1, false, rsHandler->generateId());
     items["HealthPotion(L)"] = new Item("C-potionL", "HealthPotion(L)", "Restore 400 hp",
                                               200, COMMON, 7, 3,
                                               0, 0, 0, 0, 0.f, 0.f,
-                                              1, false);
+                                              1, false, rsHandler->generateId());
     items["ManaPotion(S)"] = new Item("C-potionS", "ManaPotion(S)", "Restore 100 mp",
                                             50, COMMON, 3, 3,
                                             0, 0, 0, 0, 0.f, 0.f,
-                                            1, false);
+                                            1, false, rsHandler->generateId());
     items["ManaPotion(M)"] = new Item("C-potionM", "ManaPotion(M)", "Restore 200 mp",
                                             100, COMMON, 10, 2,
                                             0, 0, 0, 0, 0.f, 0.f,
-                                            1, false);
+                                            1, false, rsHandler->generateId());
     items["ManaPotion(L)"] = new Item("C-potionL", "ManaPotion(L)", "Restore 400 mp",
                                             200, COMMON, 10, 3,
                                             0, 0, 0, 0, 0.f, 0.f,
-                                            1, false);
+                                            1, false, rsHandler->generateId());
     items["UpgradeInventory"] = new Item("Upgrade", "UpgradeInventory", "Gives you extra 5 inventory capacity",
                                             1500, LEGENDARY, 0, 30,
                                             0, 0, 0, 0, 0.f, 0.f,
-                                            1, false);
+                                            1, false, rsHandler->generateId());
 }
 
 
@@ -134,6 +131,7 @@ void ShopTab::buyItem(Item* item, const unsigned price) {
 
         }else{
             player->minusGold(price);
+            it->setId(rsHandler->generateId());
             gState->addItem(it);
             gState->updateTabsGoldLbl();
             gState->getPopUpTextComponent()->addPopUpTextCenter(DEFAULT,

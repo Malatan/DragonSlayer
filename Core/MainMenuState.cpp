@@ -4,8 +4,6 @@
 
 #include "MainMenuState.h"
 
-#include <utility>
-
 void MainMenuState::initVariables() {
     background.setSize(
             sf::Vector2f(
@@ -25,7 +23,7 @@ void MainMenuState::initBackground() {
 
 void MainMenuState::initFonts() {
     if(!font.loadFromFile("../Resources/Fonts/BreatheFire-65pg.ttf")){
-        throw("Errore: mainmenustate could not load font");
+        std::cout<<"Errore: mainmenustate could not load font";
     }
 }
 
@@ -62,9 +60,7 @@ MainMenuState::MainMenuState(std::shared_ptr<sf::RenderWindow> window, std::stac
     initButtons();
 }
 
-MainMenuState::~MainMenuState() {
-
-}
+MainMenuState::~MainMenuState() = default;
 
 void MainMenuState::startNewGame() {
     states->push(std::make_unique<GameState>(window, states, rsHandler, &font));
@@ -93,7 +89,7 @@ void MainMenuState::updateButtons() {
 }
 
 void MainMenuState::update(const float &dt) {
-    updateMousePosition();
+    updateMousePosition(nullptr);
     updateInput(dt);
     updateKeyTime(dt);
     updateButtons();

@@ -4,8 +4,6 @@
 
 #include "GameState.h"
 
-#include <utility>
-
 void GameState::initTextures() {
 
     rsHandler->addResource("../Resources/Images/Sprites/Player/player_sheet.png", "player_sheet", "GameState");
@@ -107,14 +105,14 @@ void GameState::initPlayers() {
     // legge i valori di default dell 'inventario dal Data/Inventory.txt
     rsHandler->loadPlayerInventoryTxt(player->getInventory());
 
-    spawnEnemy(1232.f, 386.f,GOBLIN);
-    spawnEnemy(1349.f, 393.f,MUSHROOM);
-    spawnEnemy(1280.f, 159.f,BANDIT_LIGHT);
-    spawnEnemy(960.f, 159.f,SKELETON);
-    spawnEnemy(1104.f, 159.f,SKELETON_2);
-    spawnEnemy(1190.f, 159.f,FLYING_EYE);
-    spawnEnemy(1356.f, 271.f,BANDIT_HEAVY);
-    spawnEnemy(1475.f, 385.f,WITCH);
+    spawnEnemy(1232.f, 386.f,GOBLIN, 5);
+    spawnEnemy(1349.f, 393.f,MUSHROOM, 5);
+    spawnEnemy(1280.f, 159.f,BANDIT_LIGHT, 5);
+    spawnEnemy(960.f, 159.f,SKELETON, 5);
+    spawnEnemy(1104.f, 159.f,SKELETON_2, 5);
+    spawnEnemy(1190.f, 159.f,FLYING_EYE, 5);
+    spawnEnemy(1356.f, 271.f,BANDIT_HEAVY, 5);
+    spawnEnemy(1475.f, 385.f,WITCH, 5);
 
     npcs.push_back(new Npc(WIZARD, 30.f, 450.f, 0.7f, 0.7f,
                                  textures["WIZARD_NPC_SHEET"], textures["CHATTABLE_ICON"]));
@@ -211,7 +209,7 @@ void GameState::initShopItemTextures() {
 }
 
 void GameState::initBuffComponent() {
-    buffComponent = std::make_shared<BuffComponent>(popUpTextComponent, this, font);
+    buffComponent = std::make_shared<BuffComponent>(popUpTextComponent, player, this, font);
     // add all buffs to map
     buffComponent->addBuff("HealthPotion(S)",
             std::make_shared<Buff>("HealthPotion(S)", "Recovers your hp by 100", "HealthPotion",
@@ -442,6 +440,7 @@ std::shared_ptr<SpellComponent> GameState::getSpellComponent() {
 std::shared_ptr<SpellTab> GameState::getSpellTab() {
     return spellTab;
 }
+
 //functions
 void GameState::addItem(Item *item) {
     if(player->getInventory()->addItem(item)){
@@ -478,59 +477,116 @@ void GameState::addItem(Item *item) {
     }
 }
 
-void GameState::spawnEnemy(float x, float y, enemy_types type) {
+void GameState::spawnEnemy(float x, float y, enemy_types type, unsigned int enemy_followers) {
+    std::shared_ptr<Enemy> new_enemy;
+    bool new_enemy_spawned = false;
     switch(type){
         case WITCH:
-            enemies.push_back(std::make_shared<Enemy>(WITCH, x, y, 1.2f, 1.2f,
-                                       127.f, 136.f, 50.f, 65.f,
-                                       150.f, 200.f, 9.f,
-                                       textures["ENEMY_WIZARD_SHEET"], currentFloor));
+            new_enemy = std::make_shared<Enemy>(WITCH, x, y, 1.2f, 1.2f,
+                                                127.f, 136.f, 50.f, 65.f,
+                                                150.f, 200.f, 9.f,
+                                                textures["ENEMY_WIZARD_SHEET"], currentFloor, rsHandler->generateId());
+            enemies.push_back(new_enemy);
+            new_enemy_spawned = true;
             break;
         case SKELETON:
-            enemies.push_back(std::make_shared<Enemy>(SKELETON, x, y, 2.f, 2.3f,
+            new_enemy = std::make_shared<Enemy>(SKELETON, x, y, 2.f, 2.3f,
                                        85.f, 100.f, 40.f, 60.f,
                                        105.f, 159.f, 8.f,
-                                       textures["ENEMY_SKELETON_SHEET"], currentFloor));
+                                       textures["ENEMY_SKELETON_SHEET"], currentFloor, rsHandler->generateId());
+            enemies.push_back(new_enemy);
+            new_enemy_spawned = true;
             break;
         case SKELETON_2:
-            enemies.push_back(std::make_shared<Enemy>(SKELETON_2, x, y, 1.2f, 1.2f,
+            new_enemy = std::make_shared<Enemy>(SKELETON_2, x, y, 1.2f, 1.2f,
                                        70.f, 60.f, 50.f, 63.f,
                                        95.f, 122.f, 10.f,
-                                       textures["ENEMY_SKELETON_2_SHEET"], currentFloor));
+                                       textures["ENEMY_SKELETON_2_SHEET"], currentFloor, rsHandler->generateId());
+            enemies.push_back(new_enemy);
+            new_enemy_spawned = true;
             break;
         case FLYING_EYE:
-            enemies.push_back(std::make_shared<Enemy>(FLYING_EYE, x, y, 1.3f, 1.3f,
+            new_enemy = std::make_shared<Enemy>(FLYING_EYE, x, y, 1.3f, 1.3f,
                                        72.f, 85.f, 58.f, 60.f,
                                        100.f, 142.f, 11.f,
-                                       textures["ENEMY_FLYINGEYE_SHEET"], currentFloor));
+                                       textures["ENEMY_FLYINGEYE_SHEET"], currentFloor, rsHandler->generateId());
+            enemies.push_back(new_enemy);
+            new_enemy_spawned = true;
             break;
         case GOBLIN:
-            enemies.push_back(std::make_shared<Enemy>(GOBLIN, x, y, 1.2f, 1.4f,
+            new_enemy = std::make_shared<Enemy>(GOBLIN, x, y, 1.2f, 1.4f,
                                        70.f, 94.f, 40.f, 48.f,
                                        90.f, 142.f, 8.f,
-                                       textures["ENEMY_GOBLIN_SHEET"], currentFloor));
+                                       textures["ENEMY_GOBLIN_SHEET"], currentFloor, rsHandler->generateId());
+            enemies.push_back(new_enemy);
+            new_enemy_spawned = true;
             break;
         case MUSHROOM:
-            enemies.push_back(std::make_shared<Enemy>(MUSHROOM, x, y, 1.4f, 1.4f,
+            new_enemy = std::make_shared<Enemy>(MUSHROOM, x, y, 1.4f, 1.4f,
                                        87.f, 87.f, 38.f, 57.f,
                                        106.f, 143.f, 8.f,
-                                       textures["ENEMY_MUSHROOM_SHEET"], currentFloor));
+                                       textures["ENEMY_MUSHROOM_SHEET"], currentFloor, rsHandler->generateId());
+            enemies.push_back(new_enemy);
+            new_enemy_spawned = true;
             break;
         case BANDIT_HEAVY:
-            enemies.push_back(std::make_shared<Enemy>(BANDIT_HEAVY, x, y, 1.8f, 1.8f,
+            new_enemy = std::make_shared<Enemy>(BANDIT_HEAVY, x, y, 1.8f, 1.8f,
                                        25.f, 15.f, 45.f, 68.f,
                                        47.f, 83.f, 9.f,
-                                       textures["ENEMY_BANDITHEAVY_SHEET"], currentFloor));
+                                       textures["ENEMY_BANDITHEAVY_SHEET"], currentFloor, rsHandler->generateId());
+            enemies.push_back(new_enemy);
+            new_enemy_spawned = true;
             break;
         case BANDIT_LIGHT:
-            enemies.push_back(std::make_shared<Enemy>(BANDIT_LIGHT, x, y, 1.8f, 1.8f,
+            new_enemy = std::make_shared<Enemy>(BANDIT_LIGHT, x, y, 1.8f, 1.8f,
                                        25.f, 15.f, 45.f, 68.f,
                                        47.f, 83.f, 9.f,
-                                       textures["ENEMY_BANDITLIGHT_SHEET"], currentFloor));
+                                       textures["ENEMY_BANDITLIGHT_SHEET"], currentFloor, rsHandler->generateId());
+            enemies.push_back(new_enemy);
+            new_enemy_spawned = true;
             break;
         default:
             std::cout<<"No such enemy: " << type;
             break;
+    }
+
+    if(new_enemy_spawned){
+        // se enemy_follwers == 5 allora si genera in modo randomico il numero dei follwers
+        if(enemy_followers == 5){
+            // genera n followers da 1 al numero di piano corrente - 1
+            int n_followers = utils::generateRandomNumber(1, currentFloor + 1, false);
+            if (n_followers > Enemy::MAX_FOLLOWERS)
+                n_followers = Enemy::MAX_FOLLOWERS;
+
+            //genera in modo randomico l'enum del tipo dei followers
+            std::vector<int> enemyEnums = utils::generateRandomNumbers(0, 7, n_followers - 1, false);
+            for(auto i : enemyEnums){
+                //il livello del follower deve essere minore di [2,5] del nemico capo
+                int level_diff = utils::generateRandomNumber(2, 5, false);
+                int new_follower_level = new_enemy->getStats()->getLevel() - level_diff;
+
+                new_enemy->addFollower(std::make_shared<Enemy>(
+                        static_cast<enemy_types>(i), new_follower_level, currentFloor, rsHandler->generateId()));
+            }
+
+        }else if(enemy_followers > 0){
+            // altrimenti si genera n nemico dove n = enemy_follwers
+            // se n <= 0 allora n = 0
+            // se n > 4 allora n = 4
+            if(enemy_followers > 4)
+                enemy_followers = 4;
+
+            //genera in modo randomico l'enum del tipo dei followers
+            std::vector<int> enemyEnums = utils::generateRandomNumbers(0, 7, (int)enemy_followers, false);
+            for(auto i : enemyEnums){
+                //il livello del follower deve essere minore di [2,5] del nemico capo
+                int level_diff = utils::generateRandomNumber(2, 5, false);
+                int new_follower_level = new_enemy->getStats()->getLevel() - level_diff;
+
+                new_enemy->addFollower(std::make_shared<Enemy>(
+                        static_cast<enemy_types>(i), new_follower_level, currentFloor, rsHandler->generateId()));
+            }
+        }
     }
 }
 
@@ -572,7 +628,8 @@ void GameState::updateInput(const float &dt) {
             ss << "Dragon Gloves" << utils::generateRandomNumber(100, 99999, false);
             addItem(new Item("E-arms", ss.str(),
                     "powerful helmet", 5000, LEGENDARY,
-                    4, 7, 300, 200, 0, 350, 10.3, 17.3, 1, true));
+                    4, 7, 300, 200, 0, 350, 10.3, 17.3,
+                    1, true, rsHandler->generateId()));
             cTab->updateInventoryCapLbl();
             popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG, ss.str(), "", " added to the inventory");
 
@@ -580,7 +637,8 @@ void GameState::updateInput(const float &dt) {
             int n = utils::generateRandomNumber(10, 30, false);
             Item* item = new Item("C-potionS", "HealthPotion(S)",
                                   "Restore 100 hp", 5, COMMON,
-                                  0, 3, 0, 0, 0, 0, 0, 0, n, true);
+                                  0, 3, 0, 0, 0, 0, 0, 0, n,
+                                  true, rsHandler->generateId());
             addItem(item);
             popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG, to_string(n), "", " HealthPotion(S) added to the inventory");
             delete item;
@@ -722,6 +780,11 @@ void GameState::update(const float& dt) {
                 //cTab->updatePlayerStatsLbl();
                 player->setPosition(750.f, 130.f);
                 player->stopVelocity();
+            }
+            if(i->getHitboxComponent()->getGlobalBounds().contains(mousePosView)){
+                if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && getKeyTime()){
+                    std::cout<<i->toString()<<std::endl;
+                }
             }
         }
         for(auto i : npcs){

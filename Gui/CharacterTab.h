@@ -52,6 +52,7 @@ public:
     void useConsumable(const std::shared_ptr<Item>& item, std::unique_ptr<gui::ItemSlot>& i);
     void deleteBtnFunction();
     void sellBtnFunction();
+    void updateMouseInput();
     void updateKeyboardInput();
     void update(const sf::Vector2f& mousePos);
     void render(sf::RenderTarget& target);

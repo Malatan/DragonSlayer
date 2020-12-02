@@ -9,6 +9,7 @@
 #include <sstream>
 #include <ctime>
 #include <vector>
+#include <algorithm>
 
 namespace utils{
     int generateRandomNumber(int from, int to, bool resetSeed);

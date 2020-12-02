@@ -19,16 +19,17 @@ class Npc : public Entity{
 public:
     Npc();
     Npc(npc_type type, float x, float y, float scale_x, float scale_y, sf::Texture& texture_sheet, sf::Texture& texture);
-    virtual ~Npc();
+    ~Npc() override;
 
     //funtions
+    void setPosition(float x, float y) override;
     void updateAnimation(const float &dt);
-    void update(const float &dt);
-    void updateCollsion(const std::shared_ptr<Player>& player, npc_type* type);
-    void render(sf::RenderTarget& target, const bool show_hitbox = false);
+    void update(const float &dt) override;
+    void updateCollsion(const std::shared_ptr<Player>& player, npc_type* current_type);
+    void render(sf::RenderTarget& target, bool show_hitbox = false);
 
 private:
-    npc_type  type;
+    npc_type type{};
     sf::RectangleShape overHeadContainer;
 
     //initializer functions

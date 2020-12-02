@@ -4,11 +4,7 @@
 
 #include "Buff.h"
 
-#include <utility>
-
-Buff::Buff() {
-
-}
+Buff::Buff() = default;
 
 Buff::Buff(Buff *buff) : name(buff->name), description(buff->description), keyWord(buff->keyWord), addHp(buff->addHp), addMp(buff->addMp),
                          addDamage(buff->addDamage), addArmor(buff->addArmor), addCritChance(buff->addCritChance),
@@ -31,9 +27,7 @@ Buff::Buff(std::string name, std::string description, std::string key_word, int 
            instant(instant), debuff(is_debuff), intRectX(intRectX), intRectY(intRectY){
 }
 
-Buff::~Buff() {
-
-}
+Buff::~Buff() = default;
 
 const string &Buff::getName() const {
     return name;
@@ -115,10 +109,6 @@ std::string Buff::getKeyWord() const {
 
 std::string Buff::getDescription() const {
     return description;
-}
-
-void Buff::setTurns(int new_turns) {
-    turns = new_turns;
 }
 
 void Buff::updateLifeTime() {

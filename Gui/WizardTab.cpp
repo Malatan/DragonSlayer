@@ -4,8 +4,6 @@
 
 #include "WizardTab.h"
 
-#include <utility>
-
 void WizardTab::initWizardSpellSlots() {
     //init spellslots
     if(!spellSlots.empty()){
@@ -22,7 +20,7 @@ void WizardTab::initWizardSpellSlots() {
             yMultiplier ++;
         }
         spellSlots.push_back(std::make_shared<gui::WizardSpellSlot>(350.f, 80.f,
-                container.getPosition().x + 35.f + (modifierX * (count % max_per_row)),
+                container.getPosition().x + 35.f + (modifierX * (float)(count % max_per_row)),
                 container.getPosition().y + 80.f + (modifierY * yMultiplier) ,
                 i, &textures["ITEMS_SHEET"], 34.f, font, 18
         ));
@@ -69,9 +67,7 @@ WizardTab::WizardTab(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* 
     updateSpellInfo();
 }
 
-WizardTab::~WizardTab() {
-
-}
+WizardTab::~WizardTab() = default;
 
 //functions
 void WizardTab::updateSpellInfo() {

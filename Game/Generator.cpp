@@ -3,15 +3,15 @@
 //
 #include "Generator.h"
 
-Item Generator::generateItem(int floor, Enemy enemy) {
+Item Generator::generateItem(int floor, unsigned int enemy_level) {
 
     Item i;
 
     //Rarity: COMMON - UNCOMMON - RARE - EPIC - LEGGENDARY
     //CALCOLO RARITA'
-    double gen = rand()%10+1;
+    double gen = utils::generateRandomNumber(1, 10, false);
     double mul = 1 + 1/gen;
-    double rarity =  enemy.getLevel() * floor * mul;
+    double rarity =  enemy_level * floor * mul;
     double doubleGold = rarity;
 
     if(rarity < 10){
@@ -39,13 +39,13 @@ Item Generator::generateItem(int floor, Enemy enemy) {
 
     //GENERO TIPOLOGIA CASUALE
 
-    int type = rand()%10;    //tra 0 e 9
-    gen = rand()%10+1;
+    int type = utils::generateRandomNumber(0, 9, false);    //tra 0 e 9
+    gen = utils::generateRandomNumber(1, 10, false);
     mul = 1 + (1/gen);      //reset moltiplicatore statistiche
 
     if(type < 5){           //WEAPON
 
-        int weaponType = rand()%3;      // 3 = TIPI DI ARMI PRESENTI NEL GIOCO -> aggiungibili
+        int weaponType = utils::generateRandomNumber(0, 2, false);   // 3 TIPI DI ARMI PRESENTI NEL GIOCO -> aggiungibili
 
         if(weaponType == 0){            //SWORD
             i.setItemType("sword");

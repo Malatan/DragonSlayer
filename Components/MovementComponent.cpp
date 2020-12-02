@@ -10,9 +10,7 @@ MovementComponent::MovementComponent(sf::Sprite& sprite,
     speedControl = true;
 }
 
-MovementComponent::~MovementComponent() {
-
-}
+MovementComponent::~MovementComponent() = default;
 
 //accessors
 const float &MovementComponent::getMaxVelocity() const {
@@ -24,7 +22,7 @@ const sf::Vector2f &MovementComponent::getVelocity() const {
 }
 
 //functions
-const bool MovementComponent::getState(const short unsigned state) const {
+bool MovementComponent::getState(const short unsigned state) const {
     switch(state){
         case IDLE:
             if(velocity.x == 0.f && velocity.y == 0.f)
@@ -49,6 +47,8 @@ const bool MovementComponent::getState(const short unsigned state) const {
         case MOVING_DOWN:
             if(velocity.y > 0.f)
                 return true;
+            break;
+        default:
             break;
     }
     return false;
@@ -135,10 +135,6 @@ const sf::Vector2f &MovementComponent::getPreviousPosition() const {
 }
 
 //modifers
-void MovementComponent::setVelocity(sf::Vector2f v) {
-    velocity = v;
-}
-
 void MovementComponent::enableSpeedControl(bool b) {
     speedControl = b;
 }

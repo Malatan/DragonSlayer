@@ -29,9 +29,10 @@ public:
     //CONSTRUCTOR & DESTRUCTOR
     Player();
     Player(float x, float y, float scale_x, float scale_y, sf::Texture& texture_sheet);
-    virtual ~Player();
+    ~Player() override;
 
     //functions
+    void setPosition(float x, float y) override;
     bool hasShield();
     bool isDead();
     void updateAnimation(const float &dt);
@@ -42,23 +43,21 @@ public:
     std::string toStringEquipment();
 
     //INVENTORY & STATS
-    void setEquipItem(std::shared_ptr<Item> item, int equip_slot);
+    void setEquipItem(const std::shared_ptr<Item>& equip_item, int equip_slot);
     void setBonusStats(int hp, int mp, int dmg, int armor, float cc, float ec);
     bool isSlotEquipped(int equip_slot);
     void unequipItem(int equip_slot);
-    void addGold(unsigned gold);
-    void minusGold(unsigned gold);
+    void addGold(unsigned add_amount);
+    void minusGold(unsigned minus_amount);
 
     //GET & SET
     std::string getEquippedWeaponType();
     std::shared_ptr<Stats> getPlayerStats();
     std::shared_ptr<Inventory> getInventory();
-    unsigned getGold();
-    void setGold(unsigned gold);
+    unsigned getGold() const;
+    void setGold(unsigned new_gold);
     std::shared_ptr<Item> getEquippedItem(int equip_slot);
-    void setAnimation(entity_animation animation);
     void setAnimation(entity_animation animation, entity_animation next_animation);
-    void setNextAnimation(entity_animation next_animation);
     void setDefense(bool b);
     bool isDefense() const;
 
@@ -66,13 +65,13 @@ private:
     //variables
     std::shared_ptr<Stats> playerStats;
     std::shared_ptr<Inventory> inventory;
-    int currentInventorySpace;
-    unsigned gold;
-    bool defense;
+    int currentInventorySpace{};
+    unsigned gold{};
+    bool defense{};
 
-    bool animationDone;
-    entity_animation animationEnum;
-    entity_animation nextAnimationEnum;
+    bool animationDone{};
+    entity_animation animationEnum{};
+    entity_animation nextAnimationEnum{};
 
     std::shared_ptr<Item> weapon;   //equip_slot = 5
     std::shared_ptr<Item> shield;   //equip_slot = 4

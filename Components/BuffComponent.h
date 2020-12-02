@@ -19,15 +19,13 @@ class GameState;
 
 class BuffComponent {
 public:
-    BuffComponent(std::shared_ptr<PopUpTextComponent> popUpTextComponent, State *state, sf::Font* font);
+    BuffComponent(std::shared_ptr<PopUpTextComponent> popUpTextComponent, std::shared_ptr<Player> player, State *state, sf::Font* font);
     virtual ~BuffComponent();
 
-
-
     void addBuff(const std::string& key, const std::shared_ptr<Buff>& buff);
-    void addPlayerBuff(const std::shared_ptr<Buff>& buff);
-    void applyItemBuff(const std::string& key, const std::shared_ptr<Stats>& stats, bool popup_text_center, float popup_text_x = 0.f,
-            float popup_text_y = 0.f);
+    bool addPlayerBuff(const std::shared_ptr<Buff>& buff);
+    void applyItemBuff(const std::string& key, bool popup_text_center, float popup_text_x = 0.f, float popup_text_y = 0.f);
+    void expireItemBuff(const std::shared_ptr<Buff>& expired_buff);
     void updateBuffBar();
     void updatePlayerBuffList();
     void update(const float& dt, const sf::Vector2f& mousePos);
@@ -37,9 +35,10 @@ public:
     std::string toStringPlayerBuffs() const;
 
 private:
-    std::shared_ptr<PopUpTextComponent> popUpTextComponent;
     GameState* gState;
     sf::Font* font;
+    std::shared_ptr<Player> player;
+    std::shared_ptr<PopUpTextComponent> popUpTextComponent;
     std::map<std::string, std::shared_ptr<Buff>> buffs;
     std::vector<std::shared_ptr<Buff>> playerBuffsList;
     std::vector<std::unique_ptr<gui::BuffSlot>> buffBar;

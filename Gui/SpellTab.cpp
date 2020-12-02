@@ -4,12 +4,6 @@
 
 #include "SpellTab.h"
 
-#include <utility>
-
-#include <utility>
-
-#include <utility>
-
 void SpellTab::initSpellSlots() {
     //init spellslots
     if(!spellSlots.empty()){
@@ -27,7 +21,7 @@ void SpellTab::initSpellSlots() {
                 yMultiplier ++;
             }
             spellSlots.push_back(std::make_shared<gui::SpellSlot>(350.f, 150.f,
-                    container.getPosition().x + 35.f + (modifierX * (count % max_per_row)),
+                    container.getPosition().x + 35.f + (modifierX * (float)(count % max_per_row)),
                     container.getPosition().y + 80.f + (modifierY * yMultiplier) ,
                     i, &textures["ITEMS_SHEET"], 34.f, font, 18
             ));
@@ -75,9 +69,7 @@ SpellTab::SpellTab(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* fo
     updateSpellsInfoLbl();
 }
 
-SpellTab::~SpellTab() {
-
-}
+SpellTab::~SpellTab() = default;
 
 bool SpellTab::closeTabByClicking(const sf::Vector2f& mousePos, gui::Button* spellTab_Btn) {
     return sf::Mouse::isButtonPressed(sf::Mouse::Left) &&
@@ -103,12 +95,12 @@ void SpellTab::updateSpellsInfoLbl() {
                 } else if(i->getSpell()->getName() == "Heal"){
                     *(i->getSpellInfoLbl()) << sf::Color::Red << to_string(i->getSpell()->getFinalDamage())
                     << " x "<< dmgMultiplier << " = "
-                    << to_string((int)(i->getSpell()->getFinalDamage()*player->getPlayerStats()->getSpellDmgMultiplier()))
+                    << to_string((int)((float)i->getSpell()->getFinalDamage()*player->getPlayerStats()->getSpellDmgMultiplier()))
                     << " hp";
                 } else if(i->getSpell()->getName() == "Meditation"){
                     *(i->getSpellInfoLbl()) << sf::Color::Blue << to_string(i->getSpell()->getFinalDamage())
                     << " x "<< dmgMultiplier << " = "
-                    << to_string((int)(i->getSpell()->getFinalDamage()*player->getPlayerStats()->getSpellDmgMultiplier()))
+                    << to_string((int)((float)i->getSpell()->getFinalDamage()*player->getPlayerStats()->getSpellDmgMultiplier()))
                     << " mp";
                 }
                 *(i->getSpellInfoLbl())<< "\n" << sf::Color::White
@@ -119,11 +111,11 @@ void SpellTab::updateSpellsInfoLbl() {
                 (i->getSpellInfoLbl())->clear();
                 *(i->getSpellInfoLbl()) << sf::Text::Bold << i->getSpell()->getName() << "(Lv." << to_string(i->getSpell()->getLevel()) << ")\n"
                 << sf::Text::Regular << "Damage: " << sf::Color(255, 60, 31) << to_string(i->getSpell()->getFinalDamage())
-                << " x "<< dmgMultiplier << " = " << to_string((int)(i->getSpell()->getFinalDamage()*player->getPlayerStats()->getSpellDmgMultiplier()))
+                << " x "<< dmgMultiplier << " = " << to_string((int)((float)i->getSpell()->getFinalDamage()*player->getPlayerStats()->getSpellDmgMultiplier()))
                 << "\n" << sf::Color::White
                 << "Cost: " << sf::Color::Blue << to_string(i->getSpell()->getFinalCost()) << " mp" << sf::Color::White
                 << "\nCooldown: " << to_string(i->getSpell()->getCooldown()) << " turn/s"
-                << "\nAoe: " << to_string(i->getSpell()->getAoe()) << " target/s";;
+                << "\nAoe: " << to_string(i->getSpell()->getAoe()) << " target/s";
                 break;
         }
 

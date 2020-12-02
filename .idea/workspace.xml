@@ -6,38 +6,93 @@
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
       <config projectName="DragonSlayer" targetName="DragonSlayer" />
-      <config projectName="DragonSlayer" targetName="gmock_main" />
-      <config projectName="DragonSlayer" targetName="unit_testing_run" />
       <config projectName="DragonSlayer" targetName="gtest_main" />
       <config projectName="DragonSlayer" targetName="gtest" />
       <config projectName="DragonSlayer" targetName="gmock" />
+      <config projectName="DragonSlayer" targetName="gmock_main" />
+      <config projectName="DragonSlayer" targetName="unit_testing_run" />
     </generated>
   </component>
   <component name="CMakeSettings">
     <configurations>
-      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
-      <configuration PROFILE_NAME="Release" CONFIG_NAME="Release" />
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" ENABLED="true" />
+      <configuration PROFILE_NAME="Release" CONFIG_NAME="Release" ENABLED="true" />
     </configurations>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5e176dfb-d06b-4a3a-ae60-4825526ebf88" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Map/Map.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Map/Map.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Map/Map.h" beforeDir="false" afterPath="$PROJECT_DIR$/Map/Map.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Map/MapGenerator.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Map/MapGenerator.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Map/Tile.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Map/Tile.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Map/Tile.h" beforeDir="false" afterPath="$PROJECT_DIR$/Map/Tile.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/AnimationComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Components/AnimationComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/AnimationComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Components/AnimationComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/BuffComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Components/BuffComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/BuffComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Components/BuffComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/CollisionBoxComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Components/CollisionBoxComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/CollisionBoxComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Components/CollisionBoxComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/HitBoxComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Components/HitBoxComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/HitBoxComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Components/HitBoxComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/MovementComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Components/MovementComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/MovementComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Components/MovementComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/PopUpTextComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Components/PopUpTextComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/PopUpTextComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Components/PopUpTextComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/SpellComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Components/SpellComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/SpellComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Components/SpellComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/BattleState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/BattleState.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/BattleState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/BattleState.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Game.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Game.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Game.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Game.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/GameState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/GameState.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/GameState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/GameState.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/MainMenuState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/MainMenuState.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/MainMenuState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/MainMenuState.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/RunTimeClock.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/RunTimeClock.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/State.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/State.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/State.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/State.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Spells.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Spells.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Buff.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Buff.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Buff.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Buff.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Enemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Enemy.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Enemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Enemy.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Entity.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Entity.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Entity.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Entity.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Generator.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Generator.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Generator.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Generator.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Inventory.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Inventory.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Inventory.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Inventory.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Item.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Item.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Item.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Item.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Npc.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Npc.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Npc.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Npc.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Player.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Player.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Player.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Player.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Spell.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Spell.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Spell.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Spell.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Stats.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Stats.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Stats.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Stats.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Utils.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Utils.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Utils.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Utils.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gui/CharacterTab.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/CharacterTab.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gui/CharacterTab.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/CharacterTab.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gui/Gui.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/Gui.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gui/Gui.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/Gui.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gui/PauseMenu.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/PauseMenu.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gui/PauseMenu.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/PauseMenu.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gui/PriestTab.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/PriestTab.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gui/ShopTab.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/ShopTab.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gui/SpellTab.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/SpellTab.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gui/WizardTab.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/WizardTab.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/Resource.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/Resource.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/Resource.h" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/Resource.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/ResourcesHandler.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/ResourcesHandler.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/ResourcesHandler.h" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/ResourcesHandler.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeCache.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.15.3/CMakeCCompiler.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.15.3/CMakeCXXCompiler.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.15.3/CMakeDetermineCompilerABI_C.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.15.3/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.15.3/CMakeRCCompiler.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.15.3/CMakeSystem.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.15.3/CompilerIdC/CMakeCCompilerId.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.15.3/CompilerIdC/a.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.15.3/CompilerIdCXX/CMakeCXXCompilerId.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.15.3/CompilerIdCXX/a.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.17.3/CMakeCCompiler.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.17.3/CMakeCCompiler.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.17.3/CMakeCXXCompiler.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.17.3/CMakeCXXCompiler.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.17.3/CMakeDetermineCompilerABI_C.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.17.3/CMakeDetermineCompilerABI_C.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.17.3/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.17.3/CMakeDetermineCompilerABI_CXX.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.17.3/CMakeRCCompiler.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.17.3/CMakeRCCompiler.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.17.3/CompilerIdC/a.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.17.3/CompilerIdC/a.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.17.3/CompilerIdCXX/a.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.17.3/CompilerIdCXX/a.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/CMakeOutput.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/DependInfo.cmake" afterDir="false" />
@@ -45,7 +100,6 @@
       <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/flags.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/flags.make" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/includes_CXX.rsp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/includes_CXX.rsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/link.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/linklibs.rsp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/linklibs.rsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/Makefile.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/Makefile2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/TargetDirectories.txt" afterDir="false" />
@@ -60,7 +114,6 @@
       <change beforePath="$PROJECT_DIR$/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/flags.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/flags.make" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/includes_CXX.rsp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/includes_CXX.rsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/link.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/linklibs.rsp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/linklibs.rsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-release/unit_testing/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/unit_testing/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-release/unit_testing/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/unit_testing/cmake_install.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
@@ -113,6 +166,11 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="OCFindUsagesOptions" text="false" ivars="false" properties="true" derivedClasses="false" />
+  <component name="ProblemsViewState">
+    <hideBySeverity>
+      <option value="15" />
+    </hideBySeverity>
+  </component>
   <component name="ProjectId" id="1iT57nMGIR2nGsYgWSJ357Nzms9" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -133,7 +191,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.tabs" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.editor" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -149,43 +207,48 @@
     </key>
   </component>
   <component name="RunManager" selected="CMake Application.DragonSlayer">
-    <configuration name="ClassDeclaration" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DragonSlayer" TARGET_NAME="unit_testing_run" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="DragonSlayer" RUN_TARGET_NAME="unit_testing_run" TEST_CLASS="ClassDeclaration" TEST_MODE="SUITE_TEST">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ClassDeclaration" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DragonSlayer" TARGET_NAME="unit_testing_run" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="DragonSlayer" RUN_TARGET_NAME="unit_testing_run" TEST_CLASS="ClassDeclaration" TEST_MODE="SUITE_TEST">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
         <option name="BeforeTestRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DragonSlayer" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DragonSlayer" TARGET_NAME="DragonSlayer" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="DragonSlayer" RUN_TARGET_NAME="DragonSlayer">
+    <configuration name="DragonSlayer" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DragonSlayer" TARGET_NAME="DragonSlayer" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="DragonSlayer" RUN_TARGET_NAME="DragonSlayer">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="gmock" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DragonSlayer" TARGET_NAME="gmock" CONFIG_NAME="Debug">
+    <configuration name="gmock" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DragonSlayer" TARGET_NAME="gmock" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="gmock_main" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DragonSlayer" TARGET_NAME="gmock_main" CONFIG_NAME="Debug">
+    <configuration name="gmock_main" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DragonSlayer" TARGET_NAME="gmock_main" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="gtest" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DragonSlayer" TARGET_NAME="gtest" CONFIG_NAME="Debug">
+    <configuration name="gtest" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DragonSlayer" TARGET_NAME="gtest" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="gtest_main" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DragonSlayer" TARGET_NAME="gtest_main" CONFIG_NAME="Debug">
+    <configuration name="gtest_main" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DragonSlayer" TARGET_NAME="gtest_main" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="unit_testing_run" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DragonSlayer" TARGET_NAME="unit_testing_run" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="DragonSlayer" RUN_TARGET_NAME="unit_testing_run">
+    <configuration name="unit_testing_run" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DragonSlayer" TARGET_NAME="unit_testing_run" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="DragonSlayer" RUN_TARGET_NAME="unit_testing_run">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -278,6 +341,15 @@
       <workItem from="1606581084619" duration="8001000" />
       <workItem from="1606661047579" duration="9222000" />
       <workItem from="1606753619966" duration="1194000" />
+      <workItem from="1606766998588" duration="18674000" />
+      <workItem from="1606828876113" duration="9742000" />
+      <workItem from="1606845594824" duration="122000" />
+      <workItem from="1606846029032" duration="8000" />
+      <workItem from="1606846068955" duration="461000" />
+      <workItem from="1606869430103" duration="3087000" />
+      <workItem from="1606922480184" duration="7339000" />
+      <workItem from="1606935077022" duration="297000" />
+      <workItem from="1606935567212" duration="8121000" />
     </task>
     <servers />
   </component>
@@ -295,47 +367,5 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser" timestamp="1603901058895">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/-1680.32.1680.1010@0.0.1920.1040" timestamp="1603901058895" />
-    <state width="1877" height="223" key="GridCell.Tab.0.bottom" timestamp="1606753770012">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="223" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1680.32.1680.1010@0.0.1920.1040" timestamp="1606753770012" />
-    <state width="1877" height="223" key="GridCell.Tab.0.center" timestamp="1606753770011">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="223" key="GridCell.Tab.0.center/0.0.1920.1040/-1680.32.1680.1010@0.0.1920.1040" timestamp="1606753770011" />
-    <state width="1877" height="223" key="GridCell.Tab.0.left" timestamp="1606753770011">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="223" key="GridCell.Tab.0.left/0.0.1920.1040/-1680.32.1680.1010@0.0.1920.1040" timestamp="1606753770011" />
-    <state width="1877" height="223" key="GridCell.Tab.0.right" timestamp="1606753770012">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="223" key="GridCell.Tab.0.right/0.0.1920.1040/-1680.32.1680.1010@0.0.1920.1040" timestamp="1606753770012" />
-    <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1603905400305">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040/-1680.32.1680.1010@0.0.1920.1040" timestamp="1603905400305" />
-    <state width="1877" height="348" key="GridCell.Tab.1.center" timestamp="1603905400305">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.center/0.0.1920.1040/-1680.32.1680.1010@0.0.1920.1040" timestamp="1603905400305" />
-    <state width="1877" height="348" key="GridCell.Tab.1.left" timestamp="1603905400304">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.left/0.0.1920.1040/-1680.32.1680.1010@0.0.1920.1040" timestamp="1603905400304" />
-    <state width="1877" height="348" key="GridCell.Tab.1.right" timestamp="1603905400305">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040/-1680.32.1680.1010@0.0.1920.1040" timestamp="1603905400305" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1603850879697">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/-1680.32.1680.1010@0.0.1920.1040" timestamp="1603850879697" />
   </component>
 </project>

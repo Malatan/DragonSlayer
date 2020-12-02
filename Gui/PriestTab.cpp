@@ -4,11 +4,6 @@
 
 #include "PriestTab.h"
 
-#include <utility>
-
-#include <utility>
-
-
 void PriestTab::initButtons() {
     stringstream ss;
     float width = 300.f;
@@ -129,9 +124,7 @@ PriestTab::PriestTab(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* 
     updateGoldLbl();
 }
 
-PriestTab::~PriestTab() {
-
-}
+PriestTab::~PriestTab() = default;
 
 bool PriestTab::closeTabByClicking(const sf::Vector2f& mousePos) {
     return sf::Mouse::isButtonPressed(sf::Mouse::Left) &&

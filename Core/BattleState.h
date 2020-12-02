@@ -39,11 +39,11 @@ enum battle_result{
 };
 
 class BattleState : public State{
-    const static int MAX_ENEMIES = 5;
+private:
     std::shared_ptr<Player> player;
+    std::shared_ptr<Player> playerModel;
     std::shared_ptr<Enemy> enemyLeader;
     std::vector<std::shared_ptr<Enemy>> enemiesModels;
-    Player* playerModel;
     std::shared_ptr<BuffComponent> buffComponent;
     std::shared_ptr<PopUpTextComponent> popUpTextComponent;
     std::shared_ptr<SpellComponent> spellComponent;
@@ -56,7 +56,8 @@ class BattleState : public State{
     unsigned int selectedId;
     int enemyCount;
     float criticalhitMultiplier;
-    float playerBlockPercentage;
+    float playerBlockPercentage{};
+    bool potionUsed;
 
     unsigned int turnCount;
     bool whoseTurn; // true = player , false = enemies
@@ -71,6 +72,7 @@ class BattleState : public State{
     sf::RectangleShape background;
     sf::RectangleShape mainActionPanel;
     sf::RectangleShape actionPanel;
+    sf::Text tipsLbl;
     gui::Button actionBtn;
     sf::RectangleShape itemActionPanel;
     gui::Button itemActionBtn;
@@ -88,10 +90,10 @@ class BattleState : public State{
     sf::Text enemyStatsValueLbl;
 
     //action and inventory panel
-    int currentActionPage;
-    int maxActionPage;
-    int currentInvPage;
-    int maxInvPage;
+    int currentActionPage{};
+    int maxActionPage{};
+    int currentInvPage{};
+    int maxInvPage{};
     std::vector<std::unique_ptr<gui::ActionRow>> actionRows;
     std::vector<std::unique_ptr<gui::ItemRow>> itemRows;
     sf::Text pageLbl;
@@ -99,7 +101,7 @@ class BattleState : public State{
     gui::Button previousPageBtn;
 
     //escape panel
-    float escapeChance;
+    float escapeChance{};
     sf::RectangleShape escapeActionPanel;
     sf::Text escapeText;
     gui::Button escapeActionBtn;
@@ -132,7 +134,7 @@ public:
     void initStatsPanel();
     void initActionPanel();
     void initInventoryPanel();
-    void spawnEnemy(sf::Vector2f pos, enemy_types type, bool generateStats);
+    void spawnEnemyModel(sf::Vector2f pos, enemy_types type, unsigned int enemy_id);
     void generateModels();
 
     void playerBattle(unsigned int row_index);
@@ -141,6 +143,7 @@ public:
     void enemyBattle(const float& dt);
     void endEnemyTurn();
     void endBattle();
+    void updatePlayerStatsLbl();
     void updateTurnPanel();
     void updatePageLbl(panel_types type);
     void updateEnemyStatsLbl(const std::shared_ptr<Enemy>& enemy);

@@ -4,12 +4,7 @@
 
 #include "CharacterTab.h"
 
-#include <utility>
-
-#include <utility>
-
 //initializers
-
 void CharacterTab::initStatsContainer() {
 //containere per le statistiche
     statsContainer.setFillColor(sf::Color(50, 50, 50, 100));
@@ -187,7 +182,7 @@ void CharacterTab::initInventoryContainer() {
     sellBtn = gui::Button(
             inventoryContainer.getPosition().x + 340.f,
             inventoryContainer.getPosition().y + 580.f, 180.f, 40.f,
-            font, "Sell items", 20.f,
+            font, "Sell items<S>", 20.f,
             sf::Color(255, 255, 255, 255),
             sf::Color(160, 160, 160),
             sf::Color(20, 20, 20, 50),
@@ -203,7 +198,7 @@ void CharacterTab::initInventoryContainer() {
     EquipUnEquipBtn = gui::Button(
             inventoryContainer.getPosition().x + 540.f,
             inventoryContainer.getPosition().y + 580.f, 180.f, 40.f,
-            font, "Equip/Unequip/Use", 20.f,
+            font, "Equip/Unequip/Use<R>", 20.f,
             sf::Color(255, 255, 255, 255),
             sf::Color(160, 160, 160),
             sf::Color(20, 20, 20, 50),
@@ -217,7 +212,7 @@ void CharacterTab::initInventoryContainer() {
     deleteBtn = gui::Button(
             inventoryContainer.getPosition().x + 540.f,
             inventoryContainer.getPosition().y + 640.f, 180.f, 40.f,
-            font, "Delete items", 20.f,
+            font, "Delete items<Del>", 20.f,
             sf::Color(255, 255, 255, 255),
             sf::Color(160, 160, 160),
             sf::Color(20, 20, 20, 50),
@@ -243,8 +238,7 @@ void CharacterTab::initInventoryContainer() {
     keysHintLbl.setFont(*font);
     keysHintLbl.setCharacterSize(20);
     keysHintLbl.setString("Hints: \n"
-                                "<R> equip/unequip/use selected item\n"
-                                "<Del> delete selected items");
+                                "Right click to select all");
     keysHintLbl.setPosition(goldLbl.getPosition().x,
                                   inventorySpaceLbl.getPosition().y + 30.f);
 }
@@ -264,9 +258,9 @@ void CharacterTab::initInventorySlots() {
             yMultiplier ++;
         }
         inventorySlots.push_back(std::make_unique<gui::ItemSlot>(
-                inventoryContainer.getPosition().x + 36.f + (modifierX * (i % max_per_row)),
+                inventoryContainer.getPosition().x + 36.f + (modifierX * (float)(i % max_per_row)),
                 inventoryContainer.getPosition().y + 70.f + (modifierY * yMultiplier) ,
-                60.f, 60.f, 6+i, window, font, player->getInventory()->getItem(i),
+                60.f, 60.f, 6+i, window, font, player->getInventory()->getItemByIndex(i),
                 state, false
         ));
     }
@@ -276,7 +270,7 @@ CharacterTab::CharacterTab(const std::shared_ptr<sf::RenderWindow>& window, sf::
         std::shared_ptr<Player> player, State* state, map<string, sf::Texture> textures,
         std::shared_ptr<ResourcesHandler> rsHandler, npc_type* npcInteract) :
 font(font), player(std::move(player)), window(window), textures(std::move(textures)),
-rsHandler(std::move(rsHandler)), npcInteract(npcInteract) {
+rsHandler(std::move(rsHandler)), npcInteract(npcInteract), selectedItem(0) {
     openDialog = false;
     gState = dynamic_cast<GameState*>(state);
     this->state = state;
@@ -349,9 +343,7 @@ rsHandler(std::move(rsHandler)), npcInteract(npcInteract) {
     updateInventoryCapLbl();
 }
 
-CharacterTab::~CharacterTab() {
-
-}
+CharacterTab::~CharacterTab() = default;
 
 //accessor
 
@@ -551,7 +543,7 @@ void CharacterTab::useConsumable(const std::shared_ptr<Item>& item, std::unique_
     bool have_more = true;
     if(item->getQuantity() > 0 && item->getUsageType() == 6){
         have_more = item->use();
-        gState->getBuffComponent()->applyItemBuff(item->getName(), player->getPlayerStats(), true);
+        gState->getBuffComponent()->applyItemBuff(item->getName(), true);
         i->updateQuantityLbl();
 
     }
@@ -565,7 +557,8 @@ void CharacterTab::equipUnEquipBtnFunction() {
     bool flag = false;
     for(auto &i : inventorySlots){
         if(i->getIsSelected()){
-            std::shared_ptr<Item> item = player->getInventory()->getItem(i->getItem()->getName());
+            //std::shared_ptr<Item> item = player->getInventory()->getItemById(i->getItem()->getId());
+            std::shared_ptr<Item> item = i->getItem();
             switch(i->getItem()->getUsageType()){
                 case 5:
                     equipUnequipItem(5, item, i, "WEAPON_ICON");
@@ -628,19 +621,19 @@ void CharacterTab::updateButtons() {
     if(addStrengthBtn.isPressed() && state->getKeyTime()){
         addStrengthBtn.setButtonState(BTN_IDLE);
         if(player->getPlayerStats()->getFreePoints() > 0){
-            player->getPlayerStats()->addAttribute(0);
+            player->getPlayerStats()->addAttribute(STRENGTH, 1);
             gState->updateTabsPlayerStatsLbl();
         }
     } else if(addWisdomBtn.isPressed() && state->getKeyTime()){
         addWisdomBtn.setButtonState(BTN_IDLE);
         if(player->getPlayerStats()->getFreePoints() > 0){
-            player->getPlayerStats()->addAttribute(1);
+            player->getPlayerStats()->addAttribute(WISDOM, 1);
             gState->updateTabsPlayerStatsLbl();
         }
     } else if(addAgilityBtn.isPressed() && state->getKeyTime()){
         addAgilityBtn.setButtonState(BTN_IDLE);
         if(player->getPlayerStats()->getFreePoints() > 0){
-            player->getPlayerStats()->addAttribute(2);
+            player->getPlayerStats()->addAttribute(AGILITY, 1);
             gState->updateTabsPlayerStatsLbl();
         }
     } else if(EquipUnEquipBtn.isPressed() && state->getKeyTime()) {
@@ -655,22 +648,36 @@ void CharacterTab::updateButtons() {
     }
 }
 
+void CharacterTab::updateMouseInput() {
+    if(sf::Mouse::isButtonPressed(sf::Mouse::Right) && gState->getKeyTime()){
+        if(selectedItem != 0){
+            unselectAll();
+        }
+    }
+}
+
 void CharacterTab::updateKeyboardInput() {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::R) && state->getKeyTime()) {
-        // equip / unequip
+        // equip / unequip with hotkey
         if(selectedItem == 1){
             equipUnEquipBtnFunction();
         }
     } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Delete) && state->getKeyTime()) {
-        // equip / unequip
+        // delete items with hotkey
         if(selectedItem > 0){
             deleteBtnFunction();
+        }
+    } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S) && state->getKeyTime()) {
+        // sell items with hotkey
+        if(selectedItem > 0 && !sellBtn.isDisabled()){
+            sellBtnFunction();
         }
     }
 }
 
 void CharacterTab::update(const sf::Vector2f& mousePos) {
     updateButtons();
+    updateMouseInput();
     updateKeyboardInput();
 
     if(!openDialog){
@@ -783,7 +790,7 @@ void CharacterTab::deleteItemFromInventory() {
                         rsHandler->getEquipSlotTextureRect(equip_slot));
                 equipSlots[equip_slot]->getShape()->setOutlineColor(sf::Color::Transparent);
             }
-            player->getInventory()->removeItem(i->getItem()->getName());
+            player->getInventory()->removeItemById(i->getItem()->getId());
             selectedItem--;
         }
         if(selectedItem == 0){
@@ -828,7 +835,7 @@ void CharacterTab::deleteItemFromInventory() {
 }
 
 void CharacterTab::deleteConsumableInBattle(const std::shared_ptr<Item>& item) {
-    player->getInventory()->removeItem(item->getName());
+    player->getInventory()->removeItemById(item->getId());
     player->getInventory()->sortByItemType();
     initInventorySlots();
     for(auto &i : getInventorySlots()){
@@ -838,6 +845,7 @@ void CharacterTab::deleteConsumableInBattle(const std::shared_ptr<Item>& item) {
     }
     gState->updateTabsInvSpaceLbl();
 }
+
 
 
 
