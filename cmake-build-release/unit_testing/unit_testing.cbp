@@ -338,6 +338,12 @@
 		<Unit filename="E:/DragonSlayer/Core/State.h">
 			<Option target="unit_testing_run"/>
 		</Unit>
+		<Unit filename="E:/DragonSlayer/Game/BattleResult.cpp">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/DragonSlayer/Game/BattleResult.h">
+			<Option target="unit_testing_run"/>
+		</Unit>
 		<Unit filename="E:/DragonSlayer/Game/Buff.cpp">
 			<Option target="unit_testing_run"/>
 		</Unit>

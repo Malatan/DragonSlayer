@@ -28,10 +28,18 @@ enum dialog_type{
     SELL_CONFIRM
 };
 
+enum dialog_result{
+    YES_RESULT,
+    NO_RESULT,
+    PENDING_RESULT
+};
+
 namespace gui{
     class Button {
     public:
         Button();
+        Button(float x, float y, float width, float height, sf::Font* font,
+               const std::string& text, unsigned character_size, short unsigned id = 0);
         Button(float x, float y, float width, float height, sf::Font* font,
                const std::string& text, unsigned character_size,
                sf::Color text_idle_color, sf::Color text_hover_color,sf::Color text_active_color,
@@ -152,7 +160,8 @@ namespace gui{
         void updateQuantityLbl();
         void updateItemInfo();
         void updateItemInfoPos(const sf::Vector2f& mousePos);
-        void update(const sf::Vector2f& mousePos, int* updateSlot, bool inv);
+        void update(const sf::Vector2f& mousePos, bool inv);
+        void renderInfoContainer(sf::RenderTarget& target);
         void render(sf::RenderTarget& target);
 
     private:
@@ -182,11 +191,11 @@ namespace gui{
     public:
         //constructors/destructor
         ShopSlot();
-        ShopSlot(float width, float height, float pos_x, float pos_y, sf::Font* font, Item* item);
+        ShopSlot(float width, float height, float pos_x, float pos_y, sf::Font* font, Item item);
         virtual ~ShopSlot();
 
         //accessors
-        Item *getItem() const;
+        Item getItem() const;
         unsigned int getPrice() const;
 
         //modifiers
@@ -205,7 +214,7 @@ namespace gui{
         sf::Text priceLbl;
         sf::Texture texture;
         gui::Button buyBtn;
-        Item* item{};
+        Item item{};
 
         sf::RectangleShape itemInfoContainer;
         sfe::RichText itemInfoLbl;
@@ -271,28 +280,47 @@ namespace gui{
         bool mouseHoverImage{};
     };
 
-    class ConfirmDialog{
+    class CustomDialog{
     public:
-        ConfirmDialog();
-        ConfirmDialog(float x, float y, const std::string& text, const std::shared_ptr<sf::RenderWindow>& window,
-                State* state, sf::Font* font, unsigned int characterSize, dialog_type dType);
-        virtual ~ConfirmDialog();
+        CustomDialog();
+        CustomDialog(float x, float y, std::shared_ptr<Item> item, State* state, sf::Font* font, dialog_type dType);
+        CustomDialog(float x, float y, int tot_value, int selected_quantity,
+                     State* state, sf::Font* font, dialog_type dType);
+        virtual ~CustomDialog();
 
-        void setSellValue(unsigned value);
+        dialog_result getResult();
         dialog_type getDialogType();
-        unsigned getSellValue() const;
+        int getFinalQuantity() const;
+        std::shared_ptr<Item> getItem();
+        int getTotValue() const;
 
-        int update(const sf::Vector2f& mousePos, bool* openDialog);
+        void updateLbls();
+        void update(const sf::Vector2f& mousePos);
         void render(sf::RenderTarget& target);
 
     protected:
         dialog_type dialogType{};
-        unsigned sellValue{};
+        std::shared_ptr<Item> item;
         State* state{};
         sf::RectangleShape dialog;
+        Button plusOneBtn;
+        Button plusFiveBtn;
+        Button minusOneBtn;
+        Button minusFiveBtn;
+        Button maxBtn;
+        Button minBtn;
         Button yesBtn;
         Button noBtn;
-        sf::Text text;
+        sf::Text textLbl;
+        sf::Text quantityLbl;
+        int maxQuantity{};
+        int currentQuantity{};
+        int totValue{};
+        bool singleQuantity{};
+        bool multipleItem{};
+        dialog_result answer{};
+
+        void initButtons(sf::Font* font);
     };
 
     class BuffSlot{

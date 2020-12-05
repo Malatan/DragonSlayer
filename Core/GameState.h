@@ -7,6 +7,8 @@
 
 #include "State.h"
 #include "BattleState.h"
+#include "../Game/LootGenerator.h"
+#include "../Game/BattleResult.h"
 #include "../Game/Player.h"
 #include "../Game/Enemy.h"
 #include "../Game/Npc.h"
@@ -46,8 +48,9 @@ public:
     std::shared_ptr<SpellTab> getSpellTab();
 
     //functions
+    void checkBattleResult(BattleResult& battle_result);
     void spawnEnemy(float x, float y, enemy_types type, unsigned int enemy_followers = 5);
-    void addItem(Item* item);
+    void addItem(const std::shared_ptr<Item>& new_item);
     void changeStato(int current_stato);
     void updateTabsGoldLbl();
     void updateTabsInvSpaceLbl();
@@ -67,7 +70,6 @@ private:
     sf::View view;
     sf::Text hints;
     sf::Text debugText;
-
     gui::Button cTabBtn;
     gui::Button pauseMenuBtn;
     gui::Button spellTabBtn;
@@ -85,6 +87,7 @@ private:
     std::shared_ptr<BuffComponent> buffComponent;
     std::shared_ptr<PopUpTextComponent> popUpTextComponent;
     std::shared_ptr<SpellComponent> spellComponent;
+    std::shared_ptr<LootGenerator> lootGenerator;
 
     std::vector<std::shared_ptr<Enemy>> enemies;
     std::vector<Npc*> npcs;
@@ -93,7 +96,7 @@ private:
     bool noclip;
     int currentFloor;
 
-    //functions
+    //init
     void initTextures();
     void initPauseMenu();
     void initPlayers();
@@ -109,10 +112,13 @@ private:
     void initBuffComponent();
     void initSpellComponent();
     void initComponents();
+    void initLootGenerator();
     void initView();
     void initDebugText();
     void initButtons();
     void initMaps();
+
+
 };
 
 

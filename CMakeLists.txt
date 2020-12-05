@@ -54,6 +54,10 @@ set(SOURCE_FILES
         Game/Generator.h
         Game/Utils.h
         Game/Utils.cpp
+        Game/BattleResult.h
+        Game/BattleResult.cpp
+        Game/LootGenerator.cpp
+        Game/LootGenerator.h
         Components/MovementComponent.cpp
         Components/MovementComponent.h
         Components/AnimationComponent.cpp

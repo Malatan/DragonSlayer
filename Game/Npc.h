@@ -8,7 +8,7 @@
 #include "Entity.h"
 #include "Player.h"
 enum npc_type{
-    DEFAULT,
+    DEFAULT_NPC,
     SHOP,
     PRIEST,
     WIZARD,

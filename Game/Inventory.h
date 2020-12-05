@@ -22,7 +22,7 @@ public:
     void expandInventorySpace(int n);
     bool isExpandable();
     bool removeItemById(unsigned int id);
-    bool addItem(Item *item);
+    bool addItem(std::shared_ptr<Item> new_item);
     void sortByItemType();
     string listInventory();
 

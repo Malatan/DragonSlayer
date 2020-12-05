@@ -370,10 +370,24 @@ unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Npc.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/unit_testing_run.dir/__/Game/Npc.cpp.s"
 	cd /d E:\DragonSlayer\cmake-build-release\unit_testing && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S E:\DragonSlayer\Game\Npc.cpp -o CMakeFiles\unit_testing_run.dir\__\Game\Npc.cpp.s
 
+unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/BattleResult.cpp.obj: unit_testing/CMakeFiles/unit_testing_run.dir/flags.make
+unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/BattleResult.cpp.obj: unit_testing/CMakeFiles/unit_testing_run.dir/includes_CXX.rsp
+unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/BattleResult.cpp.obj: ../Game/BattleResult.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/BattleResult.cpp.obj"
+	cd /d E:\DragonSlayer\cmake-build-release\unit_testing && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\unit_testing_run.dir\__\Game\BattleResult.cpp.obj -c E:\DragonSlayer\Game\BattleResult.cpp
+
+unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/BattleResult.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/unit_testing_run.dir/__/Game/BattleResult.cpp.i"
+	cd /d E:\DragonSlayer\cmake-build-release\unit_testing && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E E:\DragonSlayer\Game\BattleResult.cpp > CMakeFiles\unit_testing_run.dir\__\Game\BattleResult.cpp.i
+
+unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/BattleResult.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/unit_testing_run.dir/__/Game/BattleResult.cpp.s"
+	cd /d E:\DragonSlayer\cmake-build-release\unit_testing && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S E:\DragonSlayer\Game\BattleResult.cpp -o CMakeFiles\unit_testing_run.dir\__\Game\BattleResult.cpp.s
+
 unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/MovementComponent.cpp.obj: unit_testing/CMakeFiles/unit_testing_run.dir/flags.make
 unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/MovementComponent.cpp.obj: unit_testing/CMakeFiles/unit_testing_run.dir/includes_CXX.rsp
 unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/MovementComponent.cpp.obj: ../Components/MovementComponent.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/MovementComponent.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/MovementComponent.cpp.obj"
 	cd /d E:\DragonSlayer\cmake-build-release\unit_testing && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\unit_testing_run.dir\__\Components\MovementComponent.cpp.obj -c E:\DragonSlayer\Components\MovementComponent.cpp
 
 unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/MovementComponent.cpp.i: cmake_force
@@ -387,7 +401,7 @@ unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/MovementComponent.cpp
 unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/AnimationComponent.cpp.obj: unit_testing/CMakeFiles/unit_testing_run.dir/flags.make
 unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/AnimationComponent.cpp.obj: unit_testing/CMakeFiles/unit_testing_run.dir/includes_CXX.rsp
 unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/AnimationComponent.cpp.obj: ../Components/AnimationComponent.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/AnimationComponent.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/AnimationComponent.cpp.obj"
 	cd /d E:\DragonSlayer\cmake-build-release\unit_testing && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\unit_testing_run.dir\__\Components\AnimationComponent.cpp.obj -c E:\DragonSlayer\Components\AnimationComponent.cpp
 
 unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/AnimationComponent.cpp.i: cmake_force
@@ -401,7 +415,7 @@ unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/AnimationComponent.cp
 unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/HitBoxComponent.cpp.obj: unit_testing/CMakeFiles/unit_testing_run.dir/flags.make
 unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/HitBoxComponent.cpp.obj: unit_testing/CMakeFiles/unit_testing_run.dir/includes_CXX.rsp
 unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/HitBoxComponent.cpp.obj: ../Components/HitBoxComponent.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/HitBoxComponent.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/HitBoxComponent.cpp.obj"
 	cd /d E:\DragonSlayer\cmake-build-release\unit_testing && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\unit_testing_run.dir\__\Components\HitBoxComponent.cpp.obj -c E:\DragonSlayer\Components\HitBoxComponent.cpp
 
 unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/HitBoxComponent.cpp.i: cmake_force
@@ -415,7 +429,7 @@ unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/HitBoxComponent.cpp.s
 unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/BuffComponent.cpp.obj: unit_testing/CMakeFiles/unit_testing_run.dir/flags.make
 unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/BuffComponent.cpp.obj: unit_testing/CMakeFiles/unit_testing_run.dir/includes_CXX.rsp
 unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/BuffComponent.cpp.obj: ../Components/BuffComponent.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/BuffComponent.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building CXX object unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/BuffComponent.cpp.obj"
 	cd /d E:\DragonSlayer\cmake-build-release\unit_testing && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\unit_testing_run.dir\__\Components\BuffComponent.cpp.obj -c E:\DragonSlayer\Components\BuffComponent.cpp
 
 unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/BuffComponent.cpp.i: cmake_force
@@ -429,7 +443,7 @@ unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/BuffComponent.cpp.s: 
 unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/PopUpTextComponent.cpp.obj: unit_testing/CMakeFiles/unit_testing_run.dir/flags.make
 unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/PopUpTextComponent.cpp.obj: unit_testing/CMakeFiles/unit_testing_run.dir/includes_CXX.rsp
 unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/PopUpTextComponent.cpp.obj: ../Components/PopUpTextComponent.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building CXX object unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/PopUpTextComponent.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building CXX object unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/PopUpTextComponent.cpp.obj"
 	cd /d E:\DragonSlayer\cmake-build-release\unit_testing && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\unit_testing_run.dir\__\Components\PopUpTextComponent.cpp.obj -c E:\DragonSlayer\Components\PopUpTextComponent.cpp
 
 unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/PopUpTextComponent.cpp.i: cmake_force
@@ -443,7 +457,7 @@ unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/PopUpTextComponent.cp
 unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/ResourcesHandler.cpp.obj: unit_testing/CMakeFiles/unit_testing_run.dir/flags.make
 unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/ResourcesHandler.cpp.obj: unit_testing/CMakeFiles/unit_testing_run.dir/includes_CXX.rsp
 unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/ResourcesHandler.cpp.obj: ../Resources/ResourcesHandler.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building CXX object unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/ResourcesHandler.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building CXX object unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/ResourcesHandler.cpp.obj"
 	cd /d E:\DragonSlayer\cmake-build-release\unit_testing && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\unit_testing_run.dir\__\Resources\ResourcesHandler.cpp.obj -c E:\DragonSlayer\Resources\ResourcesHandler.cpp
 
 unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/ResourcesHandler.cpp.i: cmake_force
@@ -457,7 +471,7 @@ unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/ResourcesHandler.cpp.s
 unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/Resource.cpp.obj: unit_testing/CMakeFiles/unit_testing_run.dir/flags.make
 unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/Resource.cpp.obj: unit_testing/CMakeFiles/unit_testing_run.dir/includes_CXX.rsp
 unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/Resource.cpp.obj: ../Resources/Resource.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building CXX object unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/Resource.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building CXX object unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/Resource.cpp.obj"
 	cd /d E:\DragonSlayer\cmake-build-release\unit_testing && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\unit_testing_run.dir\__\Resources\Resource.cpp.obj -c E:\DragonSlayer\Resources\Resource.cpp
 
 unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/Resource.cpp.i: cmake_force
@@ -491,6 +505,7 @@ unit_testing_run_OBJECTS = \
 "CMakeFiles/unit_testing_run.dir/__/Game/Spell.cpp.obj" \
 "CMakeFiles/unit_testing_run.dir/__/Game/Stats.cpp.obj" \
 "CMakeFiles/unit_testing_run.dir/__/Game/Npc.cpp.obj" \
+"CMakeFiles/unit_testing_run.dir/__/Game/BattleResult.cpp.obj" \
 "CMakeFiles/unit_testing_run.dir/__/Components/MovementComponent.cpp.obj" \
 "CMakeFiles/unit_testing_run.dir/__/Components/AnimationComponent.cpp.obj" \
 "CMakeFiles/unit_testing_run.dir/__/Components/HitBoxComponent.cpp.obj" \
@@ -523,6 +538,7 @@ unit_testing/unit_testing_run.exe: unit_testing/CMakeFiles/unit_testing_run.dir/
 unit_testing/unit_testing_run.exe: unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Spell.cpp.obj
 unit_testing/unit_testing_run.exe: unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Stats.cpp.obj
 unit_testing/unit_testing_run.exe: unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Npc.cpp.obj
+unit_testing/unit_testing_run.exe: unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/BattleResult.cpp.obj
 unit_testing/unit_testing_run.exe: unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/MovementComponent.cpp.obj
 unit_testing/unit_testing_run.exe: unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/AnimationComponent.cpp.obj
 unit_testing/unit_testing_run.exe: unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/HitBoxComponent.cpp.obj
@@ -542,7 +558,7 @@ unit_testing/unit_testing_run.exe: ../SFML_2.5.1/lib/libsfml-system.a
 unit_testing/unit_testing_run.exe: unit_testing/CMakeFiles/unit_testing_run.dir/linklibs.rsp
 unit_testing/unit_testing_run.exe: unit_testing/CMakeFiles/unit_testing_run.dir/objects1.rsp
 unit_testing/unit_testing_run.exe: unit_testing/CMakeFiles/unit_testing_run.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=E:\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Linking CXX executable unit_testing_run.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=E:\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Linking CXX executable unit_testing_run.exe"
 	cd /d E:\DragonSlayer\cmake-build-release\unit_testing && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\unit_testing_run.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

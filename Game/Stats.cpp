@@ -34,17 +34,11 @@ Stats::~Stats()= default;
 bool Stats::addExp(int earned) {
     bool leveledUp = false;
     exp = exp + earned;
-
     while(exp >= maxExp){                //SE RAGGIUNTA QNT NECESSARIA A LIVELLARE
-
         int newExp = exp - maxExp;    //EXP IN ECCESSO AGGIUNTA PER FARE IL PROX LIVELLO
-
-        int choise = 0;     //SCRIVERE CODICE PER EFFETTUARE SCELTA TRA 3 ATTRIBUTI
-
-        levelUp(choise, newExp);
+        levelUp(newExp);
         leveledUp = true;
     }
-
     return leveledUp;
 }
 
@@ -77,7 +71,7 @@ void Stats::addAttribute(attribute type, int quantity) {
     updateMultipliers();
 }
 
-void Stats::levelUp(int choise, int newExp) {
+void Stats::levelUp(int newExp) {
     level ++;
     exp = newExp;
     maxExp = Stats::maxExp + 25;          //EXP MAX PER LIVELLARE AUMENTATA
@@ -92,7 +86,7 @@ void Stats::levelUp(int choise, int newExp) {
     freePoints += 3;
 }
 
-int Stats::getLevel() {
+int Stats::getLevel() const {
     return level;
 }
 
@@ -100,7 +94,7 @@ void Stats::setLevel(int new_level) {
     level = new_level;
 }
 
-int Stats::getExp() {
+int Stats::getExp() const {
     return exp;
 }
 
@@ -108,7 +102,7 @@ void Stats::setExp(int new_exp) {
     exp = new_exp;
 }
 
-int Stats::getMaxExp() {
+int Stats::getMaxExp() const {
     return maxExp;
 }
 
@@ -116,7 +110,7 @@ void Stats::setMaxExp(int new_maxExp) {
     maxExp = new_maxExp;
 }
 
-int Stats::getHp() {
+int Stats::getHp() const {
     return hp;
 }
 
@@ -124,7 +118,7 @@ void Stats::setHp(int new_hp) {
     hp = new_hp;
 }
 
-int Stats::getMaxHp() {
+int Stats::getMaxHp() const {
     return maxHp;
 }
 
@@ -132,7 +126,7 @@ void Stats::setMaxHp(int new_maxHp) {
     maxHp = new_maxHp;
 }
 
-int Stats::getMp() {
+int Stats::getMp() const {
     return mp;
 }
 
@@ -140,7 +134,7 @@ void Stats::setMp(int new_mp) {
     mp = new_mp;
 }
 
-int Stats::getMaxMp() {
+int Stats::getMaxMp() const {
     return maxMp;
 }
 
@@ -148,7 +142,7 @@ void Stats::setMaxMp(int new_maxMp) {
     maxMp = new_maxMp;
 }
 
-int Stats::getArmor() {
+int Stats::getArmor() const {
     return armor;
 }
 
@@ -156,7 +150,7 @@ void Stats::setArmor(int new_armor) {
     armor = new_armor;
 }
 
-int Stats::getDamage() {
+int Stats::getDamage() const {
     return damage;
 }
 
@@ -164,7 +158,7 @@ void Stats::setDamage(int new_damage) {
     damage = new_damage;
 }
 
-float Stats::getCritChance() {
+float Stats::getCritChance() const {
     return critChance;
 }
 
@@ -172,7 +166,7 @@ void Stats::setCritChance(float new_critChance) {
     critChance = new_critChance;
 }
 
-float Stats::getEvadeChance() {
+float Stats::getEvadeChance() const {
     return evadeChance;
 }
 
@@ -180,7 +174,7 @@ void Stats::setEvadeChance(float new_evadeChance) {
     evadeChance = new_evadeChance;
 }
 
-int Stats::getAgility() {
+int Stats::getAgility() const {
     return agility;
 }
 
@@ -188,7 +182,7 @@ void Stats::setAgility(int new_agility) {
     agility = new_agility;
 }
 
-int Stats::getWisdom() {
+int Stats::getWisdom() const {
     return wisdom;
 }
 
@@ -196,7 +190,7 @@ void Stats::setWisdom(int new_wisdom) {
     wisdom = new_wisdom;
 }
 
-int Stats::getStrength(){
+int Stats::getStrength() const{
     return strength;
 }
 
@@ -204,7 +198,7 @@ void Stats::setStrength(int new_strength) {
     strength = new_strength;
 }
 
-int Stats::getFreePoints() {
+int Stats::getFreePoints() const {
     return freePoints;
 }
 
@@ -260,27 +254,27 @@ void Stats::setEvadeChanceBonus(float new_evadeChanceBonus) {
     evadeChanceBonus = new_evadeChanceBonus;
 }
 
-int Stats::getFinalHp() {
+int Stats::getFinalHp() const {
     return maxHp + maxHpBonus;
 }
 
-int Stats::getFinalMp() {
+int Stats::getFinalMp() const {
     return maxMp + maxMpBonus;
 }
 
-int Stats::getFinalDamage() {
+int Stats::getFinalDamage() const {
     return damage + damageBonus;
 }
 
-int Stats::getFinalArmor() {
+int Stats::getFinalArmor() const {
     return armor + armorBonus;
 }
 
-float Stats::getFinalCritChance() {
+float Stats::getFinalCritChance() const {
     return critChance + critChanceBonus;
 }
 
-float Stats::getFinalEvadeChance() {
+float Stats::getFinalEvadeChance() const {
     return evadeChance + evadeChanceBonus;
 }
 
@@ -326,20 +320,8 @@ void Stats::updateMultipliers() {
     updateSpellDmgMultiplier();
 }
 
-float Stats::getSpellDmgMultiplier() {
+float Stats::getSpellDmgMultiplier() const {
     return spellDmgMultiplier;
-}
-
-std::string Stats::getFinalCritChanceFixed() {
-    stringstream ss;
-    ss << getFinalCritChance();
-    return ss.str();
-}
-
-std::string Stats::getFinalEvadeChanceFixed() {
-    stringstream ss;
-    ss << getFinalEvadeChance();
-    return ss.str();
 }
 
 int Stats::getHit(int hit_damage, float block_percentage, bool spell_damage) {
@@ -374,4 +356,5 @@ void Stats::refillHp() {
 void Stats::refillMp() {
     mp = getFinalMp();
 }
+
 

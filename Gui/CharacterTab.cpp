@@ -279,9 +279,6 @@ rsHandler(std::move(rsHandler)), npcInteract(npcInteract), selectedItem(0) {
             static_cast<float>(window->getSize().x),
             static_cast<float>(window->getSize().y)));
     backgorund.setFillColor(sf::Color(20, 20, 20, 100));
-    updateSlot = (int *) malloc(sizeof(int));
-    *updateSlot = 100;
-
 
     //initi container
     container.setSize(sf::Vector2f(
@@ -398,16 +395,8 @@ void CharacterTab::statsContainerRender(sf::RenderTarget &target) {
 }
 
 void CharacterTab::equipContainerUpdate(const sf::Vector2f &mousePos) {
-
     for(auto &i : equipSlots){
-        if(*updateSlot < 6 || *updateSlot == 100){
-            if(*updateSlot != 100) {
-                equipSlots[*updateSlot]->update(mousePos, updateSlot, false);
-            }
-            else if(*updateSlot){
-                i->update(mousePos, updateSlot, false);
-            }
-        }
+        i->update(mousePos, false);
     }
 }
 
@@ -417,6 +406,9 @@ void CharacterTab::equipContainerRender(sf::RenderTarget &target) {
     target.draw(equipBonusLbl);
     for(auto &i : equipSlots){
         i->render(target);
+    }
+    for(auto &i : equipSlots){
+        i->renderInfoContainer(target);
     }
 }
 
@@ -449,14 +441,7 @@ void CharacterTab::invContainerUpdate(const sf::Vector2f &mousePos) {
     for(auto &i : inventorySlots){
         if(i->getIsSelected())
             selectedItem++;
-        if(*updateSlot > 5){
-            if(*updateSlot != 100 && *updateSlot > 5) {
-                inventorySlots[(*updateSlot - 6)]->update(mousePos, updateSlot, true);
-            }
-            else{
-                i->update(mousePos, updateSlot, true);
-            }
-        }
+        i->update(mousePos, true);
     }
     ss << "Items selected: " << selectedItem;
     selectedNumberLbl.setString(ss.str());
@@ -487,6 +472,9 @@ void CharacterTab::invContainerRender(sf::RenderTarget &target) {
     for (auto it = inventorySlots.rbegin(); it != inventorySlots.rend(); it++){
         (*it)->render(target);
     }
+
+    for(auto &i : inventorySlots)
+        i->renderInfoContainer(target);
 }
 
 bool CharacterTab::closeCharacterTabByClicking(const sf::Vector2f& mousePos, gui::Button* cTab_Btn) {
@@ -592,28 +580,46 @@ void CharacterTab::equipUnEquipBtnFunction() {
 }
 
 void CharacterTab::deleteBtnFunction() {
-    std::stringstream ss;
-    ss << "Are you sure you want to delete selected " << selectedItem << " items?";
-    confirmDialog = gui::ConfirmDialog(container.getPosition().x + (container.getGlobalBounds().width / 2.f) - 250.f,
-            container.getPosition().y + (container.getGlobalBounds().height / 2.f) - 125.f,
-            ss.str(), window, state, font, 25.f, DELETE_CONFIRM);
+    if(selectedItem == 1){
+        for(auto &i : inventorySlots) {
+            if (i->getIsSelected()) {
+                sellDeleteDialog = std::make_unique<gui::CustomDialog>(
+                        container.getPosition().x + (container.getGlobalBounds().width / 2.f),
+                        container.getPosition().y + (container.getGlobalBounds().height / 2.f),
+                        i->getItem(), state, font, DELETE_CONFIRM);
+                break;
+            }
+        }
+    }else{
+        sellDeleteDialog = std::make_unique<gui::CustomDialog>(
+                container.getPosition().x + (container.getGlobalBounds().width / 2.f),
+                container.getPosition().y + (container.getGlobalBounds().height / 2.f),
+                0, selectedItem, state, font, DELETE_CONFIRM);
+    }
     openDialog = true;
 }
 
 void CharacterTab::sellBtnFunction() {
-    std::stringstream ss;
-    int totValue = 0;
-    for(auto &i : inventorySlots) {
-        if (i->getIsSelected()) {
-            totValue += i->getItem()->getQuantity() * i->getItem()->getValue();
+    if(selectedItem == 1){
+        for(auto &i : inventorySlots) {
+            if (i->getIsSelected()) {
+                sellDeleteDialog = std::make_unique<gui::CustomDialog>(
+                        container.getPosition().x + (container.getGlobalBounds().width / 2.f),
+                        container.getPosition().y + (container.getGlobalBounds().height / 2.f),
+                        i->getItem(), state, font, SELL_CONFIRM);
+                break;
+            }
         }
+    }else{
+        int tot_value = 0;
+        for(auto &i : inventorySlots)
+            if (i->getIsSelected())
+                tot_value += i->getItem()->getValue() * i->getItem()->getQuantity();
+        sellDeleteDialog = std::make_unique<gui::CustomDialog>(
+                container.getPosition().x + (container.getGlobalBounds().width / 2.f),
+                container.getPosition().y + (container.getGlobalBounds().height / 2.f),
+                tot_value, selectedItem, state, font, SELL_CONFIRM);
     }
-    ss << "Selling selected " << selectedItem << " items for " << totValue << " gold";
-
-    confirmDialog = gui::ConfirmDialog(container.getPosition().x + (container.getGlobalBounds().width / 2.f) - 250.f,
-            container.getPosition().y + (container.getGlobalBounds().height / 2.f) - 125.f,
-            ss.str(), window, state, font, 25.f, SELL_CONFIRM);
-    confirmDialog.setSellValue(totValue);
     openDialog = true;
 }
 
@@ -664,23 +670,101 @@ void CharacterTab::updateKeyboardInput() {
         }
     } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Delete) && state->getKeyTime()) {
         // delete items with hotkey
-        if(selectedItem > 0){
-            deleteBtnFunction();
-        }
+        deleteBtnFunction();
     } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S) && state->getKeyTime()) {
         // sell items with hotkey
-        if(selectedItem > 0 && !sellBtn.isDisabled()){
+        if(!sellBtn.isDisabled()){
             sellBtnFunction();
+        }
+    }
+}
+
+void CharacterTab::processDialogResult() {
+    if(selectedItem == 1){
+        switch (sellDeleteDialog->getDialogType()) {
+            case DELETE_CONFIRM:{
+                int delete_amount = sellDeleteDialog->getFinalQuantity();
+                if(sellDeleteDialog->getItem()->getQuantity() == delete_amount)
+                    deleteItemFromInventory();
+                else{
+                    sellDeleteDialog->getItem()->minusQuantity(delete_amount);
+                    for(auto &i : inventorySlots){
+                        if(i->getItem()->getId() == sellDeleteDialog->getItem()->getId())
+                            i->updateQuantityLbl();
+                    }
+                }
+
+                stringstream ss;
+                ss << delete_amount << " " <<  sellDeleteDialog->getItem()->getName();
+                gState->getPopUpTextComponent()->addPopUpTextCenter(
+                        DEFAULT_TAG, ss.str(), "You deleted ", " from your inventory");
+                break;
+            }
+            case SELL_CONFIRM:{
+                int sell_amount = sellDeleteDialog->getFinalQuantity();
+                int earn_amount = sellDeleteDialog->getFinalQuantity() * sellDeleteDialog->getItem()->getValue();
+                if(sellDeleteDialog->getItem()->getQuantity() == sell_amount)
+                    deleteItemFromInventory();
+                else{
+                    sellDeleteDialog->getItem()->minusQuantity(sell_amount);
+                    for(auto &i : inventorySlots){
+                        if(i->getItem()->getId() == sellDeleteDialog->getItem()->getId())
+                            i->updateQuantityLbl();
+                    }
+                }
+                player->addGold(earn_amount);
+                gState->updateTabsGoldLbl();
+                stringstream ss;
+                ss << earn_amount << " gold";
+                gState->getPopUpTextComponent()->addPopUpTextCenter(
+                        GOLD_TAG, ss.str(), "You got ", " by trading");
+                break;
+            }
+        }
+    }else{
+        switch (sellDeleteDialog->getDialogType()) {
+            case DELETE_CONFIRM:{
+                int selected = selectedItem;
+                deleteItemFromInventory();
+                stringstream ss;
+                ss << selected;
+                gState->getPopUpTextComponent()->addPopUpTextCenter(
+                        DEFAULT_TAG, ss.str(), "You deleted ", " from your inventory");
+                break;
+            }
+            case SELL_CONFIRM:{
+                int earn_amount = sellDeleteDialog->getTotValue();
+                deleteItemFromInventory();
+                player->addGold(earn_amount);
+                gState->updateTabsGoldLbl();
+                stringstream ss;
+                ss << earn_amount << " gold";
+                gState->getPopUpTextComponent()->addPopUpTextCenter(
+                        GOLD_TAG, ss.str(), "You got ", " by trading");
+                break;
+            }
         }
     }
 }
 
 void CharacterTab::update(const sf::Vector2f& mousePos) {
     updateButtons();
-    updateMouseInput();
-    updateKeyboardInput();
+    if(openDialog){
+        window->setMouseCursorVisible(true);
+        sellDeleteDialog->update(mousePos);
+        switch (sellDeleteDialog->getResult()) {
+            case PENDING_RESULT:
+                break;
+            case YES_RESULT:
+                processDialogResult();
+            case NO_RESULT:
+                openDialog = false;
+                break;
+        }
+    } else {
+        updateMouseInput();
+        updateKeyboardInput();
 
-    if(!openDialog){
         statsContainerUpdate(mousePos);
         equipContainerUpdate(mousePos);
         invContainerUpdate(mousePos);
@@ -688,31 +772,6 @@ void CharacterTab::update(const sf::Vector2f& mousePos) {
         hpBar.update(player->getPlayerStats()->getHp(), player->getPlayerStats()->getFinalHp());
         mpBar.update(player->getPlayerStats()->getMp(), player->getPlayerStats()->getFinalMp());
         expBar.update(player->getPlayerStats()->getExp(), player->getPlayerStats()->getMaxExp());
-    } else if(openDialog){
-        if(confirmDialog.update(mousePos, &openDialog) == 1){
-            switch(confirmDialog.getDialogType()){
-                case DELETE_CONFIRM:{
-                    int seletected = selectedItem;
-                    deleteItemFromInventory();
-                    gState->getPopUpTextComponent()->addPopUpTextCenter(
-                            DEFAULT_TAG, to_string(seletected), "You deleted", "items from your inventory");
-                    break;
-                }
-
-                case SELL_CONFIRM:{
-                    deleteItemFromInventory();
-                    player->addGold(confirmDialog.getSellValue());
-                    gState->updateTabsGoldLbl();
-                    gState->getPopUpTextComponent()->addPopUpTextCenter(
-                            GOLD_TAG, to_string(confirmDialog.getSellValue()),
-                            "+", " gold");
-                    break;
-                }
-            }
-
-        }/*else if(this->confirmDialog.update(mousePos, &this->openDialog) == 0){
-            delete this->confirmDialog;
-        }*/
     }
 }
 
@@ -733,7 +792,7 @@ void CharacterTab::render(sf::RenderTarget &target) {
     equipContainerRender(target);
 
     if(openDialog){
-        confirmDialog.render(target);
+        sellDeleteDialog->render(target);
     }
 }
 
@@ -845,6 +904,12 @@ void CharacterTab::deleteConsumableInBattle(const std::shared_ptr<Item>& item) {
     }
     gState->updateTabsInvSpaceLbl();
 }
+
+GameState *CharacterTab::getGState() const {
+    return gState;
+}
+
+
 
 
 

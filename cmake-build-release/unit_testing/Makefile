@@ -487,6 +487,33 @@ __/Core/State.cpp.s:
 	cd /d E:\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/State.cpp.s
 .PHONY : __/Core/State.cpp.s
 
+__/Game/BattleResult.obj: __/Game/BattleResult.cpp.obj
+
+.PHONY : __/Game/BattleResult.obj
+
+# target to build an object file
+__/Game/BattleResult.cpp.obj:
+	cd /d E:\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/BattleResult.cpp.obj
+.PHONY : __/Game/BattleResult.cpp.obj
+
+__/Game/BattleResult.i: __/Game/BattleResult.cpp.i
+
+.PHONY : __/Game/BattleResult.i
+
+# target to preprocess a source file
+__/Game/BattleResult.cpp.i:
+	cd /d E:\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/BattleResult.cpp.i
+.PHONY : __/Game/BattleResult.cpp.i
+
+__/Game/BattleResult.s: __/Game/BattleResult.cpp.s
+
+.PHONY : __/Game/BattleResult.s
+
+# target to generate assembly for a file
+__/Game/BattleResult.cpp.s:
+	cd /d E:\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/BattleResult.cpp.s
+.PHONY : __/Game/BattleResult.cpp.s
+
 __/Game/Buff.obj: __/Game/Buff.cpp.obj
 
 .PHONY : __/Game/Buff.obj
@@ -992,6 +1019,9 @@ help:
 	@echo ... __/Core/State.obj
 	@echo ... __/Core/State.i
 	@echo ... __/Core/State.s
+	@echo ... __/Game/BattleResult.obj
+	@echo ... __/Game/BattleResult.i
+	@echo ... __/Game/BattleResult.s
 	@echo ... __/Game/Buff.obj
 	@echo ... __/Game/Buff.i
 	@echo ... __/Game/Buff.s

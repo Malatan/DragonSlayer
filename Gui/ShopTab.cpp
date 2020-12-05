@@ -4,6 +4,8 @@
 
 #include "ShopTab.h"
 
+#include <utility>
+
 void ShopTab::initShopSlots() {
     //init shop slots
     if(!shopSlots.empty()){
@@ -15,7 +17,7 @@ void ShopTab::initShopSlots() {
     float modifierY = 120.f;
     float yMultiplier = 0;
     int count = 0;
-    for(const auto& i : items){
+    for(const auto& i : lootGenerator->getConsumablesList()){
         if((count % max_per_row) == 0 && count != 0){
             yMultiplier ++;
         }
@@ -27,8 +29,10 @@ void ShopTab::initShopSlots() {
 }
 
 ShopTab::ShopTab(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* font, std::shared_ptr<Player> player, State *state,
-                 std::shared_ptr<ResourcesHandler> rsHandler, std::map<std::string, sf::Texture> textures) :
-                 window(window), font(font), player(std::move(player)), rsHandler(std::move(rsHandler)), textures(std::move(textures)){
+                 std::shared_ptr<ResourcesHandler> rsHandler, std::shared_ptr<LootGenerator> lootGenerator,
+                 std::map<std::string, sf::Texture> textures) :
+                 window(window), font(font), player(std::move(player)),
+                 rsHandler(std::move(rsHandler)), lootGenerator(std::move(lootGenerator)), textures(std::move(textures)){
     gState = dynamic_cast<GameState*>(state);
 
     //init background
@@ -65,68 +69,31 @@ ShopTab::ShopTab(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* font
     updateGoldLbl();
     updateInvSpaceLbl();
 
-    initItemList();
     initShopSlots();
 }
 
-ShopTab::~ShopTab() {
-    for(const auto& i : items){
-        delete i.second;
-    }
-}
-
-void ShopTab::initItemList() {
-    items["HealthPotion(S)"] = new Item("C-potionS", "HealthPotion(S)", "Restore 100 hp",
-            50, COMMON, 0, 3,
-            0, 0, 0, 0, 0.f, 0.f,
-            1, false, rsHandler->generateId());
-    items["HealthPotion(M)"] = new Item("C-potionM", "HealthPotion(M)", "Restore 200 hp",
-                                              100, COMMON, 7, 2,
-                                              0, 0, 0, 0, 0.f, 0.f,
-                                              1, false, rsHandler->generateId());
-    items["HealthPotion(L)"] = new Item("C-potionL", "HealthPotion(L)", "Restore 400 hp",
-                                              200, COMMON, 7, 3,
-                                              0, 0, 0, 0, 0.f, 0.f,
-                                              1, false, rsHandler->generateId());
-    items["ManaPotion(S)"] = new Item("C-potionS", "ManaPotion(S)", "Restore 100 mp",
-                                            50, COMMON, 3, 3,
-                                            0, 0, 0, 0, 0.f, 0.f,
-                                            1, false, rsHandler->generateId());
-    items["ManaPotion(M)"] = new Item("C-potionM", "ManaPotion(M)", "Restore 200 mp",
-                                            100, COMMON, 10, 2,
-                                            0, 0, 0, 0, 0.f, 0.f,
-                                            1, false, rsHandler->generateId());
-    items["ManaPotion(L)"] = new Item("C-potionL", "ManaPotion(L)", "Restore 400 mp",
-                                            200, COMMON, 10, 3,
-                                            0, 0, 0, 0, 0.f, 0.f,
-                                            1, false, rsHandler->generateId());
-    items["UpgradeInventory"] = new Item("Upgrade", "UpgradeInventory", "Gives you extra 5 inventory capacity",
-                                            1500, LEGENDARY, 0, 30,
-                                            0, 0, 0, 0, 0.f, 0.f,
-                                            1, false, rsHandler->generateId());
-}
-
+ShopTab::~ShopTab() = default;
 
 //functions
-void ShopTab::buyItem(Item* item, const unsigned price) {
+void ShopTab::buyItem(const std::string& item_name, const unsigned price) {
     if(player->getGold() >= price){
-        Item* it = new Item(items[item->getName()]);
+        std::shared_ptr<Item> it = std::make_shared<Item>(lootGenerator->getConsumablesList().at(item_name));
         if(it->getName() == "UpgradeInventory"){
             if(player->getGold() < it->getValue()){
-                gState->getPopUpTextComponent()->addPopUpTextCenter(DEFAULT,
-                        "Insufficient Gold","","");
+                gState->getPopUpTextComponent()->addPopUpTextCenter(DEFAULT_RARITY,
+                                                                    "Insufficient Gold", "", "");
             } else if(!player->getInventory()->isExpandable()){
-                gState->getPopUpTextComponent()->addPopUpTextCenter(DEFAULT,
+                gState->getPopUpTextComponent()->addPopUpTextCenter(DEFAULT_RARITY,
                         "Your inventory cannot be expanded anymore(Limit:" +
-                        to_string(Inventory::MAX_SPACE),"",")");
+                        to_string(Inventory::MAX_SPACE), "", ")");
             } else{
                 player->minusGold(price);
                 player->getInventory()->expandInventorySpace(5);
                 gState->updateTabsGoldLbl();
                 gState->updateTabsInvSpaceLbl();
-                gState->getPopUpTextComponent()->addPopUpTextCenter(DEFAULT,
-                        to_string(player->getInventory()->getCurrentMaxSpace()-5)+"->","Inventory capacity +5 (",
-                        to_string(player->getInventory()->getCurrentMaxSpace()));
+                gState->getPopUpTextComponent()->addPopUpTextCenter(DEFAULT_RARITY,
+                        to_string(player->getInventory()->getCurrentMaxSpace()-5)+"->", "Inventory capacity +5 (",
+                                                                    to_string(player->getInventory()->getCurrentMaxSpace()));
             }
 
         }else{
@@ -134,13 +101,13 @@ void ShopTab::buyItem(Item* item, const unsigned price) {
             it->setId(rsHandler->generateId());
             gState->addItem(it);
             gState->updateTabsGoldLbl();
-            gState->getPopUpTextComponent()->addPopUpTextCenter(DEFAULT,
-                    "1 "+item->getName(),"You bought","for "+to_string(price)+" gold");
+            gState->getPopUpTextComponent()->addPopUpTextCenter(DEFAULT_RARITY,
+                    "1 "+item_name, "You bought","for "+to_string(price)+" gold");
         }
 
     }else{
-        gState->getPopUpTextComponent()->addPopUpTextCenter(DEFAULT,
-                "Insufficient Gold","","");
+        gState->getPopUpTextComponent()->addPopUpTextCenter(DEFAULT_RARITY,
+                                                            "Insufficient Gold", "", "");
     }
 }
 
@@ -173,7 +140,7 @@ void ShopTab::update(const sf::Vector2f &mousePos) {
     for(const auto& i : shopSlots){
         i->update(mousePos);
         if(i->isPressed() && gState->getKeyTime()){
-            buyItem(i->getItem(), i->getPrice());
+            buyItem(i->getItem().getName(), i->getPrice());
         }
     }
 }
@@ -191,14 +158,6 @@ void ShopTab::render(sf::RenderTarget &target) {
 
 const vector<std::shared_ptr<gui::ShopSlot>> &ShopTab::getShopSlots() const {
     return shopSlots;
-}
-
-std::string ShopTab::toStringShopItems() {
-    std::stringstream ss;
-    for(auto i : items){
-        ss << i.second->listItem() << "\n";
-    }
-    return ss.str();
 }
 
 

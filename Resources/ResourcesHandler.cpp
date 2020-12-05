@@ -10,13 +10,13 @@ ResourcesHandler::ResourcesHandler(){
 
 ResourcesHandler::~ResourcesHandler() = default;
 
-bool ResourcesHandler::addResource(std::string path, const std::string& key, std::string state_name) {
+bool ResourcesHandler::addResource(const std::string& path, const std::string& key, const std::string& state_name) {
     for(const auto& i : resources){
         if(i->getKey() == key){
             return false;
         }
     }
-    resources.push_back(std::make_shared<Resource>(std::move(path), key, std::move(state_name)));
+    resources.push_back(std::make_shared<Resource>(path, key, state_name));
     return true;
 }
 
@@ -37,7 +37,7 @@ std::string ResourcesHandler::toString() {
     return app;
 }
 
-bool ResourcesHandler::loadPlayerStatsTxt(const std::shared_ptr<Stats>& playerStats) {
+void ResourcesHandler::loadPlayerStatsTxt(const std::shared_ptr<Stats>& playerStats) {
     ifstream file;
     file.open("../Data/Stats.txt");
     if (!file.is_open()){
@@ -75,85 +75,70 @@ bool ResourcesHandler::loadPlayerStatsTxt(const std::shared_ptr<Stats>& playerSt
     }
 
     file.close();
-    return true;
 }
 
-bool ResourcesHandler::loadPlayerInventoryTxt(const std::shared_ptr<Inventory>& playerInventory) {
-    Item item;
+void ResourcesHandler::loadPlayerInventoryTxt(const std::shared_ptr<Inventory>& playerInventory) {
+    std::shared_ptr<Item> item;
     ifstream file;
     file.open("../Data/Inventory.txt");
     if (!file.is_open()){
         cout<<"Resource load error: Could not load Inventory.txt";
     } else{
         std::string app;
-        int count;
-        file >> count;
-        while(count != 0){
-            item = Item();
+        while(file.peek() != EOF){
+            item = std::make_shared<Item>();
             file >> app;
-            item.setItemType(app);
+            item->setItemType(app);
             file >> app;
-            item.setName(app);
-      //      file >> app;
-      //      item->setDescription(app);
+            std::replace(app.begin(), app.end(), '_', ' ');
+            item->setName(app);
+            file >> app;
+            std::replace(app.begin(), app.end(), '_', ' ');
+            item->setDescription(app);
 
             file >> app;
-            if(app == "'"){
-                std::stringstream ss;
-                file >> app;
-                while(app != "'"){
-                    ss << app << " ";
-                    file >> app;
-                }
-                item.setDescription(ss.str());
-            }
-
-
+            item->setValue(std::stoi(app));
             file >> app;
-            item.setValue(std::stoi(app));
-            file >> app;
-            item.setRarity(app);
+            item->setRarity(app);
 
-            if(item.getItemType().at(0) != 'C'){
+            if(item->getItemType().at(0) != 'C'){
                 file >> app;
-                item.setHp(std::stoi(app));
+                item->setHp(std::stoi(app));
                 file >> app;
-                item.setMp(std::stoi(app));
+                item->setMp(std::stoi(app));
                 file >> app;
-                item.setDamage(std::stoi(app));
+                item->setDamage(std::stoi(app));
                 file >> app;
-                item.setArmor(std::stoi(app));
+                item->setArmor(std::stoi(app));
                 file >> app;
-                item.setCritChance(std::stof(app));
+                item->setCritChance(std::stof(app));
                 file >> app;
-                item.setEvadeChance(std::stof(app));
+                item->setEvadeChance(std::stof(app));
 
-                item.setQuantity(1);
+                item->setQuantity(1);
             } else{ // consumable
                 file >> app;
-                item.setQuantity(std::stoi(app));
+                item->setQuantity(std::stoi(app));
             }
 
             file >> app;
-            item.setIconRectX(std::stoi(app));
+            item->setIconRectX(std::stoi(app));
             file >> app;
-            item.setIconRectY(std::stoi(app));
+            item->setIconRectY(std::stoi(app));
 
-            item.setIsNew(true);
-            item.updateUsageType();
-            item.setId(generateId());
-            playerInventory->addItem(&item);
-            count --;
+            item->setIsNew(true);
+            item->updateUsageType();
+            item->setId(generateId());
+            playerInventory->addItem(item);
         }
 
         if(playerInventory->getItemsSize() > 1){
             playerInventory->sortByItemType();
         }
     }
-    return true;
 }
 
-bool ResourcesHandler::loadSpellList(const std::shared_ptr<SpellComponent>& spellComponent) {
+void ResourcesHandler::loadSpellList(const std::shared_ptr<SpellComponent>& spellComponent) {
     Spell spell;
     ifstream file;
     file.open("../Data/Spells.txt");
@@ -161,9 +146,7 @@ bool ResourcesHandler::loadSpellList(const std::shared_ptr<SpellComponent>& spel
         cout<<"Resource load error: Could not load Spells.txt";
     } else{
         std::string app;
-        int count;
-        file >> count;
-        while(count != 0){
+        while(file.peek() != EOF){
             spell = Spell();
             file >> app;
             std::replace(app.begin(), app.end(), '_', ' ');
@@ -196,10 +179,42 @@ bool ResourcesHandler::loadSpellList(const std::shared_ptr<SpellComponent>& spel
             spell.setLevel(1);
             spellComponent->addSpell(spell);
             spellComponent->addPlayerSpell(spell);
-            count--;
         }
     }
-    return false;
+}
+
+void ResourcesHandler::loadMaterialsTxt(std::vector<std::unique_ptr<Item>> &material_list) {
+    std::unique_ptr<Item> material;
+    ifstream file;
+    file.open("../Data/Materials.txt");
+    if (!file.is_open()){
+        cout<<"Resource load error: Could not load Materials.txt";
+    } else {
+        std::string app;
+        while (file.peek() != EOF) {
+            material = std::make_unique<Item>();
+            file >> app;
+            material->setItemType(app);
+            file >> app;
+            std::replace(app.begin(), app.end(), '_', ' ');
+            material->setName(app);
+            file >> app;
+            std::replace(app.begin(), app.end(), '_', ' ');
+            material->setDescription(app);
+            file >> app;
+            material->setValue(std::stoi(app));
+            file >> app;
+            material->setIconRectX(std::stoi(app));
+            file >> app;
+            material->setIconRectY(std::stoi(app));
+
+            material->setQuantity(1);
+            material->setIsNew(true);
+            material->updateUsageType();
+            material->setId(generateId());
+            material_list.push_back(std::move(material));
+        }
+    }
 }
 
 void ResourcesHandler::setEquipSlotsTextureIntRect(int equip_slot, sf::IntRect intRect) {
@@ -220,6 +235,8 @@ unsigned int ResourcesHandler::generateId() {
     IdCounter++;
     return IdCounter-1;
 }
+
+
 
 
 

@@ -15,6 +15,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "E:/DragonSlayer/Core/MainMenuState.cpp" "E:/DragonSlayer/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/MainMenuState.cpp.obj"
   "E:/DragonSlayer/Core/RunTimeClock.cpp" "E:/DragonSlayer/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/RunTimeClock.cpp.obj"
   "E:/DragonSlayer/Core/State.cpp" "E:/DragonSlayer/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/State.cpp.obj"
+  "E:/DragonSlayer/Game/BattleResult.cpp" "E:/DragonSlayer/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/BattleResult.cpp.obj"
   "E:/DragonSlayer/Game/Buff.cpp" "E:/DragonSlayer/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Buff.cpp.obj"
   "E:/DragonSlayer/Game/Enemy.cpp" "E:/DragonSlayer/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Enemy.cpp.obj"
   "E:/DragonSlayer/Game/Entity.cpp" "E:/DragonSlayer/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Entity.cpp.obj"

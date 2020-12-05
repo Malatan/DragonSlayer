@@ -31,7 +31,7 @@ Item::Item(){
     evadeChance= 0;
     quantity= 0;
     usageType = DEFAULT_USAGE;
-    rarityEnum = UNCOMMON;
+    rarityEnum = DEFAULT_RARITY;
     updateRarityString();
 }
 
@@ -187,10 +187,6 @@ bool Item::isEquipped() const {
     return equipped;
 }
 
-bool Item::isConsumable() const {
-    return getItemType().at(0) == 'C';
-}
-
 int Item::getHp() const {
     return hp;
 }
@@ -241,8 +237,10 @@ void Item::updateUsageType() {
         usageType = WEAPON_USAGE;
     } else if(app == "shield"){
         usageType = SHIELD_USAGE;
-    }else if(app == "potionS" || app == "potionM" || app == "potionL"){
+    } else if(app == "potionS" || app == "potionM" || app == "potionL"){
         usageType = CONSUMABLE_USAGE;
+    } else if(app == "Material"){
+        usageType = MATERIAL_USAGE;
     }
 }
 
@@ -268,6 +266,9 @@ void Item::updateRarityString() {
         case LEGENDARY:
             rarity = "Legendary";
             break;
+        case DEFAULT_RARITY:
+            rarity = "DEFAULT";
+            break;
     }
 }
 
@@ -282,6 +283,8 @@ void Item::updateRarityEnum() {
         rarityEnum = EPIC;
     } else if(rarity == "Legendary"){
         rarityEnum = LEGENDARY;
+    } else{
+        rarityEnum = DEFAULT_RARITY;
     }
 }
 
@@ -301,6 +304,15 @@ void Item::setId(unsigned int new_id) {
 
 unsigned int Item::getId() const {
     return Id;
+}
+
+bool Item::canBeMultiple() const {
+    return usageType == CONSUMABLE_USAGE || usageType == MATERIAL_USAGE;
+}
+
+void Item::minusQuantity(int minus_value) {
+    if(minus_value < quantity)
+        quantity -= minus_value;
 }
 
 

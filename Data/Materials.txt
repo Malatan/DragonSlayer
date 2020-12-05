@@ -1,0 +1,8 @@
+L-Material Witch's_notes Witch's_drop 50 13 17
+L-Material Piece_of_bone Skeleton's_drop 50 2 18
+L-Material Sharp_tooth Skeleton_soldier's_drop 50 5 18
+L-Material Eyeball Flying_eye's_drop 50 3 18
+L-Material Crab's_claw Goblin's_drop 50 0 18
+L-Material Snail's_shell Mushroom's_drop 50 9 18
+L-Material Silver_coin Bandit_minion's_drop 50 11 15
+L-Material Golden_coin Bandit_captain's_drop 70 10 15

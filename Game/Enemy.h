@@ -37,11 +37,15 @@ public:
 
     //variables
     static const unsigned int MAX_FOLLOWERS = 4;
+    static const int BASE_BOOST = 15;
 
     //follwers
     void addFollower(const std::shared_ptr<Enemy>& new_follower);
-    int getFollowersNumber();
+    int getFollowersNumber() const;
+    int getAliveFollowersNumber() const;
+    int getDeadFollowersNumber() const;
     const vector<std::shared_ptr<Enemy>> &getFollowers() const;
+    void updateStatsBoost(bool recover);
 
     //functions
     void setPosition(float x, float y) override;
@@ -67,6 +71,7 @@ private:
     unsigned int Id;
     string name;
     enemy_types type;
+    int currentBoost;
 
     bool animationDone{};
     entity_animation animationEnum{};

@@ -27,6 +27,7 @@ public:
     //accessor
     unique_ptr<gui::ItemSlot> * getEquipSlots();
     const vector<std::unique_ptr<gui::ItemSlot>>& getInventorySlots() const;
+    GameState *getGState() const;
 
     //functions
     std::string playerStatsToString();
@@ -52,6 +53,7 @@ public:
     void useConsumable(const std::shared_ptr<Item>& item, std::unique_ptr<gui::ItemSlot>& i);
     void deleteBtnFunction();
     void sellBtnFunction();
+    void processDialogResult();
     void updateMouseInput();
     void updateKeyboardInput();
     void update(const sf::Vector2f& mousePos);
@@ -64,8 +66,7 @@ private:
     std::shared_ptr<Player> player;
     GameState* gState;
     State* state;
-    int* updateSlot;
-    gui::ConfirmDialog confirmDialog;
+    std::unique_ptr<gui::CustomDialog> sellDeleteDialog;
     int selectedItem;
     bool openDialog;
     npc_type* npcInteract;

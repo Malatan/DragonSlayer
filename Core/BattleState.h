@@ -18,11 +18,13 @@
 #include "../Game/Enemy.h"
 #include "../Game/Generator.h"
 #include "../Game/Utils.h"
+#include "../Game/BattleResult.h"
 #include "../Components/PopUpTextComponent.h"
 #include "../Components/BuffComponent.h"
 
 class CharacterTab;
 class BuffComponent;
+class PauseMenu;
 
 enum panel_types{
     ACTION_PANEL,
@@ -31,14 +33,34 @@ enum panel_types{
     DEFAULT_PANEL
 };
 
-enum battle_result{
-    WIN,
-    LOST,
-    ESCAPED,
-    NOT_FINISHED
+enum window_states{
+    UNPAUSED,
+    PAUSE_MENU,
+    BATTLE_REPORT
 };
 
 class BattleState : public State{
+public:
+    //constructors/destructor
+    BattleState(std::shared_ptr<sf::RenderWindow> window, std::shared_ptr<Player> player, std::stack<std::unique_ptr<State>>* states,
+                std::shared_ptr<PopUpTextComponent> popUpTextComponent, std::shared_ptr<SpellComponent> spellComponent,
+                std::shared_ptr<BuffComponent> buffComponent, std::shared_ptr<ResourcesHandler> rsHandler,
+                std::map<std::string, sf::Texture> textures, sf::Font *font, std::shared_ptr<Enemy> enemy,
+                int floor, std::shared_ptr<CharacterTab> cTab);
+    ~BattleState() override;
+
+    void updateMessageLbl();
+    void updatePlayerStatsLbl();
+    void updateTurnPanel();
+    void updatePageLbl(panel_types type);
+    void updateEnemyStatsLbl(const std::shared_ptr<Enemy>& enemy);
+    void updateButtons();
+    void updateMainPanel(const float &dt);
+    void updatePausedMenuButtons();
+    void updateInput(const float &dt) override;
+    void update(const float& dt) override;
+    void render(sf::RenderTarget* target) override;
+
 private:
     std::shared_ptr<Player> player;
     std::shared_ptr<Player> playerModel;
@@ -49,7 +71,7 @@ private:
     std::shared_ptr<SpellComponent> spellComponent;
     std::shared_ptr<CharacterTab> cTab;
 
-    battle_result battleResult;
+    battle_result_types battleResultEnum;
     std::vector<unsigned int> enemiesMoveOrder;
     int floor;
     panel_types currentPanel;
@@ -58,6 +80,8 @@ private:
     float criticalhitMultiplier;
     float playerBlockPercentage{};
     bool potionUsed;
+    window_states currentWindowState;
+    BattleResult battleResult;
 
     unsigned int turnCount;
     bool whoseTurn; // true = player , false = enemies
@@ -76,6 +100,12 @@ private:
     gui::Button actionBtn;
     sf::RectangleShape itemActionPanel;
     gui::Button itemActionBtn;
+    std::unique_ptr<PauseMenu> pmenu;
+
+    //Battle report
+
+
+
 
     //player stats panel
     sf::RectangleShape playerStatsPanel;
@@ -88,6 +118,7 @@ private:
     sf::Text enemyStatsPanelTitle;
     sf::Text enemyStatsNameLbl;
     sf::Text enemyStatsValueLbl;
+    sf::Text messageLbl;
 
     //action and inventory panel
     int currentActionPage{};
@@ -118,15 +149,6 @@ private:
     sf::Text turnPanelLbl;
     sf::Text turnPanelActionLbl;
 
-public:
-    //constructors/destructor
-    BattleState(std::shared_ptr<sf::RenderWindow> window, std::shared_ptr<Player> player, std::stack<std::unique_ptr<State>>* states,
-                std::shared_ptr<PopUpTextComponent> popUpTextComponent, std::shared_ptr<SpellComponent> spellComponent,
-                std::shared_ptr<BuffComponent> buffComponent, std::shared_ptr<ResourcesHandler> rsHandler,
-                std::map<std::string, sf::Texture> textures, sf::Font *font, std::shared_ptr<Enemy> enemy,
-                int floor, std::shared_ptr<CharacterTab> cTab);
-    ~BattleState() override;
-
     void initResources();
     void initButtons();
     void initBattleFieldComponents();
@@ -134,6 +156,7 @@ public:
     void initStatsPanel();
     void initActionPanel();
     void initInventoryPanel();
+    void initPauseMenu();
     void spawnEnemyModel(sf::Vector2f pos, enemy_types type, unsigned int enemy_id);
     void generateModels();
 
@@ -143,14 +166,7 @@ public:
     void enemyBattle(const float& dt);
     void endEnemyTurn();
     void endBattle();
-    void updatePlayerStatsLbl();
-    void updateTurnPanel();
-    void updatePageLbl(panel_types type);
-    void updateEnemyStatsLbl(const std::shared_ptr<Enemy>& enemy);
-    void updateButtons();
-    void updateInput(const float &dt) override;
-    void update(const float& dt) override;
-    void render(sf::RenderTarget* target) override;
+
 
 };
 

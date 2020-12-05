@@ -27,3 +27,9 @@ bool utils::trueFalse(float probability, bool resetSeed) {
     int res = (rand() % 100);
     return  res < probability;
 }
+
+float utils::roundf(float n, int n_decimals) {
+    float app = std::pow(10, n_decimals);
+    return std::roundf(n * app) / app;
+}
+

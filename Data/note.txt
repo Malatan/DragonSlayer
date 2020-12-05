@@ -1,0 +1,60 @@
+Item:
+Itemtype(Es: E- head, E = equip, W = weapon, C = Consumable, L = loot + - + head, chest, arms..)
+Name(usa _ al posto di spazio)
+Description(usa _ al posto di spazio)
+Valore(in oro)
+rarita(Uncommon, Common, Rare, Epic, Legendary)
+	Se e' consumabile 		se non e' consumabile
+	quantita'			Hp
+	intrect x			Mp
+	intrect y			Damage
+				Armor	
+				Critchance
+				EvadeChance
+				intrect x			
+				intrect y	
+
+
+Spell:
+Name(usa _ al posto di spazio)
+Type(Enum)
+Description(usa _ al posto di spazio)
+Cost
+Cooldown
+Damage
+Aoe
+Is learned
+Max level
+Learn cost
+intrect x
+intrect y
+
+Stats:
+Level
+base max exp
+base max hp
+base max mp
+armor
+damage
+critchance
+evadechance
+strength
+wisdom
+agility
+freepoints
+
+Material:
+MaterialType (L-Material)
+Name
+Description
+Base value
+intrect x
+intrect y
+
+
+
+
+
+
+
+

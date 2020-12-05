@@ -130,7 +130,8 @@ void GameState::initCharacterTab() {
 }
 
 void GameState::initShopTab() {
-    shopTab = std::make_shared<ShopTab>(window, font, player, this, rsHandler, textures);
+    shopTab = std::make_shared<ShopTab>(window, font, player, this,
+                                        rsHandler, lootGenerator, textures);
     initShopItemTextures();
 }
 
@@ -314,6 +315,18 @@ void GameState::initComponents() {
     initSpellComponent();
 }
 
+void GameState::initLootGenerator() {
+    lootGenerator = std::make_shared<LootGenerator>(rsHandler);
+    for(auto &i : lootGenerator->getDroppableMaterials()){
+        std::shared_ptr<Item> item = std::make_shared<Item>(i.get());
+        item->setRarity("Rare");
+        item->setId(rsHandler->generateId());
+        item->setQuantity(20);
+        player->getInventory()->addItem(item);
+    }
+    player->getInventory()->sortByItemType();
+}
+
 void GameState::initView() {
     view.setSize(
             sf::Vector2f(
@@ -385,7 +398,6 @@ void GameState::initButtons() {
 void GameState::initMaps() {
     mg = new MapGenerator();
     map = mg->GenerateFromFile("../Data/dungeon.txt", 24, 79, this);
-    std::cout << map->printMap();
 }
 
 //constructors/destructors
@@ -404,6 +416,7 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::u
     initPlayers();
 
     initComponents();
+    initLootGenerator();
     initView();
     initDebugText();
     initButtons();
@@ -442,8 +455,8 @@ std::shared_ptr<SpellTab> GameState::getSpellTab() {
 }
 
 //functions
-void GameState::addItem(Item *item) {
-    if(player->getInventory()->addItem(item)){
+void GameState::addItem(const std::shared_ptr<Item>& new_item) {
+    if(player->getInventory()->addItem(new_item)){
         player->getInventory()->sortByItemType();
         cTab->initInventorySlots();
         initInventoryItemTextures();
@@ -553,22 +566,24 @@ void GameState::spawnEnemy(float x, float y, enemy_types type, unsigned int enem
     if(new_enemy_spawned){
         // se enemy_follwers == 5 allora si genera in modo randomico il numero dei follwers
         if(enemy_followers == 5){
-            // genera n followers da 1 al numero di piano corrente - 1
-            int n_followers = utils::generateRandomNumber(1, currentFloor + 1, false);
+            // genera n followers con n in [0,4]
+            int n_followers = utils::generateRandomNumber(0, currentFloor - 1, false);
             if (n_followers > Enemy::MAX_FOLLOWERS)
                 n_followers = Enemy::MAX_FOLLOWERS;
 
-            //genera in modo randomico l'enum del tipo dei followers
-            std::vector<int> enemyEnums = utils::generateRandomNumbers(0, 7, n_followers - 1, false);
-            for(auto i : enemyEnums){
-                //il livello del follower deve essere minore di [2,5] del nemico capo
-                int level_diff = utils::generateRandomNumber(2, 5, false);
-                int new_follower_level = new_enemy->getStats()->getLevel() - level_diff;
+            if(n_followers > 0){
+                //genera in modo randomico l'enum del tipo dei followers
+                std::vector<int> enemyEnums = utils::generateRandomNumbers(0, 7, n_followers, false);
+                for(auto i : enemyEnums){
+                    //il livello del follower deve essere minore di [2,5] del nemico capo
+                    int level_diff = utils::generateRandomNumber(2, 5, false);
+                    int new_follower_level = new_enemy->getStats()->getLevel() - level_diff;
 
-                new_enemy->addFollower(std::make_shared<Enemy>(
-                        static_cast<enemy_types>(i), new_follower_level, currentFloor, rsHandler->generateId()));
+                    new_enemy->addFollower(std::make_shared<Enemy>(
+                            static_cast<enemy_types>(i), new_follower_level, currentFloor, rsHandler->generateId()));
+                }
+                new_enemy->updateStatsBoost(true);
             }
-
         }else if(enemy_followers > 0){
             // altrimenti si genera n nemico dove n = enemy_follwers
             // se n <= 0 allora n = 0
@@ -586,6 +601,7 @@ void GameState::spawnEnemy(float x, float y, enemy_types type, unsigned int enem
                 new_enemy->addFollower(std::make_shared<Enemy>(
                         static_cast<enemy_types>(i), new_follower_level, currentFloor, rsHandler->generateId()));
             }
+            new_enemy->updateStatsBoost(true);
         }
     }
 }
@@ -599,6 +615,20 @@ void GameState::changeStato(int current_stato) {
         stato = 0;
         window->setMouseCursorVisible(true);
     }
+}
+
+void GameState::checkBattleResult(BattleResult& battle_result) {
+    std::cout<<battle_result.generateReport();
+
+
+
+
+
+
+
+
+
+
 }
 
 void GameState::updateInput(const float &dt) {
@@ -626,7 +656,7 @@ void GameState::updateInput(const float &dt) {
         } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::G) && getKeyTime()){
             std::stringstream ss;
             ss << "Dragon Gloves" << utils::generateRandomNumber(100, 99999, false);
-            addItem(new Item("E-arms", ss.str(),
+            addItem(std::make_shared<Item>("E-arms", ss.str(),
                     "powerful helmet", 5000, LEGENDARY,
                     4, 7, 300, 200, 0, 350, 10.3, 17.3,
                     1, true, rsHandler->generateId()));
@@ -635,21 +665,17 @@ void GameState::updateInput(const float &dt) {
 
         } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::H) && getKeyTime()){
             int n = utils::generateRandomNumber(10, 30, false);
-            Item* item = new Item("C-potionS", "HealthPotion(S)",
-                                  "Restore 100 hp", 5, COMMON,
-                                  0, 3, 0, 0, 0, 0, 0, 0, n,
-                                  true, rsHandler->generateId());
-            addItem(item);
-            popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG, to_string(n), "", " HealthPotion(S) added to the inventory");
-            delete item;
+            addItem(std::make_shared<Item>("C-potionS", "HealthPotion(S)",
+                                           "Restore 100 hp", 5, COMMON,
+                                           0, 3, 0, 0, 0, 0, 0, 0, n,
+                                           true, rsHandler->generateId()));
+            popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG,
+                                                   to_string(n), "", " HealthPotion(S) added to the inventory");
         }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Y) && getKeyTime()){
             std::cout<<player->toStringEquipment();
 
         }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::N) && getKeyTime()){
             std::cout<<buffComponent->toStringBuffs();
-
-        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::P) && getKeyTime()){
-            std::cout<<shopTab->toStringShopItems();
 
         }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::M) && getKeyTime()){
             int gold = utils::generateRandomNumber(999, 9999, false);
@@ -719,14 +745,14 @@ void GameState::updateTabsPlayerStatsLbl() {
 }
 
 void GameState::updatePausedMenuButtons() {
-    if(pmenu.isButtonPressed("QUIT")){
+    if(pmenu.isButtonPressed("QUIT") && getKeyTime()){
         endState();
-    } else if(pmenu.isButtonPressed("BACK")){
+    } else if(pmenu.isButtonPressed("BACK") && getKeyTime()){
         changeStato(0);
-    } else if(pmenu.isButtonPressed("SPELL")){
+    } else if(pmenu.isButtonPressed("SPELL") && getKeyTime()){
         changeStato(0);
         changeStato(5);
-    }else if(pmenu.isButtonPressed("CHARACTER")){
+    }else if(pmenu.isButtonPressed("CHARACTER") && getKeyTime()){
         changeStato(0);
         changeStato(2);
     }
@@ -893,6 +919,12 @@ void GameState::updateTileMap(const float &dt) {
     if(!noclip)
         map->updateTileCollision(player, dt);
 }
+
+
+
+
+
+
 
 
 

@@ -604,6 +604,33 @@ Core/State.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Core/State.cpp.s
 .PHONY : Core/State.cpp.s
 
+Game/BattleResult.obj: Game/BattleResult.cpp.obj
+
+.PHONY : Game/BattleResult.obj
+
+# target to build an object file
+Game/BattleResult.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/BattleResult.cpp.obj
+.PHONY : Game/BattleResult.cpp.obj
+
+Game/BattleResult.i: Game/BattleResult.cpp.i
+
+.PHONY : Game/BattleResult.i
+
+# target to preprocess a source file
+Game/BattleResult.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/BattleResult.cpp.i
+.PHONY : Game/BattleResult.cpp.i
+
+Game/BattleResult.s: Game/BattleResult.cpp.s
+
+.PHONY : Game/BattleResult.s
+
+# target to generate assembly for a file
+Game/BattleResult.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/BattleResult.cpp.s
+.PHONY : Game/BattleResult.cpp.s
+
 Game/Buff.obj: Game/Buff.cpp.obj
 
 .PHONY : Game/Buff.obj
@@ -765,6 +792,33 @@ Game/Item.s: Game/Item.cpp.s
 Game/Item.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Item.cpp.s
 .PHONY : Game/Item.cpp.s
+
+Game/LootGenerator.obj: Game/LootGenerator.cpp.obj
+
+.PHONY : Game/LootGenerator.obj
+
+# target to build an object file
+Game/LootGenerator.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/LootGenerator.cpp.obj
+.PHONY : Game/LootGenerator.cpp.obj
+
+Game/LootGenerator.i: Game/LootGenerator.cpp.i
+
+.PHONY : Game/LootGenerator.i
+
+# target to preprocess a source file
+Game/LootGenerator.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/LootGenerator.cpp.i
+.PHONY : Game/LootGenerator.cpp.i
+
+Game/LootGenerator.s: Game/LootGenerator.cpp.s
+
+.PHONY : Game/LootGenerator.s
+
+# target to generate assembly for a file
+Game/LootGenerator.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/LootGenerator.cpp.s
+.PHONY : Game/LootGenerator.cpp.s
 
 Game/Npc.obj: Game/Npc.cpp.obj
 
@@ -1336,6 +1390,9 @@ help:
 	@echo ... Core/State.obj
 	@echo ... Core/State.i
 	@echo ... Core/State.s
+	@echo ... Game/BattleResult.obj
+	@echo ... Game/BattleResult.i
+	@echo ... Game/BattleResult.s
 	@echo ... Game/Buff.obj
 	@echo ... Game/Buff.i
 	@echo ... Game/Buff.s
@@ -1354,6 +1411,9 @@ help:
 	@echo ... Game/Item.obj
 	@echo ... Game/Item.i
 	@echo ... Game/Item.s
+	@echo ... Game/LootGenerator.obj
+	@echo ... Game/LootGenerator.i
+	@echo ... Game/LootGenerator.s
 	@echo ... Game/Npc.obj
 	@echo ... Game/Npc.i
 	@echo ... Game/Npc.s

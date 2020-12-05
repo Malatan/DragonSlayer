@@ -51,7 +51,7 @@ public:
 
     //MANAGE STATS
     bool addExp(int earned);
-    void levelUp(int choise, int newExp);
+    void levelUp(int newExp);
     void addAttribute(attribute type, int quantity);
     void checkHpLimit();
     void checkMpLimit();
@@ -62,14 +62,12 @@ public:
     int gainHp(int gain_amount);
     int gainMp(int gain_amount);
 
-    int getFinalHp();
-    int getFinalMp();
-    int getFinalDamage();
-    int getFinalArmor();
-    float getFinalCritChance();
-    float getFinalEvadeChance();
-    std::string getFinalCritChanceFixed();
-    std::string getFinalEvadeChanceFixed();
+    int getFinalHp() const;
+    int getFinalMp() const;
+    int getFinalDamage() const;
+    int getFinalArmor() const;
+    float getFinalCritChance() const;
+    float getFinalEvadeChance() const;
     void updateSpellDmgMultiplier();
     void updateMultipliers();
 
@@ -78,35 +76,35 @@ public:
     virtual ~Stats();
 
     //GET & SET
-    int getLevel();
+    int getLevel() const;
     void setLevel(int new_level);
-    int getExp();
+    int getExp() const;
     void setExp(int new_exp);
-    int getMaxExp();
+    int getMaxExp() const;
     void setMaxExp(int new_maxExp);
-    int getHp();
+    int getHp() const;
     void setHp(int new_hp);
-    int getMaxHp();
+    int getMaxHp() const;
     void setMaxHp(int new_maxHp);
-    int getMp();
+    int getMp() const;
     void setMp(int new_mp);
-    int getMaxMp();
+    int getMaxMp() const;
     void setMaxMp(int new_maxMp);
-    int getArmor();
+    int getArmor() const;
     void setArmor(int new_armor);
-    int getDamage();
+    int getDamage() const;
     void setDamage(int new_damage);
-    float getCritChance();
+    float getCritChance() const;
     void setCritChance(float new_critChance);
-    float getEvadeChance();
+    float getEvadeChance() const;
     void setEvadeChance(float new_evadeChance);
-    int getAgility();
+    int getAgility() const;
     void setAgility(int new_agility);
-    int getWisdom();
+    int getWisdom() const;
     void setWisdom(int new_wisdom);
-    int getStrength();
+    int getStrength() const;
     void setStrength(int new_strength);
-    int getFreePoints();
+    int getFreePoints() const;
     void setFreePoints(int new_freePoints);
     int getMaxHpBonus() const;
     void setMaxHpBonus(int new_maxHpBonus);
@@ -120,7 +118,7 @@ public:
     void setCritChanceBonus(float new_critChanceBonus);
     float getEvadeChanceBonus() const;
     void setEvadeChanceBonus(float new_evadeChanceBonus);
-    float getSpellDmgMultiplier();
+    float getSpellDmgMultiplier() const;
 
 };
 

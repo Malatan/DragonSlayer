@@ -38,17 +38,17 @@ void Inventory::sortByItemType() {
             });
 }
 
-bool Inventory::addItem(Item *item) {
+bool Inventory::addItem(std::shared_ptr<Item> new_item) {
     for(const auto& i : items){
-        if(i->getName() == item->getName() && i->getUsageType() == CONSUMABLE_USAGE){
-            i->setQuantity(i->getQuantity() + item->getQuantity());
+        if(i->getName() == new_item->getName() && i->getUsageType() == CONSUMABLE_USAGE){
+            i->setQuantity(i->getQuantity() + new_item->getQuantity());
             i->setIsNew(true);
             return true;
         }
     }
 
     if(items.size() < *currentMaxSpace){
-        items.push_back(std::make_shared<Item>(item));
+        items.push_back(std::move(new_item));
         return true;
     }
     return false;
@@ -57,7 +57,7 @@ bool Inventory::addItem(Item *item) {
 string Inventory::listInventory(){
     string desc;
     for(const auto& i : items){
-        if(!i->getItemType().empty())
+        //if(!i->getItemType().empty())
             desc+= i->listItem() + "\n";
     }
     return desc;

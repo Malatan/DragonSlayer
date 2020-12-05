@@ -13,6 +13,8 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 
+class Inventory;
+
 class ResourcesHandler {
 public:
     ResourcesHandler();
@@ -23,12 +25,14 @@ public:
 
     void setEquipSlotsTextureIntRect(int equip_slot, sf::IntRect intRect);
     sf::IntRect getEquipSlotTextureRect(int equip_slot);
-    bool addResource(std::string path, const std::string& key, std::string state_name);
+    bool addResource(const std::string& path, const std::string& key, const std::string& state_name);
     std::shared_ptr<Resource> getResourceByKey(const std::string& key);
 
-    static bool loadPlayerStatsTxt(const std::shared_ptr<Stats>& playerStats);
-    bool loadPlayerInventoryTxt(const std::shared_ptr<Inventory>& playerInventory);
-    static bool loadSpellList(const std::shared_ptr<SpellComponent>& spellComponent);
+    static void loadPlayerStatsTxt(const std::shared_ptr<Stats>& playerStats);
+    void loadPlayerInventoryTxt(const std::shared_ptr<Inventory>& playerInventory);
+    static void loadSpellList(const std::shared_ptr<SpellComponent>& spellComponent);
+    void loadMaterialsTxt(std::vector<std::unique_ptr<Item>>& material_list);
+
     std::string toString();
 
 private:

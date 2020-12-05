@@ -1,0 +1,43 @@
+Material		60	
+Comsumable	30	90
+Weapon		15	105
+Shield		15	120
+Helmet		15	135
+Chestplate	15	150
+Gloves		15	165
+Boots		15	180
+Nothing		30	210	
+
+Default		80	
+Higher		20	100
+Highiest		10	110
+
+Uncommon	60	
+Common		32	92
+Rare		16	108
+Epic		8	116
+Legendary		4	120
+
+Uncommon	54	
+Common		33	87
+Rare		18	105
+Epic		10	115
+Legendary		5	120
+
+Uncommon	48	
+Common		34	82
+Rare		20	102
+Epic		12	114
+Legendary		6	120
+
+Uncommon	43	
+Common		34	77
+Rare		22	99
+Epic		14	113
+Legendary		7	120
+
+Uncommon	36	
+Common		35	71
+Rare		24	95
+Epic		16	111
+Legendary		9	120

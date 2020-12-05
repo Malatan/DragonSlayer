@@ -6,7 +6,7 @@
 
 void Npc::initAnimations() {
     switch(type){
-        case DEFAULT:
+        case DEFAULT_RARITY:
             break;
         case SHOP:
             animationComponent->addAnimation("IDLE", 10.f,
@@ -27,7 +27,7 @@ void Npc::initAnimations() {
 
 void Npc::iniHitBoxComponents() {
     switch(type){
-        case DEFAULT:
+        case DEFAULT_RARITY:
             break;
         case SHOP:
             createHitboxComponent(sprite, 80.f, 50.f, 32.f, 64.f);

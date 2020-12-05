@@ -482,6 +482,14 @@
 			<Option target="DragonSlayer"/>
 			<Option target="unit_testing_run"/>
 		</Unit>
+		<Unit filename="E:/DragonSlayer/Game/BattleResult.cpp">
+			<Option target="DragonSlayer"/>
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/DragonSlayer/Game/BattleResult.h">
+			<Option target="DragonSlayer"/>
+			<Option target="unit_testing_run"/>
+		</Unit>
 		<Unit filename="E:/DragonSlayer/Game/Buff.cpp">
 			<Option target="DragonSlayer"/>
 			<Option target="unit_testing_run"/>
@@ -527,6 +535,12 @@
 		<Unit filename="E:/DragonSlayer/Game/Item.h">
 			<Option target="DragonSlayer"/>
 			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/DragonSlayer/Game/LootGenerator.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="E:/DragonSlayer/Game/LootGenerator.h">
+			<Option target="DragonSlayer"/>
 		</Unit>
 		<Unit filename="E:/DragonSlayer/Game/Npc.cpp">
 			<Option target="DragonSlayer"/>

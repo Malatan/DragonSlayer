@@ -43,6 +43,8 @@ set(SOURCE_FILES
         ../Game/Stats.cpp
         ../Game/Npc.h
         ../Game/Npc.cpp
+        ../Game/BattleResult.h
+        ../Game/BattleResult.cpp
         ../Components/MovementComponent.cpp
         ../Components/MovementComponent.h
         ../Components/AnimationComponent.cpp

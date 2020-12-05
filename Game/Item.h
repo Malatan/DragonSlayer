@@ -12,6 +12,7 @@
 using namespace std;
 
 enum item_rarity{
+    DEFAULT_RARITY,
     UNCOMMON,
     COMMON,
     RARE,
@@ -26,7 +27,8 @@ enum item_usage_type{
     HEAD_USAGE = 3,
     SHIELD_USAGE = 4,
     WEAPON_USAGE = 5,
-    CONSUMABLE_USAGE =6,
+    CONSUMABLE_USAGE = 6,
+    MATERIAL_USAGE,
     DEFAULT_USAGE
 };
 
@@ -70,7 +72,7 @@ public:
     void updateRarityString();
     void updateRarityEnum();
     bool use();
-    bool isConsumable() const;
+    bool canBeMultiple() const;
     void updateUsageType();
 
     //TOSTRING
@@ -83,6 +85,7 @@ public:
     int getUsageType();
     int getQuantity() const;
     void setQuantity(int new_quantity);
+    void minusQuantity(int minus_value);
     int getDamage() const;
     void setDamage(int new_damage);
     int getArmor() const;

@@ -8,6 +8,54 @@
 gui::Button::Button()= default;
 
 gui::Button::Button(float x, float y, float width, float height,
+                    sf::Font *font, const std::string& text, unsigned character_size, short unsigned id) {
+    buttonState = BTN_IDLE;
+    this->id = id;
+    disabled = false;
+    tooltipDisabled = true;
+    backgroundDisabled = true;
+    textDisabled = text.empty();
+    hover = false;
+
+    //colore testo bottone
+    textIdleColor = sf::Color(38, 38, 38);
+    textHoverColor = sf::Color(250, 250, 250, 250);
+    textActiveColor = sf::Color(20, 20, 20, 50);
+
+    //colore sfondo bottone
+    idleColor = sf::Color::Transparent;
+    hoverColor = sf::Color(150, 150, 150, 0);
+    activeColor = sf::Color(20, 20, 20, 0);
+
+    shape.setPosition(sf::Vector2f(x,y));
+    shape.setSize(sf::Vector2f(width, height));
+    shape.setFillColor(idleColor);
+    shape.setOutlineThickness(1.f);
+    shape.setOutlineColor(sf::Color::Transparent);
+
+    background.setPosition(sf::Vector2f(x,y));
+    background.setSize(sf::Vector2f(width, height));
+
+
+    this->font = font;
+    this->text.setFont(*this->font);
+    this->text.setString(text);
+    this->text.setFillColor(textIdleColor);
+    this->text.setCharacterSize(character_size);
+    this->text.setPosition(
+            (shape.getPosition().x + width /2.f) - this->text.getGlobalBounds().width/2.f,
+            (shape.getPosition().y + height /2.f) - this->text.getGlobalBounds().height/1.5f
+    );
+
+    //tooltip
+    tooltipContainer.setFillColor(sf::Color(71, 71, 71));
+
+    tooltipText.setFont(*this->font);
+    tooltipText.setCharacterSize(20);
+
+}
+
+gui::Button::Button(float x, float y, float width, float height,
                     sf::Font *font, const std::string& text, unsigned character_size,
                     sf::Color text_idle_color, sf::Color text_hover_color, sf::Color text_active_color,
                     sf::Color idle_color, sf::Color hover_color, sf::Color active_color, short unsigned id) {
@@ -354,6 +402,10 @@ gui::ItemSlot::ItemSlot(float x, float y, float width, float height, int id,
             shape.getPosition().x +  5.f,
             shape.getPosition().y + 35.f
     );
+
+    itemInfoContainer.setFillColor(sf::Color(90,90,90));
+    itemInfoContainer.setOutlineColor(sf::Color(60,60,60));
+    itemInfoContainer.setOutlineThickness(3.f);
 }
 
 gui::ItemSlot::~ItemSlot() = default;
@@ -446,20 +498,22 @@ void gui::ItemSlot::updateItemInfo() {
 }
 
 void gui::ItemSlot::updateItemInfoPos(const sf::Vector2f &mousePos) {
-    itemInfoContainer.setPosition(mousePos);
+    itemInfoContainer.setPosition(mousePos.x + 10.f, mousePos.y);
+    if(itemInfoContainer.getPosition().x + itemInfoContainer.getGlobalBounds().width > window->getSize().x){
+        itemInfoContainer.setPosition(mousePos.x - itemInfoContainer.getGlobalBounds().width
+                                      , mousePos.y);
+    }
     itemInfoLbl.setPosition(itemInfoContainer.getPosition().x + 5.f,
                                   itemInfoContainer.getPosition().y);
 }
 
-void gui::ItemSlot::update(const sf::Vector2f &mousePos, int *updateSlot, bool inv) {
-
+void gui::ItemSlot::update(const sf::Vector2f &mousePos, bool inv) {
     //hover
     if(shape.getGlobalBounds().contains(mousePos)){
         //pressed
         if(item != nullptr){
             if(item->getIsNew()){
                 item->setIsNew(false);
-
             }
             if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && state->getKeyTime() && !isEquipSlot){
                 slotState = SLOT_ACTIVE;
@@ -474,28 +528,20 @@ void gui::ItemSlot::update(const sf::Vector2f &mousePos, int *updateSlot, bool i
                     }
                 }
             }
-            if(hasItem()){
-                renderItemInfoContainer = true;
-                updateItemInfoPos(mousePos);
-                window->setMouseCursorVisible(false);
-                slotState = SLOT_HOVER;
-                *updateSlot = id;
-            }
+            renderItemInfoContainer = true;
+            updateItemInfoPos(mousePos);
+            slotState = SLOT_HOVER;
         }
     } else{
         //idle
         slotState = SLOT_IDLE;
         renderItemInfoContainer = false;
-        window->setMouseCursorVisible(true);
-        *updateSlot = 100;
         if(isSelected){
             cover.setOutlineColor(sf::Color::Cyan);
         } else{
             cover.setOutlineColor(sf::Color::Transparent);
         }
-
     }
-
     //cambia colore in base allo stato del bottone
     switch(slotState){
         case SLOT_IDLE:
@@ -510,26 +556,26 @@ void gui::ItemSlot::update(const sf::Vector2f &mousePos, int *updateSlot, bool i
     }
 }
 
+void gui::ItemSlot::renderInfoContainer(sf::RenderTarget &target) {
+    if(renderItemInfoContainer){
+        target.draw(itemInfoContainer);
+        target.draw(itemInfoLbl);
+    }
+}
+
 void gui::ItemSlot::render(sf::RenderTarget &target) {
     target.draw(shape);
     target.draw(cover);
     if(isSelected){
         target.draw(downRight);
     }
-
     if(item != nullptr && !isEquipSlot){
         if(item->getIsNew() || item->isEquipped()){
             target.draw(upRight);
         }
-        if(item->isConsumable())
+        if(item->canBeMultiple())
             target.draw(quantityLbl);
     }
-
-    if(renderItemInfoContainer){
-        target.draw(itemInfoContainer);
-        target.draw(itemInfoLbl);
-    }
-   // target.draw(this->itemName);
 }
 
 std::shared_ptr<Item> gui::ItemSlot::getItem() {
@@ -562,89 +608,226 @@ void gui::ItemSlot::updateQuantityLbl() {
 }
 
 
+
+
 /*
  *                      CONFIRM DIALOG
  *
  */
 
-gui::ConfirmDialog::ConfirmDialog()= default;
+gui::CustomDialog::CustomDialog()= default;
 
-gui::ConfirmDialog::ConfirmDialog(float x, float y, const std::string& text, const std::shared_ptr<sf::RenderWindow>& window,
-        State* state, sf::Font* font, unsigned int characterSize, dialog_type dType) : state(state){
-    sellValue = 0;
+gui::CustomDialog::CustomDialog(float x, float y, std::shared_ptr<Item> item,
+                                State* state, sf::Font* font, dialog_type dType) : item(std::move(item)), state(state){
     dialogType = dType;
-    window->setMouseCursorVisible(true);
+    currentQuantity = 1;
+    maxQuantity = this->item->getQuantity();
+    singleQuantity = maxQuantity == 1;
+    answer = PENDING_RESULT;
 
-    dialog.setSize(sf::Vector2f(500.f, 150.f));
-    dialog.setPosition(x, y);
+    dialog.setSize(sf::Vector2f(600.f, 150.f));
+    dialog.setPosition(x - 300.f, y - 75.f);
     dialog.setFillColor(sf::Color(61, 61, 61, 230));
     dialog.setOutlineColor(sf::Color(25, 25, 25, 200));
     dialog.setOutlineThickness(10.f);
 
-    this->text.setString(text);
-    this->text.setFont(*font);
-    this->text.setCharacterSize(characterSize);
-    this->text.setPosition(dialog.getPosition().x + (dialog.getGlobalBounds().width / 2.f) -
-                                   (this->text.getGlobalBounds().width / 2.f) - 10.f,
-            dialog.getPosition().y + (dialog.getGlobalBounds().height / 2.f) -
-                    this->text.getGlobalBounds().height / 2.f - 30.f);
+    textLbl.setFont(*font);
+    textLbl.setCharacterSize(25);
 
-    yesBtn = Button(this->text.getPosition().x + (this->text.getGlobalBounds().width / 2.f) - 120.f,
-                        this->text.getPosition().y + 50.f , 40.f, 30.f,
-                             font, "Yes", 30,
-                              sf::Color(38, 38, 38),
-                              sf::Color(250, 250, 250, 250),
-                              sf::Color(20, 20, 20, 50),
-                              sf::Color::Transparent,
-                              sf::Color(150, 150, 150, 0),
-                              sf::Color(20, 20, 20, 0));
+    quantityLbl.setFont(*font);
+    quantityLbl.setCharacterSize(20);
 
-
-    noBtn = Button(this->text.getPosition().x + (this->text.getGlobalBounds().width / 2.f) + 80.f,
-                       this->text.getPosition().y + 50.f, 40.f, 30.f,
-                             font, "No", 30,
-                             sf::Color(38, 38, 38),
-                             sf::Color(250, 250, 250, 250),
-                             sf::Color(20, 20, 20, 50),
-                             sf::Color::Transparent,
-                             sf::Color(150, 150, 150, 0),
-                             sf::Color(20, 20, 20, 0));
-
-}
-
-gui::ConfirmDialog::~ConfirmDialog() = default;
-
-int gui::ConfirmDialog::update(const sf::Vector2f &mousePos, bool* openDialog) {
-    this->yesBtn.update(mousePos);
-    this->noBtn.update(mousePos);
-    if(this->yesBtn.isPressed() && this->state->getKeyTime()){
-        *openDialog = false;
-        return 1;
+    updateLbls();
+    initButtons(font);
+    if(singleQuantity){
+        plusOneBtn.setDisabled(true, false);
+        plusFiveBtn.setDisabled(true, false);
+        maxBtn.setDisabled(true, false);
+        minusOneBtn.setDisabled(true, false);
+        minusFiveBtn.setDisabled(true, false);
+        minBtn.setDisabled(true, false);
     }
-    if(this->noBtn.isPressed() && this->state->getKeyTime()){
-        *openDialog = false;
-        return 0;
+}
+
+gui::CustomDialog::CustomDialog(float x, float y, int tot_value, int selected_quantity,
+                                State* state, sf::Font* font, dialog_type dType) : state(state){
+    dialogType = dType;
+    multipleItem = true;
+    answer = PENDING_RESULT;
+    totValue = tot_value;
+
+    dialog.setSize(sf::Vector2f(500.f, 120.f));
+    dialog.setPosition(x - 250.f, y - 60.f);
+    dialog.setFillColor(sf::Color(61, 61, 61, 230));
+    dialog.setOutlineColor(sf::Color(25, 25, 25, 200));
+    dialog.setOutlineThickness(10.f);
+
+    stringstream ss;
+    switch (dType) {
+        case DELETE_CONFIRM:
+            ss << "Deleting selected " << selected_quantity << " items";
+            break;
+        case SELL_CONFIRM:
+            ss << "Selling selected " << selected_quantity << " items for " << tot_value << " gold";
+            break;
     }
-    return 2;
+    textLbl.setString(ss.str());
+    textLbl.setFont(*font);
+    textLbl.setCharacterSize(22);
+    textLbl.setPosition(dialog.getPosition().x + dialog.getGlobalBounds().width/2.f - textLbl.getGlobalBounds().width/2.f,
+                        dialog.getPosition().y + 10.f + 5.f);
+
+    yesBtn = Button(dialog.getPosition().x + dialog.getGlobalBounds().width/2.f - 30.f - 40.f,
+                    textLbl.getPosition().y + textLbl.getGlobalBounds().height + 30.f,
+                    40.f, 30.f, font, "Yes", 30);
+
+    noBtn = Button(dialog.getPosition().x + dialog.getGlobalBounds().width/2.f + 30.f,
+                   yesBtn.getPosition().y,
+                   40.f, 30.f, font, "No", 30);
 }
 
-void gui::ConfirmDialog::render(sf::RenderTarget &target) {
-    target.draw(this->dialog);
-    target.draw(this->text);
-    this->yesBtn.render(target);
-    this->noBtn.render(target);
+gui::CustomDialog::~CustomDialog() = default;
+
+void gui::CustomDialog::updateLbls() {
+    stringstream ss;
+    switch (dialogType) {
+        case DELETE_CONFIRM:
+            ss << "Deleting " << currentQuantity << " " << item->getName();
+            textLbl.setString(ss.str());
+            ss.str("");
+            ss << currentQuantity << "/" << maxQuantity;
+            quantityLbl.setString(ss.str());
+            break;
+        case SELL_CONFIRM:
+            ss << "Selling " << currentQuantity << " " << item->getName() << " for " << item->getValue()*currentQuantity
+               << " gold, " << item->getValue() << " each";
+            textLbl.setString(ss.str());
+            ss.str("");
+            ss << currentQuantity << "/" << maxQuantity;
+            quantityLbl.setString(ss.str());
+            break;
+    }
+    textLbl.setPosition(dialog.getPosition().x + dialog.getGlobalBounds().width/2.f - textLbl.getGlobalBounds().width/2.f,
+                        dialog.getPosition().y + 15.f);
+    quantityLbl.setPosition(dialog.getPosition().x + dialog.getGlobalBounds().width/2.f - quantityLbl.getGlobalBounds().width/2.f,
+                            dialog.getPosition().y + textLbl.getGlobalBounds().height + 20.f);
+
+
 }
 
-dialog_type gui::ConfirmDialog::getDialogType() {
-    return this->dialogType;
+void gui::CustomDialog::update(const sf::Vector2f &mousePos) {
+    yesBtn.update(mousePos);
+    noBtn.update(mousePos);
+    if(!multipleItem){
+        if(!singleQuantity){
+            plusOneBtn.update(mousePos);
+            plusFiveBtn.update(mousePos);
+            maxBtn.update(mousePos);
+            minusOneBtn.update(mousePos);
+            minusFiveBtn.update(mousePos);
+            minBtn.update(mousePos);
+            if(plusOneBtn.isPressed() && state->getKeyTime()){
+                if(currentQuantity < maxQuantity)
+                    currentQuantity++;
+            } else if(plusFiveBtn.isPressed() && state->getKeyTime()){
+                if(currentQuantity < maxQuantity){
+                    currentQuantity += 5;
+                    if(currentQuantity > maxQuantity)
+                        currentQuantity = maxQuantity;
+                }
+            } else if(maxBtn.isPressed() && state->getKeyTime()){
+                currentQuantity = maxQuantity;
+            } else if(minusOneBtn.isPressed() && state->getKeyTime()){
+                if(currentQuantity > 1)
+                    currentQuantity--;
+            } else if(minusFiveBtn.isPressed() && state->getKeyTime()){
+                if(currentQuantity > 1){
+                    currentQuantity -= 5;
+                    if(currentQuantity < 0)
+                        currentQuantity = 1;
+                }
+            } else if(minBtn.isPressed() && state->getKeyTime()){
+                currentQuantity = 1;
+            }
+        }
+        updateLbls();
+    }
+    if(yesBtn.isPressed() && state->getKeyTime()){
+        answer = YES_RESULT;
+    } else if(noBtn.isPressed() && state->getKeyTime()){
+        answer = NO_RESULT;
+    }
 }
 
-void gui::ConfirmDialog::setSellValue(unsigned value) {
-    this->sellValue = value;
+void gui::CustomDialog::render(sf::RenderTarget &target) {
+    target.draw(dialog);
+    target.draw(textLbl);
+    yesBtn.render(target);
+    noBtn.render(target);
+    if(!multipleItem){
+        target.draw(quantityLbl);
+        plusOneBtn.render(target);
+        plusFiveBtn.render(target);
+        maxBtn.render(target);
+        minusOneBtn.render(target);
+        minusFiveBtn.render(target);
+        minBtn.render(target);
+    }
 }
 
-unsigned gui::ConfirmDialog::getSellValue() const {
-    return sellValue;
+dialog_type gui::CustomDialog::getDialogType() {
+    return dialogType;
+}
+
+void gui::CustomDialog::initButtons(sf::Font* font) {
+    plusOneBtn = Button(dialog.getPosition().x + dialog.getGlobalBounds().width/2.f + 4.f,
+                        quantityLbl.getPosition().y + quantityLbl.getGlobalBounds().height + 5.f,
+                        40.f, 30.f, font, "+1", 30);
+
+    plusFiveBtn = Button(plusOneBtn.getPosition().x + plusOneBtn.getGlobalBounds().width + 8.f,
+                         plusOneBtn.getPosition().y,
+                         40.f, 30.f, font, "+5", 30);
+
+    maxBtn = Button(plusFiveBtn.getPosition().x + plusFiveBtn.getGlobalBounds().width + 8.f,
+                    plusFiveBtn.getPosition().y,
+                    40.f, 30.f, font, "Max", 30);
+
+    minusOneBtn = Button(plusOneBtn.getPosition().x - plusOneBtn.getGlobalBounds().width - 8.f,
+                         plusOneBtn.getPosition().y,
+                         40.f, 30.f, font, "-1", 30);
+
+    minusFiveBtn = Button(minusOneBtn.getPosition().x - minusOneBtn.getGlobalBounds().width - 8.f,
+                          minusOneBtn.getPosition().y,
+                          40.f, 30.f, font, "-5", 30);
+
+    minBtn = Button(minusFiveBtn.getPosition().x - minusFiveBtn.getGlobalBounds().width - 8.f,
+                    minusFiveBtn.getPosition().y,
+                    40.f, 30.f, font, "Min", 30);
+
+    yesBtn = Button(dialog.getPosition().x + dialog.getGlobalBounds().width/2.f - 30.f - 40.f,
+                    minBtn.getPosition().y + minBtn.getGlobalBounds().height + 5.f,
+                    40.f, 30.f, font, "Yes", 30);
+
+    noBtn = Button(dialog.getPosition().x + dialog.getGlobalBounds().width/2.f + 30.f,
+                   minBtn.getPosition().y + minBtn.getGlobalBounds().height + 5.f,
+                   40.f, 30.f, font, "No", 30);
+
+}
+
+dialog_result gui::CustomDialog::getResult() {
+    return answer;
+}
+
+int gui::CustomDialog::getFinalQuantity() const {
+    return currentQuantity;
+}
+
+std::shared_ptr<Item> gui::CustomDialog::getItem() {
+    return item;
+}
+
+int gui::CustomDialog::getTotValue() const {
+    return totValue;
 }
 
 /*
@@ -655,14 +838,14 @@ unsigned gui::ConfirmDialog::getSellValue() const {
 //constructors/destructor
 gui::ShopSlot::ShopSlot()= default;
 
-gui::ShopSlot::ShopSlot(float width, float height, float pos_x, float pos_y, sf::Font* font, Item* item) : item(item){
+gui::ShopSlot::ShopSlot(float width, float height, float pos_x, float pos_y, sf::Font* font, Item item) : item(item){
 
     mouseHoverImage = false;
 
     shape.setSize(sf::Vector2f(width, height));
     shape.setPosition(pos_x, pos_y);
 
-    price = (unsigned int)(item->getValue() * 1.5);
+    price = (unsigned int)(item.getValue() * 1.5);
 
     priceLbl.setString(to_string(price));
     priceLbl.setFillColor(sf::Color::Yellow);
@@ -692,10 +875,10 @@ gui::ShopSlot::ShopSlot(float width, float height, float pos_x, float pos_y, sf:
 
     itemInfoLbl.setFont(*font);
     itemInfoLbl.setCharacterSize(18);
-    itemInfoLbl << sf::Text::Bold << item->getName() << "\n"
-    << "Type: " << item->getItemType() << "\n"
-    << item->getRarity() << "\n"
-    << sf::Text::Italic << "' " << item->getDescription() << " '";
+    itemInfoLbl << sf::Text::Bold << item.getName() << "\n"
+    << "Type: " << item.getItemType() << "\n"
+    << item.getRarity() << "\n"
+    << sf::Text::Italic << "' " << item.getDescription() << " '";
 
     itemInfoContainer.setSize(sf::Vector2f(itemInfoLbl.getGlobalBounds().width + 10.f,
                                                   itemInfoLbl.getGlobalBounds().height + 15.f));
@@ -705,7 +888,7 @@ gui::ShopSlot::ShopSlot(float width, float height, float pos_x, float pos_y, sf:
 gui::ShopSlot::~ShopSlot() = default;
 
 //accessors
-Item *gui::ShopSlot::getItem() const {
+Item gui::ShopSlot::getItem() const {
     return item;
 }
 
@@ -716,26 +899,23 @@ unsigned int gui::ShopSlot::getPrice() const {
 //modifiers
 
 void gui::ShopSlot::setSlotTexture(const sf::Texture *slot_texture, float size) {
-    if(item != nullptr){
-        shape.setTexture(slot_texture);
-        shape.setTextureRect(sf::IntRect(
-                item->getIconRectX() * (int)size,
-                item->getIconRectY() * (int)size,
-                size, size));
-        shape.setOutlineThickness(-3.f);
-        if(item->getRarity() == "Uncommon"){
-            shape.setOutlineColor(sf::Color::White);
-        } else if(item->getRarity() == "Common"){
-            shape.setOutlineColor(sf::Color::Green);
-        } else if(item->getRarity() == "Rare"){
-            shape.setOutlineColor(sf::Color::Blue);
-        } else if(item->getRarity() == "Epic"){
-            shape.setOutlineColor(sf::Color::Magenta);
-        } else if(item->getRarity() == "Legendary"){
-            shape.setOutlineColor(sf::Color(255,127,80));
-        }
+    shape.setTexture(slot_texture);
+    shape.setTextureRect(sf::IntRect(
+            item.getIconRectX() * (int)size,
+            item.getIconRectY() * (int)size,
+            size, size));
+    shape.setOutlineThickness(-3.f);
+    if(item.getRarity() == "Uncommon"){
+        shape.setOutlineColor(sf::Color::White);
+    } else if(item.getRarity() == "Common"){
+        shape.setOutlineColor(sf::Color::Green);
+    } else if(item.getRarity() == "Rare"){
+        shape.setOutlineColor(sf::Color::Blue);
+    } else if(item.getRarity() == "Epic"){
+        shape.setOutlineColor(sf::Color::Magenta);
+    } else if(item.getRarity() == "Legendary"){
+        shape.setOutlineColor(sf::Color(255,127,80));
     }
-
 }
 
 //functions
@@ -1455,6 +1635,8 @@ gui::ItemRow::ItemRow(float width, float height, float x, float y, const std::sh
             break;
         case LEGENDARY:
             imageShape.setOutlineColor(sf::Color(255,127,80));
+            break;
+        case DEFAULT_RARITY:
             break;
     }
 

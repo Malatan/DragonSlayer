@@ -10,10 +10,13 @@
 #include <ctime>
 #include <vector>
 #include <algorithm>
+#include <cmath>
+#include "ResourcesHandler.h"
 
 namespace utils{
     int generateRandomNumber(int from, int to, bool resetSeed);
     std::vector<int> generateRandomNumbers(int from, int to, int n, bool resetSeed);
     bool trueFalse(float probability, bool resetSeed);
+    float roundf(float n, int n_decimals);
 }
 #endif //DRAGONSLAYER_UTILS_H
