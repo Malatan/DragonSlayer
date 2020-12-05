@@ -596,16 +596,16 @@ void BattleState::playerBattle(unsigned int row_index) {
                         }else if(player->getEquippedWeaponType() == "Ranged"){
                             playerModel->setAnimation(ATTACK2_ANIMATION, IDLE_ANIMATION);
                         }else if(player->getEquippedWeaponType() == "Empty Handed"){
-                            if(utils::trueFalse(50.f, false)){
+                            if(utils::trueFalse(50.f)){
                                 playerModel->setAnimation(ATTACK3_ANIMATION, IDLE_ANIMATION);
                             }else{
                                 playerModel->setAnimation(ATTACK4_ANIMATION, IDLE_ANIMATION);
                             }
                         }
                         // enemy evade determine
-                        if(!utils::trueFalse(enemiesModels[selectedId]->getStats()->getFinalEvadeChance(), false)){
+                        if(!utils::trueFalse(enemiesModels[selectedId]->getStats()->getFinalEvadeChance())){
                             // player critical hit determine
-                            if(utils::trueFalse(player->getPlayerStats()->getFinalCritChance(), false)){
+                            if(utils::trueFalse(player->getPlayerStats()->getFinalCritChance())){
                                 int dmg_dealt = enemiesModels[selectedId]->getStats()->getHit(
                                         (int)((float)player->getPlayerStats()->getFinalDamage() * criticalhitMultiplier),
                                         0.f, false);
@@ -744,11 +744,11 @@ void BattleState::enemyBattle(const float &dt) {
             enemyMoveDone = true;
             enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->setAnimation(ATTACK_ANIMATION, IDLE_ANIMATION);
             // player evade determine
-            if (!utils::trueFalse(player->getPlayerStats()->getFinalEvadeChance(), false)) {
+            if (!utils::trueFalse(player->getPlayerStats()->getFinalEvadeChance())) {
                 int dmg_dealt;
                 //enemy criticalhit determine
                 bool critical_hit = utils::trueFalse(
-                        enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->getFinalCritChance(),false);
+                        enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->getFinalCritChance());
                 float critical_hit_multiplier = 1.f;
                 std::string critical_hit_prefix;
                 if(critical_hit){
@@ -1032,7 +1032,7 @@ void BattleState::updateMainPanel(const float &dt) {
             escapeConfirmBtn.update(mousePosView);
             if (escapeConfirmBtn.isPressed() && getKeyTime()) {
                 if (whoseTurn) {
-                    if (utils::trueFalse(escapeChance * 10.f, false)) {
+                    if (utils::trueFalse(escapeChance * 10.f)) {
                         battleResultEnum = ESCAPED;
                         battleResult.addStatistics(ESCAPE_SUCCESS_COUNT, 1);
                     } else {

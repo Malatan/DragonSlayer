@@ -12,7 +12,13 @@ const int LootGenerator::lootRarityProbabilities2[] = {54, 87, 105, 115, MAX_RAR
 const int LootGenerator::lootRarityProbabilities3[] = {48, 82, 102, 114, MAX_RARITY_PROBABILITY};
 const int LootGenerator::lootRarityProbabilities4[] = {43, 77, 99, 113, MAX_RARITY_PROBABILITY};
 const int LootGenerator::lootRarityProbabilities5[] = {36, 71, 95, 111, MAX_RARITY_PROBABILITY};
-
+//Uncommon: 1-50, Common: 75-175, Rare: 200-350, Legendary: 375-600
+const int LootGenerator::hpRange[] = {1, 50,   75, 175,   200, 350,   375, 600};
+const int LootGenerator::mpRange[] = {1, 50,   75, 175,   200, 350, 375, 600};
+const int LootGenerator::damageRange[] = {1, 20,   40, 80,   100, 150,   225, 350};
+const int LootGenerator::armorRange[] = {1, 10,   15, 30,   45, 75,   90, 120};
+const float LootGenerator::critchanceRange[] = {1, 50,   75, 175,   200, 350,   375, 600};
+const float LootGenerator::evadechanceRange[] = {1, 50,   75, 175,   200, 350,   375, 600};
 
 void LootGenerator::initDroppableMaterials() {
     rsHandler->loadMaterialsTxt(droppableMaterials);
@@ -139,8 +145,8 @@ const map<std::string, Item> &LootGenerator::getConsumablesList() const {
 void LootGenerator::generateLoot(int floor) {
     int count[] = {0,0,0,0,0,0,0,0,0};
     int count2[] = {0,0,0,0,0};
-    for(int i = 0 ; i < 5000 ; i++){
-        int random_value = utils::generateRandomNumber(1, MAX_PROBABILITY, false);
+    for(int i = 0 ; i < 100 ; i++){
+        int random_value = utils::generateRandomNumber(1, MAX_PROBABILITY);
         int starting_loot_type = 0;
         while(lootProbabilities[starting_loot_type] < random_value){
             starting_loot_type++;
@@ -153,7 +159,7 @@ void LootGenerator::generateLoot(int floor) {
             case COMSUMABLE_LOOT:
                 break;
             case WEAPON_LOOT: case SHIELD_LOOT: case HELMET_LOOT: case CHESTPLATE_LOOT: case GLOVES_LOOT: case BOOTS_LOOT:{
-                random_value = utils::generateRandomNumber(1, MAX_RARITY_PROBABILITY, false) + floor;
+                random_value = utils::generateRandomNumber(1, MAX_RARITY_PROBABILITY) + floor;
                 int starting_loot_rarity = 0;
                 switch (floor) {
                     case 1:

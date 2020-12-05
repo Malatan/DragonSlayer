@@ -147,7 +147,7 @@ Enemy::Enemy(enemy_types type, float x, float y, float scale_x ,float scale_y, f
     Enemy::setPosition(x, y);
     stats = std::make_shared<Stats>();
     //floor 1 = 1-10, 2 = 11-20, 3 = 21-30, 4 = 31-40, 5 = 41-50
-    int level = utils::generateRandomNumber((floor-1)*10+1, floor*10, false);
+    int level = utils::generateRandomNumber((floor-1)*10+1, floor*10);
     stats->setLevel(level);
     generateEnemyStats(level, floor);
     generateNameByType();
@@ -201,7 +201,7 @@ void Enemy::generateNameByType() {
 
 void Enemy::generateEnemyStats(int level, int floor) {
     // genera un modificatore di mod tra -0.5f e 1.f
-    float modModifier = (float)utils::generateRandomNumber(-50, 100, false)/100.f;
+    float modModifier = (float)utils::generateRandomNumber(-50, 100)/100.f;
     float mod = ((float)level/10.f) + (float)floor + modModifier;
     switch(type){
         case WITCH:

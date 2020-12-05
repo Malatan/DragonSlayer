@@ -52,6 +52,13 @@ private:
     static const int lootRarityProbabilities3[];
     static const int lootRarityProbabilities4[];
     static const int lootRarityProbabilities5[];
+    static const int hpRange[];
+    static const int mpRange[];
+    static const int damageRange[];
+    static const int armorRange[];
+    static const float critchanceRange[];
+    static const float evadechanceRange[];
+
     std::shared_ptr<ResourcesHandler> rsHandler;
     std::vector<std::unique_ptr<Item>> droppableMaterials;
     std::map<std::string, Item> consumablesList;

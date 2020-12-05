@@ -9,7 +9,7 @@ Item Generator::generateItem(int floor, unsigned int enemy_level) {
 
     //Rarity: COMMON - UNCOMMON - RARE - EPIC - LEGGENDARY
     //CALCOLO RARITA'
-    double gen = utils::generateRandomNumber(1, 10, false);
+    double gen = utils::generateRandomNumber(1, 10);
     double mul = 1 + 1/gen;
     double rarity =  enemy_level * floor * mul;
     double doubleGold = rarity;
@@ -39,13 +39,13 @@ Item Generator::generateItem(int floor, unsigned int enemy_level) {
 
     //GENERO TIPOLOGIA CASUALE
 
-    int type = utils::generateRandomNumber(0, 9, false);    //tra 0 e 9
-    gen = utils::generateRandomNumber(1, 10, false);
+    int type = utils::generateRandomNumber(0, 9);    //tra 0 e 9
+    gen = utils::generateRandomNumber(1, 10);
     mul = 1 + (1/gen);      //reset moltiplicatore statistiche
 
     if(type < 5){           //WEAPON
 
-        int weaponType = utils::generateRandomNumber(0, 2, false);   // 3 TIPI DI ARMI PRESENTI NEL GIOCO -> aggiungibili
+        int weaponType = utils::generateRandomNumber(0, 2);   // 3 TIPI DI ARMI PRESENTI NEL GIOCO -> aggiungibili
 
         if(weaponType == 0){            //SWORD
             i.setItemType("sword");

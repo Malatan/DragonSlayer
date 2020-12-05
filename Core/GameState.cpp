@@ -409,7 +409,6 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::u
     npcInteract = NO_NPC;
     noclip = false;
     currentFloor = 5;
-    utils::generateRandomNumber(1, 10, true);
 
     initTextures();
     initPauseMenu();
@@ -567,16 +566,16 @@ void GameState::spawnEnemy(float x, float y, enemy_types type, unsigned int enem
         // se enemy_follwers == 5 allora si genera in modo randomico il numero dei follwers
         if(enemy_followers == 5){
             // genera n followers con n in [0,4]
-            int n_followers = utils::generateRandomNumber(0, currentFloor - 1, false);
+            int n_followers = utils::generateRandomNumber(0, currentFloor - 1);
             if (n_followers > Enemy::MAX_FOLLOWERS)
                 n_followers = Enemy::MAX_FOLLOWERS;
 
             if(n_followers > 0){
                 //genera in modo randomico l'enum del tipo dei followers
-                std::vector<int> enemyEnums = utils::generateRandomNumbers(0, 7, n_followers, false);
+                std::vector<int> enemyEnums = utils::generateRandomNumbers(0, 7, n_followers);
                 for(auto i : enemyEnums){
                     //il livello del follower deve essere minore di [2,5] del nemico capo
-                    int level_diff = utils::generateRandomNumber(2, 5, false);
+                    int level_diff = utils::generateRandomNumber(2, 5);
                     int new_follower_level = new_enemy->getStats()->getLevel() - level_diff;
 
                     new_enemy->addFollower(std::make_shared<Enemy>(
@@ -592,10 +591,10 @@ void GameState::spawnEnemy(float x, float y, enemy_types type, unsigned int enem
                 enemy_followers = 4;
 
             //genera in modo randomico l'enum del tipo dei followers
-            std::vector<int> enemyEnums = utils::generateRandomNumbers(0, 7, (int)enemy_followers, false);
+            std::vector<int> enemyEnums = utils::generateRandomNumbers(0, 7, (int)enemy_followers);
             for(auto i : enemyEnums){
                 //il livello del follower deve essere minore di [2,5] del nemico capo
-                int level_diff = utils::generateRandomNumber(2, 5, false);
+                int level_diff = utils::generateRandomNumber(2, 5);
                 int new_follower_level = new_enemy->getStats()->getLevel() - level_diff;
 
                 new_enemy->addFollower(std::make_shared<Enemy>(
@@ -655,7 +654,7 @@ void GameState::updateInput(const float &dt) {
 
         } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::G) && getKeyTime()){
             std::stringstream ss;
-            ss << "Dragon Gloves" << utils::generateRandomNumber(100, 99999, false);
+            ss << "Dragon Gloves" << utils::generateRandomNumber(100, 99999);
             addItem(std::make_shared<Item>("E-arms", ss.str(),
                     "powerful helmet", 5000, LEGENDARY,
                     4, 7, 300, 200, 0, 350, 10.3, 17.3,
@@ -664,7 +663,7 @@ void GameState::updateInput(const float &dt) {
             popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG, ss.str(), "", " added to the inventory");
 
         } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::H) && getKeyTime()){
-            int n = utils::generateRandomNumber(10, 30, false);
+            int n = utils::generateRandomNumber(10, 30);
             addItem(std::make_shared<Item>("C-potionS", "HealthPotion(S)",
                                            "Restore 100 hp", 5, COMMON,
                                            0, 3, 0, 0, 0, 0, 0, 0, n,
@@ -678,7 +677,7 @@ void GameState::updateInput(const float &dt) {
             std::cout<<buffComponent->toStringBuffs();
 
         }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::M) && getKeyTime()){
-            int gold = utils::generateRandomNumber(999, 9999, false);
+            int gold = utils::generateRandomNumber(999, 9999);
             player->addGold(gold);
             updateTabsGoldLbl();
             popUpTextComponent->addPopUpTextCenter(GOLD_TAG, gold, "+", " gold");
