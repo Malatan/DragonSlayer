@@ -294,7 +294,7 @@ gui::ProgressBar::ProgressBar(float x, float y, float width, float height, int m
     barShape.setSize(sf::Vector2f(width, height));
     barShape.setPosition(x, y);
     barShape.setFillColor(sf::Color::Transparent);
-    barShape.setOutlineColor(sf::Color::Magenta);
+    barShape.setOutlineColor(sf::Color::Transparent);
     barShape.setOutlineThickness(2.f);
 
     progressShape.setFillColor(sf::Color::Green);
@@ -322,6 +322,10 @@ void gui::ProgressBar::setText(const std::string& new_text) {
 
 void gui::ProgressBar::setProgressShapeColor(sf::Color color) {
     this->progressShape.setFillColor(color);
+}
+
+void gui::ProgressBar::setProgressBorderColor(sf::Color color) {
+    this->barShape.setOutlineColor(color);
 }
 
 void gui::ProgressBar::update(int current, int max_value) {
@@ -1231,13 +1235,13 @@ gui::PlayerStatusPanel::PlayerStatusPanel(std::shared_ptr<Player> player, float 
 
     x-=80.f;
     y-=50.f;
-    shape.setSize(sf::Vector2f(160.f, 90.f));
+    shape.setSize(sf::Vector2f(160.f, 95.f));
     shape.setPosition(x, y);
-    shape.setFillColor(sf::Color(20, 20, 20));
-    shape.setOutlineColor(sf::Color::Green);
+    shape.setFillColor(sf::Color(15, 15, 15));
+    shape.setOutlineColor(sf::Color(15, 15, 15, 150));
     shape.setOutlineThickness(5.f);
 
-    infoText.setPosition(x + 5.f, y + 2.f);
+    infoText.setPosition(x + 15.f, y + 2.f);
     infoText.setFont(*this->font);
     infoText.setCharacterSize(20);
     stringstream ss;
@@ -1247,11 +1251,14 @@ gui::PlayerStatusPanel::PlayerStatusPanel(std::shared_ptr<Player> player, float 
     hpBar = gui::ProgressBar(x + 5.f, y + infoText.getGlobalBounds().height + 14.f, 150.f, 25.f,
             0, this->player->getPlayerStats()->getMaxHp(),
             this->player->getPlayerStats()->getHp(), font);
-    hpBar.setProgressShapeColor(sf::Color::Red);
+    hpBar.setProgressShapeColor(sf::Color(190, 30, 30));
+    hpBar.setProgressBorderColor(sf::Color(110, 15, 15));
+
     mpBar = gui::ProgressBar(x + 5.f, hpBar.getPosition().y + 30.f, 150.f, 25.f,
             0, this->player->getPlayerStats()->getMaxMp(),
             this->player->getPlayerStats()->getMp(), font);
-    mpBar.setProgressShapeColor(sf::Color::Blue);
+    mpBar.setProgressShapeColor(sf::Color(40, 70, 220));
+    mpBar.setProgressBorderColor(sf::Color(20, 35, 130));
 }
 
 gui::PlayerStatusPanel::~PlayerStatusPanel() = default;
@@ -1293,7 +1300,7 @@ gui::EnemyStatusPanel::EnemyStatusPanel(const std::shared_ptr<Enemy>& enemy, flo
     y-=50.f;
     shape.setSize(sf::Vector2f(180.f, 90.f));
     shape.setPosition(x, y);
-    shape.setFillColor(sf::Color(20, 20, 20));
+    shape.setFillColor(sf::Color(15, 15, 15));
 
     selectedIcon.setTexture(&selected_icon_texture);
     selectedIcon.setSize(sf::Vector2f(150.f, 40.f));
@@ -1308,10 +1315,13 @@ gui::EnemyStatusPanel::EnemyStatusPanel(const std::shared_ptr<Enemy>& enemy, flo
 
     hpBar = gui::ProgressBar(x + 5.f, y + infoText.getGlobalBounds().height + 14.f, 170.f, 25.f,
                              0, enemy->getStats()->getFinalHp(), enemy->getStats()->getHp(), font);
-    hpBar.setProgressShapeColor(sf::Color::Red);
+    hpBar.setProgressShapeColor(sf::Color(190, 30, 30));
+    hpBar.setProgressBorderColor(sf::Color(110, 15, 15));
+
     mpBar = gui::ProgressBar(x + 5.f, hpBar.getPosition().y + 30.f, 170.f, 25.f,
                              0, enemy->getStats()->getFinalMp(), enemy->getStats()->getMp(), font);
-    mpBar.setProgressShapeColor(sf::Color::Blue);
+    mpBar.setProgressShapeColor(sf::Color(40, 70, 220));
+    mpBar.setProgressBorderColor(sf::Color(20, 35, 130));
 }
 
 gui::EnemyStatusPanel::~EnemyStatusPanel() = default;
@@ -1323,7 +1333,7 @@ void gui::EnemyStatusPanel::update(const sf::Vector2f &mousePos, const float &dt
     isSelected = selected_id == idPos;
 
     if(shape.getGlobalBounds().contains(mousePos)){
-        shape.setOutlineColor(sf::Color::Cyan);
+        shape.setOutlineColor(sf::Color(15, 15, 15, 150));
         shape.setOutlineThickness(5.f);
         isHovered = true;
         if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && state->getKeyTime()){
@@ -1336,10 +1346,10 @@ void gui::EnemyStatusPanel::update(const sf::Vector2f &mousePos, const float &dt
         }
     }else{
         if(current_enemy_pos == idPos && !player_turn){
-            shape.setOutlineColor(sf::Color::Red);
+            shape.setOutlineColor(sf::Color(15, 15, 15, 150));
             shape.setOutlineThickness(5.f);
         }else if(isSelected){
-            shape.setOutlineColor(sf::Color::Magenta);
+            shape.setOutlineColor(sf::Color(15, 15, 15, 150));
             shape.setOutlineThickness(5.f);
         }
         else
@@ -1386,35 +1396,35 @@ gui::ActionRow::ActionRow(float width, float height, float x, float y, const std
     cdRemain = 0;
     shape.setSize(sf::Vector2f(width, height));
     shape.setPosition(x, y);
-    shape.setOutlineThickness(4.f);
+    shape.setOutlineThickness(3.f);
     switch(spell->getTypeEnum()){
         case FIRE:
-            shape.setOutlineColor(sf::Color(235, 70, 59, 100));
+            shape.setOutlineColor(sf::Color(15, 15, 15, 255));
             shape.setFillColor(sf::Color(235, 70, 59, 50));
             imageShape.setOutlineColor(sf::Color(235, 70, 59));
             break;
         case WATER:
-            shape.setOutlineColor(sf::Color(50, 83, 173, 100));
+            shape.setOutlineColor(sf::Color(15, 15, 15, 255));
             shape.setFillColor(sf::Color(50, 83, 173, 50));
             imageShape.setOutlineColor(sf::Color(50, 83, 173));
             break;
         case ICE:
-            shape.setOutlineColor(sf::Color(92, 193, 247, 100));
+            shape.setOutlineColor(sf::Color(15, 15, 15, 255));
             shape.setFillColor(sf::Color(92, 193, 247, 50));
             imageShape.setOutlineColor(sf::Color(92, 193, 247));
             break;
         case ELECTRIC:
-            shape.setOutlineColor(sf::Color(126, 0, 222, 100));
+            shape.setOutlineColor(sf::Color(15, 15, 15, 255));
             shape.setFillColor(sf::Color(126, 0, 222, 50));
             imageShape.setOutlineColor(sf::Color(126, 0, 222));
             break;
         case HOLY:
-            shape.setOutlineColor(sf::Color(255, 254, 173, 100));
+            shape.setOutlineColor(sf::Color(15, 15, 15, 255));
             shape.setFillColor(sf::Color(255, 254, 173, 50));
             imageShape.setOutlineColor(sf::Color(255, 254, 173));
             break;
         case DEFAULT_SPELL_TYPE:
-            shape.setOutlineColor(sf::Color(200, 200, 200, 100));
+            shape.setOutlineColor(sf::Color(15, 15, 15, 255));
             shape.setFillColor(sf::Color(150, 150, 150, 50));
             imageShape.setOutlineColor(sf::Color(200, 200, 200));
             break;
@@ -1462,7 +1472,7 @@ gui::ActionRow::ActionRow(float width, float height, float x, float y, const std
             shape.getPosition().x + shape.getGlobalBounds().width - height * 2.f - 20.f,
             shape.getPosition().y + 5.f,
             height * 2.f, height - 10.f,
-            font, "USE", 18.f,
+            font, "Use", 18.f,
             sf::Color(255, 255, 255, 255),
             sf::Color(160, 160, 160),
             sf::Color(20, 20, 20, 50),
@@ -1470,7 +1480,7 @@ gui::ActionRow::ActionRow(float width, float height, float x, float y, const std
             sf::Color(70, 70, 70, 0),
             sf::Color(150, 150, 150, 70),
             sf::Color(130, 130, 130));
-    useBtn.setBorderColor(sf::Color(120,120,120));
+    useBtn.setBorderColor(sf::Color(15, 15, 15, 255));
     useBtn.setBackgroundFilLColor(sf::Color(120,120,120, 120));
     useBtn.setBorderLineThickness(2.f);
 
@@ -1568,7 +1578,7 @@ void gui::ActionRow::startCd() {
     if(spell->getCooldown() > 0){
         isCd = true;
         cdRemain = spell->getCooldown();
-        useBtn.setText("NOT READY");
+        useBtn.setText("Not Ready");
         useBtn.setDisabled(true);
         stringstream ss;
         ss << cdRemain << " turn/s remaining";
@@ -1607,9 +1617,9 @@ gui::ItemRow::ItemRow(float width, float height, float x, float y, const std::sh
     mouseHoverImage = false;
     shape.setSize(sf::Vector2f(width, height));
     shape.setPosition(x, y);
-    shape.setOutlineColor(sf::Color(50, 50, 50));
-    shape.setFillColor(sf::Color(50, 50, 50, 150));
-    shape.setOutlineThickness(4.f);
+    shape.setOutlineColor(sf::Color(15, 15, 15, 255));
+    shape.setFillColor(sf::Color(50, 50, 50, 100));
+    shape.setOutlineThickness(3.f);
 
     imageShape.setSize(sf::Vector2f(height - 10.f, height - 10.f));
     imageShape.setPosition(shape.getPosition().x + 5.f,
@@ -1656,7 +1666,7 @@ gui::ItemRow::ItemRow(float width, float height, float x, float y, const std::sh
             shape.getPosition().x + shape.getGlobalBounds().width - height * 2.f - 20.f,
             shape.getPosition().y + 5.f,
             height * 2.f, height - 10.f,
-            font, "USE", 18.f,
+            font, "Use", 18.f,
             sf::Color(255, 255, 255, 255),
             sf::Color(160, 160, 160),
             sf::Color(20, 20, 20, 50),
@@ -1664,7 +1674,7 @@ gui::ItemRow::ItemRow(float width, float height, float x, float y, const std::sh
             sf::Color(70, 70, 70, 0),
             sf::Color(150, 150, 150, 70),
             sf::Color(130, 130, 130));
-    useBtn.setBorderColor(sf::Color(120,120,120));
+    useBtn.setBorderColor(sf::Color(15, 15, 15, 255));
     useBtn.setBackgroundFilLColor(sf::Color(120,120,120, 120));
     useBtn.setBorderLineThickness(2.f);
 

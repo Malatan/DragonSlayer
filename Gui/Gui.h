@@ -115,6 +115,7 @@ namespace gui{
         //modifiers
         void setText(const std::string& new_text);
         void setProgressShapeColor(sf::Color color);
+        void setProgressBorderColor(sf::Color color);
 
         //functions
         void update(int current, int max_value);

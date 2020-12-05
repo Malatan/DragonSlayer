@@ -2,13 +2,14 @@
 // Created by Leonardo on 09/11/2020.
 //
 
-//PROVA COMMIT LEO
 
 #include "BattleState.h"
 
 
 void BattleState::initResources() {
     rsHandler->addResource("../Resources/Images/Backgrounds/battleBG.png", "battleBG", "BattleState");
+    rsHandler->addResource("../Resources/Images/Backgrounds/battleStateWall.png", "battleStateWall", "BattleState");
+    rsHandler->addResource("../Resources/Images/Backgrounds/turnsWall.png", "turnsWall", "BattleState");
 }
 
 void BattleState::initBattleFieldComponents() {
@@ -36,33 +37,34 @@ void BattleState::initBattleFieldComponents() {
     playerPos.setFillColor(sf::Color::Magenta);
     playerPos.setSize(sf::Vector2f(5.f, 5.f));
 
-    turnPanel.setSize(sf::Vector2f(500.f, 130.f));
-    turnPanel.setPosition(static_cast<float>(this->window->getSize().x) / 2.f - 250.f,
-                          5.f);
-    turnPanel.setFillColor(sf::Color(30, 30, 30));
+    turnPanel.setSize(sf::Vector2f(1430.f, 40.f));
+    turnPanel.setPosition(5.f, 5.f);
+    turnsTexture.loadFromImage(this->rsHandler->getResourceByKey("turnsWall")->getImage());
+    turnPanel.setTexture(&turnsTexture);
+    turnPanel.setFillColor(sf::Color(80, 80, 80));
     turnPanel.setOutlineColor(sf::Color(15, 15, 15));
     turnPanel.setOutlineThickness(5.f);
 
     turnPanelTitle.setFont(*font);
-    turnPanelTitle.setCharacterSize(40);
-    turnPanelTitle.setString("{ YOUR TURN }");
-    turnPanelTitle.setPosition(turnPanel.getPosition().x + turnPanel.getGlobalBounds().width / 2.f -
-                               turnPanelTitle.getGlobalBounds().width / 2.f,
-                               turnPanel.getPosition().y);
+    turnPanelTitle.setCharacterSize(25);
+    turnPanelTitle.setString("TURN :");
+    turnPanelTitle.setPosition(turnPanel.getPosition().x + 10.f, turnPanel.getPosition().y);
+
+    turnPanelWho.setFont(*font);
+    turnPanelWho.setCharacterSize(25);
+    turnPanelWho.setString("Your Turn");
+    turnPanelWho.setPosition(turnPanel.getPosition().x + 150.f, turnPanel.getPosition().y);
 
     turnPanelLbl.setFont(*font);
     turnPanelLbl.setCharacterSize(25);
     turnPanelLbl.setString("Player is deciding...");
     turnPanelLbl.setPosition(turnPanel.getPosition().x + turnPanel.getGlobalBounds().width / 2.f -
-                             turnPanelLbl.getGlobalBounds().width / 2.f,
-                             turnPanel.getPosition().y + turnPanelTitle.getGlobalBounds().height + 15.f);
+                             turnPanelLbl.getGlobalBounds().width / 2.f,turnPanel.getPosition().y);
 
     turnPanelActionLbl.setFont(*font);
     turnPanelActionLbl.setCharacterSize(25);
     turnPanelActionLbl.setString("Enemy selected: None");
-    turnPanelActionLbl.setPosition(turnPanel.getPosition().x + turnPanel.getGlobalBounds().width / 2.f -
-                                   turnPanelActionLbl.getGlobalBounds().width / 2.f,
-                                   turnPanelLbl.getPosition().y + turnPanelLbl.getGlobalBounds().height + 15.f);
+    turnPanelActionLbl.setPosition(turnPanelLbl.getPosition().x + 325.f, turnPanel.getPosition().y);
 
     messageLbl.setFont(*font);
     messageLbl.setCharacterSize(20);
@@ -77,8 +79,9 @@ void BattleState::initBattleFieldComponents() {
 
 void BattleState::initEscapePanel() {
     escapeActionPanel.setPosition(actionPanel.getPosition());
-    escapeActionPanel.setFillColor(sf::Color(150, 150, 150));
+    escapeActionPanel.setFillColor(sf::Color(150, 150, 150, 0));
     escapeActionPanel.setSize(actionPanel.getSize());
+
     escapeText.setFont(*this->font);
     stringstream ss;
     int highestAgility = 0;
@@ -92,13 +95,13 @@ void BattleState::initEscapePanel() {
     if (escapeChance > 10.f)
         escapeChance = 10.f;
 
-    ss << "Are you sure you want to ESCAPE?" << endl <<
-       "Your agility is " << player->getPlayerStats()->getAgility() << endl <<
-       "Enemy's highest agility is " << highestAgility << endl <<
-       "You will have " << escapeChance * 10.f << " % to escape successfully";
+    ss << "Your Agility - " << player->getPlayerStats()->getAgility() << endl
+       << "Enemy's highest Agility - " << highestAgility << endl
+       << "Do you want to try to escape?";
+
     escapeText.setString(ss.str());
     escapeText.setCharacterSize(25);
-    escapeText.setPosition(escapeActionPanel.getPosition().x + 10.f, escapeActionPanel.getPosition().y + 10.f);
+    escapeText.setPosition(escapeActionPanel.getPosition().x + 30.f, escapeActionPanel.getPosition().y + 50.f);
 
     escapeConfirmBtn.setPosition(escapeActionPanel.getPosition().x + escapeActionPanel.getGlobalBounds().width / 2.f -
                                  escapeConfirmBtn.getGlobalBounds().width / 2.f,
@@ -108,14 +111,16 @@ void BattleState::initEscapePanel() {
 void BattleState::initStatsPanel() {
     playerStatsPanel.setSize(sf::Vector2f(
             (static_cast<float>(this->window->getSize().x) - 270.f - actionPanel.getGlobalBounds().width) / 2.f,
-            280.f));
-    playerStatsPanel.setPosition(actionPanel.getPosition().x + actionPanel.getGlobalBounds().width,
+            291.f));
+    playerStatsPanel.setPosition(actionPanel.getPosition().x + actionPanel.getGlobalBounds().width - 3.f,
                                  actionPanel.getPosition().y);
-    playerStatsPanel.setFillColor(sf::Color(120, 120, 120));
+    playerStatsPanel.setFillColor(sf::Color(170, 170, 170, 30));
+    playerStatsPanel.setOutlineColor(sf::Color(15, 15, 15));
+    playerStatsPanel.setOutlineThickness(3.f);
 
     playerStatsPanelTitle.setFont(*this->font);
-    playerStatsPanelTitle.setCharacterSize(25);
-    playerStatsPanelTitle.setString("-Player stats-");
+    playerStatsPanelTitle.setCharacterSize(30);
+    playerStatsPanelTitle.setString("Player Stats");
     playerStatsPanelTitle.setPosition(playerStatsPanel.getPosition().x + playerStatsPanel.getGlobalBounds().width / 2.f
                                       - playerStatsPanelTitle.getGlobalBounds().width / 2.f,
                                       playerStatsPanel.getPosition().y);
@@ -124,18 +129,15 @@ void BattleState::initStatsPanel() {
     playerStatsNameLbl.setCharacterSize(20);
     playerStatsNameLbl.setPosition(playerStatsPanel.getPosition().x + 5.f,
                                    playerStatsPanel.getPosition().y + playerStatsPanelTitle.getGlobalBounds().height +
-                                   5.f);
+                                   50.f);
     playerStatsNameLbl.setString(
-            "Level:       \n"
-            "Max Hp:      \n"
-            "Max Mp:      \n"
-            "Damage:      \n"
-            "Armor:       \n"
-            "Crit Chance: \n"
-            "Evade Chance:\n"
-            "Strength:    \n"
-            "Wisdom:      \n"
-            "Agility:     \n");
+            " Level:       \n"
+            " Max Hp:      \n"
+            " Max Mp:      \n"
+            " Damage:      \n"
+            " Armor:       \n"
+            " Critical %: \n"
+            " Evade %:\n");
 
     playerStatsValueLbl.setFont(*this->font);
     playerStatsValueLbl.setCharacterSize(20);
@@ -145,15 +147,18 @@ void BattleState::initStatsPanel() {
     updatePlayerStatsLbl();
 
     enemyStatsPanel.setSize(sf::Vector2f(
-            playerStatsPanel.getGlobalBounds().width,
-            280.f));
-    enemyStatsPanel.setPosition(playerStatsPanel.getPosition().x + playerStatsPanel.getGlobalBounds().width,
+            playerStatsPanel.getGlobalBounds().width ,
+            291.f));
+    enemyStatsPanel.setPosition(playerStatsPanel.getPosition().x + playerStatsPanel.getGlobalBounds().width - 3.f,
                                 playerStatsPanel.getPosition().y);
-    enemyStatsPanel.setFillColor(sf::Color(170, 170, 170));
+    enemyStatsPanel.setFillColor(sf::Color(170, 170, 170, 30));
+
+    enemyStatsPanel.setOutlineColor(sf::Color(15, 15, 15));
+    enemyStatsPanel.setOutlineThickness(3.f);
 
     enemyStatsPanelTitle.setFont(*this->font);
-    enemyStatsPanelTitle.setCharacterSize(25);
-    enemyStatsPanelTitle.setString("-Enemy stats-");
+    enemyStatsPanelTitle.setCharacterSize(30);
+    enemyStatsPanelTitle.setString("Enemy stats");
     enemyStatsPanelTitle.setPosition(enemyStatsPanel.getPosition().x + enemyStatsPanel.getGlobalBounds().width / 2.f
                                      - enemyStatsPanelTitle.getGlobalBounds().width / 2.f,
                                      enemyStatsPanel.getPosition().y);
@@ -162,15 +167,15 @@ void BattleState::initStatsPanel() {
     enemyStatsNameLbl.setCharacterSize(20);
     enemyStatsNameLbl.setPosition(enemyStatsPanel.getPosition().x + 5.f,
                                   enemyStatsPanel.getPosition().y + enemyStatsPanelTitle.getGlobalBounds().height +
-                                  5.f);
+                                  50.f);
     enemyStatsNameLbl.setString(
-            "Level:       \n"
-            "Max Hp:      \n"
-            "Max Mp:      \n"
-            "Damage:      \n"
-            "Armor:       \n"
-            "Crit Chance: \n"
-            "Evade Chance:\n");
+            " Level:       \n"
+            " Max Hp:      \n"
+            " Max Mp:      \n"
+            " Damage:      \n"
+            " Armor:       \n"
+            " Critical %: \n"
+            " Evade %:\n");
 
     enemyStatsValueLbl.setFont(*this->font);
     enemyStatsValueLbl.setCharacterSize(20);
@@ -181,16 +186,19 @@ void BattleState::initStatsPanel() {
                                  "-\n"
                                  "-\n"
                                  "-\n"
-                                 "-%\n"
-                                 "-%\n");
+                                 "- %\n"
+                                 "- %\n");
 }
 
 void BattleState::initActionPanel() {
-    actionPanel.setPosition(actionBtn.getPosition().x + 250.f, actionBtn.getPosition().y);
-    actionPanel.setFillColor(sf::Color(50, 50, 50));
+    actionPanel.setPosition(actionBtn.getPosition().x + 253.f, actionBtn.getPosition().y);
+    actionPanel.setFillColor(sf::Color(50, 50, 50, 0));
     actionPanel.setSize(sf::Vector2f(
             static_cast<float>(this->window->getSize().x) - 270.f - 500.f,
-            280.f));
+            291.f));
+
+    actionPanel.setOutlineColor(sf::Color(15, 15, 15));
+    actionPanel.setOutlineThickness(3.f);
 
     int count = 2;
     float total_count = 2.f;
@@ -261,8 +269,11 @@ void BattleState::initActionPanel() {
 
 void BattleState::initInventoryPanel() {
     itemActionPanel.setPosition(actionPanel.getPosition());
-    itemActionPanel.setFillColor(sf::Color(100, 100, 100));
+    itemActionPanel.setFillColor(sf::Color(100, 100, 100, 0));
     itemActionPanel.setSize(actionPanel.getSize());
+
+    itemActionPanel.setOutlineColor(sf::Color(15, 15, 15));
+    itemActionPanel.setOutlineThickness(3.f);
 
     currentInvPage = 1;
     maxInvPage = 1;
@@ -410,25 +421,36 @@ void BattleState::generateModels() {
 }
 
 void BattleState::initButtons() {
-    sf::Color text_idle_color = sf::Color(71, 17, 13, 250);
-    sf::Color text_hover_color = sf::Color(250, 250, 250, 250);
+    sf::Color text_idle_color = sf::Color(250, 250, 250, 250);
+    sf::Color text_hover_color = sf::Color(71, 17, 13, 250);
     sf::Color text_active_color = sf::Color(20, 20, 20, 50);
 
     sf::Color hover_color = sf::Color(150, 150, 150, 0);
     sf::Color active_color = sf::Color(20, 20, 20, 0);
 
-    actionBtn = gui::Button(10.f, mainActionPanel.getPosition().y + 10.f, 250.f, 50.f,
+    actionBtn = gui::Button(5.f, mainActionPanel.getPosition().y + 0.f, 250.f, 95.f,
                             font, "Action", 40,
                             text_idle_color, text_hover_color, text_active_color,
-                            sf::Color(50, 50, 50), hover_color, active_color);
-    itemActionBtn = gui::Button(10.f, mainActionPanel.getPosition().y + 60.f, 250.f, 50.f,
+                            sf::Color(170, 170, 170, 30), hover_color, active_color);
+
+    actionBtn.setBorderColor(sf::Color(15, 15, 15));
+    actionBtn.setBorderLineThickness(3.f);
+
+    itemActionBtn = gui::Button(5.f, mainActionPanel.getPosition().y + 98.f, 250.f, 95.f,
                                 font, "Inventory", 40,
                                 text_idle_color, text_hover_color, text_active_color,
-                                sf::Color(100, 100, 100), hover_color, active_color);
-    escapeActionBtn = gui::Button(10.f, mainActionPanel.getPosition().y + 110.f, 250.f, 50.f,
+                                sf::Color(170, 170, 170, 30), hover_color, active_color);
+
+    itemActionBtn.setBorderColor(sf::Color(15, 15, 15));
+    itemActionBtn.setBorderLineThickness(3.f);
+
+    escapeActionBtn = gui::Button(5.f, mainActionPanel.getPosition().y + 196.f, 250.f, 95.f,
                                   font, "Escape", 40,
                                   text_idle_color, text_hover_color, text_active_color,
-                                  sf::Color(150, 150, 150), hover_color, active_color);
+                                  sf::Color(170, 170, 170, 30), hover_color, active_color);
+
+    escapeActionBtn.setBorderColor(sf::Color(15, 15, 15));
+    escapeActionBtn.setBorderLineThickness(3.f);
 
     nextPageBtn = gui::Button(0.f, 0.f, 30.f, 30.f,
                               font, "=>", 25,
@@ -439,10 +461,13 @@ void BattleState::initButtons() {
                                   text_idle_color, text_hover_color, text_active_color,
                                   sf::Color::Transparent, hover_color, active_color);
 
-    escapeConfirmBtn = gui::Button(0.f, 0.f, 500.f, 80.f,
-                                   font, "Raaaaaaan!!!", 40,
+    escapeConfirmBtn = gui::Button(0.f, 0.f, 300.f, 70.f,
+                                   font, "Run", 40,
                                    text_idle_color, text_hover_color, text_active_color,
-                                   sf::Color(150, 150, 150), hover_color, active_color);
+                                   sf::Color(170, 170, 170, 30), hover_color, active_color);
+
+    escapeConfirmBtn.setBorderColor(sf::Color(15, 15, 15));
+    escapeConfirmBtn.setBorderLineThickness(3.f);
 }
 
 BattleState::BattleState(std::shared_ptr<sf::RenderWindow> window, std::shared_ptr<Player> player,
@@ -484,17 +509,22 @@ BattleState::BattleState(std::shared_ptr<sf::RenderWindow> window, std::shared_p
             static_cast<float>(this->window->getSize().y)));
     backgroundTexture.loadFromImage(this->rsHandler->getResourceByKey("battleBG")->getImage());
     background.setTexture(&backgroundTexture);
+
     mainActionPanel.setSize(sf::Vector2f(
-            static_cast<float>(this->window->getSize().x),
-            300.f));
-    mainActionPanel.setPosition(0.f, static_cast<float>(this->window->getSize().y - 300.f));
+            static_cast<float>(this->window->getSize().x - 10),
+            293.f));
+    mainActionPanel.setPosition(5.f, static_cast<float>(this->window->getSize().y - 297.f));
     mainActionPanel.setFillColor(sf::Color(80, 80, 80));
+    mainActionPanel.setOutlineColor(sf::Color(15,15,15));
+    mainActionPanel.setOutlineThickness(5.f);
+    commandsTexture.loadFromImage(this->rsHandler->getResourceByKey("battleStateWall")->getImage());
+    mainActionPanel.setTexture(&commandsTexture);
 
     tipsLbl.setFont(*font);
     tipsLbl.setCharacterSize(20);
     tipsLbl.setString("Tips: You can use 1 potion and perfom 1 action each turn");
     tipsLbl.setPosition(mainActionPanel.getPosition().x + 3.f,
-                        mainActionPanel.getPosition().y - tipsLbl.getGlobalBounds().height - 3.f);
+                        mainActionPanel.getPosition().y - tipsLbl.getGlobalBounds().height - 13.f);
 
     initButtons();
     initActionPanel();
@@ -729,8 +759,12 @@ void BattleState::endPlayerTurn() {
 
 void BattleState::enemyBattle(const float &dt) {
     stringstream ss;
-    ss << "{ TURN " << turnCount << " : ENEMY TURN }";
+    ss << "TURN " << turnCount << " : ";
     turnPanelTitle.setString(ss.str());
+    ss.str("");
+    ss<< "Enemy Turn";
+    turnPanelWho.setString(ss.str());
+    turnPanelWho.setFillColor(sf::Color(190, 30, 30));
     ss.str("");
     ss << "Enemy moves: " << enemiesMoves;
     turnPanelLbl.setString(ss.str());
@@ -811,15 +845,6 @@ void BattleState::enemyBattle(const float &dt) {
             endEnemyTurn();
         }
     }
-    turnPanelTitle.setPosition(turnPanel.getPosition().x + turnPanel.getGlobalBounds().width / 2.f -
-                               turnPanelTitle.getGlobalBounds().width / 2.f,
-                               turnPanel.getPosition().y);
-    turnPanelLbl.setPosition(turnPanel.getPosition().x + turnPanel.getGlobalBounds().width / 2.f -
-                             turnPanelLbl.getGlobalBounds().width / 2.f,
-                             turnPanel.getPosition().y + turnPanelTitle.getGlobalBounds().height + 15.f);
-    turnPanelActionLbl.setPosition(turnPanel.getPosition().x + turnPanel.getGlobalBounds().width / 2.f -
-                                   turnPanelActionLbl.getGlobalBounds().width / 2.f,
-                                   turnPanelLbl.getPosition().y + turnPanelLbl.getGlobalBounds().height + 15.f);
 }
 
 void BattleState::endEnemyTurn() {
@@ -869,18 +894,19 @@ void BattleState::updatePlayerStatsLbl() {
        << player->getPlayerStats()->getFinalDamage() << "\n"
        << player->getPlayerStats()->getFinalArmor() << "\n"
        << player->getPlayerStats()->getFinalCritChance() << "%\n"
-       << player->getPlayerStats()->getFinalEvadeChance() << "%\n"
-       << player->getPlayerStats()->getStrength() << "\n"
-       << player->getPlayerStats()->getWisdom() << "\n"
-       << player->getPlayerStats()->getAgility() << "\n";
+       << player->getPlayerStats()->getFinalEvadeChance() << "%\n";
     playerStatsValueLbl.setString(ss.str());
 }
 
 void BattleState::updateTurnPanel() {
     stringstream ss;
     if (whoseTurn) {
-        ss << "{ TURN " << turnCount << " : YOUR TURN }";
+        ss << "TURN " << turnCount << " : ";
         turnPanelTitle.setString(ss.str());
+        ss.str("");
+        ss << "Your Turn";
+        turnPanelWho.setString(ss.str());
+        turnPanelWho.setFillColor(sf::Color(20, 160, 50));
         ss.str("");
         turnPanelLbl.setString("Player is deciding...");
         if (selectedId < 5) {
@@ -890,19 +916,10 @@ void BattleState::updateTurnPanel() {
             ss << "Enemy selected: None";
         }
         turnPanelActionLbl.setString(ss.str());
-        turnPanelTitle.setPosition(turnPanel.getPosition().x + turnPanel.getGlobalBounds().width / 2.f -
-                                   turnPanelTitle.getGlobalBounds().width / 2.f,
-                                   turnPanel.getPosition().y);
-        turnPanelLbl.setPosition(turnPanel.getPosition().x + turnPanel.getGlobalBounds().width / 2.f -
-                                 turnPanelLbl.getGlobalBounds().width / 2.f,
-                                 turnPanel.getPosition().y + turnPanelTitle.getGlobalBounds().height + 15.f);
-        turnPanelActionLbl.setPosition(turnPanel.getPosition().x + turnPanel.getGlobalBounds().width / 2.f -
-                                       turnPanelActionLbl.getGlobalBounds().width / 2.f,
-                                       turnPanelLbl.getPosition().y + turnPanelLbl.getGlobalBounds().height + 15.f);
-        turnPanel.setFillColor(sf::Color(25, 191, 31, 150));
+        turnPanel.setFillColor(sf::Color(80, 80, 80));
     } else {
         if (!countPlayerTurnTimer)
-            turnPanel.setFillColor(sf::Color(191, 25, 27, 150));
+            turnPanel.setFillColor(sf::Color(80, 80, 80));
     }
 }
 
@@ -1128,6 +1145,7 @@ void BattleState::render(sf::RenderTarget *target) {
     target->draw(enemyStatsValueLbl);
     target->draw(turnPanel);
     target->draw(turnPanelTitle);
+    target->draw(turnPanelWho);
     target->draw(turnPanelLbl);
     target->draw(turnPanelActionLbl);
     if(enemyCount > 1)

@@ -93,6 +93,8 @@ private:
 
     sf::Font* font;
     sf::Texture backgroundTexture;
+    sf::Texture commandsTexture;
+    sf::Texture turnsTexture;
     sf::RectangleShape background;
     sf::RectangleShape mainActionPanel;
     sf::RectangleShape actionPanel;
@@ -146,6 +148,7 @@ private:
 
     sf::RectangleShape turnPanel;
     sf::Text turnPanelTitle;
+    sf::Text turnPanelWho;
     sf::Text turnPanelLbl;
     sf::Text turnPanelActionLbl;
 
