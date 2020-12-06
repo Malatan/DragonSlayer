@@ -48,7 +48,8 @@ ShopTab::ShopTab(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* font
     container.setPosition(sf::Vector2f(
             static_cast<float>(window->getSize().x) / 2.f - container.getSize().x / 2.f,
             40.f));
-
+    container.setOutlineThickness(5.f);
+    container.setOutlineColor(sf::Color(10, 10, 10));
     //init text
     containerTitle.setFont(*this->font);
     containerTitle.setFillColor(sf::Color(255, 255, 255, 200));

@@ -9,22 +9,24 @@ void WizardTab::initWizardSpellSlots() {
     if(!spellSlots.empty()){
         spellSlots.clear();
     }
-
-    int max_per_row = 3;
-    float modifierX = 375.f;
+    maxPage = 1;
+    currentPage = 1;
+    int max_per_page = 4;
     float modifierY = 100.f;
-    float yMultiplier = 0;
+    float width = 600.f;
+    float height = 80.f;
     int count = 0;
     for(const auto& i : spellComponent->getPlayerSpells()){
-        if((count % max_per_row) == 0 && count != 0){
-            yMultiplier ++;
-        }
-        spellSlots.push_back(std::make_shared<gui::WizardSpellSlot>(350.f, 80.f,
-                container.getPosition().x + 35.f + (modifierX * (float)(count % max_per_row)),
-                container.getPosition().y + 80.f + (modifierY * yMultiplier) ,
+        spellSlots.push_back(std::make_shared<gui::WizardSpellSlot>(width, height,
+                container.getPosition().x + 35.f,
+                container.getPosition().y + 80.f + (modifierY * (float)count) ,
                 i, &textures["ITEMS_SHEET"], 34.f, font, 18
         ));
         count++;
+        if(count == max_per_page){
+            maxPage++;
+            count = 0;
+        }
     }
 }
 
@@ -42,13 +44,15 @@ WizardTab::WizardTab(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* 
     background.setFillColor(sf::Color(20, 20, 20, 100));
 
     //init container
-    container.setSize(sf::Vector2f(1170.f,820.f));
+    container.setSize(sf::Vector2f(670.f,580.f));
     container.setFillColor(sf::Color(20, 20, 20, 200));
 
     container.setPosition(sf::Vector2f(
-            static_cast<float>(window->getSize().x) / 2.f - container.getSize().x / 2.f,
-            40.f));
-
+            static_cast<float>(window->getSize().x)/2.f - container.getGlobalBounds().width/2.f,
+            static_cast<float>(window->getSize().y)/2.f - container.getGlobalBounds().height/2.f
+            ));
+    container.setOutlineThickness(5.f);
+    container.setOutlineColor(sf::Color(10, 10, 10));
     //init text
     containerTitle.setFont(*this->font);
     containerTitle.setFillColor(sf::Color(255, 255, 255, 200));
@@ -60,10 +64,25 @@ WizardTab::WizardTab(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* 
 
     playerGoldLbl.setFont(*this->font);
     playerGoldLbl.setCharacterSize(30);
-    playerGoldLbl.setPosition(container.getPosition().x + 20.f, 800.f);
+    playerGoldLbl.setPosition(container.getPosition().x + 20.f, container.getPosition().y + 480.f);
+    playerGoldLbl.setString("Gold: 0");
 
+    pageLbl.setFont(*this->font);
+    pageLbl.setCharacterSize(25);
+    pageLbl.setString("1/1");
+    pageLbl.setPosition(container.getPosition().x + container.getGlobalBounds().width/2.f - pageLbl.getGlobalBounds().width/2.f,
+                        playerGoldLbl.getPosition().y + playerGoldLbl.getGlobalBounds().height + 20.f);
+
+    nextPageBtn = gui::Button(pageLbl.getPosition().x + pageLbl.getGlobalBounds().width + 20.f, pageLbl.getPosition().y,
+                              pageLbl.getGlobalBounds().height, pageLbl.getGlobalBounds().height,
+                              this->font, "=>", 25);
+
+    previousPageBtn = gui::Button(pageLbl.getPosition().x - pageLbl.getGlobalBounds().height - 20.f, pageLbl.getPosition().y,
+                                  pageLbl.getGlobalBounds().height, pageLbl.getGlobalBounds().height,
+                                  this->font, "<=", 25);
     updateGoldLbl();
     initWizardSpellSlots();
+    updatePageLbl();
     updateSpellInfo();
 }
 
@@ -139,11 +158,38 @@ void WizardTab::updateSpellLevel(const std::shared_ptr<gui::WizardSpellSlot>& i)
 
 }
 
+void WizardTab::updatePageLbl() {
+    stringstream ss;
+    ss << currentPage << "/" << maxPage;
+    pageLbl.setString(ss.str());
+}
+
+void WizardTab::updateButtons(const sf::Vector2f &mousePos) {
+    nextPageBtn.update(mousePos);
+    previousPageBtn.update(mousePos);
+    if(nextPageBtn.isPressed() && gState->getKeyTime()){
+        nextPageBtn.setButtonState(BTN_IDLE);
+        if(currentPage < maxPage){
+            currentPage++;
+            updatePageLbl();
+        }
+    }else if(previousPageBtn.isPressed() && gState->getKeyTime()){
+        previousPageBtn.setButtonState(BTN_IDLE);
+        if(currentPage > 1){
+            currentPage--;
+            updatePageLbl();
+        }
+    }
+}
+
 void WizardTab::update(const sf::Vector2f &mousePos) {
-    for(const auto& i : spellSlots){
-        i->update(mousePos);
-        if(i->isBtnPressed() && gState->getKeyTime()){
-            updateSpellLevel(i);
+    updateButtons(mousePos);
+    for (int i = (currentPage - 1) * 4; i < ((currentPage) * 4); i++) {
+        if (i < spellSlots.size() && i >= 0){
+            spellSlots[i]->update(mousePos);
+            if(spellSlots[i]->isBtnPressed() && gState->getKeyTime()){
+                updateSpellLevel(spellSlots[i]);
+            }
         }
     }
 }
@@ -153,10 +199,17 @@ void WizardTab::render(sf::RenderTarget &target) {
     target.draw(container);
     target.draw(containerTitle);
     target.draw(playerGoldLbl);
-    for(const auto& i : spellSlots){
-        i->render(target);
+    target.draw(pageLbl);
+    nextPageBtn.render(target);
+    previousPageBtn.render(target);
+    for (int i = (currentPage - 1) * 4; i < ((currentPage) * 4); i++) {
+        if (i < spellSlots.size() && i >= 0)
+            spellSlots[i]->render(target);
     }
 }
+
+
+
 
 
 

@@ -1043,7 +1043,7 @@ gui::SpellSlot::SpellSlot(float width, float height, float pos_x, float pos_y,  
 
     //init texts
     spellInfoLbl.setFont(*font);
-    spellInfoLbl.setCharacterSize(char_size);
+    spellInfoLbl.setCharacterSize(char_size - 1);
   /*  this->spellInfoLbl << sf::Text::Bold << spell->getName() << "(" << spell->getType() << ")\n"
                         << "Damage: " << sf::Color(34, 0, 79) << to_string(spell->getDamage()) << "\n" << sf::Color::White
                         << "Cost: " << sf::Color::Blue << to_string(spell->getCost()) << sf::Color::White
@@ -1054,13 +1054,38 @@ gui::SpellSlot::SpellSlot(float width, float height, float pos_x, float pos_y,  
             spellImage.getPosition().y);
 
     descriptionLbl.setFont(*font);
-    descriptionLbl.setCharacterSize(char_size);
-    descriptionLbl << sf::Text::Italic << spell->getDescription();
+    descriptionLbl.setCharacterSize(char_size - 2);
+    descriptionLbl.setStyle(sf::Text::Italic);
+    descriptionLbl.setString(textWrap(descriptionLbl, spell->getDescription(), width - 30.f));
     descriptionLbl.setPosition(spellImage.getPosition().x + 10.f,
             spellImage.getPosition().y + spellImage.getGlobalBounds().height + app);
 }
 
 gui::SpellSlot::~SpellSlot() = default;
+
+std::string gui::SpellSlot::textWrap(sf::Text& label, const std::string& wrap_text, float line_length) {
+    stringstream ss;
+    std::vector<std::string> lines;
+    bool remain_words;
+    for(char c : wrap_text) {
+        remain_words = true;
+        ss << c;
+        label.setString(ss.str());
+        if(label.getGlobalBounds().width > line_length){
+            ss << std::endl;
+            lines.push_back(ss.str());
+            ss.str("");
+            remain_words = false;
+        }
+    }
+    if(remain_words)
+        lines.push_back(ss.str());
+    std::string final_testo;
+    for(const auto& i : lines)
+        final_testo += i;
+
+    return final_testo;
+}
 
 void gui::SpellSlot::update(const sf::Vector2f &mousePos) {
 
@@ -1257,6 +1282,7 @@ void gui::WizardSpellSlot::render(sf::RenderTarget &target) {
         target.draw(spellInfoLbl);
     }
 }
+
 
 /*
  *                      PLAYERSTATUSPANEL

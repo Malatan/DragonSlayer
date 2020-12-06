@@ -237,6 +237,7 @@ namespace gui{
         std::shared_ptr<Spell> getSpell();
 
         //functions
+        std::string textWrap(sf::Text& label, const std::string& wrap_text, float line_length);
         void update(const sf::Vector2f& mousePos);
         void render(sf::RenderTarget& target);
 
@@ -244,7 +245,7 @@ namespace gui{
         sf::RectangleShape shape;
         sf::RectangleShape spellImage;
         sfe::RichText spellInfoLbl;
-        sfe::RichText descriptionLbl;
+        sf::Text descriptionLbl;
         std::shared_ptr<Spell> spell;
     };
 

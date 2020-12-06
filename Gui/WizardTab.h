@@ -22,10 +22,18 @@ public:
     void updateSpellInfo();
     bool closeTabByClicking(const sf::Vector2f& mousePos);
     void updateGoldLbl();
+    void updatePageLbl();
+    void updateButtons(const sf::Vector2f& mousePos);
     void update(const sf::Vector2f& mousePos);
     void render(sf::RenderTarget& target);
 
 private:
+    int currentPage{};
+    int maxPage{};
+    sf::Text pageLbl;
+    gui::Button nextPageBtn;
+    gui::Button previousPageBtn;
+
     sf::RectangleShape background;
     sf::RectangleShape container;
     sf::Text containerTitle;
