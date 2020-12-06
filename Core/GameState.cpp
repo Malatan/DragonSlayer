@@ -462,22 +462,22 @@ void GameState::addItem(const std::shared_ptr<Item>& new_item) {
         for(auto &i : cTab->getInventorySlots()){
             if(i->getItem()->isEquipped()){
                 switch(i->getItem()->getUsageType()){
-                    case 5:
+                    case WEAPON_USAGE:
                         i->setUpRightTexture(&textures["WEAPON_ICON"]);
                         break;
-                    case 4:
+                    case SHIELD_USAGE:
                         i->setUpRightTexture(&textures["SHIELD_ICON"]);
                         break;
-                    case 3:
+                    case HEAD_USAGE:
                         i->setUpRightTexture(&textures["HELMET_ICON"]);
                         break;
-                    case 2:
+                    case CHEST_USAGE:
                         i->setUpRightTexture(&textures["ARMOR_ICON"]);
                         break;
-                    case 1:
+                    case ARMS_USAGE:
                         i->setUpRightTexture(&textures["GLOVES_ICON"]);
                         break;
-                    case 0:
+                    case LEGS_USAGE:
                         i->setUpRightTexture(&textures["BOOTS_ICON"]);
                         break;
                     default:

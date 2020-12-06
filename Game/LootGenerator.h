@@ -31,13 +31,28 @@ enum loot_rarity{
     LEGENDARY_LOOT
 };
 
+enum equip_effect{
+    ADD_HP,
+    ADD_MP,
+    ADD_DAMAGE,
+    ADD_ARMOR,
+    ADD_CRITCHANCE,
+    ADD_EVADECHANCE
+};
+
+typedef std::pair<int, int> pairInt;
+typedef std::pair<float, float> pairFloat;
 
 class LootGenerator {
 public:
-    LootGenerator(std::shared_ptr<ResourcesHandler> rs_handler);
+    explicit LootGenerator(std::shared_ptr<ResourcesHandler> rs_handler);
     virtual ~LootGenerator();
 
     void generateLoot(int floor);
+    Item *getMaterialByEnemyType(enemy_types type);
+    static std::string getRarityString(item_rarity rarity_enum);
+    static std::string getRarityString(loot_rarity rarity_enum);
+    std::string getEffectString(equip_effect effect) const;
 
     const vector<std::unique_ptr<Item>> &getDroppableMaterials() const;
     const map<std::string, Item> &getConsumablesList() const;
@@ -46,25 +61,51 @@ public:
 private:
     static const int MAX_PROBABILITY;
     static const int MAX_RARITY_PROBABILITY;
+    static const int MAX_POTION_RARITY_PROBABILITY;
+    static const int MAX_POTION_AMOUNT_PROBABILITY;
+    static const int MAX_MATERIAL_RARITY_PROBABILITY;
+    static const int MAX_MATERIAL_AMOUNT_PROBABILITY;
+
     static const int lootProbabilities[];
     static const int lootRarityProbabilities1[];
     static const int lootRarityProbabilities2[];
     static const int lootRarityProbabilities3[];
     static const int lootRarityProbabilities4[];
     static const int lootRarityProbabilities5[];
-    static const int hpRange[];
-    static const int mpRange[];
-    static const int damageRange[];
-    static const int armorRange[];
-    static const float critchanceRange[];
-    static const float evadechanceRange[];
+
+    static const int materialRarityProbabilities[];
+    static const int materialAmountProbabilities[];
+
+    static const int potionAmountProbabilities[];
+    static const int potionRarityProbabilities[];
+
+    static const pairInt swordIconIntRects[];
+    static const pairInt axeIconIntRects[];
+    static const pairInt bowIconIntRects[];
+    static const pairInt shieldIconIntRects[];
+    static const pairInt helmetIconIntRects[];
+    static const pairInt chestIntRects[];
+    static const pairInt glovesIntRects[];
+    static const pairInt bootsIntRects[];
+
+    static const pairInt statsAmount[];
+    static const pairInt hpRange[];
+    static const pairInt mpRange[];
+    static const pairInt damageRange[];
+    static const pairInt armorRange[];
+    static const pairInt shieldArmorRange[];
+    static const pairFloat critchanceRange[];
+    static const pairFloat evadechanceRange[];
+
 
     std::shared_ptr<ResourcesHandler> rsHandler;
     std::vector<std::unique_ptr<Item>> droppableMaterials;
-    std::map<std::string, Item> consumablesList;
+    std::map<std::string, Item> shopList;
+    std::vector<std::string> droppableConsumablesList;
 
     void initDroppableMaterials();
-    void initConsomablesList();
+    void initConsumablesList();
+    void initDroppableConsumablesList();
 };
 
 

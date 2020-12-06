@@ -58,19 +58,19 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2020.2.3\bin\cmake\win\bin\cmake.exe"
+CMAKE_COMMAND = "E:\CLion 2019.2.5\bin\cmake\win\bin\cmake.exe"
 
 # The command to remove a file.
-RM = "C:\Program Files\JetBrains\CLion 2020.2.3\bin\cmake\win\bin\cmake.exe" -E rm -f
+RM = "E:\CLion 2019.2.5\bin\cmake\win\bin\cmake.exe" -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\Leonardo\Desktop\DragonSlayer
+CMAKE_SOURCE_DIR = E:\Progetto\DragonSlayer
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release
+CMAKE_BINARY_DIR = E:\Progetto\DragonSlayer\cmake-build-release
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -88,31 +88,31 @@ list_install_components/fast: list_install_components
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	"C:\Program Files\JetBrains\CLion 2020.2.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	"E:\CLion 2019.2.5\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local
 
 # Special rule for the target install/local
 install/local/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	"C:\Program Files\JetBrains\CLion 2020.2.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	"E:\CLion 2019.2.5\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
 
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	"C:\Program Files\JetBrains\CLion 2020.2.3\bin\cmake\win\bin\cmake.exe" -P cmake_install.cmake
+	"E:\CLion 2019.2.5\bin\cmake\win\bin\cmake.exe" -P cmake_install.cmake
 .PHONY : install
 
 # Special rule for the target install
 install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	"C:\Program Files\JetBrains\CLion 2020.2.3\bin\cmake\win\bin\cmake.exe" -P cmake_install.cmake
+	"E:\CLion 2019.2.5\bin\cmake\win\bin\cmake.exe" -P cmake_install.cmake
 .PHONY : install/fast
 
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	"C:\Program Files\JetBrains\CLion 2020.2.3\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available."
+	"E:\CLion 2019.2.5\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available."
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -123,7 +123,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	"C:\Program Files\JetBrains\CLion 2020.2.3\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	"E:\CLion 2019.2.5\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -134,25 +134,25 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	"C:\Program Files\JetBrains\CLion 2020.2.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	"E:\CLion 2019.2.5\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip
 
 # Special rule for the target install/strip
 install/strip/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	"C:\Program Files\JetBrains\CLion 2020.2.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	"E:\CLion 2019.2.5\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
 
 # The main all target
 all: cmake_check_build_system
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release\CMakeFiles C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release\unit_testing\CMakeFiles\progress.marks
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 unit_testing/all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release\CMakeFiles 0
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(CMAKE_COMMAND) -E cmake_progress_start E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles E:\Progetto\DragonSlayer\cmake-build-release\unit_testing\CMakeFiles\progress.marks
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 unit_testing/all
+	$(CMAKE_COMMAND) -E cmake_progress_start E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 unit_testing/clean
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 unit_testing/clean
 .PHONY : clean
 
 # The main clean target
@@ -162,22 +162,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 unit_testing/preinstall
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 unit_testing/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 unit_testing/preinstall
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 unit_testing/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 1
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 unit_testing/CMakeFiles/unit_testing_run.dir/rule:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 unit_testing/CMakeFiles/unit_testing_run.dir/rule
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 unit_testing/CMakeFiles/unit_testing_run.dir/rule
 .PHONY : unit_testing/CMakeFiles/unit_testing_run.dir/rule
 
 # Convenience name for target.
@@ -187,7 +187,7 @@ unit_testing_run: unit_testing/CMakeFiles/unit_testing_run.dir/rule
 
 # fast build rule for target.
 unit_testing_run/fast:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/build
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/build
 .PHONY : unit_testing_run/fast
 
 Tests.obj: Tests.cpp.obj
@@ -196,7 +196,7 @@ Tests.obj: Tests.cpp.obj
 
 # target to build an object file
 Tests.cpp.obj:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/Tests.cpp.obj
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/Tests.cpp.obj
 .PHONY : Tests.cpp.obj
 
 Tests.i: Tests.cpp.i
@@ -205,7 +205,7 @@ Tests.i: Tests.cpp.i
 
 # target to preprocess a source file
 Tests.cpp.i:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/Tests.cpp.i
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/Tests.cpp.i
 .PHONY : Tests.cpp.i
 
 Tests.s: Tests.cpp.s
@@ -214,7 +214,7 @@ Tests.s: Tests.cpp.s
 
 # target to generate assembly for a file
 Tests.cpp.s:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/Tests.cpp.s
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/Tests.cpp.s
 .PHONY : Tests.cpp.s
 
 __/Components/AnimationComponent.obj: __/Components/AnimationComponent.cpp.obj
@@ -223,7 +223,7 @@ __/Components/AnimationComponent.obj: __/Components/AnimationComponent.cpp.obj
 
 # target to build an object file
 __/Components/AnimationComponent.cpp.obj:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/AnimationComponent.cpp.obj
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/AnimationComponent.cpp.obj
 .PHONY : __/Components/AnimationComponent.cpp.obj
 
 __/Components/AnimationComponent.i: __/Components/AnimationComponent.cpp.i
@@ -232,7 +232,7 @@ __/Components/AnimationComponent.i: __/Components/AnimationComponent.cpp.i
 
 # target to preprocess a source file
 __/Components/AnimationComponent.cpp.i:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/AnimationComponent.cpp.i
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/AnimationComponent.cpp.i
 .PHONY : __/Components/AnimationComponent.cpp.i
 
 __/Components/AnimationComponent.s: __/Components/AnimationComponent.cpp.s
@@ -241,7 +241,7 @@ __/Components/AnimationComponent.s: __/Components/AnimationComponent.cpp.s
 
 # target to generate assembly for a file
 __/Components/AnimationComponent.cpp.s:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/AnimationComponent.cpp.s
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/AnimationComponent.cpp.s
 .PHONY : __/Components/AnimationComponent.cpp.s
 
 __/Components/BuffComponent.obj: __/Components/BuffComponent.cpp.obj
@@ -250,7 +250,7 @@ __/Components/BuffComponent.obj: __/Components/BuffComponent.cpp.obj
 
 # target to build an object file
 __/Components/BuffComponent.cpp.obj:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/BuffComponent.cpp.obj
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/BuffComponent.cpp.obj
 .PHONY : __/Components/BuffComponent.cpp.obj
 
 __/Components/BuffComponent.i: __/Components/BuffComponent.cpp.i
@@ -259,7 +259,7 @@ __/Components/BuffComponent.i: __/Components/BuffComponent.cpp.i
 
 # target to preprocess a source file
 __/Components/BuffComponent.cpp.i:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/BuffComponent.cpp.i
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/BuffComponent.cpp.i
 .PHONY : __/Components/BuffComponent.cpp.i
 
 __/Components/BuffComponent.s: __/Components/BuffComponent.cpp.s
@@ -268,7 +268,7 @@ __/Components/BuffComponent.s: __/Components/BuffComponent.cpp.s
 
 # target to generate assembly for a file
 __/Components/BuffComponent.cpp.s:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/BuffComponent.cpp.s
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/BuffComponent.cpp.s
 .PHONY : __/Components/BuffComponent.cpp.s
 
 __/Components/HitBoxComponent.obj: __/Components/HitBoxComponent.cpp.obj
@@ -277,7 +277,7 @@ __/Components/HitBoxComponent.obj: __/Components/HitBoxComponent.cpp.obj
 
 # target to build an object file
 __/Components/HitBoxComponent.cpp.obj:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/HitBoxComponent.cpp.obj
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/HitBoxComponent.cpp.obj
 .PHONY : __/Components/HitBoxComponent.cpp.obj
 
 __/Components/HitBoxComponent.i: __/Components/HitBoxComponent.cpp.i
@@ -286,7 +286,7 @@ __/Components/HitBoxComponent.i: __/Components/HitBoxComponent.cpp.i
 
 # target to preprocess a source file
 __/Components/HitBoxComponent.cpp.i:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/HitBoxComponent.cpp.i
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/HitBoxComponent.cpp.i
 .PHONY : __/Components/HitBoxComponent.cpp.i
 
 __/Components/HitBoxComponent.s: __/Components/HitBoxComponent.cpp.s
@@ -295,7 +295,7 @@ __/Components/HitBoxComponent.s: __/Components/HitBoxComponent.cpp.s
 
 # target to generate assembly for a file
 __/Components/HitBoxComponent.cpp.s:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/HitBoxComponent.cpp.s
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/HitBoxComponent.cpp.s
 .PHONY : __/Components/HitBoxComponent.cpp.s
 
 __/Components/MovementComponent.obj: __/Components/MovementComponent.cpp.obj
@@ -304,7 +304,7 @@ __/Components/MovementComponent.obj: __/Components/MovementComponent.cpp.obj
 
 # target to build an object file
 __/Components/MovementComponent.cpp.obj:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/MovementComponent.cpp.obj
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/MovementComponent.cpp.obj
 .PHONY : __/Components/MovementComponent.cpp.obj
 
 __/Components/MovementComponent.i: __/Components/MovementComponent.cpp.i
@@ -313,7 +313,7 @@ __/Components/MovementComponent.i: __/Components/MovementComponent.cpp.i
 
 # target to preprocess a source file
 __/Components/MovementComponent.cpp.i:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/MovementComponent.cpp.i
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/MovementComponent.cpp.i
 .PHONY : __/Components/MovementComponent.cpp.i
 
 __/Components/MovementComponent.s: __/Components/MovementComponent.cpp.s
@@ -322,7 +322,7 @@ __/Components/MovementComponent.s: __/Components/MovementComponent.cpp.s
 
 # target to generate assembly for a file
 __/Components/MovementComponent.cpp.s:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/MovementComponent.cpp.s
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/MovementComponent.cpp.s
 .PHONY : __/Components/MovementComponent.cpp.s
 
 __/Components/PopUpTextComponent.obj: __/Components/PopUpTextComponent.cpp.obj
@@ -331,7 +331,7 @@ __/Components/PopUpTextComponent.obj: __/Components/PopUpTextComponent.cpp.obj
 
 # target to build an object file
 __/Components/PopUpTextComponent.cpp.obj:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/PopUpTextComponent.cpp.obj
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/PopUpTextComponent.cpp.obj
 .PHONY : __/Components/PopUpTextComponent.cpp.obj
 
 __/Components/PopUpTextComponent.i: __/Components/PopUpTextComponent.cpp.i
@@ -340,7 +340,7 @@ __/Components/PopUpTextComponent.i: __/Components/PopUpTextComponent.cpp.i
 
 # target to preprocess a source file
 __/Components/PopUpTextComponent.cpp.i:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/PopUpTextComponent.cpp.i
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/PopUpTextComponent.cpp.i
 .PHONY : __/Components/PopUpTextComponent.cpp.i
 
 __/Components/PopUpTextComponent.s: __/Components/PopUpTextComponent.cpp.s
@@ -349,7 +349,7 @@ __/Components/PopUpTextComponent.s: __/Components/PopUpTextComponent.cpp.s
 
 # target to generate assembly for a file
 __/Components/PopUpTextComponent.cpp.s:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/PopUpTextComponent.cpp.s
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Components/PopUpTextComponent.cpp.s
 .PHONY : __/Components/PopUpTextComponent.cpp.s
 
 __/Core/Game.obj: __/Core/Game.cpp.obj
@@ -358,7 +358,7 @@ __/Core/Game.obj: __/Core/Game.cpp.obj
 
 # target to build an object file
 __/Core/Game.cpp.obj:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/Game.cpp.obj
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/Game.cpp.obj
 .PHONY : __/Core/Game.cpp.obj
 
 __/Core/Game.i: __/Core/Game.cpp.i
@@ -367,7 +367,7 @@ __/Core/Game.i: __/Core/Game.cpp.i
 
 # target to preprocess a source file
 __/Core/Game.cpp.i:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/Game.cpp.i
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/Game.cpp.i
 .PHONY : __/Core/Game.cpp.i
 
 __/Core/Game.s: __/Core/Game.cpp.s
@@ -376,7 +376,7 @@ __/Core/Game.s: __/Core/Game.cpp.s
 
 # target to generate assembly for a file
 __/Core/Game.cpp.s:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/Game.cpp.s
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/Game.cpp.s
 .PHONY : __/Core/Game.cpp.s
 
 __/Core/GameState.obj: __/Core/GameState.cpp.obj
@@ -385,7 +385,7 @@ __/Core/GameState.obj: __/Core/GameState.cpp.obj
 
 # target to build an object file
 __/Core/GameState.cpp.obj:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/GameState.cpp.obj
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/GameState.cpp.obj
 .PHONY : __/Core/GameState.cpp.obj
 
 __/Core/GameState.i: __/Core/GameState.cpp.i
@@ -394,7 +394,7 @@ __/Core/GameState.i: __/Core/GameState.cpp.i
 
 # target to preprocess a source file
 __/Core/GameState.cpp.i:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/GameState.cpp.i
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/GameState.cpp.i
 .PHONY : __/Core/GameState.cpp.i
 
 __/Core/GameState.s: __/Core/GameState.cpp.s
@@ -403,7 +403,7 @@ __/Core/GameState.s: __/Core/GameState.cpp.s
 
 # target to generate assembly for a file
 __/Core/GameState.cpp.s:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/GameState.cpp.s
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/GameState.cpp.s
 .PHONY : __/Core/GameState.cpp.s
 
 __/Core/MainMenuState.obj: __/Core/MainMenuState.cpp.obj
@@ -412,7 +412,7 @@ __/Core/MainMenuState.obj: __/Core/MainMenuState.cpp.obj
 
 # target to build an object file
 __/Core/MainMenuState.cpp.obj:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/MainMenuState.cpp.obj
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/MainMenuState.cpp.obj
 .PHONY : __/Core/MainMenuState.cpp.obj
 
 __/Core/MainMenuState.i: __/Core/MainMenuState.cpp.i
@@ -421,7 +421,7 @@ __/Core/MainMenuState.i: __/Core/MainMenuState.cpp.i
 
 # target to preprocess a source file
 __/Core/MainMenuState.cpp.i:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/MainMenuState.cpp.i
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/MainMenuState.cpp.i
 .PHONY : __/Core/MainMenuState.cpp.i
 
 __/Core/MainMenuState.s: __/Core/MainMenuState.cpp.s
@@ -430,7 +430,7 @@ __/Core/MainMenuState.s: __/Core/MainMenuState.cpp.s
 
 # target to generate assembly for a file
 __/Core/MainMenuState.cpp.s:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/MainMenuState.cpp.s
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/MainMenuState.cpp.s
 .PHONY : __/Core/MainMenuState.cpp.s
 
 __/Core/RunTimeClock.obj: __/Core/RunTimeClock.cpp.obj
@@ -439,7 +439,7 @@ __/Core/RunTimeClock.obj: __/Core/RunTimeClock.cpp.obj
 
 # target to build an object file
 __/Core/RunTimeClock.cpp.obj:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/RunTimeClock.cpp.obj
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/RunTimeClock.cpp.obj
 .PHONY : __/Core/RunTimeClock.cpp.obj
 
 __/Core/RunTimeClock.i: __/Core/RunTimeClock.cpp.i
@@ -448,7 +448,7 @@ __/Core/RunTimeClock.i: __/Core/RunTimeClock.cpp.i
 
 # target to preprocess a source file
 __/Core/RunTimeClock.cpp.i:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/RunTimeClock.cpp.i
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/RunTimeClock.cpp.i
 .PHONY : __/Core/RunTimeClock.cpp.i
 
 __/Core/RunTimeClock.s: __/Core/RunTimeClock.cpp.s
@@ -457,7 +457,7 @@ __/Core/RunTimeClock.s: __/Core/RunTimeClock.cpp.s
 
 # target to generate assembly for a file
 __/Core/RunTimeClock.cpp.s:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/RunTimeClock.cpp.s
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/RunTimeClock.cpp.s
 .PHONY : __/Core/RunTimeClock.cpp.s
 
 __/Core/State.obj: __/Core/State.cpp.obj
@@ -466,7 +466,7 @@ __/Core/State.obj: __/Core/State.cpp.obj
 
 # target to build an object file
 __/Core/State.cpp.obj:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/State.cpp.obj
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/State.cpp.obj
 .PHONY : __/Core/State.cpp.obj
 
 __/Core/State.i: __/Core/State.cpp.i
@@ -475,7 +475,7 @@ __/Core/State.i: __/Core/State.cpp.i
 
 # target to preprocess a source file
 __/Core/State.cpp.i:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/State.cpp.i
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/State.cpp.i
 .PHONY : __/Core/State.cpp.i
 
 __/Core/State.s: __/Core/State.cpp.s
@@ -484,7 +484,7 @@ __/Core/State.s: __/Core/State.cpp.s
 
 # target to generate assembly for a file
 __/Core/State.cpp.s:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/State.cpp.s
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/State.cpp.s
 .PHONY : __/Core/State.cpp.s
 
 __/Game/BattleResult.obj: __/Game/BattleResult.cpp.obj
@@ -493,7 +493,7 @@ __/Game/BattleResult.obj: __/Game/BattleResult.cpp.obj
 
 # target to build an object file
 __/Game/BattleResult.cpp.obj:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/BattleResult.cpp.obj
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/BattleResult.cpp.obj
 .PHONY : __/Game/BattleResult.cpp.obj
 
 __/Game/BattleResult.i: __/Game/BattleResult.cpp.i
@@ -502,7 +502,7 @@ __/Game/BattleResult.i: __/Game/BattleResult.cpp.i
 
 # target to preprocess a source file
 __/Game/BattleResult.cpp.i:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/BattleResult.cpp.i
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/BattleResult.cpp.i
 .PHONY : __/Game/BattleResult.cpp.i
 
 __/Game/BattleResult.s: __/Game/BattleResult.cpp.s
@@ -511,7 +511,7 @@ __/Game/BattleResult.s: __/Game/BattleResult.cpp.s
 
 # target to generate assembly for a file
 __/Game/BattleResult.cpp.s:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/BattleResult.cpp.s
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/BattleResult.cpp.s
 .PHONY : __/Game/BattleResult.cpp.s
 
 __/Game/Buff.obj: __/Game/Buff.cpp.obj
@@ -520,7 +520,7 @@ __/Game/Buff.obj: __/Game/Buff.cpp.obj
 
 # target to build an object file
 __/Game/Buff.cpp.obj:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Buff.cpp.obj
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Buff.cpp.obj
 .PHONY : __/Game/Buff.cpp.obj
 
 __/Game/Buff.i: __/Game/Buff.cpp.i
@@ -529,7 +529,7 @@ __/Game/Buff.i: __/Game/Buff.cpp.i
 
 # target to preprocess a source file
 __/Game/Buff.cpp.i:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Buff.cpp.i
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Buff.cpp.i
 .PHONY : __/Game/Buff.cpp.i
 
 __/Game/Buff.s: __/Game/Buff.cpp.s
@@ -538,7 +538,7 @@ __/Game/Buff.s: __/Game/Buff.cpp.s
 
 # target to generate assembly for a file
 __/Game/Buff.cpp.s:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Buff.cpp.s
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Buff.cpp.s
 .PHONY : __/Game/Buff.cpp.s
 
 __/Game/Enemy.obj: __/Game/Enemy.cpp.obj
@@ -547,7 +547,7 @@ __/Game/Enemy.obj: __/Game/Enemy.cpp.obj
 
 # target to build an object file
 __/Game/Enemy.cpp.obj:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Enemy.cpp.obj
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Enemy.cpp.obj
 .PHONY : __/Game/Enemy.cpp.obj
 
 __/Game/Enemy.i: __/Game/Enemy.cpp.i
@@ -556,7 +556,7 @@ __/Game/Enemy.i: __/Game/Enemy.cpp.i
 
 # target to preprocess a source file
 __/Game/Enemy.cpp.i:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Enemy.cpp.i
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Enemy.cpp.i
 .PHONY : __/Game/Enemy.cpp.i
 
 __/Game/Enemy.s: __/Game/Enemy.cpp.s
@@ -565,7 +565,7 @@ __/Game/Enemy.s: __/Game/Enemy.cpp.s
 
 # target to generate assembly for a file
 __/Game/Enemy.cpp.s:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Enemy.cpp.s
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Enemy.cpp.s
 .PHONY : __/Game/Enemy.cpp.s
 
 __/Game/Entity.obj: __/Game/Entity.cpp.obj
@@ -574,7 +574,7 @@ __/Game/Entity.obj: __/Game/Entity.cpp.obj
 
 # target to build an object file
 __/Game/Entity.cpp.obj:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Entity.cpp.obj
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Entity.cpp.obj
 .PHONY : __/Game/Entity.cpp.obj
 
 __/Game/Entity.i: __/Game/Entity.cpp.i
@@ -583,7 +583,7 @@ __/Game/Entity.i: __/Game/Entity.cpp.i
 
 # target to preprocess a source file
 __/Game/Entity.cpp.i:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Entity.cpp.i
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Entity.cpp.i
 .PHONY : __/Game/Entity.cpp.i
 
 __/Game/Entity.s: __/Game/Entity.cpp.s
@@ -592,7 +592,7 @@ __/Game/Entity.s: __/Game/Entity.cpp.s
 
 # target to generate assembly for a file
 __/Game/Entity.cpp.s:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Entity.cpp.s
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Entity.cpp.s
 .PHONY : __/Game/Entity.cpp.s
 
 __/Game/Inventory.obj: __/Game/Inventory.cpp.obj
@@ -601,7 +601,7 @@ __/Game/Inventory.obj: __/Game/Inventory.cpp.obj
 
 # target to build an object file
 __/Game/Inventory.cpp.obj:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Inventory.cpp.obj
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Inventory.cpp.obj
 .PHONY : __/Game/Inventory.cpp.obj
 
 __/Game/Inventory.i: __/Game/Inventory.cpp.i
@@ -610,7 +610,7 @@ __/Game/Inventory.i: __/Game/Inventory.cpp.i
 
 # target to preprocess a source file
 __/Game/Inventory.cpp.i:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Inventory.cpp.i
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Inventory.cpp.i
 .PHONY : __/Game/Inventory.cpp.i
 
 __/Game/Inventory.s: __/Game/Inventory.cpp.s
@@ -619,7 +619,7 @@ __/Game/Inventory.s: __/Game/Inventory.cpp.s
 
 # target to generate assembly for a file
 __/Game/Inventory.cpp.s:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Inventory.cpp.s
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Inventory.cpp.s
 .PHONY : __/Game/Inventory.cpp.s
 
 __/Game/Item.obj: __/Game/Item.cpp.obj
@@ -628,7 +628,7 @@ __/Game/Item.obj: __/Game/Item.cpp.obj
 
 # target to build an object file
 __/Game/Item.cpp.obj:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Item.cpp.obj
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Item.cpp.obj
 .PHONY : __/Game/Item.cpp.obj
 
 __/Game/Item.i: __/Game/Item.cpp.i
@@ -637,7 +637,7 @@ __/Game/Item.i: __/Game/Item.cpp.i
 
 # target to preprocess a source file
 __/Game/Item.cpp.i:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Item.cpp.i
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Item.cpp.i
 .PHONY : __/Game/Item.cpp.i
 
 __/Game/Item.s: __/Game/Item.cpp.s
@@ -646,7 +646,7 @@ __/Game/Item.s: __/Game/Item.cpp.s
 
 # target to generate assembly for a file
 __/Game/Item.cpp.s:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Item.cpp.s
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Item.cpp.s
 .PHONY : __/Game/Item.cpp.s
 
 __/Game/Npc.obj: __/Game/Npc.cpp.obj
@@ -655,7 +655,7 @@ __/Game/Npc.obj: __/Game/Npc.cpp.obj
 
 # target to build an object file
 __/Game/Npc.cpp.obj:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Npc.cpp.obj
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Npc.cpp.obj
 .PHONY : __/Game/Npc.cpp.obj
 
 __/Game/Npc.i: __/Game/Npc.cpp.i
@@ -664,7 +664,7 @@ __/Game/Npc.i: __/Game/Npc.cpp.i
 
 # target to preprocess a source file
 __/Game/Npc.cpp.i:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Npc.cpp.i
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Npc.cpp.i
 .PHONY : __/Game/Npc.cpp.i
 
 __/Game/Npc.s: __/Game/Npc.cpp.s
@@ -673,7 +673,7 @@ __/Game/Npc.s: __/Game/Npc.cpp.s
 
 # target to generate assembly for a file
 __/Game/Npc.cpp.s:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Npc.cpp.s
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Npc.cpp.s
 .PHONY : __/Game/Npc.cpp.s
 
 __/Game/Player.obj: __/Game/Player.cpp.obj
@@ -682,7 +682,7 @@ __/Game/Player.obj: __/Game/Player.cpp.obj
 
 # target to build an object file
 __/Game/Player.cpp.obj:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Player.cpp.obj
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Player.cpp.obj
 .PHONY : __/Game/Player.cpp.obj
 
 __/Game/Player.i: __/Game/Player.cpp.i
@@ -691,7 +691,7 @@ __/Game/Player.i: __/Game/Player.cpp.i
 
 # target to preprocess a source file
 __/Game/Player.cpp.i:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Player.cpp.i
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Player.cpp.i
 .PHONY : __/Game/Player.cpp.i
 
 __/Game/Player.s: __/Game/Player.cpp.s
@@ -700,7 +700,7 @@ __/Game/Player.s: __/Game/Player.cpp.s
 
 # target to generate assembly for a file
 __/Game/Player.cpp.s:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Player.cpp.s
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Player.cpp.s
 .PHONY : __/Game/Player.cpp.s
 
 __/Game/Spell.obj: __/Game/Spell.cpp.obj
@@ -709,7 +709,7 @@ __/Game/Spell.obj: __/Game/Spell.cpp.obj
 
 # target to build an object file
 __/Game/Spell.cpp.obj:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Spell.cpp.obj
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Spell.cpp.obj
 .PHONY : __/Game/Spell.cpp.obj
 
 __/Game/Spell.i: __/Game/Spell.cpp.i
@@ -718,7 +718,7 @@ __/Game/Spell.i: __/Game/Spell.cpp.i
 
 # target to preprocess a source file
 __/Game/Spell.cpp.i:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Spell.cpp.i
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Spell.cpp.i
 .PHONY : __/Game/Spell.cpp.i
 
 __/Game/Spell.s: __/Game/Spell.cpp.s
@@ -727,7 +727,7 @@ __/Game/Spell.s: __/Game/Spell.cpp.s
 
 # target to generate assembly for a file
 __/Game/Spell.cpp.s:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Spell.cpp.s
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Spell.cpp.s
 .PHONY : __/Game/Spell.cpp.s
 
 __/Game/Stats.obj: __/Game/Stats.cpp.obj
@@ -736,7 +736,7 @@ __/Game/Stats.obj: __/Game/Stats.cpp.obj
 
 # target to build an object file
 __/Game/Stats.cpp.obj:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Stats.cpp.obj
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Stats.cpp.obj
 .PHONY : __/Game/Stats.cpp.obj
 
 __/Game/Stats.i: __/Game/Stats.cpp.i
@@ -745,7 +745,7 @@ __/Game/Stats.i: __/Game/Stats.cpp.i
 
 # target to preprocess a source file
 __/Game/Stats.cpp.i:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Stats.cpp.i
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Stats.cpp.i
 .PHONY : __/Game/Stats.cpp.i
 
 __/Game/Stats.s: __/Game/Stats.cpp.s
@@ -754,7 +754,7 @@ __/Game/Stats.s: __/Game/Stats.cpp.s
 
 # target to generate assembly for a file
 __/Game/Stats.cpp.s:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Stats.cpp.s
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Stats.cpp.s
 .PHONY : __/Game/Stats.cpp.s
 
 __/Gui/CharacterTab.obj: __/Gui/CharacterTab.cpp.obj
@@ -763,7 +763,7 @@ __/Gui/CharacterTab.obj: __/Gui/CharacterTab.cpp.obj
 
 # target to build an object file
 __/Gui/CharacterTab.cpp.obj:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/CharacterTab.cpp.obj
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/CharacterTab.cpp.obj
 .PHONY : __/Gui/CharacterTab.cpp.obj
 
 __/Gui/CharacterTab.i: __/Gui/CharacterTab.cpp.i
@@ -772,7 +772,7 @@ __/Gui/CharacterTab.i: __/Gui/CharacterTab.cpp.i
 
 # target to preprocess a source file
 __/Gui/CharacterTab.cpp.i:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/CharacterTab.cpp.i
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/CharacterTab.cpp.i
 .PHONY : __/Gui/CharacterTab.cpp.i
 
 __/Gui/CharacterTab.s: __/Gui/CharacterTab.cpp.s
@@ -781,7 +781,7 @@ __/Gui/CharacterTab.s: __/Gui/CharacterTab.cpp.s
 
 # target to generate assembly for a file
 __/Gui/CharacterTab.cpp.s:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/CharacterTab.cpp.s
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/CharacterTab.cpp.s
 .PHONY : __/Gui/CharacterTab.cpp.s
 
 __/Gui/Gui.obj: __/Gui/Gui.cpp.obj
@@ -790,7 +790,7 @@ __/Gui/Gui.obj: __/Gui/Gui.cpp.obj
 
 # target to build an object file
 __/Gui/Gui.cpp.obj:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/Gui.cpp.obj
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/Gui.cpp.obj
 .PHONY : __/Gui/Gui.cpp.obj
 
 __/Gui/Gui.i: __/Gui/Gui.cpp.i
@@ -799,7 +799,7 @@ __/Gui/Gui.i: __/Gui/Gui.cpp.i
 
 # target to preprocess a source file
 __/Gui/Gui.cpp.i:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/Gui.cpp.i
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/Gui.cpp.i
 .PHONY : __/Gui/Gui.cpp.i
 
 __/Gui/Gui.s: __/Gui/Gui.cpp.s
@@ -808,7 +808,7 @@ __/Gui/Gui.s: __/Gui/Gui.cpp.s
 
 # target to generate assembly for a file
 __/Gui/Gui.cpp.s:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/Gui.cpp.s
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/Gui.cpp.s
 .PHONY : __/Gui/Gui.cpp.s
 
 __/Gui/PauseMenu.obj: __/Gui/PauseMenu.cpp.obj
@@ -817,7 +817,7 @@ __/Gui/PauseMenu.obj: __/Gui/PauseMenu.cpp.obj
 
 # target to build an object file
 __/Gui/PauseMenu.cpp.obj:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/PauseMenu.cpp.obj
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/PauseMenu.cpp.obj
 .PHONY : __/Gui/PauseMenu.cpp.obj
 
 __/Gui/PauseMenu.i: __/Gui/PauseMenu.cpp.i
@@ -826,7 +826,7 @@ __/Gui/PauseMenu.i: __/Gui/PauseMenu.cpp.i
 
 # target to preprocess a source file
 __/Gui/PauseMenu.cpp.i:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/PauseMenu.cpp.i
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/PauseMenu.cpp.i
 .PHONY : __/Gui/PauseMenu.cpp.i
 
 __/Gui/PauseMenu.s: __/Gui/PauseMenu.cpp.s
@@ -835,7 +835,7 @@ __/Gui/PauseMenu.s: __/Gui/PauseMenu.cpp.s
 
 # target to generate assembly for a file
 __/Gui/PauseMenu.cpp.s:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/PauseMenu.cpp.s
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/PauseMenu.cpp.s
 .PHONY : __/Gui/PauseMenu.cpp.s
 
 __/Gui/PriestTab.obj: __/Gui/PriestTab.cpp.obj
@@ -844,7 +844,7 @@ __/Gui/PriestTab.obj: __/Gui/PriestTab.cpp.obj
 
 # target to build an object file
 __/Gui/PriestTab.cpp.obj:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/PriestTab.cpp.obj
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/PriestTab.cpp.obj
 .PHONY : __/Gui/PriestTab.cpp.obj
 
 __/Gui/PriestTab.i: __/Gui/PriestTab.cpp.i
@@ -853,7 +853,7 @@ __/Gui/PriestTab.i: __/Gui/PriestTab.cpp.i
 
 # target to preprocess a source file
 __/Gui/PriestTab.cpp.i:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/PriestTab.cpp.i
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/PriestTab.cpp.i
 .PHONY : __/Gui/PriestTab.cpp.i
 
 __/Gui/PriestTab.s: __/Gui/PriestTab.cpp.s
@@ -862,7 +862,7 @@ __/Gui/PriestTab.s: __/Gui/PriestTab.cpp.s
 
 # target to generate assembly for a file
 __/Gui/PriestTab.cpp.s:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/PriestTab.cpp.s
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/PriestTab.cpp.s
 .PHONY : __/Gui/PriestTab.cpp.s
 
 __/Gui/ShopTab.obj: __/Gui/ShopTab.cpp.obj
@@ -871,7 +871,7 @@ __/Gui/ShopTab.obj: __/Gui/ShopTab.cpp.obj
 
 # target to build an object file
 __/Gui/ShopTab.cpp.obj:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/ShopTab.cpp.obj
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/ShopTab.cpp.obj
 .PHONY : __/Gui/ShopTab.cpp.obj
 
 __/Gui/ShopTab.i: __/Gui/ShopTab.cpp.i
@@ -880,7 +880,7 @@ __/Gui/ShopTab.i: __/Gui/ShopTab.cpp.i
 
 # target to preprocess a source file
 __/Gui/ShopTab.cpp.i:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/ShopTab.cpp.i
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/ShopTab.cpp.i
 .PHONY : __/Gui/ShopTab.cpp.i
 
 __/Gui/ShopTab.s: __/Gui/ShopTab.cpp.s
@@ -889,7 +889,7 @@ __/Gui/ShopTab.s: __/Gui/ShopTab.cpp.s
 
 # target to generate assembly for a file
 __/Gui/ShopTab.cpp.s:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/ShopTab.cpp.s
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/ShopTab.cpp.s
 .PHONY : __/Gui/ShopTab.cpp.s
 
 __/Resources/Resource.obj: __/Resources/Resource.cpp.obj
@@ -898,7 +898,7 @@ __/Resources/Resource.obj: __/Resources/Resource.cpp.obj
 
 # target to build an object file
 __/Resources/Resource.cpp.obj:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/Resource.cpp.obj
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/Resource.cpp.obj
 .PHONY : __/Resources/Resource.cpp.obj
 
 __/Resources/Resource.i: __/Resources/Resource.cpp.i
@@ -907,7 +907,7 @@ __/Resources/Resource.i: __/Resources/Resource.cpp.i
 
 # target to preprocess a source file
 __/Resources/Resource.cpp.i:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/Resource.cpp.i
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/Resource.cpp.i
 .PHONY : __/Resources/Resource.cpp.i
 
 __/Resources/Resource.s: __/Resources/Resource.cpp.s
@@ -916,7 +916,7 @@ __/Resources/Resource.s: __/Resources/Resource.cpp.s
 
 # target to generate assembly for a file
 __/Resources/Resource.cpp.s:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/Resource.cpp.s
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/Resource.cpp.s
 .PHONY : __/Resources/Resource.cpp.s
 
 __/Resources/ResourcesHandler.obj: __/Resources/ResourcesHandler.cpp.obj
@@ -925,7 +925,7 @@ __/Resources/ResourcesHandler.obj: __/Resources/ResourcesHandler.cpp.obj
 
 # target to build an object file
 __/Resources/ResourcesHandler.cpp.obj:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/ResourcesHandler.cpp.obj
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/ResourcesHandler.cpp.obj
 .PHONY : __/Resources/ResourcesHandler.cpp.obj
 
 __/Resources/ResourcesHandler.i: __/Resources/ResourcesHandler.cpp.i
@@ -934,7 +934,7 @@ __/Resources/ResourcesHandler.i: __/Resources/ResourcesHandler.cpp.i
 
 # target to preprocess a source file
 __/Resources/ResourcesHandler.cpp.i:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/ResourcesHandler.cpp.i
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/ResourcesHandler.cpp.i
 .PHONY : __/Resources/ResourcesHandler.cpp.i
 
 __/Resources/ResourcesHandler.s: __/Resources/ResourcesHandler.cpp.s
@@ -943,7 +943,7 @@ __/Resources/ResourcesHandler.s: __/Resources/ResourcesHandler.cpp.s
 
 # target to generate assembly for a file
 __/Resources/ResourcesHandler.cpp.s:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/ResourcesHandler.cpp.s
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/ResourcesHandler.cpp.s
 .PHONY : __/Resources/ResourcesHandler.cpp.s
 
 mainTest.obj: mainTest.cpp.obj
@@ -952,7 +952,7 @@ mainTest.obj: mainTest.cpp.obj
 
 # target to build an object file
 mainTest.cpp.obj:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/mainTest.cpp.obj
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/mainTest.cpp.obj
 .PHONY : mainTest.cpp.obj
 
 mainTest.i: mainTest.cpp.i
@@ -961,7 +961,7 @@ mainTest.i: mainTest.cpp.i
 
 # target to preprocess a source file
 mainTest.cpp.i:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/mainTest.cpp.i
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/mainTest.cpp.i
 .PHONY : mainTest.cpp.i
 
 mainTest.s: mainTest.cpp.s
@@ -970,7 +970,7 @@ mainTest.s: mainTest.cpp.s
 
 # target to generate assembly for a file
 mainTest.cpp.s:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/mainTest.cpp.s
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/mainTest.cpp.s
 .PHONY : mainTest.cpp.s
 
 # Help Target
@@ -1084,6 +1084,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /d C:\Users\Leonardo\Desktop\DragonSlayer\cmake-build-release && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 0
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

@@ -71,21 +71,24 @@ public:
     std::string sortKeyWord();
     void updateRarityString();
     void updateRarityEnum();
+    void updateValueByRarity();
     bool use();
     bool canBeMultiple() const;
     void updateUsageType();
+    std::string getWeaponType() const;
 
     //TOSTRING
-    string listItem();
+    string listItem(bool abbreviate);
     std::string getItemUsageTypeString();
 
     //GET & SET
     void setId(unsigned int new_id);
     unsigned int getId() const;
-    int getUsageType();
+    item_usage_type getUsageType();
     int getQuantity() const;
     void setQuantity(int new_quantity);
     void minusQuantity(int minus_value);
+    void addQuantity(int add_value);
     int getDamage() const;
     void setDamage(int new_damage);
     int getArmor() const;
@@ -100,6 +103,7 @@ public:
     int getValue() const;
     void setRarity(string new_rarity);
     string getRarity() const;
+    void setRarity(item_rarity new_rarity);
     item_rarity getRarityEnum() const;
     void setIconRectX(int x);
     int getIconRectX() const;

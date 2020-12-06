@@ -467,35 +467,60 @@ void gui::ItemSlot::setSelectedBool(bool b) {
     isSelected = b;
 }
 
+void gui::ItemSlot::updateQuantityLbl() {
+    if(item != nullptr){
+        std::stringstream ss;
+        ss << "x" << item->getQuantity();
+        quantityLbl.setString(ss.str());
+    }
+}
+
+std::string gui::ItemSlot::textWrap(sf::Text& label, const std::string& wrap_text, float line_length) {
+    stringstream ss;
+    std::vector<std::string> lines;
+    bool remain_words;
+    for(char c : wrap_text) {
+        remain_words = true;
+        ss << c;
+        label.setString(ss.str());
+        if(label.getGlobalBounds().width > line_length){
+            ss << std::endl;
+            lines.push_back(ss.str());
+            ss.str("");
+            remain_words = false;
+        }
+    }
+    if(remain_words)
+        lines.push_back(ss.str());
+    std::string final_testo;
+    for(const auto& i : lines)
+        final_testo += i;
+
+    return final_testo;
+}
+
 void gui::ItemSlot::updateItemInfo() {
     if(item != nullptr){
         std::stringstream ss;
         ss << item->getName()
            << "\nType: " << item->getItemUsageTypeString()
            << "\n" << item->getRarity();
-        if(item->getHp() !=0){
+        if(item->getHp() !=0)
             ss << "\n+" << item->getHp() << " hp";
-        }
-        if(item->getMp() !=0){
+        if(item->getMp() !=0)
             ss << "\n+" << item->getMp() << " mp";
-        }
-        if(item->getDamage() !=0){
+        if(item->getDamage() !=0)
             ss << "\n+" << item->getDamage() << " dmg";
-        }
-        if(item->getArmor() !=0 && item->getUsageType() != 4){
+        if(item->getArmor() !=0 && item->getUsageType() != SHIELD_USAGE)
             ss << "\n+" << item->getArmor() << " armor";
-        }
-        if(item->getCritChance() !=0){
+        if(item->getCritChance() !=0)
             ss << "\n+" << item->getCritChance() << " % crit chance";
-        }
-        if(item->getEvadeChance() !=0){
+        if(item->getEvadeChance() !=0)
             ss << "\n+" << item->getEvadeChance() << " % evade chance";
-        }
-        ss << "\n' " << item->getDescription() << "'";
-
+        ss << "\n   " << item->getDescription();
         ss << "\nValue: " << item->getValue();
 
-        itemInfoLbl.setString(ss.str());
+        itemInfoLbl.setString(textWrap(itemInfoLbl, ss.str(), 250.f));
         itemInfoContainer.setSize(sf::Vector2f(itemInfoLbl.getGlobalBounds().width + 10.f,
                                                      itemInfoLbl.getGlobalBounds().height + 15.f));
     }
@@ -602,17 +627,6 @@ void gui::ItemSlot::setShapeTexture(const sf::Texture *new_shape_texture, const 
 sf::IntRect* gui::ItemSlot::getIntRect() {
     return &intRect;
 }
-
-void gui::ItemSlot::updateQuantityLbl() {
-    if(item != nullptr){
-        std::stringstream ss;
-        ss << "x" << item->getQuantity();
-        quantityLbl.setString(ss.str());
-    }
-}
-
-
-
 
 /*
  *                      CONFIRM DIALOG
@@ -843,13 +857,11 @@ int gui::CustomDialog::getTotValue() const {
 gui::ShopSlot::ShopSlot()= default;
 
 gui::ShopSlot::ShopSlot(float width, float height, float pos_x, float pos_y, sf::Font* font, Item item) : item(item){
-
     mouseHoverImage = false;
+    price = (unsigned int)(item.getValue() * 1.5);
 
     shape.setSize(sf::Vector2f(width, height));
     shape.setPosition(pos_x, pos_y);
-
-    price = (unsigned int)(item.getValue() * 1.5);
 
     priceLbl.setString(to_string(price));
     priceLbl.setFillColor(sf::Color::Yellow);
@@ -879,14 +891,15 @@ gui::ShopSlot::ShopSlot(float width, float height, float pos_x, float pos_y, sf:
 
     itemInfoLbl.setFont(*font);
     itemInfoLbl.setCharacterSize(18);
-    itemInfoLbl << sf::Text::Bold << item.getName() << "\n"
-    << "Type: " << item.getItemType() << "\n"
-    << item.getRarity() << "\n"
-    << sf::Text::Italic << "' " << item.getDescription() << " '";
+    stringstream ss;
+    ss << item.getName() << std::endl
+       << "Type: " << item.getItemUsageTypeString() << std::endl
+       << item.getRarity() << std::endl
+       << "   " << item.getDescription();
+    itemInfoLbl.setString(textWrap(itemInfoLbl, ss.str(), 250.f));
 
     itemInfoContainer.setSize(sf::Vector2f(itemInfoLbl.getGlobalBounds().width + 10.f,
                                                   itemInfoLbl.getGlobalBounds().height + 15.f));
-
 }
 
 gui::ShopSlot::~ShopSlot() = default;
@@ -901,7 +914,6 @@ unsigned int gui::ShopSlot::getPrice() const {
 }
 
 //modifiers
-
 void gui::ShopSlot::setSlotTexture(const sf::Texture *slot_texture, float size) {
     shape.setTexture(slot_texture);
     shape.setTextureRect(sf::IntRect(
@@ -923,6 +935,30 @@ void gui::ShopSlot::setSlotTexture(const sf::Texture *slot_texture, float size) 
 }
 
 //functions
+std::string gui::ShopSlot::textWrap(sf::Text& label, const std::string& wrap_text, float line_length) {
+    stringstream ss;
+    std::vector<std::string> lines;
+    bool remain_words;
+    for(char c : wrap_text) {
+        remain_words = true;
+        ss << c;
+        label.setString(ss.str());
+        if(label.getGlobalBounds().width > line_length){
+            ss << std::endl;
+            lines.push_back(ss.str());
+            ss.str("");
+            remain_words = false;
+        }
+    }
+    if(remain_words)
+        lines.push_back(ss.str());
+    std::string final_testo;
+    for(const auto& i : lines)
+        final_testo += i;
+
+    return final_testo;
+}
+
 bool gui::ShopSlot::isPressed() {
     return buyBtn.isPressed();
 }

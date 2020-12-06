@@ -58,7 +58,7 @@ string Inventory::listInventory(){
     string desc;
     for(const auto& i : items){
         //if(!i->getItemType().empty())
-            desc+= i->listItem() + "\n";
+            desc+= i->listItem(true) + "\n";
     }
     return desc;
 }

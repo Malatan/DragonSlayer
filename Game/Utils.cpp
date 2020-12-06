@@ -5,15 +5,16 @@
 #include "Utils.h"
 
 int utils::generateRandomNumber(int from, int to) {
-    std::random_device rd;
-    static std::default_random_engine generator(rd()); // rd() provides a random seed
     std::uniform_int_distribution<int> distribution(from,to);
     return distribution(generator);
 }
 
+float utils::generateRandomNumberf(float from, float to, int n_decimal) {
+    std::uniform_real_distribution<float> distribution(from,to);
+    return roundf(distribution(generator), n_decimal);
+}
+
 std::vector<int> utils::generateRandomNumbers(int from, int to, int n) {
-    std::random_device rd;
-    static std::default_random_engine generator(rd()); // rd() provides a random seed
     std::uniform_int_distribution<int> distribution(from,to);
     std::vector<int> numbers;
     numbers.reserve(n);
@@ -24,8 +25,6 @@ std::vector<int> utils::generateRandomNumbers(int from, int to, int n) {
 }
 
 bool utils::trueFalse(float probability) {
-    std::random_device rd;
-    static std::default_random_engine generator(rd()); // rd() provides a random seed
     std::uniform_real_distribution<float> distribution(0,100);
     float res = distribution(generator);
     return  res < probability;
@@ -35,4 +34,6 @@ float utils::roundf(float n, int n_decimals) {
     float app = std::pow(10, n_decimals);
     return std::roundf(n * app) / app;
 }
+
+
 

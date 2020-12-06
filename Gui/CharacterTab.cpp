@@ -529,7 +529,7 @@ void CharacterTab::equipUnequipItem(int equip_slot, const std::shared_ptr<Item>&
 
 void CharacterTab::useConsumable(const std::shared_ptr<Item>& item, std::unique_ptr<gui::ItemSlot>& i) {
     bool have_more = true;
-    if(item->getQuantity() > 0 && item->getUsageType() == 6){
+    if(item->getQuantity() > 0 && item->getUsageType() == CONSUMABLE_USAGE){
         have_more = item->use();
         gState->getBuffComponent()->applyItemBuff(item->getName(), true);
         i->updateQuantityLbl();
@@ -548,25 +548,25 @@ void CharacterTab::equipUnEquipBtnFunction() {
             //std::shared_ptr<Item> item = player->getInventory()->getItemById(i->getItem()->getId());
             std::shared_ptr<Item> item = i->getItem();
             switch(i->getItem()->getUsageType()){
-                case 5:
+                case WEAPON_USAGE:
                     equipUnequipItem(5, item, i, "WEAPON_ICON");
                     break;
-                case 4:
+                case SHIELD_USAGE:
                     equipUnequipItem(4, item, i, "SHIELD_ICON");
                     break;
-                case 3:
+                case HEAD_USAGE:
                     equipUnequipItem(3, item, i, "HELMET_ICON");
                     break;
-                case 2:
+                case CHEST_USAGE:
                     equipUnequipItem(2, item, i, "ARMOR_ICON");
                     break;
-                case 1:
+                case ARMS_USAGE:
                     equipUnequipItem(1, item, i, "GLOVES_ICON");
                     break;
-                case 0:
+                case LEGS_USAGE:
                     equipUnequipItem(0, item, i, "BOOTS_ICON");
                     break;
-                case 6:
+                case CONSUMABLE_USAGE:
                     useConsumable(item, i);
                     break;
                 default:
@@ -812,7 +812,7 @@ void CharacterTab::updateEquipBonusLbl() {
             hpBonus += player->getEquippedItem(i)->getHp();
             mpBonus += player->getEquippedItem(i)->getMp();
             dmgBonus += player->getEquippedItem(i)->getDamage();
-            if(player->getEquippedItem(i)->getUsageType() != 4)
+            if(player->getEquippedItem(i)->getUsageType() != SHIELD_USAGE)
                 armorBonus += player->getEquippedItem(i)->getArmor();
             critChanceBonus += player->getEquippedItem(i)->getCritChance();
             evadeChanceBonus += player->getEquippedItem(i)->getEvadeChance();
@@ -866,22 +866,22 @@ void CharacterTab::deleteItemFromInventory() {
     for(auto &i : inventorySlots){
         if(i->getItem()->isEquipped()){
             switch(i->getItem()->getUsageType()){
-                case 5:
+                case WEAPON_USAGE:
                     i->setUpRightTexture(&textures["WEAPON_ICON"]);
                     break;
-                case 4:
+                case SHIELD_USAGE:
                     i->setUpRightTexture(&textures["SHIELD_ICON"]);
                     break;
-                case 3:
+                case HEAD_USAGE:
                     i->setUpRightTexture(&textures["HELMET_ICON"]);
                     break;
-                case 2:
+                case CHEST_USAGE:
                     i->setUpRightTexture(&textures["ARMOR_ICON"]);
                     break;
-                case 1:
+                case ARMS_USAGE:
                     i->setUpRightTexture(&textures["GLOVES_ICON"]);
                     break;
-                case 0:
+                case LEGS_USAGE:
                     i->setUpRightTexture(&textures["BOOTS_ICON"]);
                     break;
                 default:

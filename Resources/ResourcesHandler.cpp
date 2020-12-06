@@ -95,7 +95,6 @@ void ResourcesHandler::loadPlayerInventoryTxt(const std::shared_ptr<Inventory>& 
             file >> app;
             std::replace(app.begin(), app.end(), '_', ' ');
             item->setDescription(app);
-
             file >> app;
             item->setValue(std::stoi(app));
             file >> app;

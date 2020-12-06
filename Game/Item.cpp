@@ -44,25 +44,37 @@ usageType(item->usageType), equipped(item->equipped), rarityEnum(item->rarityEnu
 
 Item::~Item() = default;
 
-string Item::listItem() {
+string Item::listItem(bool abbreviate) {
     stringstream ss;
     ss << "-------------------------Item Info-------------------------" << std::endl
-        << "Id: " << Id
-        << " Itemtype: " << itemType
-        << " type: " << usageType
-        << " name: " << name
-        << " desc: " << description
-        << " value: " << value
-        << " rarity: " << rarity
-        << "(" << rarityEnum << ")"
-        << " hp: " << hp
-        << " mp: " << mp
-        << " damage: " << damage
-        << " armor: " << armor
-        << " critchance: " << critChance
-        << " evadechance: " << evadeChance
-        << " quantity: " << quantity
-        << " iconRect: " << iconRectX
+        << "Id: " << Id << std::endl
+        << "Itemtype: " << itemType << std::endl
+        << "usage type: " << getItemUsageTypeString() << std::endl
+        << "name: " << name << std::endl;
+        if(description.size() > 60 && abbreviate){
+            int count = 60;
+            ss << "desc: [";
+            for(auto c : description){
+                ss << c;
+                count--;
+                if(count == 0)
+                    break;
+            }
+            ss << "...]" << std::endl;
+        }else{
+            ss << "desc: [" << description << "]" << std::endl;
+        }
+    ss  << "value: " << value << std::endl
+        << "rarity: " << rarity
+        << "(" << rarityEnum << ")" << std::endl
+        << "hp: " << hp << std::endl
+        << "mp: " << mp << std::endl
+        << "damage: " << damage << std::endl
+        << "armor: " << armor << std::endl
+        << "critchance: " << critChance << std::endl
+        << "evadechance: " << evadeChance << std::endl
+        << "quantity: " << quantity << std::endl
+        << "iconRect: " << iconRectX
         << "-" << iconRectY << std::endl
         << "-------------------------END-Item Info-END-------------------------" << std::endl;
     return ss.str();
@@ -152,23 +164,23 @@ void Item::setArmor(int new_armor) {
 std::string Item::getItemUsageTypeString() {
     std::string app = itemType.substr(2);
     if(app == "head"){
-        app = "Helmet";
+        return "Helmet";
     } else if(app == "chest"){
-        app = "Chest";
+        return "Chest";
     } else if(app == "arms"){
-        app = "Gloves";
+        return "Gloves";
     } else if(app == "legs"){
-        app = "Boots";
+        return "Boots";
     } else if(app == "sword" || app == "axe"){
-        app = "Melee";
+        return "Melee";
     } else if(app == "bow"){
-        app = "Ranged";
+        return "Ranged";
     } else if(app == "shield"){
-        app = "Shield";
+        return "Shield";
     }else if(app == "potionS" || app == "potionM" || app == "potionL"){
-        app = "Consumable";
+        return "Consumable";
     }
-    return app;
+    return itemType;
 }
 
 void Item::setIsNew(bool b) {
@@ -219,7 +231,7 @@ void Item::setEvadeChance(float new_evadeChance) {
     evadeChance = new_evadeChance;
 }
 
-int Item::getUsageType() {
+item_usage_type Item::getUsageType() {
     return usageType;
 }
 
@@ -313,6 +325,42 @@ bool Item::canBeMultiple() const {
 void Item::minusQuantity(int minus_value) {
     if(minus_value < quantity)
         quantity -= minus_value;
+}
+
+void Item::setRarity(item_rarity new_rarity) {
+    rarityEnum = new_rarity;
+    updateRarityString();
+}
+
+void Item::updateValueByRarity() {
+    switch (rarityEnum) {
+        case DEFAULT_RARITY:
+        case UNCOMMON:
+            break;
+        case COMMON:
+            value = (int)((float)value * 1.5f);
+            break;
+        case RARE:
+            value = value * 2;
+            break;
+        case EPIC:
+            value = (int)((float)value * 2.5f);
+            break;
+        case LEGENDARY:
+            value = value * 3;
+            break;
+    }
+}
+
+void Item::addQuantity(int add_value) {
+    quantity += add_value;
+}
+
+std::string Item::getWeaponType() const {
+    if(usageType == WEAPON_USAGE){
+        return itemType.substr(2);
+    }
+    return "";
 }
 
 

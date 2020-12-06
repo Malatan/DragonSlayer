@@ -158,6 +158,7 @@ namespace gui{
         void setUpRightTexture(sf::Texture* new_texture);
 
         //functions
+        std::string textWrap(sf::Text& label, const std::string& wrap_text, float line_length);
         void updateQuantityLbl();
         void updateItemInfo();
         void updateItemInfoPos(const sf::Vector2f& mousePos);
@@ -200,11 +201,10 @@ namespace gui{
         unsigned int getPrice() const;
 
         //modifiers
-
         void setSlotTexture(const sf::Texture *slot_texture, float size);
 
-
         //functions
+        std::string textWrap(sf::Text& label, const std::string& wrap_text, float line_length);
         void updateItemInfoContainerPos(const sf::Vector2f& mousePos);
         bool isPressed();
         void update(const sf::Vector2f &mousePos);
@@ -218,7 +218,7 @@ namespace gui{
         Item item{};
 
         sf::RectangleShape itemInfoContainer;
-        sfe::RichText itemInfoLbl;
+        sf::Text itemInfoLbl;
         bool mouseHoverImage{};
 
         unsigned int price{};

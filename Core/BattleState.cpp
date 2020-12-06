@@ -283,7 +283,7 @@ void BattleState::initInventoryPanel() {
     if(!itemRows.empty())
         itemRows.clear();
     for (int i = 0; i < player->getInventory()->getItemsSize(); i++) {
-        if (player->getInventory()->getItemByIndex(i)->getUsageType() == 6) {
+        if (player->getInventory()->getItemByIndex(i)->getUsageType() == CONSUMABLE_USAGE) {
             itemRows.push_back(std::make_unique<gui::ItemRow>(
                     525.f, 50.f,
                     itemActionPanel.getPosition().x + 15.f,
