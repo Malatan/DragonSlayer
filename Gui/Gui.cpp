@@ -856,7 +856,8 @@ int gui::CustomDialog::getTotValue() const {
 //constructors/destructor
 gui::ShopSlot::ShopSlot()= default;
 
-gui::ShopSlot::ShopSlot(float width, float height, float pos_x, float pos_y, sf::Font* font, Item item) : item(item){
+gui::ShopSlot::ShopSlot(float width, float height, float pos_x, float pos_y, sf::Font* font, Item item, const std::string& key)
+                    : item(item), key(key){
     mouseHoverImage = false;
     price = (unsigned int)(item.getValue() * 1.5);
 
@@ -872,7 +873,7 @@ gui::ShopSlot::ShopSlot(float width, float height, float pos_x, float pos_y, sf:
 
     buyBtn = gui::Button(
             shape.getPosition().x,
-            shape.getPosition().y + height,
+            shape.getPosition().y + height + 4.f,
             width, height/4.f,
             font, "Buy", 20.f,
             sf::Color(255, 255, 255, 255),
@@ -895,7 +896,8 @@ gui::ShopSlot::ShopSlot(float width, float height, float pos_x, float pos_y, sf:
     ss << item.getName() << std::endl
        << "Type: " << item.getItemUsageTypeString() << std::endl
        << item.getRarity() << std::endl
-       << "   " << item.getDescription();
+       << "   " << item.getDescription() << std::endl
+       << "Value: " << price;
     itemInfoLbl.setString(textWrap(itemInfoLbl, ss.str(), 250.f));
 
     itemInfoContainer.setSize(sf::Vector2f(itemInfoLbl.getGlobalBounds().width + 10.f,
@@ -920,7 +922,7 @@ void gui::ShopSlot::setSlotTexture(const sf::Texture *slot_texture, float size) 
             item.getIconRectX() * (int)size,
             item.getIconRectY() * (int)size,
             size, size));
-    shape.setOutlineThickness(-3.f);
+    shape.setOutlineThickness(2.f);
     if(item.getRarity() == "Uncommon"){
         shape.setOutlineColor(sf::Color::White);
     } else if(item.getRarity() == "Common"){
@@ -988,6 +990,10 @@ void gui::ShopSlot::render(sf::RenderTarget &target) {
         target.draw(itemInfoContainer);
         target.draw(itemInfoLbl);
     }
+}
+
+std::string gui::ShopSlot::getKey() const {
+    return key;
 }
 
 /*

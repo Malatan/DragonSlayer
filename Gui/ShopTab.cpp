@@ -4,8 +4,6 @@
 
 #include "ShopTab.h"
 
-#include <utility>
-
 void ShopTab::initShopSlots() {
     //init shop slots
     if(!shopSlots.empty()){
@@ -17,13 +15,13 @@ void ShopTab::initShopSlots() {
     float modifierY = 120.f;
     float yMultiplier = 0;
     int count = 0;
-    for(const auto& i : lootGenerator->getConsumablesList()){
+    for(const auto& i : lootGenerator->getShopList()){
         if((count % max_per_row) == 0 && count != 0){
             yMultiplier ++;
         }
         shopSlots.push_back(std::make_shared<gui::ShopSlot>(80.f, 80.f,
                 container.getPosition().x + 35.f + (modifierX * (float)(count % max_per_row)),
-                container.getPosition().y + 80.f + (modifierY * yMultiplier), font, i.second));
+                container.getPosition().y + 80.f + (modifierY * yMultiplier), font, i.second, i.first));
         count++;
     }
 }
@@ -76,36 +74,94 @@ ShopTab::ShopTab(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* font
 ShopTab::~ShopTab() = default;
 
 //functions
-void ShopTab::buyItem(const std::string& item_name, const unsigned price) {
+void ShopTab::buyItem(const std::string& item_name, const std::string& key, item_usage_type item_usage, const unsigned price) {
     if(player->getGold() >= price){
-        std::shared_ptr<Item> it = std::make_shared<Item>(lootGenerator->getConsumablesList().at(item_name));
-        if(it->getName() == "UpgradeInventory"){
-            if(player->getGold() < it->getValue()){
-                gState->getPopUpTextComponent()->addPopUpTextCenter(DEFAULT_RARITY,
-                                                                    "Insufficient Gold", "", "");
-            } else if(!player->getInventory()->isExpandable()){
-                gState->getPopUpTextComponent()->addPopUpTextCenter(DEFAULT_RARITY,
-                        "Your inventory cannot be expanded anymore(Limit:" +
-                        to_string(Inventory::MAX_SPACE), "", ")");
+        if(item_name == "Upgrade Inventory"){
+            if(!player->getInventory()->isExpandable()){
+                gState->getPopUpTextComponent()->addPopUpTextCenter(
+                        DEFAULT_TAG,
+                        "Your inventory cannot be expanded anymore(Limit:" +to_string(Inventory::MAX_SPACE),
+                        "", ")");
             } else{
                 player->minusGold(price);
                 player->getInventory()->expandInventorySpace(5);
                 gState->updateTabsGoldLbl();
                 gState->updateTabsInvSpaceLbl();
-                gState->getPopUpTextComponent()->addPopUpTextCenter(DEFAULT_RARITY,
+                gState->getPopUpTextComponent()->addPopUpTextCenter(
+                        DEFAULT_TAG,
                         to_string(player->getInventory()->getCurrentMaxSpace()-5)+"->", "Inventory capacity +5 (",
-                                                                    to_string(player->getInventory()->getCurrentMaxSpace()));
+                        to_string(player->getInventory()->getCurrentMaxSpace()));
             }
 
-        }else{
-            player->minusGold(price);
-            it->setId(rsHandler->generateId());
-            gState->addItem(it);
-            gState->updateTabsGoldLbl();
+        } else if(!player->getInventory()->isFull() ||
+                (player->getInventory()->hasItemByName(item_name) && item_usage == CONSUMABLE_USAGE)){
+            std::shared_ptr<Item> it = std::make_shared<Item>(lootGenerator->getShopList().at(key));
+            if(it->getName() == "Mystery Box"){
+                std::shared_ptr<Item> new_item = gState->getLootGenerator()->generateTierEquipment(
+                        DEFAULT_RARITY, true);
+                player->minusGold(price);
+                gState->updateTabsGoldLbl();
+                gState->addItem(new_item);
+                gState->updateTabsInvSpaceLbl();
+                gState->getPopUpTextComponent()->addPopUpTextCenter(
+                        DEFAULT_TAG, new_item->getName(), "You got [", "]");
+            } else if(it->getName() == "Mystery Box(Uncommon)"){
+                std::shared_ptr<Item> new_item = gState->getLootGenerator()->generateTierEquipment(
+                        UNCOMMON, false);
+                player->minusGold(price);
+                gState->updateTabsGoldLbl();
+                gState->addItem(new_item);
+                gState->updateTabsInvSpaceLbl();
+                gState->getPopUpTextComponent()->addPopUpTextCenter(
+                        DEFAULT_TAG, new_item->getName(), "You got [", "]");
+            } else if(it->getName() == "Mystery Box(Common)"){
+                std::shared_ptr<Item> new_item = gState->getLootGenerator()->generateTierEquipment(
+                        COMMON, false);
+                player->minusGold(price);
+                gState->updateTabsGoldLbl();
+                gState->addItem(new_item);
+                gState->updateTabsInvSpaceLbl();
+                gState->getPopUpTextComponent()->addPopUpTextCenter(
+                        DEFAULT_TAG, new_item->getName(), "You got [", "]");
+            } else if(it->getName() == "Mystery Box(Rare)"){
+                std::shared_ptr<Item> new_item = gState->getLootGenerator()->generateTierEquipment(
+                        RARE, false);
+                player->minusGold(price);
+                gState->updateTabsGoldLbl();
+                gState->addItem(new_item);
+                gState->updateTabsInvSpaceLbl();
+                gState->getPopUpTextComponent()->addPopUpTextCenter(
+                        DEFAULT_TAG, new_item->getName(), "You got [", "]");
+            } else if(it->getName() == "Mystery Box(Epic)"){
+                std::shared_ptr<Item> new_item = gState->getLootGenerator()->generateTierEquipment(
+                        EPIC, false);
+                player->minusGold(price);
+                gState->updateTabsGoldLbl();
+                gState->addItem(new_item);
+                gState->updateTabsInvSpaceLbl();
+                gState->getPopUpTextComponent()->addPopUpTextCenter(
+                        DEFAULT_TAG, new_item->getName(), "You got [", "]");
+            } else if(it->getName() == "Mystery Box(Legendary)"){
+                std::shared_ptr<Item> new_item = gState->getLootGenerator()->generateTierEquipment(
+                        LEGENDARY, false);
+                player->minusGold(price);
+                gState->updateTabsGoldLbl();
+                gState->addItem(new_item);
+                gState->updateTabsInvSpaceLbl();
+                gState->getPopUpTextComponent()->addPopUpTextCenter(
+                        DEFAULT_TAG, new_item->getName(), "You got [", "]");
+            } else{
+                player->minusGold(price);
+                it->setId(rsHandler->generateId());
+                gState->addItem(it);
+                gState->updateTabsGoldLbl();
+                gState->getPopUpTextComponent()->addPopUpTextCenter(DEFAULT_RARITY,"1 "+item_name,
+                                                                    "You bought","for "+to_string(price)+" gold");
+            }
+        } else{
             gState->getPopUpTextComponent()->addPopUpTextCenter(DEFAULT_RARITY,
-                    "1 "+item_name, "You bought","for "+to_string(price)+" gold");
+                                                                "Your inventory is full!", "", "");
         }
-
     }else{
         gState->getPopUpTextComponent()->addPopUpTextCenter(DEFAULT_RARITY,
                                                             "Insufficient Gold", "", "");
@@ -141,7 +197,7 @@ void ShopTab::update(const sf::Vector2f &mousePos) {
     for(const auto& i : shopSlots){
         i->update(mousePos);
         if(i->isPressed() && gState->getKeyTime()){
-            buyItem(i->getItem().getName(), i->getPrice());
+            buyItem(i->getItem().getName(), i->getKey(), i->getItem().getUsageType(), i->getPrice());
         }
     }
 }

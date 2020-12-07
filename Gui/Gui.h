@@ -193,12 +193,13 @@ namespace gui{
     public:
         //constructors/destructor
         ShopSlot();
-        ShopSlot(float width, float height, float pos_x, float pos_y, sf::Font* font, Item item);
+        ShopSlot(float width, float height, float pos_x, float pos_y, sf::Font* font, Item item, const std::string& key);
         virtual ~ShopSlot();
 
         //accessors
         Item getItem() const;
         unsigned int getPrice() const;
+        std::string getKey() const;
 
         //modifiers
         void setSlotTexture(const sf::Texture *slot_texture, float size);
@@ -216,6 +217,7 @@ namespace gui{
         sf::Texture texture;
         gui::Button buyBtn;
         Item item{};
+        std::string key;
 
         sf::RectangleShape itemInfoContainer;
         sf::Text itemInfoLbl;

@@ -72,9 +72,8 @@ void ResourcesHandler::loadPlayerStatsTxt(const std::shared_ptr<Stats>& playerSt
         playerStats->addAttribute(AGILITY, appi);
         file >> appi;
         playerStats->setFreePoints(appi);
+        file.close();
     }
-
-    file.close();
 }
 
 void ResourcesHandler::loadPlayerInventoryTxt(const std::shared_ptr<Inventory>& playerInventory) {
@@ -134,6 +133,7 @@ void ResourcesHandler::loadPlayerInventoryTxt(const std::shared_ptr<Inventory>& 
         if(playerInventory->getItemsSize() > 1){
             playerInventory->sortByItemType();
         }
+        file.close();
     }
 }
 
@@ -179,6 +179,7 @@ void ResourcesHandler::loadSpellList(const std::shared_ptr<SpellComponent>& spel
             spellComponent->addSpell(spell);
             spellComponent->addPlayerSpell(spell);
         }
+        file.close();
     }
 }
 
@@ -213,6 +214,7 @@ void ResourcesHandler::loadMaterialsTxt(std::vector<std::unique_ptr<Item>> &mate
             material->setId(generateId());
             material_list.push_back(std::move(material));
         }
+        file.close();
     }
 }
 

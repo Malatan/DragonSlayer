@@ -20,7 +20,8 @@ public:
 
     const vector<std::shared_ptr<gui::ShopSlot>> &getShopSlots() const;
     //functions
-    void buyItem(const std::string& item_name, const unsigned price);
+    void buyItem(const std::string& item_name, const std::string& key,
+                 item_usage_type item_usage, const unsigned price);
     bool closeTabByClicking(const sf::Vector2f& mousePos);
     void updateGoldLbl();
     void updateInvSpaceLbl();
