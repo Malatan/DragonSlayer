@@ -19,9 +19,11 @@ public:
     virtual ~Inventory();
 
     //functions
+    bool isFull();
     void expandInventorySpace(int n);
     bool isExpandable();
     bool removeItemById(unsigned int id);
+    bool hasItemByName(const std::string& item_name) const;
     bool addItem(std::shared_ptr<Item> new_item);
     void sortByItemType();
     string listInventory();

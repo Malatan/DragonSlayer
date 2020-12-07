@@ -1,12 +1,12 @@
-Material		60	
-Comsumable	20	80
-Weapon		10	90
-Shield		10	100
-Helmet		10	110
-Chestplate	10	120
-Gloves		10	130
-Boots		10	140
-Nothing		90	230	
+Material		120	
+Comsumable	20	140
+Weapon		10	150
+Shield		10	160
+Helmet		10	170
+Chestplate	10	180
+Gloves		10	190
+Boots		10	200
+Nothing		100	300	
 
 Uncommon	60	
 Common		40	100

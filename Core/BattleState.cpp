@@ -68,8 +68,8 @@ void BattleState::initBattleFieldComponents() {
 
     messageLbl.setFont(*font);
     messageLbl.setCharacterSize(20);
-    messageLbl.setPosition(turnPanel.getPosition().x + turnPanel.getGlobalBounds().width + 5.f,
-                           turnPanel.getPosition().y);
+    messageLbl.setPosition(turnPanel.getPosition().x,
+                           turnPanel.getPosition().y + turnPanel.getGlobalBounds().height);
     stringstream ss;
     ss << "Be aware! Enemy Captain has been enhanced\n"
                   "by its followers\n"

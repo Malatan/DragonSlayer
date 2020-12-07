@@ -453,6 +453,10 @@ std::shared_ptr<SpellTab> GameState::getSpellTab() {
     return spellTab;
 }
 
+std::shared_ptr<LootGenerator> GameState::getLootGenerator() {
+    return lootGenerator;
+}
+
 //functions
 void GameState::addItem(const std::shared_ptr<Item>& new_item) {
     if(player->getInventory()->addItem(new_item)){
@@ -618,14 +622,26 @@ void GameState::changeStato(int current_stato) {
 
 void GameState::checkBattleResult(BattleResult& battle_result) {
     std::cout<<battle_result.generateReport();
-
-
-
-
-
-
-
-
+    switch(battle_result.getResultType()){
+        case WIN:{
+            std::shared_ptr<Enemy> defeated_enemy;
+            for(const auto& i : enemies){
+                if(i->getId() == battle_result.getEnemyLeaderId()){
+                    defeated_enemy = i;
+                    break;
+                }
+            }
+            lootGenerator->generateLoot(defeated_enemy->getDeadFollowersNumber() + 1, currentFloor);
+            break;
+        }
+        case LOST:
+            break;
+        case QUIT_GAME:
+            endState();
+            break;
+        case ESCAPED: case NOT_FINISHED:
+            break;
+    }
 
 
 }
@@ -918,6 +934,8 @@ void GameState::updateTileMap(const float &dt) {
     if(!noclip)
         map->updateTileCollision(player, dt);
 }
+
+
 
 
 

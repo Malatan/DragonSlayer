@@ -48,14 +48,14 @@ public:
     explicit LootGenerator(std::shared_ptr<ResourcesHandler> rs_handler);
     virtual ~LootGenerator();
 
-    void generateLoot(int floor);
+    void generateLoot(int drop_count, int floor);
+    std::shared_ptr<Item> generateTierEquipment(item_rarity equip_rarity, bool random_rarity);
     Item *getMaterialByEnemyType(enemy_types type);
     static std::string getRarityString(item_rarity rarity_enum);
     static std::string getRarityString(loot_rarity rarity_enum);
-    std::string getEffectString(equip_effect effect) const;
 
     const vector<std::unique_ptr<Item>> &getDroppableMaterials() const;
-    const map<std::string, Item> &getConsumablesList() const;
+    const map<std::string, Item> &getShopList() const;
 
     std::string toStringMaterials();
 private:
@@ -102,9 +102,10 @@ private:
     std::vector<std::unique_ptr<Item>> droppableMaterials;
     std::map<std::string, Item> shopList;
     std::vector<std::string> droppableConsumablesList;
+    std::vector<std::shared_ptr<Item>> lootBag;
 
     void initDroppableMaterials();
-    void initConsumablesList();
+    void initShopList();
     void initDroppableConsumablesList();
 };
 

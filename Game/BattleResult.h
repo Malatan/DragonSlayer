@@ -42,6 +42,8 @@ public:
     void updateBattleResult(battle_result_types b_result, bool player_killed, const std::shared_ptr<Enemy>& enemy_leader);
 
     //getters setters
+    battle_result_types getResultType();
+    unsigned int getEnemyLeaderId();
 
 private:
     battle_result_types battleResult{};

@@ -46,6 +46,7 @@ public:
     std::shared_ptr<PopUpTextComponent> getPopUpTextComponent();
     std::shared_ptr<SpellComponent> getSpellComponent();
     std::shared_ptr<SpellTab> getSpellTab();
+    std::shared_ptr<LootGenerator> getLootGenerator();
 
     //functions
     void checkBattleResult(BattleResult& battle_result);

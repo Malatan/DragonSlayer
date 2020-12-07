@@ -103,6 +103,18 @@ bool Inventory::isExpandable() {
     return *currentMaxSpace < MAX_SPACE;
 }
 
+bool Inventory::isFull() {
+    return items.size() == *currentMaxSpace;
+}
+
+bool Inventory::hasItemByName(const std::string& item_name) const {
+    for(const auto& i : items){
+        if(i->getName() == item_name)
+            return true;
+    }
+    return false;
+}
+
 
 
 

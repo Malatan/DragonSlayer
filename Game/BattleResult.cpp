@@ -102,6 +102,14 @@ std::string BattleResult::generateReport() const {
     return ss.str();
 }
 
+battle_result_types BattleResult::getResultType(){
+    return battleResult;
+}
+
+unsigned int BattleResult::getEnemyLeaderId() {
+    return enemyLeaderId;
+}
+
 
 
 
