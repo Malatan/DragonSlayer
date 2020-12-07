@@ -46,7 +46,6 @@ bool Inventory::addItem(std::shared_ptr<Item> new_item) {
             return true;
         }
     }
-
     if(items.size() < *currentMaxSpace){
         items.push_back(std::move(new_item));
         return true;

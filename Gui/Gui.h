@@ -137,15 +137,15 @@ namespace gui{
     public:
         //constructors/destructors
         ItemSlot();
-        ItemSlot(float x, float y, float width, float height, int id, std::shared_ptr<sf::RenderWindow> window,
+        ItemSlot(float x, float y, float width, float height, std::shared_ptr<sf::RenderWindow> window,
                 sf::Font* font, const std::shared_ptr<Item>& item, State* state, bool isEquipSlot);
         virtual ~ItemSlot();
 
         //accessors
-        bool hasItem();
         bool getIsSelected() const;
         std::shared_ptr<Item> getItem();
         sf::RectangleShape* getShape();
+        void setOutlineColors(sf::Color new_color);
         sf::IntRect* getIntRect();
 
         //modifiers
@@ -158,7 +158,6 @@ namespace gui{
         void setUpRightTexture(sf::Texture* new_texture);
 
         //functions
-        std::string textWrap(sf::Text& label, const std::string& wrap_text, float line_length);
         void updateQuantityLbl();
         void updateItemInfo();
         void updateItemInfoPos(const sf::Vector2f& mousePos);
@@ -171,7 +170,6 @@ namespace gui{
         bool renderItemInfoContainer{};
         bool isSelected{};
         bool isEquipSlot{};
-        int id{};
 
         std::shared_ptr<Item> item;
         State* state{};
@@ -193,7 +191,7 @@ namespace gui{
     public:
         //constructors/destructor
         ShopSlot();
-        ShopSlot(float width, float height, float pos_x, float pos_y, sf::Font* font, Item item, const std::string& key);
+        ShopSlot(float width, float height, float pos_x, float pos_y, sf::Font* font, Item item, std::string  key);
         virtual ~ShopSlot();
 
         //accessors
@@ -205,7 +203,6 @@ namespace gui{
         void setSlotTexture(const sf::Texture *slot_texture, float size);
 
         //functions
-        std::string textWrap(sf::Text& label, const std::string& wrap_text, float line_length);
         void updateItemInfoContainerPos(const sf::Vector2f& mousePos);
         bool isPressed();
         void update(const sf::Vector2f &mousePos);
@@ -239,7 +236,6 @@ namespace gui{
         std::shared_ptr<Spell> getSpell();
 
         //functions
-        std::string textWrap(sf::Text& label, const std::string& wrap_text, float line_length);
         void update(const sf::Vector2f& mousePos);
         void render(sf::RenderTarget& target);
 

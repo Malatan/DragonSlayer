@@ -22,23 +22,18 @@
   <component name="ChangeListManager">
     <list default="true" id="5e176dfb-d06b-4a3a-ae60-4825526ebf88" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/BattleState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/BattleState.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/GameState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/GameState.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/GameState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/GameState.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/New Text Document.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data/New Text Document.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/Stats.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Stats.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/BattleResult.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/BattleResult.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/BattleResult.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/BattleResult.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Inventory.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Inventory.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/Inventory.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Inventory.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Inventory.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Inventory.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Item.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Item.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Item.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Item.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/LootGenerator.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/LootGenerator.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/LootGenerator.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/LootGenerator.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Utils.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Utils.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Utils.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Utils.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gui/CharacterTab.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/CharacterTab.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gui/CharacterTab.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/CharacterTab.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Gui/Gui.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/Gui.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Gui/Gui.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/Gui.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gui/ShopTab.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/ShopTab.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gui/ShopTab.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/ShopTab.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Resources/Images/items_sheet.png" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/Images/items_sheet.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Resources/ResourcesHandler.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/ResourcesHandler.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,6 +100,11 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="gmock" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DragonSlayer" TARGET_NAME="gmock" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -123,11 +123,6 @@
     <configuration name="gtest_main" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DragonSlayer" TARGET_NAME="gtest_main" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <list>
@@ -234,7 +229,8 @@
       <workItem from="1607134442568" duration="3751000" />
       <workItem from="1607181397063" duration="3454000" />
       <workItem from="1607190428435" duration="19500000" />
-      <workItem from="1607266033458" duration="30948000" />
+      <workItem from="1607266033458" duration="31287000" />
+      <workItem from="1607355809904" duration="11161000" />
     </task>
     <servers />
   </component>
@@ -258,17 +254,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Gui/CharacterTab.cpp</url>
-          <line>685</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Gui/CharacterTab.cpp</url>
-          <line>851</line>
-          <option name="timeStamp" value="14" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Gui/CharacterTab.cpp</url>
-          <line>892</line>
+          <line>899</line>
           <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>

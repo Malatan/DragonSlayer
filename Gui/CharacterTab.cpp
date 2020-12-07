@@ -124,32 +124,32 @@ void CharacterTab::initEquipContainer() {
     equipSlots[WEAPON_SLOT] = std::make_unique<gui::ItemSlot>(
             equipContainer.getPosition().x + posX,
             equipContainer.getPosition().y + posY,
-            slotSize, slotSize, 5, window, font, nullptr, state, true
+            slotSize, slotSize, window, font, nullptr, state, true
     );
     equipSlots[SHIELD_USAGE] = std::make_unique<gui::ItemSlot>(
             equipContainer.getPosition().x + posX + 90.f,
             equipContainer.getPosition().y + posY, slotSize,
-            slotSize, 4, window, font, nullptr, state, true
+            slotSize, window, font, nullptr, state, true
     );
     equipSlots[HEAD_USAGE] = std::make_unique<gui::ItemSlot>(
             equipContainer.getPosition().x + posX,
             equipContainer.getPosition().y + posY + 90.f,
-            slotSize, slotSize, 3, window, font, nullptr, state, true
+            slotSize, slotSize, window, font, nullptr, state, true
     );
     equipSlots[CHEST_USAGE] = std::make_unique<gui::ItemSlot>(
             equipContainer.getPosition().x + posX + 90.f,
             equipContainer.getPosition().y + posY + 90.f,
-            slotSize, slotSize, 2, window, font, nullptr, state, true
+            slotSize, slotSize, window, font, nullptr, state, true
     );
     equipSlots[ARMS_USAGE] = std::make_unique<gui::ItemSlot>(
             equipContainer.getPosition().x + posX,
             equipContainer.getPosition().y + posY + 180.f,
-            slotSize, slotSize, 1, window, font, nullptr, state, true
+            slotSize, slotSize, window, font, nullptr, state, true
     );
     equipSlots[LEGS_USAGE] = std::make_unique<gui::ItemSlot>(
             equipContainer.getPosition().x + posX + 90.f,
             equipContainer.getPosition().y + posY + 180.f,
-            slotSize, slotSize, 0, window, font, nullptr, state, true
+            slotSize, slotSize, window, font, nullptr, state, true
     );
 
 
@@ -260,8 +260,7 @@ void CharacterTab::initInventorySlots() {
         inventorySlots.push_back(std::make_unique<gui::ItemSlot>(
                 inventoryContainer.getPosition().x + 36.f + (modifierX * (float)(i % max_per_row)),
                 inventoryContainer.getPosition().y + 70.f + (modifierY * yMultiplier) ,
-                60.f, 60.f, 6+i, window, font, player->getInventory()->getItemByIndex(i),
-                state, false
+                60.f, 60.f, window, font, player->getInventory()->getItemByIndex(i), state, false
         ));
     }
 }
@@ -372,6 +371,12 @@ void CharacterTab::unselectAll() {
     }
 }
 
+void CharacterTab::selectAll() {
+    for(auto &i : inventorySlots){
+        i->setSelectedBool(true);
+    }
+}
+
 void CharacterTab::statsContainerUpdate(const sf::Vector2f& mousePos) {
 
     if(player->getPlayerStats()->getFreePoints() > 0) {
@@ -473,8 +478,7 @@ void CharacterTab::invContainerRender(sf::RenderTarget &target) {
         (*it)->render(target);
     }
 
-    for(auto &i : inventorySlots)
-        i->renderInfoContainer(target);
+
 }
 
 bool CharacterTab::closeCharacterTabByClicking(const sf::Vector2f& mousePos, gui::Button* cTab_Btn) {
@@ -491,7 +495,7 @@ void CharacterTab::equipUnequipItem(int equip_slot, const std::shared_ptr<Item>&
         equipSlots[equip_slot]->updateItemInfo();
         equipSlots[equip_slot]->setShapeTexture(i->getShape()->getTexture(),
                                                       i->getIntRect());
-        equipSlots[equip_slot]->getShape()->setOutlineColor(i->getShape()->getOutlineColor());
+        equipSlots[equip_slot]->setOutlineColors(i->getShape()->getOutlineColor());
         item->setEquipped(true);
         i->setUpRightTexture(&textures[typeIcon]);
         i->setSelectedBool(false);
@@ -517,7 +521,7 @@ void CharacterTab::equipUnequipItem(int equip_slot, const std::shared_ptr<Item>&
         equipSlots[equip_slot]->setItem(item);
         equipSlots[equip_slot]->updateItemInfo();
         equipSlots[equip_slot]->setShapeTexture(i->getShape()->getTexture(), i->getIntRect());
-        equipSlots[equip_slot]->getShape()->setOutlineColor(i->getShape()->getOutlineColor());
+        equipSlots[equip_slot]->setOutlineColors(i->getShape()->getOutlineColor());
         item->setEquipped(true);
         i->setUpRightTexture(&textures[typeIcon]);
         i->setSelectedBool(false);
@@ -676,6 +680,8 @@ void CharacterTab::updateKeyboardInput() {
         if(!sellBtn.isDisabled()){
             sellBtnFunction();
         }
+    } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && state->getKeyTime()) {
+        selectAll();
     }
 }
 
@@ -790,7 +796,8 @@ void CharacterTab::render(sf::RenderTarget &target) {
     statsContainerRender(target);
     invContainerRender(target);
     equipContainerRender(target);
-
+    for(auto &i : inventorySlots)
+        i->renderInfoContainer(target);
     if(openDialog){
         sellDeleteDialog->render(target);
     }
@@ -908,6 +915,8 @@ void CharacterTab::deleteConsumableInBattle(const std::shared_ptr<Item>& item) {
 GameState *CharacterTab::getGState() const {
     return gState;
 }
+
+
 
 
 

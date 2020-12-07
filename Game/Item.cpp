@@ -7,10 +7,10 @@
 Item::Item(string itemType, string name, string description, int value, item_rarity rarity, int iconRectX,
            int iconRectY, int hp, int mp, int damage, int armor, float critchance, float evadechance, int quantity, bool isNew,
            unsigned int id) :
-           itemType(std::move(itemType)), name(std::move(name)), description(std::move(description)),
-           value(value), rarityEnum(rarity), iconRectX(iconRectX), iconRectY(iconRectY),
-           hp(hp), mp(mp), damage(damage), armor(armor), critChance(critchance), evadeChance(evadechance), quantity(quantity),
-           isNew(isNew), Id(id), usageType(DEFAULT_USAGE){
+        itemType(std::move(itemType)), name(std::move(name)), description(std::move(description)),
+        value(value), rarityEnum(rarity), iconRectX(iconRectX), iconRectY(iconRectY),
+        hp(hp), mp(mp), damage(damage), armor(armor), critChance(critchance), evadeChance(evadechance), quantity(quantity),
+        isNew(isNew), Id(id), usageType(DEFAULT_USAGE), descriptionWrapped(false){
     equipped = false;
     updateUsageType();
     updateRarityString();
@@ -18,6 +18,7 @@ Item::Item(string itemType, string name, string description, int value, item_rar
 
 Item::Item(){
     Id = 0;
+    descriptionWrapped = false;
     equipped = false;
     value = 0;
     iconRectX = 0;
@@ -36,9 +37,10 @@ Item::Item(){
 }
 
 Item::Item(Item *item) : itemType(item->itemType), name(item->name), description(item->description), value(item->value),
-rarity(item->rarity), iconRectX(item->iconRectX), iconRectY(item->iconRectY), hp(item->hp), mp(item->mp), damage(item->damage),
-armor(item->armor), critChance(item->critChance), evadeChance(item->evadeChance), quantity(item->quantity), isNew(item->isNew),
-usageType(item->usageType), equipped(item->equipped), rarityEnum(item->rarityEnum), Id(item->Id){
+                         rarity(item->rarity), iconRectX(item->iconRectX), iconRectY(item->iconRectY), hp(item->hp), mp(item->mp), damage(item->damage),
+                         armor(item->armor), critChance(item->critChance), evadeChance(item->evadeChance), quantity(item->quantity), isNew(item->isNew),
+                         usageType(item->usageType), equipped(item->equipped), rarityEnum(item->rarityEnum), Id(item->Id),
+                         descriptionWrapped(item->descriptionWrapped){
 
 }
 
@@ -361,6 +363,14 @@ std::string Item::getWeaponType() const {
         return itemType.substr(2);
     }
     return "";
+}
+
+bool Item::isDescriptionWrapped() const {
+    return descriptionWrapped;
+}
+
+void Item::setDescriptionWrapped(bool b) {
+    descriptionWrapped = b;
 }
 
 

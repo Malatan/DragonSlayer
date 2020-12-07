@@ -35,5 +35,29 @@ float utils::roundf(float n, int n_decimals) {
     return std::roundf(n * app) / app;
 }
 
+std::string utils::textWrap(sf::Text &label, const std::string& wrap_text, float line_length) {
+    stringstream ss;
+    std::vector<std::string> lines;
+    bool remain_words;
+    for(char c : wrap_text) {
+        remain_words = true;
+        ss << c;
+        label.setString(ss.str());
+        if(label.getGlobalBounds().width > line_length){
+            ss << std::endl;
+            lines.push_back(ss.str());
+            ss.str("");
+            remain_words = false;
+        }
+    }
+    if(remain_words)
+        lines.push_back(ss.str());
+    std::string final_testo;
+    for(const auto& i : lines)
+        final_testo += i;
+
+    return final_testo;
+}
+
 
 

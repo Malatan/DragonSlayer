@@ -4,6 +4,7 @@
 
 #include "Gui.h"
 #include <iostream>
+#include <utility>
 
 gui::Button::Button()= default;
 
@@ -361,9 +362,9 @@ void gui::ProgressBar::render(sf::RenderTarget &target) {
  */
 gui::ItemSlot::ItemSlot()= default;
 
-gui::ItemSlot::ItemSlot(float x, float y, float width, float height, int id,
+gui::ItemSlot::ItemSlot(float x, float y, float width, float height,
         std::shared_ptr<sf::RenderWindow> window, sf::Font *font, const std::shared_ptr<Item>& item, State* state, bool isEquipSlot)
-    : window(std::move(window)), font(font), item(item), id(id), isEquipSlot(isEquipSlot){
+    : window(std::move(window)), font(font), item(item), isEquipSlot(isEquipSlot){
     renderItemInfoContainer = false;
     isSelected = false;
     shape.setPosition(sf::Vector2f(x,y));
@@ -374,13 +375,10 @@ gui::ItemSlot::ItemSlot(float x, float y, float width, float height, int id,
         shape.setOutlineColor(sf::Color::Transparent);
     }
 
-
-    downRight.setPosition(shape.getPosition().x + 42.f,
-            shape.getPosition().y + 38.f);
+    downRight.setPosition(shape.getPosition().x + 42.f, shape.getPosition().y + 38.f);
     downRight.setSize(sf::Vector2f(15.f, 20.f));
 
-    upRight.setPosition(shape.getPosition().x + 42.f,
-                                shape.getPosition().y);
+    upRight.setPosition(shape.getPosition().x + 42.f, shape.getPosition().y);
     upRight.setSize(sf::Vector2f(25.f, 25.f));
 
     cover.setPosition(sf::Vector2f(x,y));
@@ -418,36 +416,33 @@ bool gui::ItemSlot::getIsSelected() const {
     return isSelected;
 }
 
-bool gui::ItemSlot::hasItem() {
-    return (item != nullptr);
-}
-
 void gui::ItemSlot::setSlotTexture(const sf::Texture *new_texture, float size) {
-    if(item != nullptr){
-        shape.setTexture(new_texture);
-        intRect = sf::IntRect(
-                item->getIconRectX() * (int)size,
-                item->getIconRectY() * (int)size,
-                size, size);
-        shape.setTextureRect(intRect);
-        shape.setOutlineThickness(-3.f);
-
-        if(item->getRarity() == "Uncommon"){
-            shape.setOutlineColor(sf::Color::White);
-        } else if(item->getRarity() == "Common"){
-            shape.setOutlineColor(sf::Color::Green);
-        } else if(item->getRarity() == "Rare"){
-            shape.setOutlineColor(sf::Color::Blue);
-        } else if(item->getRarity() == "Epic"){
-            shape.setOutlineColor(sf::Color::Magenta);
-        } else if(item->getRarity() == "Legendary"){
-            shape.setOutlineColor(sf::Color(255,127,80));
-        }
-        updateItemInfo();
-        itemInfoContainer.setSize(sf::Vector2f(itemInfoLbl.getGlobalBounds().width + 10.f,
-                                                     itemInfoLbl.getGlobalBounds().height + 15.f));
+    shape.setTexture(new_texture);
+    intRect = sf::IntRect(
+            item->getIconRectX() * (int)size,
+            item->getIconRectY() * (int)size,
+            size, size);
+    shape.setTextureRect(intRect);
+    shape.setOutlineThickness(-3.f);
+    if(item->getRarity() == "Uncommon"){
+        shape.setOutlineColor(sf::Color::White);
+        itemInfoContainer.setOutlineColor(sf::Color::White);
+    } else if(item->getRarity() == "Common"){
+        shape.setOutlineColor(sf::Color::Green);
+        itemInfoContainer.setOutlineColor(sf::Color::Green);
+    } else if(item->getRarity() == "Rare"){
+        shape.setOutlineColor(sf::Color::Blue);
+        itemInfoContainer.setOutlineColor(sf::Color::Blue);
+    } else if(item->getRarity() == "Epic"){
+        shape.setOutlineColor(sf::Color::Magenta);
+        itemInfoContainer.setOutlineColor(sf::Color::Magenta);
+    } else if(item->getRarity() == "Legendary"){
+        shape.setOutlineColor(sf::Color(255,127,80));
+        itemInfoContainer.setOutlineColor(sf::Color(255,127,80));
     }
-
+    updateItemInfo();
+    itemInfoContainer.setSize(sf::Vector2f(itemInfoLbl.getGlobalBounds().width + 10.f,
+                                           itemInfoLbl.getGlobalBounds().height + 15.f));
 }
 
 void gui::ItemSlot::setSlotTexture(sf::Texture* new_texture, sf::IntRect texture_intRect) {
@@ -475,36 +470,12 @@ void gui::ItemSlot::updateQuantityLbl() {
     }
 }
 
-std::string gui::ItemSlot::textWrap(sf::Text& label, const std::string& wrap_text, float line_length) {
-    stringstream ss;
-    std::vector<std::string> lines;
-    bool remain_words;
-    for(char c : wrap_text) {
-        remain_words = true;
-        ss << c;
-        label.setString(ss.str());
-        if(label.getGlobalBounds().width > line_length){
-            ss << std::endl;
-            lines.push_back(ss.str());
-            ss.str("");
-            remain_words = false;
-        }
-    }
-    if(remain_words)
-        lines.push_back(ss.str());
-    std::string final_testo;
-    for(const auto& i : lines)
-        final_testo += i;
-
-    return final_testo;
-}
-
 void gui::ItemSlot::updateItemInfo() {
     if(item != nullptr){
         std::stringstream ss;
         ss << item->getName()
            << "\nType: " << item->getItemUsageTypeString()
-           << "\n" << item->getRarity();
+           << "\nTier: " << item->getRarity();
         if(item->getHp() !=0)
             ss << "\n+" << item->getHp() << " hp";
         if(item->getMp() !=0)
@@ -517,20 +488,40 @@ void gui::ItemSlot::updateItemInfo() {
             ss << "\n+" << item->getCritChance() << " % crit chance";
         if(item->getEvadeChance() !=0)
             ss << "\n+" << item->getEvadeChance() << " % evade chance";
-        ss << "\n   " << item->getDescription();
-        ss << "\nValue: " << item->getValue();
+        if(item->isDescriptionWrapped()){
+            ss << "\n\" " << item->getDescription();
+        }else{
+            float line_length = 200.f;
+            itemInfoLbl.setString(ss.str());
+            if(itemInfoLbl.getGlobalBounds().width > 200.f){
+                line_length = itemInfoLbl.getGlobalBounds().width;
+            }
+            std::string wrapped_desc = utils::textWrap(itemInfoLbl, item->getDescription(), line_length);
+            item->setDescription(wrapped_desc);
+            item->setDescriptionWrapped(true);
+            ss << "\n\" " << wrapped_desc;
+        }
+        ss << " \"\nValue: " << item->getValue();
 
-        itemInfoLbl.setString(textWrap(itemInfoLbl, ss.str(), 250.f));
+        itemInfoLbl.setString(ss.str());
         itemInfoContainer.setSize(sf::Vector2f(itemInfoLbl.getGlobalBounds().width + 10.f,
                                                      itemInfoLbl.getGlobalBounds().height + 15.f));
     }
 }
 
 void gui::ItemSlot::updateItemInfoPos(const sf::Vector2f &mousePos) {
+    bool out_width = false;
     itemInfoContainer.setPosition(mousePos.x + 10.f, mousePos.y);
     if(itemInfoContainer.getPosition().x + itemInfoContainer.getGlobalBounds().width > window->getSize().x){
-        itemInfoContainer.setPosition(mousePos.x - itemInfoContainer.getGlobalBounds().width
-                                      , mousePos.y);
+        itemInfoContainer.setPosition(mousePos.x - itemInfoContainer.getGlobalBounds().width, mousePos.y);
+        out_width = true;
+    }
+    if(itemInfoContainer.getPosition().y + itemInfoContainer.getGlobalBounds().height > window->getSize().y){
+        itemInfoContainer.setPosition(mousePos.x, mousePos.y - itemInfoContainer.getGlobalBounds().height);
+        if(out_width){
+            itemInfoContainer.setPosition(mousePos.x - itemInfoContainer.getGlobalBounds().width,
+                                          mousePos.y - itemInfoContainer.getGlobalBounds().height);
+        }
     }
     itemInfoLbl.setPosition(itemInfoContainer.getPosition().x + 5.f,
                                   itemInfoContainer.getPosition().y);
@@ -538,29 +529,26 @@ void gui::ItemSlot::updateItemInfoPos(const sf::Vector2f &mousePos) {
 
 void gui::ItemSlot::update(const sf::Vector2f &mousePos, bool inv) {
     //hover
-    if(shape.getGlobalBounds().contains(mousePos)){
+    if(shape.getGlobalBounds().contains(mousePos) && item){
         //pressed
-        if(item != nullptr){
-            if(item->getIsNew()){
-                item->setIsNew(false);
-            }
-            if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && state->getKeyTime() && !isEquipSlot){
-                slotState = SLOT_ACTIVE;
-                renderItemInfoContainer = false;
-                if(inv){
-                    if(isSelected){
-                        isSelected = false;
-                        cover.setOutlineColor(sf::Color::Transparent);
-                    } else{
-                        isSelected = true;
-                        cover.setOutlineColor(sf::Color::Cyan);
-                    }
+        if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && state->getKeyTime() && !isEquipSlot){
+            slotState = SLOT_ACTIVE;
+            renderItemInfoContainer = false;
+            if(inv){
+                if(isSelected){
+                    isSelected = false;
+                    cover.setOutlineColor(sf::Color::Transparent);
+                } else{
+                    isSelected = true;
+                    cover.setOutlineColor(sf::Color::Cyan);
                 }
             }
-            renderItemInfoContainer = true;
-            updateItemInfoPos(mousePos);
-            slotState = SLOT_HOVER;
         }
+        if(item->getIsNew())
+            item->setIsNew(!item->getIsNew());
+        renderItemInfoContainer = true;
+        updateItemInfoPos(mousePos);
+        slotState = SLOT_HOVER;
     } else{
         //idle
         slotState = SLOT_IDLE;
@@ -626,6 +614,11 @@ void gui::ItemSlot::setShapeTexture(const sf::Texture *new_shape_texture, const 
 
 sf::IntRect* gui::ItemSlot::getIntRect() {
     return &intRect;
+}
+
+void gui::ItemSlot::setOutlineColors(sf::Color new_color) {
+    shape.setOutlineColor(new_color);
+    itemInfoContainer.setOutlineColor(new_color);
 }
 
 /*
@@ -856,8 +849,8 @@ int gui::CustomDialog::getTotValue() const {
 //constructors/destructor
 gui::ShopSlot::ShopSlot()= default;
 
-gui::ShopSlot::ShopSlot(float width, float height, float pos_x, float pos_y, sf::Font* font, Item item, const std::string& key)
-                    : item(item), key(key){
+gui::ShopSlot::ShopSlot(float width, float height, float pos_x, float pos_y, sf::Font* font, Item item, std::string  key)
+                    : item(item), key(std::move(key)){
     mouseHoverImage = false;
     price = (unsigned int)(item.getValue() * 1.5);
 
@@ -898,7 +891,7 @@ gui::ShopSlot::ShopSlot(float width, float height, float pos_x, float pos_y, sf:
        << item.getRarity() << std::endl
        << "   " << item.getDescription() << std::endl
        << "Value: " << price;
-    itemInfoLbl.setString(textWrap(itemInfoLbl, ss.str(), 250.f));
+    itemInfoLbl.setString(utils::textWrap(itemInfoLbl, ss.str(), 250.f));
 
     itemInfoContainer.setSize(sf::Vector2f(itemInfoLbl.getGlobalBounds().width + 10.f,
                                                   itemInfoLbl.getGlobalBounds().height + 15.f));
@@ -937,29 +930,6 @@ void gui::ShopSlot::setSlotTexture(const sf::Texture *slot_texture, float size) 
 }
 
 //functions
-std::string gui::ShopSlot::textWrap(sf::Text& label, const std::string& wrap_text, float line_length) {
-    stringstream ss;
-    std::vector<std::string> lines;
-    bool remain_words;
-    for(char c : wrap_text) {
-        remain_words = true;
-        ss << c;
-        label.setString(ss.str());
-        if(label.getGlobalBounds().width > line_length){
-            ss << std::endl;
-            lines.push_back(ss.str());
-            ss.str("");
-            remain_words = false;
-        }
-    }
-    if(remain_words)
-        lines.push_back(ss.str());
-    std::string final_testo;
-    for(const auto& i : lines)
-        final_testo += i;
-
-    return final_testo;
-}
 
 bool gui::ShopSlot::isPressed() {
     return buyBtn.isPressed();
@@ -1062,36 +1032,12 @@ gui::SpellSlot::SpellSlot(float width, float height, float pos_x, float pos_y,  
     descriptionLbl.setFont(*font);
     descriptionLbl.setCharacterSize(char_size - 2);
     descriptionLbl.setStyle(sf::Text::Italic);
-    descriptionLbl.setString(textWrap(descriptionLbl, spell->getDescription(), width - 30.f));
+    descriptionLbl.setString(utils::textWrap(descriptionLbl, spell->getDescription(), width - 30.f));
     descriptionLbl.setPosition(spellImage.getPosition().x + 10.f,
             spellImage.getPosition().y + spellImage.getGlobalBounds().height + app);
 }
 
 gui::SpellSlot::~SpellSlot() = default;
-
-std::string gui::SpellSlot::textWrap(sf::Text& label, const std::string& wrap_text, float line_length) {
-    stringstream ss;
-    std::vector<std::string> lines;
-    bool remain_words;
-    for(char c : wrap_text) {
-        remain_words = true;
-        ss << c;
-        label.setString(ss.str());
-        if(label.getGlobalBounds().width > line_length){
-            ss << std::endl;
-            lines.push_back(ss.str());
-            ss.str("");
-            remain_words = false;
-        }
-    }
-    if(remain_words)
-        lines.push_back(ss.str());
-    std::string final_testo;
-    for(const auto& i : lines)
-        final_testo += i;
-
-    return final_testo;
-}
 
 void gui::SpellSlot::update(const sf::Vector2f &mousePos) {
 

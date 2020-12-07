@@ -33,32 +33,7 @@ enum item_usage_type{
 };
 
 class Item {
-
-protected:
-    unsigned int Id;
-    item_usage_type usageType;      // 6-Consumable/5-Weapon/4-Shield/3-Head/2-Chest/1-Arms/0-Legs
-    string itemType;    // ITEM/WEAPON/ARMATURE
-    string name;
-    string description;
-    int value;
-    string rarity;
-    item_rarity rarityEnum;
-    int iconRectX;
-    int iconRectY;
-    bool isNew;
-    bool equipped;
-    int quantity;
-
-    //Bonus Attributes
-    int hp;
-    int mp;
-    int damage;
-    int armor;
-    float critChance;
-    float evadeChance;
-
 public:
-
     //CONSTRUCTOR & DESTRUCTOR
     Item();
     Item(string itemType, string name, string description, int value, item_rarity rarity,
@@ -82,6 +57,8 @@ public:
     std::string getItemUsageTypeString();
 
     //GET & SET
+    bool isDescriptionWrapped() const;
+    void setDescriptionWrapped(bool b);
     void setId(unsigned int new_id);
     unsigned int getId() const;
     item_usage_type getUsageType();
@@ -121,6 +98,30 @@ public:
     void setCritChance(float new_critChance);
     float getEvadeChance() const;
     void setEvadeChance(float new_evadeChance);
+
+protected:
+    unsigned int Id;
+    bool descriptionWrapped;
+    item_usage_type usageType;      // 6-Consumable/5-Weapon/4-Shield/3-Head/2-Chest/1-Arms/0-Legs
+    string itemType;    // ITEM/WEAPON/ARMATURE
+    string name;
+    string description;
+    int value;
+    string rarity;
+    item_rarity rarityEnum;
+    int iconRectX;
+    int iconRectY;
+    bool isNew;
+    bool equipped;
+    int quantity;
+
+    //Bonus Attributes
+    int hp;
+    int mp;
+    int damage;
+    int armor;
+    float critChance;
+    float evadeChance;
 };
 
 

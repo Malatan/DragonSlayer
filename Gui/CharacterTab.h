@@ -34,6 +34,7 @@ public:
 
     void equipUnequipItem(int equip_slot, const std::shared_ptr<Item>& item, std::unique_ptr<gui::ItemSlot>& i, const std::string& typeIcon);
     void unselectAll();
+    void selectAll();
     void statsContainerUpdate(const sf::Vector2f& mousePos);
     void statsContainerRender(sf::RenderTarget& target);
     void equipContainerUpdate(const sf::Vector2f& mousePos);

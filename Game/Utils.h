@@ -24,5 +24,6 @@ namespace utils{
     std::vector<int> generateRandomNumbers(int from, int to, int n);
     bool trueFalse(float probability);
     float roundf(float n, int n_decimals);
+    std::string textWrap(sf::Text& label, const std::string& wrap_text, float line_length);
 }
 #endif //DRAGONSLAYER_UTILS_H

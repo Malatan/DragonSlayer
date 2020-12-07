@@ -210,7 +210,7 @@ LootGenerator::LootGenerator(std::shared_ptr<ResourcesHandler> rs_handler) : rsH
     initDroppableMaterials();
     initShopList();
     initDroppableConsumablesList();
-    generateLoot(10, 5);
+    //generateLoot(10000, 5);
 }
 
 LootGenerator::~LootGenerator() = default;
@@ -235,10 +235,10 @@ const map<std::string, Item> &LootGenerator::getShopList() const {
 
 void LootGenerator::generateLoot(int drop_count, int floor) {
     bool print_result = true;
-    bool print_lootbag = true;
+    bool print_lootbag = false;
     bool print_generated_equip = false;
-    bool add_materials = true;
-    bool add_potions = true;
+    bool add_materials = false;
+    bool add_potions = false;
     bool add_equip = true;
 
     enemy_types enemy_tipo = WITCH;
@@ -458,17 +458,6 @@ void LootGenerator::generateLoot(int drop_count, int floor) {
                             case CONSUMABLE_USAGE: case MATERIAL_USAGE: case DEFAULT_USAGE:
                                 break;
                         }
-                        //genera la descrizione per l'oggetto
-                        std::string descs;
-                        lines.clear();
-                        total_lines = 0;
-                        while(getline(file_desc, descs)){
-                            total_lines++;
-                            lines.push_back(descs);
-                        }
-                        random_line = utils::generateRandomNumber(0, total_lines - 1);
-                        std::string desc = lines[random_line];
-                        new_equip->setDescription(desc);
 
                         //genera in modo randomico gli effetti dell'arma
                         int effect_amount = utils::generateRandomNumber(statsAmount[starting_loot_rarity].first,
@@ -525,8 +514,7 @@ void LootGenerator::generateLoot(int drop_count, int floor) {
                                     new_equip->setDamage(value);
                                     break;
                                 }
-                                case ADD_ARMOR:
-                                    int value;
+                                case ADD_ARMOR:{int value;
                                     if(new_equip->getUsageType() == SHIELD_USAGE){
                                         value = utils::generateRandomNumber(shieldArmorRange[starting_loot_rarity].first,
                                                                             shieldArmorRange[starting_loot_rarity].second);
@@ -536,6 +524,7 @@ void LootGenerator::generateLoot(int drop_count, int floor) {
                                     }
                                     new_equip->setArmor(value);
                                     break;
+                                }
                                 case ADD_CRITCHANCE:{
                                     float valuef = utils::generateRandomNumberf(critchanceRange[starting_loot_rarity].first,
                                                                                 critchanceRange[starting_loot_rarity].second,
@@ -582,6 +571,23 @@ void LootGenerator::generateLoot(int drop_count, int floor) {
                         }
                         new_equip->setValue(std::ceil(base_value));
 
+                        //genera la descrizione per l'oggetto
+                        if(new_equip->getUsageType() == SHIELD_USAGE){
+                            stringstream ss;
+                            ss << "Reduces " << new_equip->getArmor() << " % of damage when raised(Defensive mode).";
+                            new_equip->setDescription(ss.str());
+                        }else{
+                            std::string descs;
+                            lines.clear();
+                            total_lines = 0;
+                            while(getline(file_desc, descs)){
+                                total_lines++;
+                                lines.push_back(descs);
+                            }
+                            random_line = utils::generateRandomNumber(0, total_lines - 1);
+                            std::string desc = lines[random_line];
+                            new_equip->setDescription(desc);
+                        }
 
                         //aggiunge l'oggetto nel lootbag
                         lootBag.push_back(std::move(new_equip));
@@ -804,7 +810,7 @@ std::string LootGenerator::getRarityString(loot_rarity rarity_enum) {
 
 std::shared_ptr<Item> LootGenerator::generateTierEquipment(item_rarity equip_rarity, bool random_rarity) {
     int random_value = utils::generateRandomNumber(lootProbabilities[1], lootProbabilities[7]);
-    int starting_loot_type = 1;
+    int starting_loot_type = 2;
     //si scorre il loot finche non troppa il range giusto
     while (lootProbabilities[starting_loot_type] < random_value)
         starting_loot_type++;
@@ -851,7 +857,7 @@ std::shared_ptr<Item> LootGenerator::generateTierEquipment(item_rarity equip_rar
             auto loot_rarity_enum = static_cast<loot_rarity>(equip_rarity - 1);
             if(random_rarity){
                 // genera il numero per determinare la rarita dell'equipaggiamento
-                random_value = utils::generateRandomNumber(1, MAX_RARITY_PROBABILITY) + 5;
+                random_value = utils::generateRandomNumber(1, MAX_RARITY_PROBABILITY);
                 int starting_loot_rarity = 0;
                 // la probabilita varia a seconda del piano(floor)
                 while (lootRarityProbabilities5[starting_loot_rarity] < random_value)
@@ -944,17 +950,6 @@ std::shared_ptr<Item> LootGenerator::generateTierEquipment(item_rarity equip_rar
                     case CONSUMABLE_USAGE: case MATERIAL_USAGE: case DEFAULT_USAGE:
                         break;
                 }
-                //genera la descrizione per l'oggetto
-                std::string descs;
-                lines.clear();
-                total_lines = 0;
-                while(getline(file_desc, descs)){
-                    total_lines++;
-                    lines.push_back(descs);
-                }
-                random_line = utils::generateRandomNumber(0, total_lines - 1);
-                std::string desc = lines[random_line];
-                new_equip->setDescription(desc);
 
                 //genera in modo randomico gli effetti dell'arma
                 std::vector<equip_effect> effects;
@@ -977,7 +972,7 @@ std::shared_ptr<Item> LootGenerator::generateTierEquipment(item_rarity equip_rar
                     case CONSUMABLE_USAGE: case MATERIAL_USAGE: case DEFAULT_USAGE:
                         break;
                 }
-                while(effect_amount != 0){
+                while(effect_amount > 0){
                     bool repeated = false;
                     auto random_effect = static_cast<equip_effect>(utils::generateRandomNumber(0 ,5));
                     for(auto app : effects){
@@ -1011,7 +1006,7 @@ std::shared_ptr<Item> LootGenerator::generateTierEquipment(item_rarity equip_rar
                             new_equip->setDamage(value);
                             break;
                         }
-                        case ADD_ARMOR:
+                        case ADD_ARMOR:{
                             int value;
                             if(new_equip->getUsageType() == SHIELD_USAGE){
                                 value = utils::generateRandomNumber(shieldArmorRange[loot_rarity_enum].first,
@@ -1022,6 +1017,7 @@ std::shared_ptr<Item> LootGenerator::generateTierEquipment(item_rarity equip_rar
                             }
                             new_equip->setArmor(value);
                             break;
+                        }
                         case ADD_CRITCHANCE:{
                             float valuef = utils::generateRandomNumberf(critchanceRange[loot_rarity_enum].first,
                                                                         critchanceRange[loot_rarity_enum].second, 2);
@@ -1065,6 +1061,24 @@ std::shared_ptr<Item> LootGenerator::generateTierEquipment(item_rarity equip_rar
                         break;
                 }
                 new_equip->setValue(std::ceil(base_value));
+
+                //genera la descrizione per l'oggetto
+                if(new_equip->getUsageType() == SHIELD_USAGE){
+                    stringstream ss;
+                    ss << "Reduces " << new_equip->getArmor() << " % of damage when raised(Defensive mode).";
+                    new_equip->setDescription(ss.str());
+                }else{
+                    std::string descs;
+                    lines.clear();
+                    total_lines = 0;
+                    while(getline(file_desc, descs)){
+                        total_lines++;
+                        lines.push_back(descs);
+                    }
+                    random_line = utils::generateRandomNumber(0, total_lines - 1);
+                    std::string desc = lines[random_line];
+                    new_equip->setDescription(desc);
+                }
 
                 file_desc.close();
                 file.close();

@@ -317,14 +317,6 @@ void GameState::initComponents() {
 
 void GameState::initLootGenerator() {
     lootGenerator = std::make_shared<LootGenerator>(rsHandler);
-    for(auto &i : lootGenerator->getDroppableMaterials()){
-        std::shared_ptr<Item> item = std::make_shared<Item>(i.get());
-        item->setRarity("Rare");
-        item->setId(rsHandler->generateId());
-        item->setQuantity(20);
-        player->getInventory()->addItem(item);
-    }
-    player->getInventory()->sortByItemType();
 }
 
 void GameState::initView() {
@@ -693,7 +685,7 @@ void GameState::updateInput(const float &dt) {
             std::cout<<buffComponent->toStringBuffs();
 
         }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::M) && getKeyTime()){
-            int gold = utils::generateRandomNumber(999, 9999);
+            int gold = utils::generateRandomNumber(99999, 999999);
             player->addGold(gold);
             updateTabsGoldLbl();
             popUpTextComponent->addPopUpTextCenter(GOLD_TAG, gold, "+", " gold");
@@ -713,16 +705,10 @@ void GameState::updateInput(const float &dt) {
                     std::cout<<"no npc\n";
                     break;
             }
-
-
         }
 }
 
 void GameState::updatePlayerInput(const float &dt) {
-/*    if(getKeyTime()){
-        cout<<player->getHitboxComponent()->getCenter().x<<" "<<player->getHitboxComponent()->getCenter().y<<"\n";
-    }*/
-
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
             player->move(dt, -1.f, 0.f);
         }
