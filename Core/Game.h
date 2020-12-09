@@ -39,15 +39,10 @@ private:
     std::shared_ptr<sf::RenderWindow> window;
     sf::Event sfEvent{};
     sf::ContextSettings windowSettings;
-
     sf::Clock dtClock;
     float dt{}; //delta time
-    sf::Time gameRunTime;
-    std::shared_ptr<RunTimeClock> rtc;
-
     std::stack<std::unique_ptr<State>> states;
 
-    std::string Title;
     //Initialization
     void initVariables();
     void initWindow();

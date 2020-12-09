@@ -6,48 +6,42 @@
 #include <string>
 #include <sstream>
 
-RunTimeClock::RunTimeClock() {
-    this->milliseconds = 0;
-    this->seconds = 0;
-    this->minutes = 0;
-    this->hours = 0;
-
-}
+RunTimeClock::RunTimeClock() = default;
 
 RunTimeClock::~RunTimeClock() = default;
 
 void RunTimeClock::addMilliseconds(int ms) {
-    this->milliseconds += ms;
-    if(this->milliseconds >= 1000){
-        this->addSeconds(1);
-        this->milliseconds -= 1000;
+    milliseconds += ms;
+    if(milliseconds >= 1000){
+        addSeconds(1);
+        milliseconds -= 1000;
     }
 
 }
 
 void RunTimeClock::addSeconds(int s) {
-    this->seconds += s;
-    if(this->seconds == 60){
-        this->addMinutes(1);
-        this->seconds = 0;
+    seconds += s;
+    if(seconds == 60){
+        addMinutes(1);
+        seconds = 0;
     }
 }
 
 void RunTimeClock::addMinutes(int m) {
-    this->minutes += m;
-    if(this->minutes == 60){
-        this->addHours(1);
-        this->minutes = 0;
+    minutes += m;
+    if(minutes == 60){
+        addHours(1);
+        minutes = 0;
     }
 }
 
 void RunTimeClock::addHours(int h) {
-    this->hours += h;
+    hours += h;
 }
 
 std::string RunTimeClock::toString() const {
     std::ostringstream oss;
-    oss << " Run time: " << this->hours << ":" << this->minutes << ":" << this->seconds << ":" << this->milliseconds;
+    oss << " Run time: " << hours << ":" << minutes << ":" << seconds << ":" << milliseconds;
 
     return oss.str();
 }

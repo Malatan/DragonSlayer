@@ -9,10 +9,10 @@
 
 class RunTimeClock {
 private:
-    int milliseconds;
-    int seconds;
-    int minutes;
-    int hours;
+    int milliseconds{};
+    int seconds{};
+    int minutes{};
+    int hours{};
 
 public:
     RunTimeClock();

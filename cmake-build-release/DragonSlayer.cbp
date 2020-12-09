@@ -536,6 +536,12 @@
 			<Option target="DragonSlayer"/>
 			<Option target="unit_testing_run"/>
 		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Game/LootBag.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Game/LootBag.h">
+			<Option target="DragonSlayer"/>
+		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Game/LootGenerator.cpp">
 			<Option target="DragonSlayer"/>
 		</Unit>

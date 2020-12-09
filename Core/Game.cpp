@@ -13,14 +13,14 @@ void Game::initVariables() {
 void Game::initWindow() {
     std::ifstream ifs("../Resources/Config/window.ini");
 
-    Title = "None";
+    std::string window_title = "None";
     sf::VideoMode window_bounds = sf::VideoMode::getDesktopMode();
     unsigned framerate_limit = 144;
     bool veritcal_enabled = false;
     unsigned antialiasing_level = 0;
 
     if(ifs.is_open()){
-        std::getline(ifs,Title);
+        std::getline(ifs,window_title);
         ifs >> window_bounds.width >> window_bounds.height;
         ifs >> framerate_limit;
         ifs >> veritcal_enabled;
@@ -32,12 +32,11 @@ void Game::initWindow() {
 
     windowSettings.antialiasingLevel = antialiasing_level;
     window = std::make_shared<sf::RenderWindow>(window_bounds,
-                                        Title,
+                                                window_title,
                                         sf::Style::Close,
                                         windowSettings);
     window->setFramerateLimit(framerate_limit);
     window->setVerticalSyncEnabled(veritcal_enabled);
-    rtc = std::make_shared<RunTimeClock>();
     rsHandler = std::make_shared<ResourcesHandler>();
 }
 
@@ -56,9 +55,7 @@ Game::Game() {
 Game::~Game() = default;
 
 void Game::updateDt() {
-    gameRunTime = dtClock.restart();
-    dt = gameRunTime.asSeconds();
-    rtc->addMilliseconds(gameRunTime.asMilliseconds());
+    dt = dtClock.restart().asSeconds();
 }
 
 //Functions
@@ -106,7 +103,6 @@ void Game::render() {
 
 void Game::run() {
     while(window->isOpen()){
-        window->setTitle(Title+rtc->toString());
         updateDt();
         update();
         render();

@@ -25,7 +25,7 @@ public:
     void setPosition(float x, float y) override;
     void updateAnimation(const float &dt);
     void update(const float &dt) override;
-    void updateCollsion(const std::shared_ptr<Player>& player, npc_type* current_type);
+    void updateCollision(const std::shared_ptr<Player>& player, npc_type* current_type);
     void render(sf::RenderTarget& target, bool show_hitbox = false);
 
 private:

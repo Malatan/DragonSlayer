@@ -31,6 +31,10 @@ void CollisionBoxComponent::render(sf::RenderTarget &target) {
     target.draw(collisionEllipse);
 }
 
+sf::Vector2f CollisionBoxComponent::getPosition() {
+    return collisionEllipse.getPosition();
+}
+
 
 
 

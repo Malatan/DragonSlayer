@@ -5,7 +5,6 @@
 #include "GameState.h"
 
 void GameState::initTextures() {
-
     rsHandler->addResource("../Resources/Images/Sprites/Player/player_sheet.png", "player_sheet", "GameState");
     rsHandler->addResource("../Resources/Images/Sprites/Npc/shop_npc_idle.png", "shop_npc_sheet", "GameState");
     rsHandler->addResource("../Resources/Images/Sprites/Npc/priest_npc_idle.png", "priest_npc_sheet", "GameState");
@@ -45,8 +44,8 @@ void GameState::initTextures() {
     rsHandler->addResource("../Resources/Images/armorIcon.png", "armorIcon", "GameState");
     rsHandler->addResource("../Resources/Images/glovesIcon.png", "glovesIcon", "GameState");
     rsHandler->addResource("../Resources/Images/bootsIcon.png", "bootsIcon", "GameState");
-    rsHandler->addResource("../Resources/Images/randomIcon.png", "randomIcon", "GameState");
     rsHandler->addResource("../Resources/Images/arrow_down.png", "arrowDownIcon", "GameState");
+    rsHandler->addResource("../Resources/Images/loot_bag.png", "lootBagSprite", "GameState");
 
     textures["PLAYER_SHEET"].loadFromImage(rsHandler->getResourceByKey("player_sheet")->getImage());
     textures["SHOP_NPC_SHEET"].loadFromImage(rsHandler->getResourceByKey("shop_npc_sheet")->getImage());
@@ -79,8 +78,8 @@ void GameState::initTextures() {
     textures["ARMOR_ICON"].loadFromImage(rsHandler->getResourceByKey("armorIcon")->getImage());
     textures["GLOVES_ICON"].loadFromImage(rsHandler->getResourceByKey("glovesIcon")->getImage());
     textures["BOOTS_ICON"].loadFromImage(rsHandler->getResourceByKey("bootsIcon")->getImage());
-    textures["RANDOM_ICON"].loadFromImage(rsHandler->getResourceByKey("randomIcon")->getImage());
     textures["ARROWDOWN_ICON"].loadFromImage(rsHandler->getResourceByKey("arrowDownIcon")->getImage());
+    textures["LOOTBAG_SPRITE"].loadFromImage(rsHandler->getResourceByKey("lootBagSprite")->getImage());
 }
 
 void GameState::initPauseMenu() {
@@ -400,7 +399,7 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::u
     stato = 0;
     npcInteract = NO_NPC;
     noclip = false;
-    currentFloor = 5;
+    currentFloor = 3;
 
     initTextures();
     initPauseMenu();
@@ -601,6 +600,16 @@ void GameState::spawnEnemy(float x, float y, enemy_types type, unsigned int enem
     }
 }
 
+bool GameState::deleteEnemyById(unsigned int enemy_id) {
+    for(auto iter = enemies.begin(); iter != enemies.end(); ++iter ){
+        if((*iter)->getId() == enemy_id){
+            enemies.erase( iter );
+            return true;
+        }
+    }
+    return false;
+}
+
 void GameState::changeStato(int current_stato) {
     if(!paused){
         pauseState();
@@ -616,14 +625,16 @@ void GameState::checkBattleResult(BattleResult& battle_result) {
     std::cout<<battle_result.generateReport();
     switch(battle_result.getResultType()){
         case WIN:{
-            std::shared_ptr<Enemy> defeated_enemy;
             for(const auto& i : enemies){
                 if(i->getId() == battle_result.getEnemyLeaderId()){
-                    defeated_enemy = i;
+                    lootBags.push_back(std::make_shared<LootBag>(i->getPosition(), textures,
+                                                                 lootGenerator->generateLoot(i, currentFloor)));
                     break;
                 }
             }
-            lootGenerator->generateLoot(defeated_enemy->getDeadFollowersNumber() + 1, currentFloor);
+            if(deleteEnemyById(battle_result.getEnemyLeaderId()))
+                std::cout<<"Enemy " << battle_result.getEnemyLeaderId() << " deleted" << endl;
+            player->stopVelocity();
             break;
         }
         case LOST:
@@ -631,11 +642,13 @@ void GameState::checkBattleResult(BattleResult& battle_result) {
         case QUIT_GAME:
             endState();
             break;
-        case ESCAPED: case NOT_FINISHED:
+        case ESCAPED:
+            player->setPosition(750.f, 130.f);
+            player->stopVelocity();
+            break;
+        case NOT_FINISHED:
             break;
     }
-
-
 }
 
 void GameState::updateInput(const float &dt) {
@@ -797,26 +810,9 @@ void GameState::update(const float& dt) {
         updateButtons();
 
         player->update(dt);
-        for(const auto& i : enemies){
-            i->update(dt);
-            if(i->getHitboxComponent()->intersects(player->getHitboxComponent()->getGlobalBounds())){
-                states->push(std::make_unique<BattleState>(
-                        window, player, states,
-                        popUpTextComponent, spellComponent, buffComponent,
-                        rsHandler, textures,font, i, currentFloor, cTab));
-                //cTab->updatePlayerStatsLbl();
-                player->setPosition(750.f, 130.f);
-                player->stopVelocity();
-            }
-            if(i->getHitboxComponent()->getGlobalBounds().contains(mousePosView)){
-                if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && getKeyTime()){
-                    std::cout<<i->toString()<<std::endl;
-                }
-            }
-        }
         for(auto i : npcs){
             i->update(dt);
-            i->updateCollsion(player, &npcInteract);
+            i->updateCollision(player, &npcInteract);
         }
         updateMousePosition(nullptr);
         cTabBtn.update(mousePosView);
@@ -824,7 +820,16 @@ void GameState::update(const float& dt) {
         spellTabBtn.update(mousePosView);
         popUpTextComponent->update(dt);
         buffComponent->update(dt, mousePosView);
-
+        for(const auto& i : enemies){
+            i->update(dt);
+            if(i->getHitboxComponent()->intersects(player->getHitboxComponent()->getGlobalBounds())){
+                states->push(std::make_unique<BattleState>(
+                        window, player, states,
+                        popUpTextComponent, spellComponent, buffComponent,
+                        rsHandler, textures,font, i, currentFloor, cTab));
+                break;
+            }
+        }
     } else{ // paused update
         updateMousePosition(nullptr);
         switch(stato){
@@ -874,6 +879,12 @@ void GameState::render(sf::RenderTarget* target) {
 
     map->render(target);
     player->render(*target, true, true);
+    for(const auto& i : lootBags){
+        i->render(*target, true);
+        if(player->getCollisionBoxComponent()->getPosition().y > i->getCollisionBoxComponent()->getPosition().y){
+            player->render(*target, true, true);
+        }
+    }
     for(const auto& i : enemies){
         i->render(*target, true, true);
     }
@@ -920,6 +931,8 @@ void GameState::updateTileMap(const float &dt) {
     if(!noclip)
         map->updateTileCollision(player, dt);
 }
+
+
 
 
 

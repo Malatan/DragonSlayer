@@ -12,6 +12,7 @@
 #include "../Game/Player.h"
 #include "../Game/Enemy.h"
 #include "../Game/Npc.h"
+#include "../Game/LootBag.h"
 #include "../Gui/PauseMenu.h"
 #include "../Gui/CharacterTab.h"
 #include "../Gui/ShopTab.h"
@@ -51,6 +52,7 @@ public:
     //functions
     void checkBattleResult(BattleResult& battle_result);
     void spawnEnemy(float x, float y, enemy_types type, unsigned int enemy_followers = 5);
+    bool deleteEnemyById(unsigned int enemy_id);
     void addItem(const std::shared_ptr<Item>& new_item);
     void changeStato(int current_stato);
     void updateTabsGoldLbl();
@@ -90,6 +92,7 @@ private:
     std::shared_ptr<SpellComponent> spellComponent;
     std::shared_ptr<LootGenerator> lootGenerator;
 
+    std::vector<std::shared_ptr<LootBag>> lootBags;
     std::vector<std::shared_ptr<Enemy>> enemies;
     std::vector<Npc*> npcs;
     int stato; // 0 = in giocata, 1 = pause, menu 2 = character, 3 = shop, 4 = priest, 5 = spell, 6 = wizard

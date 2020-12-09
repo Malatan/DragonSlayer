@@ -1,5 +1,5 @@
 //
-// Created by Administrator on 03/12/2020.
+// Created by Zheng on 03/12/2020.
 //
 
 #ifndef DRAGONSLAYER_LOOTGENERATOR_H
@@ -42,13 +42,14 @@ enum equip_effect{
 
 typedef std::pair<int, int> pairInt;
 typedef std::pair<float, float> pairFloat;
+typedef std::pair<int, enemy_types> dropCount;
 
 class LootGenerator {
 public:
     explicit LootGenerator(std::shared_ptr<ResourcesHandler> rs_handler);
     virtual ~LootGenerator();
 
-    void generateLoot(int drop_count, int floor);
+    std::vector<std::shared_ptr<Item>> generateLoot(const std::shared_ptr<Enemy>& defeated_enemy, int floor);
     std::shared_ptr<Item> generateTierEquipment(item_rarity equip_rarity, bool random_rarity);
     Item *getMaterialByEnemyType(enemy_types type);
     static std::string getRarityString(item_rarity rarity_enum);
@@ -102,7 +103,6 @@ private:
     std::vector<std::unique_ptr<Item>> droppableMaterials;
     std::map<std::string, Item> shopList;
     std::vector<std::string> droppableConsumablesList;
-    std::vector<std::shared_ptr<Item>> lootBag;
 
     void initDroppableMaterials();
     void initShopList();

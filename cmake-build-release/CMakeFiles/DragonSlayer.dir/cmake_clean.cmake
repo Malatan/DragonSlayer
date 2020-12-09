@@ -19,6 +19,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/DragonSlayer.dir/Game/Generator.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Game/Inventory.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Game/Item.cpp.obj"
+  "CMakeFiles/DragonSlayer.dir/Game/LootBag.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Game/LootGenerator.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Game/Npc.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Game/Player.cpp.obj"

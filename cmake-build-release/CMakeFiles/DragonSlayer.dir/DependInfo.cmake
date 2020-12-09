@@ -24,6 +24,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "E:/Progetto/DragonSlayer/Game/Generator.cpp" "E:/Progetto/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Game/Generator.cpp.obj"
   "E:/Progetto/DragonSlayer/Game/Inventory.cpp" "E:/Progetto/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Game/Inventory.cpp.obj"
   "E:/Progetto/DragonSlayer/Game/Item.cpp" "E:/Progetto/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Game/Item.cpp.obj"
+  "E:/Progetto/DragonSlayer/Game/LootBag.cpp" "E:/Progetto/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Game/LootBag.cpp.obj"
   "E:/Progetto/DragonSlayer/Game/LootGenerator.cpp" "E:/Progetto/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Game/LootGenerator.cpp.obj"
   "E:/Progetto/DragonSlayer/Game/Npc.cpp" "E:/Progetto/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Game/Npc.cpp.obj"
   "E:/Progetto/DragonSlayer/Game/Player.cpp" "E:/Progetto/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Game/Player.cpp.obj"

@@ -1,5 +1,5 @@
 //
-// Created by Administrator on 03/12/2020.
+// Created by Zheng on 03/12/2020.
 //
 
 #include "LootGenerator.h"
@@ -233,422 +233,437 @@ const map<std::string, Item> &LootGenerator::getShopList() const {
     return shopList;
 }
 
-void LootGenerator::generateLoot(int drop_count, int floor) {
+std::vector<std::shared_ptr<Item>> LootGenerator::generateLoot(const std::shared_ptr<Enemy>& defeated_enemy, int floor) {
     bool print_result = true;
-    bool print_lootbag = false;
+    bool print_lootbag = true;
     bool print_generated_equip = false;
-    bool add_materials = false;
-    bool add_potions = false;
+    bool add_materials = true;
+    bool add_potions = true;
     bool add_equip = true;
 
-    enemy_types enemy_tipo = WITCH;
+    std::vector<dropCount> drop_counts;
+    if(defeated_enemy->getDeadFollowersNumber() == defeated_enemy->getFollowersNumber()){
+        drop_counts.emplace_back(2, defeated_enemy->getType());
+    }else{
+        drop_counts.emplace_back(1, defeated_enemy->getType());
+    }
+    for(const auto& i : defeated_enemy->getFollowers()){
+        if(i->isDead()){
+            drop_counts.emplace_back(1, i->getType());
+        }
+    }
+    int drop_count = 0;
+    std::vector<std::shared_ptr<Item>> loot_bag;
     //   <rarita, quantita>
     std::map<int, int> materials;
     std::map<int, int> potions;
     int loot_type_count[] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
     int equip_rarity_count[] = {0, 0, 0, 0, 0};
     int material_piece_count[] = {0, 0, 0, 0, 0, 0, 0, 0};
-    int material_rarity_count[] = {0, 0, 0};
+    int material_rarity_count[] = {0, 0, 0, 0, 0};
     int potion_piece_count[] = {0, 0, 0, 0, 0, 0};
     int potion_rarity_count[] = {0, 0, 0};
-    if(!lootBag.empty())
-        lootBag.clear();
-    for (int i = 0; i < drop_count; i++) {
-        //genera in modo randomico un numero
-        int random_value = utils::generateRandomNumber(1, MAX_PROBABILITY);
-        int starting_loot_type = 0;
-        //si scorre il loot finche non troppa il range giusto
-        while (lootProbabilities[starting_loot_type] < random_value)
-            starting_loot_type++;
-        loot_type_count[starting_loot_type]++;
-        auto loot_type_enum = static_cast<loot_type>(starting_loot_type);
-        std::string equip_type;
-        switch (loot_type_enum) {
-            case MATERIAL_LOOT:{
-                // genera in modo randomico la quantita' da 1 a 8
-                random_value = utils::generateRandomNumber(1, MAX_MATERIAL_AMOUNT_PROBABILITY);
-                int start = 0;
-                while (materialAmountProbabilities[start] < random_value)
-                    start++;
-                material_piece_count[start]++;
-                int material_amount = start+1;
-                // genera in modo randomico la rarita' del materiale
-                for(int j = 0 ; j < material_amount ; j++){
-                    random_value = utils::generateRandomNumber(1, MAX_MATERIAL_RARITY_PROBABILITY);
-                    start = 0;
-                    while (materialRarityProbabilities[start] < random_value)
+    for(auto i : drop_counts){
+        enemy_types enemy_tipo = i.second;
+        for (int ii = 0; ii < i.first; ii++) {
+            drop_count++;
+            //genera in modo randomico un numero
+            int random_value = utils::generateRandomNumber(1, MAX_PROBABILITY);
+            int starting_loot_type = 0;
+            //si scorre il loot finche non troppa il range giusto
+            while (lootProbabilities[starting_loot_type] < random_value)
+                starting_loot_type++;
+            loot_type_count[starting_loot_type]++;
+            auto loot_type_enum = static_cast<loot_type>(starting_loot_type);
+            std::string equip_type;
+            switch (loot_type_enum) {
+                case MATERIAL_LOOT:{
+                    // genera in modo randomico la quantita' da 1 a 8
+                    random_value = utils::generateRandomNumber(1, MAX_MATERIAL_AMOUNT_PROBABILITY);
+                    int start = 0;
+                    while (materialAmountProbabilities[start] < random_value)
                         start++;
-                    int n_rarita = start+floor;
-                    if(n_rarita > 5)
-                        n_rarita = 5;
-                    materials[n_rarita] += 1;
-                    material_rarity_count[start]++;
+                    material_piece_count[start]++;
+                    int material_amount = start+1;
+                    // genera in modo randomico la rarita' del materiale
+                    for(int j = 0 ; j < material_amount ; j++){
+                        random_value = utils::generateRandomNumber(1, MAX_MATERIAL_RARITY_PROBABILITY);
+                        start = 0;
+                        while (materialRarityProbabilities[start] < random_value)
+                            start++;
+                        int n_rarita = start+floor;
+                        if(n_rarita > 5)
+                            n_rarita = 5;
+                        materials[n_rarita] += 1;
+                        material_rarity_count[n_rarita-1]++;
+                    }
+                    break;
                 }
-                break;
-            }
-            case COMSUMABLE_LOOT:{
-                // genera in modo randomico la quantita' da 1 a 6
-                random_value = utils::generateRandomNumber(1, MAX_POTION_AMOUNT_PROBABILITY);
-                int start = 0;
-                while (potionAmountProbabilities[start] < random_value)
-                    start++;
-                potion_piece_count[start]++;
-                int potion_amount = start+1;
-                // genera in modo randomico la rarita' della pozione
-                for(int j = 0 ; j < potion_amount ; j++){
-                    random_value = utils::generateRandomNumber(1, MAX_POTION_RARITY_PROBABILITY);
-                    start = 0;
-                    while (potionRarityProbabilities[start] < random_value)
+                case COMSUMABLE_LOOT:{
+                    // genera in modo randomico la quantita' da 1 a 6
+                    random_value = utils::generateRandomNumber(1, MAX_POTION_AMOUNT_PROBABILITY);
+                    int start = 0;
+                    while (potionAmountProbabilities[start] < random_value)
                         start++;
-                    potions[start+1] += 1;
-                    potion_rarity_count[start]++;
+                    potion_piece_count[start]++;
+                    int potion_amount = start+1;
+                    // genera in modo randomico la rarita' della pozione
+                    for(int j = 0 ; j < potion_amount ; j++){
+                        random_value = utils::generateRandomNumber(1, MAX_POTION_RARITY_PROBABILITY);
+                        start = 0;
+                        while (potionRarityProbabilities[start] < random_value)
+                            start++;
+                        potions[start+1] += 1;
+                        potion_rarity_count[start]++;
+                    }
+                    break;
                 }
-                break;
-            }
-            case WEAPON_LOOT: {
-                int n = utils::generateRandomNumber(0, 2);
-                switch (n) {
-                    case 0:
-                        equip_type = "W-sword";
-                        break;
-                    case 1:
-                        equip_type = "W-axe";
-                        break;
-                    case 2:
-                        equip_type = "W-bow";
-                        break;
-                    default:
-                        equip_type = "W-sword";
-                        break;
+                case WEAPON_LOOT: {
+                    int n = utils::generateRandomNumber(0, 2);
+                    switch (n) {
+                        case 0:
+                            equip_type = "W-sword";
+                            break;
+                        case 1:
+                            equip_type = "W-axe";
+                            break;
+                        case 2:
+                            equip_type = "W-bow";
+                            break;
+                        default:
+                            equip_type = "W-sword";
+                            break;
+                    }
                 }
-            }
-            case SHIELD_LOOT: {
-                if(equip_type.empty())
-                    equip_type = "E-shield";
-            }
-            case HELMET_LOOT: {
-                if(equip_type.empty())
-                    equip_type = "E-head";
-            }
-            case CHESTPLATE_LOOT: {
-                if(equip_type.empty())
-                    equip_type = "E-chest";
-            }
-            case GLOVES_LOOT: {
-                if(equip_type.empty())
-                    equip_type = "E-arms";
-            }
-            case BOOTS_LOOT: {
-                if(equip_type.empty())
-                    equip_type = "E-legs";
-                // genera il numero per determinare la rarita dell'equipaggiamento
-                random_value = utils::generateRandomNumber(1, MAX_RARITY_PROBABILITY);
-                int starting_loot_rarity = 0;
-                // la probabilita varia a seconda del piano(floor)
-                switch (floor) {
-                    case 1:
-                        while (lootRarityProbabilities1[starting_loot_rarity] < random_value)
-                            starting_loot_rarity++;
-                        break;
-                    case 2:
-                        while (lootRarityProbabilities2[starting_loot_rarity] < random_value)
-                            starting_loot_rarity++;
-                        break;
-                    case 3:
-                        while (lootRarityProbabilities3[starting_loot_rarity] < random_value)
-                            starting_loot_rarity++;
-                        break;
-                    case 4:
-                        while (lootRarityProbabilities4[starting_loot_rarity] < random_value)
-                            starting_loot_rarity++;
-                        break;
-                    case 5:
-                        while (lootRarityProbabilities5[starting_loot_rarity] < random_value)
-                            starting_loot_rarity++;
-                        break;
-                    default:
-                        break;
+                case SHIELD_LOOT: {
+                    if(equip_type.empty())
+                        equip_type = "E-shield";
                 }
-                equip_rarity_count[starting_loot_rarity]++;
-                if(add_equip){
-                    //prende un nome a caso dal file txt
-                    ifstream file;
-                    ifstream file_desc;
-                    file.open("../Data/Equipment names/" + equip_type.substr(2) + ".txt");
-                    file_desc.open("../Data/random descriptions.txt");
-                    if (!file.is_open()) {
-                        cout << "Resource load error: Could not load name .txt";
-                    } else if(!file_desc.is_open()){
-                        cout << "Resource load error: Could not load random descriptions.txt";
-                    } else {
-                        std::string names;
-                        std::vector<std::string> lines;
-                        int total_lines=0;
-                        while(getline(file, names)){
-                            total_lines++;
-                            lines.push_back(names);
-                        }
-                        auto loot_rarity_enum = static_cast<loot_rarity>(starting_loot_rarity);
-                        int random_line = utils::generateRandomNumber(0, total_lines - 1);
-                        std::string item_name = lines[random_line];
-                        std::shared_ptr<Item> new_equip = std::make_shared<Item>();
-                        new_equip->setItemType(equip_type);
-                        new_equip->setName(item_name);
-                        new_equip->setRarity(getRarityString(loot_rarity_enum));
-                        new_equip->setId(rsHandler->generateId());
-                        new_equip->updateUsageType();
-                        new_equip->setQuantity(1);
-
-                        //genera l'icona per l'oggetto
-                        switch(new_equip->getUsageType()){
-                            case LEGS_USAGE:{
-                                int array_size = sizeof(bootsIntRects)/sizeof(bootsIntRects[0]) - 1;
-                                int random_index = utils::generateRandomNumber(0, array_size);
-                                new_equip->setIconRectX(bootsIntRects[random_index].first);
-                                new_equip->setIconRectY(bootsIntRects[random_index].second);
-                                break;
-                            }
-                            case ARMS_USAGE:{
-                                int array_size = sizeof(glovesIntRects)/sizeof(glovesIntRects[0]) - 1;
-                                int random_index = utils::generateRandomNumber(0, array_size);
-                                new_equip->setIconRectX(glovesIntRects[random_index].first);
-                                new_equip->setIconRectY(glovesIntRects[random_index].second);
-                                break;
-                            }
-                            case CHEST_USAGE:{
-                                int array_size = sizeof(chestIntRects)/sizeof(chestIntRects[0]) - 1;
-                                int random_index = utils::generateRandomNumber(0, array_size);
-                                new_equip->setIconRectX(chestIntRects[random_index].first);
-                                new_equip->setIconRectY(chestIntRects[random_index].second);
-                                break;
-                            }
-                            case HEAD_USAGE:{
-                                int array_size = sizeof(helmetIconIntRects)/sizeof(helmetIconIntRects[0]) - 1;
-                                int random_index = utils::generateRandomNumber(0, array_size);
-                                new_equip->setIconRectX(helmetIconIntRects[random_index].first);
-                                new_equip->setIconRectY(helmetIconIntRects[random_index].second);
-                                break;
-                            }
-                            case SHIELD_USAGE:{
-                                int array_size = sizeof(shieldIconIntRects)/sizeof(shieldIconIntRects[0]) - 1;
-                                int random_index = utils::generateRandomNumber(0, array_size);
-                                new_equip->setIconRectX(shieldIconIntRects[random_index].first);
-                                new_equip->setIconRectY(shieldIconIntRects[random_index].second);
-                                break;
-                            }
-                            case WEAPON_USAGE:{
-                                if(new_equip->getWeaponType() == "sword"){
-                                    int array_size = sizeof(swordIconIntRects)/sizeof(swordIconIntRects[0]) - 1;
-                                    int random_index = utils::generateRandomNumber(0, array_size);
-                                    new_equip->setIconRectX(swordIconIntRects[random_index].first);
-                                    new_equip->setIconRectY(swordIconIntRects[random_index].second);
-                                }else if(new_equip->getWeaponType() == "axe"){
-                                    int array_size = sizeof(axeIconIntRects)/sizeof(axeIconIntRects[0]) - 1;
-                                    int random_index = utils::generateRandomNumber(0, array_size);
-                                    new_equip->setIconRectX(axeIconIntRects[random_index].first);
-                                    new_equip->setIconRectY(axeIconIntRects[random_index].second);
-                                }else if(new_equip->getWeaponType() == "bow"){
-                                    int array_size = sizeof(bowIconIntRects)/sizeof(bowIconIntRects[0]) - 1;
-                                    int random_index = utils::generateRandomNumber(0, array_size);
-                                    new_equip->setIconRectX(bowIconIntRects[random_index].first);
-                                    new_equip->setIconRectY(bowIconIntRects[random_index].second);
-                                }
-                                break;
-                            }
-                            case CONSUMABLE_USAGE: case MATERIAL_USAGE: case DEFAULT_USAGE:
-                                break;
-                        }
-
-                        //genera in modo randomico gli effetti dell'arma
-                        int effect_amount = utils::generateRandomNumber(statsAmount[starting_loot_rarity].first,
-                                                                        statsAmount[starting_loot_rarity].second);
-                        std::vector<equip_effect> effects;
-                        effects.reserve(effect_amount);
-                        switch(new_equip->getUsageType()){
-                            case LEGS_USAGE:
-                            case ARMS_USAGE:
-                            case CHEST_USAGE:
-                            case HEAD_USAGE:
-                            case SHIELD_USAGE:
-                                effects.push_back(ADD_ARMOR);
-                                effect_amount--;
-                                break;
-                            case WEAPON_USAGE:
-                                effects.push_back(ADD_DAMAGE);
-                                effect_amount--;
-                                break;
-                            case CONSUMABLE_USAGE: case MATERIAL_USAGE: case DEFAULT_USAGE:
-                                break;
-                        }
-                        while(effect_amount > 0){
-                            bool repeated = false;
-                            auto random_effect = static_cast<equip_effect>(utils::generateRandomNumber(0 ,5));
-                            for(auto app : effects){
-                                if(app == random_effect){
-                                    repeated = true;
-                                    break;
-                                }
-                            }
-                            if(!repeated){
-                                effect_amount--;
-                                effects.push_back(random_effect);
-                            }
-                        }
-                        for(auto app : effects){
-                            switch (app) {
-                                case ADD_HP:{
-                                    int value = utils::generateRandomNumber(hpRange[starting_loot_rarity].first,
-                                                                               hpRange[starting_loot_rarity].second);
-                                    new_equip->setHp(value);
-                                    break;
-                                }
-                                case ADD_MP:{
-                                    int value = utils::generateRandomNumber(mpRange[starting_loot_rarity].first,
-                                                                            mpRange[starting_loot_rarity].second);
-                                    new_equip->setMp(value);
-                                    break;
-                                }
-                                case ADD_DAMAGE:{
-                                    int value = utils::generateRandomNumber(damageRange[starting_loot_rarity].first,
-                                                                            damageRange[starting_loot_rarity].second);
-                                    new_equip->setDamage(value);
-                                    break;
-                                }
-                                case ADD_ARMOR:{int value;
-                                    if(new_equip->getUsageType() == SHIELD_USAGE){
-                                        value = utils::generateRandomNumber(shieldArmorRange[starting_loot_rarity].first,
-                                                                            shieldArmorRange[starting_loot_rarity].second);
-                                    }else{
-                                        value = utils::generateRandomNumber(armorRange[starting_loot_rarity].first,
-                                                                            armorRange[starting_loot_rarity].second);
-                                    }
-                                    new_equip->setArmor(value);
-                                    break;
-                                }
-                                case ADD_CRITCHANCE:{
-                                    float valuef = utils::generateRandomNumberf(critchanceRange[starting_loot_rarity].first,
-                                                                                critchanceRange[starting_loot_rarity].second,
-                                                                                2);
-                                    new_equip->setCritChance(valuef);
-                                    break;
-                                }
-                                case ADD_EVADECHANCE:{
-                                    float valuef = utils::generateRandomNumberf(evadechanceRange[starting_loot_rarity].first,
-                                                                                evadechanceRange[starting_loot_rarity].second,
-                                                                                2);
-                                    new_equip->setEvadeChance(valuef);
-                                    break;
-                                }
-                            }
-                        }
-                        //calcola il valore dell'oggetto
-                        float base_value = (float)new_equip->getHp() / 5.f + (float)new_equip->getHp() / 5.f +
-                                           (float)new_equip->getDamage() * 5.f + (float)new_equip->getArmor() * 5.f +
-                                           new_equip->getCritChance() * 10.f + new_equip->getEvadeChance() * 10.f;
-                        switch(new_equip->getRarityEnum()){
-                            case UNCOMMON:{
-                                base_value *= 1.5f;
-                                break;
-                            }
-                            case COMMON:{
-                                base_value *= 2.f;
-                                break;
-                            }
-                            case RARE:{
-                                base_value *= 2.5f;
-                                break;
-                            }
-                            case EPIC:{
-                                base_value *= 3.f;
-                                break;
-                            }
-                            case LEGENDARY:{
-                                base_value *= 3.5f;
-                                break;
-                            }
-                            case DEFAULT_RARITY: default:
-                                break;
-                        }
-                        new_equip->setValue(std::ceil(base_value));
-
-                        //genera la descrizione per l'oggetto
-                        if(new_equip->getUsageType() == SHIELD_USAGE){
-                            stringstream ss;
-                            ss << "Reduces " << new_equip->getArmor() << " % of damage when raised(Defensive mode).";
-                            new_equip->setDescription(ss.str());
-                        }else{
-                            std::string descs;
-                            lines.clear();
-                            total_lines = 0;
-                            while(getline(file_desc, descs)){
+                case HELMET_LOOT: {
+                    if(equip_type.empty())
+                        equip_type = "E-head";
+                }
+                case CHESTPLATE_LOOT: {
+                    if(equip_type.empty())
+                        equip_type = "E-chest";
+                }
+                case GLOVES_LOOT: {
+                    if(equip_type.empty())
+                        equip_type = "E-arms";
+                }
+                case BOOTS_LOOT: {
+                    if(equip_type.empty())
+                        equip_type = "E-legs";
+                    // genera il numero per determinare la rarita dell'equipaggiamento
+                    random_value = utils::generateRandomNumber(1, MAX_RARITY_PROBABILITY);
+                    int starting_loot_rarity = 0;
+                    // la probabilita varia a seconda del piano(floor)
+                    switch (floor) {
+                        case 1:
+                            while (lootRarityProbabilities1[starting_loot_rarity] < random_value)
+                                starting_loot_rarity++;
+                            break;
+                        case 2:
+                            while (lootRarityProbabilities2[starting_loot_rarity] < random_value)
+                                starting_loot_rarity++;
+                            break;
+                        case 3:
+                            while (lootRarityProbabilities3[starting_loot_rarity] < random_value)
+                                starting_loot_rarity++;
+                            break;
+                        case 4:
+                            while (lootRarityProbabilities4[starting_loot_rarity] < random_value)
+                                starting_loot_rarity++;
+                            break;
+                        case 5:
+                            while (lootRarityProbabilities5[starting_loot_rarity] < random_value)
+                                starting_loot_rarity++;
+                            break;
+                        default:
+                            break;
+                    }
+                    equip_rarity_count[starting_loot_rarity]++;
+                    if(add_equip){
+                        //prende un nome a caso dal file txt
+                        ifstream file;
+                        ifstream file_desc;
+                        file.open("../Data/Equipment names/" + equip_type.substr(2) + ".txt");
+                        file_desc.open("../Data/random descriptions.txt");
+                        if (!file.is_open()) {
+                            cout << "Resource load error: Could not load name .txt";
+                        } else if(!file_desc.is_open()){
+                            cout << "Resource load error: Could not load random descriptions.txt";
+                        } else {
+                            std::string names;
+                            std::vector<std::string> lines;
+                            int total_lines=0;
+                            while(getline(file, names)){
                                 total_lines++;
-                                lines.push_back(descs);
+                                lines.push_back(names);
                             }
-                            random_line = utils::generateRandomNumber(0, total_lines - 1);
-                            std::string desc = lines[random_line];
-                            new_equip->setDescription(desc);
-                        }
+                            auto loot_rarity_enum = static_cast<loot_rarity>(starting_loot_rarity);
+                            int random_line = utils::generateRandomNumber(0, total_lines - 1);
+                            std::string item_name = lines[random_line];
+                            std::shared_ptr<Item> new_equip = std::make_shared<Item>();
+                            new_equip->setItemType(equip_type);
+                            new_equip->setName(item_name);
+                            new_equip->setRarity(getRarityString(loot_rarity_enum));
+                            new_equip->setId(rsHandler->generateId());
+                            new_equip->updateUsageType();
+                            new_equip->setQuantity(1);
 
-                        //aggiunge l'oggetto nel lootbag
-                        lootBag.push_back(std::move(new_equip));
-                        new_equip.reset();
-                        file_desc.close();
-                        file.close();
-                        if(print_generated_equip){
-                            std::cout<< equip_type << "(" << getRarityString(loot_rarity_enum) << ")-" << item_name << std::endl;
+                            //genera l'icona per l'oggetto
+                            switch(new_equip->getUsageType()){
+                                case LEGS_USAGE:{
+                                    int array_size = sizeof(bootsIntRects)/sizeof(bootsIntRects[0]) - 1;
+                                    int random_index = utils::generateRandomNumber(0, array_size);
+                                    new_equip->setIconRectX(bootsIntRects[random_index].first);
+                                    new_equip->setIconRectY(bootsIntRects[random_index].second);
+                                    break;
+                                }
+                                case ARMS_USAGE:{
+                                    int array_size = sizeof(glovesIntRects)/sizeof(glovesIntRects[0]) - 1;
+                                    int random_index = utils::generateRandomNumber(0, array_size);
+                                    new_equip->setIconRectX(glovesIntRects[random_index].first);
+                                    new_equip->setIconRectY(glovesIntRects[random_index].second);
+                                    break;
+                                }
+                                case CHEST_USAGE:{
+                                    int array_size = sizeof(chestIntRects)/sizeof(chestIntRects[0]) - 1;
+                                    int random_index = utils::generateRandomNumber(0, array_size);
+                                    new_equip->setIconRectX(chestIntRects[random_index].first);
+                                    new_equip->setIconRectY(chestIntRects[random_index].second);
+                                    break;
+                                }
+                                case HEAD_USAGE:{
+                                    int array_size = sizeof(helmetIconIntRects)/sizeof(helmetIconIntRects[0]) - 1;
+                                    int random_index = utils::generateRandomNumber(0, array_size);
+                                    new_equip->setIconRectX(helmetIconIntRects[random_index].first);
+                                    new_equip->setIconRectY(helmetIconIntRects[random_index].second);
+                                    break;
+                                }
+                                case SHIELD_USAGE:{
+                                    int array_size = sizeof(shieldIconIntRects)/sizeof(shieldIconIntRects[0]) - 1;
+                                    int random_index = utils::generateRandomNumber(0, array_size);
+                                    new_equip->setIconRectX(shieldIconIntRects[random_index].first);
+                                    new_equip->setIconRectY(shieldIconIntRects[random_index].second);
+                                    break;
+                                }
+                                case WEAPON_USAGE:{
+                                    if(new_equip->getWeaponType() == "sword"){
+                                        int array_size = sizeof(swordIconIntRects)/sizeof(swordIconIntRects[0]) - 1;
+                                        int random_index = utils::generateRandomNumber(0, array_size);
+                                        new_equip->setIconRectX(swordIconIntRects[random_index].first);
+                                        new_equip->setIconRectY(swordIconIntRects[random_index].second);
+                                    }else if(new_equip->getWeaponType() == "axe"){
+                                        int array_size = sizeof(axeIconIntRects)/sizeof(axeIconIntRects[0]) - 1;
+                                        int random_index = utils::generateRandomNumber(0, array_size);
+                                        new_equip->setIconRectX(axeIconIntRects[random_index].first);
+                                        new_equip->setIconRectY(axeIconIntRects[random_index].second);
+                                    }else if(new_equip->getWeaponType() == "bow"){
+                                        int array_size = sizeof(bowIconIntRects)/sizeof(bowIconIntRects[0]) - 1;
+                                        int random_index = utils::generateRandomNumber(0, array_size);
+                                        new_equip->setIconRectX(bowIconIntRects[random_index].first);
+                                        new_equip->setIconRectY(bowIconIntRects[random_index].second);
+                                    }
+                                    break;
+                                }
+                                case CONSUMABLE_USAGE: case MATERIAL_USAGE: case DEFAULT_USAGE:
+                                    break;
+                            }
+
+                            //genera in modo randomico gli effetti dell'arma
+                            int effect_amount = utils::generateRandomNumber(statsAmount[starting_loot_rarity].first,
+                                                                            statsAmount[starting_loot_rarity].second);
+                            std::vector<equip_effect> effects;
+                            effects.reserve(effect_amount);
+                            switch(new_equip->getUsageType()){
+                                case LEGS_USAGE:
+                                case ARMS_USAGE:
+                                case CHEST_USAGE:
+                                case HEAD_USAGE:
+                                case SHIELD_USAGE:
+                                    effects.push_back(ADD_ARMOR);
+                                    effect_amount--;
+                                    break;
+                                case WEAPON_USAGE:
+                                    effects.push_back(ADD_DAMAGE);
+                                    effect_amount--;
+                                    break;
+                                case CONSUMABLE_USAGE: case MATERIAL_USAGE: case DEFAULT_USAGE:
+                                    break;
+                            }
+                            while(effect_amount > 0){
+                                bool repeated = false;
+                                auto random_effect = static_cast<equip_effect>(utils::generateRandomNumber(0 ,5));
+                                for(auto app : effects){
+                                    if(app == random_effect){
+                                        repeated = true;
+                                        break;
+                                    }
+                                }
+                                if(!repeated){
+                                    effect_amount--;
+                                    effects.push_back(random_effect);
+                                }
+                            }
                             for(auto app : effects){
                                 switch (app) {
-                                    case ADD_HP:
-                                        std::cout<< "   Add hp: " << new_equip->getHp() << std::endl;
+                                    case ADD_HP:{
+                                        int value = utils::generateRandomNumber(hpRange[starting_loot_rarity].first,
+                                                                                hpRange[starting_loot_rarity].second);
+                                        new_equip->setHp(value);
                                         break;
-                                    case ADD_MP:
-                                        std::cout<< "   Add mp: " << new_equip->getMp() << std::endl;
+                                    }
+                                    case ADD_MP:{
+                                        int value = utils::generateRandomNumber(mpRange[starting_loot_rarity].first,
+                                                                                mpRange[starting_loot_rarity].second);
+                                        new_equip->setMp(value);
                                         break;
-                                    case ADD_DAMAGE:
-                                        std::cout<< "   Add damage: " << new_equip->getDamage() << std::endl;
+                                    }
+                                    case ADD_DAMAGE:{
+                                        int value = utils::generateRandomNumber(damageRange[starting_loot_rarity].first,
+                                                                                damageRange[starting_loot_rarity].second);
+                                        new_equip->setDamage(value);
                                         break;
-                                    case ADD_ARMOR:
-                                        std::cout<< "   Add armor: " << new_equip->getArmor() << std::endl;
+                                    }
+                                    case ADD_ARMOR:{int value;
+                                        if(new_equip->getUsageType() == SHIELD_USAGE){
+                                            value = utils::generateRandomNumber(shieldArmorRange[starting_loot_rarity].first,
+                                                                                shieldArmorRange[starting_loot_rarity].second);
+                                        }else{
+                                            value = utils::generateRandomNumber(armorRange[starting_loot_rarity].first,
+                                                                                armorRange[starting_loot_rarity].second);
+                                        }
+                                        new_equip->setArmor(value);
                                         break;
-                                    case ADD_CRITCHANCE:
-                                        std::cout<< "   Add critchance: " << new_equip->getCritChance() << std::endl;
+                                    }
+                                    case ADD_CRITCHANCE:{
+                                        float valuef = utils::generateRandomNumberf(critchanceRange[starting_loot_rarity].first,
+                                                                                    critchanceRange[starting_loot_rarity].second,
+                                                                                    2);
+                                        new_equip->setCritChance(valuef);
                                         break;
-                                    case ADD_EVADECHANCE:
-                                        std::cout<< "   Add evadechance: " << new_equip->getEvadeChance() << std::endl;
+                                    }
+                                    case ADD_EVADECHANCE:{
+                                        float valuef = utils::generateRandomNumberf(evadechanceRange[starting_loot_rarity].first,
+                                                                                    evadechanceRange[starting_loot_rarity].second,
+                                                                                    2);
+                                        new_equip->setEvadeChance(valuef);
                                         break;
+                                    }
+                                }
+                            }
+                            //calcola il valore dell'oggetto
+                            float base_value = (float)new_equip->getHp() / 5.f + (float)new_equip->getHp() / 5.f +
+                                               (float)new_equip->getDamage() * 5.f + (float)new_equip->getArmor() * 5.f +
+                                               new_equip->getCritChance() * 10.f + new_equip->getEvadeChance() * 10.f;
+                            switch(new_equip->getRarityEnum()){
+                                case UNCOMMON:{
+                                    base_value *= 1.5f;
+                                    break;
+                                }
+                                case COMMON:{
+                                    base_value *= 2.f;
+                                    break;
+                                }
+                                case RARE:{
+                                    base_value *= 2.5f;
+                                    break;
+                                }
+                                case EPIC:{
+                                    base_value *= 3.f;
+                                    break;
+                                }
+                                case LEGENDARY:{
+                                    base_value *= 3.5f;
+                                    break;
+                                }
+                                case DEFAULT_RARITY: default:
+                                    break;
+                            }
+                            new_equip->setValue(std::ceil(base_value));
+
+                            //genera la descrizione per l'oggetto
+                            if(new_equip->getUsageType() == SHIELD_USAGE){
+                                stringstream ss;
+                                ss << "Reduces " << new_equip->getArmor() << " % of damage when raised(Defensive mode).";
+                                new_equip->setDescription(ss.str());
+                            }else{
+                                std::string descs;
+                                lines.clear();
+                                total_lines = 0;
+                                while(getline(file_desc, descs)){
+                                    total_lines++;
+                                    lines.push_back(descs);
+                                }
+                                random_line = utils::generateRandomNumber(0, total_lines - 1);
+                                std::string desc = lines[random_line];
+                                new_equip->setDescription(desc);
+                            }
+
+                            //aggiunge l'oggetto nel lootbag
+                            loot_bag.push_back(std::move(new_equip));
+                            new_equip.reset();
+                            file_desc.close();
+                            file.close();
+                            if(print_generated_equip){
+                                std::cout<< equip_type << "(" << getRarityString(loot_rarity_enum) << ")-" << item_name << std::endl;
+                                for(auto app : effects){
+                                    switch (app) {
+                                        case ADD_HP:
+                                            std::cout<< "   Add hp: " << new_equip->getHp() << std::endl;
+                                            break;
+                                        case ADD_MP:
+                                            std::cout<< "   Add mp: " << new_equip->getMp() << std::endl;
+                                            break;
+                                        case ADD_DAMAGE:
+                                            std::cout<< "   Add damage: " << new_equip->getDamage() << std::endl;
+                                            break;
+                                        case ADD_ARMOR:
+                                            std::cout<< "   Add armor: " << new_equip->getArmor() << std::endl;
+                                            break;
+                                        case ADD_CRITCHANCE:
+                                            std::cout<< "   Add critchance: " << new_equip->getCritChance() << std::endl;
+                                            break;
+                                        case ADD_EVADECHANCE:
+                                            std::cout<< "   Add evadechance: " << new_equip->getEvadeChance() << std::endl;
+                                            break;
+                                    }
                                 }
                             }
                         }
                     }
-                }
-                break;
-            }
-            case NO_LOOT:
-                break;
-        }
-    }
-    //aggiunge i materiali nel lootbag
-    if(add_materials){
-        for(auto j : materials){
-            bool repeated = false;
-            auto material_rarity = static_cast<item_rarity>(j.first);
-            std::shared_ptr<Item> new_material = std::make_shared<Item>(getMaterialByEnemyType(enemy_tipo));
-            new_material->setRarity(material_rarity);
-            for(const auto& k : lootBag){
-                if(k->getName() == new_material->getName() &&
-                   k->getRarityEnum() == new_material->getRarityEnum()){
-                    k->addQuantity(j.second - k->getQuantity());
-                    repeated = true;
                     break;
                 }
+                case NO_LOOT:
+                    break;
             }
-            if(!repeated){
-                new_material->setQuantity(j.second);
+        }
+        //aggiunge i materiali nel lootbag
+        if(add_materials){
+            for(auto j : materials){
+                bool repeated = false;
+                auto material_rarity = static_cast<item_rarity>(j.first);
+                std::shared_ptr<Item> new_material = std::make_shared<Item>(getMaterialByEnemyType(enemy_tipo));
                 new_material->setRarity(material_rarity);
-                new_material->updateValueByRarity();
-                new_material->setId(rsHandler->generateId());
-                lootBag.push_back(std::move(new_material));
+                for(const auto& k : loot_bag){
+                    if(k->getName() == new_material->getName() &&
+                       k->getRarityEnum() == new_material->getRarityEnum()){
+                        k->addQuantity(j.second - k->getQuantity());
+                        repeated = true;
+                        break;
+                    }
+                }
+                if(!repeated){
+                    new_material->setQuantity(j.second);
+                    new_material->setRarity(material_rarity);
+                    new_material->updateValueByRarity();
+                    new_material->setId(rsHandler->generateId());
+                    loot_bag.push_back(std::move(new_material));
+                }
             }
+            materials.clear();
         }
     }
 
@@ -669,7 +684,7 @@ void LootGenerator::generateLoot(int drop_count, int floor) {
                     if(shopList[p_name].getRarityEnum() == p_rarity)
                         correct_rarity = true;
                 }
-                for(const auto& p : lootBag){
+                for(const auto& p : loot_bag){
                     if(p->getName() == p_name){
                         p->addQuantity(rand_amount);
                         repeated = true;
@@ -680,7 +695,7 @@ void LootGenerator::generateLoot(int drop_count, int floor) {
                     std::shared_ptr<Item> new_potion = std::make_shared<Item>(shopList[p_name]);
                     new_potion->setQuantity(rand_amount);
                     new_potion->setId(rsHandler->generateId());
-                    lootBag.push_back(std::move(new_potion));
+                    loot_bag.push_back(std::move(new_potion));
                 }
             }
         }
@@ -699,9 +714,15 @@ void LootGenerator::generateLoot(int drop_count, int floor) {
         ss << "        6 pieces: " << material_piece_count[5] << endl;
         ss << "        7 pieces: " << material_piece_count[6] << endl;
         ss << "        8 pieces: " << material_piece_count[7] << endl;
-        for(auto i : materials)
-            ss << "        " << getRarityString(static_cast<item_rarity>(i.first)) << ": " << i.second << endl;
-        ss << "        Tot: " << material_rarity_count[0] + material_rarity_count[1] + material_rarity_count[2] << endl;
+        int tot_count = 0;
+        for(int i = 0 ; i < 5 ; i++){
+            if(material_rarity_count[i] > 0){
+                ss << "        " << getRarityString(static_cast<item_rarity>(i+1)) << ": "
+                << material_rarity_count[i] << endl;
+                tot_count += material_rarity_count[i];
+            }
+        }
+        ss << "        Tot: " << tot_count << endl;
         ss << "Consumable: " << loot_type_count[1] << endl;
         ss << "        1 piece: " << potion_piece_count[0] << endl;
         ss << "        2 pieces: " << potion_piece_count[1] << endl;
@@ -728,14 +749,16 @@ void LootGenerator::generateLoot(int drop_count, int floor) {
         ss << "        Legendary: " << equip_rarity_count[4] << endl;
         ss << "        Tot: " << equip_rarity_count[0] + equip_rarity_count[1] + equip_rarity_count[2] +
                                         equip_rarity_count[3] + equip_rarity_count[4] << endl;
-        ss << "LootBag("<< lootBag.size() << "): " << endl;
+        ss << "LootBag("<< loot_bag.size() << "): " << endl;
         if(print_lootbag){
-            for(const auto& i : lootBag)
+            for(const auto& i : loot_bag)
                 ss << i->listItem(true) << endl;
         }
         ss << "-------------------------End-Floor " << floor << "-End-------------------------" << endl;
         std::cout << ss.str();
     }
+
+    return loot_bag;
 }
 
 Item *LootGenerator::getMaterialByEnemyType(enemy_types type) {
@@ -1091,6 +1114,5 @@ std::shared_ptr<Item> LootGenerator::generateTierEquipment(item_rarity equip_rar
     }
     return nullptr;
 }
-
 
 

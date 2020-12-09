@@ -793,6 +793,33 @@ Game/Item.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Item.cpp.s
 .PHONY : Game/Item.cpp.s
 
+Game/LootBag.obj: Game/LootBag.cpp.obj
+
+.PHONY : Game/LootBag.obj
+
+# target to build an object file
+Game/LootBag.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/LootBag.cpp.obj
+.PHONY : Game/LootBag.cpp.obj
+
+Game/LootBag.i: Game/LootBag.cpp.i
+
+.PHONY : Game/LootBag.i
+
+# target to preprocess a source file
+Game/LootBag.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/LootBag.cpp.i
+.PHONY : Game/LootBag.cpp.i
+
+Game/LootBag.s: Game/LootBag.cpp.s
+
+.PHONY : Game/LootBag.s
+
+# target to generate assembly for a file
+Game/LootBag.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/LootBag.cpp.s
+.PHONY : Game/LootBag.cpp.s
+
 Game/LootGenerator.obj: Game/LootGenerator.cpp.obj
 
 .PHONY : Game/LootGenerator.obj
@@ -1411,6 +1438,9 @@ help:
 	@echo ... Game/Item.obj
 	@echo ... Game/Item.i
 	@echo ... Game/Item.s
+	@echo ... Game/LootBag.obj
+	@echo ... Game/LootBag.i
+	@echo ... Game/LootBag.s
 	@echo ... Game/LootGenerator.obj
 	@echo ... Game/LootGenerator.i
 	@echo ... Game/LootGenerator.s

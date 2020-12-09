@@ -16,6 +16,7 @@ public:
 
     //accessors
     sf::CircleShape &getCollisionEllipse();
+    sf::Vector2f getPosition();
 
     //modifiers
 

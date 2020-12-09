@@ -6,8 +6,6 @@
 
 void Npc::initAnimations() {
     switch(type){
-        case DEFAULT_RARITY:
-            break;
         case SHOP:
             animationComponent->addAnimation("IDLE", 10.f,
                                                    0, 0, 17, 0, 128 ,128);
@@ -20,15 +18,13 @@ void Npc::initAnimations() {
             animationComponent->addAnimation("IDLE", 10.f,
                                                    0, 0, 5, 0, 231 ,190);
             break;
-        case NO_NPC:
+        case NO_NPC: case DEFAULT_NPC:
             break;
     }
 }
 
 void Npc::iniHitBoxComponents() {
     switch(type){
-        case DEFAULT_RARITY:
-            break;
         case SHOP:
             createHitboxComponent(sprite, 80.f, 50.f, 32.f, 64.f);
             break;
@@ -38,7 +34,7 @@ void Npc::iniHitBoxComponents() {
         case WIZARD:
             createHitboxComponent(sprite, 55.f, 36.f, 42.f, 64.f);
             break;
-        case NO_NPC:
+        case NO_NPC: case DEFAULT_NPC:
             break;
     }
 }
@@ -54,8 +50,11 @@ Npc::Npc(npc_type type, float x, float y, float scale_x, float scale_y, sf::Text
     initAnimations();
     iniHitBoxComponents();
     Npc::setPosition(x, y);
+    hitboxComponent->update();
     overHeadContainer.setSize(sf::Vector2f(20.f, 20.f));
     overHeadContainer.setTexture(&texture);
+    overHeadContainer.setPosition(hitboxComponent->getPosition().x + hitboxComponent->getGlobalBounds().width/2.f - 10.f,
+                                  hitboxComponent->getPosition().y - 23.f);
 }
 
 Npc::~Npc() = default;
@@ -66,9 +65,6 @@ void Npc::updateAnimation(const float &dt) {
 
 void Npc::update(const float &dt) {
     updateAnimation(dt);
-    hitboxComponent->update();
-    overHeadContainer.setPosition(hitboxComponent->getPosition().x + hitboxComponent->getGlobalBounds().width/2.f - 10.f,
-                                        hitboxComponent->getPosition().y - 23.f);
 }
 
 void Npc::render(sf::RenderTarget &target, const bool show_hitbox) {
@@ -78,7 +74,7 @@ void Npc::render(sf::RenderTarget &target, const bool show_hitbox) {
         hitboxComponent->render(target);
 }
 
-void Npc::updateCollsion(const std::shared_ptr<Player>& player, npc_type* current_type) {
+void Npc::updateCollision(const std::shared_ptr<Player>& player, npc_type* current_type) {
     if(*current_type == NO_NPC || *current_type == this->type){
         if(player->getHitboxComponent()->intersects(hitboxComponent->getGlobalBounds())){
             overHeadContainer.setFillColor(sf::Color::White);

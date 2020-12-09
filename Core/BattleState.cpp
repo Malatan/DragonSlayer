@@ -862,17 +862,14 @@ void BattleState::endEnemyTurn() {
 
 void BattleState::endBattle() {
     switch(battleResultEnum){
-        case WIN:
-        case LOST:
-        case ESCAPED:
+        case WIN: case LOST: case ESCAPED: case QUIT_GAME:
             endState();
-            break;
         case NOT_FINISHED:
-        case QUIT_GAME:
             break;
     }
     if(battleResultEnum != NOT_FINISHED){
         battleResult.updateBattleResult(battleResultEnum, player->isDead(), enemyLeader);
+        enemyLeader.reset();
         cTab->getGState()->checkBattleResult(battleResult);
     }
 }
@@ -1070,7 +1067,8 @@ void BattleState::updateMainPanel(const float &dt) {
 
 void BattleState::updatePausedMenuButtons() {
     if(pmenu->isButtonPressed("QUIT") && getKeyTime()){
-        endState();
+        battleResultEnum = QUIT_GAME;
+        endBattle();
     } else if(pmenu->isButtonPressed("LOAD_SAVE") && getKeyTime()){
         std::cout<<"1";
     }
@@ -1096,10 +1094,12 @@ void BattleState::update(const float &dt) {
                     playerStatusPanel.setShapeOutlineThickness(0.f);
                 }
             } else {
-                if(battleResultEnum != NOT_FINISHED)
+                if(battleResultEnum != NOT_FINISHED){
                     endBattle();
-                else if (!whoseTurn)
+                    return;
+                } else if (!whoseTurn){
                     enemyBattle(dt);
+                }
             }
             playerModel->update(dt);
             for (const auto &i : enemiesModels) {
@@ -1209,7 +1209,7 @@ void BattleState::render(sf::RenderTarget *target) {
     }
     popUpTextComponent->render(*target);
 
-    //tool per il debug : mostre le coordinate del mouse
+ /*   //tool per il debug : mostre le coordinate del mouse
     sf::Text mouseText;
     mouseText.setPosition(this->mousePosView.x, this->mousePosView.y - 15);
     mouseText.setFont(*font);
@@ -1217,7 +1217,7 @@ void BattleState::render(sf::RenderTarget *target) {
     std::stringstream ss;
     ss << this->mousePosView.x << " " << this->mousePosView.y;
     mouseText.setString(ss.str());
-    target->draw(mouseText);
+    target->draw(mouseText);*/
 }
 
 

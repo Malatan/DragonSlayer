@@ -58,6 +58,8 @@ set(SOURCE_FILES
         Game/BattleResult.cpp
         Game/LootGenerator.cpp
         Game/LootGenerator.h
+        Game/LootBag.h
+        Game/LootBag.cpp
         Components/MovementComponent.cpp
         Components/MovementComponent.h
         Components/AnimationComponent.cpp
