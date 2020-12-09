@@ -27,10 +27,12 @@ Map* MapGenerator::GenerateFromFile(std::string path, int height, int width, Sta
             i=0;
         }
     }
-    map->setWallType();
-    map->setWallTextures();
-    map->setRandomFloorTexture();
-    map->setDoorTexture();
-    map->setStairsTexture();
+   //map->setWallType();
+    map->setTexture();
     return map;
 }
+
+
+
+
+

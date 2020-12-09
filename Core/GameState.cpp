@@ -388,7 +388,8 @@ void GameState::initButtons() {
 
 void GameState::initMaps() {
     mg = new MapGenerator();
-    map = mg->GenerateFromFile("../Data/dungeon.txt", 24, 79, this);
+    //map = mg->GenerateFromFile("../Data/dungeon.txt", 24, 79, this);
+    map = mg->GenerateFromFile("../Data/hub.txt", 11, 29, this);
 }
 
 //constructors/destructors

@@ -8,6 +8,7 @@
 #include <vector>
 #include "Tile.h"
 #include "ctime"
+#include "../Game/Utils.h"
 
 
 class Map {
@@ -15,6 +16,7 @@ private:
     GameState* gState;
     int height;
     int width;
+    bool hasTexture;
 
     //Culling
     int fromX;
@@ -22,10 +24,11 @@ private:
     int fromY;
     int toY;
     sf::Texture texture;
+    sf::Texture interactableTexture;
 
 
 public:
-    Map(int heigth, int width, State* state);
+    Map(int height, int width, State* state);
     virtual ~Map();
     std::vector< std::vector<Tile*> > tiles;
 
@@ -39,19 +42,18 @@ public:
 
     void setWallType();
 
-    void setWallTextures();
-
     const std::vector<std::vector<Tile *>> &getTiles() const;
 
     void render(sf::RenderTarget* target);
 
-    void setRandomFloorTexture();
-
     sf::IntRect  getRandomFloorTexture();
 
-    void setDoorTexture();
+    bool isHasTexture() const;
 
-    void setStairsTexture();
+    void setHasTexture(bool hasTexture);
+
+    void setTexture();
+
 
 };
 

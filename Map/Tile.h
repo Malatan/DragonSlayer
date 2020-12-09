@@ -16,6 +16,20 @@ enum types{
     LEFTWALL,
     RIGHTWALL,
     BOTTOMWALL,
+    GRASS,
+    GROUND,
+    CART,
+    CHURCH,
+    STAIRSH,
+    WALLH,
+    DOORH,
+    TREES,
+    COLUMNS,
+    COLUMND,
+    SHOPH,
+    ROOFL,
+    ROOFD,
+    ROOF
 };
 
 class Tile {
@@ -29,8 +43,14 @@ private:
     bool down;
     bool right;
     bool left;
-
+    sf::IntRect rTexture;
+    bool interactable;
     sf::RectangleShape shape;
+    sf::RectangleShape interact;
+public:
+    bool isInteractable() const;
+
+    void setInteractable(bool interactable);
 
 public:
     static const float TILE_SIZE;
@@ -56,6 +76,11 @@ public:
     bool isLeft() const;
     void setLeft(bool left);
 
+     sf::RectangleShape &getInteract();
+
+    void setInteract(const sf::RectangleShape &interact);
+    void setInteractTexture(const sf::Texture *texture);
+    void enableInteract(bool enable);
 
     //RENDERING
     void render(sf::RenderTarget* target);

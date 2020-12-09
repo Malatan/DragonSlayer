@@ -14,7 +14,8 @@ public:
     MapGenerator();
     virtual ~MapGenerator();
 
-    Map* GenerateFromFile(std::string path, int heigth, int width, State* state);
+    Map* GenerateFromFile(std::string path, int height, int width, State* state);
+    Map* GenerateHub(std::string path, int height, int width, State* state);
 };
 
 #endif
