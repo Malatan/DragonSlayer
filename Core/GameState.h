@@ -35,6 +35,9 @@ class PopUpTextComponent;
 class SpellComponent;
 class Map;
 class MapGenerator;
+class LootBag;
+
+typedef std::pair<unsigned int, unsigned int> lootBagAccessPair;
 
 class GameState : public State{
 public:
@@ -48,6 +51,7 @@ public:
     std::shared_ptr<SpellComponent> getSpellComponent();
     std::shared_ptr<SpellTab> getSpellTab();
     std::shared_ptr<LootGenerator> getLootGenerator();
+    bool getStateKeyTime();
 
     //functions
     void checkBattleResult(BattleResult& battle_result);
@@ -95,8 +99,10 @@ private:
     std::vector<std::shared_ptr<LootBag>> lootBags;
     std::vector<std::shared_ptr<Enemy>> enemies;
     std::vector<Npc*> npcs;
-    int stato; // 0 = in giocata, 1 = pause, menu 2 = character, 3 = shop, 4 = priest, 5 = spell, 6 = wizard
+    sf::Vector2f spawnPos;
+    int stato; // 0 = in giocata, 1 = pause, menu 2 = character, 3 = shop, 4 = priest, 5 = spell, 6 = wizard, 7 = lootbag
     npc_type npcInteract;
+    lootBagAccessPair interactLootBag;
     bool noclip;
     int currentFloor;
 
@@ -111,7 +117,6 @@ private:
     void initWizardTab();
     void initHintsTab();
     void initEquipSlotsTextures();
-    void initInventoryItemTextures();
     void initShopItemTextures();
     void initBuffComponent();
     void initSpellComponent();
@@ -121,8 +126,6 @@ private:
     void initDebugText();
     void initButtons();
     void initMaps();
-
-
 };
 
 

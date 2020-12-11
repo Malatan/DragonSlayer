@@ -34,6 +34,7 @@ public:
     std::shared_ptr<Item> getItemById(unsigned int id);
     void setCurrentMaxSpace(int current_maxSpace);
     int getCurrentMaxSpace();
+    int getAvailableSpace();
 
 private:
     int* currentMaxSpace;           //MASSIMO NUMERO DI SLOT OCCUPABILI SECONDO I NOSTRI POWER UP DELL'INVENTARIO

@@ -39,6 +39,22 @@ void Npc::iniHitBoxComponents() {
     }
 }
 
+void Npc::initCollisionComponents() {
+    switch(type){
+        case SHOP:
+            createCollisionBoxComponent(sprite, 95.f, 114.f, 7.f);
+            break;
+        case PRIEST:
+            createCollisionBoxComponent(sprite, 96.f, 115.f, 7.f);
+            break;
+        case WIZARD:
+            createCollisionBoxComponent(sprite, 75.f, 99.f, 8.f);
+            break;
+        case NO_NPC: case DEFAULT_NPC:
+            break;
+    }
+}
+
 Npc::Npc() = default;
 
 Npc::Npc(npc_type type, float x, float y, float scale_x, float scale_y, sf::Texture &texture_sheet, sf::Texture& texture) {
@@ -49,8 +65,10 @@ Npc::Npc(npc_type type, float x, float y, float scale_x, float scale_y, sf::Text
     createAnimationComponent(texture_sheet);
     initAnimations();
     iniHitBoxComponents();
+    initCollisionComponents();
     Npc::setPosition(x, y);
     hitboxComponent->update();
+    collisionBoxComponent->update();
     overHeadContainer.setSize(sf::Vector2f(20.f, 20.f));
     overHeadContainer.setTexture(&texture);
     overHeadContainer.setPosition(hitboxComponent->getPosition().x + hitboxComponent->getGlobalBounds().width/2.f - 10.f,
@@ -68,6 +86,7 @@ void Npc::update(const float &dt) {
 }
 
 void Npc::render(sf::RenderTarget &target, const bool show_hitbox) {
+    collisionBoxComponent->render(target);
     target.draw(sprite);
     target.draw(overHeadContainer);
     if(show_hitbox)
@@ -92,6 +111,8 @@ void Npc::setPosition(float x, float y) {
     else
         sprite.setPosition(x, y);
 }
+
+
 
 
 

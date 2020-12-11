@@ -92,7 +92,7 @@ void GameState::initPauseMenu() {
 }
 
 void GameState::initPlayers() {
-    player = std::make_shared<Player>(750.f, 130.f, 2.f, 2.f,
+    player = std::make_shared<Player>(spawnPos.x, spawnPos.y, 2.f, 2.f,
                               textures["PLAYER_SHEET"]);
     player->setGold(0);
     player->getInventory()->setCurrentMaxSpace(35);
@@ -104,20 +104,20 @@ void GameState::initPlayers() {
     // legge i valori di default dell 'inventario dal Data/Inventory.txt
     rsHandler->loadPlayerInventoryTxt(player->getInventory());
 
-    spawnEnemy(1232.f, 386.f,GOBLIN, 5);
-    spawnEnemy(1349.f, 393.f,MUSHROOM, 5);
-    spawnEnemy(1280.f, 159.f,BANDIT_LIGHT, 5);
-    spawnEnemy(960.f, 159.f,SKELETON, 5);
-    spawnEnemy(1104.f, 159.f,SKELETON_2, 5);
-    spawnEnemy(1190.f, 159.f,FLYING_EYE, 5);
-    spawnEnemy(1356.f, 271.f,BANDIT_HEAVY, 5);
-    spawnEnemy(1475.f, 385.f,WITCH, 5);
+    spawnEnemy(1300.f, 630.f,GOBLIN, 5);
+    spawnEnemy(1400.f, 630.f,MUSHROOM, 5);
+    spawnEnemy(1500.f, 630.f,BANDIT_LIGHT, 5);
+    spawnEnemy(1600.f, 630.f,SKELETON, 5);
+    spawnEnemy(1700.f, 630.f,SKELETON_2, 5);
+    spawnEnemy(1800.f, 630.f,FLYING_EYE, 5);
+    spawnEnemy(1900.f, 630.f,BANDIT_HEAVY, 5);
+    spawnEnemy(2000.f, 630.f,WITCH, 5);
 
-    npcs.push_back(new Npc(WIZARD, 30.f, 450.f, 0.7f, 0.7f,
+    npcs.push_back(new Npc(WIZARD, 1600.f, 890.f, 0.7f, 0.7f,
                                  textures["WIZARD_NPC_SHEET"], textures["CHATTABLE_ICON"]));
-    npcs.push_back(new Npc(SHOP, 30.f, 250.f, 1.5f, 1.5f,
+    npcs.push_back(new Npc(SHOP, 1700.f, 890.f, 1.5f, 1.5f,
                       textures["SHOP_NPC_SHEET"], textures["CHATTABLE_ICON"]));
-    npcs.push_back(new Npc(PRIEST, 30.f, 350.f, 1.5f, 1.5f,
+    npcs.push_back(new Npc(PRIEST, 1800.f, 890.f, 1.5f, 1.5f,
                        textures["PRIEST_NPC_SHEET"], textures["CHATTABLE_ICON"]));
 }
 
@@ -125,7 +125,6 @@ void GameState::initCharacterTab() {
     cTab = std::make_shared<CharacterTab>(window, font, player,
             this, getTextures(), rsHandler, &npcInteract);
     initEquipSlotsTextures();
-    initInventoryItemTextures();
 }
 
 void GameState::initShopTab() {
@@ -153,14 +152,10 @@ void GameState::initHintsTab() {
                           " WASD to move\n"
                           " I to print inventory\n"
                           " C to open/close character tab and inventory\n"
-                          " B to print ResourcesHandler\n"
                           " M to gain gold\n"
-                          " N to print all buffs\n"
                           " Y to print player equipment\n"
-                          " G to add an item\n"
                           " T to gain exp\n"
-                          " H to add potions\n"
-                          " E to interact with npcs\n"
+                          " E to interact\n"
                           " X to noclip\n"
                                 );
 
@@ -192,14 +187,6 @@ void GameState::initEquipSlotsTextures(){
     rsHandler->setEquipSlotsTextureIntRect(0 , sf::IntRect(335, 0, 67, 67));
     cTab->getEquipSlots()[LEGS_USAGE]->setSlotTexture(&textures["EquipSlotsSheet"],
             sf::IntRect(335, 0, 67, 67));
-}
-
-void GameState::initInventoryItemTextures(){
-    for(auto &i : cTab->getInventorySlots()){
-        i->setSlotTexture(&textures["ITEMS_SHEET"], 34.f);
-        i->setDownRightTexture(&textures["SELECTED_ICON"]);
-        i->setUpRightTexture(&textures["NEW_TAG"]);
-    }
 }
 
 void GameState::initShopItemTextures() {
@@ -401,6 +388,7 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::u
     npcInteract = NO_NPC;
     noclip = false;
     currentFloor = 3;
+    spawnPos = {1730.f, 770.f};
 
     initTextures();
     initPauseMenu();
@@ -449,12 +437,14 @@ std::shared_ptr<LootGenerator> GameState::getLootGenerator() {
     return lootGenerator;
 }
 
+bool GameState::getStateKeyTime() {
+    return getKeyTime();
+}
 //functions
 void GameState::addItem(const std::shared_ptr<Item>& new_item) {
     if(player->getInventory()->addItem(new_item)){
         player->getInventory()->sortByItemType();
         cTab->initInventorySlots();
-        initInventoryItemTextures();
         for(auto &i : cTab->getInventorySlots()){
             if(i->getItem()->isEquipped()){
                 switch(i->getItem()->getUsageType()){
@@ -628,8 +618,9 @@ void GameState::checkBattleResult(BattleResult& battle_result) {
         case WIN:{
             for(const auto& i : enemies){
                 if(i->getId() == battle_result.getEnemyLeaderId()){
-                    lootBags.push_back(std::make_shared<LootBag>(i->getPosition(), textures,
-                                                                 lootGenerator->generateLoot(i, currentFloor)));
+                    lootBags.push_back(std::make_shared<LootBag>(window, i->getPosition(), textures, player, this,
+                                                                 lootGenerator->generateLoot(i, currentFloor),
+                                                                 font, 10, rsHandler->generateId()));
                     break;
                 }
             }
@@ -644,7 +635,7 @@ void GameState::checkBattleResult(BattleResult& battle_result) {
             endState();
             break;
         case ESCAPED:
-            player->setPosition(750.f, 130.f);
+            player->setPosition(spawnPos.x, spawnPos.y);
             player->stopVelocity();
             break;
         case NOT_FINISHED:
@@ -655,7 +646,6 @@ void GameState::checkBattleResult(BattleResult& battle_result) {
 void GameState::updateInput(const float &dt) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && getKeyTime()) {
             changeStato(1);
-
         } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::C) && getKeyTime()) {
             changeStato(2);
             cTab->unselectAll();
@@ -668,56 +658,39 @@ void GameState::updateInput(const float &dt) {
             }
             popUpTextComponent->addPopUpTextCenter(EXPERIENCE_TAG, 100, "+", "Exp");
 
-        } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::B) && getKeyTime()){
-            std::cout << rsHandler->toString();
-
         }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::I) && getKeyTime()){
             std::cout << player->getInventory()->listInventory();
 
-        } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::G) && getKeyTime()){
-            std::stringstream ss;
-            ss << "Dragon Gloves" << utils::generateRandomNumber(100, 99999);
-            addItem(std::make_shared<Item>("E-arms", ss.str(),
-                    "powerful helmet", 5000, LEGENDARY,
-                    4, 7, 300, 200, 0, 350, 10.3, 17.3,
-                    1, true, rsHandler->generateId()));
-            cTab->updateInventoryCapLbl();
-            popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG, ss.str(), "", " added to the inventory");
-
-        } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::H) && getKeyTime()){
-            int n = utils::generateRandomNumber(10, 30);
-            addItem(std::make_shared<Item>("C-potionS", "HealthPotion(S)",
-                                           "Restore 100 hp", 5, COMMON,
-                                           0, 3, 0, 0, 0, 0, 0, 0, n,
-                                           true, rsHandler->generateId()));
-            popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG,
-                                                   to_string(n), "", " HealthPotion(S) added to the inventory");
         }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Y) && getKeyTime()){
             std::cout<<player->toStringEquipment();
-
-        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::N) && getKeyTime()){
-            std::cout<<buffComponent->toStringBuffs();
 
         }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::M) && getKeyTime()){
             int gold = utils::generateRandomNumber(99999, 999999);
             player->addGold(gold);
             updateTabsGoldLbl();
             popUpTextComponent->addPopUpTextCenter(GOLD_TAG, gold, "+", " gold");
-        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::E) && getKeyTime()
-            && npcInteract != NO_NPC){
-            switch(npcInteract){
-                case SHOP:
-                    changeStato(3);
-                    break;
-                case PRIEST:
-                    changeStato(4);
-                    break;
-                case WIZARD:
-                    changeStato(6);
-                    break;
-                default:
-                    std::cout<<"no npc\n";
-                    break;
+        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::E) && getKeyTime()){
+            if(npcInteract != NO_NPC){
+                switch(npcInteract){
+                    case SHOP:
+                        changeStato(3);
+                        break;
+                    case PRIEST:
+                        changeStato(4);
+                        break;
+                    case WIZARD:
+                        changeStato(6);
+                        break;
+                    default:
+                        std::cout<<"no npc\n";
+                        break;
+                }
+                player->stopVelocity();
+            }
+            if(interactLootBag.first != 0){
+                changeStato(7);
+                std::cout<< "interact loot bag " << interactLootBag.first << endl;
+                player->stopVelocity();
             }
         }
 }
@@ -811,6 +784,22 @@ void GameState::update(const float& dt) {
         updateButtons();
 
         player->update(dt);
+        interactLootBag.first = 0;
+        for(auto i = 0 ; i < lootBags.size() ; i++){
+            lootBags[i]->update(dt);
+            if(lootBags[i]->isExpired()){
+                lootBags.erase(lootBags.begin() + i);
+            }else{
+                if(lootBags[i]->getHitboxComponent()->getGlobalBounds().intersects(
+                        player->getHitboxComponent()->getGlobalBounds())){
+                    interactLootBag.first = lootBags[i]->getId();
+                    interactLootBag.second = i;
+                    lootBags[i]->canInteract(true);
+                }else{
+                    lootBags[i]->canInteract(false);
+                }
+            }
+        }
         for(auto i : npcs){
             i->update(dt);
             i->updateCollision(player, &npcInteract);
@@ -868,6 +857,14 @@ void GameState::update(const float& dt) {
                     changeStato(0);
                 popUpTextComponent->update(dt);
                 break;
+            case 7:{
+                lootBags[interactLootBag.second]->updatePage(mousePosView);
+                if(lootBags[interactLootBag.second]->isExpired()){
+                    changeStato(0);
+                }
+                popUpTextComponent->update(dt);
+                break;
+            }
         }
     }
 }
@@ -891,6 +888,9 @@ void GameState::render(sf::RenderTarget* target) {
     }
     for(auto i : npcs){
         i->render(*target, true);
+        if(player->getCollisionBoxComponent()->getPosition().y > i->getCollisionBoxComponent()->getPosition().y){
+            player->render(*target, true, true);
+        }
     }
 
     target->setView(target->getDefaultView());
@@ -919,6 +919,9 @@ void GameState::render(sf::RenderTarget* target) {
             case 6:
                 wizardTab->render(*target);
                 break;
+            case 7:
+                lootBags[interactLootBag.second]->renderPage(*target);
+                break;
         }
     }
     target->draw(debugText);
@@ -932,6 +935,8 @@ void GameState::updateTileMap(const float &dt) {
     if(!noclip)
         map->updateTileCollision(player, dt);
 }
+
+
 
 
 

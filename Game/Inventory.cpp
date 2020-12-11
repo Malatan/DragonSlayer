@@ -114,6 +114,10 @@ bool Inventory::hasItemByName(const std::string& item_name) const {
     return false;
 }
 
+int Inventory::getAvailableSpace() {
+    return *currentMaxSpace - (int)items.size();
+}
+
 
 
 

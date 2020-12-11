@@ -59,6 +59,7 @@ namespace gui{
         void setPosition(sf::Vector2f pos);
         void setSize(sf::Vector2f size);
         void setText(const std::string& new_text);
+        void setIdleTextColor(sf::Color idle_color);
         void setId(short unsigned new_id);
         void setBorderColor(sf::Color color);
         void setBorderLineThickness(float value);
@@ -463,6 +464,37 @@ namespace gui{
         bool mouseHoverImage;
         sf::RectangleShape infoContainer;
         sfe::RichText infoLbl;
+    };
+
+    class LootSlot{
+    public:
+        //constructors/destructor
+        LootSlot(float width, float height, float pos_x, float pos_y, sf::Font* font, const std::shared_ptr<Item>& item,
+                 sf::Texture& item_texture);
+        virtual ~LootSlot();
+
+        //getters
+        unsigned int getId();
+        std::shared_ptr<Item> getItem();
+
+        //functions
+        void updateItemInfo();
+        void updateItemInfoContainerPos(const sf::Vector2f& mousePos);
+        bool isPressed();
+        void renderInfoContainer(sf::RenderTarget& target);
+        void update(const sf::Vector2f &mousePos);
+        void render(sf::RenderTarget& target);
+
+    private:
+        bool mouseHoverImage{};
+        std::shared_ptr<Item> item;
+
+        sf::RectangleShape shape;
+        sf::Text quantityLbl;
+        gui::Button lootBtn;
+
+        sf::Text itemInfoLbl;
+        sf::RectangleShape itemInfoContainer;
     };
 }
 

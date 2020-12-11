@@ -35,6 +35,7 @@ private:
     //initializer functions
     void initAnimations();
     void iniHitBoxComponents();
+    void initCollisionComponents();
 };
 
 

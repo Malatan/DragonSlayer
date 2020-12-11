@@ -281,6 +281,10 @@ bool gui::Button::isDisabled() const {
     return disabled;
 }
 
+void gui::Button::setIdleTextColor(sf::Color idle_color) {
+    textIdleColor = idle_color;
+}
+
 
 /*
  *
@@ -1845,4 +1849,152 @@ void gui::BuffSlot::updateDescriptionLbl() {
             infoLbl.getGlobalBounds().height + lifeTimeLbl.getGlobalBounds().height + 10.f));
 }
 
+/*
+ *                      LootSlot
+ *
+ */
 
+gui::LootSlot::LootSlot(float width, float height, float pos_x, float pos_y, sf::Font* font, const std::shared_ptr<Item>& item,
+                        sf::Texture& item_texture) : item(item){
+    mouseHoverImage = false;
+    shape.setSize(sf::Vector2f(width, height));
+    shape.setPosition(sf::Vector2f(pos_x, pos_y));
+    shape.setOutlineColor(sf::Color(15, 15, 15, 255));
+    shape.setOutlineThickness(3.f);
+
+    shape.setTexture(&item_texture);
+    shape.setTextureRect(sf::IntRect(
+            item->getIconRectX() * 34,
+            item->getIconRectY() * 34,
+            34.f, 34.f));
+
+    switch(item->getRarityEnum()){
+        case UNCOMMON:
+            shape.setOutlineColor(sf::Color::White);
+            break;
+        case COMMON:
+            shape.setOutlineColor(sf::Color::Green);
+            break;
+        case RARE:
+            shape.setOutlineColor(sf::Color::Blue);
+            break;
+        case EPIC:
+            shape.setOutlineColor(sf::Color::Magenta);
+            break;
+        case LEGENDARY:
+            shape.setOutlineColor(sf::Color(255,127,80));
+            break;
+        case DEFAULT_RARITY:
+            break;
+    }
+
+
+    if(item->getUsageType() == MATERIAL_USAGE || item->getUsageType() == CONSUMABLE_USAGE){
+        quantityLbl.setFont(*font);
+        quantityLbl.setCharacterSize(18);
+        quantityLbl.setString("x" + to_string(item->getQuantity()));
+        quantityLbl.setPosition(
+                shape.getPosition().x +  2.f,
+                shape.getPosition().y + shape.getGlobalBounds().height - 25.f
+        );
+    }
+    lootBtn = gui::Button(
+            shape.getPosition().x,
+            shape.getPosition().y + height + 4.f,
+            width, height/4.f,
+            font, "Loot", 15.f);
+    lootBtn.setBorderColor(sf::Color(15, 15, 15, 255));
+    lootBtn.setBackgroundFilLColor(sf::Color(120,120,120, 120));
+    lootBtn.setBorderLineThickness(2.f);
+    lootBtn.setIdleTextColor(sf::Color::Black);
+
+    itemInfoLbl.setFont(*font);
+    itemInfoLbl.setCharacterSize(18);
+
+    itemInfoContainer.setFillColor(sf::Color(90,90,90));
+    itemInfoContainer.setOutlineColor(shape.getOutlineColor());
+    itemInfoContainer.setOutlineThickness(3.f);
+
+    updateItemInfo();
+}
+
+gui::LootSlot::~LootSlot() = default;
+
+void gui::LootSlot::updateItemInfo() {
+    std::stringstream ss;
+    ss << item->getName()
+       << "\nType: " << item->getItemUsageTypeString()
+       << "\nTier: " << item->getRarity();
+    if(item->getHp() !=0)
+        ss << "\n+" << item->getHp() << " hp";
+    if(item->getMp() !=0)
+        ss << "\n+" << item->getMp() << " mp";
+    if(item->getDamage() !=0)
+        ss << "\n+" << item->getDamage() << " dmg";
+    if(item->getArmor() !=0 && item->getUsageType() != SHIELD_USAGE)
+        ss << "\n+" << item->getArmor() << " armor";
+    if(item->getCritChance() !=0)
+        ss << "\n+" << item->getCritChance() << " % crit chance";
+    if(item->getEvadeChance() !=0)
+        ss << "\n+" << item->getEvadeChance() << " % evade chance";
+    if(item->isDescriptionWrapped()){
+        ss << "\n\" " << item->getDescription();
+    }else{
+        float line_length = 200.f;
+        itemInfoLbl.setString(ss.str());
+        if(itemInfoLbl.getGlobalBounds().width > 200.f){
+            line_length = itemInfoLbl.getGlobalBounds().width;
+        }
+        std::string wrapped_desc = utils::textWrap(itemInfoLbl, item->getDescription(), line_length);
+        item->setDescription(wrapped_desc);
+        item->setDescriptionWrapped(true);
+        ss << "\n\" " << wrapped_desc;
+    }
+    ss << " \"\nValue: " << item->getValue();
+
+    itemInfoLbl.setString(ss.str());
+    itemInfoContainer.setSize(sf::Vector2f(itemInfoLbl.getGlobalBounds().width + 10.f,
+                                           itemInfoLbl.getGlobalBounds().height + 15.f));
+}
+
+void gui::LootSlot::updateItemInfoContainerPos(const sf::Vector2f &mousePos) {
+    itemInfoContainer.setPosition(mousePos.x + 10.f,
+                                  mousePos.y);
+    itemInfoLbl.setPosition(itemInfoContainer.getPosition().x + 5.f,
+                            itemInfoContainer.getPosition().y);
+}
+
+bool gui::LootSlot::isPressed() {
+    return lootBtn.isPressed();
+}
+
+void gui::LootSlot::update(const sf::Vector2f &mousePos) {
+    lootBtn.update(mousePos);
+    if(shape.getGlobalBounds().contains(mousePos)){
+        mouseHoverImage = true;
+        updateItemInfoContainerPos(mousePos);
+    }else{
+        mouseHoverImage = false;
+    }
+}
+
+void gui::LootSlot::render(sf::RenderTarget &target) {
+    target.draw(shape);
+    target.draw(quantityLbl);
+    lootBtn.render(target);
+}
+
+unsigned int gui::LootSlot::getId() {
+    return item->getId();
+}
+
+void gui::LootSlot::renderInfoContainer(sf::RenderTarget &target) {
+    if(mouseHoverImage){
+        target.draw(itemInfoContainer);
+        target.draw(itemInfoLbl);
+    }
+}
+
+std::shared_ptr<Item> gui::LootSlot::getItem() {
+    return item;
+}

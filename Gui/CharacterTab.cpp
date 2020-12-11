@@ -263,6 +263,11 @@ void CharacterTab::initInventorySlots() {
                 60.f, 60.f, window, font, player->getInventory()->getItemByIndex(i), state, false
         ));
     }
+    for(auto &i : inventorySlots){
+        i->setSlotTexture(&textures["ITEMS_SHEET"], 34.f);
+        i->setDownRightTexture(&textures["SELECTED_ICON"]);
+        i->setUpRightTexture(&textures["NEW_TAG"]);
+    }
 }
 
 CharacterTab::CharacterTab(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* font,
@@ -904,11 +909,6 @@ void CharacterTab::deleteConsumableInBattle(const std::shared_ptr<Item>& item) {
     player->getInventory()->removeItemById(item->getId());
     player->getInventory()->sortByItemType();
     initInventorySlots();
-    for(auto &i : getInventorySlots()){
-        i->setSlotTexture(&textures["ITEMS_SHEET"], 34.f);
-        i->setDownRightTexture(&textures["SELECTED_ICON"]);
-        i->setUpRightTexture(&textures["NEW_TAG"]);
-    }
     gState->updateTabsInvSpaceLbl();
 }
 
