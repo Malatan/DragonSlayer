@@ -1,6 +1,6 @@
 #include "Tile.h"
 
-const float Tile::TILE_SIZE = 120.0f;
+const float Tile::TILE_SIZE = 100.0f;
 
 
 Tile::Tile(float cx, float cy, bool traversable) {

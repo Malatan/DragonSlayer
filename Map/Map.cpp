@@ -107,9 +107,12 @@ void Map::updateTileCollision(std::shared_ptr<Player> entity, const float &dt) {
             }
             if (this->tiles[y][x]->isInteractable() && this->tiles[y][x]->intersects(playerHitbox) ) {
                 this->tiles[y][x]->enableInteract(true);
+                interacting = true;
+                intTile = tiles[y][x]->GetType();
             }
             else {
                 this->tiles[y][x]->enableInteract(false);
+                interacting = false;
             }
         }
     }
@@ -156,33 +159,39 @@ void Map::setWallType() {
         for (int c = 0; c < this->tiles.at(r).size(); c++) {
             if (tiles[r][c]->GetType() == WALL) {
                 floorFound = false;
-                if (r > 0 && (tiles[r - 1][c]->GetType() == FLOOR || tiles[r - 1][c]->GetType() == CLOSEDOOR)) {
+                if (r > 0 && (tiles[r - 1][c]->GetType() == FLOOR || tiles[r - 1][c]->GetType() == CLOSEDOOR || tiles[r - 1][c]->GetType() == OPENDOOR)) {
                     tiles[r][c]->changeType(UPPERWALL);
                     tiles[r][c]->setDown(true);
                     floorFound = true;
                 }
                 if (r < tiles.size() - 1 &&
-                    (tiles[r + 1][c]->GetType() == FLOOR || tiles[r + 1][c]->GetType() == CLOSEDOOR)) {
+                    (tiles[r + 1][c]->GetType() == FLOOR || tiles[r + 1][c]->GetType() == CLOSEDOOR || tiles[r + 1][c]->GetType() == OPENDOOR)) {
                     tiles[r][c]->changeType(UPPERWALL);
                     tiles[r][c]->setUp(true);
                     floorFound = true;
                 }
                 if (c < tiles.at(r).size() - 1 &&
-                    (tiles[r][c + 1]->GetType() == FLOOR || tiles[r][c + 1]->GetType() == CLOSEDOOR)) {
+                    (tiles[r][c + 1]->GetType() == FLOOR || tiles[r][c + 1]->GetType() == CLOSEDOOR || tiles[r][c + 1]->GetType() == OPENDOOR)) {
                     tiles[r][c]->setLeft(true);
                     floorFound = true;
                 }
-                if (c > 0 && (tiles[r][c - 1]->GetType() == FLOOR || tiles[r][c - 1]->GetType() == CLOSEDOOR)) {
+                if (c > 0 && (tiles[r][c - 1]->GetType() == FLOOR || tiles[r][c - 1]->GetType() == CLOSEDOOR || tiles[r][c - 1]->GetType() == OPENDOOR)) {
                     tiles[r][c]->setRight(true);
                     floorFound = true;
                 }
-                if (!floorFound && tiles[r][c + 1]->GetType() == WALL) {
-                    tiles[r][c]->setLeft(true);
-                    floorFound = true;
-                }
-                if (!floorFound && tiles[r][c - 1]->GetType() == UPPERWALL) {
+                if (c == tiles[r].size() -1 ){
                     tiles[r][c]->setRight(true);
                 }
+                else
+                {
+                    if (!floorFound && tiles[r][c + 1]->GetType() == WALL) {
+                        tiles[r][c]->setLeft(true);
+                    }
+                    if (!floorFound && tiles[r][c - 1]->GetType() == UPPERWALL) {
+                        tiles[r][c]->setRight(true);
+                    }
+                }
+
             }
         }
     }

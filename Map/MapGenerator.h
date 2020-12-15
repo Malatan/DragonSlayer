@@ -2,20 +2,28 @@
 #define DRAGONSLAYER_MAPGENERATOR_H
 
 #include "Map.h"
-
 class Map;
+
+struct wh{
+    int width;
+    int height;
+};
 
 class MapGenerator {
 private:
+    std::vector<wh> dDims;
     GameState* gameState;
 
 public:
+    const vector<wh> &getDDims() const;
+
+    void setDDims(const vector<wh> &dDims);
 
     MapGenerator();
     virtual ~MapGenerator();
-
     Map* GenerateFromFile(std::string path, int height, int width, State* state);
     Map* GenerateHub(std::string path, int height, int width, State* state);
+    void generateDungeon(int n);
 };
 
 #endif

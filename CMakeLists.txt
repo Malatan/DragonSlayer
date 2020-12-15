@@ -84,6 +84,8 @@ set(SOURCE_FILES
         Map/MapGenerator.cpp
         Map/Tile.h
         Map/Tile.cpp
+        Map/Dungeon.cpp
+        Map/Dungeon.h
         )
 
 if (CMAKE_BUILD_TYPE STREQUAL "Release")

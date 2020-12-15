@@ -17,6 +17,8 @@ private:
     int height;
     int width;
     bool hasTexture;
+    bool interacting;
+    types intTile;
 
     //Culling
     int fromX;
