@@ -45,7 +45,7 @@ private:
     bool left;
     sf::IntRect rTexture;
     bool interactable;
-    sf::RectangleShape shape;
+    sf::Sprite shape;
     sf::RectangleShape interact;
 public:
     bool isInteractable() const;
@@ -74,6 +74,9 @@ public:
     void setDown(bool down);
     bool isRight() const;
     void setRight(bool right);
+
+    const sf::Sprite &getShape() const;
+
     bool isLeft() const;
     void setLeft(bool left);
 
@@ -88,7 +91,7 @@ public:
 
 
     //RENDERING
-    void render(sf::RenderTarget* target);
+    void render(sf::RenderTarget* target, sf::Shader* shader = NULL, sf::Vector2f player_position = sf::Vector2f());
 
 
 

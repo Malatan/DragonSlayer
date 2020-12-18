@@ -364,6 +364,10 @@ void Map::setTexture() {
                     tiles[r][c]->setTileTexture(&texture, sf::IntRect(63, 420, 50, 50));
                     break;
                 }
+                case VOID:{
+                    tiles[r][c]->setTileTexture(&texture, sf::IntRect(0, 750, 50, 50));
+                    break;
+                }
                 default: {
                 }
             }
@@ -373,10 +377,34 @@ void Map::setTexture() {
 
 
 //RENDER
-void Map::render(sf::RenderTarget *target) {
-    for (int r = 0; r < this->height; r++) {
-        for (int c = 0; c < this->width; c++) {
-            this->tiles[r][c]->render(target);
+void Map::render(sf::RenderTarget *target, std::shared_ptr<Player> entity, sf::Shader* shader, const sf::Vector2f playerPosition) {
+    this->fromX = entity->getGridPosition().x - 10;
+    if (this->fromX < 0)
+        this->fromX = 0;
+    else if (this->fromX > this->width)
+        this->fromX = this->width;
+
+    this->toX = entity->getGridPosition().x + 10;
+    if (this->toX < 0)
+        this->toX = 0;
+    else if (this->toX > this->width)
+        this->toX = this->width;
+
+    this->fromY = entity->getGridPosition().y - 10;
+    if (this->fromY < 0)
+        this->fromY = 0;
+    else if (this->fromY > this->height)
+        this->fromY = this->height;
+
+    this->toY = entity->getGridPosition().y + 10;
+    if (this->toY < 0)
+        this->toY = 0;
+    else if (this->toY >= this->height)
+        this->toY = this->height;
+
+    for (int y = this->fromY; y < this->toY; y++) {
+        for (int x = this->fromX; x < this->toX; x++) {
+            this->tiles[y][x]->render(target, shader, playerPosition);
         }
     }
 }

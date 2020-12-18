@@ -123,6 +123,21 @@ void Entity::setOrigin(float x, float y) {
     sprite.setOrigin(x, y);
 }
 
+const sf::Vector2f Entity::getCenter() const {
+    if(hitboxComponent){
+        return hitboxComponent->getPosition() +
+        sf::Vector2f(
+                 hitboxComponent->getGlobalBounds().width/2.f,
+                 hitboxComponent->getGlobalBounds().height/2.f
+        );
+    }
+    return sprite.getPosition() +
+           sf::Vector2f(
+                   sprite.getGlobalBounds().width/2.f,
+                   sprite.getGlobalBounds().height/2.f
+           );
+}
+
 
 
 

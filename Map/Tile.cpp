@@ -13,7 +13,8 @@ Tile::Tile(float cx, float cy, bool traversable) {
     type = VOID;
     this->traversable = traversable;
 
-    shape = sf::RectangleShape(sf::Vector2f(Tile::TILE_SIZE, Tile::TILE_SIZE));
+  //  shape = sf::Sprite(sf::Vector2f(Tile::TILE_SIZE, Tile::TILE_SIZE));
+
     shape.setPosition(sf::Vector2f((cx - (Tile::TILE_SIZE / 2)), (cy - (Tile::TILE_SIZE / 2))));
     interact.setPosition(sf::Vector2f((cx - (Tile::TILE_SIZE / 2)), (cy - (Tile::TILE_SIZE / 2))));
 
@@ -41,7 +42,7 @@ void Tile::SetType(char type){
             this->type = VOID;
             this->traversable = false;
             interactable = false;
-            this->shape.setFillColor(sf::Color::Black);
+          // this->shape.setFillColor(sf::Color::Black);
             break;
         }
         case '#':{
@@ -178,7 +179,8 @@ void Tile::changeType(types type) {
 }
 
 void Tile::setTileTexture(const sf::Texture *texture, sf::IntRect intRect) {
-    this->shape.setTexture(texture);
+    shape.setScale(TILE_SIZE/intRect.width, TILE_SIZE/intRect.height);
+    this->shape.setTexture(*texture);
     this->shape.setTextureRect(intRect);
     this->rTexture = intRect;
 }
@@ -215,9 +217,16 @@ void Tile::setLeft(bool left) {
     Tile::left = left;
 }
 
-void Tile::render(sf::RenderTarget *target) {
-    target->draw(shape);
-    if(interactable){
+void Tile::render(sf::RenderTarget *target, sf::Shader* shader, const sf::Vector2f player_position) {
+    if(shader){
+        shader->setUniform("hasTexture", true);
+        shader->setUniform("lightPos", player_position);
+
+        target->draw(shape, shader);
+    }
+    else
+        target->draw(shape);
+    if (interactable) {
         target->draw(interact);
     }
 }
@@ -255,16 +264,20 @@ void Tile::enableInteract(bool enable) {
 }
 
 void Tile::setOutlineColor(sf::Color color) {
-    shape.setOutlineColor(color);
+   // shape.setOutlineColor(color);
 
 }
 
 void Tile::setOutlineThickness(float f) {
-    shape.setOutlineThickness(f);
+  //  shape.setOutlineThickness(f);
 }
 
 void Tile::setTraversable(bool traversable) {
     Tile::traversable = traversable;
+}
+
+const sf::Sprite &Tile::getShape() const {
+    return shape;
 }
 
 

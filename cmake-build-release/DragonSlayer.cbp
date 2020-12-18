@@ -690,6 +690,12 @@
 			<Option target="DragonSlayer"/>
 			<Option target="unit_testing_run"/>
 		</Unit>
+		<Unit filename="C:/PROGETTO/MAIN/DragonSlayer/Shader/fragment_shader.frag">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="C:/PROGETTO/MAIN/DragonSlayer/Shader/vertex_shader.vert">
+			<Option target="DragonSlayer"/>
+		</Unit>
 		<Unit filename="C:/PROGETTO/MAIN/DragonSlayer/main.cpp">
 			<Option target="DragonSlayer"/>
 		</Unit>

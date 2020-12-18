@@ -384,6 +384,7 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::u
     currentFloor = 3;
     spawnPos = {1730.f, 770.f};
 
+    initShader();
     initTextures();
     initPauseMenu();
     initPlayers();
@@ -899,12 +900,12 @@ void GameState::render(sf::RenderTarget* target) {
     }
     target->setView(view);
 
-    map->render(target);
-    player->render(*target, true, true);
+    map->render(target, player, &coreShader, player->getCenter());
+    player->render(*target, &coreShader, player->getCenter(), true, true);
     for(const auto& i : lootBags){
         i->render(*target, true);
         if(player->getCollisionBoxComponent()->getPosition().y > i->getCollisionBoxComponent()->getPosition().y){
-            player->render(*target, true, true);
+            player->render(*target, &coreShader, player->getCenter(), true, true);
         }
     }
     for(const auto& i : enemies){
@@ -913,7 +914,7 @@ void GameState::render(sf::RenderTarget* target) {
     for(auto i : npcs){
         i->render(*target, true);
         if(player->getCollisionBoxComponent()->getPosition().y > i->getCollisionBoxComponent()->getPosition().y){
-            player->render(*target, true, true);
+            player->render(*target, &coreShader, player->getCenter(), true, true);
         }
     }
 
@@ -1035,6 +1036,12 @@ void GameState::spawnEnemyOnMap() {
                 break;
             }
         }
+    }
+}
+
+void GameState::initShader() {
+    if(!coreShader.loadFromFile("../Shader/vertex_shader.vert", "../Shader/fragment_shader.frag")){
+        std::cout<<"Error shader";
     }
 }
 

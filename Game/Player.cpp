@@ -139,10 +139,19 @@ void Player::update(const float &dt) {
     collisionBoxComponent->update();
 }
 
-void Player::render(sf::RenderTarget &target, const bool show_hitbox, const bool show_clsBox) {
+void Player::render(sf::RenderTarget &target, sf::Shader* shader, sf::Vector2f light_position, const bool show_hitbox, const bool show_clsBox ) {
     if(show_clsBox)
         collisionBoxComponent->render(target);
-    target.draw(sprite);
+    if(shader){
+        shader->setUniform("hasTexture", true);
+        shader->setUniform("lightPos", light_position);
+        std::cout<<light_position.x<<" "<<light_position.y<<"\n";
+
+        target.draw(sprite, shader);
+    }
+
+    else
+        target.draw(sprite);
     if(show_hitbox)
         hitboxComponent->render(target);
 }

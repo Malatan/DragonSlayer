@@ -86,6 +86,8 @@ private:
     gui::Button pauseMenuBtn;
     gui::Button spellTabBtn;
 
+    sf::Shader coreShader;
+
     Map* map{};
     MapGenerator* mg{};
     PauseMenu pmenu;
@@ -133,6 +135,7 @@ private:
     void initDebugText();
     void initButtons();
     void initMaps();
+    void initShader();
 };
 
 

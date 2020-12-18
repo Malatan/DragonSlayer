@@ -63,7 +63,7 @@ public:
 
     const std::vector<std::vector<Tile *>> &getTiles() const;
 
-    void render(sf::RenderTarget *target);
+    void render(sf::RenderTarget *target, std::shared_ptr<Player> entity, sf::Shader* shader = NULL, const sf::Vector2f playerPosition = sf::Vector2f());
 
     sf::IntRect getRandomFloorTexture();
 

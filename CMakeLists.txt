@@ -87,7 +87,9 @@ set(SOURCE_FILES
         Map/Dungeon.cpp
         Map/Dungeon.h
         Gui/SelectLevelTab.cpp
-        Gui/SelectLevelTab.h)
+        Gui/SelectLevelTab.h
+        Shader/fragment_shader.frag
+        Shader/vertex_shader.vert)
 
 if (CMAKE_BUILD_TYPE STREQUAL "Release")
     add_executable(${PROJECT_NAME} WIN32 ${SOURCE_FILES})
