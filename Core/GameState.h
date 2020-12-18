@@ -19,6 +19,7 @@
 #include "../Gui/SpellTab.h"
 #include "../Gui/PriestTab.h"
 #include "../Gui/WizardTab.h"
+#include "../Gui/SelectLevelTab.h"
 #include "../Components/BuffComponent.h"
 #include "../Components/PopUpTextComponent.h"
 #include "../Components/SpellComponent.h"
@@ -30,6 +31,7 @@ class ShopTab;
 class PriestTab;
 class SpellTab;
 class WizardTab;
+class SelectLevelTab;
 class BuffComponent;
 class PopUpTextComponent;
 class SpellComponent;
@@ -54,6 +56,7 @@ public:
     bool getStateKeyTime();
 
     //functions
+    void changeMap(int floor);
     void checkBattleResult(BattleResult& battle_result);
     void spawnEnemy(float x, float y, enemy_types type, unsigned int enemy_followers = 5);
     bool deleteEnemyById(unsigned int enemy_id);
@@ -71,6 +74,8 @@ public:
     void update(const float& dt) override;
     void updateTileMap(const float& dt);
     void render(sf::RenderTarget* target) override;
+    void spawnEnemyOnMap();
+
 
 private:
     sf::Font* font;
@@ -89,6 +94,7 @@ private:
     std::shared_ptr<PriestTab> priestTab;
     std::shared_ptr<SpellTab> spellTab;
     std::shared_ptr<WizardTab> wizardTab;
+    std::shared_ptr<SelectLevelTab> selectLevelTab;
     std::shared_ptr<Player> player;
 
     std::shared_ptr<BuffComponent> buffComponent;
@@ -100,7 +106,7 @@ private:
     std::vector<std::shared_ptr<Enemy>> enemies;
     std::vector<Npc*> npcs;
     sf::Vector2f spawnPos;
-    int stato; // 0 = in giocata, 1 = pause, menu 2 = character, 3 = shop, 4 = priest, 5 = spell, 6 = wizard, 7 = lootbag
+    int stato; // 0 = in giocata, 1 = pause, menu 2 = character, 3 = shop, 4 = priest, 5 = spell, 6 = wizard, 7 = lootbag, 8 = selectLevel
     npc_type npcInteract;
     lootBagAccessPair interactLootBag;
     bool noclip;
@@ -113,6 +119,7 @@ private:
     void initCharacterTab();
     void initShopTab();
     void initPriestTab();
+    void initSelectLevelTab();
     void initSpellTab();
     void initWizardTab();
     void initHintsTab();

@@ -59,5 +59,9 @@ std::string utils::textWrap(sf::Text &label, const std::string& wrap_text, float
     return final_testo;
 }
 
+float utils::absoluteValue(float a) {
+    return abs(a);
+}
+
 
 

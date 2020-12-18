@@ -91,7 +91,7 @@ void PriestTab::initButtons() {
 PriestTab::PriestTab(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* font, std::shared_ptr<Player> player, State *state,
                      std::shared_ptr<ResourcesHandler> rsHandler, std::map<std::string, sf::Texture> textures) :
                      window(window), font(font), player(std::move(player)),
-                     rsHandler(std::move(std::move(rsHandler))), textures(std::move(textures)) {
+                     rsHandler(std::move(rsHandler)), textures(std::move(textures)) {
     gState = dynamic_cast<GameState*>(state);
     //init background
     background.setSize(sf::Vector2f(

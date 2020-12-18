@@ -12,6 +12,7 @@ struct wh{
 class MapGenerator {
 private:
     std::vector<wh> dDims;
+    wh hDims;
     GameState* gameState;
 
 public:
@@ -21,7 +22,7 @@ public:
 
     MapGenerator();
     virtual ~MapGenerator();
-    Map* GenerateFromFile(std::string path, int height, int width, State* state);
+    Map* GenerateFromFile(int floor, State* state);
     Map* GenerateHub(std::string path, int height, int width, State* state);
     void generateDungeon(int n);
 };

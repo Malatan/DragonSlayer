@@ -9,46 +9,63 @@
 #include "Tile.h"
 #include "ctime"
 #include "../Game/Utils.h"
-
+struct IntTile{
+    types type;
+    int y;
+    int x;
+};
 
 class Map {
 private:
-    GameState* gState;
+    GameState *gState;
     int height;
     int width;
     bool hasTexture;
     bool interacting;
-    types intTile;
+    IntTile intTile;
+    std::vector<sf::Vector2f> floorsPos{};
 
     //Culling
     int fromX;
+public:
+    const vector<sf::Vector2f> &getFloorsPos() const;
+
+    void setFloorsPos(const vector<sf::Vector2f> &floorsPos);
+
+private:
     int toX;
     int fromY;
     int toY;
+
+
+
+private:
     sf::Texture texture;
     sf::Texture interactableTexture;
 
 
 public:
-    Map(int height, int width, State* state);
+    Map(int height, int width, State *state);
+
     virtual ~Map();
-    std::vector< std::vector<Tile*> > tiles;
+
+    std::vector<std::vector<Tile *> > tiles;
 
     std::string printMap();
 
     void updateCollision(std::shared_ptr<Player> entity);
 
-    void updateTileCollision(std::shared_ptr<Player> entity, const float & dt);
+    void updateTileCollision(std::shared_ptr<Player> entity, const float &dt);
 
-    void drawTiles(sf::RenderWindow* window);
+    void drawTiles(sf::RenderWindow *window);
 
     void setWallType();
 
     const std::vector<std::vector<Tile *>> &getTiles() const;
 
-    void render(sf::RenderTarget* target);
+    void render(sf::RenderTarget *target);
 
-    sf::IntRect  getRandomFloorTexture();
+    sf::IntRect getRandomFloorTexture();
 
     bool isHasTexture() const;
 
@@ -56,6 +73,17 @@ public:
 
     void setTexture();
 
+    sf::Vector2f findStairs();
+
+    IntTile getIntTile() const;
+
+    void setIntTile(IntTile intTile);
+
+    bool isInteracting() const;
+
+    void setInteracting(bool interacting);
+
+    void openDoor(int y, int x);
 
 };
 

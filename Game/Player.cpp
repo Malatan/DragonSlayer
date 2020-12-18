@@ -46,7 +46,7 @@ Player::Player(float x, float y, float scale_x, float scale_y, sf::Texture& text
     createAnimationComponent(texture_sheet);
     createMovementComponent(200.f, 14.f, 6.f);
     createHitboxComponent(sprite, 27.f, 12.f, 41.f, 62.f);
-    createCollisionBoxComponent(sprite, 48.f, 72.f, 9.f);
+    createCollisionBoxComponent(sprite, 48.f, 72.f, 5.f);
     initAnimations();
 
     Player::setPosition(x, y);

@@ -35,7 +35,6 @@ void Tile::SetType(char type){
             this->type = FLOOR;
             traversable = true;
             interactable = false;
-            shape.setFillColor(sf::Color::White);
             break;
         }
         case '.':{
@@ -255,6 +254,17 @@ void Tile::enableInteract(bool enable) {
 
 }
 
+void Tile::setOutlineColor(sf::Color color) {
+    shape.setOutlineColor(color);
 
+}
+
+void Tile::setOutlineThickness(float f) {
+    shape.setOutlineThickness(f);
+}
+
+void Tile::setTraversable(bool traversable) {
+    Tile::traversable = traversable;
+}
 
 

@@ -104,21 +104,7 @@ void GameState::initPlayers() {
     // legge i valori di default dell 'inventario dal Data/Inventory.txt
     rsHandler->loadPlayerInventoryTxt(player->getInventory());
 
-    spawnEnemy(1300.f, 630.f,GOBLIN, 5);
-    spawnEnemy(1400.f, 630.f,MUSHROOM, 5);
-    spawnEnemy(1500.f, 630.f,BANDIT_LIGHT, 5);
-    spawnEnemy(1600.f, 630.f,SKELETON, 5);
-    spawnEnemy(1700.f, 630.f,SKELETON_2, 5);
-    spawnEnemy(1800.f, 630.f,FLYING_EYE, 5);
-    spawnEnemy(1900.f, 630.f,BANDIT_HEAVY, 5);
-    spawnEnemy(2000.f, 630.f,WITCH, 5);
 
-    npcs.push_back(new Npc(WIZARD, 1600.f, 890.f, 0.7f, 0.7f,
-                                 textures["WIZARD_NPC_SHEET"], textures["CHATTABLE_ICON"]));
-    npcs.push_back(new Npc(SHOP, 1700.f, 890.f, 1.5f, 1.5f,
-                      textures["SHOP_NPC_SHEET"], textures["CHATTABLE_ICON"]));
-    npcs.push_back(new Npc(PRIEST, 1800.f, 890.f, 1.5f, 1.5f,
-                       textures["PRIEST_NPC_SHEET"], textures["CHATTABLE_ICON"]));
 }
 
 void GameState::initCharacterTab() {
@@ -143,6 +129,10 @@ void GameState::initSpellTab() {
 
 void GameState::initWizardTab() {
     wizardTab = std::make_shared<WizardTab>(window, font, player, this, textures);
+}
+
+void GameState::initSelectLevelTab() {
+    selectLevelTab = std::make_shared<SelectLevelTab>(window, font,player, this, rsHandler);
 }
 
 void GameState::initHintsTab() {
@@ -375,8 +365,12 @@ void GameState::initButtons() {
 
 void GameState::initMaps() {
     mg = new MapGenerator();
-    //map = mg->GenerateFromFile("../Data/dungeon.txt", 24, 79, this);
-    map = mg->GenerateFromFile("../Data/hub.txt", 11, 29, this);
+    mg->generateDungeon(1);
+    mg->generateDungeon(2);
+    mg->generateDungeon(3);
+    mg->generateDungeon(4);
+    mg->generateDungeon(5);
+    changeMap(0);
 }
 
 //constructors/destructors
@@ -405,6 +399,7 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::u
     initPriestTab();
     initSpellTab();
     initWizardTab();
+    initSelectLevelTab();
     initHintsTab();
     initMaps();
 }
@@ -644,55 +639,74 @@ void GameState::checkBattleResult(BattleResult& battle_result) {
 }
 
 void GameState::updateInput(const float &dt) {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && getKeyTime()) {
-            changeStato(1);
-        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::C) && getKeyTime()) {
-            changeStato(2);
-            cTab->unselectAll();
-        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) && getKeyTime()) {
-            player->getMovementComponent()->enableSpeedControl(noclip);
-            noclip = !noclip;
-        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::T) && getKeyTime()) {
-            if(player->getPlayerStats()->addExp(100)){
-                updateTabsPlayerStatsLbl();
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && getKeyTime()) {
+        changeStato(1);
+    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::C) && getKeyTime()) {
+        changeStato(2);
+        cTab->unselectAll();
+    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) && getKeyTime()) {
+        player->getMovementComponent()->enableSpeedControl(noclip);
+        noclip = !noclip;
+    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::T) && getKeyTime()) {
+        if(player->getPlayerStats()->addExp(100)){
+            updateTabsPlayerStatsLbl();
+        }
+        popUpTextComponent->addPopUpTextCenter(EXPERIENCE_TAG, 100, "+", "Exp");
+
+    }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::I) && getKeyTime()){
+        std::cout << player->getInventory()->listInventory();
+
+    }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Y) && getKeyTime()){
+        std::cout<<player->toStringEquipment();
+
+    }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::M) && getKeyTime()){
+        int gold = utils::generateRandomNumber(99999, 999999);
+        player->addGold(gold);
+        updateTabsGoldLbl();
+        popUpTextComponent->addPopUpTextCenter(GOLD_TAG, gold, "+", " gold");
+    }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::E) && getKeyTime()){
+        if(npcInteract != NO_NPC){
+            switch(npcInteract){
+                case SHOP:
+                    changeStato(3);
+                    break;
+                case PRIEST:
+                    changeStato(4);
+                    break;
+                case WIZARD:
+                    changeStato(6);
+                    break;
+                default:
+                    std::cout<<"no npc\n";
+                    break;
             }
-            popUpTextComponent->addPopUpTextCenter(EXPERIENCE_TAG, 100, "+", "Exp");
-
-        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::I) && getKeyTime()){
-            std::cout << player->getInventory()->listInventory();
-
-        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Y) && getKeyTime()){
-            std::cout<<player->toStringEquipment();
-
-        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::M) && getKeyTime()){
-            int gold = utils::generateRandomNumber(99999, 999999);
-            player->addGold(gold);
-            updateTabsGoldLbl();
-            popUpTextComponent->addPopUpTextCenter(GOLD_TAG, gold, "+", " gold");
-        }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::E) && getKeyTime()){
-            if(npcInteract != NO_NPC){
-                switch(npcInteract){
-                    case SHOP:
-                        changeStato(3);
-                        break;
-                    case PRIEST:
-                        changeStato(4);
-                        break;
-                    case WIZARD:
-                        changeStato(6);
-                        break;
-                    default:
-                        std::cout<<"no npc\n";
-                        break;
+            player->stopVelocity();
+        }
+        if(interactLootBag.first != 0){
+            changeStato(7);
+            std::cout<< "interact loot bag " << interactLootBag.first << endl;
+            player->stopVelocity();
+        }
+        std::cout<<map->isInteracting();
+        if(map->isInteracting()){
+            if(map->getIntTile().type == DOORH){
+                selectLevelTab->setHide(false);
+                changeStato(8);
+                player->stopVelocity();
+            }
+            if(map->getIntTile().type == DOWNSTAIRS){
+                changeMap(0);
+            }
+            if(map->getIntTile().type == UPSTAIRS){
+                if(currentFloor < 5){
+                    changeMap(currentFloor + 1);
                 }
-                player->stopVelocity();
             }
-            if(interactLootBag.first != 0){
-                changeStato(7);
-                std::cout<< "interact loot bag " << interactLootBag.first << endl;
-                player->stopVelocity();
+            if(map->getIntTile().type == CLOSEDOOR){
+                map->openDoor(map->getIntTile().y, map->getIntTile().x);
             }
         }
+    }
 }
 
 void GameState::updatePlayerInput(const float &dt) {
@@ -865,6 +879,16 @@ void GameState::update(const float& dt) {
                 popUpTextComponent->update(dt);
                 break;
             }
+            case 8:{
+                selectLevelTab->update(mousePosView);
+                if(selectLevelTab->closeTabByClicking(mousePosView))
+                    changeStato(0);
+                if(selectLevelTab->isHide()){
+                    changeStato(0);
+                }
+                popUpTextComponent->update(dt);
+                break;
+            }
         }
     }
 }
@@ -922,6 +946,9 @@ void GameState::render(sf::RenderTarget* target) {
             case 7:
                 lootBags[interactLootBag.second]->renderPage(*target);
                 break;
+            case 8:
+                selectLevelTab->render(*target);
+                break;
         }
     }
     target->draw(debugText);
@@ -935,6 +962,83 @@ void GameState::updateTileMap(const float &dt) {
     if(!noclip)
         map->updateTileCollision(player, dt);
 }
+
+void GameState::changeMap(int floor) {
+    currentFloor = floor;
+    map = mg->GenerateFromFile(floor, this);
+    if(floor != 0) {
+        if (!npcs.empty())
+            npcs.clear();
+        spawnPos.x = map->findStairs().x + 30;
+        spawnPos.y = map->findStairs().y + Tile::TILE_SIZE;
+        player->setPosition(spawnPos.x, spawnPos.y);
+        spawnEnemyOnMap();
+    }
+    else {
+        spawnPos = sf::Vector2f(1430, 620);
+        player->setPosition(spawnPos.x, spawnPos.y);
+        if (!enemies.empty())
+            enemies.clear();
+        npcs.push_back(new Npc(WIZARD, 1430.f, 870.f, 0.7f, 0.7f,
+                               textures["WIZARD_NPC_SHEET"], textures["CHATTABLE_ICON"]));
+        npcs.push_back(new Npc(SHOP, 1960.f, 570.f, 1.5f, 1.5f,
+                               textures["SHOP_NPC_SHEET"], textures["CHATTABLE_ICON"]));
+        npcs.push_back(new Npc(PRIEST, 910.f, 570.f, 1.5f, 1.5f,
+                               textures["PRIEST_NPC_SHEET"], textures["CHATTABLE_ICON"]));
+    }
+}
+
+void GameState::spawnEnemyOnMap() {
+    int randEnemy;
+    sf::Vector2f dStairs = map->findStairs();
+    if(!enemies.empty())
+        enemies.clear();
+    std::vector<sf::Vector2f> f = map->getFloorsPos();
+    for(int i = 0; i < f.size(); i++){
+        if((utils::absoluteValue(f[i].y - dStairs.y) < (5 * Tile::TILE_SIZE) &&
+            (utils::absoluteValue(f[i].x - dStairs.x) < (5 * Tile::TILE_SIZE)))){
+            f.erase(f.begin() + i);
+            i--;
+        }
+    }
+
+    std::random_shuffle(&f.at(0),&f.at(f.size() - 1));
+    for(int i = 0; i < 30; i++){
+        randEnemy = utils::generateRandomNumber(0, 6);
+        switch(randEnemy) {
+            case 0:{
+                spawnEnemy(f.at(i).x + 30, f.at(i).y + 30, GOBLIN, 5);
+                break;
+            }
+            case 1:{
+                spawnEnemy(f.at(i).x + 30,f.at(i).y + 30, BANDIT_LIGHT, 5);
+                break;
+            }
+            case 2:{
+                spawnEnemy(f.at(i).x + 30, f.at(i).y + 30, SKELETON, 5);
+                break;
+            }
+            case 3:{
+                spawnEnemy(f.at(i).x + 30, f.at(i).y + 30, SKELETON_2, 5);
+                break;
+            }
+            case 4:{
+                spawnEnemy(f.at(i).x + 30, f.at(i).y + 30, FLYING_EYE, 5);
+                break;
+            }
+            case 5:{
+                spawnEnemy(f.at(i).x + 30, f.at(i).y + 30, BANDIT_HEAVY, 5);
+                break;
+            }
+            case 6:{
+                spawnEnemy(f.at(i).x + 30, f.at(i).y + 30, WITCH, 5);
+                break;
+            }
+        }
+    }
+}
+
+
 
 
 

@@ -650,6 +650,34 @@ CMakeFiles/DragonSlayer.dir/Map/Tile.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DragonSlayer.dir/Map/Tile.cpp.s"
 	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\PROGETTO\MAIN\DragonSlayer\Map\Tile.cpp -o CMakeFiles\DragonSlayer.dir\Map\Tile.cpp.s
 
+CMakeFiles/DragonSlayer.dir/Map/Dungeon.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
+CMakeFiles/DragonSlayer.dir/Map/Dungeon.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
+CMakeFiles/DragonSlayer.dir/Map/Dungeon.cpp.obj: ../Map/Dungeon.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\PROGETTO\MAIN\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_42) "Building CXX object CMakeFiles/DragonSlayer.dir/Map/Dungeon.cpp.obj"
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Map\Dungeon.cpp.obj -c C:\PROGETTO\MAIN\DragonSlayer\Map\Dungeon.cpp
+
+CMakeFiles/DragonSlayer.dir/Map/Dungeon.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/DragonSlayer.dir/Map/Dungeon.cpp.i"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\PROGETTO\MAIN\DragonSlayer\Map\Dungeon.cpp > CMakeFiles\DragonSlayer.dir\Map\Dungeon.cpp.i
+
+CMakeFiles/DragonSlayer.dir/Map/Dungeon.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DragonSlayer.dir/Map/Dungeon.cpp.s"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\PROGETTO\MAIN\DragonSlayer\Map\Dungeon.cpp -o CMakeFiles\DragonSlayer.dir\Map\Dungeon.cpp.s
+
+CMakeFiles/DragonSlayer.dir/Gui/SelectLevelTab.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
+CMakeFiles/DragonSlayer.dir/Gui/SelectLevelTab.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
+CMakeFiles/DragonSlayer.dir/Gui/SelectLevelTab.cpp.obj: ../Gui/SelectLevelTab.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\PROGETTO\MAIN\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_43) "Building CXX object CMakeFiles/DragonSlayer.dir/Gui/SelectLevelTab.cpp.obj"
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Gui\SelectLevelTab.cpp.obj -c C:\PROGETTO\MAIN\DragonSlayer\Gui\SelectLevelTab.cpp
+
+CMakeFiles/DragonSlayer.dir/Gui/SelectLevelTab.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/DragonSlayer.dir/Gui/SelectLevelTab.cpp.i"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\PROGETTO\MAIN\DragonSlayer\Gui\SelectLevelTab.cpp > CMakeFiles\DragonSlayer.dir\Gui\SelectLevelTab.cpp.i
+
+CMakeFiles/DragonSlayer.dir/Gui/SelectLevelTab.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DragonSlayer.dir/Gui/SelectLevelTab.cpp.s"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\PROGETTO\MAIN\DragonSlayer\Gui\SelectLevelTab.cpp -o CMakeFiles\DragonSlayer.dir\Gui\SelectLevelTab.cpp.s
+
 # Object files for target DragonSlayer
 DragonSlayer_OBJECTS = \
 "CMakeFiles/DragonSlayer.dir/main.cpp.obj" \
@@ -692,7 +720,9 @@ DragonSlayer_OBJECTS = \
 "CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.obj" \
 "CMakeFiles/DragonSlayer.dir/Map/Map.cpp.obj" \
 "CMakeFiles/DragonSlayer.dir/Map/MapGenerator.cpp.obj" \
-"CMakeFiles/DragonSlayer.dir/Map/Tile.cpp.obj"
+"CMakeFiles/DragonSlayer.dir/Map/Tile.cpp.obj" \
+"CMakeFiles/DragonSlayer.dir/Map/Dungeon.cpp.obj" \
+"CMakeFiles/DragonSlayer.dir/Gui/SelectLevelTab.cpp.obj"
 
 # External object files for target DragonSlayer
 DragonSlayer_EXTERNAL_OBJECTS =
@@ -738,6 +768,8 @@ DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.obj
 DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/Map/Map.cpp.obj
 DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/Map/MapGenerator.cpp.obj
 DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/Map/Tile.cpp.obj
+DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/Map/Dungeon.cpp.obj
+DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/Gui/SelectLevelTab.cpp.obj
 DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/build.make
 DragonSlayer.exe: ../SFML_2.5.1/lib/libsfml-graphics.a
 DragonSlayer.exe: ../SFML_2.5.1/lib/libsfml-audio.a
@@ -747,7 +779,7 @@ DragonSlayer.exe: ../SFML_2.5.1/lib/libsfml-system.a
 DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/linklibs.rsp
 DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/objects1.rsp
 DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\PROGETTO\MAIN\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_42) "Linking CXX executable DragonSlayer.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\PROGETTO\MAIN\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_44) "Linking CXX executable DragonSlayer.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\DragonSlayer.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

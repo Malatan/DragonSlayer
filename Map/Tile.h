@@ -66,6 +66,7 @@ public:
     const sf::FloatRect getGlobalBounds() const;
     const bool intersects(const sf::FloatRect bounds) const;
     bool IsTraversable();
+    void setTraversable(bool traversable);
 
     bool isUp() const;
     void setUp(bool up);
@@ -82,8 +83,14 @@ public:
     void setInteractTexture(const sf::Texture *texture);
     void enableInteract(bool enable);
 
+    void setOutlineColor(sf::Color color);
+    void setOutlineThickness(float f);
+
+
     //RENDERING
     void render(sf::RenderTarget* target);
+
+
 
 
 };

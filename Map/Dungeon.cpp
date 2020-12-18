@@ -112,14 +112,14 @@ bool Dungeon::createFeature(int x, int y, Direction dir) {
 
     if (utils::generateRandomNumber(0, 100) < roomChance) {
         if (makeRoom(x, y, dir)) {
-            setTile(x, y, OpenDoor);
+            setTile(x, y, ClosedDoor);
 
             return true;
         }
     } else {
         if (makeCorridor(x, y, dir)) {
             if (getTile(x + dx, y + dy) == Floor)
-                setTile(x, y, OpenDoor);
+                setTile(x, y, ClosedDoor);
             else // don't place a door between corridors
                 setTile(x, y, Corridor);
 

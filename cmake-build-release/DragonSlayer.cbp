@@ -618,6 +618,12 @@
 			<Option target="DragonSlayer"/>
 			<Option target="unit_testing_run"/>
 		</Unit>
+		<Unit filename="C:/PROGETTO/MAIN/DragonSlayer/Gui/SelectLevelTab.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="C:/PROGETTO/MAIN/DragonSlayer/Gui/SelectLevelTab.h">
+			<Option target="DragonSlayer"/>
+		</Unit>
 		<Unit filename="C:/PROGETTO/MAIN/DragonSlayer/Gui/ShopTab.cpp">
 			<Option target="DragonSlayer"/>
 			<Option target="unit_testing_run"/>
@@ -642,6 +648,12 @@
 			<Option target="DragonSlayer"/>
 		</Unit>
 		<Unit filename="C:/PROGETTO/MAIN/DragonSlayer/Gui/libraries/RichText.hpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="C:/PROGETTO/MAIN/DragonSlayer/Map/Dungeon.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="C:/PROGETTO/MAIN/DragonSlayer/Map/Dungeon.h">
 			<Option target="DragonSlayer"/>
 		</Unit>
 		<Unit filename="C:/PROGETTO/MAIN/DragonSlayer/Map/Map.cpp">

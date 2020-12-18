@@ -1090,6 +1090,33 @@ Gui/PriestTab.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/PriestTab.cpp.s
 .PHONY : Gui/PriestTab.cpp.s
 
+Gui/SelectLevelTab.obj: Gui/SelectLevelTab.cpp.obj
+
+.PHONY : Gui/SelectLevelTab.obj
+
+# target to build an object file
+Gui/SelectLevelTab.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/SelectLevelTab.cpp.obj
+.PHONY : Gui/SelectLevelTab.cpp.obj
+
+Gui/SelectLevelTab.i: Gui/SelectLevelTab.cpp.i
+
+.PHONY : Gui/SelectLevelTab.i
+
+# target to preprocess a source file
+Gui/SelectLevelTab.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/SelectLevelTab.cpp.i
+.PHONY : Gui/SelectLevelTab.cpp.i
+
+Gui/SelectLevelTab.s: Gui/SelectLevelTab.cpp.s
+
+.PHONY : Gui/SelectLevelTab.s
+
+# target to generate assembly for a file
+Gui/SelectLevelTab.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/SelectLevelTab.cpp.s
+.PHONY : Gui/SelectLevelTab.cpp.s
+
 Gui/ShopTab.obj: Gui/ShopTab.cpp.obj
 
 .PHONY : Gui/ShopTab.obj
@@ -1197,6 +1224,33 @@ Gui/libraries/RichText.s: Gui/libraries/RichText.cpp.s
 Gui/libraries/RichText.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/libraries/RichText.cpp.s
 .PHONY : Gui/libraries/RichText.cpp.s
+
+Map/Dungeon.obj: Map/Dungeon.cpp.obj
+
+.PHONY : Map/Dungeon.obj
+
+# target to build an object file
+Map/Dungeon.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Map/Dungeon.cpp.obj
+.PHONY : Map/Dungeon.cpp.obj
+
+Map/Dungeon.i: Map/Dungeon.cpp.i
+
+.PHONY : Map/Dungeon.i
+
+# target to preprocess a source file
+Map/Dungeon.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Map/Dungeon.cpp.i
+.PHONY : Map/Dungeon.cpp.i
+
+Map/Dungeon.s: Map/Dungeon.cpp.s
+
+.PHONY : Map/Dungeon.s
+
+# target to generate assembly for a file
+Map/Dungeon.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Map/Dungeon.cpp.s
+.PHONY : Map/Dungeon.cpp.s
 
 Map/Map.obj: Map/Map.cpp.obj
 
@@ -1471,6 +1525,9 @@ help:
 	@echo ... Gui/PriestTab.obj
 	@echo ... Gui/PriestTab.i
 	@echo ... Gui/PriestTab.s
+	@echo ... Gui/SelectLevelTab.obj
+	@echo ... Gui/SelectLevelTab.i
+	@echo ... Gui/SelectLevelTab.s
 	@echo ... Gui/ShopTab.obj
 	@echo ... Gui/ShopTab.i
 	@echo ... Gui/ShopTab.s
@@ -1483,6 +1540,9 @@ help:
 	@echo ... Gui/libraries/RichText.obj
 	@echo ... Gui/libraries/RichText.i
 	@echo ... Gui/libraries/RichText.s
+	@echo ... Map/Dungeon.obj
+	@echo ... Map/Dungeon.i
+	@echo ... Map/Dungeon.s
 	@echo ... Map/Map.obj
 	@echo ... Map/Map.i
 	@echo ... Map/Map.s

@@ -4,26 +4,52 @@
 
 MapGenerator::MapGenerator() {
     wh d = wh{0, 0};
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i <= 5; i++) {
         dDims.push_back(d);
     }
+    dDims[0].height = 11;
+    dDims[0].width = 29;
 }
 
 MapGenerator::~MapGenerator() {
 
 }
 
-Map *MapGenerator::GenerateFromFile(std::string path, int height, int width, State *state) {
+Map *MapGenerator::GenerateFromFile(int floor, State *state) {
     this->gameState = dynamic_cast<GameState *>(state);
-    Map *map = new Map(height, width, state);
+    Map *map = new Map(dDims[floor].height, dDims[floor].width, state);
+    std::fstream fin;
     char ch;
-    std::fstream fin(path, std::fstream::in);
+    switch(floor){
+        case 0:{
+            fin = std::fstream("../Data/Hub.txt", std::fstream::in);
+            break;
+        }
+        case 1:{
+            fin = std::fstream("../Data/Dungeon_1.txt", std::fstream::in);
+            break;
+        }
+        case 2:{
+            fin = std::fstream("../Data/Dungeon_2.txt", std::fstream::in);
+            break;
+        }
+        case 3:{
+            fin = std::fstream("../Data/Dungeon_3.txt", std::fstream::in);
+            break;
+        }
+        case 4:{
+            fin = std::fstream("../Data/Dungeon_4.txt", std::fstream::in);
+            break;
+        }
+        case 5:{
+            fin = std::fstream("../Data/Dungeon_5.txt", std::fstream::in);
+            break;
+        }
+    }
     int i = 0;
     int k = 0;
-    std::cout<<"prima";
     while (fin >> std::noskipws >> ch) {
-        if (i < width) {
-            //std::cout << ch;
+        if (i < dDims[floor].width) {
             map->tiles.at(k).at(i)->SetType(ch);
             i++;
         } else {
@@ -31,8 +57,8 @@ Map *MapGenerator::GenerateFromFile(std::string path, int height, int width, Sta
             i = 0;
         }
     }
-    std::cout<<"dopo";
-    map->setWallType();
+
+        map->setWallType();
     map->setTexture();
     return map;
 }
