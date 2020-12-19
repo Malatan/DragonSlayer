@@ -359,10 +359,18 @@ void Enemy::update(const float &dt) {
     collisionBoxComponent->update();
 }
 
-void Enemy::render(sf::RenderTarget &target, bool show_hitbox, bool show_clsBox) {
+void Enemy::render(sf::RenderTarget &target, sf::Shader* shader, sf::Vector2f light_position, bool show_hitbox, bool show_clsBox) {
     if(show_clsBox)
         collisionBoxComponent->render(target);
-    target.draw(sprite);
+    if(shader){
+        shader->setUniform("hasTexture", true);
+        shader->setUniform("lightPos", light_position);
+
+        target.draw(sprite, shader);
+    }
+
+    else
+        target.draw(sprite);
     if(show_hitbox)
         hitboxComponent->render(target);
 }

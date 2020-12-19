@@ -209,6 +209,23 @@ void Map::setWallType() {
             }
         }
     }
+    for (int r = 0; r < this->tiles.size(); r++) {
+        for (int c = 0; c < this->tiles.at(r).size(); c++) {
+            if ((tiles[r][c]->isLeft() &&
+                 !tiles[r][c]->isRight() &&
+                 !tiles[r][c]->isUp() &&
+                 !tiles[r][c]->isDown()) &&
+                (c > 0 && tiles[r][c - 1]->GetType() == UPPERWALL))
+                tiles[r][c]->setRight(true);
+
+            if ((!tiles[r][c]->isLeft() &&
+                 tiles[r][c]->isRight() &&
+                 !tiles[r][c]->isUp() &&
+                 !tiles[r][c]->isDown()) &&
+                (c < tiles.at(r).size() - 1 && tiles[r][c + 1]->GetType() == UPPERWALL))
+                tiles[r][c]->setLeft(true);
+        }
+    }
 }
 
 sf::IntRect Map::getRandomFloorTexture() {

@@ -54,7 +54,7 @@ public:
     void generateEnemyStats(int level, int floor);
     void updateAnimation(const float &dt);
     void update(const float &dt) override;
-    void render(sf::RenderTarget& target, bool show_hitbox = false, bool show_clsBox = false);
+    void render(sf::RenderTarget& target, sf::Shader* shader = NULL, sf::Vector2f light_position = sf::Vector2f(), bool show_hitbox = false, bool show_clsBox = false);
 
     //getters/setters
     void setId(unsigned int new_id);

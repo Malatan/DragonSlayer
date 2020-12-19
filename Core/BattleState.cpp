@@ -1186,7 +1186,7 @@ void BattleState::render(sf::RenderTarget *target) {
 
     playerModel->render(*target);
     for (const auto &i : enemiesModels) {
-        i->render(*target, true);
+        i->render(*target, NULL, player->getCenter(), true);
     }
     target->draw(playerPos);
     playerStatusPanel.render(*target);

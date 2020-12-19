@@ -145,7 +145,6 @@ void Player::render(sf::RenderTarget &target, sf::Shader* shader, sf::Vector2f l
     if(shader){
         shader->setUniform("hasTexture", true);
         shader->setUniform("lightPos", light_position);
-        std::cout<<light_position.x<<" "<<light_position.y<<"\n";
 
         target.draw(sprite, shader);
     }

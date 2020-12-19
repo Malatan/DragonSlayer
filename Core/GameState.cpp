@@ -900,7 +900,10 @@ void GameState::render(sf::RenderTarget* target) {
     }
     target->setView(view);
 
-    map->render(target, player, &coreShader, player->getCenter());
+    if(currentFloor == 0)
+        map->render(target, player, NULL, player->getCenter());
+    else
+        map->render(target, player, &coreShader, player->getCenter());
     player->render(*target, &coreShader, player->getCenter(), true, true);
     for(const auto& i : lootBags){
         i->render(*target, true);
@@ -909,7 +912,7 @@ void GameState::render(sf::RenderTarget* target) {
         }
     }
     for(const auto& i : enemies){
-        i->render(*target, true, true);
+        i->render(*target, &coreShader, player->getCenter(), true, true);
     }
     for(auto i : npcs){
         i->render(*target, true);
