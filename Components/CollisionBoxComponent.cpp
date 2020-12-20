@@ -11,7 +11,7 @@ CollisionBoxComponent::CollisionBoxComponent(sf::Sprite& sprite, float offset_x,
     collisionEllipse = sf::CircleShape(radius);
     collisionEllipse.setScale(2.5f, 0.3f);
     collisionEllipse.setOrigin(radius,radius);
-    collisionEllipse.setFillColor(sf::Color(45,45,45));
+    collisionEllipse.setFillColor(sf::Color::Black);
 }
 
 CollisionBoxComponent::~CollisionBoxComponent() = default;

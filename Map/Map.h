@@ -22,20 +22,20 @@ private:
     int width;
     bool hasTexture;
     bool interacting;
-    IntTile intTile;
+    IntTile intTile{};
     std::vector<sf::Vector2f> floorsPos{};
 
     //Culling
-    int fromX;
+    int fromX{};
 public:
     const vector<sf::Vector2f> &getFloorsPos() const;
 
     void setFloorsPos(const vector<sf::Vector2f> &floorsPos);
 
 private:
-    int toX;
-    int fromY;
-    int toY;
+    int toX{};
+    int fromY{};
+    int toY{};
 
 
 
@@ -53,17 +53,17 @@ public:
 
     std::string printMap();
 
-    void updateCollision(std::shared_ptr<Player> entity);
+    void updateCollision(const std::shared_ptr<Player>& entity) const;
 
-    void updateTileCollision(std::shared_ptr<Player> entity, const float &dt);
+    void updateTileCollision(const std::shared_ptr<Player>& entity, const float &dt);
 
-    void drawTiles(sf::RenderWindow *window);
+    void drawTiles(sf::RenderWindow *window) const;
 
     void setWallType();
 
     const std::vector<std::vector<Tile *>> &getTiles() const;
 
-    void render(sf::RenderTarget *target, std::shared_ptr<Player> entity, sf::Shader* shader = NULL, const sf::Vector2f playerPosition = sf::Vector2f());
+    void render(sf::RenderTarget *target, const std::shared_ptr<Player>& entity, sf::Shader* shader = NULL, const sf::Vector2f playerPosition = sf::Vector2f());
 
     sf::IntRect getRandomFloorTexture();
 

@@ -18,14 +18,16 @@ public:
 
     //Functions
     void addPopUpText(unsigned tag_type, float pos_x, float pos_y,
-                      const std::string& str, const std::string& prefix, const std::string& postfix, float delay = 0.f);
+                      const std::string& str, const std::string& prefix, const std::string& postfix);
     void addPopUpText(unsigned tag_type, float pos_x, float pos_y,
-                      int i, const std::string& prefix, const std::string& postfix, float delay = 0.f);
+                      int i, const std::string& prefix, const std::string& postfix);
 
-    void addPopUpTextCenter(unsigned tag_type, const std::string& str, const std::string& prefix, const std::string& postfix,
-            float delay = 0.f);
-    void addPopUpTextCenter(unsigned tag_type, int i, const std::string& prefix, const std::string& postfix,
-            float delay = 0.f);
+    void addPopUpTextCenter(unsigned tag_type, const std::string& str, const std::string& prefix, const std::string& postfix);
+    void addPopUpTextCenter(unsigned tag_type, int i, const std::string& prefix, const std::string& postfix);
+    void addPopUpTextCenterYShifted(unsigned tag_type, const std::string& str, const std::string& prefix,
+                                    const std::string& postfix, float y_shift);
+    void addPopUpTextCenterYShifted(unsigned tag_type, int i, const std::string& prefix, const std::string& postfix,
+                                    float y_shift);
 
     void update(const float &dt);
     void render(sf::RenderTarget & target);
@@ -39,7 +41,6 @@ private:
         float lifetime;
         float speed;
         float acceleration;
-        float delay;
         sf::Vector2f velocity;
         int fadeValue;
         bool reverse;
@@ -54,7 +55,6 @@ private:
             this->text.setCharacterSize(char_size);
             this->text.setString(text);
 
-            this->delay = 0.f;
             this->dirX = dir_x;
             this->dirY = dir_y;
             this->lifetime = lifetime;
@@ -69,12 +69,11 @@ private:
             }
         }
 
-        PopUpText(const std::shared_ptr<PopUpText>& tag, float pos_x, float pos_y, const std::string& str, float delay) {
+        PopUpText(const std::shared_ptr<PopUpText>& tag, float pos_x, float pos_y, const std::string& str) {
             text = tag->text;
             text.setString(str);
             text.setPosition(pos_x - text.getGlobalBounds().width/2.f, pos_y);
 
-            this->delay = delay;
             dirX = tag->dirX;
             dirY = tag->dirY;
             lifetime = tag->lifetime;
@@ -92,44 +91,40 @@ private:
 
         //Function
         void update(const float& dt) {
-            if(delay > 0){
-                delay -= 100.f * dt;
-            }else{
-                if (lifetime > 0.f) {
-                    //Update the lifetime
-                    lifetime -= 100.f * dt;
-                    //Accelerate
-                    if (acceleration > 0.f) {
-                        if (reverse) {
-                            velocity.x -= dirX * acceleration * dt;
-                            velocity.y -= dirY * acceleration * dt;
-                            if (std::abs(velocity.x) < 0.f)
-                                velocity.x = 0.f;
-                            if (std::abs(velocity.y) < 0.f)
-                                velocity.y = 0.f;
-                            text.move(velocity * dt);
-                        }
-                        else {
-                            velocity.x += dirX * acceleration * dt;
-                            velocity.y += dirY * acceleration * dt;
-                            if (std::abs(velocity.x) > speed)
-                                velocity.x = dirX * speed;
-                            if (std::abs(velocity.y) > speed)
-                                velocity.y = dirY * speed;
-                            text.move(velocity * dt);
-                        }
+            if (lifetime > 0.f) {
+                //Update the lifetime
+                lifetime -= 100.f * dt;
+                //Accelerate
+                if (acceleration > 0.f) {
+                    if (reverse) {
+                        velocity.x -= dirX * acceleration * dt;
+                        velocity.y -= dirY * acceleration * dt;
+                        if (std::abs(velocity.x) < 0.f)
+                            velocity.x = 0.f;
+                        if (std::abs(velocity.y) < 0.f)
+                            velocity.y = 0.f;
+                        text.move(velocity * dt);
                     }
                     else {
-                        //Move the tag
-                        text.move(dirX * speed * dt, dirY * speed * dt);
+                        velocity.x += dirX * acceleration * dt;
+                        velocity.y += dirY * acceleration * dt;
+                        if (std::abs(velocity.x) > speed)
+                            velocity.x = dirX * speed;
+                        if (std::abs(velocity.y) > speed)
+                            velocity.y = dirY * speed;
+                        text.move(velocity * dt);
                     }
-                    if (fadeValue > 0 && text.getFillColor().a >= fadeValue) {
-                        text.setFillColor(sf::Color(
-                                text.getFillColor().r,
-                                text.getFillColor().g,
-                                text.getFillColor().b,
-                                text.getFillColor().a - fadeValue));
-                    }
+                }
+                else {
+                    //Move the tag
+                    text.move(dirX * speed * dt, dirY * speed * dt);
+                }
+                if (fadeValue > 0 && text.getFillColor().a >= fadeValue) {
+                    text.setFillColor(sf::Color(
+                            text.getFillColor().r,
+                            text.getFillColor().g,
+                            text.getFillColor().b,
+                            text.getFillColor().a - fadeValue));
                 }
             }
         }

@@ -77,6 +77,13 @@ bool SpellTab::closeTabByClicking(const sf::Vector2f& mousePos, gui::Button* spe
            && !container.getGlobalBounds().contains(mousePos) && !spellTab_Btn->contains(mousePos);
 }
 
+void SpellTab::updateInputs() {
+    if((sf::Keyboard::isKeyPressed(sf::Keyboard::P) || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) &&
+            gState->getKeyTime()){
+        gState->changeStato(NO_TAB);
+    }
+}
+
 void SpellTab::updateSpellsInfoLbl() {
     std::stringstream ss;
     ss << std::fixed << std::setprecision(1) << player->getPlayerStats()->getSpellDmgMultiplier();
@@ -123,7 +130,7 @@ void SpellTab::updateSpellsInfoLbl() {
 }
 
 void SpellTab::update(const sf::Vector2f &mousePos) {
-
+    updateInputs();
 }
 
 void SpellTab::render(sf::RenderTarget &target) {
@@ -135,6 +142,8 @@ void SpellTab::render(sf::RenderTarget &target) {
         i->render(target);
     }
 }
+
+
 
 
 

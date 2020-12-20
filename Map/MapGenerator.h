@@ -12,8 +12,8 @@ struct wh{
 class MapGenerator {
 private:
     std::vector<wh> dDims;
-    wh hDims;
-    GameState* gameState;
+    wh hDims{};
+    GameState* gameState{};
 
 public:
     const vector<wh> &getDDims() const;

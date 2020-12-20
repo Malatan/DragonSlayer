@@ -105,9 +105,11 @@ private:
     std::unique_ptr<PauseMenu> pmenu;
 
     //Battle report
-
-
-
+    sf::RectangleShape resultBackground;
+    sf::RectangleShape resultContainer;
+    sfe::RichText resultTitleLbl;
+    sf::Text resultTextLbl;
+    gui::Button continueBtn;
 
     //player stats panel
     sf::RectangleShape playerStatsPanel;
@@ -160,6 +162,7 @@ private:
     void initActionPanel();
     void initInventoryPanel();
     void initPauseMenu();
+    void initBattleResultPanel();
     void spawnEnemyModel(sf::Vector2f pos, enemy_types type, unsigned int enemy_id);
     void generateModels();
 

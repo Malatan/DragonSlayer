@@ -234,13 +234,14 @@ const map<std::string, Item> &LootGenerator::getShopList() const {
 }
 
 std::vector<std::shared_ptr<Item>> LootGenerator::generateLoot(const std::shared_ptr<Enemy>& defeated_enemy, int floor) {
-    bool print_result = true;
-    bool print_lootbag = true;
+    bool print_result = false;
+    bool print_lootbag = false;
     bool print_generated_equip = false;
     bool add_materials = true;
     bool add_potions = true;
     bool add_equip = true;
 
+    //dropcount
     std::vector<dropCount> drop_counts;
     if(defeated_enemy->getDeadFollowersNumber() == defeated_enemy->getFollowersNumber()){
         drop_counts.emplace_back(2, defeated_enemy->getType());
@@ -254,6 +255,7 @@ std::vector<std::shared_ptr<Item>> LootGenerator::generateLoot(const std::shared
     }
     int drop_count = 0;
     std::vector<std::shared_ptr<Item>> loot_bag;
+
     //   <rarita, quantita>
     std::map<int, int> materials;
     std::map<int, int> potions;

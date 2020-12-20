@@ -308,6 +308,129 @@ void BattleState::initPauseMenu() {
     pmenu->addButton("QUIT", 540.f, "QUIT GAME", 50);
 }
 
+void BattleState::initBattleResultPanel() {
+    resultTitleLbl.setFont(*font);
+    resultTitleLbl.setCharacterSize(30);
+    resultTextLbl.setFont(*font);
+    resultTextLbl.setCharacterSize(20);
+    stringstream ss;
+    switch (battleResultEnum) {
+        case WIN:{
+            //calcola xp, range [x, 2x]
+            int xp_gain_base = enemyLeader->getStats()->getLevel();
+            for(const auto& i : enemyLeader->getFollowers()){
+                if(i->isDead()){
+                    xp_gain_base += i->getStats()->getLevel();
+                }
+            }
+            int xp_gain = utils::generateRandomNumber(xp_gain_base, xp_gain_base*2);
+            float multiplier = utils::generateRandomNumberf(1.2f, 2.f, 2);
+            xp_gain = (int)((float)xp_gain * multiplier);
+            multiplier = utils::generateRandomNumberf(1.5f, 2.5f, 2);
+            int gold_gain = (int)((float)xp_gain * multiplier);
+
+            resultTitleLbl << sf::Color::Green << sf::Text::Italic << "YOU WIN!";
+            ss << "You killed " << enemyLeader->getDeadFollowersNumber() + 1 << " enemis and won the battle!" << std::endl;
+            ss << "   + " << xp_gain << " exp" << std::endl;
+            ss << "   + " << gold_gain << " golds" << std::endl;
+            battleResult.setExpGainCount(xp_gain);
+            battleResult.setGoldGainCount(gold_gain);
+            break;
+        }
+        case LOST:{
+            ss << "You will respawn at hub" << std::endl;
+            resultTitleLbl << sf::Color::Red << sf::Text::Italic << "YOU DIED!";
+            //perde 10 - 30 % di oro e 10 - 30 % di oggetti nell'inventario
+            int min_penalty = 15;
+            int max_penalty = 30;
+            int min_quantity_penalty = 25;
+            int max_quantity_penalty = 60;
+
+            if(player->getGold() > 0){
+                auto gold_lose_perc = (float)utils::generateRandomNumber(min_penalty, max_penalty);
+                int gold_lose = std::ceil(((float)player->getGold() / 100.f) * gold_lose_perc);
+                if(gold_lose > 0){
+                    player->minusGold(gold_lose);
+                    cTab->updateGoldLbls();
+                    ss << "You lost " << gold_lose << " golds" << std::endl;
+                }
+            }
+
+            if(!cTab->getInventorySlots().empty()){
+                bool delete_items = true;
+                auto item_lose_perc = (float)utils::generateRandomNumber(min_penalty, max_penalty);
+                int item_lose = std::ceil(((float)player->getInventory()->getItemsSize() / 100.f) * item_lose_perc);
+                ss << "You dropped: " << std::endl;
+                int n = 0;
+                while(item_lose > 0){
+                    int random_index = utils::generateRandomNumber(0, (int)cTab->getInventorySlots().size() - 1);
+                    auto& app = cTab->getInventorySlots()[random_index];
+                    // se l'oggetto e' un consumabile oppure materiale allora genera una certa quantita da perdere
+                    if(app->getItem()->getUsageType() == MATERIAL_USAGE || app->getItem()->getUsageType() == CONSUMABLE_USAGE){
+                        auto quantity_lose_perc = (float)utils::generateRandomNumber(min_quantity_penalty, max_quantity_penalty);
+                        int quantity_lose = std::ceil(((float)app->getItem()->getQuantity() / 100.f) * quantity_lose_perc);
+                        app->getItem()->minusQuantity(quantity_lose);
+                        ss << "  You lost x" << quantity_lose << " [" << app->getItem()->getName() << "]" << std::endl;
+                        if(app->getItem()->getQuantity() == 0){
+                            app->setSelectedBool(true);
+                            n++;
+                        }
+                    }else{
+                        n++;
+                        app->setSelectedBool(true);
+                        ss << "  You lost [" << app->getItem()->getName() << "]" << std::endl;
+                    }
+                    item_lose--;
+                    delete_items = true;
+                }
+                if(delete_items){
+                    cTab->setSeletecItem(n);
+                    cTab->deleteItemFromInventory();
+                }
+            }
+            break;
+        }
+        case ESCAPED:
+            resultTitleLbl << sf::Color::White << sf::Text::Italic << "RAN AWAY";
+            ss << "You abandoned the battle and escaped";
+            break;
+        case NOT_FINISHED: case QUIT_GAME:
+            break;
+    }
+    resultTextLbl.setString(ss.str());
+
+    if(resultTextLbl.getGlobalBounds().width > 460){
+        resultContainer.setSize(sf::Vector2f(resultTextLbl.getGlobalBounds().width + 20.f,
+                                              resultTitleLbl.getGlobalBounds().height +
+                                              resultTextLbl.getGlobalBounds().height +
+                                              100.f));
+    }else{
+        resultContainer.setSize(sf::Vector2f(500.f,
+                                              resultTitleLbl.getGlobalBounds().height +
+                                              resultTextLbl.getGlobalBounds().height +
+                                              100.f));
+    }
+    resultBackground.setSize(sf::Vector2f(window->getSize().x, window->getSize().y));
+    resultBackground.setFillColor(sf::Color(0, 0, 0, 150));
+
+    resultContainer.setPosition(window->getSize().x / 2.f - resultContainer.getGlobalBounds().width / 2.f,
+                                 window->getSize().y/2.f - resultContainer.getGlobalBounds().height / 2.f);
+    resultContainer.setFillColor(sf::Color(90, 90, 90));
+    resultContainer.setOutlineColor(sf::Color(60, 60, 60));
+    resultContainer.setOutlineThickness(3.f);
+    resultTitleLbl.setPosition(resultContainer.getPosition().x + resultContainer.getGlobalBounds().width / 2.f
+                               - resultTitleLbl.getGlobalBounds().width/2.f,
+                               resultContainer.getPosition().y + 15.f);
+    resultTextLbl.setPosition(resultContainer.getPosition().x + resultContainer.getGlobalBounds().width / 2.f
+                              - resultTextLbl.getGlobalBounds().width/2.f,
+                              resultTitleLbl.getPosition().y + resultTitleLbl.getGlobalBounds().height + 10.f);
+    continueBtn = gui::Button(resultContainer.getPosition().x + resultContainer.getGlobalBounds().width / 2.f - 50.f,
+                              resultContainer.getPosition().y + resultContainer.getGlobalBounds().height - 65.f,
+                              100.f, 50.f,
+                              font, "Continue", 25);
+
+}
+
 void BattleState::spawnEnemyModel(sf::Vector2f pos, enemy_types type, unsigned int enemy_id) {
     std::shared_ptr<Enemy> enemy;
     switch (type) {
@@ -863,7 +986,8 @@ void BattleState::endEnemyTurn() {
 void BattleState::endBattle() {
     switch(battleResultEnum){
         case WIN: case LOST: case ESCAPED: case QUIT_GAME:
-            endState();
+            initBattleResultPanel();
+            currentWindowState = BATTLE_REPORT;
         case NOT_FINISHED:
             break;
     }
@@ -1075,15 +1199,14 @@ void BattleState::updatePausedMenuButtons() {
 }
 
 void BattleState::update(const float &dt) {
-    updateInput(dt);
-    updateKeyTime(dt);
     updateMousePosition(nullptr);
-    updateButtons();
-    updateEnemyStatsLbl(enemiesModels[selectedId]);
-    updateTurnPanel();
-
+    updateKeyTime(dt);
     switch(currentWindowState){
-        case UNPAUSED:
+        case UNPAUSED:{
+            updateInput(dt);
+            updateButtons();
+            updateEnemyStatsLbl(enemiesModels[selectedId]);
+            updateTurnPanel();
             if (countPlayerTurnTimer) {
                 if (turnLengthKeyTime < turnLengthMaxKeyTime){
                     turnLengthKeyTime += 15.f * dt;
@@ -1117,12 +1240,21 @@ void BattleState::update(const float &dt) {
             popUpTextComponent->update(dt);
             updateMainPanel(dt);
             break;
-        case PAUSE_MENU:
+        }
+        case PAUSE_MENU:{
+            updateInput(dt);
             pmenu->update(mousePosView);
             updatePausedMenuButtons();
             break;
-        case BATTLE_REPORT:
+        }
+        case BATTLE_REPORT:{
+            popUpTextComponent->update(dt);
+            continueBtn.update(mousePosView);
+            if(continueBtn.isPressed() && getKeyTime()){
+                endState();
+            }
             break;
+        }
     }
 
 }
@@ -1155,41 +1287,40 @@ void BattleState::render(sf::RenderTarget *target) {
     escapeActionBtn.render(*target);
 
     switch (currentPanel) {
-        case DEFAULT_PANEL:
-            break;
-        case ACTION_PANEL:
-            target->draw(actionPanel);
-            target->draw(pageLbl);
-            nextPageBtn.render(*target);
-            previousPageBtn.render(*target);
-            for (int i = (currentActionPage - 1) * 4; i < ((currentActionPage - 1) * 4 + 4); i++) {
-                if (i < actionRows.size() && i >= 0)
-                    actionRows[i]->render(*target);
-            }
-            break;
-        case INVENTORY_PANEL:
-            target->draw(itemActionPanel);
-            target->draw(pageLbl);
-            nextPageBtn.render(*target);
-            previousPageBtn.render(*target);
-            for (int i = (currentInvPage - 1) * 4; i < ((currentInvPage - 1) * 4 + 4); i++) {
-                if (i < itemRows.size() && i >= 0)
-                    itemRows[i]->render(*target);
-            }
-            break;
-        case ESCAPE_PANEL:
-            target->draw(escapeActionPanel);
-            target->draw(escapeText);
-            escapeConfirmBtn.render(*target);
-            break;
-    }
+            case DEFAULT_PANEL:
+                break;
+            case ACTION_PANEL:
+                target->draw(actionPanel);
+                target->draw(pageLbl);
+                nextPageBtn.render(*target);
+                previousPageBtn.render(*target);
+                for (int i = (currentActionPage - 1) * 4; i < ((currentActionPage - 1) * 4 + 4); i++) {
+                    if (i < actionRows.size() && i >= 0)
+                        actionRows[i]->render(*target);
+                }
+                break;
+            case INVENTORY_PANEL:
+                target->draw(itemActionPanel);
+                target->draw(pageLbl);
+                nextPageBtn.render(*target);
+                previousPageBtn.render(*target);
+                for (int i = (currentInvPage - 1) * 4; i < ((currentInvPage - 1) * 4 + 4); i++) {
+                    if (i < itemRows.size() && i >= 0)
+                        itemRows[i]->render(*target);
+                }
+                break;
+            case ESCAPE_PANEL:
+                target->draw(escapeActionPanel);
+                target->draw(escapeText);
+                escapeConfirmBtn.render(*target);
+                break;
+        }
 
     playerModel->render(*target);
     for (const auto &i : enemiesModels) {
-        i->render(*target, NULL, player->getCenter(), true);
+        i->render(*target, nullptr, player->getCenter(), true);
     }
     target->draw(playerPos);
-    playerStatusPanel.render(*target);
     for (const auto &i : enemyPos)
         target->draw(i);
     for (unsigned int i = 0; i < enemiesModels.size(); i++) {
@@ -1200,11 +1331,18 @@ void BattleState::render(sf::RenderTarget *target) {
 
     switch(currentWindowState){
         case UNPAUSED:
+            playerStatusPanel.render(*target);
             break;
         case PAUSE_MENU:
+            playerStatusPanel.render(*target);
             pmenu->render(*target);
             break;
         case BATTLE_REPORT:
+            target->draw(resultBackground);
+            target->draw(resultContainer);
+            target->draw(resultTitleLbl);
+            target->draw(resultTextLbl);
+            continueBtn.render(*target);
             break;
     }
     popUpTextComponent->render(*target);
@@ -1219,6 +1357,8 @@ void BattleState::render(sf::RenderTarget *target) {
     mouseText.setString(ss.str());
     target->draw(mouseText);*/
 }
+
+
 
 
 

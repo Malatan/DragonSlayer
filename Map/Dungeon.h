@@ -46,9 +46,9 @@ public:
 
     void generate(int maxFeatures);
 
-    void writeOnFile(std::string path);
+    void writeOnFile(const std::string& path) const;
 
-    void print();
+    void print() const;
 
     char getTile(int x, int y) const;
 

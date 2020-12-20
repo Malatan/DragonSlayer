@@ -22,9 +22,7 @@ Tile::Tile(float cx, float cy, bool traversable) {
 
 }
 
-Tile::~Tile() {
-
-}
+Tile::~Tile() = default;
 
 types Tile::GetType() {
     return this->type;
@@ -158,18 +156,20 @@ void Tile::SetType(char type){
             interactable = false;
             break;
         }
+        default:
+            break;
     }
 }
 
-bool Tile::IsTraversable() {
+bool Tile::IsTraversable() const {
     return this->traversable;
 }
 
-const sf::FloatRect Tile::getGlobalBounds() const{
+sf::FloatRect Tile::getGlobalBounds() const{
     return this->shape.getGlobalBounds();
 }
 
-const bool Tile::intersects(const sf::FloatRect bounds) const{
+bool Tile::intersects(const sf::FloatRect bounds) const{
     return this->shape.getGlobalBounds().intersects(bounds);
 }
 

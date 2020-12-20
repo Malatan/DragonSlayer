@@ -21,10 +21,11 @@ public:
     bool closeTabByClicking(const sf::Vector2f& mousePos);
     void buttonFunctions(short unsigned btnId);
     void updateButtons();
+    void updateInputs();
     void update(const sf::Vector2f& mousePos);
     void render(sf::RenderTarget& target);
-    bool isHide();
-    void setHide(bool hide);
+    bool isHide() const;
+    void setHide(bool b);
 
 private:
 

@@ -37,7 +37,7 @@ void Dungeon::generate(int maxFeatures) {
     }
 }
 
-void Dungeon::writeOnFile(std::string path) {
+void Dungeon::writeOnFile(const std::string& path) const {
     std::ofstream myfile;
     myfile.open(path);
     for (int y = 0; y < _height; ++y) {
@@ -49,7 +49,7 @@ void Dungeon::writeOnFile(std::string path) {
     myfile.close();
 }
 
-void Dungeon::print() {
+void Dungeon::print() const {
     for (int y = 0; y < _height; ++y) {
         for (int x = 0; x < _width; ++x)
             std::cout << getTile(x, y);
@@ -134,7 +134,7 @@ bool Dungeon::makeRoom(int x, int y, Direction dir, bool firstRoom) {
     static const int minRoomSize = 3;
     static const int maxRoomSize = 6;
 
-    Rect room;
+    Rect room{};
     room.width = utils::generateRandomNumber(minRoomSize, maxRoomSize);
     room.height = utils::generateRandomNumber(minRoomSize, maxRoomSize);
 
@@ -174,7 +174,7 @@ bool Dungeon::makeCorridor(int x, int y, Direction dir) {
     static const int minCorridorLength = 3;
     static const int maxCorridorLength = 6;
 
-    Rect corridor;
+    Rect corridor{};
     corridor.x = x;
     corridor.y = y;
 

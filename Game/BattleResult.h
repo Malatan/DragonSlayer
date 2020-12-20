@@ -42,8 +42,12 @@ public:
     void updateBattleResult(battle_result_types b_result, bool player_killed, const std::shared_ptr<Enemy>& enemy_leader);
 
     //getters setters
+    void setExpGainCount(int value);
+    int getExpGainCount() const;
+    void setGoldGainCount(int value);
+    int getGoldGainCount() const;
     battle_result_types getResultType();
-    unsigned int getEnemyLeaderId();
+    unsigned int getEnemyLeaderId() const;
 
 private:
     battle_result_types battleResult{};
@@ -52,6 +56,8 @@ private:
     bool enemyLeaderKilled{};
     int enemyDeadFollowersCount{};
     int enemyFollowersCount{};
+    int expGainCount{};
+    int goldGainCount{};
 
     //statiscs
     int damageDealtCount{};

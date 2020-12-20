@@ -145,7 +145,7 @@ SelectLevelTab::SelectLevelTab(const std::shared_ptr<sf::RenderWindow>& window, 
     initButtons();
 }
 
-SelectLevelTab::~SelectLevelTab(){}
+SelectLevelTab::~SelectLevelTab()= default;
 
 bool SelectLevelTab::closeTabByClicking(const sf::Vector2f& mousePos) {
     return sf::Mouse::isButtonPressed(sf::Mouse::Left) &&
@@ -209,12 +209,20 @@ void SelectLevelTab::updateButtons() {
     }
 }
 
+void SelectLevelTab::updateInputs() {
+    if((sf::Keyboard::isKeyPressed(sf::Keyboard::E) || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) &&
+       gState->getKeyTime()){
+        gState->changeStato(NO_TAB);
+    }
+}
+
 void SelectLevelTab::update(const sf::Vector2f &mousePos) {
     level1Btn.update(mousePos);
     level2Btn.update(mousePos);
     level3Btn.update(mousePos);
     level4Btn.update(mousePos);
     level5Btn.update(mousePos);
+    updateInputs();
     updateButtons();
 }
 
@@ -229,10 +237,10 @@ void SelectLevelTab::render(sf::RenderTarget &target) {
     level5Btn.render(target);
 }
 
-bool SelectLevelTab::isHide() {
+bool SelectLevelTab::isHide() const {
     return hide;
 }
 
-void SelectLevelTab::setHide(bool hide) {
-    this->hide = hide;
+void SelectLevelTab::setHide(bool b) {
+    hide = b;
 }

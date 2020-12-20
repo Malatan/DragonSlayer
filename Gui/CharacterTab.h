@@ -29,9 +29,11 @@ public:
     const vector<std::unique_ptr<gui::ItemSlot>>& getInventorySlots() const;
     GameState *getGState() const;
 
+    //modifiers
+    void setSeletecItem(int n);
+
     //functions
     std::string playerStatsToString();
-
     void equipUnequipItem(int equip_slot, const std::shared_ptr<Item>& item, std::unique_ptr<gui::ItemSlot>& i, const std::string& typeIcon);
     void unselectAll();
     void selectAll();
@@ -45,6 +47,7 @@ public:
     void updatePlayerStatsLbl();
     void updateEquipBonusLbl();
     void updateGoldLbl();
+    void updateGoldLbls();
     void updateInventoryCapLbl();
     void deleteItemFromInventory();
     void deleteConsumableInBattle(const std::shared_ptr<Item>& item);

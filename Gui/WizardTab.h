@@ -23,6 +23,7 @@ public:
     bool closeTabByClicking(const sf::Vector2f& mousePos);
     void updateGoldLbl();
     void updatePageLbl();
+    void updateInputs();
     void updateButtons(const sf::Vector2f& mousePos);
     void update(const sf::Vector2f& mousePos);
     void render(sf::RenderTarget& target);

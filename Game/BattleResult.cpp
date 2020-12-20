@@ -106,8 +106,24 @@ battle_result_types BattleResult::getResultType(){
     return battleResult;
 }
 
-unsigned int BattleResult::getEnemyLeaderId() {
+unsigned int BattleResult::getEnemyLeaderId() const {
     return enemyLeaderId;
+}
+
+void BattleResult::setExpGainCount(int value) {
+    expGainCount = value;
+}
+
+int BattleResult::getExpGainCount() const {
+    return expGainCount;
+}
+
+void BattleResult::setGoldGainCount(int value) {
+    goldGainCount = value;
+}
+
+int BattleResult::getGoldGainCount() const {
+    return goldGainCount;
 }
 
 

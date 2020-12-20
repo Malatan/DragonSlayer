@@ -184,6 +184,7 @@ void WizardTab::updateButtons(const sf::Vector2f &mousePos) {
 
 void WizardTab::update(const sf::Vector2f &mousePos) {
     updateButtons(mousePos);
+    updateInputs();
     for (int i = (currentPage - 1) * 4; i < ((currentPage) * 4); i++) {
         if (i < spellSlots.size() && i >= 0){
             spellSlots[i]->update(mousePos);
@@ -205,6 +206,13 @@ void WizardTab::render(sf::RenderTarget &target) {
     for (int i = (currentPage - 1) * 4; i < ((currentPage) * 4); i++) {
         if (i < spellSlots.size() && i >= 0)
             spellSlots[i]->render(target);
+    }
+}
+
+void WizardTab::updateInputs() {
+    if((sf::Keyboard::isKeyPressed(sf::Keyboard::E) || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) &&
+       gState->getKeyTime()){
+        gState->changeStato(NO_TAB);
     }
 }
 

@@ -221,7 +221,15 @@ void PriestTab::updateButtons() {
     }
 }
 
+void PriestTab::updateInputs() {
+    if((sf::Keyboard::isKeyPressed(sf::Keyboard::E) || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) &&
+       gState->getKeyTime()){
+        gState->changeStato(NO_TAB);
+    }
+}
+
 void PriestTab::update(const sf::Vector2f &mousePos) {
+    updateInputs();
     restoreHpBtn.update(mousePos);
     restoreMpBtn.update(mousePos);
     removeAllDebuffsBtn.update(mousePos);

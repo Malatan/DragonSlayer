@@ -4,6 +4,8 @@
 
 #include "GameState.h"
 
+#include <random>
+
 void GameState::initTextures() {
     rsHandler->addResource("../Resources/Images/Sprites/Player/player_sheet.png", "player_sheet", "GameState");
     rsHandler->addResource("../Resources/Images/Sprites/Npc/shop_npc_idle.png", "shop_npc_sheet", "GameState");
@@ -104,7 +106,6 @@ void GameState::initPlayers() {
     // legge i valori di default dell 'inventario dal Data/Inventory.txt
     rsHandler->loadPlayerInventoryTxt(player->getInventory());
 
-
 }
 
 void GameState::initCharacterTab() {
@@ -138,15 +139,14 @@ void GameState::initSelectLevelTab() {
 void GameState::initHintsTab() {
     hints.setFont(*font);
     hints.setCharacterSize(30);
-    hints.setString(" Esc to pause\n"
-                          " WASD to move\n"
-                          " I to print inventory\n"
-                          " C to open/close character tab and inventory\n"
-                          " M to gain gold\n"
-                          " Y to print player equipment\n"
-                          " T to gain exp\n"
-                          " E to interact\n"
-                          " X to noclip\n"
+    hints.setString(" <Esc> to pause\n"
+                          " <W,A,S,D> to move\n"
+                          " <E> to interact\n"
+                          " <P> to open/close spell tab\n"
+                          " <C> to open/close character tab\n"
+                          " <M> to gain gold\n"
+                          " <T> to gain exp\n"
+                          " <X> to noclip\n"
                                 );
 
     hints.setPosition(5.f, window->getSize().y - hints.getGlobalBounds().height + 20.f);
@@ -378,7 +378,7 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::u
                      std::shared_ptr<ResourcesHandler> rsHandler, sf::Font *font)
         : State(std::move(window), states, std::move(rsHandler)){
     this->font = font;
-    stato = 0;
+    stato = NO_TAB;
     npcInteract = NO_NPC;
     noclip = false;
     currentFloor = 3;
@@ -597,13 +597,13 @@ bool GameState::deleteEnemyById(unsigned int enemy_id) {
     return false;
 }
 
-void GameState::changeStato(int current_stato) {
+void GameState::changeStato(state_tab current_stato) {
     if(!paused){
         pauseState();
         stato = current_stato;
     } else{
         unpauseState();
-        stato = 0;
+        stato = NO_TAB;
         window->setMouseCursorVisible(true);
     }
 }
@@ -612,11 +612,46 @@ void GameState::checkBattleResult(BattleResult& battle_result) {
     std::cout<<battle_result.generateReport();
     switch(battle_result.getResultType()){
         case WIN:{
+            int exp_gain = battle_result.getExpGainCount();
+            int gold_gain = battle_result.getGoldGainCount();
+
+            if(exp_gain > 0){
+                if(player->getPlayerStats()->addExp(exp_gain)){
+                    updateTabsPlayerStatsLbl();
+                }
+                popUpTextComponent->addPopUpTextCenter(EXPERIENCE_TAG, exp_gain,"+", "Exp");
+            }
+
+            if(gold_gain > 0){
+                player->addGold(gold_gain);
+                updateTabsGoldLbl();
+                popUpTextComponent->addPopUpTextCenterYShifted(GOLD_TAG, gold_gain, "+", " gold", -50.f);
+            }
+
             for(const auto& i : enemies){
                 if(i->getId() == battle_result.getEnemyLeaderId()){
-                    lootBags.push_back(std::make_shared<LootBag>(window, i->getPosition(), textures, player, this,
-                                                                 lootGenerator->generateLoot(i, currentFloor),
-                                                                 font, 10, rsHandler->generateId()));
+                    std::vector<std::shared_ptr<Item>> juices = lootGenerator->generateLoot(i, currentFloor);
+                    int lootbag_lifetime = 999;
+                    if(!juices.empty()){
+                        //controlla se e' nel mergerange di altri lootbag
+                        bool merged = false;
+                        sf::FloatRect app = {i->getGlobalBounds().left, i->getGlobalBounds().top,
+                                             40.f, 40.f};
+                        for(const auto& j : lootBags){
+                            if(j->canMerge(app)){
+                                j->mergeLoots(juices);
+                                j->setLifeTime(lootbag_lifetime);
+                                merged = true;
+                                break;
+                            }
+                        }
+                        if(!merged){
+                            lootBags.push_back(
+                                    std::make_shared<LootBag>(
+                                            window, i->getPosition(), textures, player, this, juices, font,
+                                            lootbag_lifetime, rsHandler->generateId()));
+                        }
+                    }
                     break;
                 }
             }
@@ -625,8 +660,16 @@ void GameState::checkBattleResult(BattleResult& battle_result) {
             player->stopVelocity();
             break;
         }
-        case LOST:
+        case LOST:{
+            changeMap(0);
+            float new_hp = ((float)player->getPlayerStats()->getFinalHp()/100.f) * 10.f;
+            float new_mp = ((float)player->getPlayerStats()->getFinalMp()/100.f) * 10.f;
+            player->getPlayerStats()->setHp((int)new_hp);
+            player->getPlayerStats()->setMp((int)new_mp);
+            player->setPosition(spawnPos.x, spawnPos.y);
+            player->stopVelocity();
             break;
+        }
         case QUIT_GAME:
             endState();
             break;
@@ -641,10 +684,12 @@ void GameState::checkBattleResult(BattleResult& battle_result) {
 
 void GameState::updateInput(const float &dt) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && getKeyTime()) {
-        changeStato(1);
+        changeStato(PAUSEMENU_TAB);
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::C) && getKeyTime()) {
-        changeStato(2);
+        changeStato(CHARACTER_TAB);
         cTab->unselectAll();
+    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::P) && getKeyTime()) {
+        changeStato(SPELL_TAB);
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) && getKeyTime()) {
         player->getMovementComponent()->enableSpeedControl(noclip);
         noclip = !noclip;
@@ -653,12 +698,6 @@ void GameState::updateInput(const float &dt) {
             updateTabsPlayerStatsLbl();
         }
         popUpTextComponent->addPopUpTextCenter(EXPERIENCE_TAG, 100, "+", "Exp");
-
-    }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::I) && getKeyTime()){
-        std::cout << player->getInventory()->listInventory();
-
-    }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Y) && getKeyTime()){
-        std::cout<<player->toStringEquipment();
 
     }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::M) && getKeyTime()){
         int gold = utils::generateRandomNumber(99999, 999999);
@@ -669,13 +708,13 @@ void GameState::updateInput(const float &dt) {
         if(npcInteract != NO_NPC){
             switch(npcInteract){
                 case SHOP:
-                    changeStato(3);
+                    changeStato(SHOP_TAB);
                     break;
                 case PRIEST:
-                    changeStato(4);
+                    changeStato(PRIEST_TAB);
                     break;
                 case WIZARD:
-                    changeStato(6);
+                    changeStato(WIZARD_TAB);
                     break;
                 default:
                     std::cout<<"no npc\n";
@@ -684,15 +723,13 @@ void GameState::updateInput(const float &dt) {
             player->stopVelocity();
         }
         if(interactLootBag.first != 0){
-            changeStato(7);
-            std::cout<< "interact loot bag " << interactLootBag.first << endl;
+            changeStato(LOOTBAG_TAB);
             player->stopVelocity();
         }
-        std::cout<<map->isInteracting();
         if(map->isInteracting()){
             if(map->getIntTile().type == DOORH){
                 selectLevelTab->setHide(false);
-                changeStato(8);
+                changeStato(SELECTLEVEL_TAB);
                 player->stopVelocity();
             }
             if(map->getIntTile().type == DOWNSTAIRS){
@@ -711,23 +748,15 @@ void GameState::updateInput(const float &dt) {
 }
 
 void GameState::updatePlayerInput(const float &dt) {
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
-            player->move(dt, -1.f, 0.f);
-        }
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-            player->move(dt, 1.f, 0.f);
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-            player->move(dt, 0.f, -1.f);
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-            player->move(dt, 0.f, 1.f);
-
-     /*   if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) { // not working properly
-            sf::Vector2f diff = mousePosView - player->getHitboxComponent()->getCenter();
-
-            player->move(dt, diff.x, diff.y);
-        }*/
-
-
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
+        player->move(dt, -1.f, 0.f);
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        player->move(dt, 1.f, 0.f);
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+        player->move(dt, 0.f, -1.f);
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+        player->move(dt, 0.f, 1.f);
 }
 
 void GameState::updateTabsGoldLbl() {
@@ -751,13 +780,16 @@ void GameState::updatePausedMenuButtons() {
     if(pmenu.isButtonPressed("QUIT") && getKeyTime()){
         endState();
     } else if(pmenu.isButtonPressed("BACK") && getKeyTime()){
-        changeStato(0);
+        changeStato(NO_TAB);
     } else if(pmenu.isButtonPressed("SPELL") && getKeyTime()){
-        changeStato(0);
-        changeStato(5);
+        changeStato(NO_TAB);
+        changeStato(SPELL_TAB);
     }else if(pmenu.isButtonPressed("CHARACTER") && getKeyTime()){
-        changeStato(0);
-        changeStato(2);
+        changeStato(NO_TAB);
+        changeStato(CHARACTER_TAB);
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && getKeyTime()){
+        changeStato(NO_TAB);
     }
 }
 
@@ -775,21 +807,20 @@ void GameState::updateDebugText() {
 void GameState::updateButtons() {
     if(cTabBtn.isPressed() && getKeyTime()){
         cTabBtn.setButtonState(BTN_IDLE);
-        changeStato(2);
+        changeStato(CHARACTER_TAB);
         cTab->unselectAll();
     } else if(pauseMenuBtn.isPressed() && getKeyTime()){
         pauseMenuBtn.setButtonState(BTN_IDLE);
-        changeStato(1);
+        changeStato(PAUSEMENU_TAB);
     } else if(spellTabBtn.isPressed() && getKeyTime()){
         spellTabBtn.setButtonState(BTN_IDLE);
-        changeStato(5);
+        changeStato(SPELL_TAB);
     }
 }
 
 void GameState::update(const float& dt) {
     updateMousePosition(&view);
     updateKeyTime(dt);
-    updateInput(dt);
     updateTileMap(dt);
     updateDebugText();
 
@@ -797,6 +828,7 @@ void GameState::update(const float& dt) {
         updateView(dt);
         updatePlayerInput(dt);
         updateButtons();
+        updateInput(dt);
 
         player->update(dt);
         interactLootBag.first = 0;
@@ -838,58 +870,58 @@ void GameState::update(const float& dt) {
     } else{ // paused update
         updateMousePosition(nullptr);
         switch(stato){
-            case 1:
+            case PAUSEMENU_TAB:
                 pmenu.update(mousePosView);
                 updatePausedMenuButtons();
                 break;
-            case 2:
+            case CHARACTER_TAB:
                 cTab->update(mousePosView);
                 if(cTab->closeCharacterTabByClicking(mousePosView, &cTabBtn))
-                    changeStato(0);
+                    changeStato(NO_TAB);
                 popUpTextComponent->update(dt);
                 break;
-            case 3:
+            case SHOP_TAB:
                 shopTab->update(mousePosView);
                 if(shopTab->closeTabByClicking(mousePosView))
-                    changeStato(0);
+                    changeStato(NO_TAB);
                 popUpTextComponent->update(dt);
                 break;
-            case 4:
+            case PRIEST_TAB:
                 priestTab->update(mousePosView);
                 if(priestTab->closeTabByClicking(mousePosView))
-                    changeStato(0);
+                    changeStato(NO_TAB);
                 popUpTextComponent->update(dt);
                 break;
-            case 5:
+            case SPELL_TAB:
                 spellTab->update(mousePosView);
                 if(spellTab->closeTabByClicking(mousePosView, &spellTabBtn))
-                    changeStato(0);
+                    changeStato(NO_TAB);
                 popUpTextComponent->update(dt);
                 break;
-            case 6:
+            case WIZARD_TAB:
                 wizardTab->update(mousePosView);
                 if(wizardTab->closeTabByClicking(mousePosView))
-                    changeStato(0);
+                    changeStato(NO_TAB);
                 popUpTextComponent->update(dt);
                 break;
-            case 7:{
+            case LOOTBAG_TAB:{
                 lootBags[interactLootBag.second]->updatePage(mousePosView);
                 if(lootBags[interactLootBag.second]->isExpired()){
-                    changeStato(0);
+                    changeStato(NO_TAB);
                 }
                 popUpTextComponent->update(dt);
                 break;
             }
-            case 8:{
+            case SELECTLEVEL_TAB:{
                 selectLevelTab->update(mousePosView);
-                if(selectLevelTab->closeTabByClicking(mousePosView))
-                    changeStato(0);
-                if(selectLevelTab->isHide()){
-                    changeStato(0);
+                if(selectLevelTab->closeTabByClicking(mousePosView) || selectLevelTab->isHide()){
+                    changeStato(NO_TAB);
                 }
                 popUpTextComponent->update(dt);
                 break;
             }
+            case NO_TAB:
+                break;
         }
     }
 }
@@ -901,21 +933,21 @@ void GameState::render(sf::RenderTarget* target) {
     target->setView(view);
 
     if(currentFloor == 0)
-        map->render(target, player, NULL, player->getCenter());
+        map->render(target, player, nullptr, player->getCenter());
     else
         map->render(target, player, &coreShader, player->getCenter());
     player->render(*target, &coreShader, player->getCenter(), true, true);
-    for(const auto& i : lootBags){
-        i->render(*target, true);
-        if(player->getCollisionBoxComponent()->getPosition().y > i->getCollisionBoxComponent()->getPosition().y){
-            player->render(*target, &coreShader, player->getCenter(), true, true);
-        }
-    }
     for(const auto& i : enemies){
         i->render(*target, &coreShader, player->getCenter(), true, true);
     }
     for(auto i : npcs){
         i->render(*target, true);
+        if(player->getCollisionBoxComponent()->getPosition().y > i->getCollisionBoxComponent()->getPosition().y){
+            player->render(*target, &coreShader, player->getCenter(), true, true);
+        }
+    }
+    for(const auto& i : lootBags){
+        i->render(*target, &coreShader, player->getCenter(), true);
         if(player->getCollisionBoxComponent()->getPosition().y > i->getCollisionBoxComponent()->getPosition().y){
             player->render(*target, &coreShader, player->getCenter(), true, true);
         }
@@ -929,29 +961,31 @@ void GameState::render(sf::RenderTarget* target) {
 
     if(paused){ // pause menu render
         switch(stato){
-            case 1:
+            case PAUSEMENU_TAB:
                 pmenu.render(*target);
                 break;
-            case 2:
+            case CHARACTER_TAB:
                 cTab->render(*target);
                 break;
-            case 3:
+            case SHOP_TAB:
                 shopTab->render(*target);
                 break;
-            case 4:
+            case PRIEST_TAB:
                 priestTab->render(*target);
                 break;
-            case 5:
+            case SPELL_TAB:
                 spellTab->render(*target);
                 break;
-            case 6:
+            case WIZARD_TAB:
                 wizardTab->render(*target);
                 break;
-            case 7:
+            case LOOTBAG_TAB:
                 lootBags[interactLootBag.second]->renderPage(*target);
                 break;
-            case 8:
+            case SELECTLEVEL_TAB:
                 selectLevelTab->render(*target);
+                break;
+            case NO_TAB:
                 break;
         }
     }
@@ -970,6 +1004,8 @@ void GameState::updateTileMap(const float &dt) {
 void GameState::changeMap(int floor) {
     currentFloor = floor;
     map = mg->GenerateFromFile(floor, this);
+    if(!lootBags.empty())
+        lootBags.clear();
     if(floor != 0) {
         if (!npcs.empty())
             npcs.clear();
@@ -1006,7 +1042,7 @@ void GameState::spawnEnemyOnMap() {
         }
     }
 
-    std::random_shuffle(&f.at(0),&f.at(f.size() - 1));
+    std::shuffle(&f.at(0),&f.at(f.size() - 1), std::mt19937(std::random_device()()));
     for(int i = 0; i < 30; i++){
         randEnemy = utils::generateRandomNumber(0, 6);
         switch(randEnemy) {
@@ -1038,6 +1074,8 @@ void GameState::spawnEnemyOnMap() {
                 spawnEnemy(f.at(i).x + 30, f.at(i).y + 30, WITCH, 5);
                 break;
             }
+            default:
+                break;
         }
     }
 }

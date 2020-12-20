@@ -41,6 +41,19 @@ class LootBag;
 
 typedef std::pair<unsigned int, unsigned int> lootBagAccessPair;
 
+enum state_tab{
+    NO_TAB,
+    PAUSEMENU_TAB,
+    CHARACTER_TAB,
+    SHOP_TAB,
+    PRIEST_TAB,
+    SPELL_TAB,
+    WIZARD_TAB,
+    LOOTBAG_TAB,
+    SELECTLEVEL_TAB
+
+};
+
 class GameState : public State{
 public:
     GameState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::unique_ptr<State>>* states,
@@ -61,7 +74,7 @@ public:
     void spawnEnemy(float x, float y, enemy_types type, unsigned int enemy_followers = 5);
     bool deleteEnemyById(unsigned int enemy_id);
     void addItem(const std::shared_ptr<Item>& new_item);
-    void changeStato(int current_stato);
+    void changeStato(state_tab current_stato);
     void updateTabsGoldLbl();
     void updateTabsInvSpaceLbl();
     void updateTabsPlayerStatsLbl();
@@ -108,7 +121,7 @@ private:
     std::vector<std::shared_ptr<Enemy>> enemies;
     std::vector<Npc*> npcs;
     sf::Vector2f spawnPos;
-    int stato; // 0 = in giocata, 1 = pause, menu 2 = character, 3 = shop, 4 = priest, 5 = spell, 6 = wizard, 7 = lootbag, 8 = selectLevel
+    state_tab stato;
     npc_type npcInteract;
     lootBagAccessPair interactLootBag;
     bool noclip;

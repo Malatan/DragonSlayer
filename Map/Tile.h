@@ -44,7 +44,7 @@ private:
     bool right;
     bool left;
     sf::IntRect rTexture;
-    bool interactable;
+    bool interactable{};
     sf::Sprite shape;
     sf::RectangleShape interact;
 public:
@@ -63,9 +63,9 @@ public:
     void SetType(char type);
     void changeType(types type);
     void setTileTexture(const sf::Texture *texture, sf::IntRect intRect);
-    const sf::FloatRect getGlobalBounds() const;
-    const bool intersects(const sf::FloatRect bounds) const;
-    bool IsTraversable();
+    sf::FloatRect getGlobalBounds() const;
+    bool intersects(sf::FloatRect bounds) const;
+    bool IsTraversable() const;
     void setTraversable(bool traversable);
 
     bool isUp() const;
@@ -91,7 +91,7 @@ public:
 
 
     //RENDERING
-    void render(sf::RenderTarget* target, sf::Shader* shader = NULL, sf::Vector2f player_position = sf::Vector2f());
+    void render(sf::RenderTarget* target, sf::Shader* shader = nullptr, sf::Vector2f player_position = sf::Vector2f());
 
 
 

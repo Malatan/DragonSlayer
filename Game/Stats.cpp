@@ -74,11 +74,11 @@ void Stats::addAttribute(attribute type, int quantity) {
 void Stats::levelUp(int newExp) {
     level ++;
     exp = newExp;
-    maxExp = Stats::maxExp + 25;          //EXP MAX PER LIVELLARE AUMENTATA
+    maxExp = maxExp + (int)(25 * (1.f + (float)level/10.f));          //EXP MAX PER LIVELLARE AUMENTATA
 
-    maxHp = Stats::maxHp + 25;
+    maxHp = maxHp + 25;
     hp = maxHp + maxHpBonus;               //HP RIGENERATI
-    maxMp = Stats::maxMp + 25;
+    maxMp = maxMp + 25;
     mp = maxMp + maxMpBonus;               //MP RIGENERATI
     armor = armor + 4;
     damage = damage + 4;

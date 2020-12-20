@@ -19,7 +19,7 @@ public:
     void initSpellSlots();
 
     bool closeTabByClicking(const sf::Vector2f& mousePos, gui::Button* spellTab_Btn);
-
+    void updateInputs();
     void updateSpellsInfoLbl();
     void update(const sf::Vector2f& mousePos);
     void render(sf::RenderTarget& target);

@@ -23,22 +23,27 @@ public:
     ~LootBag() override;
 
     //getters && setters
+    void setLifeTime(int life_time);
     unsigned int getId() const;
     void canInteract(bool b);
     bool isExpired() const;
 
     //functions
+    bool canMerge(sf::FloatRect other_lootbag);
     bool lootItem(const std::shared_ptr<Item>& loot_item);
+    void mergeLoots(const std::vector<shared_ptr<Item>>& more_loots);
     void lootAllItem();
     void sortByItemType();
     void updateLifeTime(const float &dt);
     void updateLifeTimeLbl();
     void updateButtons();
+    void updateInputs();
     void updatePage(const sf::Vector2f& mousePos);
     void renderPage(sf::RenderTarget& target);
     void setPosition(float x, float y) override;
     void update(const float& dt) override;
-    void render(sf::RenderTarget& target, bool show_hitbox);
+    void render(sf::RenderTarget& target, sf::Shader* shader = nullptr,
+                sf::Vector2f light_position = sf::Vector2f(), bool show_hitbox = false);
 
 private:
     unsigned int id{};
@@ -51,6 +56,7 @@ private:
     std::vector<shared_ptr<Item>> loots;
     std::map<std::string, sf::Texture> textures;
 
+    sf::RectangleShape mergeRange;
     sf::Font* font;
     sf::Text textLbl;
     sf::Text lifeTimeLbl;

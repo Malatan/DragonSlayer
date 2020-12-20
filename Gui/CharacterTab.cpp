@@ -236,9 +236,11 @@ void CharacterTab::initInventoryContainer() {
                                         goldLbl.getPosition().y + 30.f);
 
     keysHintLbl.setFont(*font);
-    keysHintLbl.setCharacterSize(20);
+    keysHintLbl.setCharacterSize(15);
     keysHintLbl.setString("Hints: \n"
-                                "Right click to select all");
+                                "<A> select all\n"
+                                "<Esc, C> to back\n"
+                                "<Right click> to unselect all\n");
     keysHintLbl.setPosition(goldLbl.getPosition().x,
                                   inventorySpaceLbl.getPosition().y + 30.f);
 }
@@ -687,6 +689,9 @@ void CharacterTab::updateKeyboardInput() {
         }
     } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && state->getKeyTime()) {
         selectAll();
+    } else if((sf::Keyboard::isKeyPressed(sf::Keyboard::C) || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+            && state->getKeyTime()) {
+        gState->changeStato(NO_TAB);
     }
 }
 
@@ -914,6 +919,14 @@ void CharacterTab::deleteConsumableInBattle(const std::shared_ptr<Item>& item) {
 
 GameState *CharacterTab::getGState() const {
     return gState;
+}
+
+void CharacterTab::updateGoldLbls() {
+    gState->updateTabsGoldLbl();
+}
+
+void CharacterTab::setSeletecItem(int n) {
+    selectedItem = n;
 }
 
 

@@ -194,6 +194,7 @@ void ShopTab::updateInvSpaceLbl() {
 }
 
 void ShopTab::update(const sf::Vector2f &mousePos) {
+    updateInputs();
     for(const auto& i : shopSlots){
         i->update(mousePos);
         if(i->isPressed() && gState->getKeyTime()){
@@ -210,6 +211,13 @@ void ShopTab::render(sf::RenderTarget &target) {
     target.draw(playerGoldLbl);
     for (auto it = shopSlots.rbegin(); it != shopSlots.rend(); ++it){
         (*it)->render(target);
+    }
+}
+
+void ShopTab::updateInputs() {
+    if((sf::Keyboard::isKeyPressed(sf::Keyboard::E) || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) &&
+       gState->getKeyTime()){
+        gState->changeStato(NO_TAB);
     }
 }
 

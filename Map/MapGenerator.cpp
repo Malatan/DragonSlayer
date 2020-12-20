@@ -11,9 +11,7 @@ MapGenerator::MapGenerator() {
     dDims[0].width = 29;
 }
 
-MapGenerator::~MapGenerator() {
-
-}
+MapGenerator::~MapGenerator() = default;
 
 Map *MapGenerator::GenerateFromFile(int floor, State *state) {
     this->gameState = dynamic_cast<GameState *>(state);
@@ -45,6 +43,8 @@ Map *MapGenerator::GenerateFromFile(int floor, State *state) {
             fin = std::fstream("../Data/Dungeon_5.txt", std::fstream::in);
             break;
         }
+        default:
+            break;
     }
     int i = 0;
     int k = 0;
@@ -91,6 +91,8 @@ void MapGenerator::generateDungeon(int n) {
             d.writeOnFile("../Data/Dungeon_5.txt");
             break;
         }
+        default:
+            break;
     }
     dDims[n].width = width;
     dDims[n].height = height;

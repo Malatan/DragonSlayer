@@ -4,8 +4,6 @@
 
 #include "LootBag.h"
 
-#include <utility>
-
 //initializzers
 void LootBag::initLootContainer(sf::Vector2f window_size) {
     background.setSize(window_size);
@@ -31,12 +29,12 @@ void LootBag::initLootContainer(sf::Vector2f window_size) {
 
     cancelBtn = gui::Button(container.getPosition().x,
                             container.getPosition().y + container.getGlobalBounds().height - 80.f,
-                            container.getGlobalBounds().width, 80.f, font, "Cancel", 25);
+                            container.getGlobalBounds().width, 80.f, font, "Cancel<Esc>", 25);
     cancelBtn.setIdleTextColor(sf::Color::Black);
 
     lootAllBtn = gui::Button(cancelBtn.getPosition().x,
                              cancelBtn.getPosition().y - 85.f,
-                             cancelBtn.getGlobalBounds().width, 80.f, font, "Loot All", 25);
+                             cancelBtn.getGlobalBounds().width, 80.f, font, "Loot All<R>", 25);
     lootAllBtn.setIdleTextColor(sf::Color::Black);
 }
 
@@ -76,12 +74,18 @@ LootBag::LootBag(const std::shared_ptr<sf::RenderWindow>& window, sf::Vector2f p
     createCollisionBoxComponent(sprite, 20.f, 38.f, 10.f);
     collisionBoxComponent->update();
 
+    mergeRange.setSize(sf::Vector2f(this->player->getHitboxComponent()->getGlobalBounds().width * 2.f + 40.f,
+                                    this->player->getHitboxComponent()->getGlobalBounds().height * 2.f + 40.f));
+    mergeRange.setSize(mergeRange.getSize() * 1.2f);
+    mergeRange.setPosition(hitboxComponent->getCenter().x - mergeRange.getGlobalBounds().width/2.f,
+                           hitboxComponent->getCenter().y - mergeRange.getGlobalBounds().height/2.f);
+
     sf::Vector2f center_up_pos = {hitboxComponent->getPosition().x + hitboxComponent->getGlobalBounds().width / 2.f,
                                hitboxComponent->getPosition().y};
 
     textLbl.setFont(*this->font);
     textLbl.setCharacterSize(15);
-    textLbl.setString("Disappers in");
+    textLbl.setString("Disappears in");
     textLbl.setFillColor(sf::Color(196, 116, 29));
     textLbl.setPosition(center_up_pos.x - textLbl.getGlobalBounds().width / 2.f,
                             center_up_pos.y - 40.f);
@@ -175,9 +179,18 @@ void LootBag::updateLifeTimeLbl() {
 
 void LootBag::updateButtons() {
     if(cancelBtn.isPressed() && gState->getStateKeyTime()){
-        gState->changeStato(0);
+        gState->changeStato(NO_TAB);
     }else if(lootAllBtn.isPressed() && gState->getStateKeyTime()){
         lootAllItem();
+    }
+}
+
+void LootBag::updateInputs() {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::R) && gState->getKeyTime()) {
+        lootAllItem();
+    } else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) || sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+                    && gState->getKeyTime()) {
+        gState->changeStato(NO_TAB);
     }
 }
 
@@ -185,9 +198,16 @@ void LootBag::update(const float &dt) {
     updateLifeTime(dt);
 }
 
-void LootBag::render(sf::RenderTarget &target, const bool show_hitbox) {
+void LootBag::render(sf::RenderTarget &target, sf::Shader *shader, sf::Vector2f light_position, bool show_hitbox) {
     collisionBoxComponent->render(target);
-    target.draw(sprite);
+    if(shader){
+        shader->setUniform("hasTexture", true);
+        shader->setUniform("lightPos", light_position);
+
+        target.draw(sprite, shader);
+    } else{
+        target.draw(sprite);
+    }
     target.draw(textLbl);
     target.draw(lifeTimeLbl);
     if(interact)
@@ -200,6 +220,7 @@ void LootBag::updatePage(const sf::Vector2f& mousePos) {
     cancelBtn.update(mousePos);
     lootAllBtn.update(mousePos);
     updateButtons();
+    updateInputs();
     for(auto &i : lootSlots){
         i->update(mousePos);
         if(i->isPressed() && gState->getStateKeyTime()){
@@ -264,6 +285,28 @@ void LootBag::sortByItemType() {
              return lhs->sortKeyWord() < rhs->sortKeyWord();
          });
 }
+
+bool LootBag::canMerge(sf::FloatRect other_lootbag) {
+    return mergeRange.getGlobalBounds().intersects(other_lootbag);
+}
+
+void LootBag::mergeLoots(const std::vector<shared_ptr<Item>>& more_loots) {
+    if(!more_loots.empty()){
+        for(const auto& i : more_loots){
+            loots.push_back(i);
+        }
+        sortByItemType();
+        initLootSlots();
+    }
+}
+
+void LootBag::setLifeTime(int life_time) {
+    lifeTime.first = life_time/60;
+    lifeTime.second = life_time - lifeTime.first * 60;
+}
+
+
+
 
 
 

@@ -1,7 +1,5 @@
 
 #include "Map.h"
-#include "Tile.h"
-
 
 Map::Map(int height, int width, State *state) {
     this->gState = dynamic_cast<GameState *>(state);
@@ -20,16 +18,14 @@ Map::Map(int height, int width, State *state) {
 
     for (int r = 0; r < this->tiles.size(); r++) {
         for (int c = 0; c < this->tiles.at(r).size(); c++) {
-            this->tiles[r][c] = new Tile(((c * Tile::TILE_SIZE) + (Tile::TILE_SIZE / 2)),
-                                         ((r * Tile::TILE_SIZE) + (Tile::TILE_SIZE / 2)), false);
+            this->tiles[r][c] = new Tile((((float)c * Tile::TILE_SIZE) + (Tile::TILE_SIZE / 2)),
+                                         (((float)r * Tile::TILE_SIZE) + (Tile::TILE_SIZE / 2)), false);
         }
     }
 }
 
 
-Map::~Map() {
-
-}
+Map::~Map() = default;
 
 //GETTERS AND SETTERS
 bool Map::isHasTexture() const {
@@ -62,14 +58,14 @@ void Map::setIntTile(IntTile intTile) {
 
 
 //FUNCTIONS
-void Map::updateCollision(std::shared_ptr<Player> entity) {
+void Map::updateCollision(const std::shared_ptr<Player>& entity) const {
 
     //World Bounds
     if (entity->getPosition().x < 0.f) {
         // entity->stopVelocity();
         // entity->setSpritePositon(entity->getMovementComponent()->getPreviousPosition());
         entity->setPosition(0.0f, entity->getPosition().y);
-    } else if (entity->getPosition().x + entity->getGlobalBounds().width > (this->width * Tile::TILE_SIZE)) {
+    } else if (entity->getPosition().x + entity->getGlobalBounds().width > ((float)width * Tile::TILE_SIZE)) {
         //  entity->setPosition(((float)this->width * Tile::TILE_SIZE) - entity->getGlobalBounds().width, entity->getPosition().y);
         entity->stopVelocity();
         entity->setSpritePositon(entity->getMovementComponent()->getPreviousPosition());
@@ -78,7 +74,7 @@ void Map::updateCollision(std::shared_ptr<Player> entity) {
         //  entity->setPosition(entity->getPosition().x, 0.f);
         entity->stopVelocity();
         entity->setSpritePositon(entity->getMovementComponent()->getPreviousPosition());
-    } else if (entity->getPosition().y + entity->getGlobalBounds().height > (this->height * Tile::TILE_SIZE)) {
+    } else if (entity->getPosition().y + entity->getGlobalBounds().height > ((float)height * Tile::TILE_SIZE)) {
         //  entity->setPosition(entity->getPosition().x, ((float)this->height * Tile::TILE_SIZE) - entity->getGlobalBounds().height);
         entity->stopVelocity();
         entity->setSpritePositon(entity->getMovementComponent()->getPreviousPosition());
@@ -88,7 +84,7 @@ void Map::updateCollision(std::shared_ptr<Player> entity) {
 
 }
 
-void Map::updateTileCollision(std::shared_ptr<Player> entity, const float &dt) {
+void Map::updateTileCollision(const std::shared_ptr<Player>& entity, const float &dt) {
 
     bool flag = false;
     this->fromX = entity->getGridPosition().x - 2;
@@ -133,7 +129,6 @@ void Map::updateTileCollision(std::shared_ptr<Player> entity, const float &dt) {
                     intTile.type = tiles[y][x]->GetType();
                     intTile.y = y;
                     intTile.x = x;
-                    std::cout<<tiles[y][x]->GetType();
                 } else {
                     this->tiles[y][x]->enableInteract(false);
                 }
@@ -143,7 +138,7 @@ void Map::updateTileCollision(std::shared_ptr<Player> entity, const float &dt) {
     interacting = flag;
 }
 
-void Map::drawTiles(sf::RenderWindow *window) {
+void Map::drawTiles(sf::RenderWindow *window) const {
     for (int r = 0; r < this->height; r++) {
         for (int c = 0; c < this->width; c++) {
             //this->tiles[r][c]->Draw(window);
@@ -233,7 +228,7 @@ sf::IntRect Map::getRandomFloorTexture() {
     int height;
     width = utils::generateRandomNumber(1, 77);
     height = utils::generateRandomNumber(1, 45);
-    return sf::IntRect(width, height, 50, 50);
+    return {width, height, 50, 50};
 }
 
 void Map::setTexture() {
@@ -394,7 +389,7 @@ void Map::setTexture() {
 
 
 //RENDER
-void Map::render(sf::RenderTarget *target, std::shared_ptr<Player> entity, sf::Shader* shader, const sf::Vector2f playerPosition) {
+void Map::render(sf::RenderTarget *target, const std::shared_ptr<Player>& entity, sf::Shader* shader, const sf::Vector2f playerPosition) {
     this->fromX = entity->getGridPosition().x - 10;
     if (this->fromX < 0)
         this->fromX = 0;
