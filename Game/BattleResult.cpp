@@ -126,6 +126,53 @@ int BattleResult::getGoldGainCount() const {
     return goldGainCount;
 }
 
+std::vector<achievementPair> BattleResult::getAchievementDataSet() {
+    std::vector<achievementPair> v;
+    if(playerKilled)
+        v.emplace_back(AE_P_DEATHS,1);
+
+    if(enemyLeaderKilled){
+        v.emplace_back(AE_P_KILLS,1 + enemyDeadFollowersCount );
+    }else{
+        v.emplace_back(AE_P_KILLS, enemyDeadFollowersCount);
+    }
+
+    if(expGainCount)
+        v.emplace_back(AE_P_EXP, expGainCount);
+
+    if(goldGainCount)
+        v.emplace_back(AE_P_GOLD, goldGainCount);
+
+    if(damageDealtCount)
+        v.emplace_back(AE_P_DMG, damageDealtCount);
+
+    if(spellDamageDealtCount)
+        v.emplace_back(AE_P_SPELL_DMG, spellDamageDealtCount);
+
+    if(damageTakenCount)
+        v.emplace_back(AE_P_DMG_TAKEN, damageTakenCount);
+
+    if(potionUsedCount)
+        v.emplace_back(AE_P_POTION, potionUsedCount);
+
+    if(dodgeCount)
+        v.emplace_back(AE_P_DODGE, dodgeCount);
+
+    if(missCount)
+        v.emplace_back(AE_P_MISS, missCount);
+
+    if(criticalHitCount)
+        v.emplace_back(AE_P_CRITHIT, criticalHitCount);
+
+    if(escapeFailCount)
+        v.emplace_back(AE_P_ESCAPE_F, escapeFailCount);
+
+    if(escapeSuccessCount)
+        v.emplace_back(AE_P_ESCAPE_S, escapeSuccessCount);
+
+    return v;
+}
+
 
 
 

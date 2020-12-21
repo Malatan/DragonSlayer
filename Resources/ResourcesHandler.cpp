@@ -218,6 +218,35 @@ void ResourcesHandler::loadMaterialsTxt(std::vector<std::unique_ptr<Item>> &mate
     }
 }
 
+void ResourcesHandler::loadAchievementsTxt(std::vector<std::shared_ptr<Achievement>> &achievement_list) {
+    std::shared_ptr<Achievement> achievement;
+    ifstream file;
+    file.open("../Data/Achievements.txt");
+    if (!file.is_open()){
+        cout<<"Resource load error: Could not load Achievements.txt";
+    } else {
+        std::string app;
+        while (file.peek() != EOF) {
+            achievement = std::make_shared<Achievement>();
+            file >> app;
+            achievement->setAchievementEventType(std::stoi(app));
+            file >> app;
+            achievement->setSeriesPos(std::stoi(app));
+            file >> app;
+            std::replace(app.begin(), app.end(), '_', ' ');
+            achievement->setName(app);
+            file >> app;
+            std::replace(app.begin(), app.end(), '_', ' ');
+            achievement->setDescription(app);
+            file >> app;
+            achievement->setGoal(std::stoi(app));
+
+            achievement_list.push_back(std::move(achievement));
+        }
+        file.close();
+    }
+}
+
 void ResourcesHandler::setEquipSlotsTextureIntRect(int equip_slot, sf::IntRect intRect) {
     if(equip_slot < 6 && equip_slot >= 0){
         equipSlotsTextureIntRects[equip_slot] = intRect;
@@ -236,6 +265,8 @@ unsigned int ResourcesHandler::generateId() {
     IdCounter++;
     return IdCounter-1;
 }
+
+
 
 
 

@@ -20,6 +20,7 @@ public:
     void render(sf::RenderTarget& target);
 
 private:
+    std::shared_ptr<sf::RenderWindow> window;
     sf::Font* font{};
     sf::Text menuText;
     sf::RectangleShape backgorund;

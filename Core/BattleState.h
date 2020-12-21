@@ -42,10 +42,11 @@ enum window_states{
 class BattleState : public State{
 public:
     //constructors/destructor
-    BattleState(std::shared_ptr<sf::RenderWindow> window, std::shared_ptr<Player> player, std::stack<std::unique_ptr<State>>* states,
+    BattleState(std::shared_ptr<sf::RenderWindow> window, std::shared_ptr<Player> player,
+                std::stack<std::unique_ptr<State>>* states,
                 std::shared_ptr<PopUpTextComponent> popUpTextComponent, std::shared_ptr<SpellComponent> spellComponent,
                 std::shared_ptr<BuffComponent> buffComponent, std::shared_ptr<ResourcesHandler> rsHandler,
-                std::map<std::string, sf::Texture> textures, sf::Font *font, std::shared_ptr<Enemy> enemy,
+                std::map<std::string, sf::Texture> textures, sf::Font *font, std::shared_ptr<Enemy> enemy, float exp_gold_bonus,
                 int floor, std::shared_ptr<CharacterTab> cTab);
     ~BattleState() override;
 
@@ -71,6 +72,7 @@ private:
     std::shared_ptr<SpellComponent> spellComponent;
     std::shared_ptr<CharacterTab> cTab;
 
+    float expGoldBonus;
     battle_result_types battleResultEnum;
     std::vector<unsigned int> enemiesMoveOrder;
     int floor;
@@ -172,8 +174,6 @@ private:
     void enemyBattle(const float& dt);
     void endEnemyTurn();
     void endBattle();
-
-
 };
 
 

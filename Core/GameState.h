@@ -7,6 +7,7 @@
 
 #include "State.h"
 #include "BattleState.h"
+#include "Subject.h"
 #include "../Game/LootGenerator.h"
 #include "../Game/BattleResult.h"
 #include "../Game/Player.h"
@@ -20,6 +21,7 @@
 #include "../Gui/PriestTab.h"
 #include "../Gui/WizardTab.h"
 #include "../Gui/SelectLevelTab.h"
+#include "../Gui/AchievementTab.h"
 #include "../Components/BuffComponent.h"
 #include "../Components/PopUpTextComponent.h"
 #include "../Components/SpellComponent.h"
@@ -32,9 +34,11 @@ class PriestTab;
 class SpellTab;
 class WizardTab;
 class SelectLevelTab;
+class AchievementTab;
 class BuffComponent;
 class PopUpTextComponent;
 class SpellComponent;
+class AchievementComponent;
 class Map;
 class MapGenerator;
 class LootBag;
@@ -50,11 +54,11 @@ enum state_tab{
     SPELL_TAB,
     WIZARD_TAB,
     LOOTBAG_TAB,
-    SELECTLEVEL_TAB
-
+    SELECTLEVEL_TAB,
+    ACHIEVEMENT_TAB
 };
 
-class GameState : public State{
+class GameState : public State, public Subject{
 public:
     GameState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::unique_ptr<State>>* states,
             std::shared_ptr<ResourcesHandler> rsHandler, sf::Font *font);
@@ -68,6 +72,10 @@ public:
     std::shared_ptr<LootGenerator> getLootGenerator();
     bool getStateKeyTime();
 
+    void addObserver(Observer* observer);
+    void removeObserver(Observer* observer);
+    void notify(achievement_event event, int value);
+
     //functions
     void changeMap(int floor);
     void checkBattleResult(BattleResult& battle_result);
@@ -75,6 +83,7 @@ public:
     bool deleteEnemyById(unsigned int enemy_id);
     void addItem(const std::shared_ptr<Item>& new_item);
     void changeStato(state_tab current_stato);
+    void updateLocationLbl();
     void updateTabsGoldLbl();
     void updateTabsInvSpaceLbl();
     void updateTabsPlayerStatsLbl();
@@ -95,9 +104,11 @@ private:
     sf::View view;
     sf::Text hints;
     sf::Text debugText;
+    sf::Text locationLbl;
     gui::Button cTabBtn;
     gui::Button pauseMenuBtn;
     gui::Button spellTabBtn;
+    gui::Button achievementTabBtn;
 
     sf::Shader coreShader;
 
@@ -110,12 +121,14 @@ private:
     std::shared_ptr<SpellTab> spellTab;
     std::shared_ptr<WizardTab> wizardTab;
     std::shared_ptr<SelectLevelTab> selectLevelTab;
+    std::shared_ptr<AchievementTab> achievementTab;
     std::shared_ptr<Player> player;
 
     std::shared_ptr<BuffComponent> buffComponent;
     std::shared_ptr<PopUpTextComponent> popUpTextComponent;
     std::shared_ptr<SpellComponent> spellComponent;
     std::shared_ptr<LootGenerator> lootGenerator;
+    std::shared_ptr<AchievementComponent> achievementComponent;
 
     std::vector<std::shared_ptr<LootBag>> lootBags;
     std::vector<std::shared_ptr<Enemy>> enemies;
@@ -126,17 +139,13 @@ private:
     lootBagAccessPair interactLootBag;
     bool noclip;
     int currentFloor;
+    int floorReached;
 
     //init
     void initTextures();
     void initPauseMenu();
     void initPlayers();
-    void initCharacterTab();
-    void initShopTab();
-    void initPriestTab();
-    void initSelectLevelTab();
-    void initSpellTab();
-    void initWizardTab();
+    void initTabs();
     void initHintsTab();
     void initEquipSlotsTextures();
     void initShopItemTextures();

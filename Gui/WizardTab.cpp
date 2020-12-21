@@ -46,7 +46,6 @@ WizardTab::WizardTab(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* 
     //init container
     container.setSize(sf::Vector2f(670.f,580.f));
     container.setFillColor(sf::Color(20, 20, 20, 200));
-
     container.setPosition(sf::Vector2f(
             static_cast<float>(window->getSize().x)/2.f - container.getGlobalBounds().width/2.f,
             static_cast<float>(window->getSize().y)/2.f - container.getGlobalBounds().height/2.f

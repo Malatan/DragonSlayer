@@ -6,6 +6,7 @@
 PauseMenu::PauseMenu()= default;
 
 PauseMenu::PauseMenu(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* font) : font(font){
+    this->window = window;
     //init background
     backgorund.setSize(sf::Vector2f(
             static_cast<float>(window->getSize().x),
@@ -17,7 +18,8 @@ PauseMenu::PauseMenu(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* 
             static_cast<float>(window->getSize().x / 4.f),
             static_cast<float>(window->getSize().y - 100.f )));
     container.setFillColor(sf::Color(20, 20, 20, 200));
-
+    container.setOutlineColor(sf::Color(20, 20, 20));
+    container.setOutlineThickness(3.f);
     container.setPosition(sf::Vector2f(
             static_cast<float>(window->getSize().x) / 2.f - container.getSize().x / 2.f,
             40.f));
@@ -25,7 +27,7 @@ PauseMenu::PauseMenu(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* 
     //init text
     menuText.setFont(*font);
     menuText.setFillColor(sf::Color(255, 255, 255, 200));
-    menuText.setCharacterSize(30);
+    menuText.setCharacterSize(50);
     menuText.setString("Game Paused");
     menuText.setPosition(
             container.getPosition().x + container.getSize().x / 2.f - menuText.getGlobalBounds().width / 2.f,

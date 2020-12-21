@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/DragonSlayer.dir/Components/AchievementComponent.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Components/AnimationComponent.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Components/BuffComponent.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Components/CollisionBoxComponent.cpp.obj"
@@ -12,6 +13,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Core/RunTimeClock.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Core/State.cpp.obj"
+  "CMakeFiles/DragonSlayer.dir/Game/Achievement.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Game/BattleResult.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Game/Buff.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Game/Enemy.cpp.obj"
@@ -26,6 +28,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/DragonSlayer.dir/Game/Spell.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Game/Stats.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Game/Utils.cpp.obj"
+  "CMakeFiles/DragonSlayer.dir/Gui/AchievementTab.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Gui/CharacterTab.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Gui/Gui.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Gui/PauseMenu.cpp.obj"

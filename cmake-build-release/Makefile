@@ -253,6 +253,33 @@ gtest_main/fast:
 	$(MAKE) $(MAKESILENT) -f unit_testing\lib\googletest-master\googletest\CMakeFiles\gtest_main.dir\build.make unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/build
 .PHONY : gtest_main/fast
 
+Components/AchievementComponent.obj: Components/AchievementComponent.cpp.obj
+
+.PHONY : Components/AchievementComponent.obj
+
+# target to build an object file
+Components/AchievementComponent.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Components/AchievementComponent.cpp.obj
+.PHONY : Components/AchievementComponent.cpp.obj
+
+Components/AchievementComponent.i: Components/AchievementComponent.cpp.i
+
+.PHONY : Components/AchievementComponent.i
+
+# target to preprocess a source file
+Components/AchievementComponent.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Components/AchievementComponent.cpp.i
+.PHONY : Components/AchievementComponent.cpp.i
+
+Components/AchievementComponent.s: Components/AchievementComponent.cpp.s
+
+.PHONY : Components/AchievementComponent.s
+
+# target to generate assembly for a file
+Components/AchievementComponent.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Components/AchievementComponent.cpp.s
+.PHONY : Components/AchievementComponent.cpp.s
+
 Components/AnimationComponent.obj: Components/AnimationComponent.cpp.obj
 
 .PHONY : Components/AnimationComponent.obj
@@ -603,6 +630,33 @@ Core/State.s: Core/State.cpp.s
 Core/State.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Core/State.cpp.s
 .PHONY : Core/State.cpp.s
+
+Game/Achievement.obj: Game/Achievement.cpp.obj
+
+.PHONY : Game/Achievement.obj
+
+# target to build an object file
+Game/Achievement.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Achievement.cpp.obj
+.PHONY : Game/Achievement.cpp.obj
+
+Game/Achievement.i: Game/Achievement.cpp.i
+
+.PHONY : Game/Achievement.i
+
+# target to preprocess a source file
+Game/Achievement.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Achievement.cpp.i
+.PHONY : Game/Achievement.cpp.i
+
+Game/Achievement.s: Game/Achievement.cpp.s
+
+.PHONY : Game/Achievement.s
+
+# target to generate assembly for a file
+Game/Achievement.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Achievement.cpp.s
+.PHONY : Game/Achievement.cpp.s
 
 Game/BattleResult.obj: Game/BattleResult.cpp.obj
 
@@ -981,6 +1035,33 @@ Game/Utils.s: Game/Utils.cpp.s
 Game/Utils.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Utils.cpp.s
 .PHONY : Game/Utils.cpp.s
+
+Gui/AchievementTab.obj: Gui/AchievementTab.cpp.obj
+
+.PHONY : Gui/AchievementTab.obj
+
+# target to build an object file
+Gui/AchievementTab.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/AchievementTab.cpp.obj
+.PHONY : Gui/AchievementTab.cpp.obj
+
+Gui/AchievementTab.i: Gui/AchievementTab.cpp.i
+
+.PHONY : Gui/AchievementTab.i
+
+# target to preprocess a source file
+Gui/AchievementTab.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/AchievementTab.cpp.i
+.PHONY : Gui/AchievementTab.cpp.i
+
+Gui/AchievementTab.s: Gui/AchievementTab.cpp.s
+
+.PHONY : Gui/AchievementTab.s
+
+# target to generate assembly for a file
+Gui/AchievementTab.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/AchievementTab.cpp.s
+.PHONY : Gui/AchievementTab.cpp.s
 
 Gui/CharacterTab.obj: Gui/CharacterTab.cpp.obj
 
@@ -1432,6 +1513,9 @@ help:
 	@echo ... gtest
 	@echo ... gtest_main
 	@echo ... unit_testing_run
+	@echo ... Components/AchievementComponent.obj
+	@echo ... Components/AchievementComponent.i
+	@echo ... Components/AchievementComponent.s
 	@echo ... Components/AnimationComponent.obj
 	@echo ... Components/AnimationComponent.i
 	@echo ... Components/AnimationComponent.s
@@ -1471,6 +1555,9 @@ help:
 	@echo ... Core/State.obj
 	@echo ... Core/State.i
 	@echo ... Core/State.s
+	@echo ... Game/Achievement.obj
+	@echo ... Game/Achievement.i
+	@echo ... Game/Achievement.s
 	@echo ... Game/BattleResult.obj
 	@echo ... Game/BattleResult.i
 	@echo ... Game/BattleResult.s
@@ -1513,6 +1600,9 @@ help:
 	@echo ... Game/Utils.obj
 	@echo ... Game/Utils.i
 	@echo ... Game/Utils.s
+	@echo ... Gui/AchievementTab.obj
+	@echo ... Gui/AchievementTab.i
+	@echo ... Gui/AchievementTab.s
 	@echo ... Gui/CharacterTab.obj
 	@echo ... Gui/CharacterTab.i
 	@echo ... Gui/CharacterTab.s

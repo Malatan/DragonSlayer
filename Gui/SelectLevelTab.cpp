@@ -153,7 +153,6 @@ bool SelectLevelTab::closeTabByClicking(const sf::Vector2f& mousePos) {
            && !container.getGlobalBounds().contains(mousePos);
 }
 
-
 void SelectLevelTab::buttonFunctions(short unsigned btnId) {
     switch(btnId){
         case 0:{
@@ -187,6 +186,51 @@ void SelectLevelTab::buttonFunctions(short unsigned btnId) {
         }
         default:
             break;
+    }
+}
+
+void SelectLevelTab::updateButtonsAccess(int reached_floor) {
+    switch (reached_floor) {
+        case 0: case 1:{
+            level1Btn.setDisabled(false);
+            level2Btn.setDisabled(true);
+            level3Btn.setDisabled(true);
+            level4Btn.setDisabled(true);
+            level5Btn.setDisabled(true);
+            break;
+        }
+        case 2:{
+            level1Btn.setDisabled(false);
+            level2Btn.setDisabled(false);
+            level3Btn.setDisabled(true);
+            level4Btn.setDisabled(true);
+            level5Btn.setDisabled(true);
+            break;
+        }
+        case 3:{
+            level1Btn.setDisabled(false);
+            level2Btn.setDisabled(false);
+            level3Btn.setDisabled(false);
+            level4Btn.setDisabled(true);
+            level5Btn.setDisabled(true);
+            break;
+        }
+        case 4:{
+            level1Btn.setDisabled(false);
+            level2Btn.setDisabled(false);
+            level3Btn.setDisabled(false);
+            level4Btn.setDisabled(false);
+            level5Btn.setDisabled(true);
+            break;
+        }
+        case 5:{
+            level1Btn.setDisabled(false);
+            level2Btn.setDisabled(false);
+            level3Btn.setDisabled(false);
+            level4Btn.setDisabled(false);
+            level5Btn.setDisabled(false);
+            break;
+        }
     }
 }
 
@@ -244,3 +288,5 @@ bool SelectLevelTab::isHide() const {
 void SelectLevelTab::setHide(bool b) {
     hide = b;
 }
+
+

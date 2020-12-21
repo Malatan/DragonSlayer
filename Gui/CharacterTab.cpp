@@ -9,8 +9,9 @@ void CharacterTab::initStatsContainer() {
 //containere per le statistiche
     statsContainer.setFillColor(sf::Color(50, 50, 50, 100));
     statsContainer.setSize(sf::Vector2f(((container.getGlobalBounds().width - 60.f) / 3.f) - 120.f, 720.f));
-    statsContainer.setPosition(container.getPosition().x + 20.f,
-                                          container.getPosition().y + 60.f);
+    statsContainer.setPosition(container.getPosition().x + 20.f, container.getPosition().y + 60.f);
+    statsContainer.setOutlineColor(sf::Color(50, 50, 50));
+    statsContainer.setOutlineThickness(3.f);
 
     statsContainerTitle.setString("-Stats-");
     statsContainerTitle.setFillColor(sf::Color(255, 255, 255, 200));
@@ -99,9 +100,11 @@ void CharacterTab::initStatsContainer() {
 
 void CharacterTab::initEquipContainer() {
     equipContainer.setFillColor(sf::Color(70, 70, 70, 100));
-    equipContainer.setSize(sf::Vector2f(190.f, statsContainer.getGlobalBounds().height));
+    equipContainer.setSize(sf::Vector2f(190.f, statsContainer.getGlobalBounds().height - 6.f));
     equipContainer.setPosition(statsContainer.getPosition().x + statsContainer.getGlobalBounds().width + 10.f,
                                      container.getPosition().y + 60.f);
+    equipContainer.setOutlineColor(sf::Color(70, 70, 70));
+    equipContainer.setOutlineThickness(3.f);
 
     equipContainerTitle.setString("-Equipment-");
     equipContainerTitle.setFillColor(sf::Color(255, 255, 255, 200));
@@ -159,9 +162,11 @@ void CharacterTab::initInventoryContainer() {
     inventoryContainer.setFillColor(sf::Color(90, 90, 90, 100));
     inventoryContainer.setSize(sf::Vector2f(container.getGlobalBounds().width - 60.f
     -statsContainer.getGlobalBounds().width -equipContainer.getGlobalBounds().width
-            , statsContainer.getGlobalBounds().height));
+            , statsContainer.getGlobalBounds().height - 6.f));
     inventoryContainer.setPosition(equipContainer.getPosition().x + equipContainer.getGlobalBounds().width + 10.f,
-            equipContainer.getPosition().y );
+            equipContainer.getPosition().y);
+    inventoryContainer.setOutlineColor(sf::Color(90, 90, 90));
+    inventoryContainer.setOutlineThickness(3.f);
 
     invContainerTitle.setString("-Inventory-");
     invContainerTitle.setFillColor(sf::Color(255, 255, 255, 200));
@@ -291,7 +296,8 @@ rsHandler(std::move(rsHandler)), npcInteract(npcInteract), selectedItem(0) {
             static_cast<float>(window->getSize().x / 1.1f),
             static_cast<float>(window->getSize().y - 100.f )));
     container.setFillColor(sf::Color(20, 20, 20, 200));
-
+    container.setOutlineColor(sf::Color(20, 20, 20));
+    container.setOutlineThickness(5.f);
     container.setPosition(sf::Vector2f(
             static_cast<float>(window->getSize().x) / 2.f - container.getSize().x / 2.f,
             40.f));
@@ -680,8 +686,10 @@ void CharacterTab::updateKeyboardInput() {
             equipUnEquipBtnFunction();
         }
     } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Delete) && state->getKeyTime()) {
-        // delete items with hotkey
-        deleteBtnFunction();
+        if(!deleteBtn.isDisabled()){
+            // delete items with hotkey
+            deleteBtnFunction();
+        }
     } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S) && state->getKeyTime()) {
         // sell items with hotkey
         if(!sellBtn.isDisabled()){

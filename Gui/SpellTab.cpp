@@ -2,6 +2,7 @@
 // Created by Zheng on 23/10/2020.
 //
 
+#include <iomanip>
 #include "SpellTab.h"
 
 void SpellTab::initSpellSlots() {
@@ -45,7 +46,8 @@ SpellTab::SpellTab(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* fo
     //init container
     container.setSize(sf::Vector2f(1170.f,820.f));
     container.setFillColor(sf::Color(20, 20, 20, 200));
-
+    container.setOutlineColor(sf::Color(20, 20, 20));
+    container.setOutlineThickness(5.f);
     container.setPosition(sf::Vector2f(
             static_cast<float>(window->getSize().x) / 2.f - container.getSize().x / 2.f,
             40.f));

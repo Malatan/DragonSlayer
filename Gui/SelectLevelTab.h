@@ -22,6 +22,7 @@ public:
     void buttonFunctions(short unsigned btnId);
     void updateButtons();
     void updateInputs();
+    void updateButtonsAccess(int reached_floor);
     void update(const sf::Vector2f& mousePos);
     void render(sf::RenderTarget& target);
     bool isHide() const;

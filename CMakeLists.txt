@@ -16,6 +16,8 @@ set(SOURCE_FILES
         Core/BattleState.h
         Core/RunTimeClock.cpp
         Core/RunTimeClock.h
+        Core/Observer.h
+        Core/Subject.h
         Gui/Gui.cpp
         Gui/Gui.h
         Gui/PauseMenu.cpp
@@ -32,6 +34,10 @@ set(SOURCE_FILES
         Gui/WizardTab.h
         Gui/libraries/RichText.hpp
         Gui/libraries/RichText.cpp
+        Gui/SelectLevelTab.cpp
+        Gui/SelectLevelTab.h
+        Gui/AchievementTab.cpp
+        Gui/AchievementTab.h
         Game/Entity.cpp
         Game/Entity.h
         Game/Player.cpp
@@ -60,6 +66,8 @@ set(SOURCE_FILES
         Game/LootGenerator.h
         Game/LootBag.h
         Game/LootBag.cpp
+        Game/Achievement.cpp
+        Game/Achievement.h
         Components/MovementComponent.cpp
         Components/MovementComponent.h
         Components/AnimationComponent.cpp
@@ -74,6 +82,9 @@ set(SOURCE_FILES
         Components/PopUpTextComponent.h
         Components/CollisionBoxComponent.cpp
         Components/CollisionBoxComponent.h
+        Components/AchievementComponent.cpp
+        Components/AchievementComponent.h
+        Components/AchievementsEnum.h
         Resources/ResourcesHandler.cpp
         Resources/ResourcesHandler.h
         Resources/Resource.cpp
@@ -86,8 +97,6 @@ set(SOURCE_FILES
         Map/Tile.cpp
         Map/Dungeon.cpp
         Map/Dungeon.h
-        Gui/SelectLevelTab.cpp
-        Gui/SelectLevelTab.h
         Shader/fragment_shader.frag
         Shader/vertex_shader.vert)
 

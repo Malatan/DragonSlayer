@@ -35,6 +35,7 @@ void GameState::initTextures() {
     rsHandler->addResource("../Resources/Images/inventoryIcon.png", "inventoryIcon", "GameState");
     rsHandler->addResource("../Resources/Images/pauseMenuIcon.png", "pauseMenuIcon", "GameState");
     rsHandler->addResource("../Resources/Images/spellIcon.png", "spellIcon", "GameState");
+    rsHandler->addResource("../Resources/Images/achievements.png", "achievementIcon", "GameState");
 
     rsHandler->addResource("../Resources/Images/equipslot_sheet.png", "EquipSlotsSheet", "GameState");
     rsHandler->addResource("../Resources/Images/items_sheet.png", "items_sheet", "GameState");
@@ -69,6 +70,7 @@ void GameState::initTextures() {
     textures["INVENTORY_ICON"].loadFromImage(rsHandler->getResourceByKey("inventoryIcon")->getImage());
     textures["PAUSEMENU_ICON"].loadFromImage(rsHandler->getResourceByKey("pauseMenuIcon")->getImage());
     textures["SPELL_ICON"].loadFromImage(rsHandler->getResourceByKey("spellIcon")->getImage());
+    textures["ACHIEVEMENT_ICON"].loadFromImage(rsHandler->getResourceByKey("achievementIcon")->getImage());
 
     textures["ITEMS_SHEET"].loadFromImage(rsHandler->getResourceByKey("items_sheet")->getImage());
     textures["EquipSlotsSheet"].loadFromImage(rsHandler->getResourceByKey("EquipSlotsSheet")->getImage());
@@ -89,8 +91,9 @@ void GameState::initPauseMenu() {
 
     pmenu.addButton("SPELL", 300.f, "Spells", 30);
     pmenu.addButton("CHARACTER", 380.f, "Character", 30);
-    pmenu.addButton("BACK", 460.f, "Resume", 30);
-    pmenu.addButton("QUIT", 540.f, "QUIT", 50);
+    pmenu.addButton("ACHIEVEMENT", 460.f, "Achievement", 30);
+    pmenu.addButton("BACK", 540.f, "Resume", 30);
+    pmenu.addButton("QUIT", 620.f, "QUIT", 50);
 }
 
 void GameState::initPlayers() {
@@ -108,32 +111,20 @@ void GameState::initPlayers() {
 
 }
 
-void GameState::initCharacterTab() {
+void GameState::initTabs() {
     cTab = std::make_shared<CharacterTab>(window, font, player,
-            this, getTextures(), rsHandler, &npcInteract);
+                                          this, getTextures(), rsHandler, &npcInteract);
     initEquipSlotsTextures();
-}
-
-void GameState::initShopTab() {
     shopTab = std::make_shared<ShopTab>(window, font, player, this,
                                         rsHandler, lootGenerator, textures);
     initShopItemTextures();
-}
-
-void GameState::initPriestTab() {
     priestTab = std::make_shared<PriestTab>(window, font, player, this, rsHandler, textures);
-}
-
-void GameState::initSpellTab() {
     spellTab = std::make_shared<SpellTab>(window, font, player, this, rsHandler, textures);
-}
-
-void GameState::initWizardTab() {
     wizardTab = std::make_shared<WizardTab>(window, font, player, this, textures);
-}
-
-void GameState::initSelectLevelTab() {
-    selectLevelTab = std::make_shared<SelectLevelTab>(window, font,player, this, rsHandler);
+    selectLevelTab = std::make_shared<SelectLevelTab>(window, font, player, this, rsHandler);
+    achievementTab = std::make_shared<AchievementTab>(window, font, this, achievementComponent);
+    achievementComponent->setAchievementTab(achievementTab);
+   // achievementComponent->unlockAllAchievements();
 }
 
 void GameState::initHintsTab() {
@@ -144,6 +135,7 @@ void GameState::initHintsTab() {
                           " <E> to interact\n"
                           " <P> to open/close spell tab\n"
                           " <C> to open/close character tab\n"
+                          " <O> to open/close achievements tab\n"
                           " <M> to gain gold\n"
                           " <T> to gain exp\n"
                           " <X> to noclip\n"
@@ -286,9 +278,13 @@ void GameState::initSpellComponent() {
 
 void GameState::initComponents() {
     popUpTextComponent = std::make_shared<PopUpTextComponent>(*font, window);
+    achievementComponent = std::make_shared<AchievementComponent>(font);
+    rsHandler->loadAchievementsTxt(achievementComponent->getAchievements());
 
     initBuffComponent();
     initSpellComponent();
+
+    addObserver(achievementComponent.get());
 }
 
 void GameState::initLootGenerator() {
@@ -296,6 +292,9 @@ void GameState::initLootGenerator() {
 }
 
 void GameState::initView() {
+    locationLbl.setFont(*font);
+    locationLbl.setCharacterSize(20);
+
     view.setSize(
             sf::Vector2f(
                     static_cast<float>(window->getSize().x / 1.3f),
@@ -333,9 +332,23 @@ void GameState::initButtons() {
     pauseMenuBtn.setBackgroundTexture(&textures["PAUSEMENU_ICON"]);
     pauseMenuBtn.setBackbgroundDisabled(false);
 
-    spellTabBtn = gui::Button(
+    achievementTabBtn = gui::Button(
             pauseMenuBtn.getPosition().x - 100.f,
             pauseMenuBtn.getPosition().y, 70.f, 70.f,
+            font, "", 20.f,
+            sf::Color(255, 255, 255, 255),
+            sf::Color(160, 160, 160),
+            sf::Color(20, 20, 20, 50),
+
+            sf::Color::Transparent,
+            sf::Color(70, 70, 70, 60),
+            sf::Color(130, 130, 130, 0));
+    achievementTabBtn.setBackgroundTexture(&textures["ACHIEVEMENT_ICON"]);
+    achievementTabBtn.setBackbgroundDisabled(false);
+
+    spellTabBtn = gui::Button(
+            achievementTabBtn.getPosition().x - 100.f,
+            achievementTabBtn.getPosition().y, 70.f, 70.f,
             font, "", 20.f,
             sf::Color(255, 255, 255, 255),
             sf::Color(160, 160, 160),
@@ -373,6 +386,12 @@ void GameState::initMaps() {
     changeMap(0);
 }
 
+void GameState::initShader() {
+    if(!coreShader.loadFromFile("../Shader/vertex_shader.vert", "../Shader/fragment_shader.frag")){
+        std::cout<<"Error shader";
+    }
+}
+
 //constructors/destructors
 GameState::GameState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::unique_ptr<State>>* states,
                      std::shared_ptr<ResourcesHandler> rsHandler, sf::Font *font)
@@ -381,8 +400,8 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::u
     stato = NO_TAB;
     npcInteract = NO_NPC;
     noclip = false;
-    currentFloor = 3;
     spawnPos = {1730.f, 770.f};
+    floorReached = 0;
 
     initShader();
     initTextures();
@@ -395,12 +414,7 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::u
     initDebugText();
     initButtons();
 
-    initCharacterTab();
-    initShopTab();
-    initPriestTab();
-    initSpellTab();
-    initWizardTab();
-    initSelectLevelTab();
+    initTabs();
     initHintsTab();
     initMaps();
 }
@@ -436,6 +450,21 @@ std::shared_ptr<LootGenerator> GameState::getLootGenerator() {
 bool GameState::getStateKeyTime() {
     return getKeyTime();
 }
+
+void GameState::addObserver(Observer *observer) {
+    observers.push_back(observer);
+}
+
+void GameState::removeObserver(Observer *observer) {
+    observers.erase(std::remove(observers.begin(), observers.end(), observer), observers.end());
+}
+
+void GameState::notify(achievement_event event, int value) {
+    for(auto i : observers){
+        i->onNotify(event, value);
+    }
+}
+
 //functions
 void GameState::addItem(const std::shared_ptr<Item>& new_item) {
     if(player->getInventory()->addItem(new_item)){
@@ -671,6 +700,7 @@ void GameState::checkBattleResult(BattleResult& battle_result) {
             break;
         }
         case QUIT_GAME:
+            enemies.clear();
             endState();
             break;
         case ESCAPED:
@@ -680,6 +710,53 @@ void GameState::checkBattleResult(BattleResult& battle_result) {
         case NOT_FINISHED:
             break;
     }
+    if(battle_result.getResultType() != QUIT_GAME){
+        //notifica achivements data
+        for(auto i : battle_result.getAchievementDataSet()){
+            notify(i.first, i.second);
+        }
+    }
+}
+
+void GameState::updateLocationLbl() {
+    std::stringstream ss;
+    ss << "Current location: ";
+    switch (currentFloor) {
+        case 0:{
+            ss << "Hub";
+            break;
+        }
+        case 1:{
+            ss << "Dungeon - First Floor";
+            break;
+        }
+        case 2:{
+            ss << "Dungeon - Second Floor";
+            break;
+        }
+        case 3:{
+            ss << "Dungeon - Third Floor";
+            break;
+        }
+        case 4:{
+            ss << "Dungeon - Fourth Floor";
+            break;
+        }
+        case 5:{
+            ss << "Dungeon - Fifth Floor";
+            break;
+        }
+        case 6:{
+            ss << "Dungeon - Boss Room";
+            break;
+        }
+        default:
+            ss << "Unknown";
+            break;
+    }
+    locationLbl.setString(ss.str());
+    locationLbl.setPosition(window->getSize().x - locationLbl.getGlobalBounds().width - 10.f,
+                            locationLbl.getGlobalBounds().height - 10.f);
 }
 
 void GameState::updateInput(const float &dt) {
@@ -690,6 +767,8 @@ void GameState::updateInput(const float &dt) {
         cTab->unselectAll();
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::P) && getKeyTime()) {
         changeStato(SPELL_TAB);
+    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::O) && getKeyTime()) {
+        changeStato(ACHIEVEMENT_TAB);
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) && getKeyTime()) {
         player->getMovementComponent()->enableSpeedControl(noclip);
         noclip = !noclip;
@@ -698,6 +777,8 @@ void GameState::updateInput(const float &dt) {
             updateTabsPlayerStatsLbl();
         }
         popUpTextComponent->addPopUpTextCenter(EXPERIENCE_TAG, 100, "+", "Exp");
+        notify(AE_P_EXP, 100);
+
 
     }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::M) && getKeyTime()){
         int gold = utils::generateRandomNumber(99999, 999999);
@@ -721,26 +802,22 @@ void GameState::updateInput(const float &dt) {
                     break;
             }
             player->stopVelocity();
-        }
-        if(interactLootBag.first != 0){
+        } else if(interactLootBag.first != 0){
             changeStato(LOOTBAG_TAB);
             player->stopVelocity();
-        }
-        if(map->isInteracting()){
+        } else if(map->isInteracting()){
             if(map->getIntTile().type == DOORH){
                 selectLevelTab->setHide(false);
                 changeStato(SELECTLEVEL_TAB);
                 player->stopVelocity();
-            }
-            if(map->getIntTile().type == DOWNSTAIRS){
+            } else if(map->getIntTile().type == DOWNSTAIRS){
                 changeMap(0);
-            }
-            if(map->getIntTile().type == UPSTAIRS){
+            } else if(map->getIntTile().type == UPSTAIRS){
                 if(currentFloor < 5){
-                    changeMap(currentFloor + 1);
+                    int next_floor = currentFloor + 1;
+                    changeMap(next_floor);
                 }
-            }
-            if(map->getIntTile().type == CLOSEDOOR){
+            } else if(map->getIntTile().type == CLOSEDOOR){
                 map->openDoor(map->getIntTile().y, map->getIntTile().x);
             }
         }
@@ -784,9 +861,12 @@ void GameState::updatePausedMenuButtons() {
     } else if(pmenu.isButtonPressed("SPELL") && getKeyTime()){
         changeStato(NO_TAB);
         changeStato(SPELL_TAB);
-    }else if(pmenu.isButtonPressed("CHARACTER") && getKeyTime()){
+    } else if(pmenu.isButtonPressed("CHARACTER") && getKeyTime()){
         changeStato(NO_TAB);
         changeStato(CHARACTER_TAB);
+    } else if(pmenu.isButtonPressed("ACHIEVEMENT") && getKeyTime()){
+        changeStato(NO_TAB);
+        changeStato(ACHIEVEMENT_TAB);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && getKeyTime()){
         changeStato(NO_TAB);
@@ -815,6 +895,9 @@ void GameState::updateButtons() {
     } else if(spellTabBtn.isPressed() && getKeyTime()){
         spellTabBtn.setButtonState(BTN_IDLE);
         changeStato(SPELL_TAB);
+    } else if(achievementTabBtn.isPressed() && getKeyTime()){
+        achievementTabBtn.setButtonState(BTN_IDLE);
+        changeStato(ACHIEVEMENT_TAB);
     }
 }
 
@@ -823,11 +906,11 @@ void GameState::update(const float& dt) {
     updateKeyTime(dt);
     updateTileMap(dt);
     updateDebugText();
+    updateButtons();
 
     if(!paused){ //unpaused update
         updateView(dt);
         updatePlayerInput(dt);
-        updateButtons();
         updateInput(dt);
 
         player->update(dt);
@@ -855,17 +938,22 @@ void GameState::update(const float& dt) {
         cTabBtn.update(mousePosView);
         pauseMenuBtn.update(mousePosView);
         spellTabBtn.update(mousePosView);
+        achievementTabBtn.update(mousePosView);
         popUpTextComponent->update(dt);
         buffComponent->update(dt, mousePosView);
+        achievementComponent->update(dt, mousePosView);
         for(const auto& i : enemies){
             i->update(dt);
-            if(i->getHitboxComponent()->intersects(player->getHitboxComponent()->getGlobalBounds())){
-                states->push(std::make_unique<BattleState>(
-                        window, player, states,
-                        popUpTextComponent, spellComponent, buffComponent,
-                        rsHandler, textures,font, i, currentFloor, cTab));
-                break;
+            if(!noclip){
+                if(i->getHitboxComponent()->intersects(player->getHitboxComponent()->getGlobalBounds())){
+                    states->push(std::make_unique<BattleState>(
+                            window, player, states,
+                            popUpTextComponent, spellComponent, buffComponent,
+                            rsHandler, textures, font, i, achievementComponent->getExpGoldBonus(), currentFloor, cTab));
+                    break;
+                }
             }
+
         }
     } else{ // paused update
         updateMousePosition(nullptr);
@@ -920,6 +1008,12 @@ void GameState::update(const float& dt) {
                 popUpTextComponent->update(dt);
                 break;
             }
+            case ACHIEVEMENT_TAB:
+                achievementTab->update(mousePosView);
+                if(achievementTab->closeTabByClicking(mousePosView, &achievementTabBtn))
+                    changeStato(NO_TAB);
+                popUpTextComponent->update(dt);
+                break;
             case NO_TAB:
                 break;
         }
@@ -957,7 +1051,12 @@ void GameState::render(sf::RenderTarget* target) {
     cTabBtn.render(*target);
     pauseMenuBtn.render(*target);
     spellTabBtn.render(*target);
+    achievementTabBtn.render(*target);
     target->draw(hints);
+    target->draw(locationLbl);
+    buffComponent->render(*target);
+    popUpTextComponent->render(*target);
+    achievementComponent->render(*target);
 
     if(paused){ // pause menu render
         switch(stato){
@@ -985,14 +1084,14 @@ void GameState::render(sf::RenderTarget* target) {
             case SELECTLEVEL_TAB:
                 selectLevelTab->render(*target);
                 break;
+            case ACHIEVEMENT_TAB:
+                achievementTab->render(*target);
+                break;
             case NO_TAB:
                 break;
         }
     }
     target->draw(debugText);
-
-    buffComponent->render(*target);
-    popUpTextComponent->render(*target);
 }
 
 void GameState::updateTileMap(const float &dt) {
@@ -1003,6 +1102,12 @@ void GameState::updateTileMap(const float &dt) {
 
 void GameState::changeMap(int floor) {
     currentFloor = floor;
+    if(currentFloor > floorReached){
+        floorReached = currentFloor;
+        notify(AE_FLOOR_REACHED, floorReached);
+    }
+    selectLevelTab->updateButtonsAccess(floorReached);
+    updateLocationLbl();
     map = mg->GenerateFromFile(floor, this);
     if(!lootBags.empty())
         lootBags.clear();
@@ -1080,11 +1185,8 @@ void GameState::spawnEnemyOnMap() {
     }
 }
 
-void GameState::initShader() {
-    if(!coreShader.loadFromFile("../Shader/vertex_shader.vert", "../Shader/fragment_shader.frag")){
-        std::cout<<"Error shader";
-    }
-}
+
+
 
 
 

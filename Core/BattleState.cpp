@@ -304,8 +304,8 @@ void BattleState::initInventoryPanel() {
 void BattleState::initPauseMenu() {
     pmenu = std::make_unique<PauseMenu>(window, font);
 
-    pmenu->addButton("LOAD_SAVE", 460.f, "Load Game", 30);
-    pmenu->addButton("QUIT", 540.f, "QUIT GAME", 50);
+    pmenu->addButton("LOAD_SAVE", 360.f, "Load Game", 30);
+    pmenu->addButton("QUIT", 440.f, "Quit Game", 40);
 }
 
 void BattleState::initBattleResultPanel() {
@@ -329,12 +329,14 @@ void BattleState::initBattleResultPanel() {
             multiplier = utils::generateRandomNumberf(1.5f, 2.5f, 2);
             int gold_gain = (int)((float)xp_gain * multiplier);
 
+            int final_exp = std::ceil((float)xp_gain * expGoldBonus);
+            int final_gold = std::ceil((float)gold_gain * expGoldBonus);
             resultTitleLbl << sf::Color::Green << sf::Text::Italic << "YOU WIN!";
             ss << "You killed " << enemyLeader->getDeadFollowersNumber() + 1 << " enemis and won the battle!" << std::endl;
-            ss << "   + " << xp_gain << " exp" << std::endl;
-            ss << "   + " << gold_gain << " golds" << std::endl;
-            battleResult.setExpGainCount(xp_gain);
-            battleResult.setGoldGainCount(gold_gain);
+            ss << "   + " << final_exp << " exp(" << xp_gain << " * " << expGoldBonus << ")" << std::endl;
+            ss << "   + " << final_gold << " golds(" << gold_gain << " * " << expGoldBonus << ")" << std::endl;
+            battleResult.setExpGainCount(final_exp);
+            battleResult.setGoldGainCount(final_gold);
             break;
         }
         case LOST:{
@@ -596,9 +598,9 @@ void BattleState::initButtons() {
 BattleState::BattleState(std::shared_ptr<sf::RenderWindow> window, std::shared_ptr<Player> player,
                          std::stack<std::unique_ptr<State>> *states, std::shared_ptr<PopUpTextComponent> popUpTextComponent,
                          std::shared_ptr<SpellComponent> spellComponent, std::shared_ptr<BuffComponent> buffComponent,
-                         std::shared_ptr<ResourcesHandler> rsHandler, std::map<std::string, sf::Texture> textures,
-                         sf::Font *font, std::shared_ptr<Enemy> enemy, int floor, std::shared_ptr<CharacterTab> cTab)
-                         : State(std::move(window), states, std::move(rsHandler)) {
+                         std::shared_ptr<ResourcesHandler> rsHandler, std::map<std::string, sf::Texture> textures, sf::Font *font,
+                         std::shared_ptr<Enemy> enemy, float exp_gold_bonus, int floor, std::shared_ptr<CharacterTab> cTab)
+                         : expGoldBonus(exp_gold_bonus), State(std::move(window), states, std::move(rsHandler)) {
     this->player = std::move(player);
     enemyLeader = std::move(enemy);
     this->textures = std::move(textures);
@@ -985,9 +987,13 @@ void BattleState::endEnemyTurn() {
 
 void BattleState::endBattle() {
     switch(battleResultEnum){
-        case WIN: case LOST: case ESCAPED: case QUIT_GAME:
+        case WIN: case LOST: case ESCAPED:
             initBattleResultPanel();
             currentWindowState = BATTLE_REPORT;
+            break;
+        case QUIT_GAME:
+            endState();
+            break;
         case NOT_FINISHED:
             break;
     }
@@ -1357,6 +1363,7 @@ void BattleState::render(sf::RenderTarget *target) {
     mouseText.setString(ss.str());
     target->draw(mouseText);*/
 }
+
 
 
 

@@ -121,6 +121,10 @@ sf::Vector2f gui::Button::getPosition() {
     return shape.getPosition();
 }
 
+short unsigned gui::Button::getButtonState() const {
+    return buttonState;
+}
+
 //modifiers
 void gui::Button::setPosition(float x, float y) {
     shape.setPosition(x,y);
@@ -286,6 +290,8 @@ void gui::Button::setIdleTextColor(sf::Color idle_color) {
 }
 
 
+
+
 /*
  *
  *          PROGRESSBAR
@@ -321,23 +327,41 @@ sf::Vector2f gui::ProgressBar::getPosition() {
     return barShape.getPosition();
 }
 
+int gui::ProgressBar::getMaxValue() const {
+    return max;
+}
+
+void gui::ProgressBar::setDisabled(bool b) {
+    disabled = b;
+}
+
+bool gui::ProgressBar::isDisabled() const{
+    return disabled;
+}
+
 void gui::ProgressBar::setText(const std::string& new_text) {
-    this->text.setString(new_text);
+    text.setString(new_text);
+    text.setPosition(barShape.getPosition().x + (barShape.getGlobalBounds().width / 2.f) - text.getGlobalBounds().width/2.f,
+                     barShape.getPosition().y + (barShape.getGlobalBounds().height / 2.f) - text.getGlobalBounds().height);
 }
 
 void gui::ProgressBar::setProgressShapeColor(sf::Color color) {
-    this->progressShape.setFillColor(color);
+    progressShape.setFillColor(color);
 }
 
 void gui::ProgressBar::setProgressBorderColor(sf::Color color) {
-    this->barShape.setOutlineColor(color);
+    barShape.setOutlineColor(color);
 }
 
 void gui::ProgressBar::update(int current, int max_value) {
     std::stringstream ss;
     ss << current << "/" << max_value;
     max = max_value;
-    currentValue = current;
+    if(current >= max_value){
+        currentValue = max_value;
+    }else{
+        currentValue = current;
+    }
     text.setString(ss.str());
     text.setPosition(barShape.getPosition().x + (barShape.getGlobalBounds().width / 2.f) - text.getGlobalBounds().width/2.f,
                      barShape.getPosition().y + (barShape.getGlobalBounds().height / 2.f) - text.getGlobalBounds().height);
@@ -1998,3 +2022,188 @@ void gui::LootSlot::renderInfoContainer(sf::RenderTarget &target) {
 std::shared_ptr<Item> gui::LootSlot::getItem() {
     return item;
 }
+
+/*
+ *                      AchievementSlot
+ *
+ */
+
+gui::AchievementSlot::AchievementSlot(float width, float height, float pos_x, float pos_y, sf::Font *font,
+                                      const std::shared_ptr<Achievement>& achievement, int current_value) {
+    eventType = achievement->getAchievementEventType();
+    goal = achievement->getGoal();
+    shape.setSize(sf::Vector2f(width, height));
+    shape.setPosition(pos_x, pos_y);
+    shape.setFillColor(sf::Color(50, 50, 50, 150));
+    shape.setOutlineColor(sf::Color(50, 50, 50));
+    shape.setOutlineThickness(3.f);
+
+    titleLbl.setFont(*font);
+    titleLbl.setCharacterSize(25);
+    titleLbl.setString(achievement->getName());
+    titleLbl.setPosition(shape.getPosition().x + 10.f,
+                         shape.getPosition().y + 5.f);
+
+    descriptionLbl.setFont(*font);
+    descriptionLbl.setCharacterSize(20);
+    descriptionLbl.setStyle(sf::Text::Italic);
+    descriptionLbl.setString(achievement->getDescription());
+    descriptionLbl.setPosition(titleLbl.getPosition().x + 30.f,
+                               titleLbl.getPosition().y + titleLbl.getGlobalBounds().height + 10.f);
+
+    progressBar = gui::ProgressBar(shape.getPosition().x + shape.getGlobalBounds().width - 150.f - 20.f,
+                                   shape.getPosition().y + shape.getGlobalBounds().height/2.f - 25.f/2.f,
+                                   150.f, 25.f, 0, achievement->getGoal(), current_value, font);
+    progressBar.setProgressShapeColor(sf::Color(60, 60, 60, 150));
+    progressBar.setProgressBorderColor(sf::Color(60, 60, 60));
+    progressBar.update(current_value, achievement->getGoal());
+}
+
+gui::AchievementSlot::~AchievementSlot() = default;
+
+void gui::AchievementSlot::updateAchievement(int current_value, bool achieved) {
+    if(achieved){
+        progressBar.setText("Unlocked");
+        shape.setOutlineColor(sf::Color(64, 252, 61));
+        shape.setFillColor(sf::Color(64, 252, 61, 80));
+        progressBar.setDisabled(true);
+    }else if(!progressBar.isDisabled()){
+        progressBar.update(current_value, goal);
+        if(current_value >= progressBar.getMaxValue()){
+            progressBar.update(current_value, goal);
+            progressBar.setText("Unlocked");
+            shape.setOutlineColor(sf::Color(64, 252, 61));
+            shape.setFillColor(sf::Color(64, 252, 61, 80));
+            progressBar.setDisabled(true);
+        }
+    }
+}
+
+void gui::AchievementSlot::update(const sf::Vector2f &mousePos) {
+
+}
+
+void gui::AchievementSlot::render(sf::RenderTarget &target) {
+    target.draw(shape);
+    target.draw(titleLbl);
+    target.draw(descriptionLbl);
+    progressBar.render(target);
+}
+
+achievement_event gui::AchievementSlot::getAchievementEventType() {
+    return eventType;
+}
+
+/*
+ *                      AchievementNotification
+ *
+ */
+
+//constructors/destructor
+gui::AchievementNotification::AchievementNotification(float pos_x, float pos_y, const std::shared_ptr<Achievement>& achievement,
+                    sf::Font *font) {
+    float width = 0.f;
+    origin = {pos_x, pos_y};
+    velocity = {0.f, 0.f};
+    shape.setFillColor(sf::Color(50,50,50,150));
+    shape.setOutlineColor(sf::Color(50,50,50));
+    shape.setOutlineThickness(3.f);
+
+    titleLbl.setFont(*font);
+    titleLbl.setCharacterSize(20);
+    titleLbl.setStyle(sf::Text::Bold);
+    titleLbl.setFillColor(sf::Color::Green);
+    titleLbl.setString("Achievement Unlocked");
+
+    nameLbl.setFont(*font);
+    nameLbl.setCharacterSize(18);
+    nameLbl.setString(achievement->getName());
+
+    descLbl.setFont(*font);
+    descLbl.setCharacterSize(15);
+    descLbl.setStyle(sf::Text::Italic);
+    descLbl.setString(achievement->getDescription());
+
+    width = titleLbl.getGlobalBounds().width;
+    if(nameLbl.getGlobalBounds().width > width)
+        width = nameLbl.getGlobalBounds().width;
+    if(descLbl.getGlobalBounds().width > width)
+        width = descLbl.getGlobalBounds().width;
+
+    shape.setSize(sf::Vector2f(width + 20.f, titleLbl.getGlobalBounds().height + nameLbl.getGlobalBounds().height
+                                             + descLbl.getGlobalBounds().height + 30.f));
+    shape.setPosition(-pos_x - shape.getGlobalBounds().width, pos_y);
+
+    titleLbl.setPosition(shape.getPosition().x + shape.getGlobalBounds().width/2.f - titleLbl.getGlobalBounds().width/2.f,
+                         shape.getPosition().y + 10.f);
+    nameLbl.setPosition(shape.getPosition().x + shape.getGlobalBounds().width / 2.f - nameLbl.getGlobalBounds().width / 2.f,
+                                   titleLbl.getPosition().y + titleLbl.getGlobalBounds().height + 5.f);
+    descLbl.setPosition(shape.getPosition().x + shape.getGlobalBounds().width / 2.f - descLbl.getGlobalBounds().width / 2.f,
+                                   nameLbl.getPosition().y + nameLbl.getGlobalBounds().height + 5.f);
+
+    animationPhase = ENTERING_PHASE;
+    lifeTime = 4.f;
+    speed = 2000.f;
+}
+
+gui::AchievementNotification::~AchievementNotification() = default;
+
+//accessors/modifiers
+bool gui::AchievementNotification::isDone() const {
+    return done;
+}
+
+//functions
+void gui::AchievementNotification::move(sf::Vector2f move_velocity) {
+    shape.move(move_velocity);
+    titleLbl.move(move_velocity);
+    nameLbl.move(move_velocity);
+    descLbl.move(move_velocity);
+}
+
+void gui::AchievementNotification::update(const float& dt, const sf::Vector2f &mousePos) {
+    if(shape.getGlobalBounds().contains(mousePos) && sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+        animationPhase = EXITING_PHASE;
+    }else{
+        switch (animationPhase) {
+            case ENTERING_PHASE:{
+                velocity.x += dt;
+                move(velocity * dt * speed);
+                if(shape.getPosition().x >= origin.x){
+                    animationPhase = DISPLAYING_PHASE;
+                }
+                break;
+            }
+            case DISPLAYING_PHASE:{
+                lifeTime -= dt;
+                if(lifeTime <= 0.f){
+                    animationPhase = EXITING_PHASE;
+                }
+                break;
+            }
+            case EXITING_PHASE:{
+                velocity.x -= dt;
+                if(velocity.x > 0.f){
+                    move(-velocity * dt * speed);
+                }else{
+                    move(velocity * dt * speed);
+                }
+                if(shape.getPosition().x <= origin.x - shape.getGlobalBounds().width){
+                    done = true;
+                }
+                break;
+            }
+        }
+    }
+}
+
+void gui::AchievementNotification::render(sf::RenderTarget &target) {
+    target.draw(shape);
+    target.draw(titleLbl);
+    target.draw(nameLbl);
+    target.draw(descLbl);
+}
+
+
+
+

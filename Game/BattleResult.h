@@ -8,6 +8,9 @@
 #include <iostream>
 #include <memory>
 #include "Enemy.h"
+#include "../Components/AchievementsEnum.h"
+
+typedef std::pair<achievement_event, int> achievementPair;
 
 enum battle_result_types{
     WIN,
@@ -40,6 +43,7 @@ public:
     void addStatistics(statistic_types statistic, int value);
     std::string generateReport() const;
     void updateBattleResult(battle_result_types b_result, bool player_killed, const std::shared_ptr<Enemy>& enemy_leader);
+    std::vector<achievementPair> getAchievementDataSet();
 
     //getters setters
     void setExpGainCount(int value);

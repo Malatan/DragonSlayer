@@ -6,7 +6,6 @@
 #define DRAGONSLAYER_SPELLTAB_H
 
 #include "CharacterTab.h"
-#include <iomanip>
 
 class GameState;
 

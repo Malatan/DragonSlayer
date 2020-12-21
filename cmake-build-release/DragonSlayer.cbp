@@ -384,6 +384,15 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="E:/Progetto/DragonSlayer/Components/AchievementComponent.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Components/AchievementComponent.h">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Components/AchievementsEnum.h">
+			<Option target="DragonSlayer"/>
+		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Components/AnimationComponent.cpp">
 			<Option target="DragonSlayer"/>
 			<Option target="unit_testing_run"/>
@@ -466,6 +475,9 @@
 			<Option target="DragonSlayer"/>
 			<Option target="unit_testing_run"/>
 		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Core/Observer.h">
+			<Option target="DragonSlayer"/>
+		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Core/RunTimeClock.cpp">
 			<Option target="DragonSlayer"/>
 			<Option target="unit_testing_run"/>
@@ -481,6 +493,15 @@
 		<Unit filename="E:/Progetto/DragonSlayer/Core/State.h">
 			<Option target="DragonSlayer"/>
 			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Core/Subject.h">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Game/Achievement.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Game/Achievement.h">
+			<Option target="DragonSlayer"/>
 		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Game/BattleResult.cpp">
 			<Option target="DragonSlayer"/>
@@ -584,6 +605,12 @@
 			<Option target="DragonSlayer"/>
 		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Game/Utils.h">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Gui/AchievementTab.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Gui/AchievementTab.h">
 			<Option target="DragonSlayer"/>
 		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Gui/CharacterTab.cpp">

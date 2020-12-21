@@ -5,13 +5,14 @@
 #ifndef DRAGONSLAYER_RESOURCESHANDLER_H
 #define DRAGONSLAYER_RESOURCESHANDLER_H
 
-#include "Resource.h"
-#include "../Game/Stats.h"
-#include "../Game/Inventory.h"
-#include "../Components/SpellComponent.h"
-#include "../Game/Utils.h"
 #include <SFML/Graphics.hpp>
 #include <memory>
+#include "Resource.h"
+#include "../Components/SpellComponent.h"
+#include "../Game/Stats.h"
+#include "../Game/Inventory.h"
+#include "../Game/Utils.h"
+#include "../Game/Achievement.h"
 
 class Inventory;
 
@@ -32,6 +33,7 @@ public:
     void loadPlayerInventoryTxt(const std::shared_ptr<Inventory>& playerInventory);
     static void loadSpellList(const std::shared_ptr<SpellComponent>& spellComponent);
     void loadMaterialsTxt(std::vector<std::unique_ptr<Item>>& material_list);
+    void loadAchievementsTxt(std::vector<std::shared_ptr<Achievement>>& achievement_list);
 
     std::string toString();
 

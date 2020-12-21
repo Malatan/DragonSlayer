@@ -34,6 +34,12 @@ enum dialog_result{
     PENDING_RESULT
 };
 
+enum notifaction_phase{
+    ENTERING_PHASE,
+    DISPLAYING_PHASE,
+    EXITING_PHASE
+};
+
 namespace gui{
     class Button {
     public:
@@ -52,6 +58,7 @@ namespace gui{
         const short unsigned& getId() const;
         sf::Vector2f getPosition();
         sf::FloatRect getGlobalBounds() const;
+        short unsigned getButtonState() const;
 
         //modifiers
         void setButtonState(button_states);
@@ -112,6 +119,9 @@ namespace gui{
 
         //accessors
         sf::Vector2f getPosition();
+        int getMaxValue() const;
+        void setDisabled(bool b);
+        bool isDisabled() const;
 
         //modifiers
         void setText(const std::string& new_text);
@@ -128,6 +138,7 @@ namespace gui{
         sf::RectangleShape barShape;
         sf::RectangleShape progressShape;
 
+        bool disabled{};
         int min{};
         int max{};
         int currentValue{};
@@ -495,6 +506,58 @@ namespace gui{
 
         sf::Text itemInfoLbl;
         sf::RectangleShape itemInfoContainer;
+    };
+
+    class AchievementSlot{
+    public:
+        //constructors/destructor
+        AchievementSlot(float width, float height, float pos_x, float pos_y, sf::Font* font,
+                        const std::shared_ptr<Achievement>& achievement, int current_value);
+        virtual ~AchievementSlot();
+
+        //accessor/modifiers
+        achievement_event getAchievementEventType();
+
+        //functions
+        void updateAchievement(int current_value, bool achieved = false);
+        void update(const sf::Vector2f& mousePos);
+        void render(sf::RenderTarget& target);
+
+    private:
+        sf::RectangleShape shape;
+        sf::Text titleLbl;
+        sf::Text descriptionLbl;
+        gui::ProgressBar progressBar;
+        achievement_event eventType;
+        int goal;
+    };
+
+    class AchievementNotification{
+    public:
+        //constructors/destructor
+        AchievementNotification(float pos_x, float pos_y, const std::shared_ptr<Achievement>& achievement, sf::Font *font);
+        ~AchievementNotification();
+
+        //accessors/modifiers
+        bool isDone() const;
+
+        //functions
+        void move(sf::Vector2f move_velocity);
+        void update(const float& dt, const sf::Vector2f &mousePos);
+        void render(sf::RenderTarget& target);
+
+    private:
+        sf::Vector2f origin;
+        sf::RectangleShape shape;
+        sf::Text titleLbl;
+        sf::Text nameLbl;
+        sf::Text descLbl;
+
+        notifaction_phase animationPhase{};
+        float lifeTime{};
+        float speed{};
+        sf::Vector2f velocity;
+        bool done{};
     };
 }
 
