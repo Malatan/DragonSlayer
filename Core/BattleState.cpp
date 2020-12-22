@@ -299,6 +299,8 @@ void BattleState::initInventoryPanel() {
         }
     }
     maxInvPage = std::ceil(total_count / 4.f);
+    if(maxInvPage == 0)
+        maxInvPage = 1;
 }
 
 void BattleState::initPauseMenu() {
@@ -880,6 +882,13 @@ void BattleState::endPlayerTurn() {
     whoseTurn = false;
     countPlayerTurnTimer = true;
     enemiesMoves = enemyCount;
+    for(auto &i : actionRows){
+        i->setDisabled(true);
+    }
+    for(auto &i : itemRows){
+        i->setDisabled(true);
+    }
+    escapeConfirmBtn.setDisabled(true);
 }
 
 void BattleState::enemyBattle(const float &dt) {
@@ -980,7 +989,12 @@ void BattleState::endEnemyTurn() {
     turnCount++;
     for(auto &i : actionRows){
         i->updateCd();
+        i->setDisabled(false);
     }
+    for(auto &i : itemRows){
+        i->setDisabled(false);
+    }
+    escapeConfirmBtn.setDisabled(false);
     buffComponent->updatePlayerBuffList();
     updatePlayerStatsLbl();
 }

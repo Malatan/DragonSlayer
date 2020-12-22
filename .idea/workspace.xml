@@ -40,15 +40,28 @@
   <component name="ChangeListManager">
     <list default="true" id="5e176dfb-d06b-4a3a-ae60-4825526ebf88" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/AchievementComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Components/AchievementComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/AchievementComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Components/AchievementComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/AchievementsEnum.h" beforeDir="false" afterPath="$PROJECT_DIR$/Components/AchievementsEnum.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/BuffComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Components/BuffComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/BuffComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Components/BuffComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/SpellComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Components/SpellComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/SpellComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Components/SpellComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/BattleState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/BattleState.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/GameState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/GameState.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/GameState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/GameState.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Achievements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Achievements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/dungeon_1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data/dungeon_1.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/dungeon_2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data/dungeon_2.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/dungeon_3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data/dungeon_3.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/dungeon_4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data/dungeon_4.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/dungeon_5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data/dungeon_5.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gui/AchievementTab.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/AchievementTab.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gui/AchievementTab.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/AchievementTab.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Gui/CharacterTab.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/CharacterTab.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gui/CharacterTab.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/CharacterTab.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gui/Gui.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/Gui.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gui/Gui.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/Gui.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gui/WizardTab.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/WizardTab.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-release/DragonSlayer.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/DragonSlayer.exe" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -59,7 +72,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Release" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -266,7 +279,8 @@
       <workItem from="1608396829053" duration="25281000" />
       <workItem from="1608477867219" duration="37075000" />
       <workItem from="1608561129521" duration="10823000" />
-      <workItem from="1608610746296" duration="922000" />
+      <workItem from="1608610746296" duration="1082000" />
+      <workItem from="1608662976283" duration="8760000" />
     </task>
     <servers />
   </component>
@@ -290,7 +304,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Core/GameState.cpp</url>
-          <line>703</line>
+          <line>612</line>
           <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>

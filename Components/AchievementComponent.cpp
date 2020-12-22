@@ -58,6 +58,8 @@ int AchievementComponent::getAchievementEventValue(achievement_event event_type)
             return playerEscapeFails.second;
         case AE_P_ESCAPE_S:
             return playerEscapeSuccesses.second;
+        case AE_P_MAXEDSPELL:
+            return playerMaxedSpells.second;
         case AE_FLOOR_REACHED:
             return floorReached.second;
         case AE_BOSS_ROOM: case AE_END_GAME:
@@ -135,82 +137,105 @@ void AchievementComponent::createNotification(const std::shared_ptr<Achievement>
 }
 
 void AchievementComponent::onNotify(achievement_event event, int value) {
-    std::shared_ptr<Achievement> app;
+    std::stack<achievement_event> update_list;
     switch (event) {
         case AE_P_DEATHS: {
             playerDeaths.second += value;
             checkAchievement(AE_P_DEATHS, 4, playerDeaths);
+            update_list.push(AE_P_DEATHS);
             break;
         }
         case AE_P_KILLS: {
             playerKills.second += value;
             checkAchievement(AE_P_KILLS, 4, playerKills);
+            update_list.push(AE_P_KILLS);
             break;
         }
         case AE_P_EXP: {
             playerExpGain.second += value;
             checkAchievement(AE_P_EXP, 4, playerExpGain);
+            update_list.push(AE_P_EXP);
             break;
         }
         case AE_P_GOLD: {
             playerGoldGain.second += value;
             checkAchievement(AE_P_GOLD, 4, playerGoldGain);
+            update_list.push(AE_P_GOLD);
             break;
         }
         case AE_P_DMG: {
             playerDmg.second += value;
             checkAchievement(AE_P_DMG, 4, playerDmg);
+            update_list.push(AE_P_DMG);
             break;
         }
         case AE_P_SPELL_DMG: {
             playerSpellDmg.second += value;
             checkAchievement(AE_P_SPELL_DMG, 4, playerSpellDmg);
+            update_list.push(AE_P_SPELL_DMG);
             break;
         }
         case AE_P_DMG_TAKEN: {
             playerDmgTaken.second += value;
             checkAchievement(AE_P_DMG_TAKEN, 4, playerDmgTaken);
+            update_list.push(AE_P_DMG_TAKEN);
             break;
         }
         case AE_P_POTION: {
             playerPotionUses.second += value;
             checkAchievement(AE_P_POTION, 4, playerPotionUses);
+            update_list.push(AE_P_POTION);
             break;
         }
         case AE_P_DODGE: {
             playerDodge.second += value;
             checkAchievement(AE_P_DODGE, 4, playerDodge);
+            update_list.push(AE_P_DODGE);
             break;
         }
         case AE_P_MISS: {
             playerMiss.second += value;
             checkAchievement(AE_P_MISS, 4, playerMiss);
+            update_list.push(AE_P_MISS);
             break;
         }
         case AE_P_CRITHIT: {
             playerCritHit.second += value;
             checkAchievement(AE_P_CRITHIT, 4, playerCritHit);
+            update_list.push(AE_P_CRITHIT);
             break;
         }
         case AE_P_ESCAPE_F: {
             playerEscapeFails.second += value;
             checkAchievement(AE_P_ESCAPE_F, 4, playerEscapeFails);
+            update_list.push(AE_P_ESCAPE_F);
             break;
         }
         case AE_P_ESCAPE_S: {
             playerEscapeSuccesses.second += value;
             checkAchievement(AE_P_ESCAPE_S, 4, playerEscapeSuccesses);
+            update_list.push(AE_P_ESCAPE_S);
+            break;
+        }
+        case AE_P_MAXEDSPELL:{
+            playerMaxedSpells.second = value;
+            checkAchievement(AE_P_MAXEDSPELL, 4, playerMaxedSpells);
+            update_list.push(AE_P_MAXEDSPELL);
             break;
         }
         case AE_FLOOR_REACHED:{
             floorReached.second = value;
             checkAchievement(AE_FLOOR_REACHED, 5, floorReached);
+            update_list.push(AE_FLOOR_REACHED);
             break;
         }
         case AE_BOSS_ROOM: case AE_END_GAME:
             break;
     }
-    aTab->updateAchievementsSlots();
+    while(!update_list.empty()){
+        aTab->updateAchievementsSlot(update_list.top());
+        update_list.pop();
+    }
 }
 
 void AchievementComponent::calculateExpGoldBonus() {

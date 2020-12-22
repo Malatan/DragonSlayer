@@ -19,6 +19,7 @@ public:
     std::vector<std::shared_ptr<Spell>> getPlayerSpells();
 
     //functions
+    int maxedPlayerSpellsSize() const;
     void addSpell(Spell spell);
     void addPlayerSpell(Spell spell);
     std::string toString() const;

@@ -420,14 +420,13 @@ namespace gui{
                 sf::Font* font, sf::Texture& action_texture);
         virtual ~ActionRow();
 
-
         void setUseBtnState(button_states btn_state);
         std::shared_ptr<Spell> getAction() const;
         int getActionFinalDamage() const;
         void startCd();
         void updateCd();
         void endCd();
-
+        void setDisabled(bool b);
         bool isUseBtnPressed() const;
         void updateInfoContainer(const sf::Vector2f& mousePos);
         void update(const sf::Vector2f& mousePos, const float &dt);
@@ -458,6 +457,7 @@ namespace gui{
 
         std::shared_ptr<Item> getItem() const;
         void setUseBtnState(button_states btn_state);
+        void setDisabled(bool b);
         bool isUseBtnPressed() const;
         void updateQuantityLbl();
         void updateInfoContainer(const sf::Vector2f& mousePos);

@@ -177,114 +177,13 @@ void GameState::initShopItemTextures() {
     }
 }
 
-void GameState::initBuffComponent() {
-    buffComponent = std::make_shared<BuffComponent>(popUpTextComponent, player, this, font);
-    // add all buffs to map
-    buffComponent->addBuff("HealthPotion(S)",
-            std::make_shared<Buff>("HealthPotion(S)", "Recovers your hp by 100", "HealthPotion",
-                    100, 0, 0, 0, 0.f, 0.f, true,
-                    false,7, 22));
-
-    buffComponent->addBuff("HealthPotion(M)",
-            std::make_shared<Buff>("HealthPotion(M)", "Recovers your hp by 200", "HealthPotion",
-                    200, 0, 0, 0, 0.f, 0.f, true,
-                    false, 7, 22));
-
-    buffComponent->addBuff("HealthPotion(L)",
-            std::make_shared<Buff>("HealthPotion(L)", "Recovers your hp by 400", "HealthPotion",
-                    400, 0, 0, 0, 0.f, 0.f, true,
-                    false, 7, 22));
-
-    buffComponent->addBuff("ManaPotion(S)",
-            std::make_shared<Buff>("ManaPotion(S)", "Recovers your mp by 100", "ManaPotion",
-                    0, 100, 0, 0, 0.f, 0.f, true,
-                    false, 9, 22));
-
-    buffComponent->addBuff("ManaPotion(M)",
-            std::make_shared<Buff>("ManaPotion(M)", "Recovers your mp by 200", "ManaPotion",
-                    0, 200, 0, 0, 0.f, 0.f, true,
-                    false, 9, 22));
-
-    buffComponent->addBuff("ManaPotion(L)",
-            std::make_shared<Buff>("ManaPotion(L)", "Recovers your mp by 400", "ManaPotion",
-                    0, 400, 0, 0, 0.f, 0.f, true,
-                    false, 9, 22));
-
-    buffComponent->addBuff("DamagePotion(S)",
-            std::make_shared<Buff>("DamagePotion(S)", "Boosts your attack by 100 for 3 turns", "DamagePotion",
-                    0, 0, 100, 0, 0.f, 0.f, 3,
-                    false, 6 ,26));
-
-    buffComponent->addBuff("DamagePotion(M)",
-            std::make_shared<Buff>("DamagePotion(M)", "Boosts your attack by 300 for 3 turns", "DamagePotion",
-                    0, 0, 300, 0, 0.f, 0.f, 3,
-                    false, 6 ,26));
-
-    buffComponent->addBuff("DamagePotion(L)",
-            std::make_shared<Buff>("DamagePotion(L)", "Boosts your attack by 600 for 3 turns", "DamagePotion",
-                    0, 0, 600, 0, 0.f, 0.f, 3,
-                    false, 6 ,26));
-
-    buffComponent->addBuff("DefensePotion(S)",
-            std::make_shared<Buff>("DefensePotion(S)", "Boosts your armor by 100 for 3 turns", "DefensePotion",
-                    0, 0, 0, 100, 0.f, 0.f, 3,
-                    false, 4, 26));
-
-    buffComponent->addBuff("DefensePotion(M)",
-            std::make_shared<Buff>("DefensePotion(M)", "Boosts your armor by 300 for 3 turns", "DefensePotion",
-                    0, 0, 0, 300, 0.f, 0.f, 3,
-                    false, 4, 26));
-
-    buffComponent->addBuff("DefensePotion(L)",
-            std::make_shared<Buff>("DefensePotion(L)", "Boosts your armor by 600 for 3 turns", "DefensePotion",
-                    0, 0, 0, 600, 0.f, 0.f, 3,
-                    false, 4, 26));
-
-    buffComponent->addBuff("CriticalHitChancePotion(S)",
-            std::make_shared<Buff>("CriticalHitChancePotion(S)", "Boosts your critical hit chance by 10% for 3 turns",
-                    "CriticalHitChancePotion", 0, 0, 0, 0, 10.f, 0.f,
-                    3, false, 1, 26));
-
-    buffComponent->addBuff("CriticalHitChancePotion(M)",
-            std::make_shared<Buff>("CriticalHitChancePotion(M)", "Boosts your critical hit chance by 15% for 3 turns",
-                    "CriticalHitChancePotion", 0, 0, 0, 0, 15.f, 0.f,
-                    3, false, 1, 26));
-
-    buffComponent->addBuff("CriticalHitChancePotion(L)",
-            std::make_shared<Buff>("CriticalHitChancePotion(L)", "Boosts your critical hit chance by 25% for 3 turns",
-                    "CriticalHitChancePotion", 0, 0, 0, 0, 25.f, 0.f,
-                    3, false, 1, 26));
-
-    buffComponent->addBuff("EvadeChancePotion(S)",
-            std::make_shared<Buff>("EvadeChancePotion(S)", "Boosts your evade chance by 10% for 3 turns",
-                    "EvadeChancePotion", 0, 0, 0, 0, 0.f, 10.f,3,
-                    false, 3, 26));
-
-    buffComponent->addBuff("EvadeChancePotion(M)",
-            std::make_shared<Buff>("EvadeChancePotion(M)", "Boosts your evade chance by 15% for 3 turns",
-                    "EvadeChancePotion", 0, 0, 0, 0, 0.f, 15.f,3,
-                    false, 3, 26));
-
-    buffComponent->addBuff("EvadeChancePotion(L)",
-            std::make_shared<Buff>("EvadeChancePotion(L)", "Boosts your evade chance by 25% for 3 turns",
-                    "EvadeChancePotion", 0, 0, 0, 0, 0.f, 25.f,3,
-                    false, 3, 26));
-}
-
-void GameState::initSpellComponent() {
-    spellComponent = std::make_shared<SpellComponent>();
-    rsHandler->loadSpellList(spellComponent);
-}
-
 void GameState::initComponents() {
     popUpTextComponent = std::make_shared<PopUpTextComponent>(*font, window);
     achievementComponent = std::make_shared<AchievementComponent>(font);
     rsHandler->loadAchievementsTxt(achievementComponent->getAchievements());
-
-    initBuffComponent();
-    initSpellComponent();
-
-    addObserver(achievementComponent.get());
+    buffComponent = std::make_shared<BuffComponent>(popUpTextComponent, player, this, font);
+    spellComponent = std::make_shared<SpellComponent>();
+    rsHandler->loadSpellList(spellComponent);
 }
 
 void GameState::initLootGenerator() {
@@ -312,7 +211,7 @@ void GameState::initView() {
 
 void GameState::initDebugText() {
     debugText.setFont(*font);
-    debugText.setCharacterSize(25);
+    debugText.setCharacterSize(15);
     debugText.setString("Debug text");
     debugText.setPosition(5.f, 40.f);
 }
@@ -392,6 +291,14 @@ void GameState::initShader() {
     }
 }
 
+void GameState::initObservers() {
+    addObserver(achievementComponent.get());
+}
+
+void GameState::preNotifiers() {
+    notify(AE_P_MAXEDSPELL, spellComponent->maxedPlayerSpellsSize());
+}
+
 //constructors/destructors
 GameState::GameState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::unique_ptr<State>>* states,
                      std::shared_ptr<ResourcesHandler> rsHandler, sf::Font *font)
@@ -417,6 +324,8 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::u
     initTabs();
     initHintsTab();
     initMaps();
+    initObservers();
+    preNotifiers();
 }
 
 GameState::~GameState() {
@@ -778,8 +687,6 @@ void GameState::updateInput(const float &dt) {
         }
         popUpTextComponent->addPopUpTextCenter(EXPERIENCE_TAG, 100, "+", "Exp");
         notify(AE_P_EXP, 100);
-
-
     }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::M) && getKeyTime()){
         int gold = utils::generateRandomNumber(99999, 999999);
         player->addGold(gold);
@@ -848,9 +755,23 @@ void GameState::updateTabsInvSpaceLbl() {
     shopTab->updateInvSpaceLbl();
 }
 
-void GameState::updateTabsPlayerStatsLbl() {
-    cTab->updatePlayerStatsLbl();
-    spellTab->updateSpellsInfoLbl();
+void GameState::updateTabsPlayerStatsLbl(state_tab update_tab) {
+    switch (update_tab) {
+        case NO_TAB:
+            cTab->updatePlayerStatsLbl();
+            spellTab->updateSpellsInfoLbl();
+            break;
+        case CHARACTER_TAB:
+            cTab->updatePlayerStatsLbl();
+            break;
+        case SPELL_TAB:
+            spellTab->updateSpellsInfoLbl();
+            break;
+        default:
+            std::cout<<"Unknown tab"<<endl;
+            break;
+    }
+
 }
 
 void GameState::updatePausedMenuButtons() {
@@ -908,12 +829,14 @@ void GameState::update(const float& dt) {
     updateTileMap(dt);
     updateDebugText();
     updateButtons();
+    updateMousePosition(nullptr);
+    achievementComponent->update(dt, mousePosView);
+    buffComponent->update(dt, mousePosView);
 
     if(!paused){ //unpaused update
         updateView(dt);
         updatePlayerInput(dt);
         updateInput(dt);
-
         player->update(dt);
         interactLootBag.first = 0;
         for(auto i = 0 ; i < lootBags.size() ; i++){
@@ -935,14 +858,12 @@ void GameState::update(const float& dt) {
             i->update(dt);
             i->updateCollision(player, &npcInteract);
         }
-        updateMousePosition(nullptr);
+
         cTabBtn.update(mousePosView);
         pauseMenuBtn.update(mousePosView);
         spellTabBtn.update(mousePosView);
         achievementTabBtn.update(mousePosView);
         popUpTextComponent->update(dt);
-        buffComponent->update(dt, mousePosView);
-        achievementComponent->update(dt, mousePosView);
         for(const auto& i : enemies){
             i->update(dt);
             if(!noclip){
@@ -957,7 +878,6 @@ void GameState::update(const float& dt) {
 
         }
     } else{ // paused update
-        updateMousePosition(nullptr);
         switch(stato){
             case PAUSEMENU_TAB:
                 pmenu.update(mousePosView);
@@ -1037,14 +957,18 @@ void GameState::render(sf::RenderTarget* target) {
     }
     for(auto i : npcs){
         i->render(*target, true);
-        if(player->getCollisionBoxComponent()->getPosition().y > i->getCollisionBoxComponent()->getPosition().y){
-            player->render(*target, &coreShader, player->getCenter(), true, true);
+        if(player->getHitboxComponent()->getGlobalBounds().intersects(i->getHitboxComponent()->getGlobalBounds())){
+            if(player->getCollisionBoxComponent()->getPosition().y > i->getCollisionBoxComponent()->getPosition().y){
+                player->render(*target, &coreShader, player->getCenter(), true, true);
+            }
         }
     }
     for(const auto& i : lootBags){
         i->render(*target, &coreShader, player->getCenter(), true);
-        if(player->getCollisionBoxComponent()->getPosition().y > i->getCollisionBoxComponent()->getPosition().y){
-            player->render(*target, &coreShader, player->getCenter(), true, true);
+        if(player->getHitboxComponent()->getGlobalBounds().intersects(i->getHitboxComponent()->getGlobalBounds())){
+            if(player->getCollisionBoxComponent()->getPosition().y > i->getCollisionBoxComponent()->getPosition().y){
+                player->render(*target, &coreShader, player->getCenter(), true, true);
+            }
         }
     }
 
@@ -1055,10 +979,6 @@ void GameState::render(sf::RenderTarget* target) {
     achievementTabBtn.render(*target);
     target->draw(hints);
     target->draw(locationLbl);
-    buffComponent->render(*target);
-    popUpTextComponent->render(*target);
-    achievementComponent->render(*target);
-
     if(paused){ // pause menu render
         switch(stato){
             case PAUSEMENU_TAB:
@@ -1093,6 +1013,9 @@ void GameState::render(sf::RenderTarget* target) {
         }
     }
     target->draw(debugText);
+    achievementComponent->render(*target);
+    buffComponent->render(*target);
+    popUpTextComponent->render(*target);
 }
 
 void GameState::updateTileMap(const float &dt) {
@@ -1185,6 +1108,8 @@ void GameState::spawnEnemyOnMap() {
         }
     }
 }
+
+
 
 
 

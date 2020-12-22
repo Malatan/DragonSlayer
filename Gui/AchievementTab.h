@@ -18,6 +18,7 @@ public:
 
     bool closeTabByClicking(const sf::Vector2f& mousePos, gui::Button* achievementTab_Btn);
     void updateAchievementsSlots(bool achieved = false);
+    void updateAchievementsSlot(achievement_event event_type);
     void updateInputs();
     void updateTextLbl();
     void updatePageLbl();

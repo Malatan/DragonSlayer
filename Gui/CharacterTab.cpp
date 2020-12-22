@@ -561,9 +561,8 @@ void CharacterTab::useConsumable(const std::shared_ptr<Item>& item, std::unique_
         have_more = item->use();
         gState->getBuffComponent()->applyItemBuff(item->getName(), true);
         i->updateQuantityLbl();
-
+        gState->notify(AE_P_POTION, 1);
     }
-
     if(!have_more){
         deleteItemFromInventory();
     }

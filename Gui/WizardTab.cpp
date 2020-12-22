@@ -133,21 +133,20 @@ void WizardTab::updateSpellLevel(const std::shared_ptr<gui::WizardSpellSlot>& i)
         upgrade_cost = i->getSpell()->getLearnCost()*(i->getSpell()->getLevel()+1);
     else
         upgrade_cost = i->getSpell()->getLearnCost()*i->getSpell()->getLevel();
-
     if(player->getGold() >= upgrade_cost){
         player->minusGold(upgrade_cost);
-
         if(i->getSpell()->isLearned())
             i->getSpell()->levelUp();
         else{
             i->getSpell()->setLearned(true);
             gState->getSpellTab()->initSpellSlots();
         }
-
-
         i->updateBtnText();
         i->updateSpellInfo();
         updateSpellInfo();
+        if(i->getSpell()->isMaxed() && i->getSpell()->isLearned()){
+            gState->notify(AE_P_MAXEDSPELL, spellComponent->maxedPlayerSpellsSize());
+        }
         gState->updateTabsGoldLbl();
         gState->getSpellTab()->updateSpellsInfoLbl();
         gState->getPopUpTextComponent()->addPopUpTextCenter(DEFAULT_TAG, i->getSpell()->getName(), "", " lv + 1 !");

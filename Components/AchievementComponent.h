@@ -66,6 +66,7 @@ private:
     achievementRecord playerEscapeFails{};
     achievementRecord playerEscapeSuccesses{};
     achievementRecord floorReached{};
+    achievementRecord playerMaxedSpells{};
 };
 
 

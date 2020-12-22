@@ -1158,10 +1158,12 @@ gui::WizardSpellSlot::WizardSpellSlot(float width, float height, float pos_x, fl
     spellInfoLbl.setCharacterSize(char_size);
 
     //init btn
+    float btn_width = height * 1.5f;
+    float btn_height = height - 40.f;
     slotBtn = std::make_shared<Button>(
-            spellImage.getPosition().x + shape.getGlobalBounds().width - spellImage.getGlobalBounds().width - 40.f,
-            spellImage.getPosition().y + 10.f,
-            height, height - 40.f,
+            shape.getPosition().x + shape.getGlobalBounds().width - btn_width - 20.f,
+            shape.getPosition().y + shape.getGlobalBounds().height/2.f - btn_height/2.f,
+            btn_width, btn_height,
             font, "upgrade", 18.f,
             sf::Color(255, 255, 255, 255),
             sf::Color(160, 160, 160),
@@ -1645,6 +1647,10 @@ void gui::ActionRow::endCd() {
     useBtn.setDisabled(false);
 }
 
+void gui::ActionRow::setDisabled(bool b) {
+    useBtn.setDisabled(b);
+}
+
 void gui::ActionRow::setUseBtnState(button_states btn_state) {
     useBtn.setButtonState(btn_state);
 }
@@ -1776,6 +1782,10 @@ void gui::ItemRow::render(sf::RenderTarget &target) {
 
 void gui::ItemRow::setUseBtnState(button_states btn_state) {
     useBtn.setButtonState(btn_state);
+}
+
+void gui::ItemRow::setDisabled(bool b) {
+    useBtn.setDisabled(b);
 }
 
 std::shared_ptr<Item> gui::ItemRow::getItem() const {

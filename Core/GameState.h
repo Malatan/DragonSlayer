@@ -86,7 +86,7 @@ public:
     void updateLocationLbl();
     void updateTabsGoldLbl();
     void updateTabsInvSpaceLbl();
-    void updateTabsPlayerStatsLbl();
+    void updateTabsPlayerStatsLbl(state_tab update_tab = NO_TAB);
     void updateInput(const float &dt) override;
     void updatePlayerInput(const float& dt);
     void updatePausedMenuButtons();
@@ -97,7 +97,6 @@ public:
     void updateTileMap(const float& dt);
     void render(sf::RenderTarget* target) override;
     void spawnEnemyOnMap();
-
 
 private:
     sf::Font* font;
@@ -111,7 +110,6 @@ private:
     gui::Button achievementTabBtn;
 
     sf::Shader coreShader;
-
     Map* map{};
     MapGenerator* mg{};
     PauseMenu pmenu;
@@ -149,8 +147,6 @@ private:
     void initHintsTab();
     void initEquipSlotsTextures();
     void initShopItemTextures();
-    void initBuffComponent();
-    void initSpellComponent();
     void initComponents();
     void initLootGenerator();
     void initView();
@@ -158,6 +154,8 @@ private:
     void initButtons();
     void initMaps();
     void initShader();
+    void initObservers();
+    void preNotifiers();
 };
 
 

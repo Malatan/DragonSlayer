@@ -102,6 +102,14 @@ void AchievementTab::updateAchievementsSlots(bool achieved) {
     }
 }
 
+void AchievementTab::updateAchievementsSlot(achievement_event event_type) {
+    for(auto &i : achievementsSlots){
+        if(i->getAchievementEventType() == event_type){
+            i->updateAchievement(achievementComponent->getAchievementEventValue(i->getAchievementEventType()));
+        }
+    }
+}
+
 void AchievementTab::updateTextLbl() {
     std::stringstream ss;
     achievementComponent->calculateExpGoldBonus();

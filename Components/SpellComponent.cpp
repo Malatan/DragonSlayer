@@ -42,3 +42,12 @@ std::string SpellComponent::toStringPlayer() const {
     ss << "------------------------------------------------\n";
     return ss.str();
 }
+
+int SpellComponent::maxedPlayerSpellsSize() const {
+    int count = 0;
+    for(const auto& i : playerSpells){
+        if(i->isMaxed() && i->isLearned())
+            count++;
+    }
+    return count;
+}
