@@ -313,7 +313,7 @@ void GameState::initView() {
 void GameState::initDebugText() {
     debugText.setFont(*font);
     debugText.setCharacterSize(25);
-    debugText.setString("sss");
+    debugText.setString("Debug text");
     debugText.setPosition(5.f, 40.f);
 }
 
@@ -878,9 +878,10 @@ void GameState::updateView(const float &dt) {
 }
 
 void GameState::updateDebugText() {
-//debbuging tool: show mouse pos coords
+    //debbuging tool: show mouse pos coords
     std::stringstream ss;
-    ss << "Mouse pos: " << mousePosView.x << " " << mousePosView.y;
+    ss << "Mouse pos: x: " << mousePosView.x << " y: " << mousePosView.y << std::endl
+    << "Enemies: " << enemies.size() << std::endl << "Lootbags: " << lootBags.size();
     debugText.setString(ss.str());
 }
 

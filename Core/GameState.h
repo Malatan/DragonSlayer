@@ -138,7 +138,7 @@ private:
     npc_type npcInteract;
     lootBagAccessPair interactLootBag;
     bool noclip;
-    int currentFloor;
+    int currentFloor{};
     int floorReached;
 
     //init

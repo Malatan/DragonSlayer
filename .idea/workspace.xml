@@ -40,9 +40,6 @@
   <component name="ChangeListManager">
     <list default="true" id="5e176dfb-d06b-4a3a-ae60-4825526ebf88" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/BattleState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/BattleState.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/BattleState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/BattleState.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/GameState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/GameState.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/GameState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/GameState.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/dungeon_1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data/dungeon_1.txt" afterDir="false" />
@@ -50,36 +47,9 @@
       <change beforePath="$PROJECT_DIR$/Data/dungeon_3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data/dungeon_3.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/dungeon_4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data/dungeon_4.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/dungeon_5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data/dungeon_5.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/BattleResult.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/BattleResult.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/BattleResult.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/BattleResult.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Gui/CharacterTab.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/CharacterTab.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gui/Gui.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/Gui.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gui/Gui.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/Gui.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gui/PauseMenu.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/PauseMenu.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gui/PauseMenu.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/PauseMenu.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gui/SelectLevelTab.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/SelectLevelTab.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gui/SelectLevelTab.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/SelectLevelTab.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gui/SpellTab.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/SpellTab.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gui/SpellTab.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/SpellTab.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gui/WizardTab.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/WizardTab.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Resources/ResourcesHandler.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/ResourcesHandler.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Resources/ResourcesHandler.h" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/ResourcesHandler.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/DependInfo.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/build.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/cmake_clean.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/cmake_clean.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/objects1.rsp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/objects1.rsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/progress.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/Makefile.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/Makefile2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/clion-log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/progress.marks" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/progress.marks" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/DragonSlayer.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/DragonSlayer.cbp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/progress.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googlemock/CMakeFiles/gmock.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googlemock/CMakeFiles/gmock.dir/progress.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googlemock/CMakeFiles/gmock_main.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googlemock/CMakeFiles/gmock_main.dir/progress.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest.dir/progress.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/progress.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gui/CharacterTab.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/CharacterTab.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/DragonSlayer.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/DragonSlayer.exe" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +59,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Release" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -164,11 +134,6 @@
     <configuration name="gtest_main" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DragonSlayer" TARGET_NAME="gtest_main" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <list>
@@ -300,7 +265,8 @@
       <workItem from="1608390805805" duration="1783000" />
       <workItem from="1608396829053" duration="25281000" />
       <workItem from="1608477867219" duration="37075000" />
-      <workItem from="1608561129521" duration="10181000" />
+      <workItem from="1608561129521" duration="10823000" />
+      <workItem from="1608610746296" duration="922000" />
     </task>
     <servers />
   </component>

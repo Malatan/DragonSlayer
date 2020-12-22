@@ -114,6 +114,7 @@ private:
     gui::Button EquipUnEquipBtn;
     gui::Button deleteBtn;
     gui::Button sellBtn;
+    gui::Button selectAllBtn;
 };
 
 

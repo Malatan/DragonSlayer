@@ -214,6 +214,20 @@ void CharacterTab::initInventoryContainer() {
     EquipUnEquipBtn.setBorderColor(sf::Color::White);
     EquipUnEquipBtn.setBorderLineThickness(5.f);
 
+    selectAllBtn = gui::Button(
+            inventoryContainer.getPosition().x + 340.f,
+            inventoryContainer.getPosition().y + 640.f, 180.f, 40.f,
+            font, "Select All", 20.f,
+            sf::Color(255, 255, 255, 255),
+            sf::Color(160, 160, 160),
+            sf::Color(20, 20, 20, 50),
+
+            sf::Color(70, 70, 70, 0),
+            sf::Color(150, 150, 150, 0),
+            sf::Color(130, 130, 130));
+    selectAllBtn.setBorderColor(sf::Color::White);
+    selectAllBtn.setBorderLineThickness(5.f);
+
     deleteBtn = gui::Button(
             inventoryContainer.getPosition().x + 540.f,
             inventoryContainer.getPosition().y + 640.f, 180.f, 40.f,
@@ -472,6 +486,7 @@ void CharacterTab::invContainerUpdate(const sf::Vector2f &mousePos) {
     EquipUnEquipBtn.update(mousePos);
     deleteBtn.update(mousePos);
     sellBtn.update(mousePos);
+    selectAllBtn.update(mousePos);
 }
 
 void CharacterTab::invContainerRender(sf::RenderTarget &target) {
@@ -484,14 +499,10 @@ void CharacterTab::invContainerRender(sf::RenderTarget &target) {
     EquipUnEquipBtn.render(target);
     deleteBtn.render(target);
     sellBtn.render(target);
- /*   for(auto i : this->inventorySlots){
-        i->render(target);
-    }*/
+    selectAllBtn.render(target);
     for (auto it = inventorySlots.rbegin(); it != inventorySlots.rend(); it++){
         (*it)->render(target);
     }
-
-
 }
 
 bool CharacterTab::closeCharacterTabByClicking(const sf::Vector2f& mousePos, gui::Button* cTab_Btn) {
@@ -668,6 +679,9 @@ void CharacterTab::updateButtons() {
     } else if(sellBtn.isPressed() && state->getKeyTime()) {
         sellBtn.setButtonState(BTN_IDLE);
         sellBtnFunction();
+    } else if(selectAllBtn.isPressed() && state->getKeyTime()){
+        selectAllBtn.setButtonState(BTN_IDLE);
+        selectAll();
     }
 }
 
@@ -695,8 +709,6 @@ void CharacterTab::updateKeyboardInput() {
         if(!sellBtn.isDisabled()){
             sellBtnFunction();
         }
-    } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && state->getKeyTime()) {
-        selectAll();
     } else if((sf::Keyboard::isKeyPressed(sf::Keyboard::C) || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
             && state->getKeyTime()) {
         gState->changeStato(NO_TAB);
