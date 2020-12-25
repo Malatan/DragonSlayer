@@ -61,7 +61,7 @@ enum state_tab{
 class GameState : public State, public Subject{
 public:
     GameState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::unique_ptr<State>>* states,
-            std::shared_ptr<ResourcesHandler> rsHandler, sf::Font *font);
+            std::shared_ptr<ResourcesHandler> rsHandler, sf::Font *font, state_enum _state_enum);
     virtual ~GameState();
 
     //accessors
@@ -70,6 +70,10 @@ public:
     std::shared_ptr<SpellComponent> getSpellComponent();
     std::shared_ptr<SpellTab> getSpellTab();
     std::shared_ptr<LootGenerator> getLootGenerator();
+    std::shared_ptr<Player> getPlayer();
+    Npc* getNpc(int index);
+    npc_type getInteractNpc() const;
+    std::shared_ptr<Enemy> getEnemy(int index);
     bool getStateKeyTime();
 
     void addObserver(Observer* observer);
@@ -80,6 +84,7 @@ public:
     void changeMap(int floor);
     void checkBattleResult(BattleResult& battle_result);
     void spawnEnemy(float x, float y, enemy_types type, unsigned int enemy_followers = 5);
+    void spawnNpc(float x, float y, npc_type spawn_npc_type);
     bool deleteEnemyById(unsigned int enemy_id);
     void addItem(const std::shared_ptr<Item>& new_item);
     void changeStato(state_tab current_stato);
@@ -88,6 +93,7 @@ public:
     void updateTabsInvSpaceLbl();
     void updateTabsPlayerStatsLbl(state_tab update_tab = NO_TAB);
     void updateInput(const float &dt) override;
+    void updateMouseInput(const float &dt);
     void updatePlayerInput(const float& dt);
     void updatePausedMenuButtons();
     void updateView(const float& dt);

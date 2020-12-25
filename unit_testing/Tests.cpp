@@ -8,20 +8,27 @@
 using testing::Eq;
 
 class Tests : public  testing::Test{
-private:
-
 protected:
     Game* game;
-
-    virtual void SetUp(){
-        this->game = new Game();
+    void SetUp() override{
+        game = new Game();
+        game->testRun();
     }
-    virtual void TearDown() {
-        delete this->game;
+    void TearDown() override {
+        delete game;
     }
-public:
-
 };
-TEST_F(Tests, WindowIsOpen){
+
+TEST_F(Tests, StartWindow){
     ASSERT_EQ(game->getWindow()->isOpen(), true);
+}
+
+TEST_F(Tests, StartMainMenu){
+    ASSERT_EQ(game->getTopState()->getStateEnum(), MAINMENU_STATE);
+}
+
+TEST_F(Tests, StartGame){
+    auto mainmenu = dynamic_cast<MainMenuState*>(game->getTopState());
+    mainmenu->startNewGame();
+    ASSERT_EQ(game->getTopState()->getStateEnum(), GAME_STATE);
 }

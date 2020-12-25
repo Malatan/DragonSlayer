@@ -15,6 +15,7 @@
 #include "../Game/Achievement.h"
 
 class Inventory;
+class Resource;
 
 class ResourcesHandler {
 public:

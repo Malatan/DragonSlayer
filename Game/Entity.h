@@ -10,6 +10,7 @@
 #include "../Components/HitBoxComponent.h"
 #include "../Components/CollisionBoxComponent.h"
 #include <iostream>
+#include <queue>
 
 enum entity_animation{
     IDLE_ANIMATION,
@@ -45,15 +46,18 @@ public:
     virtual std::shared_ptr<HitboxComponent> getHitboxComponent();
     virtual std::shared_ptr<CollisionBoxComponent> getCollisionBoxComponent();
     virtual sf::Vector2f getPosition() const;
-    const virtual sf::Vector2f getCenter() const;
+    virtual sf::Vector2f getCenter() const;
     virtual sf::FloatRect getGlobalBounds() const;
     virtual sf::FloatRect getNextPositionBounds(const float& dt);
     virtual sf::Vector2i getGridPosition() const;
 
     //functions
+    virtual void addTargetPoint(sf::Vector2f new_target_point);
+    virtual void clearTargetPoints();
     virtual void setPosition(float x, float y);
     virtual void setOrigin(float x, float y);
     virtual void move(const float& dt, float x, float y);
+    virtual void moveTo(const float& dt, sf::Vector2f& target_point);
     virtual void setSpritePositon(sf::Vector2f pos);
     virtual void update(const float& dt);
     virtual void render(sf::RenderTarget& target);
@@ -62,6 +66,7 @@ public:
 protected:
     sf::Sprite sprite;
     sf::Vector2f scale;
+    std::queue<sf::Vector2f> targetPoints;
 
     std::shared_ptr<MovementComponent> movementComponent;
     std::shared_ptr<AnimationComponent> animationComponent;

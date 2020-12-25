@@ -7,8 +7,16 @@
 Resource::Resource(const std::string& resourcePath, const std::string& key,const std::string& stateName)  :
         resourcePath(resourcePath), key(key), stateName(stateName){
 
-    if(!image.loadFromFile(resourcePath)){
-        std::cout<<"Resource load error: " << stateName << "-" << key << " path:" << resourcePath;
+    if(utils::fileExists(resourcePath)){
+        if(!image.loadFromFile(resourcePath)){
+            std::cout<<"Resource load error: " << stateName << "-" << key << " path:" << resourcePath;
+            std::cout<< "Calling defualt constructor sf::Image() " << std::endl;
+            image = sf::Image();
+        }
+    }else{
+        std::cout<< resourcePath << " does not exist. ";
+        std::cout<< "Calling defualt constructor sf::Image() " << std::endl;
+        image = sf::Image();
     }
 }
 
@@ -29,6 +37,8 @@ std::string Resource::toString() {
     app += " Path: " + resourcePath;
     return app;
 }
+
+
 
 
 

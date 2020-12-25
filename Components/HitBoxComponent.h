@@ -30,6 +30,7 @@ public:
     //Functions
     bool intersects(const sf::FloatRect& frect);
     sf::Vector2f getCenter();
+    sf::FloatRect getCenterRect();
     void update();
     void render(sf::RenderTarget& target);
 
@@ -37,6 +38,7 @@ private:
     sf::Sprite& sprite;
     sf::RectangleShape hitbox;
     sf::FloatRect nextPosition;
+    sf::RectangleShape centerRect;
     float offsetX;
     float offsetY;
 };

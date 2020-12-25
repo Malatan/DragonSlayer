@@ -26,5 +26,6 @@ namespace utils{
     float roundf(float n, int n_decimals);
     std::string textWrap(sf::Text& label, const std::string& wrap_text, float line_length);
     float absoluteValue(float a);
+    bool fileExists(const std::string& path);
 }
 #endif //DRAGONSLAYER_UTILS_H

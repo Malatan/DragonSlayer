@@ -3574,6 +3574,15 @@ CMakeFiles/DragonSlayer.dir/Map/Tile.cpp.obj: ../SFML_2.5.1/include/SFML/Window/
 CMakeFiles/DragonSlayer.dir/Map/Tile.cpp.obj: ../Map/Tile.cpp
 CMakeFiles/DragonSlayer.dir/Map/Tile.cpp.obj: ../Map/Tile.h
 
+CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.obj: ../Components/AchievementsEnum.h
+CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.obj: ../Components/SpellComponent.h
+CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.obj: ../Game/Achievement.h
+CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.obj: ../Game/Buff.h
+CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.obj: ../Game/Inventory.h
+CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.obj: ../Game/Item.h
+CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.obj: ../Game/Spell.h
+CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.obj: ../Game/Stats.h
+CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.obj: ../Resources/ResourcesHandler.h
 CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.obj: ../SFML_2.5.1/include/SFML/Config.hpp
 CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.obj: ../SFML_2.5.1/include/SFML/Graphics.hpp
 CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.obj: ../SFML_2.5.1/include/SFML/Graphics/BlendMode.hpp
@@ -3648,6 +3657,7 @@ CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.obj: ../SFML_2.5.1/include/SF
 CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.obj: ../SFML_2.5.1/include/SFML/Window/Window.hpp
 CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.obj: ../SFML_2.5.1/include/SFML/Window/WindowHandle.hpp
 CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.obj: ../SFML_2.5.1/include/SFML/Window/WindowStyle.hpp
+CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.obj: ../Game/Utils.h
 CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.obj: ../Resources/Resource.cpp
 CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.obj: ../Resources/Resource.h
 

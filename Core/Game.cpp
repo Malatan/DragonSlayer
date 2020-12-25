@@ -26,7 +26,7 @@ void Game::initWindow() {
         ifs >> veritcal_enabled;
         ifs >> antialiasing_level;
     } else{
-        std::cout<<"window.ini not found"<<"\n";
+        std::cout<<"window.ini not found. Default settings applied"<<"\n";
     }
     ifs.close();
 
@@ -40,9 +40,8 @@ void Game::initWindow() {
     rsHandler = std::make_shared<ResourcesHandler>();
 }
 
-
 void Game::initStates() {
-    states.push(std::make_unique<MainMenuState>(window, &states, rsHandler));
+    states.push(std::make_unique<MainMenuState>(window, &states, rsHandler, MAINMENU_STATE));
 }
 
 //Constructors/Destructors
@@ -90,6 +89,19 @@ void Game::update() {
     }
 }
 
+void Game::testUpdate() {
+    if(!states.empty()){
+        states.top()->update(dt);
+        if(states.top()->getQuit()) {
+            states.top()->endState();
+            states.pop();
+        }
+    } else{
+        endApplication();
+        window->close();
+    }
+}
+
 void Game::render() {
     window->clear();
 
@@ -109,8 +121,29 @@ void Game::run() {
     }
 }
 
+void Game::testRun(bool do_render) {
+    updateDt();
+    testUpdate();
+    if(do_render)
+        render();
+}
+
 shared_ptr<sf::RenderWindow> Game::getWindow(){
     return window;
 }
+
+int Game::getStateStackSize() const {
+    return states.size();
+}
+
+State *Game::getTopState() {
+    return states.top().get();
+}
+
+float Game::getDt() const {
+    return dt;
+}
+
+
 
 

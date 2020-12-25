@@ -4,27 +4,22 @@
 
 #include "MainMenuState.h"
 
-void MainMenuState::initVariables() {
+void MainMenuState::initResources() {
+    rsHandler->addResource("../Resources/Images/Backgrounds/mainMenuBG.png",
+                           "mainmenu background", "MainMenuState");
+
+    if(!font.loadFromFile("../Resources/Fonts/BreatheFire-65pg.ttf")){
+        std::cout<<"Errore: mainmenustate could not load font" << std::endl;
+    }
+}
+
+void MainMenuState::initBackground() {
     background.setSize(
             sf::Vector2f(
                     static_cast<float>(window->getSize().x),
                     static_cast<float>(window->getSize().y)));
-
-    rsHandler->addResource("../Resources/Images/Backgrounds/mainMenuBG.png", "mainmenu background", "MainMenuState");
-
     backgroundTexture.loadFromImage(rsHandler->getResourceByKey("mainmenu background")->getImage());
-
     background.setTexture(&backgroundTexture);
-}
-
-void MainMenuState::initBackground() {
-
-}
-
-void MainMenuState::initFonts() {
-    if(!font.loadFromFile("../Resources/Fonts/BreatheFire-65pg.ttf")){
-        std::cout<<"Errore: mainmenustate could not load font";
-    }
 }
 
 void MainMenuState::initButtons() {
@@ -53,19 +48,17 @@ void MainMenuState::initButtons() {
 }
 
 MainMenuState::MainMenuState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::unique_ptr<State>>* states,
-        std::shared_ptr<ResourcesHandler> rsHandler)
-        : State(std::move(window), states, std::move(rsHandler)){
-    initVariables();
+        std::shared_ptr<ResourcesHandler> rsHandler, state_enum _state_enum)
+        : State(std::move(window), states, std::move(rsHandler), _state_enum){
+    initResources();
     initBackground();
-    initFonts();
     initButtons();
 }
 
 MainMenuState::~MainMenuState() = default;
 
 void MainMenuState::startNewGame() {
-    states->push(std::make_unique<GameState>(window, states, rsHandler, &font));
-
+    states->push(std::make_unique<GameState>(window, states, rsHandler, &font, GAME_STATE));
 }
 
 void MainMenuState::updateInput(const float &dt) {
@@ -121,5 +114,7 @@ void MainMenuState::render(sf::RenderTarget *target) {
     target->draw(mouseText);*/
 
 }
+
+
 
 

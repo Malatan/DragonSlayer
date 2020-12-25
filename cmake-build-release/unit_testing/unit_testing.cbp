@@ -278,6 +278,15 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="E:/Progetto/DragonSlayer/Components/AchievementComponent.cpp">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Components/AchievementComponent.h">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Components/AchievementsEnum.h">
+			<Option target="unit_testing_run"/>
+		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Components/AnimationComponent.cpp">
 			<Option target="unit_testing_run"/>
 		</Unit>
@@ -288,6 +297,12 @@
 			<Option target="unit_testing_run"/>
 		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Components/BuffComponent.h">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Components/CollisionBoxComponent.cpp">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Components/CollisionBoxComponent.h">
 			<Option target="unit_testing_run"/>
 		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Components/HitBoxComponent.cpp">
@@ -308,6 +323,18 @@
 		<Unit filename="E:/Progetto/DragonSlayer/Components/PopUpTextComponent.h">
 			<Option target="unit_testing_run"/>
 		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Components/SpellComponent.cpp">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Components/SpellComponent.h">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Core/BattleState.cpp">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Core/BattleState.h">
+			<Option target="unit_testing_run"/>
+		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Core/Game.cpp">
 			<Option target="unit_testing_run"/>
 		</Unit>
@@ -326,6 +353,9 @@
 		<Unit filename="E:/Progetto/DragonSlayer/Core/MainMenuState.h">
 			<Option target="unit_testing_run"/>
 		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Core/Observer.h">
+			<Option target="unit_testing_run"/>
+		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Core/RunTimeClock.cpp">
 			<Option target="unit_testing_run"/>
 		</Unit>
@@ -336,6 +366,15 @@
 			<Option target="unit_testing_run"/>
 		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Core/State.h">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Core/Subject.h">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Game/Achievement.cpp">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Game/Achievement.h">
 			<Option target="unit_testing_run"/>
 		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Game/BattleResult.cpp">
@@ -362,6 +401,12 @@
 		<Unit filename="E:/Progetto/DragonSlayer/Game/Entity.h">
 			<Option target="unit_testing_run"/>
 		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Game/Generator.cpp">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Game/Generator.h">
+			<Option target="unit_testing_run"/>
+		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Game/Inventory.cpp">
 			<Option target="unit_testing_run"/>
 		</Unit>
@@ -372,6 +417,18 @@
 			<Option target="unit_testing_run"/>
 		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Game/Item.h">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Game/LootBag.cpp">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Game/LootBag.h">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Game/LootGenerator.cpp">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Game/LootGenerator.h">
 			<Option target="unit_testing_run"/>
 		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Game/Npc.cpp">
@@ -398,6 +455,18 @@
 		<Unit filename="E:/Progetto/DragonSlayer/Game/Stats.h">
 			<Option target="unit_testing_run"/>
 		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Game/Utils.cpp">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Game/Utils.h">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Gui/AchievementTab.cpp">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Gui/AchievementTab.h">
+			<Option target="unit_testing_run"/>
+		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Gui/CharacterTab.cpp">
 			<Option target="unit_testing_run"/>
 		</Unit>
@@ -422,10 +491,58 @@
 		<Unit filename="E:/Progetto/DragonSlayer/Gui/PriestTab.h">
 			<Option target="unit_testing_run"/>
 		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Gui/SelectLevelTab.cpp">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Gui/SelectLevelTab.h">
+			<Option target="unit_testing_run"/>
+		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Gui/ShopTab.cpp">
 			<Option target="unit_testing_run"/>
 		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Gui/ShopTab.h">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Gui/SpellTab.cpp">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Gui/SpellTab.h">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Gui/WizardTab.cpp">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Gui/WizardTab.h">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Gui/libraries/RichText.cpp">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Gui/libraries/RichText.hpp">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Map/Dungeon.cpp">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Map/Dungeon.h">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Map/Map.cpp">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Map/Map.h">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Map/MapGenerator.cpp">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Map/MapGenerator.h">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Map/Tile.cpp">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Map/Tile.h">
 			<Option target="unit_testing_run"/>
 		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Resources/Resource.cpp">
@@ -438,6 +555,15 @@
 			<Option target="unit_testing_run"/>
 		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Resources/ResourcesHandler.h">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Shader/fragment_shader.frag">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Shader/vertex_shader.vert">
+			<Option target="unit_testing_run"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/unit_testing/PlayerTests.cpp">
 			<Option target="unit_testing_run"/>
 		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/unit_testing/Tests.cpp">

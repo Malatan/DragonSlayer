@@ -10,7 +10,7 @@
 class MainMenuState : public State {
 public:
     MainMenuState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::unique_ptr<State>>* states,
-                  std::shared_ptr<ResourcesHandler> rsHandler);
+                  std::shared_ptr<ResourcesHandler> rsHandler, state_enum _state_enum);
     ~MainMenuState() override;
 
     //functions
@@ -29,9 +29,8 @@ private:
     std::map<std::string, gui::Button> buttons;
 
     //functions
-    void initVariables();
+    void initResources();
     void initBackground();
-    void initFonts();
     void initButtons();
 };
 

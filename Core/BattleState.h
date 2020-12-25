@@ -43,7 +43,7 @@ class BattleState : public State{
 public:
     //constructors/destructor
     BattleState(std::shared_ptr<sf::RenderWindow> window, std::shared_ptr<Player> player,
-                std::stack<std::unique_ptr<State>>* states,
+                std::stack<std::unique_ptr<State>>* states, state_enum _state_enum,
                 std::shared_ptr<PopUpTextComponent> popUpTextComponent, std::shared_ptr<SpellComponent> spellComponent,
                 std::shared_ptr<BuffComponent> buffComponent, std::shared_ptr<ResourcesHandler> rsHandler,
                 std::map<std::string, sf::Texture> textures, sf::Font *font, std::shared_ptr<Enemy> enemy, float exp_gold_bonus,

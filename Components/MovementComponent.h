@@ -28,6 +28,8 @@ public:
     const float& getMaxVelocity() const;
     const sf::Vector2f& getVelocity() const;
     const sf::Vector2f& getPreviousPosition() const;
+    float getDeceleration() const;
+    float getAcceleration() const;
 
     //functions
     bool getState(short unsigned state) const;

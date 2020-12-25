@@ -266,31 +266,50 @@ void CharacterTab::initInventoryContainer() {
 
 void CharacterTab::initInventorySlots() {
     //init inventory slots
-    if(!inventorySlots.empty()){
+    if (!inventorySlots.empty()) {
         inventorySlots.clear();
     }
+    if(!inventorySlotsBackgrounds.empty())
+        inventorySlotsBackgrounds.clear();
 
     int max_per_row = 10;
     float modifierX = 70.f;
     float modifierY = 70.f;
     float yMultiplier = 0;
-    for(int i = 0 ; i < player->getInventory()->getItemsSize() ; i++){
-        if((i % max_per_row) == 0 && i != 0){
-            yMultiplier ++;
+    for (int i = 0; i < player->getInventory()->getItemsSize(); i++) {
+        if ((i % max_per_row) == 0 && i != 0) {
+            yMultiplier++;
         }
         inventorySlots.push_back(std::make_unique<gui::ItemSlot>(
-                inventoryContainer.getPosition().x + 36.f + (modifierX * (float)(i % max_per_row)),
-                inventoryContainer.getPosition().y + 70.f + (modifierY * yMultiplier) ,
+                inventoryContainer.getPosition().x + 36.f + (modifierX * (float) (i % max_per_row)),
+                inventoryContainer.getPosition().y + 70.f + (modifierY * yMultiplier),
                 60.f, 60.f, window, font, player->getInventory()->getItemByIndex(i), state, false
         ));
     }
-    for(auto &i : inventorySlots){
+    yMultiplier = 0;
+    int items_count = inventorySlots.size();
+    for (int i = 0; i < Inventory::MAX_SPACE; i++) {
+        if ((i % max_per_row) == 0 && i != 0) {
+            yMultiplier++;
+        }
+        if (items_count <= 0) {
+            sf::RectangleShape bgSlot;
+            bgSlot.setSize(sf::Vector2f(60.f, 60.f));
+            bgSlot.setPosition(inventoryContainer.getPosition().x + 36.f + (modifierX * (float) (i % max_per_row)),
+                               inventoryContainer.getPosition().y + 70.f + (modifierY * yMultiplier));
+            bgSlot.setFillColor(sf::Color(60, 60, 60, 100));
+            bgSlot.setOutlineColor(sf::Color(30, 30, 30));
+            bgSlot.setOutlineThickness(3.f);
+            inventorySlotsBackgrounds.push_back(bgSlot);
+        }
+        items_count--;
+    }
+    for (auto &i : inventorySlots) {
         i->setSlotTexture(&textures["ITEMS_SHEET"], 34.f);
         i->setDownRightTexture(&textures["SELECTED_ICON"]);
         i->setUpRightTexture(&textures["NEW_TAG"]);
     }
 }
-
 CharacterTab::CharacterTab(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* font,
         std::shared_ptr<Player> player, State* state, map<string, sf::Texture> textures,
         std::shared_ptr<ResourcesHandler> rsHandler, npc_type* npcInteract) :
@@ -822,6 +841,8 @@ void CharacterTab::render(sf::RenderTarget &target) {
     target.draw(expBarLbl);
     expBar.render(target);
 
+    for(const auto& i : inventorySlotsBackgrounds)
+        target.draw(i);
     statsContainerRender(target);
     invContainerRender(target);
     equipContainerRender(target);

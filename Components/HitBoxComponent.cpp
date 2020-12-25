@@ -16,6 +16,12 @@ HitboxComponent::HitboxComponent(sf::Sprite& sprite,
     hitbox.setFillColor(sf::Color::Transparent);
     hitbox.setOutlineThickness(-1.f);
     hitbox.setOutlineColor(sf::Color::Green);
+    centerRect.setSize(sf::Vector2f(10.f, 10.f));
+    centerRect.setFillColor(sf::Color::Red);
+}
+
+sf::FloatRect HitboxComponent::getCenterRect() {
+    return centerRect.getGlobalBounds();
 }
 
 HitboxComponent::~HitboxComponent() = default;
@@ -47,6 +53,7 @@ bool HitboxComponent::intersects(const sf::FloatRect& frect) {
 
 void HitboxComponent::update() {
     hitbox.setPosition(sprite.getPosition().x + offsetX, sprite.getPosition().y + offsetY);
+    centerRect.setPosition(getCenter().x - 5.f, getCenter().y - 5.f);
 }
 
 void HitboxComponent::render(sf::RenderTarget & target) {

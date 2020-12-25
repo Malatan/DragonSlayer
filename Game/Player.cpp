@@ -137,6 +137,13 @@ void Player::update(const float &dt) {
     updateAnimation(dt);
     hitboxComponent->update();
     collisionBoxComponent->update();
+    if(!targetPoints.empty()){
+        moveTo(dt, targetPoints.front());
+        if(hitboxComponent->getCenterRect().contains(targetPoints.front())){
+            targetPoints.pop();
+            stopVelocity();
+        }
+    }
 }
 
 void Player::render(sf::RenderTarget &target, sf::Shader* shader, sf::Vector2f light_position, const bool show_hitbox, const bool show_clsBox ) {

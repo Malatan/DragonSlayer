@@ -5,7 +5,6 @@
 #ifndef DRAGONSLAYER_STATE_H
 #define DRAGONSLAYER_STATE_H
 
-
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -15,10 +14,14 @@
 #include "../Resources/ResourcesHandler.h"
 #include <memory>
 
+enum state_enum{
+    DEFAULT_STATE,
+    MAINMENU_STATE,
+    GAME_STATE,
+    BATTLE_STATE
+};
 
 class State {
-private:
-
 
 protected:
     std::stack<std::unique_ptr<State>>* states{};
@@ -29,22 +32,22 @@ protected:
     bool paused{};
     float keyTime{};
     float keyTimeMax{};
-
+    state_enum stateEnum{};
     sf::Vector2f mousePosView;
 
     //resources
     std::map<std::string, sf::Texture> textures;
 
 public:
-    State();
     State(std::shared_ptr<sf::RenderWindow> window, std::stack<std::unique_ptr<State>>* states,
-            std::shared_ptr<ResourcesHandler> rsHandler);
+            std::shared_ptr<ResourcesHandler> rsHandler, state_enum _state_enum);
     virtual ~State();
 
     //accessors
     const bool& getQuit() const;
     bool getKeyTime();
     const map<string, sf::Texture> &getTextures() const;
+    state_enum getStateEnum() const;
 
     //functions
     void endState();

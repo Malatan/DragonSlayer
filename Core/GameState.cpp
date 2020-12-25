@@ -301,26 +301,23 @@ void GameState::preNotifiers() {
 
 //constructors/destructors
 GameState::GameState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::unique_ptr<State>>* states,
-                     std::shared_ptr<ResourcesHandler> rsHandler, sf::Font *font)
-        : State(std::move(window), states, std::move(rsHandler)){
+                     std::shared_ptr<ResourcesHandler> rsHandler, sf::Font *font, state_enum _state_enum)
+        : State(std::move(window), states, std::move(rsHandler), _state_enum){
     this->font = font;
     stato = NO_TAB;
     npcInteract = NO_NPC;
     noclip = false;
     spawnPos = {1730.f, 770.f};
     floorReached = 0;
-
     initShader();
     initTextures();
     initPauseMenu();
     initPlayers();
-
     initComponents();
     initLootGenerator();
     initView();
     initDebugText();
     initButtons();
-
     initTabs();
     initHintsTab();
     initMaps();
@@ -356,8 +353,28 @@ std::shared_ptr<LootGenerator> GameState::getLootGenerator() {
     return lootGenerator;
 }
 
+Npc *GameState::getNpc(int index) {
+    if(index < npcs.size())
+        return npcs[index];
+    return nullptr;
+}
+
+npc_type GameState::getInteractNpc() const {
+    return npcInteract;
+}
+
+std::shared_ptr<Enemy> GameState::getEnemy(int index) {
+    if(index < enemies.size())
+        return enemies[index];
+    return nullptr;
+}
+
 bool GameState::getStateKeyTime() {
     return getKeyTime();
+}
+
+std::shared_ptr<Player> GameState::getPlayer() {
+    return player;
 }
 
 void GameState::addObserver(Observer *observer) {
@@ -522,6 +539,25 @@ void GameState::spawnEnemy(float x, float y, enemy_types type, unsigned int enem
             }
             new_enemy->updateStatsBoost(true);
         }
+    }
+}
+
+void GameState::spawnNpc(float x, float y, npc_type spawn_npc_type) {
+    switch (spawn_npc_type) {
+        case SHOP:
+            npcs.push_back(new Npc(spawn_npc_type, x, y, 1.5f, 1.5f,
+                                   textures["SHOP_NPC_SHEET"], textures["CHATTABLE_ICON"]));
+            break;
+        case PRIEST:
+            npcs.push_back(new Npc(spawn_npc_type, x, y, 1.5f, 1.5f,
+                                   textures["PRIEST_NPC_SHEET"], textures["CHATTABLE_ICON"]));
+            break;
+        case WIZARD:
+            npcs.push_back(new Npc(spawn_npc_type, x, y, 0.7f, 0.7f,
+                                   textures["WIZARD_NPC_SHEET"], textures["CHATTABLE_ICON"]));
+            break;
+        case NO_NPC: case DEFAULT_NPC:
+            break;
     }
 }
 
@@ -731,6 +767,16 @@ void GameState::updateInput(const float &dt) {
     }
 }
 
+void GameState::updateMouseInput(const float &dt) {
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && getKeyTime()) {
+        player->clearTargetPoints();
+        player->addTargetPoint(mousePosView);
+        std::cout<<"going to: " << mousePosView.x << " - " << mousePosView.y << " from: "
+                 << player->getHitboxComponent()->getCenter().x
+                 << " - " << player->getHitboxComponent()->getCenter().y<<endl;
+    }
+}
+
 void GameState::updatePlayerInput(const float &dt) {
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
         player->move(dt, -1.f, 0.f);
@@ -829,6 +875,7 @@ void GameState::update(const float& dt) {
     updateTileMap(dt);
     updateDebugText();
     updateButtons();
+    updateMouseInput(dt);
     updateMousePosition(nullptr);
     achievementComponent->update(dt, mousePosView);
     buffComponent->update(dt, mousePosView);
@@ -869,7 +916,7 @@ void GameState::update(const float& dt) {
             if(!noclip){
                 if(i->getHitboxComponent()->intersects(player->getHitboxComponent()->getGlobalBounds())){
                     states->push(std::make_unique<BattleState>(
-                            window, player, states,
+                            window, player, states, BATTLE_STATE,
                             popUpTextComponent, spellComponent, buffComponent,
                             rsHandler, textures, font, i, achievementComponent->getExpGoldBonus(), currentFloor, cTab));
                     break;
@@ -1048,12 +1095,10 @@ void GameState::changeMap(int floor) {
         player->setPosition(spawnPos.x, spawnPos.y);
         if (!enemies.empty())
             enemies.clear();
-        npcs.push_back(new Npc(WIZARD, 1430.f, 870.f, 0.7f, 0.7f,
-                               textures["WIZARD_NPC_SHEET"], textures["CHATTABLE_ICON"]));
-        npcs.push_back(new Npc(SHOP, 1960.f, 570.f, 1.5f, 1.5f,
-                               textures["SHOP_NPC_SHEET"], textures["CHATTABLE_ICON"]));
-        npcs.push_back(new Npc(PRIEST, 910.f, 570.f, 1.5f, 1.5f,
-                               textures["PRIEST_NPC_SHEET"], textures["CHATTABLE_ICON"]));
+
+        spawnNpc(1430.f, 870.f, WIZARD);
+        spawnNpc(1960.f, 570.f, SHOP);
+        spawnNpc(910.f, 570.f, PRIEST);
     }
 }
 
@@ -1108,6 +1153,9 @@ void GameState::spawnEnemyOnMap() {
         }
     }
 }
+
+
+
 
 
 

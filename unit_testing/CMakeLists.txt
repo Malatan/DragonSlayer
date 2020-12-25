@@ -5,6 +5,7 @@ include_directories(../Resources)
 set(SOURCE_FILES
         mainTest.cpp
         Tests.cpp
+        PlayerTests.cpp
         ../Core/Game.cpp
         ../Core/Game.h
         ../Core/State.cpp
@@ -13,8 +14,12 @@ set(SOURCE_FILES
         ../Core/MainMenuState.h
         ../Core/GameState.cpp
         ../Core/GameState.h
+        ../Core/BattleState.cpp
+        ../Core/BattleState.h
         ../Core/RunTimeClock.cpp
         ../Core/RunTimeClock.h
+        ../Core/Observer.h
+        ../Core/Subject.h
         ../Gui/Gui.cpp
         ../Gui/Gui.h
         ../Gui/PauseMenu.cpp
@@ -25,6 +30,16 @@ set(SOURCE_FILES
         ../Gui/ShopTab.cpp
         ../Gui/PriestTab.h
         ../Gui/PriestTab.cpp
+        ../Gui/SpellTab.cpp
+        ../Gui/SpellTab.h
+        ../Gui/WizardTab.cpp
+        ../Gui/WizardTab.h
+        ../Gui/libraries/RichText.hpp
+        ../Gui/libraries/RichText.cpp
+        ../Gui/SelectLevelTab.cpp
+        ../Gui/SelectLevelTab.h
+        ../Gui/AchievementTab.cpp
+        ../Gui/AchievementTab.h
         ../Game/Entity.cpp
         ../Game/Entity.h
         ../Game/Player.cpp
@@ -43,8 +58,18 @@ set(SOURCE_FILES
         ../Game/Stats.cpp
         ../Game/Npc.h
         ../Game/Npc.cpp
+        ../Game/Generator.cpp
+        ../Game/Generator.h
+        ../Game/Utils.h
+        ../Game/Utils.cpp
         ../Game/BattleResult.h
         ../Game/BattleResult.cpp
+        ../Game/LootGenerator.cpp
+        ../Game/LootGenerator.h
+        ../Game/LootBag.h
+        ../Game/LootBag.cpp
+        ../Game/Achievement.cpp
+        ../Game/Achievement.h
         ../Components/MovementComponent.cpp
         ../Components/MovementComponent.h
         ../Components/AnimationComponent.cpp
@@ -53,12 +78,29 @@ set(SOURCE_FILES
         ../Components/HitBoxComponent.h
         ../Components/BuffComponent.cpp
         ../Components/BuffComponent.h
+        ../Components/SpellComponent.cpp
+        ../Components/SpellComponent.h
         ../Components/PopUpTextComponent.cpp
         ../Components/PopUpTextComponent.h
+        ../Components/CollisionBoxComponent.cpp
+        ../Components/CollisionBoxComponent.h
+        ../Components/AchievementComponent.cpp
+        ../Components/AchievementComponent.h
+        ../Components/AchievementsEnum.h
         ../Resources/ResourcesHandler.cpp
         ../Resources/ResourcesHandler.h
         ../Resources/Resource.cpp
         ../Resources/Resource.h
+        ../Map/Map.cpp
+        ../Map/Map.h
+        ../Map/MapGenerator.h
+        ../Map/MapGenerator.cpp
+        ../Map/Tile.h
+        ../Map/Tile.cpp
+        ../Map/Dungeon.cpp
+        ../Map/Dungeon.h
+        ../Shader/fragment_shader.frag
+        ../Shader/vertex_shader.vert
         )
 # 'lib' is the folder with Google Test sources
 add_subdirectory(lib/googletest-master)

@@ -21,18 +21,22 @@ public:
 
     //Functions
     static void endApplication();
+    int getStateStackSize() const;
+    State* getTopState();
+    float getDt() const;
 
     //update
     void updateDt();
     void updateSFMLEvents();
     void update();
+    void testUpdate();
 
     //render
     void render();
 
     //core
     void run();
-
+    void testRun(bool do_render = false);
 private:
     //Variables
     std::shared_ptr<ResourcesHandler> rsHandler;

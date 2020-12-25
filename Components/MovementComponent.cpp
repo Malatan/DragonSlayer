@@ -116,6 +116,14 @@ void MovementComponent::update(const float &dt) {
     sprite.move(velocity * dt);
 }
 
+float MovementComponent::getDeceleration() const {
+    return deceleration;
+}
+
+float MovementComponent::getAcceleration() const {
+    return acceleration;
+}
+
 void MovementComponent::stopVelocity() {
     velocity.x = 0.f;
     velocity.y = 0.f;

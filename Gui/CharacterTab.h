@@ -104,6 +104,7 @@ private:
     std::unique_ptr<gui::ItemSlot> equipSlots[6];
 
     //inventory container
+    std::vector<sf::RectangleShape> inventorySlotsBackgrounds;
     std::vector<std::unique_ptr<gui::ItemSlot>> inventorySlots;
     sf::RectangleShape inventoryContainer;
     sf::Text invContainerTitle;

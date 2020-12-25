@@ -58,6 +58,23 @@ void Entity::move(const float& dt, const float dir_x, const float dir_y) {
 
 }
 
+void Entity::moveTo(const float& dt, sf::Vector2f& target_point) {
+   if(std::abs(hitboxComponent->getCenter().x - target_point.x) > 0.5f){
+        if(hitboxComponent->getCenter().x > target_point.x){
+            movementComponent->move(-1.f, 0.f, dt);
+        }else if(hitboxComponent->getCenter().x < target_point.x){
+            movementComponent->move(1.f, 0.f, dt);
+        }
+    }
+    if(std::abs(hitboxComponent->getCenter().y - target_point.y) > 0.5f){
+        if(hitboxComponent->getCenter().y < target_point.y){
+            movementComponent->move(0.f, 1.f, dt);
+        }else if(hitboxComponent->getCenter().y > target_point.y){
+            movementComponent->move(0.f, -1.f, dt);
+        }
+    }
+}
+
 void Entity::update(const float &dt) {
 
 }
@@ -123,7 +140,7 @@ void Entity::setOrigin(float x, float y) {
     sprite.setOrigin(x, y);
 }
 
-const sf::Vector2f Entity::getCenter() const {
+sf::Vector2f Entity::getCenter() const {
     if(hitboxComponent){
         return hitboxComponent->getPosition() +
         sf::Vector2f(
@@ -137,6 +154,16 @@ const sf::Vector2f Entity::getCenter() const {
                    sprite.getGlobalBounds().height/2.f
            );
 }
+
+void Entity::addTargetPoint(sf::Vector2f new_target_point) {
+    targetPoints.push(new_target_point);
+}
+
+void Entity::clearTargetPoints() {
+    while(!targetPoints.empty())
+        targetPoints.pop();
+}
+
 
 
 

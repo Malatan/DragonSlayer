@@ -63,5 +63,9 @@ float utils::absoluteValue(float a) {
     return abs(a);
 }
 
+bool utils::fileExists(const std::string& path) {
+    std::ifstream infile(path);
+    return infile.good();
+}
 
 

@@ -6,100 +6,6 @@
 
 #IncludeRegexTransform: 
 
-../Components/AchievementsEnum.h
-
-../Components/SpellComponent.h
-../Game/Spell.h
-../Game/Spell.h
-vector
--
-memory
--
-
-../Game/Achievement.h
-iostream
--
-sstream
--
-../Components/AchievementsEnum.h
-../Components/AchievementsEnum.h
-
-../Game/Buff.h
-iostream
--
-sstream
--
-memory
--
-Stats.h
-../Game/Stats.h
-
-../Game/Inventory.h
-Item.h
-../Game/Item.h
-vector
--
-algorithm
--
-memory
--
-
-../Game/Item.h
-string
--
-iostream
--
-sstream
--
-Buff.h
-../Game/Buff.h
-
-../Game/Spell.h
-string
--
-sstream
--
-iostream
-../Game/iostream
-fstream
-../Game/fstream
-
-../Game/Stats.h
-string
--
-sstream
--
-iostream
-../Game/iostream
-fstream
-../Game/fstream
-
-../Game/Utils.h
-iostream
--
-sstream
--
-ctime
--
-vector
--
-algorithm
--
-cmath
--
-random
--
-chrono
--
-ResourcesHandler.h
-../Game/ResourcesHandler.h
-
-../Resources/Resource.h
-iostream
--
-SFML/Graphics.hpp
--
-
 ../Resources/ResourcesHandler.h
 SFML/Graphics.hpp
 -
@@ -788,10 +694,6 @@ SFML/Config.hpp
 
 ../SFML_2.5.1/include/SFML/Window/WindowStyle.hpp
 
-E:/Progetto/DragonSlayer/Components/AchievementComponent.cpp
-AchievementComponent.h
-E:/Progetto/DragonSlayer/Components/AchievementComponent.h
-
 E:/Progetto/DragonSlayer/Components/AchievementComponent.h
 iostream
 -
@@ -821,10 +723,6 @@ SFML/Graphics.hpp
 -
 memory
 -
-
-E:/Progetto/DragonSlayer/Components/BuffComponent.cpp
-BuffComponent.h
-E:/Progetto/DragonSlayer/Components/BuffComponent.h
 
 E:/Progetto/DragonSlayer/Components/BuffComponent.h
 iostream
@@ -868,10 +766,6 @@ sstream
 memory
 -
 
-E:/Progetto/DragonSlayer/Components/SpellComponent.cpp
-SpellComponent.h
-E:/Progetto/DragonSlayer/Components/SpellComponent.h
-
 E:/Progetto/DragonSlayer/Components/SpellComponent.h
 ../Game/Spell.h
 E:/Progetto/DragonSlayer/Game/Spell.h
@@ -879,10 +773,6 @@ vector
 -
 memory
 -
-
-E:/Progetto/DragonSlayer/Core/BattleState.cpp
-BattleState.h
-E:/Progetto/DragonSlayer/Core/BattleState.h
 
 E:/Progetto/DragonSlayer/Core/BattleState.h
 string
@@ -919,28 +809,6 @@ E:/Progetto/DragonSlayer/Game/BattleResult.h
 E:/Progetto/DragonSlayer/Components/PopUpTextComponent.h
 ../Components/BuffComponent.h
 E:/Progetto/DragonSlayer/Components/BuffComponent.h
-
-E:/Progetto/DragonSlayer/Core/Game.cpp
-iostream
--
-Game.h
-E:/Progetto/DragonSlayer/Core/Game.h
-
-E:/Progetto/DragonSlayer/Core/Game.h
-State.h
-E:/Progetto/DragonSlayer/Core/State.h
-MainMenuState.h
-E:/Progetto/DragonSlayer/Core/MainMenuState.h
-RunTimeClock.h
-E:/Progetto/DragonSlayer/Core/RunTimeClock.h
-../Resources/ResourcesHandler.h
-E:/Progetto/DragonSlayer/Resources/ResourcesHandler.h
-
-E:/Progetto/DragonSlayer/Core/GameState.cpp
-GameState.h
-E:/Progetto/DragonSlayer/Core/GameState.h
-random
--
 
 E:/Progetto/DragonSlayer/Core/GameState.h
 State.h
@@ -1000,14 +868,6 @@ E:/Progetto/DragonSlayer/Core/Observer.h
 ../Components/AchievementsEnum.h
 E:/Progetto/DragonSlayer/Components/AchievementsEnum.h
 
-E:/Progetto/DragonSlayer/Core/RunTimeClock.h
-iostream
--
-
-E:/Progetto/DragonSlayer/Core/State.cpp
-State.h
-E:/Progetto/DragonSlayer/Core/State.h
-
 E:/Progetto/DragonSlayer/Core/State.h
 fstream
 -
@@ -1034,10 +894,6 @@ E:/Progetto/DragonSlayer/Core/Observer.h
 ../Components/AchievementComponent.h
 E:/Progetto/DragonSlayer/Components/AchievementComponent.h
 
-E:/Progetto/DragonSlayer/Game/Achievement.cpp
-Achievement.h
-E:/Progetto/DragonSlayer/Game/Achievement.h
-
 E:/Progetto/DragonSlayer/Game/Achievement.h
 iostream
 -
@@ -1045,10 +901,6 @@ sstream
 -
 ../Components/AchievementsEnum.h
 E:/Progetto/DragonSlayer/Components/AchievementsEnum.h
-
-E:/Progetto/DragonSlayer/Game/BattleResult.cpp
-BattleResult.h
-E:/Progetto/DragonSlayer/Game/BattleResult.h
 
 E:/Progetto/DragonSlayer/Game/BattleResult.h
 iostream
@@ -1069,10 +921,6 @@ memory
 -
 Stats.h
 E:/Progetto/DragonSlayer/Game/Stats.h
-
-E:/Progetto/DragonSlayer/Game/Enemy.cpp
-Enemy.h
-E:/Progetto/DragonSlayer/Game/Enemy.h
 
 E:/Progetto/DragonSlayer/Game/Enemy.h
 string
@@ -1107,10 +955,8 @@ E:/Progetto/DragonSlayer/Components/HitBoxComponent.h
 E:/Progetto/DragonSlayer/Components/CollisionBoxComponent.h
 iostream
 -
-
-E:/Progetto/DragonSlayer/Game/Generator.cpp
-Generator.h
-E:/Progetto/DragonSlayer/Game/Generator.h
+queue
+-
 
 E:/Progetto/DragonSlayer/Game/Generator.h
 iostream
@@ -1142,10 +988,6 @@ sstream
 Buff.h
 E:/Progetto/DragonSlayer/Game/Buff.h
 
-E:/Progetto/DragonSlayer/Game/LootBag.cpp
-LootBag.h
-E:/Progetto/DragonSlayer/Game/LootBag.h
-
 E:/Progetto/DragonSlayer/Game/LootBag.h
 Entity.h
 E:/Progetto/DragonSlayer/Game/Entity.h
@@ -1155,10 +997,6 @@ E:/Progetto/DragonSlayer/Game/Item.h
 E:/Progetto/DragonSlayer/Core/GameState.h
 ../Gui/Gui.h
 E:/Progetto/DragonSlayer/Gui/Gui.h
-
-E:/Progetto/DragonSlayer/Game/LootGenerator.cpp
-LootGenerator.h
-E:/Progetto/DragonSlayer/Game/LootGenerator.h
 
 E:/Progetto/DragonSlayer/Game/LootGenerator.h
 iostream
@@ -1218,10 +1056,6 @@ E:/Progetto/DragonSlayer/Game/iostream
 fstream
 E:/Progetto/DragonSlayer/Game/fstream
 
-E:/Progetto/DragonSlayer/Game/Utils.cpp
-Utils.h
-E:/Progetto/DragonSlayer/Game/Utils.h
-
 E:/Progetto/DragonSlayer/Game/Utils.h
 iostream
 -
@@ -1242,15 +1076,7 @@ chrono
 ResourcesHandler.h
 E:/Progetto/DragonSlayer/Game/ResourcesHandler.h
 
-E:/Progetto/DragonSlayer/Gui/AchievementTab.cpp
-AchievementTab.h
 E:/Progetto/DragonSlayer/Gui/AchievementTab.h
-
-E:/Progetto/DragonSlayer/Gui/AchievementTab.h
-CharacterTab.h
-E:/Progetto/DragonSlayer/Gui/CharacterTab.h
-
-E:/Progetto/DragonSlayer/Gui/CharacterTab.cpp
 CharacterTab.h
 E:/Progetto/DragonSlayer/Gui/CharacterTab.h
 
@@ -1264,14 +1090,6 @@ E:/Progetto/DragonSlayer/Core/GameState.h
 ../Game/Npc.h
 E:/Progetto/DragonSlayer/Game/Npc.h
 
-E:/Progetto/DragonSlayer/Gui/Gui.cpp
-Gui.h
-E:/Progetto/DragonSlayer/Gui/Gui.h
-iostream
--
-utility
--
-
 E:/Progetto/DragonSlayer/Gui/Gui.h
 ../Game/Item.h
 E:/Progetto/DragonSlayer/Game/Item.h
@@ -1284,25 +1102,13 @@ E:/Progetto/DragonSlayer/Game/Enemy.h
 libraries/RichText.hpp
 E:/Progetto/DragonSlayer/Gui/libraries/RichText.hpp
 
-E:/Progetto/DragonSlayer/Gui/PauseMenu.cpp
-PauseMenu.h
-E:/Progetto/DragonSlayer/Gui/PauseMenu.h
-
 E:/Progetto/DragonSlayer/Gui/PauseMenu.h
 Gui.h
 E:/Progetto/DragonSlayer/Gui/Gui.h
 
-E:/Progetto/DragonSlayer/Gui/PriestTab.cpp
-PriestTab.h
-E:/Progetto/DragonSlayer/Gui/PriestTab.h
-
 E:/Progetto/DragonSlayer/Gui/PriestTab.h
 ShopTab.h
 E:/Progetto/DragonSlayer/Gui/ShopTab.h
-
-E:/Progetto/DragonSlayer/Gui/SelectLevelTab.cpp
-SelectLevelTab.h
-E:/Progetto/DragonSlayer/Gui/SelectLevelTab.h
 
 E:/Progetto/DragonSlayer/Gui/SelectLevelTab.h
 ../Map/MapGenerator.h
@@ -1310,27 +1116,13 @@ E:/Progetto/DragonSlayer/Map/MapGenerator.h
 ShopTab.h
 E:/Progetto/DragonSlayer/Gui/ShopTab.h
 
-E:/Progetto/DragonSlayer/Gui/ShopTab.cpp
-ShopTab.h
-E:/Progetto/DragonSlayer/Gui/ShopTab.h
-
 E:/Progetto/DragonSlayer/Gui/ShopTab.h
 CharacterTab.h
 E:/Progetto/DragonSlayer/Gui/CharacterTab.h
 
-E:/Progetto/DragonSlayer/Gui/SpellTab.cpp
-iomanip
--
-SpellTab.h
-E:/Progetto/DragonSlayer/Gui/SpellTab.h
-
 E:/Progetto/DragonSlayer/Gui/SpellTab.h
 CharacterTab.h
 E:/Progetto/DragonSlayer/Gui/CharacterTab.h
-
-E:/Progetto/DragonSlayer/Gui/WizardTab.cpp
-WizardTab.h
-E:/Progetto/DragonSlayer/Gui/WizardTab.h
 
 E:/Progetto/DragonSlayer/Gui/WizardTab.h
 SpellTab.h
@@ -1350,24 +1142,6 @@ SFML/Graphics/Text.hpp
 SFML/System/Vector2.hpp
 -
 
-E:/Progetto/DragonSlayer/Map/Dungeon.cpp
-Dungeon.h
-E:/Progetto/DragonSlayer/Map/Dungeon.h
-
-E:/Progetto/DragonSlayer/Map/Dungeon.h
-vector
--
-iostream
--
-fstream
--
-../Game/Utils.h
-E:/Progetto/DragonSlayer/Game/Utils.h
-
-E:/Progetto/DragonSlayer/Map/Map.cpp
-Map.h
-E:/Progetto/DragonSlayer/Map/Map.h
-
 E:/Progetto/DragonSlayer/Map/Map.h
 Tile.h
 E:/Progetto/DragonSlayer/Map/Tile.h
@@ -1386,12 +1160,6 @@ E:/Progetto/DragonSlayer/Map/ctime
 ../Game/Utils.h
 E:/Progetto/DragonSlayer/Game/Utils.h
 
-E:/Progetto/DragonSlayer/Map/MapGenerator.cpp
-MapGenerator.h
-E:/Progetto/DragonSlayer/Map/MapGenerator.h
-Dungeon.h
-E:/Progetto/DragonSlayer/Map/Dungeon.h
-
 E:/Progetto/DragonSlayer/Map/MapGenerator.h
 Map.h
 E:/Progetto/DragonSlayer/Map/Map.h
@@ -1407,10 +1175,8 @@ iostream
 -
 SFML/Graphics.hpp
 -
-
-E:/Progetto/DragonSlayer/Resources/ResourcesHandler.cpp
-ResourcesHandler.h
-E:/Progetto/DragonSlayer/Resources/ResourcesHandler.h
+../Game/Utils.h
+E:/Progetto/DragonSlayer/Game/Utils.h
 
 E:/Progetto/DragonSlayer/Resources/ResourcesHandler.h
 SFML/Graphics.hpp
@@ -1429,10 +1195,4 @@ E:/Progetto/DragonSlayer/Game/Inventory.h
 E:/Progetto/DragonSlayer/Game/Utils.h
 ../Game/Achievement.h
 E:/Progetto/DragonSlayer/Game/Achievement.h
-
-E:/Progetto/DragonSlayer/main.cpp
-iostream
--
-Core/Game.h
-E:/Progetto/DragonSlayer/Core/Game.h
 

@@ -4,17 +4,16 @@
 
 #include "State.h"
 
-State::State()= default;
-
 State::State(std::shared_ptr<sf::RenderWindow> window, std::stack<std::unique_ptr<State>>* states,
-             std::shared_ptr<ResourcesHandler> rsHandler) {
+             std::shared_ptr<ResourcesHandler> rsHandler, state_enum _state_enum) {
     this->window = std::move(window);
     this->states = states;
     this->rsHandler = std::move(rsHandler);
-    this->quit = false;
-    this->paused = false;
-    this->keyTime = 0.f;
-    this->keyTimeMax = 10.f;
+    stateEnum = _state_enum;
+    quit = false;
+    paused = false;
+    keyTime = 0.f;
+    keyTimeMax = 10.f;
 }
 
 State::~State() = default;
@@ -36,6 +35,9 @@ const map<string, sf::Texture> &State::getTextures() const {
     return textures;
 }
 
+state_enum State::getStateEnum() const {
+    return stateEnum;
+}
 
 //functions
 void State::endState() {
@@ -53,10 +55,7 @@ void State::unpauseState() {
 void State::updateMousePosition(sf::View* view) {
     if(view)
         window->setView(*view);
-
-
     mousePosView = window->mapPixelToCoords(sf::Mouse::getPosition(*window));
-
     window->setView(window->getDefaultView());
 }
 
@@ -78,6 +77,7 @@ void State::update(const float &dt) {
 void State::updateInput(const float &dt) {
 
 }
+
 
 
 
