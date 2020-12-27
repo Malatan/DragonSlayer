@@ -38,6 +38,8 @@ set(SOURCE_FILES
         Gui/SelectLevelTab.h
         Gui/AchievementTab.cpp
         Gui/AchievementTab.h
+        Gui/LoadSaveTab.cpp
+        Gui/LoadSaveTab.h
         Game/Entity.cpp
         Game/Entity.h
         Game/Player.cpp
@@ -68,6 +70,8 @@ set(SOURCE_FILES
         Game/LootBag.cpp
         Game/Achievement.cpp
         Game/Achievement.h
+        Game/Save.cpp
+        Game/Save.h
         Components/MovementComponent.cpp
         Components/MovementComponent.h
         Components/AnimationComponent.cpp
@@ -89,6 +93,8 @@ set(SOURCE_FILES
         Resources/ResourcesHandler.h
         Resources/Resource.cpp
         Resources/Resource.h
+        Resources/SavesHandler.cpp
+        Resources/SavesHandler.h
         Map/Map.cpp
         Map/Map.h
         Map/MapGenerator.h
@@ -105,14 +111,25 @@ if (CMAKE_BUILD_TYPE STREQUAL "Release")
 else ()
     add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 endif ()
+include_directories(Resources)
 
 #SFML CONFIG
-set (SFML_DIR SFML_2.5.1/lib/cmake/SFML)
+set(SFML_DIR SFML_2.5.1/lib/cmake/SFML)
 set(SFML_ROOT "SFML_2.5.1")
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
 find_package(SFML REQUIRED COMPONENTS audio graphics window system)
 target_link_libraries(${PROJECT_NAME} sfml-system sfml-window sfml-graphics sfml-audio sfml-network)
-include_directories(Resources)
+
+#BOOST CONFIG
+set(Boost_INCLUDE_DIR E:/boost/include)
+set(Boost_LIBRARY_DIRS E:/boost/lib)
+find_package(Boost REQUIRED COMPONENTS serialization)
+IF (Boost_FOUND)
+    MESSAGE(STATUS "Boost found")
+ENDIF()
+link_directories(${Boost_LIBRARY_DIR})
+target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
+include_directories(${Boost_INCLUDE_DIR})
 
 #GOOGLE TEST CONFIG
 add_subdirectory(unit_testing)
