@@ -1,1 +1,1 @@
--IE:/Progetto/DragonSlayer/Resources -isystem E:/Progetto/DragonSlayer/SFML_2.5.1/include 
+-IE:/Progetto/DragonSlayer/Resources -IE:/boost/include -isystem E:/Progetto/DragonSlayer/SFML_2.5.1/include -isystem C:/PROGRA~1/boost/include/BOOST-~1 

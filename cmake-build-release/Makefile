@@ -955,6 +955,33 @@ Game/Player.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Player.cpp.s
 .PHONY : Game/Player.cpp.s
 
+Game/Save.obj: Game/Save.cpp.obj
+
+.PHONY : Game/Save.obj
+
+# target to build an object file
+Game/Save.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Save.cpp.obj
+.PHONY : Game/Save.cpp.obj
+
+Game/Save.i: Game/Save.cpp.i
+
+.PHONY : Game/Save.i
+
+# target to preprocess a source file
+Game/Save.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Save.cpp.i
+.PHONY : Game/Save.cpp.i
+
+Game/Save.s: Game/Save.cpp.s
+
+.PHONY : Game/Save.s
+
+# target to generate assembly for a file
+Game/Save.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Save.cpp.s
+.PHONY : Game/Save.cpp.s
+
 Game/Spell.obj: Game/Spell.cpp.obj
 
 .PHONY : Game/Spell.obj
@@ -1116,6 +1143,33 @@ Gui/Gui.s: Gui/Gui.cpp.s
 Gui/Gui.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/Gui.cpp.s
 .PHONY : Gui/Gui.cpp.s
+
+Gui/LoadSaveTab.obj: Gui/LoadSaveTab.cpp.obj
+
+.PHONY : Gui/LoadSaveTab.obj
+
+# target to build an object file
+Gui/LoadSaveTab.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/LoadSaveTab.cpp.obj
+.PHONY : Gui/LoadSaveTab.cpp.obj
+
+Gui/LoadSaveTab.i: Gui/LoadSaveTab.cpp.i
+
+.PHONY : Gui/LoadSaveTab.i
+
+# target to preprocess a source file
+Gui/LoadSaveTab.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/LoadSaveTab.cpp.i
+.PHONY : Gui/LoadSaveTab.cpp.i
+
+Gui/LoadSaveTab.s: Gui/LoadSaveTab.cpp.s
+
+.PHONY : Gui/LoadSaveTab.s
+
+# target to generate assembly for a file
+Gui/LoadSaveTab.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Gui/LoadSaveTab.cpp.s
+.PHONY : Gui/LoadSaveTab.cpp.s
 
 Gui/PauseMenu.obj: Gui/PauseMenu.cpp.obj
 
@@ -1468,6 +1522,33 @@ Resources/ResourcesHandler.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Resources/ResourcesHandler.cpp.s
 .PHONY : Resources/ResourcesHandler.cpp.s
 
+Resources/SavesHandler.obj: Resources/SavesHandler.cpp.obj
+
+.PHONY : Resources/SavesHandler.obj
+
+# target to build an object file
+Resources/SavesHandler.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Resources/SavesHandler.cpp.obj
+.PHONY : Resources/SavesHandler.cpp.obj
+
+Resources/SavesHandler.i: Resources/SavesHandler.cpp.i
+
+.PHONY : Resources/SavesHandler.i
+
+# target to preprocess a source file
+Resources/SavesHandler.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Resources/SavesHandler.cpp.i
+.PHONY : Resources/SavesHandler.cpp.i
+
+Resources/SavesHandler.s: Resources/SavesHandler.cpp.s
+
+.PHONY : Resources/SavesHandler.s
+
+# target to generate assembly for a file
+Resources/SavesHandler.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Resources/SavesHandler.cpp.s
+.PHONY : Resources/SavesHandler.cpp.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -1591,6 +1672,9 @@ help:
 	@echo ... Game/Player.obj
 	@echo ... Game/Player.i
 	@echo ... Game/Player.s
+	@echo ... Game/Save.obj
+	@echo ... Game/Save.i
+	@echo ... Game/Save.s
 	@echo ... Game/Spell.obj
 	@echo ... Game/Spell.i
 	@echo ... Game/Spell.s
@@ -1609,6 +1693,9 @@ help:
 	@echo ... Gui/Gui.obj
 	@echo ... Gui/Gui.i
 	@echo ... Gui/Gui.s
+	@echo ... Gui/LoadSaveTab.obj
+	@echo ... Gui/LoadSaveTab.i
+	@echo ... Gui/LoadSaveTab.s
 	@echo ... Gui/PauseMenu.obj
 	@echo ... Gui/PauseMenu.i
 	@echo ... Gui/PauseMenu.s
@@ -1648,6 +1735,9 @@ help:
 	@echo ... Resources/ResourcesHandler.obj
 	@echo ... Resources/ResourcesHandler.i
 	@echo ... Resources/ResourcesHandler.s
+	@echo ... Resources/SavesHandler.obj
+	@echo ... Resources/SavesHandler.i
+	@echo ... Resources/SavesHandler.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

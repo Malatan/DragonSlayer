@@ -7,6 +7,15 @@ set(CMAKE_DEPENDS_GENERATOR "MinGW Makefiles")
 # The top level Makefile was generated from the following files:
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
+  "C:/Program Files/boost/lib/cmake/Boost-1.75.0/BoostConfig.cmake"
+  "C:/Program Files/boost/lib/cmake/Boost-1.75.0/BoostConfigVersion.cmake"
+  "C:/Program Files/boost/lib/cmake/BoostDetectToolset-1.75.0.cmake"
+  "C:/Program Files/boost/lib/cmake/boost_headers-1.75.0/boost_headers-config-version.cmake"
+  "C:/Program Files/boost/lib/cmake/boost_headers-1.75.0/boost_headers-config.cmake"
+  "C:/Program Files/boost/lib/cmake/boost_serialization-1.75.0/boost_serialization-config-version.cmake"
+  "C:/Program Files/boost/lib/cmake/boost_serialization-1.75.0/boost_serialization-config.cmake"
+  "C:/Program Files/boost/lib/cmake/boost_serialization-1.75.0/libboost_serialization-variant-mgw8-mt-d-x32-1_75-static.cmake"
+  "C:/Program Files/boost/lib/cmake/boost_serialization-1.75.0/libboost_serialization-variant-mgw8-mt-x32-1_75-static.cmake"
   "E:/CLion 2019.2.5/bin/cmake/win/share/cmake-3.17/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in"
   "E:/CLion 2019.2.5/bin/cmake/win/share/cmake-3.17/Modules/CMakeCInformation.cmake"
   "E:/CLion 2019.2.5/bin/cmake/win/share/cmake-3.17/Modules/CMakeCXXInformation.cmake"
@@ -26,6 +35,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "E:/CLion 2019.2.5/bin/cmake/win/share/cmake-3.17/Modules/Compiler/GNU-C.cmake"
   "E:/CLion 2019.2.5/bin/cmake/win/share/cmake-3.17/Modules/Compiler/GNU-CXX.cmake"
   "E:/CLion 2019.2.5/bin/cmake/win/share/cmake-3.17/Modules/Compiler/GNU.cmake"
+  "E:/CLion 2019.2.5/bin/cmake/win/share/cmake-3.17/Modules/FindBoost.cmake"
   "E:/CLion 2019.2.5/bin/cmake/win/share/cmake-3.17/Modules/FindPackageHandleStandardArgs.cmake"
   "E:/CLion 2019.2.5/bin/cmake/win/share/cmake-3.17/Modules/FindPackageMessage.cmake"
   "E:/CLion 2019.2.5/bin/cmake/win/share/cmake-3.17/Modules/FindPythonInterp.cmake"

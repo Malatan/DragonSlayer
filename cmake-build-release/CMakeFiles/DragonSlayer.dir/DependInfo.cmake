@@ -30,12 +30,14 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "E:/Progetto/DragonSlayer/Game/LootGenerator.cpp" "E:/Progetto/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Game/LootGenerator.cpp.obj"
   "E:/Progetto/DragonSlayer/Game/Npc.cpp" "E:/Progetto/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Game/Npc.cpp.obj"
   "E:/Progetto/DragonSlayer/Game/Player.cpp" "E:/Progetto/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Game/Player.cpp.obj"
+  "E:/Progetto/DragonSlayer/Game/Save.cpp" "E:/Progetto/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Game/Save.cpp.obj"
   "E:/Progetto/DragonSlayer/Game/Spell.cpp" "E:/Progetto/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Game/Spell.cpp.obj"
   "E:/Progetto/DragonSlayer/Game/Stats.cpp" "E:/Progetto/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Game/Stats.cpp.obj"
   "E:/Progetto/DragonSlayer/Game/Utils.cpp" "E:/Progetto/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Game/Utils.cpp.obj"
   "E:/Progetto/DragonSlayer/Gui/AchievementTab.cpp" "E:/Progetto/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Gui/AchievementTab.cpp.obj"
   "E:/Progetto/DragonSlayer/Gui/CharacterTab.cpp" "E:/Progetto/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Gui/CharacterTab.cpp.obj"
   "E:/Progetto/DragonSlayer/Gui/Gui.cpp" "E:/Progetto/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Gui/Gui.cpp.obj"
+  "E:/Progetto/DragonSlayer/Gui/LoadSaveTab.cpp" "E:/Progetto/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Gui/LoadSaveTab.cpp.obj"
   "E:/Progetto/DragonSlayer/Gui/PauseMenu.cpp" "E:/Progetto/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Gui/PauseMenu.cpp.obj"
   "E:/Progetto/DragonSlayer/Gui/PriestTab.cpp" "E:/Progetto/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Gui/PriestTab.cpp.obj"
   "E:/Progetto/DragonSlayer/Gui/SelectLevelTab.cpp" "E:/Progetto/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Gui/SelectLevelTab.cpp.obj"
@@ -49,14 +51,22 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "E:/Progetto/DragonSlayer/Map/Tile.cpp" "E:/Progetto/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Map/Tile.cpp.obj"
   "E:/Progetto/DragonSlayer/Resources/Resource.cpp" "E:/Progetto/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.obj"
   "E:/Progetto/DragonSlayer/Resources/ResourcesHandler.cpp" "E:/Progetto/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Resources/ResourcesHandler.cpp.obj"
+  "E:/Progetto/DragonSlayer/Resources/SavesHandler.cpp" "E:/Progetto/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Resources/SavesHandler.cpp.obj"
   "E:/Progetto/DragonSlayer/main.cpp" "E:/Progetto/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
+# Preprocessor definitions for this target.
+set(CMAKE_TARGET_DEFINITIONS_CXX
+  "BOOST_ALL_NO_LIB"
+  )
+
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../Resources"
+  "E:/boost/include"
   "../SFML_2.5.1/include"
+  "C:/Program Files/boost/include/boost-1_75"
   )
 
 # Targets to which this target links.

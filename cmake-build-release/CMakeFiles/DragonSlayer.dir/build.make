@@ -314,10 +314,24 @@ CMakeFiles/DragonSlayer.dir/Gui/AchievementTab.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DragonSlayer.dir/Gui/AchievementTab.cpp.s"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S E:\Progetto\DragonSlayer\Gui\AchievementTab.cpp -o CMakeFiles\DragonSlayer.dir\Gui\AchievementTab.cpp.s
 
+CMakeFiles/DragonSlayer.dir/Gui/LoadSaveTab.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
+CMakeFiles/DragonSlayer.dir/Gui/LoadSaveTab.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
+CMakeFiles/DragonSlayer.dir/Gui/LoadSaveTab.cpp.obj: ../Gui/LoadSaveTab.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/DragonSlayer.dir/Gui/LoadSaveTab.cpp.obj"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Gui\LoadSaveTab.cpp.obj -c E:\Progetto\DragonSlayer\Gui\LoadSaveTab.cpp
+
+CMakeFiles/DragonSlayer.dir/Gui/LoadSaveTab.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/DragonSlayer.dir/Gui/LoadSaveTab.cpp.i"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E E:\Progetto\DragonSlayer\Gui\LoadSaveTab.cpp > CMakeFiles\DragonSlayer.dir\Gui\LoadSaveTab.cpp.i
+
+CMakeFiles/DragonSlayer.dir/Gui/LoadSaveTab.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DragonSlayer.dir/Gui/LoadSaveTab.cpp.s"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S E:\Progetto\DragonSlayer\Gui\LoadSaveTab.cpp -o CMakeFiles\DragonSlayer.dir\Gui\LoadSaveTab.cpp.s
+
 CMakeFiles/DragonSlayer.dir/Game/Entity.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
 CMakeFiles/DragonSlayer.dir/Game/Entity.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
 CMakeFiles/DragonSlayer.dir/Game/Entity.cpp.obj: ../Game/Entity.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/DragonSlayer.dir/Game/Entity.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/DragonSlayer.dir/Game/Entity.cpp.obj"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Game\Entity.cpp.obj -c E:\Progetto\DragonSlayer\Game\Entity.cpp
 
 CMakeFiles/DragonSlayer.dir/Game/Entity.cpp.i: cmake_force
@@ -331,7 +345,7 @@ CMakeFiles/DragonSlayer.dir/Game/Entity.cpp.s: cmake_force
 CMakeFiles/DragonSlayer.dir/Game/Player.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
 CMakeFiles/DragonSlayer.dir/Game/Player.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
 CMakeFiles/DragonSlayer.dir/Game/Player.cpp.obj: ../Game/Player.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/DragonSlayer.dir/Game/Player.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/DragonSlayer.dir/Game/Player.cpp.obj"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Game\Player.cpp.obj -c E:\Progetto\DragonSlayer\Game\Player.cpp
 
 CMakeFiles/DragonSlayer.dir/Game/Player.cpp.i: cmake_force
@@ -345,7 +359,7 @@ CMakeFiles/DragonSlayer.dir/Game/Player.cpp.s: cmake_force
 CMakeFiles/DragonSlayer.dir/Game/Enemy.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
 CMakeFiles/DragonSlayer.dir/Game/Enemy.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
 CMakeFiles/DragonSlayer.dir/Game/Enemy.cpp.obj: ../Game/Enemy.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/DragonSlayer.dir/Game/Enemy.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/DragonSlayer.dir/Game/Enemy.cpp.obj"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Game\Enemy.cpp.obj -c E:\Progetto\DragonSlayer\Game\Enemy.cpp
 
 CMakeFiles/DragonSlayer.dir/Game/Enemy.cpp.i: cmake_force
@@ -359,7 +373,7 @@ CMakeFiles/DragonSlayer.dir/Game/Enemy.cpp.s: cmake_force
 CMakeFiles/DragonSlayer.dir/Game/Buff.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
 CMakeFiles/DragonSlayer.dir/Game/Buff.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
 CMakeFiles/DragonSlayer.dir/Game/Buff.cpp.obj: ../Game/Buff.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/DragonSlayer.dir/Game/Buff.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/DragonSlayer.dir/Game/Buff.cpp.obj"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Game\Buff.cpp.obj -c E:\Progetto\DragonSlayer\Game\Buff.cpp
 
 CMakeFiles/DragonSlayer.dir/Game/Buff.cpp.i: cmake_force
@@ -373,7 +387,7 @@ CMakeFiles/DragonSlayer.dir/Game/Buff.cpp.s: cmake_force
 CMakeFiles/DragonSlayer.dir/Game/Inventory.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
 CMakeFiles/DragonSlayer.dir/Game/Inventory.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
 CMakeFiles/DragonSlayer.dir/Game/Inventory.cpp.obj: ../Game/Inventory.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/DragonSlayer.dir/Game/Inventory.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object CMakeFiles/DragonSlayer.dir/Game/Inventory.cpp.obj"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Game\Inventory.cpp.obj -c E:\Progetto\DragonSlayer\Game\Inventory.cpp
 
 CMakeFiles/DragonSlayer.dir/Game/Inventory.cpp.i: cmake_force
@@ -387,7 +401,7 @@ CMakeFiles/DragonSlayer.dir/Game/Inventory.cpp.s: cmake_force
 CMakeFiles/DragonSlayer.dir/Game/Item.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
 CMakeFiles/DragonSlayer.dir/Game/Item.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
 CMakeFiles/DragonSlayer.dir/Game/Item.cpp.obj: ../Game/Item.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object CMakeFiles/DragonSlayer.dir/Game/Item.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object CMakeFiles/DragonSlayer.dir/Game/Item.cpp.obj"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Game\Item.cpp.obj -c E:\Progetto\DragonSlayer\Game\Item.cpp
 
 CMakeFiles/DragonSlayer.dir/Game/Item.cpp.i: cmake_force
@@ -401,7 +415,7 @@ CMakeFiles/DragonSlayer.dir/Game/Item.cpp.s: cmake_force
 CMakeFiles/DragonSlayer.dir/Game/Spell.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
 CMakeFiles/DragonSlayer.dir/Game/Spell.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
 CMakeFiles/DragonSlayer.dir/Game/Spell.cpp.obj: ../Game/Spell.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object CMakeFiles/DragonSlayer.dir/Game/Spell.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object CMakeFiles/DragonSlayer.dir/Game/Spell.cpp.obj"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Game\Spell.cpp.obj -c E:\Progetto\DragonSlayer\Game\Spell.cpp
 
 CMakeFiles/DragonSlayer.dir/Game/Spell.cpp.i: cmake_force
@@ -415,7 +429,7 @@ CMakeFiles/DragonSlayer.dir/Game/Spell.cpp.s: cmake_force
 CMakeFiles/DragonSlayer.dir/Game/Stats.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
 CMakeFiles/DragonSlayer.dir/Game/Stats.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
 CMakeFiles/DragonSlayer.dir/Game/Stats.cpp.obj: ../Game/Stats.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object CMakeFiles/DragonSlayer.dir/Game/Stats.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building CXX object CMakeFiles/DragonSlayer.dir/Game/Stats.cpp.obj"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Game\Stats.cpp.obj -c E:\Progetto\DragonSlayer\Game\Stats.cpp
 
 CMakeFiles/DragonSlayer.dir/Game/Stats.cpp.i: cmake_force
@@ -429,7 +443,7 @@ CMakeFiles/DragonSlayer.dir/Game/Stats.cpp.s: cmake_force
 CMakeFiles/DragonSlayer.dir/Game/Npc.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
 CMakeFiles/DragonSlayer.dir/Game/Npc.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
 CMakeFiles/DragonSlayer.dir/Game/Npc.cpp.obj: ../Game/Npc.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building CXX object CMakeFiles/DragonSlayer.dir/Game/Npc.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building CXX object CMakeFiles/DragonSlayer.dir/Game/Npc.cpp.obj"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Game\Npc.cpp.obj -c E:\Progetto\DragonSlayer\Game\Npc.cpp
 
 CMakeFiles/DragonSlayer.dir/Game/Npc.cpp.i: cmake_force
@@ -443,7 +457,7 @@ CMakeFiles/DragonSlayer.dir/Game/Npc.cpp.s: cmake_force
 CMakeFiles/DragonSlayer.dir/Game/Generator.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
 CMakeFiles/DragonSlayer.dir/Game/Generator.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
 CMakeFiles/DragonSlayer.dir/Game/Generator.cpp.obj: ../Game/Generator.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building CXX object CMakeFiles/DragonSlayer.dir/Game/Generator.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building CXX object CMakeFiles/DragonSlayer.dir/Game/Generator.cpp.obj"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Game\Generator.cpp.obj -c E:\Progetto\DragonSlayer\Game\Generator.cpp
 
 CMakeFiles/DragonSlayer.dir/Game/Generator.cpp.i: cmake_force
@@ -457,7 +471,7 @@ CMakeFiles/DragonSlayer.dir/Game/Generator.cpp.s: cmake_force
 CMakeFiles/DragonSlayer.dir/Game/Utils.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
 CMakeFiles/DragonSlayer.dir/Game/Utils.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
 CMakeFiles/DragonSlayer.dir/Game/Utils.cpp.obj: ../Game/Utils.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building CXX object CMakeFiles/DragonSlayer.dir/Game/Utils.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building CXX object CMakeFiles/DragonSlayer.dir/Game/Utils.cpp.obj"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Game\Utils.cpp.obj -c E:\Progetto\DragonSlayer\Game\Utils.cpp
 
 CMakeFiles/DragonSlayer.dir/Game/Utils.cpp.i: cmake_force
@@ -471,7 +485,7 @@ CMakeFiles/DragonSlayer.dir/Game/Utils.cpp.s: cmake_force
 CMakeFiles/DragonSlayer.dir/Game/BattleResult.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
 CMakeFiles/DragonSlayer.dir/Game/BattleResult.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
 CMakeFiles/DragonSlayer.dir/Game/BattleResult.cpp.obj: ../Game/BattleResult.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building CXX object CMakeFiles/DragonSlayer.dir/Game/BattleResult.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building CXX object CMakeFiles/DragonSlayer.dir/Game/BattleResult.cpp.obj"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Game\BattleResult.cpp.obj -c E:\Progetto\DragonSlayer\Game\BattleResult.cpp
 
 CMakeFiles/DragonSlayer.dir/Game/BattleResult.cpp.i: cmake_force
@@ -485,7 +499,7 @@ CMakeFiles/DragonSlayer.dir/Game/BattleResult.cpp.s: cmake_force
 CMakeFiles/DragonSlayer.dir/Game/LootGenerator.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
 CMakeFiles/DragonSlayer.dir/Game/LootGenerator.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
 CMakeFiles/DragonSlayer.dir/Game/LootGenerator.cpp.obj: ../Game/LootGenerator.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building CXX object CMakeFiles/DragonSlayer.dir/Game/LootGenerator.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building CXX object CMakeFiles/DragonSlayer.dir/Game/LootGenerator.cpp.obj"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Game\LootGenerator.cpp.obj -c E:\Progetto\DragonSlayer\Game\LootGenerator.cpp
 
 CMakeFiles/DragonSlayer.dir/Game/LootGenerator.cpp.i: cmake_force
@@ -499,7 +513,7 @@ CMakeFiles/DragonSlayer.dir/Game/LootGenerator.cpp.s: cmake_force
 CMakeFiles/DragonSlayer.dir/Game/LootBag.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
 CMakeFiles/DragonSlayer.dir/Game/LootBag.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
 CMakeFiles/DragonSlayer.dir/Game/LootBag.cpp.obj: ../Game/LootBag.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building CXX object CMakeFiles/DragonSlayer.dir/Game/LootBag.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Building CXX object CMakeFiles/DragonSlayer.dir/Game/LootBag.cpp.obj"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Game\LootBag.cpp.obj -c E:\Progetto\DragonSlayer\Game\LootBag.cpp
 
 CMakeFiles/DragonSlayer.dir/Game/LootBag.cpp.i: cmake_force
@@ -513,7 +527,7 @@ CMakeFiles/DragonSlayer.dir/Game/LootBag.cpp.s: cmake_force
 CMakeFiles/DragonSlayer.dir/Game/Achievement.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
 CMakeFiles/DragonSlayer.dir/Game/Achievement.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
 CMakeFiles/DragonSlayer.dir/Game/Achievement.cpp.obj: ../Game/Achievement.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Building CXX object CMakeFiles/DragonSlayer.dir/Game/Achievement.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building CXX object CMakeFiles/DragonSlayer.dir/Game/Achievement.cpp.obj"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Game\Achievement.cpp.obj -c E:\Progetto\DragonSlayer\Game\Achievement.cpp
 
 CMakeFiles/DragonSlayer.dir/Game/Achievement.cpp.i: cmake_force
@@ -524,10 +538,24 @@ CMakeFiles/DragonSlayer.dir/Game/Achievement.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DragonSlayer.dir/Game/Achievement.cpp.s"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S E:\Progetto\DragonSlayer\Game\Achievement.cpp -o CMakeFiles\DragonSlayer.dir\Game\Achievement.cpp.s
 
+CMakeFiles/DragonSlayer.dir/Game/Save.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
+CMakeFiles/DragonSlayer.dir/Game/Save.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
+CMakeFiles/DragonSlayer.dir/Game/Save.cpp.obj: ../Game/Save.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_34) "Building CXX object CMakeFiles/DragonSlayer.dir/Game/Save.cpp.obj"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Game\Save.cpp.obj -c E:\Progetto\DragonSlayer\Game\Save.cpp
+
+CMakeFiles/DragonSlayer.dir/Game/Save.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/DragonSlayer.dir/Game/Save.cpp.i"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E E:\Progetto\DragonSlayer\Game\Save.cpp > CMakeFiles\DragonSlayer.dir\Game\Save.cpp.i
+
+CMakeFiles/DragonSlayer.dir/Game/Save.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DragonSlayer.dir/Game/Save.cpp.s"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S E:\Progetto\DragonSlayer\Game\Save.cpp -o CMakeFiles\DragonSlayer.dir\Game\Save.cpp.s
+
 CMakeFiles/DragonSlayer.dir/Components/MovementComponent.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
 CMakeFiles/DragonSlayer.dir/Components/MovementComponent.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
 CMakeFiles/DragonSlayer.dir/Components/MovementComponent.cpp.obj: ../Components/MovementComponent.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building CXX object CMakeFiles/DragonSlayer.dir/Components/MovementComponent.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_35) "Building CXX object CMakeFiles/DragonSlayer.dir/Components/MovementComponent.cpp.obj"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Components\MovementComponent.cpp.obj -c E:\Progetto\DragonSlayer\Components\MovementComponent.cpp
 
 CMakeFiles/DragonSlayer.dir/Components/MovementComponent.cpp.i: cmake_force
@@ -541,7 +569,7 @@ CMakeFiles/DragonSlayer.dir/Components/MovementComponent.cpp.s: cmake_force
 CMakeFiles/DragonSlayer.dir/Components/AnimationComponent.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
 CMakeFiles/DragonSlayer.dir/Components/AnimationComponent.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
 CMakeFiles/DragonSlayer.dir/Components/AnimationComponent.cpp.obj: ../Components/AnimationComponent.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_34) "Building CXX object CMakeFiles/DragonSlayer.dir/Components/AnimationComponent.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_36) "Building CXX object CMakeFiles/DragonSlayer.dir/Components/AnimationComponent.cpp.obj"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Components\AnimationComponent.cpp.obj -c E:\Progetto\DragonSlayer\Components\AnimationComponent.cpp
 
 CMakeFiles/DragonSlayer.dir/Components/AnimationComponent.cpp.i: cmake_force
@@ -555,7 +583,7 @@ CMakeFiles/DragonSlayer.dir/Components/AnimationComponent.cpp.s: cmake_force
 CMakeFiles/DragonSlayer.dir/Components/HitBoxComponent.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
 CMakeFiles/DragonSlayer.dir/Components/HitBoxComponent.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
 CMakeFiles/DragonSlayer.dir/Components/HitBoxComponent.cpp.obj: ../Components/HitBoxComponent.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_35) "Building CXX object CMakeFiles/DragonSlayer.dir/Components/HitBoxComponent.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_37) "Building CXX object CMakeFiles/DragonSlayer.dir/Components/HitBoxComponent.cpp.obj"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Components\HitBoxComponent.cpp.obj -c E:\Progetto\DragonSlayer\Components\HitBoxComponent.cpp
 
 CMakeFiles/DragonSlayer.dir/Components/HitBoxComponent.cpp.i: cmake_force
@@ -569,7 +597,7 @@ CMakeFiles/DragonSlayer.dir/Components/HitBoxComponent.cpp.s: cmake_force
 CMakeFiles/DragonSlayer.dir/Components/BuffComponent.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
 CMakeFiles/DragonSlayer.dir/Components/BuffComponent.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
 CMakeFiles/DragonSlayer.dir/Components/BuffComponent.cpp.obj: ../Components/BuffComponent.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_36) "Building CXX object CMakeFiles/DragonSlayer.dir/Components/BuffComponent.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_38) "Building CXX object CMakeFiles/DragonSlayer.dir/Components/BuffComponent.cpp.obj"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Components\BuffComponent.cpp.obj -c E:\Progetto\DragonSlayer\Components\BuffComponent.cpp
 
 CMakeFiles/DragonSlayer.dir/Components/BuffComponent.cpp.i: cmake_force
@@ -583,7 +611,7 @@ CMakeFiles/DragonSlayer.dir/Components/BuffComponent.cpp.s: cmake_force
 CMakeFiles/DragonSlayer.dir/Components/SpellComponent.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
 CMakeFiles/DragonSlayer.dir/Components/SpellComponent.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
 CMakeFiles/DragonSlayer.dir/Components/SpellComponent.cpp.obj: ../Components/SpellComponent.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_37) "Building CXX object CMakeFiles/DragonSlayer.dir/Components/SpellComponent.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_39) "Building CXX object CMakeFiles/DragonSlayer.dir/Components/SpellComponent.cpp.obj"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Components\SpellComponent.cpp.obj -c E:\Progetto\DragonSlayer\Components\SpellComponent.cpp
 
 CMakeFiles/DragonSlayer.dir/Components/SpellComponent.cpp.i: cmake_force
@@ -597,7 +625,7 @@ CMakeFiles/DragonSlayer.dir/Components/SpellComponent.cpp.s: cmake_force
 CMakeFiles/DragonSlayer.dir/Components/PopUpTextComponent.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
 CMakeFiles/DragonSlayer.dir/Components/PopUpTextComponent.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
 CMakeFiles/DragonSlayer.dir/Components/PopUpTextComponent.cpp.obj: ../Components/PopUpTextComponent.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_38) "Building CXX object CMakeFiles/DragonSlayer.dir/Components/PopUpTextComponent.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_40) "Building CXX object CMakeFiles/DragonSlayer.dir/Components/PopUpTextComponent.cpp.obj"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Components\PopUpTextComponent.cpp.obj -c E:\Progetto\DragonSlayer\Components\PopUpTextComponent.cpp
 
 CMakeFiles/DragonSlayer.dir/Components/PopUpTextComponent.cpp.i: cmake_force
@@ -611,7 +639,7 @@ CMakeFiles/DragonSlayer.dir/Components/PopUpTextComponent.cpp.s: cmake_force
 CMakeFiles/DragonSlayer.dir/Components/CollisionBoxComponent.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
 CMakeFiles/DragonSlayer.dir/Components/CollisionBoxComponent.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
 CMakeFiles/DragonSlayer.dir/Components/CollisionBoxComponent.cpp.obj: ../Components/CollisionBoxComponent.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_39) "Building CXX object CMakeFiles/DragonSlayer.dir/Components/CollisionBoxComponent.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_41) "Building CXX object CMakeFiles/DragonSlayer.dir/Components/CollisionBoxComponent.cpp.obj"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Components\CollisionBoxComponent.cpp.obj -c E:\Progetto\DragonSlayer\Components\CollisionBoxComponent.cpp
 
 CMakeFiles/DragonSlayer.dir/Components/CollisionBoxComponent.cpp.i: cmake_force
@@ -625,7 +653,7 @@ CMakeFiles/DragonSlayer.dir/Components/CollisionBoxComponent.cpp.s: cmake_force
 CMakeFiles/DragonSlayer.dir/Components/AchievementComponent.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
 CMakeFiles/DragonSlayer.dir/Components/AchievementComponent.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
 CMakeFiles/DragonSlayer.dir/Components/AchievementComponent.cpp.obj: ../Components/AchievementComponent.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_40) "Building CXX object CMakeFiles/DragonSlayer.dir/Components/AchievementComponent.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_42) "Building CXX object CMakeFiles/DragonSlayer.dir/Components/AchievementComponent.cpp.obj"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Components\AchievementComponent.cpp.obj -c E:\Progetto\DragonSlayer\Components\AchievementComponent.cpp
 
 CMakeFiles/DragonSlayer.dir/Components/AchievementComponent.cpp.i: cmake_force
@@ -639,7 +667,7 @@ CMakeFiles/DragonSlayer.dir/Components/AchievementComponent.cpp.s: cmake_force
 CMakeFiles/DragonSlayer.dir/Resources/ResourcesHandler.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
 CMakeFiles/DragonSlayer.dir/Resources/ResourcesHandler.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
 CMakeFiles/DragonSlayer.dir/Resources/ResourcesHandler.cpp.obj: ../Resources/ResourcesHandler.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_41) "Building CXX object CMakeFiles/DragonSlayer.dir/Resources/ResourcesHandler.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_43) "Building CXX object CMakeFiles/DragonSlayer.dir/Resources/ResourcesHandler.cpp.obj"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Resources\ResourcesHandler.cpp.obj -c E:\Progetto\DragonSlayer\Resources\ResourcesHandler.cpp
 
 CMakeFiles/DragonSlayer.dir/Resources/ResourcesHandler.cpp.i: cmake_force
@@ -653,7 +681,7 @@ CMakeFiles/DragonSlayer.dir/Resources/ResourcesHandler.cpp.s: cmake_force
 CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
 CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
 CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.obj: ../Resources/Resource.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_42) "Building CXX object CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_44) "Building CXX object CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.obj"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Resources\Resource.cpp.obj -c E:\Progetto\DragonSlayer\Resources\Resource.cpp
 
 CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.i: cmake_force
@@ -664,10 +692,24 @@ CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.s"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S E:\Progetto\DragonSlayer\Resources\Resource.cpp -o CMakeFiles\DragonSlayer.dir\Resources\Resource.cpp.s
 
+CMakeFiles/DragonSlayer.dir/Resources/SavesHandler.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
+CMakeFiles/DragonSlayer.dir/Resources/SavesHandler.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
+CMakeFiles/DragonSlayer.dir/Resources/SavesHandler.cpp.obj: ../Resources/SavesHandler.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_45) "Building CXX object CMakeFiles/DragonSlayer.dir/Resources/SavesHandler.cpp.obj"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Resources\SavesHandler.cpp.obj -c E:\Progetto\DragonSlayer\Resources\SavesHandler.cpp
+
+CMakeFiles/DragonSlayer.dir/Resources/SavesHandler.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/DragonSlayer.dir/Resources/SavesHandler.cpp.i"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E E:\Progetto\DragonSlayer\Resources\SavesHandler.cpp > CMakeFiles\DragonSlayer.dir\Resources\SavesHandler.cpp.i
+
+CMakeFiles/DragonSlayer.dir/Resources/SavesHandler.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DragonSlayer.dir/Resources/SavesHandler.cpp.s"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S E:\Progetto\DragonSlayer\Resources\SavesHandler.cpp -o CMakeFiles\DragonSlayer.dir\Resources\SavesHandler.cpp.s
+
 CMakeFiles/DragonSlayer.dir/Map/Map.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
 CMakeFiles/DragonSlayer.dir/Map/Map.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
 CMakeFiles/DragonSlayer.dir/Map/Map.cpp.obj: ../Map/Map.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_43) "Building CXX object CMakeFiles/DragonSlayer.dir/Map/Map.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_46) "Building CXX object CMakeFiles/DragonSlayer.dir/Map/Map.cpp.obj"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Map\Map.cpp.obj -c E:\Progetto\DragonSlayer\Map\Map.cpp
 
 CMakeFiles/DragonSlayer.dir/Map/Map.cpp.i: cmake_force
@@ -681,7 +723,7 @@ CMakeFiles/DragonSlayer.dir/Map/Map.cpp.s: cmake_force
 CMakeFiles/DragonSlayer.dir/Map/MapGenerator.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
 CMakeFiles/DragonSlayer.dir/Map/MapGenerator.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
 CMakeFiles/DragonSlayer.dir/Map/MapGenerator.cpp.obj: ../Map/MapGenerator.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_44) "Building CXX object CMakeFiles/DragonSlayer.dir/Map/MapGenerator.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_47) "Building CXX object CMakeFiles/DragonSlayer.dir/Map/MapGenerator.cpp.obj"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Map\MapGenerator.cpp.obj -c E:\Progetto\DragonSlayer\Map\MapGenerator.cpp
 
 CMakeFiles/DragonSlayer.dir/Map/MapGenerator.cpp.i: cmake_force
@@ -695,7 +737,7 @@ CMakeFiles/DragonSlayer.dir/Map/MapGenerator.cpp.s: cmake_force
 CMakeFiles/DragonSlayer.dir/Map/Tile.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
 CMakeFiles/DragonSlayer.dir/Map/Tile.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
 CMakeFiles/DragonSlayer.dir/Map/Tile.cpp.obj: ../Map/Tile.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_45) "Building CXX object CMakeFiles/DragonSlayer.dir/Map/Tile.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_48) "Building CXX object CMakeFiles/DragonSlayer.dir/Map/Tile.cpp.obj"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Map\Tile.cpp.obj -c E:\Progetto\DragonSlayer\Map\Tile.cpp
 
 CMakeFiles/DragonSlayer.dir/Map/Tile.cpp.i: cmake_force
@@ -709,7 +751,7 @@ CMakeFiles/DragonSlayer.dir/Map/Tile.cpp.s: cmake_force
 CMakeFiles/DragonSlayer.dir/Map/Dungeon.cpp.obj: CMakeFiles/DragonSlayer.dir/flags.make
 CMakeFiles/DragonSlayer.dir/Map/Dungeon.cpp.obj: CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
 CMakeFiles/DragonSlayer.dir/Map/Dungeon.cpp.obj: ../Map/Dungeon.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_46) "Building CXX object CMakeFiles/DragonSlayer.dir/Map/Dungeon.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_49) "Building CXX object CMakeFiles/DragonSlayer.dir/Map/Dungeon.cpp.obj"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\DragonSlayer.dir\Map\Dungeon.cpp.obj -c E:\Progetto\DragonSlayer\Map\Dungeon.cpp
 
 CMakeFiles/DragonSlayer.dir/Map/Dungeon.cpp.i: cmake_force
@@ -739,6 +781,7 @@ DragonSlayer_OBJECTS = \
 "CMakeFiles/DragonSlayer.dir/Gui/libraries/RichText.cpp.obj" \
 "CMakeFiles/DragonSlayer.dir/Gui/SelectLevelTab.cpp.obj" \
 "CMakeFiles/DragonSlayer.dir/Gui/AchievementTab.cpp.obj" \
+"CMakeFiles/DragonSlayer.dir/Gui/LoadSaveTab.cpp.obj" \
 "CMakeFiles/DragonSlayer.dir/Game/Entity.cpp.obj" \
 "CMakeFiles/DragonSlayer.dir/Game/Player.cpp.obj" \
 "CMakeFiles/DragonSlayer.dir/Game/Enemy.cpp.obj" \
@@ -754,6 +797,7 @@ DragonSlayer_OBJECTS = \
 "CMakeFiles/DragonSlayer.dir/Game/LootGenerator.cpp.obj" \
 "CMakeFiles/DragonSlayer.dir/Game/LootBag.cpp.obj" \
 "CMakeFiles/DragonSlayer.dir/Game/Achievement.cpp.obj" \
+"CMakeFiles/DragonSlayer.dir/Game/Save.cpp.obj" \
 "CMakeFiles/DragonSlayer.dir/Components/MovementComponent.cpp.obj" \
 "CMakeFiles/DragonSlayer.dir/Components/AnimationComponent.cpp.obj" \
 "CMakeFiles/DragonSlayer.dir/Components/HitBoxComponent.cpp.obj" \
@@ -764,6 +808,7 @@ DragonSlayer_OBJECTS = \
 "CMakeFiles/DragonSlayer.dir/Components/AchievementComponent.cpp.obj" \
 "CMakeFiles/DragonSlayer.dir/Resources/ResourcesHandler.cpp.obj" \
 "CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.obj" \
+"CMakeFiles/DragonSlayer.dir/Resources/SavesHandler.cpp.obj" \
 "CMakeFiles/DragonSlayer.dir/Map/Map.cpp.obj" \
 "CMakeFiles/DragonSlayer.dir/Map/MapGenerator.cpp.obj" \
 "CMakeFiles/DragonSlayer.dir/Map/Tile.cpp.obj" \
@@ -789,6 +834,7 @@ DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/Gui/WizardTab.cpp.obj
 DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/Gui/libraries/RichText.cpp.obj
 DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/Gui/SelectLevelTab.cpp.obj
 DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/Gui/AchievementTab.cpp.obj
+DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/Gui/LoadSaveTab.cpp.obj
 DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/Game/Entity.cpp.obj
 DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/Game/Player.cpp.obj
 DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/Game/Enemy.cpp.obj
@@ -804,6 +850,7 @@ DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/Game/BattleResult.cpp.obj
 DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/Game/LootGenerator.cpp.obj
 DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/Game/LootBag.cpp.obj
 DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/Game/Achievement.cpp.obj
+DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/Game/Save.cpp.obj
 DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/Components/MovementComponent.cpp.obj
 DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/Components/AnimationComponent.cpp.obj
 DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/Components/HitBoxComponent.cpp.obj
@@ -814,6 +861,7 @@ DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/Components/CollisionBoxComponent.c
 DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/Components/AchievementComponent.cpp.obj
 DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/Resources/ResourcesHandler.cpp.obj
 DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.obj
+DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/Resources/SavesHandler.cpp.obj
 DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/Map/Map.cpp.obj
 DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/Map/MapGenerator.cpp.obj
 DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/Map/Tile.cpp.obj
@@ -822,12 +870,13 @@ DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/build.make
 DragonSlayer.exe: ../SFML_2.5.1/lib/libsfml-graphics.a
 DragonSlayer.exe: ../SFML_2.5.1/lib/libsfml-audio.a
 DragonSlayer.exe: ../SFML_2.5.1/lib/libsfml-network.a
+DragonSlayer.exe: C:/Program\ Files/boost/lib/libboost_serialization-mgw8-mt-x32-1_75.a
 DragonSlayer.exe: ../SFML_2.5.1/lib/libsfml-window.a
 DragonSlayer.exe: ../SFML_2.5.1/lib/libsfml-system.a
 DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/linklibs.rsp
 DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/objects1.rsp
 DragonSlayer.exe: CMakeFiles/DragonSlayer.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_47) "Linking CXX executable DragonSlayer.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=E:\Progetto\DragonSlayer\cmake-build-release\CMakeFiles --progress-num=$(CMAKE_PROGRESS_50) "Linking CXX executable DragonSlayer.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\DragonSlayer.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

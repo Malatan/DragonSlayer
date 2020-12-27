@@ -5,7 +5,7 @@
 		<Option title="googletest-distribution"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="gcc"/>
-		<Option virtualFolders="CMake Files\;CMake Files\SFML_2.5.1\;CMake Files\SFML_2.5.1\lib\;CMake Files\SFML_2.5.1\lib\cmake\;CMake Files\SFML_2.5.1\lib\cmake\SFML\;CMake Files\unit_testing\;CMake Files\unit_testing\lib\;CMake Files\unit_testing\lib\googletest-master\;CMake Files\unit_testing\lib\googletest-master\googlemock\;CMake Files\unit_testing\lib\googletest-master\googlemock\cmake\;CMake Files\unit_testing\lib\googletest-master\googletest\;CMake Files\unit_testing\lib\googletest-master\googletest\cmake\;"/>
+		<Option virtualFolders="CMake Files\;CMake Files\SFML_2.5.1\;CMake Files\SFML_2.5.1\lib\;CMake Files\SFML_2.5.1\lib\cmake\;CMake Files\SFML_2.5.1\lib\cmake\SFML\;CMake Files\Program Files\;CMake Files\Program Files\boost\;CMake Files\Program Files\boost\lib\;CMake Files\Program Files\boost\lib\cmake\;CMake Files\Program Files\boost\lib\cmake\Boost-1.75.0\;CMake Files\Program Files\boost\lib\cmake\boost_headers-1.75.0\;CMake Files\Program Files\boost\lib\cmake\boost_serialization-1.75.0\;CMake Files\unit_testing\;CMake Files\unit_testing\lib\;CMake Files\unit_testing\lib\googletest-master\;CMake Files\unit_testing\lib\googletest-master\googlemock\;CMake Files\unit_testing\lib\googletest-master\googlemock\cmake\;CMake Files\unit_testing\lib\googletest-master\googletest\;CMake Files\unit_testing\lib\googletest-master\googletest\cmake\;"/>
 		<Build>
 			<Target title="all">
 				<Option working_dir="E:/Progetto/DragonSlayer/cmake-build-release/unit_testing/lib/googletest-master"/>
@@ -25,6 +25,7 @@
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add directory="E:/Progetto/DragonSlayer/Resources"/>
+					<Add directory="E:/boost/include"/>
 					<Add directory="E:/Progetto/DragonSlayer/unit_testing/../Resources"/>
 					<Add directory="E:/Progetto/DragonSlayer/unit_testing/lib/googletest-master/googlemock/include"/>
 					<Add directory="E:/Progetto/DragonSlayer/unit_testing/lib/googletest-master/googlemock"/>
@@ -52,6 +53,7 @@
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add directory="E:/Progetto/DragonSlayer/Resources"/>
+					<Add directory="E:/boost/include"/>
 					<Add directory="E:/Progetto/DragonSlayer/unit_testing/../Resources"/>
 					<Add directory="E:/Progetto/DragonSlayer/unit_testing/lib/googletest-master/googlemock/include"/>
 					<Add directory="E:/Progetto/DragonSlayer/unit_testing/lib/googletest-master/googlemock"/>
@@ -79,6 +81,7 @@
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add directory="E:/Progetto/DragonSlayer/Resources"/>
+					<Add directory="E:/boost/include"/>
 					<Add directory="E:/Progetto/DragonSlayer/unit_testing/../Resources"/>
 					<Add directory="E:/Progetto/DragonSlayer/unit_testing/lib/googletest-master/googlemock/include"/>
 					<Add directory="E:/Progetto/DragonSlayer/unit_testing/lib/googletest-master/googlemock"/>
@@ -106,6 +109,7 @@
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add directory="E:/Progetto/DragonSlayer/Resources"/>
+					<Add directory="E:/boost/include"/>
 					<Add directory="E:/Progetto/DragonSlayer/unit_testing/../Resources"/>
 					<Add directory="E:/Progetto/DragonSlayer/unit_testing/lib/googletest-master/googlemock/include"/>
 					<Add directory="E:/Progetto/DragonSlayer/unit_testing/lib/googletest-master/googlemock"/>
@@ -133,6 +137,7 @@
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add directory="E:/Progetto/DragonSlayer/Resources"/>
+					<Add directory="E:/boost/include"/>
 					<Add directory="E:/Progetto/DragonSlayer/unit_testing/../Resources"/>
 					<Add directory="E:/Progetto/DragonSlayer/unit_testing/lib/googletest-master/googletest/include"/>
 					<Add directory="E:/Progetto/DragonSlayer/unit_testing/lib/googletest-master/googletest"/>
@@ -158,6 +163,7 @@
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add directory="E:/Progetto/DragonSlayer/Resources"/>
+					<Add directory="E:/boost/include"/>
 					<Add directory="E:/Progetto/DragonSlayer/unit_testing/../Resources"/>
 					<Add directory="E:/Progetto/DragonSlayer/unit_testing/lib/googletest-master/googletest/include"/>
 					<Add directory="E:/Progetto/DragonSlayer/unit_testing/lib/googletest-master/googletest"/>
@@ -183,6 +189,7 @@
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add directory="E:/Progetto/DragonSlayer/Resources"/>
+					<Add directory="E:/boost/include"/>
 					<Add directory="E:/Progetto/DragonSlayer/unit_testing/../Resources"/>
 					<Add directory="E:/Progetto/DragonSlayer/unit_testing/lib/googletest-master/googletest/include"/>
 					<Add directory="E:/Progetto/DragonSlayer/unit_testing/lib/googletest-master/googletest"/>
@@ -208,6 +215,7 @@
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add directory="E:/Progetto/DragonSlayer/Resources"/>
+					<Add directory="E:/boost/include"/>
 					<Add directory="E:/Progetto/DragonSlayer/unit_testing/../Resources"/>
 					<Add directory="E:/Progetto/DragonSlayer/unit_testing/lib/googletest-master/googletest/include"/>
 					<Add directory="E:/Progetto/DragonSlayer/unit_testing/lib/googletest-master/googletest"/>
@@ -258,6 +266,33 @@
 		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/SFML_2.5.1/lib/cmake/SFML/SFMLSharedTargets.cmake">
 			<Option virtualFolder="CMake Files\SFML_2.5.1\lib\cmake\SFML\"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Program Files/boost/lib/cmake/BoostDetectToolset-1.75.0.cmake">
+			<Option virtualFolder="CMake Files\Program Files\boost\lib\cmake\"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Program Files/boost/lib/cmake/Boost-1.75.0/BoostConfig.cmake">
+			<Option virtualFolder="CMake Files\Program Files\boost\lib\cmake\Boost-1.75.0\"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Program Files/boost/lib/cmake/Boost-1.75.0/BoostConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\Program Files\boost\lib\cmake\Boost-1.75.0\"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Program Files/boost/lib/cmake/boost_headers-1.75.0/boost_headers-config-version.cmake">
+			<Option virtualFolder="CMake Files\Program Files\boost\lib\cmake\boost_headers-1.75.0\"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Program Files/boost/lib/cmake/boost_headers-1.75.0/boost_headers-config.cmake">
+			<Option virtualFolder="CMake Files\Program Files\boost\lib\cmake\boost_headers-1.75.0\"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Program Files/boost/lib/cmake/boost_serialization-1.75.0/boost_serialization-config-version.cmake">
+			<Option virtualFolder="CMake Files\Program Files\boost\lib\cmake\boost_serialization-1.75.0\"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Program Files/boost/lib/cmake/boost_serialization-1.75.0/boost_serialization-config.cmake">
+			<Option virtualFolder="CMake Files\Program Files\boost\lib\cmake\boost_serialization-1.75.0\"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Program Files/boost/lib/cmake/boost_serialization-1.75.0/libboost_serialization-variant-mgw8-mt-d-x32-1_75-static.cmake">
+			<Option virtualFolder="CMake Files\Program Files\boost\lib\cmake\boost_serialization-1.75.0\"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Program Files/boost/lib/cmake/boost_serialization-1.75.0/libboost_serialization-variant-mgw8-mt-x32-1_75-static.cmake">
+			<Option virtualFolder="CMake Files\Program Files\boost\lib\cmake\boost_serialization-1.75.0\"/>
 		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/unit_testing/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\unit_testing\"/>

@@ -4,7 +4,7 @@
 # compile CXX with C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/g++.exe
 CXX_FLAGS = -O3 -DNDEBUG   -std=gnu++14
 
-CXX_DEFINES = 
+CXX_DEFINES = -DBOOST_ALL_NO_LIB
 
 CXX_INCLUDES = @CMakeFiles/DragonSlayer.dir/includes_CXX.rsp
 
