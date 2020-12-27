@@ -8,6 +8,8 @@
 #include <sstream>
 #include "iostream"
 #include "fstream"
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
 
 using namespace std;
 
@@ -18,37 +20,7 @@ enum attribute{
 };
 
 class Stats {
-
-private:
-    int level;
-    int exp;
-    int maxExp;
-
-    int hp;
-    int maxHp;
-    int mp;
-    int maxMp;
-    int armor;
-    int damage;
-    float critChance;
-    float evadeChance;
-
-    int agility;
-    int wisdom;
-    int strength;
-    int freePoints;
-
-    float spellDmgMultiplier;
-
-    int maxHpBonus;
-    int maxMpBonus;
-    int damageBonus;
-    int armorBonus;
-    float critChanceBonus;
-    float evadeChanceBonus;
-
 public:
-
     //MANAGE STATS
     bool addExp(int earned);
     void levelUp(int newExp);
@@ -120,6 +92,60 @@ public:
     void setEvadeChanceBonus(float new_evadeChanceBonus);
     float getSpellDmgMultiplier() const;
 
+private:
+    friend class boost::serialization::access;
+    template<class Archive>
+    void serialize(Archive& ar, const unsigned int version){
+        ar & level;
+        ar & exp;
+        ar & maxExp;
+        ar & hp;
+        ar & maxHp;
+        ar & mp;
+        ar & maxMp;
+        ar & armor;
+        ar & damage;
+        ar & critChance;
+        ar & evadeChance;
+        ar & agility;
+        ar & wisdom;
+        ar & strength;
+        ar & freePoints;
+        ar & spellDmgMultiplier;
+        ar & maxHpBonus;
+        ar & maxMpBonus;
+        ar & damageBonus;
+        ar & armorBonus;
+        ar & critChanceBonus;
+        ar & evadeChanceBonus;
+    }
+
+    int level{};
+    int exp{};
+    int maxExp{};
+
+    int hp{};
+    int maxHp{};
+    int mp{};
+    int maxMp{};
+    int armor{};
+    int damage{};
+    float critChance{};
+    float evadeChance{};
+
+    int agility{};
+    int wisdom{};
+    int strength{};
+    int freePoints{};
+
+    float spellDmgMultiplier{};
+
+    int maxHpBonus{};
+    int maxMpBonus{};
+    int damageBonus{};
+    int armorBonus{};
+    float critChanceBonus{};
+    float evadeChanceBonus{};
 };
 
 

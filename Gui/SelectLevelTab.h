@@ -43,11 +43,11 @@ private:
     GameState* gState;
     bool hide{};
 
-    gui::Button level1Btn;          // id = 0
-    gui::Button level2Btn;          // id = 1
-    gui::Button level3Btn;          // id = 2
-    gui::Button level4Btn;          // id = 3
-    gui::Button level5Btn;          // id = 4
+    std::unique_ptr<gui::Button> level1Btn;          // id = 0
+    std::unique_ptr<gui::Button> level2Btn;          // id = 1
+    std::unique_ptr<gui::Button> level3Btn;          // id = 2
+    std::unique_ptr<gui::Button> level4Btn;          // id = 3
+    std::unique_ptr<gui::Button> level5Btn;          // id = 4
 };
 
 

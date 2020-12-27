@@ -184,7 +184,7 @@ void gui::Button::setDisabled(bool b, bool change_color) {
     if(change_color){
         if(b){
             shape.setOutlineColor(sf::Color(128, 128, 128));
-            text.setFillColor(sf::Color(128, 128, 128));
+            text.setFillColor(sf::Color(158, 158, 158));
         } else{
             shape.setOutlineColor(sf::Color::White);
             text.setFillColor(sf::Color(textIdleColor));
@@ -2214,6 +2214,82 @@ void gui::AchievementNotification::render(sf::RenderTarget &target) {
     target.draw(descLbl);
 }
 
+/*
+ *                      LoadSaveSlot
+ *
+ */
 
+//constructors/destructor
+gui::LoadSaveSlot::LoadSaveSlot(float x, float y, float width, float height, sf::Font* font) {
+    container.setSize(sf::Vector2f(width, height));
+    container.setPosition(x, y);
+    container.setFillColor(sf::Color(30, 30, 30));
+    container.setOutlineColor(sf::Color(20, 20, 20));
+    container.setOutlineThickness(5.f);
 
+    titleLbl.setFont(*font);
+    titleLbl.setCharacterSize(20);
+    titleLbl.setString("Empty Slot");
+    titleLbl.setPosition(x + 5.f, y + 5.f);
 
+    timeLbl.setFont(*font);
+    timeLbl.setCharacterSize(16);
+    timeLbl.setString("-");
+    timeLbl.setPosition(x + 15.f, titleLbl.getPosition().y + titleLbl.getGlobalBounds().height + 5.f);
+
+    saveBtn = gui::Button(container.getPosition().x + container.getGlobalBounds().width - 100.f - 20.f,
+                          container.getPosition().y + container.getGlobalBounds().height/2.f - 35.f - 5.f,
+                          100.f, 30.f, font, "Save", 20);
+
+    loadBtn = gui::Button(saveBtn.getPosition().x,
+                          container.getPosition().y + container.getGlobalBounds().height/2.f + 5.f - 5.f,
+                          100.f, 30.f, font, "Load", 20);
+
+    saveBtn.setIdleTextColor(sf::Color::White);
+    loadBtn.setIdleTextColor(sf::Color::White);
+}
+
+gui::LoadSaveSlot::~LoadSaveSlot() = default;
+
+//accessors
+bool gui::LoadSaveSlot::saveBtnIsPressed() const {
+    return saveBtn.isPressed();
+}
+
+bool gui::LoadSaveSlot::loadBtnIsPressed() const {
+    return loadBtn.isPressed();
+}
+
+void gui::LoadSaveSlot::setSaveBtnState(button_states btn_state) {
+    saveBtn.setButtonState(btn_state);
+}
+
+void gui::LoadSaveSlot::setLoadBtnState(button_states btn_state) {
+    loadBtn.setButtonState(btn_state);
+}
+
+//functions
+void gui::LoadSaveSlot::setLoadBtnDisabled(bool b) {
+    loadBtn.setDisabled(b);
+}
+
+void gui::LoadSaveSlot::setSaveBtnDisabled(bool b) {
+    saveBtn.setDisabled(b);
+}
+
+void gui::LoadSaveSlot::update(const sf::Vector2f &mousePos) {
+    if(!saveBtn.isDisabled())
+        saveBtn.update(mousePos);
+    if(!loadBtn.isDisabled())
+        loadBtn.update(mousePos);
+}
+
+void gui::LoadSaveSlot::render(sf::RenderTarget &target) {
+    target.draw(container);
+    target.draw(titleLbl);
+    target.draw(timeLbl);
+    if(!saveBtn.isDisabled())
+        saveBtn.render(target);
+    if(!loadBtn.isDisabled())
+        loadBtn.render(target);
+}

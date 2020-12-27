@@ -8,6 +8,9 @@
 #include "CharacterTab.h"
 
 class GameState;
+namespace gui{
+    class ShopSlot;
+}
 
 class ShopTab {
 public:

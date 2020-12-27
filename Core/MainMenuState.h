@@ -27,11 +27,20 @@ private:
     sf::RectangleShape background;
     sf::Font font;
     std::map<std::string, gui::Button> buttons;
+    std::shared_ptr<LoadSaveTab> loadSaveTab;
+    state_tab stateTab;
+
+    //loading screen
+    bool loading{};
+    sf::RectangleShape loadingBackground;
+    sf::Text textLbl;
 
     //functions
     void initResources();
+    void initLoadingScreen();
     void initBackground();
     void initButtons();
+    void initLoadSaveTab();
 };
 
 

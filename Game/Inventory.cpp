@@ -30,6 +30,10 @@ std::shared_ptr<Item> Inventory::getItemByIndex(int n) {
     return items.at(n);
 }
 
+vector<std::shared_ptr<Item>> Inventory::getItems() {
+    return items;
+}
+
 void Inventory::sortByItemType() {
     sort(items.begin(),items.end(),
             [](const std::shared_ptr<Item>& lhs , const std::shared_ptr<Item>& rhs)

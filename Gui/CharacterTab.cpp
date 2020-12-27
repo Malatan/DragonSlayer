@@ -60,7 +60,7 @@ void CharacterTab::initStatsContainer() {
 
     //add attributes btns
     float btnSide = 17.f;
-    addStrengthBtn = gui::Button(
+    addStrengthBtn = std::make_unique<gui::Button>(
             statsValue.getPosition().x + 60.f, statsValue.getPosition().y + 268.f, btnSide, btnSide,
             font, "+", 48.f,
             sf::Color(200, 200, 200, 200),
@@ -71,7 +71,7 @@ void CharacterTab::initStatsContainer() {
             sf::Color(150, 150, 150, 0),
             sf::Color(20, 20, 20, 0));
 
-    addWisdomBtn = gui::Button(
+    addWisdomBtn = std::make_unique<gui::Button>(
             statsValue.getPosition().x + 60.f, statsValue.getPosition().y + 294.f, btnSide, btnSide,
             font, "+", 48.f,
             sf::Color(200, 200, 200, 200),
@@ -82,7 +82,7 @@ void CharacterTab::initStatsContainer() {
             sf::Color(150, 150, 150, 0),
             sf::Color(20, 20, 20, 0));
 
-    addAgilityBtn = gui::Button(
+    addAgilityBtn = std::make_unique<gui::Button>(
             statsValue.getPosition().x + 60.f, statsValue.getPosition().y + 320.f, btnSide, btnSide,
             font, "+", 48.f,
             sf::Color(200, 200, 200, 200),
@@ -93,9 +93,9 @@ void CharacterTab::initStatsContainer() {
             sf::Color(150, 150, 150, 0),
             sf::Color(20, 20, 20, 0));
 
-    addStrengthBtn.setTextPositionAddY(-22.f);
-    addWisdomBtn.setTextPositionAddY(-22.f);
-    addAgilityBtn.setTextPositionAddY(-22.f);
+    addStrengthBtn->setTextPositionAddY(-22.f);
+    addWisdomBtn->setTextPositionAddY(-22.f);
+    addAgilityBtn->setTextPositionAddY(-22.f);
 }
 
 void CharacterTab::initEquipContainer() {
@@ -184,7 +184,7 @@ void CharacterTab::initInventoryContainer() {
 
     initInventorySlots();
 
-    sellBtn = gui::Button(
+    sellBtn = std::make_unique<gui::Button>(
             inventoryContainer.getPosition().x + 340.f,
             inventoryContainer.getPosition().y + 580.f, 180.f, 40.f,
             font, "Sell items<S>", 20.f,
@@ -195,12 +195,12 @@ void CharacterTab::initInventoryContainer() {
             sf::Color(70, 70, 70, 0),
             sf::Color(150, 150, 150, 0),
             sf::Color(130, 130, 130));
-    sellBtn.setBorderColor(sf::Color::White);
-    sellBtn.setBorderLineThickness(5.f);
-    sellBtn.setTooltipDisabled(false);
-    sellBtn.setTooltipText("You must be near a Npc for selling items");
+    sellBtn->setBorderColor(sf::Color::White);
+    sellBtn->setBorderLineThickness(5.f);
+    sellBtn->setTooltipDisabled(false);
+    sellBtn->setTooltipText("You must be near a Npc for selling items");
 
-    EquipUnEquipBtn = gui::Button(
+    EquipUnEquipBtn = std::make_unique<gui::Button>(
             inventoryContainer.getPosition().x + 540.f,
             inventoryContainer.getPosition().y + 580.f, 180.f, 40.f,
             font, "Equip/Unequip/Use<R>", 20.f,
@@ -211,10 +211,10 @@ void CharacterTab::initInventoryContainer() {
             sf::Color(70, 70, 70, 0),
             sf::Color(150, 150, 150, 0),
             sf::Color(130, 130, 130));
-    EquipUnEquipBtn.setBorderColor(sf::Color::White);
-    EquipUnEquipBtn.setBorderLineThickness(5.f);
+    EquipUnEquipBtn->setBorderColor(sf::Color::White);
+    EquipUnEquipBtn->setBorderLineThickness(5.f);
 
-    selectAllBtn = gui::Button(
+    selectAllBtn = std::make_unique<gui::Button>(
             inventoryContainer.getPosition().x + 340.f,
             inventoryContainer.getPosition().y + 640.f, 180.f, 40.f,
             font, "Select All", 20.f,
@@ -225,10 +225,10 @@ void CharacterTab::initInventoryContainer() {
             sf::Color(70, 70, 70, 0),
             sf::Color(150, 150, 150, 0),
             sf::Color(130, 130, 130));
-    selectAllBtn.setBorderColor(sf::Color::White);
-    selectAllBtn.setBorderLineThickness(5.f);
+    selectAllBtn->setBorderColor(sf::Color::White);
+    selectAllBtn->setBorderLineThickness(5.f);
 
-    deleteBtn = gui::Button(
+    deleteBtn = std::make_unique<gui::Button>(
             inventoryContainer.getPosition().x + 540.f,
             inventoryContainer.getPosition().y + 640.f, 180.f, 40.f,
             font, "Delete items<Del>", 20.f,
@@ -239,14 +239,14 @@ void CharacterTab::initInventoryContainer() {
             sf::Color(70, 70, 70, 0),
             sf::Color(150, 150, 150, 0),
             sf::Color(130, 130, 130));
-    deleteBtn.setBorderColor(sf::Color::White);
-    deleteBtn.setBorderLineThickness(5.f);
+    deleteBtn->setBorderColor(sf::Color::White);
+    deleteBtn->setBorderLineThickness(5.f);
 
     goldLbl.setFont(*font);
     goldLbl.setCharacterSize(20);
     goldLbl.setString("Inventory Capacity:");
     goldLbl.setPosition(inventoryContainer.getPosition().x + 40.f,
-                              EquipUnEquipBtn.getPosition().y);
+                              EquipUnEquipBtn->getPosition().y);
 
     inventorySpaceLbl.setFont(*font);
     inventorySpaceLbl.setCharacterSize(20);
@@ -351,9 +351,9 @@ rsHandler(std::move(rsHandler)), npcInteract(npcInteract), selectedItem(0) {
             tabText.getPosition().x + 300.f,
             tabText.getPosition().y + 10.f);
 
-    hpBar = gui::ProgressBar(hpBarLbl.getPosition().x + 35.f, tabText.getPosition().y + 10.f, 150.f, 25.f,
+    hpBar = std::make_unique<gui::ProgressBar>(hpBarLbl.getPosition().x + 35.f, tabText.getPosition().y + 10.f, 150.f, 25.f,
                                        0, this->player->getPlayerStats()->getMaxHp(), this->player->getPlayerStats()->getHp(), font);
-    hpBar.setProgressShapeColor(sf::Color::Red);
+    hpBar->setProgressShapeColor(sf::Color::Red);
 
     mpBarLbl.setCharacterSize(20);
     mpBarLbl.setFont(*this->font);
@@ -362,9 +362,9 @@ rsHandler(std::move(rsHandler)), npcInteract(npcInteract), selectedItem(0) {
             hpBarLbl.getPosition().x + 230.f,
             tabText.getPosition().y + 10.f);
 
-    mpBar = gui::ProgressBar(mpBarLbl.getPosition().x + 35.f, tabText.getPosition().y + 10.f, 150.f, 25.f,
+    mpBar = std::make_unique<gui::ProgressBar>(mpBarLbl.getPosition().x + 35.f, tabText.getPosition().y + 10.f, 150.f, 25.f,
                                        0, this->player->getPlayerStats()->getMaxMp(), this->player->getPlayerStats()->getMp(), font);
-    mpBar.setProgressShapeColor(sf::Color::Blue);
+    mpBar->setProgressShapeColor(sf::Color::Blue);
 
     expBarLbl.setCharacterSize(20);
     expBarLbl.setFont(*this->font);
@@ -373,9 +373,9 @@ rsHandler(std::move(rsHandler)), npcInteract(npcInteract), selectedItem(0) {
             mpBarLbl.getPosition().x + 230.f,
             tabText.getPosition().y + 10.f);
 
-    expBar = gui::ProgressBar(expBarLbl.getPosition().x + 35.f, tabText.getPosition().y + 10.f, 150.f, 25.f,
+    expBar = std::make_unique<gui::ProgressBar>(expBarLbl.getPosition().x + 35.f, tabText.getPosition().y + 10.f, 150.f, 25.f,
                                        0, this->player->getPlayerStats()->getMaxExp(), this->player->getPlayerStats()->getExp(), font);
-    expBar.setProgressShapeColor(sf::Color::Green);
+    expBar->setProgressShapeColor(sf::Color::Green);
 
 
     initStatsContainer();
@@ -426,9 +426,9 @@ void CharacterTab::selectAll() {
 void CharacterTab::statsContainerUpdate(const sf::Vector2f& mousePos) {
 
     if(player->getPlayerStats()->getFreePoints() > 0) {
-        addStrengthBtn.update(mousePos);
-        addWisdomBtn.update(mousePos);
-        addAgilityBtn.update(mousePos);
+        addStrengthBtn->update(mousePos);
+        addWisdomBtn->update(mousePos);
+        addAgilityBtn->update(mousePos);
     }
 }
 
@@ -439,9 +439,9 @@ void CharacterTab::statsContainerRender(sf::RenderTarget &target) {
     target.draw(statsValue);
     target.draw(attributesHints);
     if(player->getPlayerStats()->getFreePoints() > 0) {
-        addStrengthBtn.render(target);
-        addWisdomBtn.render(target);
-        addAgilityBtn.render(target);
+        addStrengthBtn->render(target);
+        addWisdomBtn->render(target);
+        addAgilityBtn->render(target);
     }
 }
 
@@ -497,15 +497,15 @@ void CharacterTab::invContainerUpdate(const sf::Vector2f &mousePos) {
     ss << "Items selected: " << selectedItem;
     selectedNumberLbl.setString(ss.str());
 
-    deleteBtn.setDisabled(selectedItem == 0);
-    EquipUnEquipBtn.setDisabled(selectedItem != 1);
+    deleteBtn->setDisabled(selectedItem == 0);
+    EquipUnEquipBtn->setDisabled(selectedItem != 1);
 
-    sellBtn.setDisabled(!(selectedItem != 0 && *npcInteract != NO_NPC));
+    sellBtn->setDisabled(!(selectedItem != 0 && *npcInteract != NO_NPC));
 
-    EquipUnEquipBtn.update(mousePos);
-    deleteBtn.update(mousePos);
-    sellBtn.update(mousePos);
-    selectAllBtn.update(mousePos);
+    EquipUnEquipBtn->update(mousePos);
+    deleteBtn->update(mousePos);
+    sellBtn->update(mousePos);
+    selectAllBtn->update(mousePos);
 }
 
 void CharacterTab::invContainerRender(sf::RenderTarget &target) {
@@ -515,10 +515,10 @@ void CharacterTab::invContainerRender(sf::RenderTarget &target) {
     target.draw(goldLbl);
     target.draw(inventorySpaceLbl);
     target.draw(keysHintLbl);
-    EquipUnEquipBtn.render(target);
-    deleteBtn.render(target);
-    sellBtn.render(target);
-    selectAllBtn.render(target);
+    EquipUnEquipBtn->render(target);
+    deleteBtn->render(target);
+    sellBtn->render(target);
+    selectAllBtn->render(target);
     for (auto it = inventorySlots.rbegin(); it != inventorySlots.rend(); it++){
         (*it)->render(target);
     }
@@ -670,35 +670,35 @@ void CharacterTab::sellBtnFunction() {
 }
 
 void CharacterTab::updateButtons() {
-    if(addStrengthBtn.isPressed() && state->getKeyTime()){
-        addStrengthBtn.setButtonState(BTN_IDLE);
+    if(addStrengthBtn->isPressed() && state->getKeyTime()){
+        addStrengthBtn->setButtonState(BTN_IDLE);
         if(player->getPlayerStats()->getFreePoints() > 0){
             player->getPlayerStats()->addAttribute(STRENGTH, 1);
             gState->updateTabsPlayerStatsLbl();
         }
-    } else if(addWisdomBtn.isPressed() && state->getKeyTime()){
-        addWisdomBtn.setButtonState(BTN_IDLE);
+    } else if(addWisdomBtn->isPressed() && state->getKeyTime()){
+        addWisdomBtn->setButtonState(BTN_IDLE);
         if(player->getPlayerStats()->getFreePoints() > 0){
             player->getPlayerStats()->addAttribute(WISDOM, 1);
             gState->updateTabsPlayerStatsLbl();
         }
-    } else if(addAgilityBtn.isPressed() && state->getKeyTime()){
-        addAgilityBtn.setButtonState(BTN_IDLE);
+    } else if(addAgilityBtn->isPressed() && state->getKeyTime()){
+        addAgilityBtn->setButtonState(BTN_IDLE);
         if(player->getPlayerStats()->getFreePoints() > 0){
             player->getPlayerStats()->addAttribute(AGILITY, 1);
             gState->updateTabsPlayerStatsLbl();
         }
-    } else if(EquipUnEquipBtn.isPressed() && state->getKeyTime()) {
-        EquipUnEquipBtn.setButtonState(BTN_IDLE);
+    } else if(EquipUnEquipBtn->isPressed() && state->getKeyTime()) {
+        EquipUnEquipBtn->setButtonState(BTN_IDLE);
         equipUnEquipBtnFunction();
-    } else if(deleteBtn.isPressed() && state->getKeyTime()) {
-        deleteBtn.setButtonState(BTN_IDLE);
+    } else if(deleteBtn->isPressed() && state->getKeyTime()) {
+        deleteBtn->setButtonState(BTN_IDLE);
         deleteBtnFunction();
-    } else if(sellBtn.isPressed() && state->getKeyTime()) {
-        sellBtn.setButtonState(BTN_IDLE);
+    } else if(sellBtn->isPressed() && state->getKeyTime()) {
+        sellBtn->setButtonState(BTN_IDLE);
         sellBtnFunction();
-    } else if(selectAllBtn.isPressed() && state->getKeyTime()){
-        selectAllBtn.setButtonState(BTN_IDLE);
+    } else if(selectAllBtn->isPressed() && state->getKeyTime()){
+        selectAllBtn->setButtonState(BTN_IDLE);
         selectAll();
     }
 }
@@ -718,13 +718,13 @@ void CharacterTab::updateKeyboardInput() {
             equipUnEquipBtnFunction();
         }
     } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Delete) && state->getKeyTime()) {
-        if(!deleteBtn.isDisabled()){
+        if(!deleteBtn->isDisabled()){
             // delete items with hotkey
             deleteBtnFunction();
         }
     } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S) && state->getKeyTime()) {
         // sell items with hotkey
-        if(!sellBtn.isDisabled()){
+        if(!sellBtn->isDisabled()){
             sellBtnFunction();
         }
     } else if((sf::Keyboard::isKeyPressed(sf::Keyboard::C) || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
@@ -823,9 +823,9 @@ void CharacterTab::update(const sf::Vector2f& mousePos) {
         equipContainerUpdate(mousePos);
         invContainerUpdate(mousePos);
 
-        hpBar.update(player->getPlayerStats()->getHp(), player->getPlayerStats()->getFinalHp());
-        mpBar.update(player->getPlayerStats()->getMp(), player->getPlayerStats()->getFinalMp());
-        expBar.update(player->getPlayerStats()->getExp(), player->getPlayerStats()->getMaxExp());
+        hpBar->update(player->getPlayerStats()->getHp(), player->getPlayerStats()->getFinalHp());
+        mpBar->update(player->getPlayerStats()->getMp(), player->getPlayerStats()->getFinalMp());
+        expBar->update(player->getPlayerStats()->getExp(), player->getPlayerStats()->getMaxExp());
     }
 }
 
@@ -835,11 +835,11 @@ void CharacterTab::render(sf::RenderTarget &target) {
     target.draw(tabText);
 
     target.draw(hpBarLbl);
-    hpBar.render(target);
+    hpBar->render(target);
     target.draw(mpBarLbl);
-    mpBar.render(target);
+    mpBar->render(target);
     target.draw(expBarLbl);
-    expBar.render(target);
+    expBar->render(target);
 
     for(const auto& i : inventorySlotsBackgrounds)
         target.draw(i);

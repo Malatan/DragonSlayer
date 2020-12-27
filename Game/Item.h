@@ -99,7 +99,32 @@ public:
     float getEvadeChance() const;
     void setEvadeChance(float new_evadeChance);
 
-protected:
+private:
+    friend class boost::serialization::access;
+    template<class Archive>
+    void serialize(Archive& ar, const unsigned int version){
+        ar & Id;
+        ar & descriptionWrapped;
+        ar & usageType;
+        ar & itemType;
+        ar & name;
+        ar & description;
+        ar & value;
+        ar & rarity;
+        ar & rarityEnum;
+        ar & iconRectX;
+        ar & iconRectY;
+        ar & isNew;
+        ar & equipped;
+        ar & quantity;
+        ar & hp;
+        ar & mp;
+        ar & damage;
+        ar & armor;
+        ar & critChance;
+        ar & evadeChance;
+    }
+
     unsigned int Id;
     bool descriptionWrapped;
     item_usage_type usageType;      // 6-Consumable/5-Weapon/4-Shield/3-Head/2-Chest/1-Arms/0-Legs

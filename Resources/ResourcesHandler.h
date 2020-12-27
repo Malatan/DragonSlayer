@@ -22,8 +22,12 @@ public:
     ResourcesHandler();
     virtual ~ResourcesHandler();
 
+    std::string getGameVersion() const;
+
     //id
     unsigned int generateId();
+    void setIdCounter(unsigned int value);
+    unsigned int getIdCunter() const;
 
     void setEquipSlotsTextureIntRect(int equip_slot, sf::IntRect intRect);
     sf::IntRect getEquipSlotTextureRect(int equip_slot);
@@ -40,6 +44,7 @@ public:
 
 private:
     unsigned int IdCounter;
+    std::string gameVersion;
 
     std::vector<std::shared_ptr<Resource>> resources;
     sf::IntRect equipSlotsTextureIntRects[6];

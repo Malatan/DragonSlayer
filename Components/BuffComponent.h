@@ -16,6 +16,10 @@
 #include "../Core/GameState.h"
 
 class GameState;
+namespace gui{
+    class BuffSlot;
+}
+
 
 class BuffComponent {
 public:

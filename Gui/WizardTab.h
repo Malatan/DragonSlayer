@@ -7,6 +7,9 @@
 
 #include "SpellTab.h"
 
+namespace gui{
+    class WizardSpellSlot;
+}
 
 class WizardTab {
 public:
@@ -32,8 +35,8 @@ private:
     int currentPage{};
     int maxPage{};
     sf::Text pageLbl;
-    gui::Button nextPageBtn;
-    gui::Button previousPageBtn;
+    std::unique_ptr<gui::Button> nextPageBtn;
+    std::unique_ptr<gui::Button> previousPageBtn;
 
     sf::RectangleShape background;
     sf::RectangleShape container;

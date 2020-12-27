@@ -22,12 +22,14 @@
 #include "../Gui/WizardTab.h"
 #include "../Gui/SelectLevelTab.h"
 #include "../Gui/AchievementTab.h"
+#include "../Gui/LoadSaveTab.h"
 #include "../Components/BuffComponent.h"
 #include "../Components/PopUpTextComponent.h"
 #include "../Components/SpellComponent.h"
 #include "../Map/Map.h"
 #include "../Map/MapGenerator.h"
 
+class PauseMenu;
 class CharacterTab;
 class ShopTab;
 class PriestTab;
@@ -35,6 +37,7 @@ class SpellTab;
 class WizardTab;
 class SelectLevelTab;
 class AchievementTab;
+class LoadSaveTab;
 class BuffComponent;
 class PopUpTextComponent;
 class SpellComponent;
@@ -55,13 +58,15 @@ enum state_tab{
     WIZARD_TAB,
     LOOTBAG_TAB,
     SELECTLEVEL_TAB,
-    ACHIEVEMENT_TAB
+    ACHIEVEMENT_TAB,
+    LOADSAVE_TAB
 };
 
 class GameState : public State, public Subject{
 public:
     GameState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::unique_ptr<State>>* states,
-            std::shared_ptr<ResourcesHandler> rsHandler, sf::Font *font, state_enum _state_enum);
+            std::shared_ptr<ResourcesHandler> rsHandler, std::shared_ptr<LoadSaveTab> loadsave_tab,
+            sf::Font *font, state_enum _state_enum);
     virtual ~GameState();
 
     //accessors
@@ -71,6 +76,7 @@ public:
     std::shared_ptr<SpellTab> getSpellTab();
     std::shared_ptr<LootGenerator> getLootGenerator();
     std::shared_ptr<Player> getPlayer();
+    std::shared_ptr<ResourcesHandler> getResourceHandler();
     Npc* getNpc(int index);
     npc_type getInteractNpc() const;
     std::shared_ptr<Enemy> getEnemy(int index);
@@ -110,15 +116,15 @@ private:
     sf::Text hints;
     sf::Text debugText;
     sf::Text locationLbl;
-    gui::Button cTabBtn;
-    gui::Button pauseMenuBtn;
-    gui::Button spellTabBtn;
-    gui::Button achievementTabBtn;
+    std::unique_ptr<gui::Button> cTabBtn;
+    std::unique_ptr<gui::Button> pauseMenuBtn;
+    std::unique_ptr<gui::Button> spellTabBtn;
+    std::unique_ptr<gui::Button> achievementTabBtn;
 
     sf::Shader coreShader;
     Map* map{};
     MapGenerator* mg{};
-    PauseMenu pmenu;
+    std::unique_ptr<PauseMenu> pmenu;
     std::shared_ptr<CharacterTab> cTab;
     std::shared_ptr<ShopTab> shopTab;
     std::shared_ptr<PriestTab> priestTab;
@@ -127,7 +133,7 @@ private:
     std::shared_ptr<SelectLevelTab> selectLevelTab;
     std::shared_ptr<AchievementTab> achievementTab;
     std::shared_ptr<Player> player;
-
+    std::shared_ptr<LoadSaveTab> loadSaveTab;
     std::shared_ptr<BuffComponent> buffComponent;
     std::shared_ptr<PopUpTextComponent> popUpTextComponent;
     std::shared_ptr<SpellComponent> spellComponent;

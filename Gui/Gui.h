@@ -9,6 +9,7 @@
 #include "../Core/State.h"
 #include "../Game/Player.h"
 #include "../Game/Enemy.h"
+#include "../Game/Save.h"
 #include "libraries/RichText.hpp"
 
 enum button_states{
@@ -558,6 +559,32 @@ namespace gui{
         float speed{};
         sf::Vector2f velocity;
         bool done{};
+    };
+
+    class LoadSaveSlot{
+    public:
+        //constructors/destructor
+        LoadSaveSlot(float x, float y, float width, float height, sf::Font* font);
+        virtual ~LoadSaveSlot();
+
+        //accessors
+        bool saveBtnIsPressed() const;
+        bool loadBtnIsPressed() const;
+        void setSaveBtnState(button_states btn_state);
+        void setLoadBtnState(button_states btn_state);
+
+        //functions
+        void setLoadBtnDisabled(bool b);
+        void setSaveBtnDisabled(bool b);
+        void update(const sf::Vector2f& mousePos);
+        void render(sf::RenderTarget& target);
+
+    private:
+        sf::RectangleShape container;
+        sf::Text titleLbl;
+        sf::Text timeLbl;
+        gui::Button saveBtn;
+        gui::Button loadBtn;
     };
 }
 

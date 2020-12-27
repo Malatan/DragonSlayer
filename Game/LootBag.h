@@ -11,6 +11,10 @@
 #include "../Gui/Gui.h"
 
 class GameState;
+namespace gui{
+    class Button;
+    class LootSlot;
+}
 
 typedef std::pair<int, int> lifeTimePair;
 
@@ -66,8 +70,8 @@ private:
     sf::RectangleShape background;
     sf::RectangleShape container;
     std::vector<std::unique_ptr<gui::LootSlot>> lootSlots;
-    gui::Button lootAllBtn;
-    gui::Button cancelBtn;
+    unique_ptr<gui::Button> lootAllBtn;
+    unique_ptr<gui::Button> cancelBtn;
 
     //initializzers
     void initLootContainer(sf::Vector2f window_size);

@@ -61,9 +61,10 @@ SpellTab::SpellTab(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* fo
             container.getPosition().x + (container.getGlobalBounds().width/2.f) - (containerTitle.getGlobalBounds().width/2.f),
             container.getPosition().y + 10.f);
 
-    infoLbl.setFont(*this->font);
-    infoLbl.setCharacterSize(20);
-    infoLbl.setPosition(
+    infoLbl = std::make_unique<sfe::RichText>();
+    infoLbl->setFont(*this->font);
+    infoLbl->setCharacterSize(20);
+    infoLbl->setPosition(
             container.getPosition().x + 35.f,
             container.getPosition().y + 35.f);
     //inits
@@ -90,8 +91,8 @@ void SpellTab::updateSpellsInfoLbl() {
     std::stringstream ss;
     ss << std::fixed << std::setprecision(1) << player->getPlayerStats()->getSpellDmgMultiplier();
     dmgMultiplier = ss.str();
-    infoLbl.clear();
-    infoLbl << "Spell damage x " << dmgMultiplier << " (Wisdom/10)";
+    infoLbl->clear();
+    *infoLbl << "Spell damage x " << dmgMultiplier << " (Wisdom/10)";
 
     for(const auto& i : spellSlots){
         switch(i->getSpell()->getTypeEnum()){
@@ -139,7 +140,7 @@ void SpellTab::render(sf::RenderTarget &target) {
     target.draw(background);
     target.draw(container);
     target.draw(containerTitle);
-    target.draw(infoLbl);
+    target.draw(*infoLbl);
     for(const auto& i : spellSlots){
         i->render(target);
     }

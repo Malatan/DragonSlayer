@@ -11,6 +11,12 @@
 #include "../Game/Npc.h"
 
 class GameState;
+namespace gui{
+    class ItemSlot;
+    class Button;
+    class CustomDialog;
+    class ProgressBar;
+}
 
 class CharacterTab {
 public:
@@ -83,9 +89,9 @@ private:
     sf::Text hpBarLbl;
     sf::Text mpBarLbl;
     sf::Text expBarLbl;
-    gui::ProgressBar hpBar;
-    gui::ProgressBar mpBar;
-    gui::ProgressBar expBar;
+    std::unique_ptr<gui::ProgressBar> hpBar;
+    std::unique_ptr<gui::ProgressBar> mpBar;
+    std::unique_ptr<gui::ProgressBar> expBar;
 
     //stats container
     sf::RectangleShape statsContainer;
@@ -93,9 +99,9 @@ private:
     sf::Text statsName;
     sf::Text statsValue;
     sf::Text attributesHints;
-    gui::Button addStrengthBtn;
-    gui::Button addWisdomBtn;
-    gui::Button addAgilityBtn;
+    std::unique_ptr<gui::Button> addStrengthBtn;
+    std::unique_ptr<gui::Button> addWisdomBtn;
+    std::unique_ptr<gui::Button> addAgilityBtn;
 
     //equip container
     sf::RectangleShape equipContainer;
@@ -112,10 +118,10 @@ private:
     sf::Text goldLbl;
     sf::Text inventorySpaceLbl;
     sf::Text keysHintLbl;
-    gui::Button EquipUnEquipBtn;
-    gui::Button deleteBtn;
-    gui::Button sellBtn;
-    gui::Button selectAllBtn;
+    std::unique_ptr<gui::Button> EquipUnEquipBtn;
+    std::unique_ptr<gui::Button> deleteBtn;
+    std::unique_ptr<gui::Button> sellBtn;
+    std::unique_ptr<gui::Button> selectAllBtn;
 };
 
 

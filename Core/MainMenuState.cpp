@@ -9,8 +9,18 @@ void MainMenuState::initResources() {
                            "mainmenu background", "MainMenuState");
 
     if(!font.loadFromFile("../Resources/Fonts/BreatheFire-65pg.ttf")){
-        std::cout<<"Errore: mainmenustate could not load font" << std::endl;
+        std::cerr<<"Errore: mainmenustate could not load font" << std::endl;
     }
+}
+
+void MainMenuState::initLoadingScreen() {
+    loadingBackground.setSize(sf::Vector2f(window->getSize().x, window->getSize().y));
+    loadingBackground.setFillColor(sf::Color(30, 30, 30));
+    textLbl.setFont(font);
+    textLbl.setCharacterSize(100);
+    textLbl.setString("Loading...");
+    textLbl.setPosition(window->getSize().x/2.f - textLbl.getGlobalBounds().width/2.f,
+                        window->getSize().y/2.f - textLbl.getGlobalBounds().height/2.f);
 }
 
 void MainMenuState::initBackground() {
@@ -25,7 +35,7 @@ void MainMenuState::initBackground() {
 void MainMenuState::initButtons() {
     float centerX = window->getSize().x / 2.f;
     float percentY = (window->getSize().y)/100.f;
-    float btnWidth = 200.f;
+    float btnWidth = 100.f;
     float btnHeight = 40.f;
     sf::Color text_idle_color =  sf::Color(250, 250, 250, 250);
     sf::Color text_hover_color = sf::Color(14, 12, 18,250);
@@ -35,8 +45,13 @@ void MainMenuState::initButtons() {
     sf::Color hover_color = sf::Color(150, 150, 150, 0);
     sf::Color active_color = sf::Color(20, 20, 20, 0);
 
-    buttons["GAME_STATE"] = gui::Button(375.f, percentY * 70.f , btnWidth, btnHeight,
-                                        &font, "Start Game", 40,
+    buttons["GAME_STATE"] = gui::Button(375.f, percentY * 60.f , btnWidth, btnHeight,
+                                        &font, "New", 40,
+                                        text_idle_color ,text_hover_color, text_active_color,
+                                        idle_color, hover_color, active_color);
+
+    buttons["LOAD_TAB"] = gui::Button(375.f, percentY * 70.f , btnWidth, btnHeight,
+                                        &font, "Load", 40,
                                         text_idle_color ,text_hover_color, text_active_color,
                                         idle_color, hover_color, active_color);
 
@@ -47,18 +62,26 @@ void MainMenuState::initButtons() {
 
 }
 
+void MainMenuState::initLoadSaveTab() {
+    loadSaveTab = std::make_shared<LoadSaveTab>(window, rsHandler, &font, this);
+    loadSaveTab->setAccessOption(LOAD_ONLY);
+}
+
 MainMenuState::MainMenuState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::unique_ptr<State>>* states,
         std::shared_ptr<ResourcesHandler> rsHandler, state_enum _state_enum)
         : State(std::move(window), states, std::move(rsHandler), _state_enum){
+    stateTab = NO_TAB;
     initResources();
     initBackground();
     initButtons();
+    initLoadSaveTab();
+    initLoadingScreen();
 }
 
 MainMenuState::~MainMenuState() = default;
 
 void MainMenuState::startNewGame() {
-    states->push(std::make_unique<GameState>(window, states, rsHandler, &font, GAME_STATE));
+    states->push(std::make_unique<GameState>(window, states, rsHandler, loadSaveTab, &font, GAME_STATE));
 }
 
 void MainMenuState::updateInput(const float &dt) {
@@ -66,27 +89,27 @@ void MainMenuState::updateInput(const float &dt) {
 }
 
 void MainMenuState::updateButtons() {
+    if(loading)
+        startNewGame();
     // Aggiorna tutti i buttoni
     for (auto &it : buttons){
         it.second.update((mousePosView));
     }
 
     //Nuovo gioco
-    if(buttons["GAME_STATE"].isPressed()){
-        startNewGame();
+    if(buttons["GAME_STATE"].isPressed() && getKeyTime()){
+        loading = true;
     }
 
     //Esce dal gioco
-    if(buttons["EXIT_STATE"].isPressed()){
+    if(buttons["EXIT_STATE"].isPressed() && getKeyTime()){
         endState();
     }
-}
 
-void MainMenuState::update(const float &dt) {
-    updateMousePosition(nullptr);
-    updateInput(dt);
-    updateKeyTime(dt);
-    updateButtons();
+    if(buttons["LOAD_TAB"].isPressed() && getKeyTime()){
+        stateTab = LOADSAVE_TAB;
+        loadSaveTab->setHide(false);
+    }
 }
 
 void MainMenuState::renderButtons(sf::RenderTarget& target) {
@@ -95,23 +118,46 @@ void MainMenuState::renderButtons(sf::RenderTarget& target) {
     }
 }
 
+void MainMenuState::update(const float &dt) {
+    updateMousePosition(nullptr);
+    updateKeyTime(dt);
+    switch (stateTab) {
+        case NO_TAB:
+            updateInput(dt);
+            updateKeyTime(dt);
+            updateButtons();
+            break;
+        case LOADSAVE_TAB:
+            loadSaveTab->update(mousePosView);
+            if(loadSaveTab->isHide()){
+                stateTab = NO_TAB;
+                loadSaveTab->setHide(true);
+            }
+            break;
+        default:
+            break;
+    }
+}
+
 void MainMenuState::render(sf::RenderTarget *target) {
     if(!target){
         target = window.get();
     }
+    if(loading){
+        target->draw(loadingBackground);
+        target->draw(textLbl);
+    }else{
+        target->draw(background);
+        renderButtons(*target);
 
-    target->draw(background);
-    renderButtons(*target);
-
-  /*  //tool per il debug : mostre le coordinate del mouse
-    sf::Text mouseText;
-    mouseText.setPosition(this->mousePosView.x, this->mousePosView.y - 15);
-    mouseText.setFont(this->font);
-    mouseText.setCharacterSize(14);
-    std::stringstream ss;
-    ss << this->mousePosView.x << " " << this->mousePosView.y;
-    mouseText.setString(ss.str());
-    target->draw(mouseText);*/
+        switch (stateTab) {
+            case LOADSAVE_TAB:
+                loadSaveTab->render(*target);
+                break;
+            default:
+                break;
+        }
+    }
 
 }
 

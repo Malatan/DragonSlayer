@@ -5,6 +5,7 @@
 #include "GameState.h"
 
 #include <random>
+#include <utility>
 
 void GameState::initTextures() {
     rsHandler->addResource("../Resources/Images/Sprites/Player/player_sheet.png", "player_sheet", "GameState");
@@ -87,13 +88,14 @@ void GameState::initTextures() {
 }
 
 void GameState::initPauseMenu() {
-    pmenu = PauseMenu(window, font);
+    pmenu = std::make_unique<PauseMenu>(window, font);
 
-    pmenu.addButton("SPELL", 300.f, "Spells", 30);
-    pmenu.addButton("CHARACTER", 380.f, "Character", 30);
-    pmenu.addButton("ACHIEVEMENT", 460.f, "Achievement", 30);
-    pmenu.addButton("BACK", 540.f, "Resume", 30);
-    pmenu.addButton("QUIT", 620.f, "QUIT", 50);
+    pmenu->addButton("SPELL", 300.f, "Spells", 30);
+    pmenu->addButton("CHARACTER", 380.f, "Character", 30);
+    pmenu->addButton("ACHIEVEMENT", 460.f, "Achievement", 30);
+    pmenu->addButton("LOADSAVE", 540.f, "Load/Save", 30);
+    pmenu->addButton("BACK", 620.f, "Resume", 30);
+    pmenu->addButton("QUIT", 700.f, "QUIT", 50);
 }
 
 void GameState::initPlayers() {
@@ -217,7 +219,7 @@ void GameState::initDebugText() {
 }
 
 void GameState::initButtons() {
-    pauseMenuBtn = gui::Button(
+    pauseMenuBtn = std::make_unique<gui::Button>(
             window->getSize().x - 100.f,
             window->getSize().y - 90.f, 70.f, 70.f,
             font, "", 20.f,
@@ -228,12 +230,12 @@ void GameState::initButtons() {
             sf::Color::Transparent,
             sf::Color(70, 70, 70, 60),
             sf::Color(130, 130, 130, 0));
-    pauseMenuBtn.setBackgroundTexture(&textures["PAUSEMENU_ICON"]);
-    pauseMenuBtn.setBackbgroundDisabled(false);
+    pauseMenuBtn->setBackgroundTexture(&textures["PAUSEMENU_ICON"]);
+    pauseMenuBtn->setBackbgroundDisabled(false);
 
-    achievementTabBtn = gui::Button(
-            pauseMenuBtn.getPosition().x - 100.f,
-            pauseMenuBtn.getPosition().y, 70.f, 70.f,
+    achievementTabBtn = std::make_unique<gui::Button>(
+            pauseMenuBtn->getPosition().x - 100.f,
+            pauseMenuBtn->getPosition().y, 70.f, 70.f,
             font, "", 20.f,
             sf::Color(255, 255, 255, 255),
             sf::Color(160, 160, 160),
@@ -242,12 +244,12 @@ void GameState::initButtons() {
             sf::Color::Transparent,
             sf::Color(70, 70, 70, 60),
             sf::Color(130, 130, 130, 0));
-    achievementTabBtn.setBackgroundTexture(&textures["ACHIEVEMENT_ICON"]);
-    achievementTabBtn.setBackbgroundDisabled(false);
+    achievementTabBtn->setBackgroundTexture(&textures["ACHIEVEMENT_ICON"]);
+    achievementTabBtn->setBackbgroundDisabled(false);
 
-    spellTabBtn = gui::Button(
-            achievementTabBtn.getPosition().x - 100.f,
-            achievementTabBtn.getPosition().y, 70.f, 70.f,
+    spellTabBtn = std::make_unique<gui::Button>(
+            achievementTabBtn->getPosition().x - 100.f,
+            achievementTabBtn->getPosition().y, 70.f, 70.f,
             font, "", 20.f,
             sf::Color(255, 255, 255, 255),
             sf::Color(160, 160, 160),
@@ -256,12 +258,12 @@ void GameState::initButtons() {
             sf::Color::Transparent,
             sf::Color(70, 70, 70, 60),
             sf::Color(130, 130, 130, 0));
-    spellTabBtn.setBackgroundTexture(&textures["SPELL_ICON"]);
-    spellTabBtn.setBackbgroundDisabled(false);
+    spellTabBtn->setBackgroundTexture(&textures["SPELL_ICON"]);
+    spellTabBtn->setBackbgroundDisabled(false);
 
-    cTabBtn = gui::Button(
-            spellTabBtn.getPosition().x - 100.f,
-            spellTabBtn.getPosition().y, 70.f, 70.f,
+    cTabBtn = std::make_unique<gui::Button>(
+            spellTabBtn->getPosition().x - 100.f,
+            spellTabBtn->getPosition().y, 70.f, 70.f,
             font, "", 20.f,
             sf::Color(255, 255, 255, 255),
             sf::Color(160, 160, 160),
@@ -270,8 +272,8 @@ void GameState::initButtons() {
             sf::Color::Transparent,
             sf::Color(70, 70, 70, 60),
             sf::Color(130, 130, 130, 0));
-    cTabBtn.setBackgroundTexture(&textures["INVENTORY_ICON"]);
-    cTabBtn.setBackbgroundDisabled(false);
+    cTabBtn->setBackgroundTexture(&textures["INVENTORY_ICON"]);
+    cTabBtn->setBackbgroundDisabled(false);
 
 }
 
@@ -301,14 +303,17 @@ void GameState::preNotifiers() {
 
 //constructors/destructors
 GameState::GameState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::unique_ptr<State>>* states,
-                     std::shared_ptr<ResourcesHandler> rsHandler, sf::Font *font, state_enum _state_enum)
-        : State(std::move(window), states, std::move(rsHandler), _state_enum){
+                     std::shared_ptr<ResourcesHandler> rsHandler, std::shared_ptr<LoadSaveTab> loadsave_tab,
+                     sf::Font *font, state_enum _state_enum)
+        : State(std::move(window), states, std::move(rsHandler), _state_enum), loadSaveTab(std::move(loadsave_tab)){
     this->font = font;
     stato = NO_TAB;
     npcInteract = NO_NPC;
     noclip = false;
     spawnPos = {1730.f, 770.f};
     floorReached = 0;
+    loadSaveTab->setState(this);
+    loadSaveTab->setAccessOption(LOAD_SAVE);
     initShader();
     initTextures();
     initPauseMenu();
@@ -351,6 +356,10 @@ std::shared_ptr<SpellTab> GameState::getSpellTab() {
 
 std::shared_ptr<LootGenerator> GameState::getLootGenerator() {
     return lootGenerator;
+}
+
+std::shared_ptr<ResourcesHandler> GameState::getResourceHandler() {
+    return rsHandler;
 }
 
 Npc *GameState::getNpc(int index) {
@@ -821,19 +830,23 @@ void GameState::updateTabsPlayerStatsLbl(state_tab update_tab) {
 }
 
 void GameState::updatePausedMenuButtons() {
-    if(pmenu.isButtonPressed("QUIT") && getKeyTime()){
+    if(pmenu->isButtonPressed("QUIT") && getKeyTime()){
         endState();
-    } else if(pmenu.isButtonPressed("BACK") && getKeyTime()){
+    } else if(pmenu->isButtonPressed("BACK") && getKeyTime()){
         changeStato(NO_TAB);
-    } else if(pmenu.isButtonPressed("SPELL") && getKeyTime()){
+    } else if(pmenu->isButtonPressed("SPELL") && getKeyTime()){
         changeStato(NO_TAB);
         changeStato(SPELL_TAB);
-    } else if(pmenu.isButtonPressed("CHARACTER") && getKeyTime()){
+    } else if(pmenu->isButtonPressed("CHARACTER") && getKeyTime()){
         changeStato(NO_TAB);
         changeStato(CHARACTER_TAB);
-    } else if(pmenu.isButtonPressed("ACHIEVEMENT") && getKeyTime()){
+    } else if(pmenu->isButtonPressed("ACHIEVEMENT") && getKeyTime()){
         changeStato(NO_TAB);
         changeStato(ACHIEVEMENT_TAB);
+    } else if(pmenu->isButtonPressed("LOADSAVE") && getKeyTime()){
+        changeStato(NO_TAB);
+        changeStato(LOADSAVE_TAB);
+        loadSaveTab->setHide(false);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && getKeyTime()){
         changeStato(NO_TAB);
@@ -853,18 +866,18 @@ void GameState::updateDebugText() {
 }
 
 void GameState::updateButtons() {
-    if(cTabBtn.isPressed() && getKeyTime()){
-        cTabBtn.setButtonState(BTN_IDLE);
+    if(cTabBtn->isPressed() && getKeyTime()){
+        cTabBtn->setButtonState(BTN_IDLE);
         changeStato(CHARACTER_TAB);
         cTab->unselectAll();
-    } else if(pauseMenuBtn.isPressed() && getKeyTime()){
-        pauseMenuBtn.setButtonState(BTN_IDLE);
+    } else if(pauseMenuBtn->isPressed() && getKeyTime()){
+        pauseMenuBtn->setButtonState(BTN_IDLE);
         changeStato(PAUSEMENU_TAB);
-    } else if(spellTabBtn.isPressed() && getKeyTime()){
-        spellTabBtn.setButtonState(BTN_IDLE);
+    } else if(spellTabBtn->isPressed() && getKeyTime()){
+        spellTabBtn->setButtonState(BTN_IDLE);
         changeStato(SPELL_TAB);
-    } else if(achievementTabBtn.isPressed() && getKeyTime()){
-        achievementTabBtn.setButtonState(BTN_IDLE);
+    } else if(achievementTabBtn->isPressed() && getKeyTime()){
+        achievementTabBtn->setButtonState(BTN_IDLE);
         changeStato(ACHIEVEMENT_TAB);
     }
 }
@@ -875,7 +888,8 @@ void GameState::update(const float& dt) {
     updateTileMap(dt);
     updateDebugText();
     updateButtons();
-    updateMouseInput(dt);
+    if(!paused)
+        updateMouseInput(dt);
     updateMousePosition(nullptr);
     achievementComponent->update(dt, mousePosView);
     buffComponent->update(dt, mousePosView);
@@ -906,10 +920,10 @@ void GameState::update(const float& dt) {
             i->updateCollision(player, &npcInteract);
         }
 
-        cTabBtn.update(mousePosView);
-        pauseMenuBtn.update(mousePosView);
-        spellTabBtn.update(mousePosView);
-        achievementTabBtn.update(mousePosView);
+        cTabBtn->update(mousePosView);
+        pauseMenuBtn->update(mousePosView);
+        spellTabBtn->update(mousePosView);
+        achievementTabBtn->update(mousePosView);
         popUpTextComponent->update(dt);
         for(const auto& i : enemies){
             i->update(dt);
@@ -926,40 +940,46 @@ void GameState::update(const float& dt) {
         }
     } else{ // paused update
         switch(stato){
-            case PAUSEMENU_TAB:
-                pmenu.update(mousePosView);
+            case PAUSEMENU_TAB:{
+                pmenu->update(mousePosView);
                 updatePausedMenuButtons();
                 break;
-            case CHARACTER_TAB:
+            }
+            case CHARACTER_TAB:{
                 cTab->update(mousePosView);
-                if(cTab->closeCharacterTabByClicking(mousePosView, &cTabBtn))
+                if(cTab->closeCharacterTabByClicking(mousePosView, cTabBtn.get()))
                     changeStato(NO_TAB);
                 popUpTextComponent->update(dt);
                 break;
-            case SHOP_TAB:
+            }
+            case SHOP_TAB:{
                 shopTab->update(mousePosView);
                 if(shopTab->closeTabByClicking(mousePosView))
                     changeStato(NO_TAB);
                 popUpTextComponent->update(dt);
                 break;
-            case PRIEST_TAB:
+            }
+            case PRIEST_TAB:{
                 priestTab->update(mousePosView);
                 if(priestTab->closeTabByClicking(mousePosView))
                     changeStato(NO_TAB);
                 popUpTextComponent->update(dt);
                 break;
-            case SPELL_TAB:
+            }
+            case SPELL_TAB:{
                 spellTab->update(mousePosView);
-                if(spellTab->closeTabByClicking(mousePosView, &spellTabBtn))
+                if(spellTab->closeTabByClicking(mousePosView, spellTabBtn.get()))
                     changeStato(NO_TAB);
                 popUpTextComponent->update(dt);
                 break;
-            case WIZARD_TAB:
+            }
+            case WIZARD_TAB:{
                 wizardTab->update(mousePosView);
                 if(wizardTab->closeTabByClicking(mousePosView))
                     changeStato(NO_TAB);
                 popUpTextComponent->update(dt);
                 break;
+            }
             case LOOTBAG_TAB:{
                 lootBags[interactLootBag.second]->updatePage(mousePosView);
                 if(lootBags[interactLootBag.second]->isExpired()){
@@ -976,11 +996,19 @@ void GameState::update(const float& dt) {
                 popUpTextComponent->update(dt);
                 break;
             }
-            case ACHIEVEMENT_TAB:
+            case ACHIEVEMENT_TAB:{
                 achievementTab->update(mousePosView);
-                if(achievementTab->closeTabByClicking(mousePosView, &achievementTabBtn))
+                if(achievementTab->closeTabByClicking(mousePosView, achievementTabBtn.get()))
                     changeStato(NO_TAB);
                 popUpTextComponent->update(dt);
+                break;
+            }
+            case LOADSAVE_TAB:
+                loadSaveTab->update(mousePosView);
+                if(loadSaveTab->isHide()){
+                    changeStato(NO_TAB);
+                    loadSaveTab->setHide(true);
+                }
                 break;
             case NO_TAB:
                 break;
@@ -1020,16 +1048,16 @@ void GameState::render(sf::RenderTarget* target) {
     }
 
     target->setView(target->getDefaultView());
-    cTabBtn.render(*target);
-    pauseMenuBtn.render(*target);
-    spellTabBtn.render(*target);
-    achievementTabBtn.render(*target);
+    cTabBtn->render(*target);
+    pauseMenuBtn->render(*target);
+    spellTabBtn->render(*target);
+    achievementTabBtn->render(*target);
     target->draw(hints);
     target->draw(locationLbl);
     if(paused){ // pause menu render
         switch(stato){
             case PAUSEMENU_TAB:
-                pmenu.render(*target);
+                pmenu->render(*target);
                 break;
             case CHARACTER_TAB:
                 cTab->render(*target);
@@ -1054,6 +1082,9 @@ void GameState::render(sf::RenderTarget* target) {
                 break;
             case ACHIEVEMENT_TAB:
                 achievementTab->render(*target);
+                break;
+            case LOADSAVE_TAB:
+                loadSaveTab->render(*target);
                 break;
             case NO_TAB:
                 break;

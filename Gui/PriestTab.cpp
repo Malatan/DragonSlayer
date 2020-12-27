@@ -9,7 +9,7 @@ void PriestTab::initButtons() {
     float width = 300.f;
     float height = 40.f;
     ss << "Restore hp (Cost: " << RECOVER_HP_COST << "g)" ;
-    restoreHpBtn = gui::Button(
+    restoreHpBtn = std::make_unique<gui::Button>(
             container.getPosition().x + container.getGlobalBounds().width/2.f - 150.f,
             container.getPosition().y + 100.f,
             width, height,
@@ -21,17 +21,17 @@ void PriestTab::initButtons() {
             sf::Color(70, 70, 70, 0),
             sf::Color(150, 150, 150, 0),
             sf::Color(130, 130, 130));
-    restoreHpBtn.setBorderColor(sf::Color::White);
-    restoreHpBtn.setBorderLineThickness(5.f);
-    restoreHpBtn.setTooltipDisabled(false);
-    restoreHpBtn.setTooltipText("Restore all your hp");
-    restoreHpBtn.setId(0);
+    restoreHpBtn->setBorderColor(sf::Color::White);
+    restoreHpBtn->setBorderLineThickness(5.f);
+    restoreHpBtn->setTooltipDisabled(false);
+    restoreHpBtn->setTooltipText("Restore all your hp");
+    restoreHpBtn->setId(0);
 
     ss.str("");
     ss << "Restore mp (Cost: " << RECOVER_MP_COST << "g)" ;
-    restoreMpBtn = gui::Button(
-            restoreHpBtn.getPosition().x,
-            restoreHpBtn.getPosition().y + 100.f,
+    restoreMpBtn = std::make_unique<gui::Button>(
+            restoreHpBtn->getPosition().x,
+            restoreHpBtn->getPosition().y + 100.f,
             width, height,
             font, ss.str(), 20.f,
             sf::Color(255, 255, 255, 255),
@@ -41,17 +41,17 @@ void PriestTab::initButtons() {
             sf::Color(70, 70, 70, 0),
             sf::Color(150, 150, 150, 0),
             sf::Color(130, 130, 130));
-    restoreMpBtn.setBorderColor(sf::Color::White);
-    restoreMpBtn.setBorderLineThickness(5.f);
-    restoreMpBtn.setTooltipDisabled(false);
-    restoreMpBtn.setTooltipText("Restore all your mp");
-    restoreMpBtn.setId(1);
+    restoreMpBtn->setBorderColor(sf::Color::White);
+    restoreMpBtn->setBorderLineThickness(5.f);
+    restoreMpBtn->setTooltipDisabled(false);
+    restoreMpBtn->setTooltipText("Restore all your mp");
+    restoreMpBtn->setId(1);
 
     ss.str("");
     ss << "Cleanse (Cost: " << REM_DEBUFFS_COST << "g)" ;
-    removeAllDebuffsBtn = gui::Button(
-            restoreHpBtn.getPosition().x,
-            restoreMpBtn.getPosition().y + 100.f,
+    removeAllDebuffsBtn = std::make_unique<gui::Button>(
+            restoreHpBtn->getPosition().x,
+            restoreMpBtn->getPosition().y + 100.f,
             width, height,
             font, ss.str(), 20.f,
             sf::Color(255, 255, 255, 255),
@@ -61,17 +61,17 @@ void PriestTab::initButtons() {
             sf::Color(70, 70, 70, 0),
             sf::Color(150, 150, 150, 0),
             sf::Color(130, 130, 130));
-    removeAllDebuffsBtn.setBorderColor(sf::Color::White);
-    removeAllDebuffsBtn.setBorderLineThickness(5.f);
-    removeAllDebuffsBtn.setTooltipDisabled(false);
-    removeAllDebuffsBtn.setTooltipText("Remove all your debuffs");
-    removeAllDebuffsBtn.setId(2);
+    removeAllDebuffsBtn->setBorderColor(sf::Color::White);
+    removeAllDebuffsBtn->setBorderLineThickness(5.f);
+    removeAllDebuffsBtn->setTooltipDisabled(false);
+    removeAllDebuffsBtn->setTooltipText("Remove all your debuffs");
+    removeAllDebuffsBtn->setId(2);
 
     ss.str("");
     ss << "Recover all (Cost: " << RECOVER_ALL_COST << "g)" ;
-    recoverAllBtn = gui::Button(
-            restoreHpBtn.getPosition().x,
-            removeAllDebuffsBtn.getPosition().y + 100.f,
+    recoverAllBtn = std::make_unique<gui::Button>(
+            restoreHpBtn->getPosition().x,
+            removeAllDebuffsBtn->getPosition().y + 100.f,
             width, height,
             font, ss.str(), 20.f,
             sf::Color(255, 255, 255, 255),
@@ -81,11 +81,11 @@ void PriestTab::initButtons() {
             sf::Color(70, 70, 70, 0),
             sf::Color(150, 150, 150, 0),
             sf::Color(130, 130, 130));
-    recoverAllBtn.setBorderColor(sf::Color::White);
-    recoverAllBtn.setBorderLineThickness(5.f);
-    recoverAllBtn.setTooltipDisabled(false);
-    recoverAllBtn.setTooltipText("Recover all your hp and mp and remove debuffs");
-    recoverAllBtn.setId(3);
+    recoverAllBtn->setBorderColor(sf::Color::White);
+    recoverAllBtn->setBorderLineThickness(5.f);
+    recoverAllBtn->setTooltipDisabled(false);
+    recoverAllBtn->setTooltipText("Recover all your hp and mp and remove debuffs");
+    recoverAllBtn->setId(3);
 }
 
 PriestTab::PriestTab(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* font, std::shared_ptr<Player> player, State *state,
@@ -206,17 +206,17 @@ void PriestTab::buttonFunctions(short unsigned btnId) {
 }
 
 void PriestTab::updateButtons() {
-    if(restoreHpBtn.isPressed() && gState->getKeyTime()){
-        buttonFunctions(restoreHpBtn.getId());
+    if(restoreHpBtn->isPressed() && gState->getKeyTime()){
+        buttonFunctions(restoreHpBtn->getId());
 
-    } else if(restoreMpBtn.isPressed() && gState->getKeyTime()){
-        buttonFunctions(restoreMpBtn.getId());
+    } else if(restoreMpBtn->isPressed() && gState->getKeyTime()){
+        buttonFunctions(restoreMpBtn->getId());
 
-    } else if(removeAllDebuffsBtn.isPressed() && gState->getKeyTime()){
-        buttonFunctions(removeAllDebuffsBtn.getId());
+    } else if(removeAllDebuffsBtn->isPressed() && gState->getKeyTime()){
+        buttonFunctions(removeAllDebuffsBtn->getId());
 
-    } else if(recoverAllBtn.isPressed() && gState->getKeyTime()){
-        buttonFunctions(recoverAllBtn.getId());
+    } else if(recoverAllBtn->isPressed() && gState->getKeyTime()){
+        buttonFunctions(recoverAllBtn->getId());
 
     }
 }
@@ -230,10 +230,10 @@ void PriestTab::updateInputs() {
 
 void PriestTab::update(const sf::Vector2f &mousePos) {
     updateInputs();
-    restoreHpBtn.update(mousePos);
-    restoreMpBtn.update(mousePos);
-    removeAllDebuffsBtn.update(mousePos);
-    recoverAllBtn.update(mousePos);
+    restoreHpBtn->update(mousePos);
+    restoreMpBtn->update(mousePos);
+    removeAllDebuffsBtn->update(mousePos);
+    recoverAllBtn->update(mousePos);
     updateButtons();
 }
 
@@ -242,10 +242,10 @@ void PriestTab::render(sf::RenderTarget &target) {
     target.draw(container);
     target.draw(containerTitle);
     target.draw(playerGoldLbl);
-    restoreHpBtn.render(target);
-    restoreMpBtn.render(target);
-    removeAllDebuffsBtn.render(target);
-    recoverAllBtn.render(target);
+    restoreHpBtn->render(target);
+    restoreMpBtn->render(target);
+    removeAllDebuffsBtn->render(target);
+    recoverAllBtn->render(target);
 }
 
 

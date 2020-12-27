@@ -74,11 +74,11 @@ AchievementTab::AchievementTab(const shared_ptr<sf::RenderWindow> &window, sf::F
     textLbl.setPosition(container.getPosition().x + 35,
                         pageLbl.getPosition().y - textLbl.getGlobalBounds().height - 10.f);
 
-    nextPageBtn = gui::Button(pageLbl.getPosition().x + pageLbl.getGlobalBounds().width + 20.f, pageLbl.getPosition().y,
+    nextPageBtn = std::make_unique<gui::Button>(pageLbl.getPosition().x + pageLbl.getGlobalBounds().width + 20.f, pageLbl.getPosition().y,
                               pageLbl.getGlobalBounds().height, pageLbl.getGlobalBounds().height,
                               this->font, "=>", 25);
 
-    previousPageBtn = gui::Button(pageLbl.getPosition().x - pageLbl.getGlobalBounds().height - 20.f, pageLbl.getPosition().y,
+    previousPageBtn = std::make_unique<gui::Button>(pageLbl.getPosition().x - pageLbl.getGlobalBounds().height - 20.f, pageLbl.getPosition().y,
                                   pageLbl.getGlobalBounds().height, pageLbl.getGlobalBounds().height,
                                   this->font, "<=", 25);
 
@@ -134,14 +134,14 @@ void AchievementTab::updatePageLbl() {
 }
 
 void AchievementTab::updateButtons() {
-    if(nextPageBtn.isPressed() && gState->getKeyTime()){
-        nextPageBtn.setButtonState(BTN_IDLE);
+    if(nextPageBtn->isPressed() && gState->getKeyTime()){
+        nextPageBtn->setButtonState(BTN_IDLE);
         if(currentPage < maxPage){
             currentPage++;
             updatePageLbl();
         }
-    }else if(previousPageBtn.isPressed() && gState->getKeyTime()){
-        previousPageBtn.setButtonState(BTN_IDLE);
+    }else if(previousPageBtn->isPressed() && gState->getKeyTime()){
+        previousPageBtn->setButtonState(BTN_IDLE);
         if(currentPage > 1){
             currentPage--;
             updatePageLbl();
@@ -152,8 +152,8 @@ void AchievementTab::updateButtons() {
 void AchievementTab::update(const sf::Vector2f &mousePos) {
     updateInputs();
     updateButtons();
-    nextPageBtn.update(mousePos);
-    previousPageBtn.update(mousePos);
+    nextPageBtn->update(mousePos);
+    previousPageBtn->update(mousePos);
     for (int i = (currentPage - 1) * 8; i < ((currentPage) * 8); i++) {
         if (i < achievementsSlots.size() && i >= 0){
             achievementsSlots[i]->update(mousePos);
@@ -167,8 +167,8 @@ void AchievementTab::render(sf::RenderTarget &target) {
     target.draw(containerTitle);
     target.draw(textLbl);
     target.draw(pageLbl);
-    nextPageBtn.render(target);
-    previousPageBtn.render(target);
+    nextPageBtn->render(target);
+    previousPageBtn->render(target);
     for (int i = (currentPage - 1) * 8; i < ((currentPage) * 8); i++) {
         if (i < achievementsSlots.size() && i >= 0)
             achievementsSlots[i]->render(target);

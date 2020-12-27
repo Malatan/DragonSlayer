@@ -19,6 +19,9 @@
 typedef std::pair<int, int> achievementRecord;
 
 class AchievementTab;
+namespace gui{
+    class AchievementNotification;
+}
 
 class AchievementComponent : public Observer{
 public:

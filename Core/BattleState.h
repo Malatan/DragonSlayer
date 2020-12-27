@@ -25,6 +25,13 @@
 class CharacterTab;
 class BuffComponent;
 class PauseMenu;
+namespace gui{
+    class Button;
+    class ActionRow;
+    class ItemRow;
+    class PlayerStatusPanel;
+    class EnemyStatusPanel;
+}
 
 enum panel_types{
     ACTION_PANEL,
@@ -101,17 +108,17 @@ private:
     sf::RectangleShape mainActionPanel;
     sf::RectangleShape actionPanel;
     sf::Text tipsLbl;
-    gui::Button actionBtn;
+    std::unique_ptr<gui::Button> actionBtn;
     sf::RectangleShape itemActionPanel;
-    gui::Button itemActionBtn;
+    std::unique_ptr<gui::Button> itemActionBtn;
     std::unique_ptr<PauseMenu> pmenu;
 
     //Battle report
     sf::RectangleShape resultBackground;
     sf::RectangleShape resultContainer;
-    sfe::RichText resultTitleLbl;
+    sf::Text resultTitleLbl;
     sf::Text resultTextLbl;
-    gui::Button continueBtn;
+    std::unique_ptr<gui::Button> continueBtn;
 
     //player stats panel
     sf::RectangleShape playerStatsPanel;
@@ -134,21 +141,21 @@ private:
     std::vector<std::unique_ptr<gui::ActionRow>> actionRows;
     std::vector<std::unique_ptr<gui::ItemRow>> itemRows;
     sf::Text pageLbl;
-    gui::Button nextPageBtn;
-    gui::Button previousPageBtn;
+    std::unique_ptr<gui::Button> nextPageBtn;
+    std::unique_ptr<gui::Button> previousPageBtn;
 
     //escape panel
     float escapeChance{};
     sf::RectangleShape escapeActionPanel;
     sf::Text escapeText;
-    gui::Button escapeActionBtn;
-    gui::Button escapeConfirmBtn;
+    std::unique_ptr<gui::Button> escapeActionBtn;
+    std::unique_ptr<gui::Button> escapeConfirmBtn;
 
     //battle field
     sf::RectangleShape enemyPos[5];
     sf::RectangleShape playerPos;
-    gui::PlayerStatusPanel playerStatusPanel;
-    gui::EnemyStatusPanel enemiesStatusPanel[5];
+    std::unique_ptr<gui::PlayerStatusPanel> playerStatusPanel;
+    std::unique_ptr<gui::EnemyStatusPanel> enemiesStatusPanel[5];
 
     sf::RectangleShape turnPanel;
     sf::Text turnPanelTitle;

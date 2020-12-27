@@ -72,11 +72,11 @@ WizardTab::WizardTab(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* 
     pageLbl.setPosition(container.getPosition().x + container.getGlobalBounds().width/2.f - pageLbl.getGlobalBounds().width/2.f,
                         playerGoldLbl.getPosition().y + playerGoldLbl.getGlobalBounds().height + 20.f);
 
-    nextPageBtn = gui::Button(pageLbl.getPosition().x + pageLbl.getGlobalBounds().width + 20.f, pageLbl.getPosition().y,
+    nextPageBtn = std::make_unique<gui::Button>(pageLbl.getPosition().x + pageLbl.getGlobalBounds().width + 20.f, pageLbl.getPosition().y,
                               pageLbl.getGlobalBounds().height, pageLbl.getGlobalBounds().height,
                               this->font, "=>", 25);
 
-    previousPageBtn = gui::Button(pageLbl.getPosition().x - pageLbl.getGlobalBounds().height - 20.f, pageLbl.getPosition().y,
+    previousPageBtn = std::make_unique<gui::Button>(pageLbl.getPosition().x - pageLbl.getGlobalBounds().height - 20.f, pageLbl.getPosition().y,
                                   pageLbl.getGlobalBounds().height, pageLbl.getGlobalBounds().height,
                                   this->font, "<=", 25);
     updateGoldLbl();
@@ -163,16 +163,16 @@ void WizardTab::updatePageLbl() {
 }
 
 void WizardTab::updateButtons(const sf::Vector2f &mousePos) {
-    nextPageBtn.update(mousePos);
-    previousPageBtn.update(mousePos);
-    if(nextPageBtn.isPressed() && gState->getKeyTime()){
-        nextPageBtn.setButtonState(BTN_IDLE);
+    nextPageBtn->update(mousePos);
+    previousPageBtn->update(mousePos);
+    if(nextPageBtn->isPressed() && gState->getKeyTime()){
+        nextPageBtn->setButtonState(BTN_IDLE);
         if(currentPage < maxPage){
             currentPage++;
             updatePageLbl();
         }
-    }else if(previousPageBtn.isPressed() && gState->getKeyTime()){
-        previousPageBtn.setButtonState(BTN_IDLE);
+    }else if(previousPageBtn->isPressed() && gState->getKeyTime()){
+        previousPageBtn->setButtonState(BTN_IDLE);
         if(currentPage > 1){
             currentPage--;
             updatePageLbl();
@@ -199,8 +199,8 @@ void WizardTab::render(sf::RenderTarget &target) {
     target.draw(containerTitle);
     target.draw(playerGoldLbl);
     target.draw(pageLbl);
-    nextPageBtn.render(target);
-    previousPageBtn.render(target);
+    nextPageBtn->render(target);
+    previousPageBtn->render(target);
     for (int i = (currentPage - 1) * 4; i < ((currentPage) * 4); i++) {
         if (i < spellSlots.size() && i >= 0)
             spellSlots[i]->render(target);

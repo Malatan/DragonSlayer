@@ -43,10 +43,10 @@ private:
     std::shared_ptr<Player> player;
     GameState* gState;
 
-    gui::Button restoreHpBtn;          // id = 0
-    gui::Button restoreMpBtn;          // id = 1
-    gui::Button removeAllDebuffsBtn;   // id = 2
-    gui::Button recoverAllBtn;         // id = 3
+    std::unique_ptr<gui::Button> restoreHpBtn;          // id = 0
+    std::unique_ptr<gui::Button> restoreMpBtn;          // id = 1
+    std::unique_ptr<gui::Button> removeAllDebuffsBtn;   // id = 2
+    std::unique_ptr<gui::Button> recoverAllBtn;         // id = 3
 };
 
 

@@ -27,15 +27,15 @@ void LootBag::initLootContainer(sf::Vector2f window_size) {
             (containerTitleLbl.getGlobalBounds().width/2.f),
             container.getPosition().y + 10.f);
 
-    cancelBtn = gui::Button(container.getPosition().x,
+    cancelBtn = std::make_unique<gui::Button>(container.getPosition().x,
                             container.getPosition().y + container.getGlobalBounds().height - 80.f,
                             container.getGlobalBounds().width, 80.f, font, "Cancel<Esc>", 25);
-    cancelBtn.setIdleTextColor(sf::Color::Black);
+    cancelBtn->setIdleTextColor(sf::Color::Black);
 
-    lootAllBtn = gui::Button(cancelBtn.getPosition().x,
-                             cancelBtn.getPosition().y - 85.f,
-                             cancelBtn.getGlobalBounds().width, 80.f, font, "Loot All<R>", 25);
-    lootAllBtn.setIdleTextColor(sf::Color::Black);
+    lootAllBtn = std::make_unique<gui::Button>(cancelBtn->getPosition().x,
+                             cancelBtn->getPosition().y - 85.f,
+                             cancelBtn->getGlobalBounds().width, 80.f, font, "Loot All<R>", 25);
+    lootAllBtn->setIdleTextColor(sf::Color::Black);
 }
 
 void LootBag::initLootSlots() {
@@ -178,9 +178,9 @@ void LootBag::updateLifeTimeLbl() {
 }
 
 void LootBag::updateButtons() {
-    if(cancelBtn.isPressed() && gState->getStateKeyTime()){
+    if(cancelBtn->isPressed() && gState->getStateKeyTime()){
         gState->changeStato(NO_TAB);
-    }else if(lootAllBtn.isPressed() && gState->getStateKeyTime()){
+    }else if(lootAllBtn->isPressed() && gState->getStateKeyTime()){
         lootAllItem();
     }
 }
@@ -217,8 +217,8 @@ void LootBag::render(sf::RenderTarget &target, sf::Shader *shader, sf::Vector2f 
 }
 
 void LootBag::updatePage(const sf::Vector2f& mousePos) {
-    cancelBtn.update(mousePos);
-    lootAllBtn.update(mousePos);
+    cancelBtn->update(mousePos);
+    lootAllBtn->update(mousePos);
     updateButtons();
     updateInputs();
     for(auto &i : lootSlots){
@@ -248,8 +248,8 @@ void LootBag::renderPage(sf::RenderTarget &target) {
     target.draw(background);
     target.draw(container);
     target.draw(containerTitleLbl);
-    cancelBtn.render(target);
-    lootAllBtn.render(target);
+    cancelBtn->render(target);
+    lootAllBtn->render(target);
     for(auto &i : lootSlots){
         i->render(target);
     }

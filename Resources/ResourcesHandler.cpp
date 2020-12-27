@@ -6,6 +6,7 @@
 
 ResourcesHandler::ResourcesHandler(){
     IdCounter = 1000;
+    gameVersion = "1.0.0";
 }
 
 ResourcesHandler::~ResourcesHandler() = default;
@@ -266,7 +267,17 @@ unsigned int ResourcesHandler::generateId() {
     return IdCounter-1;
 }
 
+unsigned int ResourcesHandler::getIdCunter() const {
+    return IdCounter;
+}
 
+void ResourcesHandler::setIdCounter(unsigned int value) {
+    IdCounter = value;
+}
+
+std::string ResourcesHandler::getGameVersion() const {
+    return gameVersion;
+}
 
 
 

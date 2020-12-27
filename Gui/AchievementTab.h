@@ -9,6 +9,10 @@
 
 class GameState;
 class AchievementComponent;
+namespace gui{
+    class AchievementSlot;
+    class AchievementNotification;
+}
 
 class AchievementTab {
 public:
@@ -32,8 +36,8 @@ private:
     sf::Text containerTitle;
     sf::Text textLbl;
     sf::Text pageLbl;
-    gui::Button nextPageBtn;
-    gui::Button previousPageBtn;
+    std::unique_ptr<gui::Button> nextPageBtn;
+    std::unique_ptr<gui::Button> previousPageBtn;
     int currentPage{1};
     int maxPage{1};
 

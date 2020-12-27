@@ -8,6 +8,12 @@
 #include "CharacterTab.h"
 
 class GameState;
+namespace sfe{
+    class RichText;
+}
+namespace gui{
+    class SpellSlot;
+}
 
 class SpellTab {
 public:
@@ -27,7 +33,7 @@ private:
     sf::RectangleShape background;
     sf::RectangleShape container;
     sf::Text containerTitle;
-    sfe::RichText infoLbl;
+    std::unique_ptr<sfe::RichText> infoLbl;
 
     std::shared_ptr<sf::RenderWindow> window;
     sf::Font* font;
