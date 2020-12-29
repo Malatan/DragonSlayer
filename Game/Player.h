@@ -31,26 +31,27 @@ public:
     Player(float x, float y, float scale_x, float scale_y, sf::Texture& texture_sheet);
     ~Player() override;
 
+    //initializers
+    void initStats();
+    void initInventory();
+
     //functions
-    void setPosition(float x, float y) override;
-    bool hasShield();
-    bool isDead();
+    void unequipItem(int equip_slot);
+    void addGold(unsigned add_amount);
+    void minusGold(unsigned minus_amount);
     void updateAnimation(const float &dt);
     void update(const float &dt) override;
     void render(sf::RenderTarget& target, sf::Shader* shader = nullptr, sf::Vector2f light_position = sf::Vector2f(), bool show_hitbox = false, bool show_clsBox = false);
 
-    //TOSTRING
-    std::string toStringEquipment();
-
-    //INVENTORY & STATS
+    //GET & SET
     void setEquipItem(const std::shared_ptr<Item>& equip_item, int equip_slot);
     void setBonusStats(int hp, int mp, int dmg, int armor, float cc, float ec);
     bool isSlotEquipped(int equip_slot);
-    void unequipItem(int equip_slot);
-    void addGold(unsigned add_amount);
-    void minusGold(unsigned minus_amount);
-
-    //GET & SET
+    void setPosition(float x, float y) override;
+    bool hasShield();
+    bool isDead();
+    void setStats(Stats* new_stats);
+    void setInventory(std::vector<Item>& items);
     std::string getEquippedWeaponType();
     std::shared_ptr<Stats> getPlayerStats();
     std::shared_ptr<Inventory> getInventory();
@@ -82,7 +83,6 @@ private:
 
     //initializer functions
     void initAnimations();
-
 };
 
 

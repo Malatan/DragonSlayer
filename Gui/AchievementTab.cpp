@@ -81,6 +81,8 @@ AchievementTab::AchievementTab(const shared_ptr<sf::RenderWindow> &window, sf::F
     previousPageBtn = std::make_unique<gui::Button>(pageLbl.getPosition().x - pageLbl.getGlobalBounds().height - 20.f, pageLbl.getPosition().y,
                                   pageLbl.getGlobalBounds().height, pageLbl.getGlobalBounds().height,
                                   this->font, "<=", 25);
+    nextPageBtn->setIdleTextColor(sf::Color::Blue);
+    previousPageBtn->setIdleTextColor(sf::Color::Blue);
 
     //inits
     initAchievementsSlots();
@@ -154,11 +156,11 @@ void AchievementTab::update(const sf::Vector2f &mousePos) {
     updateButtons();
     nextPageBtn->update(mousePos);
     previousPageBtn->update(mousePos);
-    for (int i = (currentPage - 1) * 8; i < ((currentPage) * 8); i++) {
+   /* for (int i = (currentPage - 1) * 8; i < ((currentPage) * 8); i++) {
         if (i < achievementsSlots.size() && i >= 0){
             achievementsSlots[i]->update(mousePos);
         }
-    }
+    }*/
 }
 
 void AchievementTab::render(sf::RenderTarget &target) {

@@ -8,37 +8,22 @@
 #include <sstream>
 #include <memory>
 #include "Stats.h"
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
 
 using namespace std;
 
 class Buff {
-
-private:
-    string name;
-    string description;
-    string keyWord;
-    int addHp{};
-    int addMp{};
-    int addDamage{};
-    int addArmor{};
-    float addCritChance{};
-    float addEvadeChance{};
-    int turns{};
-    bool instant{};
-    bool debuff{};
-    int intRectX{};
-    int intRectY{};
-
 public:
+    //constructor/destructor
     Buff();
+    Buff(const Buff& p_buff);
     explicit Buff(Buff *buff);
     Buff(std::string name, std::string description, std::string key_word, int add_hp, int add_mp, int add_damage, int add_armor,
          float add_critchance, float add_evadechance, int turns, bool is_debuff, int intRectX, int intRectY);
     Buff(std::string name, std::string description, std::string key_word, int add_hp, int add_mp, int add_damage, int add_armor,
          float add_critchance, float add_evadechance, bool instant, bool is_debuff, int intRectX, int intRectY);
     virtual ~Buff();
-
-    void updateLifeTime();
 
     //accessors
     int getTurns() const;
@@ -56,6 +41,46 @@ public:
     bool isDebuff() const;
     std::string getKeyWord() const;
     std::string toString();
+
+    //functions
+    void updateLifeTime();
+
+private:
+    friend class boost::serialization::access;
+    template<class Archive>
+    void serialize(Archive& ar, const unsigned int version){
+        ar & name;
+        ar & description;
+        ar & keyWord;
+        ar & addHp;
+        ar & addMp;
+        ar & addDamage;
+        ar & addArmor;
+        ar & addCritChance;
+        ar & addEvadeChance;
+        ar & turns;
+        ar & instant;
+        ar & debuff;
+        ar & intRectX;
+        ar & intRectY;
+    }
+
+    string name;
+    string description;
+    string keyWord;
+    int addHp{};
+    int addMp{};
+    int addDamage{};
+    int addArmor{};
+    float addCritChance{};
+    float addEvadeChance{};
+    int turns{};
+    bool instant{};
+    bool debuff{};
+    int intRectX{};
+    int intRectY{};
+
+
 };
 
 

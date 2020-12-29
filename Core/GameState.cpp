@@ -7,6 +7,7 @@
 #include <random>
 #include <utility>
 
+//init
 void GameState::initTextures() {
     rsHandler->addResource("../Resources/Images/Sprites/Player/player_sheet.png", "player_sheet", "GameState");
     rsHandler->addResource("../Resources/Images/Sprites/Npc/shop_npc_idle.png", "shop_npc_sheet", "GameState");
@@ -90,27 +91,34 @@ void GameState::initTextures() {
 void GameState::initPauseMenu() {
     pmenu = std::make_unique<PauseMenu>(window, font);
 
-    pmenu->addButton("SPELL", 300.f, "Spells", 30);
-    pmenu->addButton("CHARACTER", 380.f, "Character", 30);
-    pmenu->addButton("ACHIEVEMENT", 460.f, "Achievement", 30);
-    pmenu->addButton("LOADSAVE", 540.f, "Load/Save", 30);
-    pmenu->addButton("BACK", 620.f, "Resume", 30);
+    pmenu->addButton("SPELL", 200.f, "Spells", 30);
+    pmenu->addButton("CHARACTER", 300.f, "Character", 30);
+    pmenu->addButton("ACHIEVEMENT", 400.f, "Achievement", 30);
+    pmenu->addButton("LOADSAVE", 500.f, "Load/Save", 30);
+    pmenu->addButton("BACK", 600.f, "Resume", 30);
     pmenu->addButton("QUIT", 700.f, "QUIT", 50);
 }
 
 void GameState::initPlayers() {
     player = std::make_shared<Player>(spawnPos.x, spawnPos.y, 2.f, 2.f,
-                              textures["PLAYER_SHEET"]);
-    player->setGold(0);
-    player->getInventory()->setCurrentMaxSpace(35);
-
-    // legge i valori di default del Stats dal Data/Stats.txt
-    rsHandler->loadPlayerStatsTxt(player->getPlayerStats());
+                                      textures["PLAYER_SHEET"]);
+    if(loadSaveTab->canApplySave()){
+        Save* save = loadSaveTab->getApplySave();
+        player->setGold(save->playerGold);
+        player->setStats(&save->playerStats);
+        player->setInventory(save->inventory);
+        player->getInventory()->setCurrentMaxSpace(save->playerInventoryMaxSpace);
+    }else{
+        player->setGold(0);
+        // legge i valori di default del Stats dal Data/Stats.txt
+        player->initStats();
+        rsHandler->loadPlayerStatsTxt(player->getPlayerStats());
+        // legge i valori di default dell 'inventario dal Data/Inventory.txt
+        player->initInventory();
+        player->getInventory()->setCurrentMaxSpace(35);
+        rsHandler->loadPlayerInventoryTxt(player->getInventory());
+    }
     player->getPlayerStats()->updateMultipliers();
-
-    // legge i valori di default dell 'inventario dal Data/Inventory.txt
-    rsHandler->loadPlayerInventoryTxt(player->getInventory());
-
 }
 
 void GameState::initTabs() {
@@ -126,6 +134,17 @@ void GameState::initTabs() {
     selectLevelTab = std::make_shared<SelectLevelTab>(window, font, player, this, rsHandler);
     achievementTab = std::make_shared<AchievementTab>(window, font, this, achievementComponent);
     achievementComponent->setAchievementTab(achievementTab);
+    if(loadSaveTab->canApplySave()){
+        Save* save = loadSaveTab->getApplySave();
+        for(auto i : save->equips){
+            if(i.second != 0){
+                player->getInventory()->getItemById(i.second)->setEquipped(false);
+                cTab->selectItemById(i.second);
+                cTab->equipUnEquipBtnFunction();
+                player->setStats(&save->playerStats);
+            }
+        }
+    }
    // achievementComponent->unlockAllAchievements();
 }
 
@@ -180,12 +199,19 @@ void GameState::initShopItemTextures() {
 }
 
 void GameState::initComponents() {
-    popUpTextComponent = std::make_shared<PopUpTextComponent>(*font, window);
-    achievementComponent = std::make_shared<AchievementComponent>(font);
-    rsHandler->loadAchievementsTxt(achievementComponent->getAchievements());
-    buffComponent = std::make_shared<BuffComponent>(popUpTextComponent, player, this, font);
     spellComponent = std::make_shared<SpellComponent>();
-    rsHandler->loadSpellList(spellComponent);
+    achievementComponent = std::make_shared<AchievementComponent>(font);
+    buffComponent = std::make_shared<BuffComponent>(popUpTextComponent, player, this, font);
+    if(loadSaveTab->canApplySave()){
+        Save* save = loadSaveTab->getApplySave();
+        spellComponent->fill(save->spells, save->playerSpells);
+        achievementComponent->loadRecords(save->aeRecords);
+        achievementComponent->loadAchievements(save->achievements);
+        buffComponent->loadPlayerBuffs(save->playerBuffs);
+    }else{
+        rsHandler->loadSpellList(spellComponent);
+        rsHandler->loadAchievementsTxt(achievementComponent->getAchievements());
+    }
 }
 
 void GameState::initLootGenerator() {
@@ -285,6 +311,10 @@ void GameState::initMaps() {
     mg->generateDungeon(4);
     mg->generateDungeon(5);
     changeMap(0);
+    if(loadSaveTab->canApplySave()){
+        Save* save = loadSaveTab->getApplySave();
+        player->setPosition(save->playerPos.x, save->playerPos.y);
+    }
 }
 
 void GameState::initShader() {
@@ -299,14 +329,23 @@ void GameState::initObservers() {
 
 void GameState::preNotifiers() {
     notify(AE_P_MAXEDSPELL, spellComponent->maxedPlayerSpellsSize());
+    notify(AE_P_LEVEL, player->getPlayerStats()->getLevel());
+}
+
+void GameState::applySaveValue() {
+    if(loadSaveTab->canApplySave()){
+        Save* save = loadSaveTab->getApplySave();
+        rsHandler->setIdCounter(save->rsHandlerIdCounter);
+    }
 }
 
 //constructors/destructors
 GameState::GameState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::unique_ptr<State>>* states,
-                     std::shared_ptr<ResourcesHandler> rsHandler, std::shared_ptr<LoadSaveTab> loadsave_tab,
-                     sf::Font *font, state_enum _state_enum)
+                     std::shared_ptr<ResourcesHandler> rsHandler, std::shared_ptr<PopUpTextComponent> popuptext_component,
+                     std::shared_ptr<LoadSaveTab> loadsave_tab, sf::Font *font, state_enum _state_enum)
         : State(std::move(window), states, std::move(rsHandler), _state_enum), loadSaveTab(std::move(loadsave_tab)){
     this->font = font;
+    popUpTextComponent = std::move(popuptext_component);
     stato = NO_TAB;
     npcInteract = NO_NPC;
     noclip = false;
@@ -314,6 +353,8 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::u
     floorReached = 0;
     loadSaveTab->setState(this);
     loadSaveTab->setAccessOption(LOAD_SAVE);
+
+    applySaveValue();
     initShader();
     initTextures();
     initPauseMenu();
@@ -328,6 +369,7 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::u
     initMaps();
     initObservers();
     preNotifiers();
+    this->loadSaveTab->endApplySave();
 }
 
 GameState::~GameState() {
@@ -338,28 +380,40 @@ GameState::~GameState() {
 }
 
 //accessors
-std::shared_ptr<BuffComponent> GameState::getBuffComponent() {
+std::shared_ptr<BuffComponent>& GameState::getBuffComponent() {
     return buffComponent;
 }
 
-std::shared_ptr<PopUpTextComponent> GameState::getPopUpTextComponent() {
+std::shared_ptr<PopUpTextComponent>& GameState::getPopUpTextComponent() {
     return popUpTextComponent;
 }
 
-std::shared_ptr<SpellComponent> GameState::getSpellComponent() {
+std::shared_ptr<SpellComponent>& GameState::getSpellComponent() {
     return spellComponent;
 }
 
-std::shared_ptr<SpellTab> GameState::getSpellTab() {
+std::shared_ptr<SpellTab>& GameState::getSpellTab() {
     return spellTab;
 }
 
-std::shared_ptr<LootGenerator> GameState::getLootGenerator() {
+std::shared_ptr<LootGenerator>& GameState::getLootGenerator() {
     return lootGenerator;
 }
 
-std::shared_ptr<ResourcesHandler> GameState::getResourceHandler() {
+std::shared_ptr<ResourcesHandler>& GameState::getResourceHandler() {
     return rsHandler;
+}
+
+std::shared_ptr<AchievementComponent> &GameState::getAchievementComponent() {
+    return achievementComponent;
+}
+
+std::shared_ptr<Player>& GameState::getPlayer() {
+    return player;
+}
+
+std::shared_ptr<Enemy>& GameState::getEnemy(int index) {
+    return enemies[index];
 }
 
 Npc *GameState::getNpc(int index) {
@@ -372,19 +426,11 @@ npc_type GameState::getInteractNpc() const {
     return npcInteract;
 }
 
-std::shared_ptr<Enemy> GameState::getEnemy(int index) {
-    if(index < enemies.size())
-        return enemies[index];
-    return nullptr;
-}
-
 bool GameState::getStateKeyTime() {
     return getKeyTime();
 }
 
-std::shared_ptr<Player> GameState::getPlayer() {
-    return player;
-}
+//observer
 
 void GameState::addObserver(Observer *observer) {
     observers.push_back(observer);
@@ -601,6 +647,7 @@ void GameState::checkBattleResult(BattleResult& battle_result) {
             if(exp_gain > 0){
                 if(player->getPlayerStats()->addExp(exp_gain)){
                     updateTabsPlayerStatsLbl();
+                    notify(AE_P_LEVEL, player->getPlayerStats()->getLevel());
                 }
                 popUpTextComponent->addPopUpTextCenter(EXPERIENCE_TAG, exp_gain,"+", "Exp");
             }
@@ -727,11 +774,13 @@ void GameState::updateInput(const float &dt) {
         player->getMovementComponent()->enableSpeedControl(noclip);
         noclip = !noclip;
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::T) && getKeyTime()) {
-        if(player->getPlayerStats()->addExp(100)){
+        int exp = utils::generateRandomNumber(100, 5000);
+        if(player->getPlayerStats()->addExp(exp)){
             updateTabsPlayerStatsLbl();
+            notify(AE_P_LEVEL, player->getPlayerStats()->getLevel());
         }
-        popUpTextComponent->addPopUpTextCenter(EXPERIENCE_TAG, 100, "+", "Exp");
-        notify(AE_P_EXP, 100);
+        popUpTextComponent->addPopUpTextCenter(EXPERIENCE_TAG, exp, "+", "Exp");
+        notify(AE_P_EXP, exp);
     }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::M) && getKeyTime()){
         int gold = utils::generateRandomNumber(99999, 999999);
         player->addGold(gold);
@@ -788,14 +837,21 @@ void GameState::updateMouseInput(const float &dt) {
 
 void GameState::updatePlayerInput(const float &dt) {
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
+        player->clearTargetPoints();
         player->move(dt, -1.f, 0.f);
     }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
+        player->clearTargetPoints();
         player->move(dt, 1.f, 0.f);
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
+        player->clearTargetPoints();
         player->move(dt, 0.f, -1.f);
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
+        player->clearTargetPoints();
         player->move(dt, 0.f, 1.f);
+    }
 }
 
 void GameState::updateTabsGoldLbl() {
@@ -1004,6 +1060,9 @@ void GameState::update(const float& dt) {
                 break;
             }
             case LOADSAVE_TAB:
+                if(!loadSaveTab->stateMatch(getStateEnum())){
+                    loadSaveTab->setState(this);
+                }
                 loadSaveTab->update(mousePosView);
                 if(loadSaveTab->isHide()){
                     changeStato(NO_TAB);

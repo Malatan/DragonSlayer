@@ -23,9 +23,17 @@ namespace gui{
 
 class BuffComponent {
 public:
+    //constructor/destructor
     BuffComponent(std::shared_ptr<PopUpTextComponent> popUpTextComponent, std::shared_ptr<Player> player, State *state, sf::Font* font);
     virtual ~BuffComponent();
 
+    //accessors
+    std::vector<std::shared_ptr<Buff>>& getPlayerBuffsList();
+    std::string toStringBuffs() const;
+    std::string toStringPlayerBuffs() const;
+
+    //functions
+    void loadPlayerBuffs(std::vector<Buff>& save_buffs);
     void addBuff(const std::string& key, const std::shared_ptr<Buff>& buff);
     void addPlayerBuff(const std::shared_ptr<Buff>& buff);
     void applyItemBuff(const std::string& key, bool popup_text_center, float popup_text_x = 0.f, float popup_text_y = 0.f);
@@ -34,9 +42,6 @@ public:
     void updatePlayerBuffList();
     void update(const float& dt, const sf::Vector2f& mousePos);
     void render(sf::RenderTarget& target);
-
-    std::string toStringBuffs() const;
-    std::string toStringPlayerBuffs() const;
 
 private:
     GameState* gState;
@@ -47,6 +52,7 @@ private:
     std::vector<std::shared_ptr<Buff>> playerBuffsList;
     std::vector<std::unique_ptr<gui::BuffSlot>> buffBar;
 
+    //init
     void initBuffs();
 };
 

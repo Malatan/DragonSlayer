@@ -8,6 +8,8 @@
 #include <sstream>
 #include "iostream"
 #include "fstream"
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
 
 enum spell_type{
     FIRE,
@@ -27,14 +29,23 @@ using namespace std;
 
 class Spell {
 public:
-    //MANAGE SPELL
+    //CONSTRUCTOR & DESTRUCTOR
+    Spell();
+    Spell(spell_type spellType, string name, string type, string description, int cost,
+          int cooldown, int damage, int aoe, bool learned, int level, int maxLevel, int learnCost,
+          int intRectX, int intRectY);
+    Spell(const Spell& p_spell);
+    explicit Spell(Spell* spell);
+    virtual ~Spell();
+
+    //function
     bool isMaxed() const;
     void levelUp();
-
-    //TOSTRING
-    std::string toString() const;
+    int getFinalDamage() const;
+    int getFinalCost() const;
 
     //GET & SET
+    std::string toString() const;
     string getName();
     void setName(string new_name);
     string getType();
@@ -61,18 +72,27 @@ public:
     void setIntRectX(int new_intRectX);
     int getIntRectY() const;
     void setIntRectY(int new_intRectY);
-    int getFinalDamage() const;
-    int getFinalCost() const;
-
-    //CONSTRUCTOR & DESTRUCTOR
-    Spell();
-    Spell(spell_type spellType, string name, string type, string description, int cost,
-          int cooldown, int damage, int aoe, bool learned, int level, int maxLevel, int learnCost,
-          int intRectX, int intRectY);
-    explicit Spell(Spell* spell);
-    virtual ~Spell();
 
 private:
+    friend class boost::serialization::access;
+    template<class Archive>
+    void serialize(Archive& ar, const unsigned int version){
+        ar & spellType;
+        ar & name;
+        ar & type;
+        ar & description;
+        ar & cost;
+        ar & cooldown;
+        ar & damage;
+        ar & aoe;
+        ar & learned;
+        ar & level;
+        ar & maxLevel;
+        ar & learnCost;
+        ar & intRectX;
+        ar & intRectY;
+    }
+
     spell_type spellType{};
     string name;
     string type;

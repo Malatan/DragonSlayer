@@ -41,79 +41,63 @@
     <list default="true" id="5e176dfb-d06b-4a3a-ae60-4825526ebf88" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/AchievementComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Components/AchievementComponent.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Components/AchievementComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Components/AchievementComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/AchievementsEnum.h" beforeDir="false" afterPath="$PROJECT_DIR$/Components/AchievementsEnum.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/BuffComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Components/BuffComponent.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Components/BuffComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Components/BuffComponent.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/BattleState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/BattleState.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/BattleState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/BattleState.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/SpellComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Components/SpellComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/SpellComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Components/SpellComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Game.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Game.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/GameState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/GameState.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/GameState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/GameState.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/MainMenuState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/MainMenuState.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/MainMenuState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/MainMenuState.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/State.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/State.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/State.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/State.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Achievements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Achievements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/dungeon_1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data/dungeon_1.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/dungeon_2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data/dungeon_2.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/dungeon_3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data/dungeon_3.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/dungeon_4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data/dungeon_4.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/dungeon_5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data/dungeon_5.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Achievement.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Achievement.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Achievement.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Achievement.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Buff.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Buff.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Buff.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Buff.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/Inventory.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Inventory.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/Inventory.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Inventory.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Item.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Item.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/LootBag.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/LootBag.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/LootBag.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/LootBag.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Player.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Player.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Player.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Player.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Save.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Save.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Save.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Save.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Spell.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Spell.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Spell.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Spell.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Stats.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Stats.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/Stats.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Stats.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Gui/AchievementTab.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/AchievementTab.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gui/AchievementTab.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/AchievementTab.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Gui/CharacterTab.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/CharacterTab.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Gui/CharacterTab.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/CharacterTab.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Gui/Gui.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/Gui.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Gui/Gui.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/Gui.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gui/PriestTab.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/PriestTab.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gui/PriestTab.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/PriestTab.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gui/SelectLevelTab.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/SelectLevelTab.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gui/SelectLevelTab.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/SelectLevelTab.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gui/ShopTab.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/ShopTab.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gui/SpellTab.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/SpellTab.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gui/SpellTab.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/SpellTab.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gui/WizardTab.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/WizardTab.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gui/WizardTab.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/WizardTab.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Resources/ResourcesHandler.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/ResourcesHandler.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Resources/ResourcesHandler.h" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/ResourcesHandler.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gui/LoadSaveTab.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/LoadSaveTab.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gui/LoadSaveTab.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/LoadSaveTab.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/Config/window.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/Config/window.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/SavesHandler.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/SavesHandler.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/SavesHandler.h" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/SavesHandler.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Saves/save001.dat" beforeDir="false" afterPath="$PROJECT_DIR$/Saves/save001.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeCache.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/DependInfo.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/build.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/cmake_clean.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/cmake_clean.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/flags.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/flags.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/includes_CXX.rsp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/includes_CXX.rsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/linklibs.rsp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/linklibs.rsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/objects1.rsp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/objects1.rsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/DragonSlayer.dir/progress.make" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/Makefile.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/Makefile2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-release/DragonSlayer.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/DragonSlayer.cbp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/Testing/Temporary/LastTest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/unit_testing/CMakeFiles/progress.marks" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/unit_testing/CMakeFiles/progress.marks" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/DependInfo.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/includes_CXX.rsp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/includes_CXX.rsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/unit_testing/CMakeFiles/unit_testing_run.dir/progress.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/CMakeFiles/progress.marks" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/CMakeFiles/progress.marks" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googlemock/CMakeFiles/gmock.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googlemock/CMakeFiles/gmock.dir/DependInfo.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googlemock/CMakeFiles/gmock.dir/includes_CXX.rsp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googlemock/CMakeFiles/gmock.dir/includes_CXX.rsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googlemock/CMakeFiles/gmock.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googlemock/CMakeFiles/gmock.dir/progress.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googlemock/CMakeFiles/gmock_main.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googlemock/CMakeFiles/gmock_main.dir/DependInfo.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googlemock/CMakeFiles/gmock_main.dir/includes_CXX.rsp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googlemock/CMakeFiles/gmock_main.dir/includes_CXX.rsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googlemock/CMakeFiles/gmock_main.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googlemock/CMakeFiles/gmock_main.dir/progress.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googlemock/CMakeFiles/progress.marks" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googlemock/CMakeFiles/progress.marks" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googlemock/gmock.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googlemock/gmock.cbp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googletest-distribution.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googletest-distribution.cbp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest.dir/DependInfo.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest.dir/includes_CXX.rsp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest.dir/includes_CXX.rsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest.dir/progress.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/DependInfo.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/includes_CXX.rsp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/includes_CXX.rsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googletest/CMakeFiles/gtest_main.dir/progress.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googletest/CMakeFiles/progress.marks" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googletest/CMakeFiles/progress.marks" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googletest/gtest.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/unit_testing/lib/googletest-master/googletest/gtest.cbp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-release/unit_testing/unit_testing.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/unit_testing/unit_testing.cbp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unit_testing/PlayerTests.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/unit_testing/PlayerTests.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unit_testing/Tests.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/unit_testing/Tests.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,11 +153,6 @@
     </key>
   </component>
   <component name="RunManager" selected="CMake Application.DragonSlayer">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="ClassDeclaration" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DragonSlayer" TARGET_NAME="unit_testing_run" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="DragonSlayer" RUN_TARGET_NAME="unit_testing_run" TEST_CLASS="ClassDeclaration" TEST_MODE="SUITE_TEST">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -356,7 +335,13 @@
       <workItem from="1609000667915" duration="16281000" />
       <workItem from="1609047175052" duration="667000" />
       <workItem from="1609047887292" duration="2430000" />
-      <workItem from="1609088421077" duration="1644000" />
+      <workItem from="1609088421077" duration="5000000" />
+      <workItem from="1609103013863" duration="10333000" />
+      <workItem from="1609167289894" duration="9813000" />
+      <workItem from="1609179171326" duration="2117000" />
+      <workItem from="1609182039121" duration="5858000" />
+      <workItem from="1609206334845" duration="9768000" />
+      <workItem from="1609253056604" duration="9129000" />
     </task>
     <servers />
   </component>
@@ -374,27 +359,6 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Core/GameState.cpp</url>
-          <line>657</line>
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Resources/SavesHandler.cpp</url>
-          <line>15</line>
-          <option name="timeStamp" value="17" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Resources/SavesHandler.cpp</url>
-          <line>25</line>
-          <option name="timeStamp" value="18" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

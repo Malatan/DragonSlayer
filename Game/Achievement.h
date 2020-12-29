@@ -8,11 +8,14 @@
 #include <iostream>
 #include <sstream>
 #include "../Components/AchievementsEnum.h"
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
 
 class Achievement {
 public:
     //constructors/destructor
     Achievement();
+    Achievement(const Achievement& p_achievement);
     ~Achievement();
 
     //accessors/modifiers
@@ -33,6 +36,17 @@ public:
     std::string toString();
 
 private:
+    friend class boost::serialization::access;
+    template<class Archive>
+    void serialize(Archive& ar, const unsigned int version){
+        ar & achievement_event_type;
+        ar & name;
+        ar & description;
+        ar & series_pos;
+        ar & goal;
+        ar & unlocked;
+    }
+
     achievement_event achievement_event_type{};
     std::string name{};
     std::string description{};

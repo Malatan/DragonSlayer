@@ -10,6 +10,7 @@
 #include <vector>
 #include <memory>
 #include <queue>
+#include <map>
 #include "AchievementsEnum.h"
 #include "../Core/Observer.h"
 #include "../Game/Achievement.h"
@@ -37,8 +38,11 @@ public:
     int getAchievementEventValue(achievement_event event_type) const;
     void setAchievementTab(std::shared_ptr<AchievementTab> achievement_tab);
     float getExpGoldBonus() const;
+    std::map<achievement_event, achievementRecord> getRecords();
 
     //functions
+    void loadRecords(std::map<achievement_event, achievementRecord>& save_records);
+    void loadAchievements(std::vector<Achievement>& save_achievements);
     void unlockAllAchievements();
     void calculateExpGoldBonus();
     void checkAchievement(achievement_event event_type, int max_series, achievementRecord& achievement_record);
@@ -68,6 +72,7 @@ private:
     achievementRecord playerCritHit{};
     achievementRecord playerEscapeFails{};
     achievementRecord playerEscapeSuccesses{};
+    achievementRecord playerLevel{};
     achievementRecord floorReached{};
     achievementRecord playerMaxedSpells{};
 };

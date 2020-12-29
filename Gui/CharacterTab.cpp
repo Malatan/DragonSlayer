@@ -448,6 +448,11 @@ void CharacterTab::statsContainerRender(sf::RenderTarget &target) {
 void CharacterTab::equipContainerUpdate(const sf::Vector2f &mousePos) {
     for(auto &i : equipSlots){
         i->update(mousePos, false);
+        if(i->isEquipSlotUnequip()){
+            selectItemById(i->getItem()->getId());
+            equipUnEquipBtnFunction();
+            i->setIsEquipSlotUnequip(false);
+        }
     }
 }
 
@@ -969,6 +974,19 @@ void CharacterTab::setSeletecItem(int n) {
     selectedItem = n;
 }
 
+bool CharacterTab::selectItemById(unsigned int item_id) {
+    for(auto &i : inventorySlots){
+        if(i->getItem()->getId() == item_id){
+            if(!i->getIsSelected()){
+                i->setSelectedBool(true);
+                selectedItem++;
+                return true;
+            }
+            return false;
+        }
+    }
+    return false;
+}
 
 
 

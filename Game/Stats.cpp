@@ -4,6 +4,7 @@
 
 #include "Stats.h"
 
+//CONSTRUCTOR & DESTRUCTOR
 Stats::Stats(){
     level = 1;
     exp = 0;
@@ -29,8 +30,11 @@ Stats::Stats(){
     spellDmgMultiplier = 1.f;
 }
 
+Stats::Stats(const Stats& p_stats) = default;
+
 Stats::~Stats()= default;
 
+//functions
 bool Stats::addExp(int earned) {
     bool leveledUp = false;
     exp = exp + earned;
@@ -86,6 +90,82 @@ void Stats::levelUp(int newExp) {
     freePoints += 3;
 }
 
+int Stats::getHit(int hit_damage, float block_percentage, bool spell_damage) {
+    if(!spell_damage){
+        //reduce damage with armor
+        hit_damage -= getFinalArmor();
+        //reduce damage with block
+        if(block_percentage > 0.f)
+            hit_damage -= (int)(((float)hit_damage/100.f) * block_percentage);
+    }
+    if(hit_damage < 0)
+        hit_damage = 1;
+    hp -= hit_damage;
+    if(hp < 0)
+        hp = 0;
+    return hit_damage;
+}
+
+bool Stats::consumeMana(int mana_consumed) {
+    if(mana_consumed > mp)
+        return false;
+    mp -= mana_consumed;
+    if(mp < 0)
+        mp = 0;
+    return true;
+}
+
+void Stats::refillHp() {
+    hp = getFinalHp();
+}
+
+void Stats::refillMp() {
+    mp = getFinalMp();
+}
+
+void Stats::checkHpLimit() {
+    if(hp > (maxHp + maxHpBonus))
+        hp = maxHp + maxHpBonus;
+}
+
+void Stats::checkMpLimit() {
+    if(mp > (maxMp + maxMpBonus))
+        mp = maxMp + maxMpBonus;
+}
+
+int Stats::gainHp(int gain_amount) {
+    int restore_amount = gain_amount;
+    if((hp + gain_amount) > getFinalHp()){
+        restore_amount = getFinalHp() - hp;
+        hp = getFinalHp();
+    } // 250/300 150
+    else{
+        hp += gain_amount;
+    }
+    return restore_amount;
+}
+
+int Stats::gainMp(int gain_amount) {
+    int restore_amount = gain_amount;
+    if((mp + gain_amount) > getFinalMp()){
+        restore_amount = getFinalMp() - mp;
+        mp = getFinalMp();
+    } // 250/300 150
+    else{
+        mp += gain_amount;
+    }
+    return restore_amount;
+}
+
+void Stats::updateSpellDmgMultiplier() {
+    spellDmgMultiplier = 1.f + (float)wisdom/10.f;
+}
+
+void Stats::updateMultipliers() {
+    updateSpellDmgMultiplier();
+}
+
+//GET & SET
 int Stats::getLevel() const {
     return level;
 }
@@ -278,83 +358,7 @@ float Stats::getFinalEvadeChance() const {
     return evadeChance + evadeChanceBonus;
 }
 
-void Stats::checkHpLimit() {
-    if(hp > (maxHp + maxHpBonus))
-        hp = maxHp + maxHpBonus;
-}
-
-void Stats::checkMpLimit() {
-    if(mp > (maxMp + maxMpBonus))
-        mp = maxMp + maxMpBonus;
-}
-
-int Stats::gainHp(int gain_amount) {
-    int restore_amount = gain_amount;
-    if((hp + gain_amount) > getFinalHp()){
-        restore_amount = getFinalHp() - hp;
-        hp = getFinalHp();
-    } // 250/300 150
-    else{
-        hp += gain_amount;
-    }
-    return restore_amount;
-}
-
-int Stats::gainMp(int gain_amount) {
-    int restore_amount = gain_amount;
-    if((mp + gain_amount) > getFinalMp()){
-        restore_amount = getFinalMp() - mp;
-        mp = getFinalMp();
-    } // 250/300 150
-    else{
-        mp += gain_amount;
-    }
-    return restore_amount;
-}
-
-void Stats::updateSpellDmgMultiplier() {
-    spellDmgMultiplier = 1.f + (float)wisdom/10.f;
-}
-
-void Stats::updateMultipliers() {
-    updateSpellDmgMultiplier();
-}
-
 float Stats::getSpellDmgMultiplier() const {
     return spellDmgMultiplier;
 }
-
-int Stats::getHit(int hit_damage, float block_percentage, bool spell_damage) {
-    if(!spell_damage){
-        //reduce damage with armor
-        hit_damage -= getFinalArmor();
-        //reduce damage with block
-        if(block_percentage > 0.f)
-            hit_damage -= (int)(((float)hit_damage/100.f) * block_percentage);
-    }
-    if(hit_damage < 0)
-        hit_damage = 1;
-    hp -= hit_damage;
-    if(hp < 0)
-        hp = 0;
-    return hit_damage;
-}
-
-bool Stats::consumeMana(int mana_consumed) {
-    if(mana_consumed > mp)
-        return false;
-    mp -= mana_consumed;
-    if(mp < 0)
-        mp = 0;
-    return true;
-}
-
-void Stats::refillHp() {
-    hp = getFinalHp();
-}
-
-void Stats::refillMp() {
-    mp = getFinalMp();
-}
-
 

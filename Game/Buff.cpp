@@ -4,7 +4,10 @@
 
 #include "Buff.h"
 
+//constructor/destructor
 Buff::Buff() = default;
+
+Buff::Buff(const Buff &p_buff) = default;
 
 Buff::Buff(Buff *buff) : name(buff->name), description(buff->description), keyWord(buff->keyWord), addHp(buff->addHp), addMp(buff->addMp),
                          addDamage(buff->addDamage), addArmor(buff->addArmor), addCritChance(buff->addCritChance),
@@ -29,6 +32,7 @@ Buff::Buff(std::string name, std::string description, std::string key_word, int 
 
 Buff::~Buff() = default;
 
+//accessors
 const string &Buff::getName() const {
     return name;
 }
@@ -111,6 +115,7 @@ std::string Buff::getDescription() const {
     return description;
 }
 
+//functions
 void Buff::updateLifeTime() {
     turns--;
     if(turns < 0)

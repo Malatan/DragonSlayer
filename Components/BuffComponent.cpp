@@ -4,6 +4,101 @@
 
 #include "BuffComponent.h"
 
+//init
+void BuffComponent::initBuffs() {
+// add all buffs to map
+    addBuff("HealthPotion(S)",
+            std::make_shared<Buff>("HealthPotion(S)", "Recovers your hp by 100", "HealthPotion",
+                                   100, 0, 0, 0, 0.f, 0.f, true,
+                                   false, 7, 22));
+
+    addBuff("HealthPotion(M)",
+            std::make_shared<Buff>("HealthPotion(M)", "Recovers your hp by 200", "HealthPotion",
+                                   200, 0, 0, 0, 0.f, 0.f, true,
+                                   false, 7, 22));
+
+    addBuff("HealthPotion(L)",
+            std::make_shared<Buff>("HealthPotion(L)", "Recovers your hp by 400", "HealthPotion",
+                                   400, 0, 0, 0, 0.f, 0.f, true,
+                                   false, 7, 22));
+
+    addBuff("ManaPotion(S)",
+            std::make_shared<Buff>("ManaPotion(S)", "Recovers your mp by 100", "ManaPotion",
+                                   0, 100, 0, 0, 0.f, 0.f, true,
+                                   false, 9, 22));
+
+    addBuff("ManaPotion(M)",
+            std::make_shared<Buff>("ManaPotion(M)", "Recovers your mp by 200", "ManaPotion",
+                                   0, 200, 0, 0, 0.f, 0.f, true,
+                                   false, 9, 22));
+
+    addBuff("ManaPotion(L)",
+            std::make_shared<Buff>("ManaPotion(L)", "Recovers your mp by 400", "ManaPotion",
+                                   0, 400, 0, 0, 0.f, 0.f, true,
+                                   false, 9, 22));
+
+    addBuff("DamagePotion(S)",
+            std::make_shared<Buff>("DamagePotion(S)", "Boosts your attack by 100 for 3 turns", "DamagePotion",
+                                   0, 0, 100, 0, 0.f, 0.f, 3,
+                                   false, 6, 26));
+
+    addBuff("DamagePotion(M)",
+            std::make_shared<Buff>("DamagePotion(M)", "Boosts your attack by 300 for 3 turns", "DamagePotion",
+                                   0, 0, 300, 0, 0.f, 0.f, 3,
+                                   false, 6, 26));
+
+    addBuff("DamagePotion(L)",
+            std::make_shared<Buff>("DamagePotion(L)", "Boosts your attack by 600 for 3 turns", "DamagePotion",
+                                   0, 0, 600, 0, 0.f, 0.f, 3,
+                                   false, 6, 26));
+
+    addBuff("DefensePotion(S)",
+            std::make_shared<Buff>("DefensePotion(S)", "Boosts your armor by 100 for 3 turns", "DefensePotion",
+                                   0, 0, 0, 100, 0.f, 0.f, 3,
+                                   false, 4, 26));
+
+    addBuff("DefensePotion(M)",
+            std::make_shared<Buff>("DefensePotion(M)", "Boosts your armor by 300 for 3 turns", "DefensePotion",
+                                   0, 0, 0, 300, 0.f, 0.f, 3,
+                                   false, 4, 26));
+
+    addBuff("DefensePotion(L)",
+            std::make_shared<Buff>("DefensePotion(L)", "Boosts your armor by 600 for 3 turns", "DefensePotion",
+                                   0, 0, 0, 600, 0.f, 0.f, 3,
+                                   false, 4, 26));
+
+    addBuff("CriticalHitChancePotion(S)",
+            std::make_shared<Buff>("CriticalHitChancePotion(S)", "Boosts your critical hit chance by 10% for 3 turns",
+                                   "CriticalHitChancePotion", 0, 0, 0, 0, 10.f, 0.f,
+                                   3, false, 1, 26));
+
+    addBuff("CriticalHitChancePotion(M)",
+            std::make_shared<Buff>("CriticalHitChancePotion(M)", "Boosts your critical hit chance by 15% for 3 turns",
+                                   "CriticalHitChancePotion", 0, 0, 0, 0, 15.f, 0.f,
+                                   3, false, 1, 26));
+
+    addBuff("CriticalHitChancePotion(L)",
+            std::make_shared<Buff>("CriticalHitChancePotion(L)", "Boosts your critical hit chance by 25% for 3 turns",
+                                   "CriticalHitChancePotion", 0, 0, 0, 0, 25.f, 0.f,
+                                   3, false, 1, 26));
+
+    addBuff("EvadeChancePotion(S)",
+            std::make_shared<Buff>("EvadeChancePotion(S)", "Boosts your evade chance by 10% for 3 turns",
+                                   "EvadeChancePotion", 0, 0, 0, 0, 0.f, 10.f, 3,
+                                   false, 3, 26));
+
+    addBuff("EvadeChancePotion(M)",
+            std::make_shared<Buff>("EvadeChancePotion(M)", "Boosts your evade chance by 15% for 3 turns",
+                                   "EvadeChancePotion", 0, 0, 0, 0, 0.f, 15.f, 3,
+                                   false, 3, 26));
+
+    addBuff("EvadeChancePotion(L)",
+            std::make_shared<Buff>("EvadeChancePotion(L)", "Boosts your evade chance by 25% for 3 turns",
+                                   "EvadeChancePotion", 0, 0, 0, 0, 0.f, 25.f, 3,
+                                   false, 3, 26));
+}
+
+//constructor/destructor
 BuffComponent::BuffComponent(std::shared_ptr<PopUpTextComponent> popUpTextComponent, std::shared_ptr<Player> player,
                              State *state, sf::Font *font) {
     this->player = std::move(player);
@@ -15,8 +110,42 @@ BuffComponent::BuffComponent(std::shared_ptr<PopUpTextComponent> popUpTextCompon
 
 BuffComponent::~BuffComponent() = default;
 
-void
-BuffComponent::applyItemBuff(const std::string &key, bool popup_text_center, float popup_text_x, float popup_text_y) {
+//accessors
+std::vector<std::shared_ptr<Buff>> &BuffComponent::getPlayerBuffsList() {
+    return playerBuffsList;
+}
+
+std::string BuffComponent::toStringBuffs() const {
+    std::stringstream ss;
+    ss << "--------------------Buff list--------------------" << std::endl;
+    for (const auto &i : buffs) {
+        ss << i.second->toString();
+    }
+
+    return ss.str();
+}
+
+std::string BuffComponent::toStringPlayerBuffs() const {
+    std::stringstream ss;
+    ss << "--------------------Player Buff list--------------------" << std::endl;
+    for (const auto &i : playerBuffsList) {
+        ss << i->toString();
+    }
+
+    return ss.str();
+}
+
+//functions
+void BuffComponent::loadPlayerBuffs(std::vector<Buff> &save_buffs) {
+    playerBuffsList.clear();
+    playerBuffsList.reserve(save_buffs.size());
+    for(const auto& i : save_buffs){
+        playerBuffsList.push_back(std::make_shared<Buff>(i));
+    }
+    updateBuffBar();
+}
+
+void BuffComponent::applyItemBuff(const std::string &key, bool popup_text_center, float popup_text_x, float popup_text_y) {
     TextTypes tag_type = DEFAULT_TAG;
     stringstream text;
 
@@ -148,26 +277,6 @@ void BuffComponent::addPlayerBuff(const std::shared_ptr<Buff> &buff) {
     }
 }
 
-std::string BuffComponent::toStringBuffs() const {
-    std::stringstream ss;
-    ss << "--------------------Buff list--------------------" << std::endl;
-    for (const auto &i : buffs) {
-        ss << i.second->toString();
-    }
-
-    return ss.str();
-}
-
-std::string BuffComponent::toStringPlayerBuffs() const {
-    std::stringstream ss;
-    ss << "--------------------Player Buff list--------------------" << std::endl;
-    for (const auto &i : playerBuffsList) {
-        ss << i->toString();
-    }
-
-    return ss.str();
-}
-
 void BuffComponent::updateBuffBar() {
     buffBar.clear();
     float slot_size = 30.f;
@@ -223,98 +332,7 @@ void BuffComponent::render(sf::RenderTarget &target) {
     }
 }
 
-void BuffComponent::initBuffs() {
-// add all buffs to map
-    addBuff("HealthPotion(S)",
-            std::make_shared<Buff>("HealthPotion(S)", "Recovers your hp by 100", "HealthPotion",
-                                   100, 0, 0, 0, 0.f, 0.f, true,
-                                   false, 7, 22));
 
-    addBuff("HealthPotion(M)",
-            std::make_shared<Buff>("HealthPotion(M)", "Recovers your hp by 200", "HealthPotion",
-                                   200, 0, 0, 0, 0.f, 0.f, true,
-                                   false, 7, 22));
-
-    addBuff("HealthPotion(L)",
-            std::make_shared<Buff>("HealthPotion(L)", "Recovers your hp by 400", "HealthPotion",
-                                   400, 0, 0, 0, 0.f, 0.f, true,
-                                   false, 7, 22));
-
-    addBuff("ManaPotion(S)",
-            std::make_shared<Buff>("ManaPotion(S)", "Recovers your mp by 100", "ManaPotion",
-                                   0, 100, 0, 0, 0.f, 0.f, true,
-                                   false, 9, 22));
-
-    addBuff("ManaPotion(M)",
-            std::make_shared<Buff>("ManaPotion(M)", "Recovers your mp by 200", "ManaPotion",
-                                   0, 200, 0, 0, 0.f, 0.f, true,
-                                   false, 9, 22));
-
-    addBuff("ManaPotion(L)",
-            std::make_shared<Buff>("ManaPotion(L)", "Recovers your mp by 400", "ManaPotion",
-                                   0, 400, 0, 0, 0.f, 0.f, true,
-                                   false, 9, 22));
-
-    addBuff("DamagePotion(S)",
-            std::make_shared<Buff>("DamagePotion(S)", "Boosts your attack by 100 for 3 turns", "DamagePotion",
-                                   0, 0, 100, 0, 0.f, 0.f, 3,
-                                   false, 6, 26));
-
-    addBuff("DamagePotion(M)",
-            std::make_shared<Buff>("DamagePotion(M)", "Boosts your attack by 300 for 3 turns", "DamagePotion",
-                                   0, 0, 300, 0, 0.f, 0.f, 3,
-                                   false, 6, 26));
-
-    addBuff("DamagePotion(L)",
-            std::make_shared<Buff>("DamagePotion(L)", "Boosts your attack by 600 for 3 turns", "DamagePotion",
-                                   0, 0, 600, 0, 0.f, 0.f, 3,
-                                   false, 6, 26));
-
-    addBuff("DefensePotion(S)",
-            std::make_shared<Buff>("DefensePotion(S)", "Boosts your armor by 100 for 3 turns", "DefensePotion",
-                                   0, 0, 0, 100, 0.f, 0.f, 3,
-                                   false, 4, 26));
-
-    addBuff("DefensePotion(M)",
-            std::make_shared<Buff>("DefensePotion(M)", "Boosts your armor by 300 for 3 turns", "DefensePotion",
-                                   0, 0, 0, 300, 0.f, 0.f, 3,
-                                   false, 4, 26));
-
-    addBuff("DefensePotion(L)",
-            std::make_shared<Buff>("DefensePotion(L)", "Boosts your armor by 600 for 3 turns", "DefensePotion",
-                                   0, 0, 0, 600, 0.f, 0.f, 3,
-                                   false, 4, 26));
-
-    addBuff("CriticalHitChancePotion(S)",
-            std::make_shared<Buff>("CriticalHitChancePotion(S)", "Boosts your critical hit chance by 10% for 3 turns",
-                                   "CriticalHitChancePotion", 0, 0, 0, 0, 10.f, 0.f,
-                                   3, false, 1, 26));
-
-    addBuff("CriticalHitChancePotion(M)",
-            std::make_shared<Buff>("CriticalHitChancePotion(M)", "Boosts your critical hit chance by 15% for 3 turns",
-                                   "CriticalHitChancePotion", 0, 0, 0, 0, 15.f, 0.f,
-                                   3, false, 1, 26));
-
-    addBuff("CriticalHitChancePotion(L)",
-            std::make_shared<Buff>("CriticalHitChancePotion(L)", "Boosts your critical hit chance by 25% for 3 turns",
-                                   "CriticalHitChancePotion", 0, 0, 0, 0, 25.f, 0.f,
-                                   3, false, 1, 26));
-
-    addBuff("EvadeChancePotion(S)",
-            std::make_shared<Buff>("EvadeChancePotion(S)", "Boosts your evade chance by 10% for 3 turns",
-                                   "EvadeChancePotion", 0, 0, 0, 0, 0.f, 10.f, 3,
-                                   false, 3, 26));
-
-    addBuff("EvadeChancePotion(M)",
-            std::make_shared<Buff>("EvadeChancePotion(M)", "Boosts your evade chance by 15% for 3 turns",
-                                   "EvadeChancePotion", 0, 0, 0, 0, 0.f, 15.f, 3,
-                                   false, 3, 26));
-
-    addBuff("EvadeChancePotion(L)",
-            std::make_shared<Buff>("EvadeChancePotion(L)", "Boosts your evade chance by 25% for 3 turns",
-                                   "EvadeChancePotion", 0, 0, 0, 0, 0.f, 25.f, 3,
-                                   false, 3, 26));
-}
 
 
 

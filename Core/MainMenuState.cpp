@@ -30,6 +30,12 @@ void MainMenuState::initBackground() {
                     static_cast<float>(window->getSize().y)));
     backgroundTexture.loadFromImage(rsHandler->getResourceByKey("mainmenu background")->getImage());
     background.setTexture(&backgroundTexture);
+
+    versionLbl.setFont(font);
+    versionLbl.setCharacterSize(25);
+    versionLbl.setStyle(sf::Text::Italic);
+    versionLbl.setString("v" + rsHandler->getGameVersion());
+    versionLbl.setPosition(1000.f, 200.f);
 }
 
 void MainMenuState::initButtons() {
@@ -63,8 +69,12 @@ void MainMenuState::initButtons() {
 }
 
 void MainMenuState::initLoadSaveTab() {
-    loadSaveTab = std::make_shared<LoadSaveTab>(window, rsHandler, &font, this);
+    loadSaveTab = std::make_shared<LoadSaveTab>(window, rsHandler, popUpTextComponent, &font, this);
     loadSaveTab->setAccessOption(LOAD_ONLY);
+}
+
+void MainMenuState::initComponents() {
+    popUpTextComponent = std::make_shared<PopUpTextComponent>(font, window);
 }
 
 MainMenuState::MainMenuState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::unique_ptr<State>>* states,
@@ -74,14 +84,20 @@ MainMenuState::MainMenuState(std::shared_ptr<sf::RenderWindow> window, std::stac
     initResources();
     initBackground();
     initButtons();
+    initComponents();
     initLoadSaveTab();
     initLoadingScreen();
 }
 
 MainMenuState::~MainMenuState() = default;
 
-void MainMenuState::startNewGame() {
-    states->push(std::make_unique<GameState>(window, states, rsHandler, loadSaveTab, &font, GAME_STATE));
+void MainMenuState::setLoading(bool b) {
+    loading = b;
+}
+
+void MainMenuState::startGame() {
+    loading = false;
+    states->push(std::make_unique<GameState>(window, states, rsHandler, popUpTextComponent, loadSaveTab, &font, GAME_STATE));
 }
 
 void MainMenuState::updateInput(const float &dt) {
@@ -89,8 +105,12 @@ void MainMenuState::updateInput(const float &dt) {
 }
 
 void MainMenuState::updateButtons() {
-    if(loading)
-        startNewGame();
+    if(loading){
+        loading = true;
+        startGame();
+    }else{
+        loading = loadSaveTab->canApplySave();
+    }
     // Aggiorna tutti i buttoni
     for (auto &it : buttons){
         it.second.update((mousePosView));
@@ -121,6 +141,9 @@ void MainMenuState::renderButtons(sf::RenderTarget& target) {
 void MainMenuState::update(const float &dt) {
     updateMousePosition(nullptr);
     updateKeyTime(dt);
+    if(!loadSaveTab->stateMatch(getStateEnum())){
+        loadSaveTab->setState(this);
+    }
     switch (stateTab) {
         case NO_TAB:
             updateInput(dt);
@@ -137,6 +160,7 @@ void MainMenuState::update(const float &dt) {
         default:
             break;
     }
+    popUpTextComponent->update(dt);
 }
 
 void MainMenuState::render(sf::RenderTarget *target) {
@@ -148,8 +172,8 @@ void MainMenuState::render(sf::RenderTarget *target) {
         target->draw(textLbl);
     }else{
         target->draw(background);
+        target->draw(versionLbl);
         renderButtons(*target);
-
         switch (stateTab) {
             case LOADSAVE_TAB:
                 loadSaveTab->render(*target);
@@ -157,6 +181,7 @@ void MainMenuState::render(sf::RenderTarget *target) {
             default:
                 break;
         }
+        popUpTextComponent->render(*target);
     }
 
 }

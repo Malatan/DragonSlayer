@@ -123,13 +123,13 @@ target_link_libraries(${PROJECT_NAME} sfml-system sfml-window sfml-graphics sfml
 #BOOST CONFIG
 set(Boost_INCLUDE_DIR E:/boost/include)
 set(Boost_LIBRARY_DIRS E:/boost/lib)
-find_package(Boost REQUIRED COMPONENTS serialization)
+find_package(Boost REQUIRED COMPONENTS filesystem serialization)
 IF (Boost_FOUND)
     MESSAGE(STATUS "Boost found")
+    link_directories(${Boost_LIBRARY_DIR})
+    target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
+    include_directories(${Boost_INCLUDE_DIR})
 ENDIF()
-link_directories(${Boost_LIBRARY_DIR})
-target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
-include_directories(${Boost_INCLUDE_DIR})
 
 #GOOGLE TEST CONFIG
 add_subdirectory(unit_testing)

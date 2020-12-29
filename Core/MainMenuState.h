@@ -13,8 +13,10 @@ public:
                   std::shared_ptr<ResourcesHandler> rsHandler, state_enum _state_enum);
     ~MainMenuState() override;
 
+    void setLoading(bool b);
+
     //functions
-    void startNewGame();
+    void startGame();
     void updateButtons();
     void renderButtons(sf::RenderTarget& target);
     void updateInput(const float& dt) override;
@@ -25,10 +27,12 @@ private:
     //variables
     sf::Texture backgroundTexture;
     sf::RectangleShape background;
+    sf::Text versionLbl;
     sf::Font font;
     std::map<std::string, gui::Button> buttons;
     std::shared_ptr<LoadSaveTab> loadSaveTab;
     state_tab stateTab;
+    std::shared_ptr<PopUpTextComponent> popUpTextComponent;
 
     //loading screen
     bool loading{};
@@ -41,6 +45,7 @@ private:
     void initBackground();
     void initButtons();
     void initLoadSaveTab();
+    void initComponents();
 };
 
 

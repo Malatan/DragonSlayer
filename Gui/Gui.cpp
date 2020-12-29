@@ -4,7 +4,6 @@
 
 #include "Gui.h"
 #include <iostream>
-#include <utility>
 
 gui::Button::Button()= default;
 
@@ -119,10 +118,6 @@ const short unsigned &gui::Button::getId() const {
 
 sf::Vector2f gui::Button::getPosition() {
     return shape.getPosition();
-}
-
-short unsigned gui::Button::getButtonState() const {
-    return buttonState;
 }
 
 //modifiers
@@ -530,7 +525,7 @@ void gui::ItemSlot::updateItemInfo() {
             ss << "\n\" " << wrapped_desc;
         }
         ss << " \"\nValue: " << item->getValue();
-
+        ss << "\n[" << item->getId() << "]";
         itemInfoLbl.setString(ss.str());
         itemInfoContainer.setSize(sf::Vector2f(itemInfoLbl.getGlobalBounds().width + 10.f,
                                                      itemInfoLbl.getGlobalBounds().height + 15.f));
@@ -559,16 +554,20 @@ void gui::ItemSlot::update(const sf::Vector2f &mousePos, bool inv) {
     //hover
     if(shape.getGlobalBounds().contains(mousePos) && item){
         //pressed
-        if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && state->getKeyTime() && !isEquipSlot){
-            slotState = SLOT_ACTIVE;
-            renderItemInfoContainer = false;
-            if(inv){
-                if(isSelected){
-                    isSelected = false;
-                    cover.setOutlineColor(sf::Color::Transparent);
-                } else{
-                    isSelected = true;
-                    cover.setOutlineColor(sf::Color::Cyan);
+        if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && state->getKeyTime()){
+            if(isEquipSlot){
+                equipSlotUnequip = true;
+            }else{
+                slotState = SLOT_ACTIVE;
+                renderItemInfoContainer = false;
+                if(inv){
+                    if(isSelected){
+                        isSelected = false;
+                        cover.setOutlineColor(sf::Color::Transparent);
+                    } else{
+                        isSelected = true;
+                        cover.setOutlineColor(sf::Color::Cyan);
+                    }
                 }
             }
         }
@@ -647,6 +646,14 @@ sf::IntRect* gui::ItemSlot::getIntRect() {
 void gui::ItemSlot::setOutlineColors(sf::Color new_color) {
     shape.setOutlineColor(new_color);
     itemInfoContainer.setOutlineColor(new_color);
+}
+
+bool gui::ItemSlot::isEquipSlotUnequip() const {
+    return equipSlotUnequip;
+}
+
+void gui::ItemSlot::setIsEquipSlotUnequip(bool b) {
+    equipSlotUnequip = b;
 }
 
 /*
@@ -2067,6 +2074,10 @@ gui::AchievementSlot::AchievementSlot(float width, float height, float pos_x, fl
     progressBar.setProgressShapeColor(sf::Color(60, 60, 60, 150));
     progressBar.setProgressBorderColor(sf::Color(60, 60, 60));
     progressBar.update(current_value, achievement->getGoal());
+
+    if(achievement->isUnlocked()){
+        updateAchievement(goal, true);
+    }
 }
 
 gui::AchievementSlot::~AchievementSlot() = default;
@@ -2221,6 +2232,7 @@ void gui::AchievementNotification::render(sf::RenderTarget &target) {
 
 //constructors/destructor
 gui::LoadSaveSlot::LoadSaveSlot(float x, float y, float width, float height, sf::Font* font) {
+    empty = true;
     container.setSize(sf::Vector2f(width, height));
     container.setPosition(x, y);
     container.setFillColor(sf::Color(30, 30, 30));
@@ -2228,14 +2240,14 @@ gui::LoadSaveSlot::LoadSaveSlot(float x, float y, float width, float height, sf:
     container.setOutlineThickness(5.f);
 
     titleLbl.setFont(*font);
-    titleLbl.setCharacterSize(20);
+    titleLbl.setCharacterSize(30);
     titleLbl.setString("Empty Slot");
-    titleLbl.setPosition(x + 5.f, y + 5.f);
+    titleLbl.setPosition(x + 15.f, y + 5.f);
 
     timeLbl.setFont(*font);
-    timeLbl.setCharacterSize(16);
+    timeLbl.setCharacterSize(20);
     timeLbl.setString("-");
-    timeLbl.setPosition(x + 15.f, titleLbl.getPosition().y + titleLbl.getGlobalBounds().height + 5.f);
+    timeLbl.setPosition(x + 25.f, titleLbl.getPosition().y + titleLbl.getGlobalBounds().height + 15.f);
 
     saveBtn = gui::Button(container.getPosition().x + container.getGlobalBounds().width - 100.f - 20.f,
                           container.getPosition().y + container.getGlobalBounds().height/2.f - 35.f - 5.f,
@@ -2247,11 +2259,29 @@ gui::LoadSaveSlot::LoadSaveSlot(float x, float y, float width, float height, sf:
 
     saveBtn.setIdleTextColor(sf::Color::White);
     loadBtn.setIdleTextColor(sf::Color::White);
+
+    clear();
 }
 
 gui::LoadSaveSlot::~LoadSaveSlot() = default;
 
-//accessors
+//modifiers/accessors
+bool gui::LoadSaveSlot::isEmpty() const {
+    return empty;
+}
+
+std::string gui::LoadSaveSlot::getName() const {
+    return saveName;
+}
+
+void gui::LoadSaveSlot::setInfo(const std::string& s_name, const std::string& s_time) {
+    empty = false;
+    saveName = s_name;
+    saveLastMod = s_time;
+    titleLbl.setString(saveName);
+    timeLbl.setString(saveLastMod);
+}
+
 bool gui::LoadSaveSlot::saveBtnIsPressed() const {
     return saveBtn.isPressed();
 }
@@ -2260,15 +2290,15 @@ bool gui::LoadSaveSlot::loadBtnIsPressed() const {
     return loadBtn.isPressed();
 }
 
-void gui::LoadSaveSlot::setSaveBtnState(button_states btn_state) {
-    saveBtn.setButtonState(btn_state);
-}
-
-void gui::LoadSaveSlot::setLoadBtnState(button_states btn_state) {
-    loadBtn.setButtonState(btn_state);
-}
-
 //functions
+void gui::LoadSaveSlot::clear() {
+    empty = true;
+    saveName = "-";
+    saveLastMod = "-";
+    titleLbl.setString(saveName);
+    timeLbl.setString(saveLastMod);
+}
+
 void gui::LoadSaveSlot::setLoadBtnDisabled(bool b) {
     loadBtn.setDisabled(b);
 }

@@ -19,6 +19,7 @@ public:
     virtual ~Inventory();
 
     //functions
+    void fill(std::vector<Item>& item_list);
     bool isFull();
     void expandInventorySpace(int n);
     bool isExpandable();
@@ -26,9 +27,9 @@ public:
     bool hasItemByName(const std::string& item_name) const;
     bool addItem(std::shared_ptr<Item> new_item);
     void sortByItemType();
-    string listInventory();
 
     //GET & SET
+    string listInventory();
     int getItemsSize();
     std::shared_ptr<Item> getItemByIndex(int n);
     std::shared_ptr<Item> getItemById(unsigned int id);
@@ -36,6 +37,7 @@ public:
     int getCurrentMaxSpace();
     int getAvailableSpace();
     vector<std::shared_ptr<Item>> getItems();
+
 private:
     int* currentMaxSpace;           //MASSIMO NUMERO DI SLOT OCCUPABILI SECONDO I NOSTRI POWER UP DELL'INVENTARIO
     vector<std::shared_ptr<Item>> items;

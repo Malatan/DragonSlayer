@@ -64,24 +64,28 @@ enum state_tab{
 
 class GameState : public State, public Subject{
 public:
+    //constructor/destructor
     GameState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::unique_ptr<State>>* states,
-            std::shared_ptr<ResourcesHandler> rsHandler, std::shared_ptr<LoadSaveTab> loadsave_tab,
+            std::shared_ptr<ResourcesHandler> rsHandler, std::shared_ptr<PopUpTextComponent> popuptext_component,
+            std::shared_ptr<LoadSaveTab> loadsave_tab,
             sf::Font *font, state_enum _state_enum);
     virtual ~GameState();
 
     //accessors
-    std::shared_ptr<BuffComponent> getBuffComponent();
-    std::shared_ptr<PopUpTextComponent> getPopUpTextComponent();
-    std::shared_ptr<SpellComponent> getSpellComponent();
-    std::shared_ptr<SpellTab> getSpellTab();
-    std::shared_ptr<LootGenerator> getLootGenerator();
-    std::shared_ptr<Player> getPlayer();
-    std::shared_ptr<ResourcesHandler> getResourceHandler();
+    std::shared_ptr<BuffComponent>& getBuffComponent();
+    std::shared_ptr<PopUpTextComponent>& getPopUpTextComponent();
+    std::shared_ptr<SpellComponent>& getSpellComponent();
+    std::shared_ptr<AchievementComponent>& getAchievementComponent();
+    std::shared_ptr<SpellTab>& getSpellTab();
+    std::shared_ptr<LootGenerator>& getLootGenerator();
+    std::shared_ptr<Player>& getPlayer();
+    std::shared_ptr<ResourcesHandler>& getResourceHandler();
     Npc* getNpc(int index);
     npc_type getInteractNpc() const;
-    std::shared_ptr<Enemy> getEnemy(int index);
+    std::shared_ptr<Enemy>& getEnemy(int index);
     bool getStateKeyTime();
 
+    //observer
     void addObserver(Observer* observer);
     void removeObserver(Observer* observer);
     void notify(achievement_event event, int value);
@@ -152,6 +156,7 @@ private:
     int floorReached;
 
     //init
+    void applySaveValue();
     void initTextures();
     void initPauseMenu();
     void initPlayers();

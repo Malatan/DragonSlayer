@@ -9,7 +9,6 @@
 #include "../Core/State.h"
 #include "../Game/Player.h"
 #include "../Game/Enemy.h"
-#include "../Game/Save.h"
 #include "libraries/RichText.hpp"
 
 enum button_states{
@@ -59,7 +58,6 @@ namespace gui{
         const short unsigned& getId() const;
         sf::Vector2f getPosition();
         sf::FloatRect getGlobalBounds() const;
-        short unsigned getButtonState() const;
 
         //modifiers
         void setButtonState(button_states);
@@ -160,6 +158,8 @@ namespace gui{
         sf::RectangleShape* getShape();
         void setOutlineColors(sf::Color new_color);
         sf::IntRect* getIntRect();
+        bool isEquipSlotUnequip() const;
+        void setIsEquipSlotUnequip(bool b);
 
         //modifiers
         void setItem(std::shared_ptr<Item> new_item);
@@ -183,6 +183,7 @@ namespace gui{
         bool renderItemInfoContainer{};
         bool isSelected{};
         bool isEquipSlot{};
+        bool equipSlotUnequip{};
 
         std::shared_ptr<Item> item;
         State* state{};
@@ -567,13 +568,15 @@ namespace gui{
         LoadSaveSlot(float x, float y, float width, float height, sf::Font* font);
         virtual ~LoadSaveSlot();
 
-        //accessors
+        //modifiers/accessors
+        bool isEmpty() const;
+        std::string getName() const;
+        void setInfo(const std::string& s_name, const std::string& s_time);
         bool saveBtnIsPressed() const;
         bool loadBtnIsPressed() const;
-        void setSaveBtnState(button_states btn_state);
-        void setLoadBtnState(button_states btn_state);
 
         //functions
+        void clear();
         void setLoadBtnDisabled(bool b);
         void setSaveBtnDisabled(bool b);
         void update(const sf::Vector2f& mousePos);
@@ -585,6 +588,9 @@ namespace gui{
         sf::Text timeLbl;
         gui::Button saveBtn;
         gui::Button loadBtn;
+        std::string saveName;
+        std::string saveLastMod;
+        bool empty;
     };
 }
 

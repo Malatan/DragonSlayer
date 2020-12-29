@@ -4,6 +4,7 @@
 
 #include "Spell.h"
 
+//CONSTRUCTOR & DESTRUCTOR
 Spell::Spell() = default;
 
 Spell::Spell(Spell *spell) : spellType(spell->spellType), name(spell->name), type(spell->type),
@@ -12,8 +13,36 @@ aoe(spell->aoe), learned(spell->learned), intRectX(spell->intRectX), intRectY(sp
 learnCost(spell->learnCost), maxLevel(spell->maxLevel){
 }
 
+Spell::Spell(spell_type spellType, string name, string type, string description, int cost, int cooldown, int damage,
+             int aoe, bool learned, int level, int maxLevel, int learnCost, int intRectX, int intRectY) :
+        spellType(spellType), name(std::move(name)), type(std::move(type)), description(std::move(description)), cost(cost),
+        cooldown(cooldown), damage(damage), aoe(aoe), learned(learned), level(level), maxLevel(maxLevel),
+        learnCost(learnCost), intRectX(intRectX), intRectY(intRectY) {
+
+}
+
+Spell::Spell(const Spell& p_spell) = default;
+
 Spell::~Spell() = default;
 
+//function
+bool Spell::isMaxed() const {
+    return level == maxLevel;
+}
+
+void Spell::levelUp() {
+    setLevel(level+1);
+}
+
+int Spell::getFinalDamage() const {
+    return damage*level;
+}
+
+int Spell::getFinalCost() const {
+    return cost*level;
+}
+
+//GET & SET
 string Spell::getDescription() {
     return description;
 }
@@ -160,29 +189,8 @@ void Spell::setMaxLevel(int max_level) {
     maxLevel = max_level;
 }
 
-bool Spell::isMaxed() const {
-    return level == maxLevel;
-}
 
-void Spell::levelUp() {
-    setLevel(level+1);
-}
 
-int Spell::getFinalDamage() const {
-    return damage*level;
-}
-
-int Spell::getFinalCost() const {
-    return cost*level;
-}
-
-Spell::Spell(spell_type spellType, string name, string type, string description, int cost, int cooldown, int damage,
-        int aoe, bool learned, int level, int maxLevel, int learnCost, int intRectX, int intRectY) :
-        spellType(spellType), name(std::move(name)), type(std::move(type)), description(std::move(description)), cost(cost),
-        cooldown(cooldown), damage(damage), aoe(aoe), learned(learned), level(level), maxLevel(maxLevel),
-        learnCost(learnCost), intRectX(intRectX), intRectY(intRectY) {
-
-}
 
 
 

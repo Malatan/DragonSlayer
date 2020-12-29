@@ -4,8 +4,6 @@
 
 #include "LoadSaveTab.h"
 
-#include <utility>
-
 void LoadSaveTab::initSlots() {
     float x = container.getPosition().x + 10.f;
     float y = containerTitle.getPosition().y + 65.f;
@@ -17,7 +15,8 @@ void LoadSaveTab::initSlots() {
 
 //constructors/destructor
 LoadSaveTab::LoadSaveTab(const std::shared_ptr<sf::RenderWindow>& window, std::shared_ptr<ResourcesHandler> rs_handler,
-                         sf::Font* font, State* state) : font(font), state(state), rsHandler(std::move(rs_handler)){
+                         std::shared_ptr<PopUpTextComponent> popuptext_component, sf::Font* font, State* state)
+                         : font(font), state(state), rsHandler(std::move(rs_handler)), popUpTextComponent(std::move(popuptext_component)){
     //init background
     background.setSize(sf::Vector2f(
             static_cast<float>(window->getSize().x),
@@ -45,6 +44,15 @@ LoadSaveTab::LoadSaveTab(const std::shared_ptr<sf::RenderWindow>& window, std::s
                           container.getPosition().y + container.getGlobalBounds().height - 80.f,
                           150.f, 40.f, this->font, "Back", 30);
 
+    loadingLbl.setFont(*this->font);
+    loadingLbl.setCharacterSize(50);
+    loadingLbl.setString("Loading...");
+    loadingLbl.setPosition(container.getPosition().x + container.getGlobalBounds().width/2.f -
+                            loadingLbl.getGlobalBounds().width/2.f,
+                           container.getPosition().y + container.getGlobalBounds().height/2.f -
+                           loadingLbl.getGlobalBounds().height/2.f);
+
+    savesHandler = std::make_unique<SavesHandler>();
     initSlots();
 }
 
@@ -60,37 +68,118 @@ bool LoadSaveTab::isHide() const {
 }
 
 void LoadSaveTab::setHide(bool b) {
+    if(!b)
+        loading = true;
     hide = b;
 }
 
+bool LoadSaveTab::canApplySave() const {
+    return applySave;
+}
+
+Save *LoadSaveTab::getApplySave() {
+    return savesHandler->getSave(beAppliedSaveName);
+}
+
 //functions
-void LoadSaveTab::generateSave() {
+void LoadSaveTab::refresh() {
+    std::string path = savesHandler->savePath + "/";
+    boost::filesystem::path p(path);
+    std::vector<std::string> files;
+    for (auto i = boost::filesystem::directory_iterator(p); i != boost::filesystem::directory_iterator(); i++) {
+        if(!is_directory(i->path())){
+            files.push_back(i->path().stem().string());
+            if(files.size() == savesHandler->maxSaves)
+                break;
+        }
+    }
+
+    if(!files.empty()){
+        savesHandler->clear();
+        for(const auto& i : files){
+            if(savesHandler->read(i)){
+                std::cout << " >>>> LOADED " << savesHandler->getSave(i)->toString();
+            }
+        }
+
+        int count = 0;
+        for(const auto& i : savesHandler->getLoadedSaves()){
+            slots[count]->setInfo(i.second.getName(), i.second.getLastModifiedTime());
+            slots[count]->setLoadBtnDisabled(false);
+            count++;
+        }
+    }
+    loading = false;
+}
+
+std::string LoadSaveTab::generateSaveName() const {
+    bool flag = false;
+    int count = 1;
+    while(!flag){
+        std::stringstream ss;
+        ss << "save" << std::setfill('0') << std::setw(3) << count;
+        std::string s_path = savesHandler->savePath + "/" + ss.str() + ".dat";
+        if(!boost::filesystem::exists(s_path)){
+            flag = true;
+        }else{
+            count++;
+        }
+    }
+    std::stringstream ss;
+    ss << "save" << std::setfill('0') << std::setw(3) << count;
+    return ss.str();
+}
+
+void LoadSaveTab::generateSave(const std::shared_ptr<gui::LoadSaveSlot>& s_slot) {
+    //genera data modifica
     std::time_t result = std::time(nullptr);
-    Save new_save = Save("save001", std::asctime(std::localtime(&result)), rsHandler->getGameVersion());
+    std::string time_str = std::asctime(std::localtime(&result));
+    time_str.pop_back();
+
+    std::string save_name;
+    if(!s_slot->isEmpty()){ //overwrite
+        save_name = s_slot->getName();
+    }else{  // genera nuovo nome
+        save_name = generateSaveName();
+    }
+
+    Save new_save = Save(save_name, time_str, rsHandler->getGameVersion());
     auto* game_state = dynamic_cast<GameState*>(state);
     new_save.saveRsHandlerInfo(game_state->getResourceHandler());
     new_save.savePlayerInfo(game_state->getPlayer());
+    new_save.saveSpellsInfo(game_state->getSpellComponent());
+    new_save.saveAchievementsInfo(game_state->getAchievementComponent());
+    new_save.saveBuffsInfo(game_state->getBuffComponent());
 
-    SavesHandler().write(new_save);
-    std::cout<<new_save.toString();
+    savesHandler->write(new_save);
+    loading = true;
+    std::cout << "SAVED <<<< " << new_save.toString();
 }
 
-void LoadSaveTab::loadSave() {
+void LoadSaveTab::loadSave(const std::string& save_name) {
+    beAppliedSaveName = save_name;
+    applySave = true;
     if(state->getStateEnum() == MAINMENU_STATE){
-        std::cout << "Loading save from MainMenuState" << std::endl;
-        SavesHandler().read();
+        hide = true;
     }else if(state->getStateEnum() == GAME_STATE){
-        std::cout << "Loading save from GameState" << std::endl;
-        SavesHandler().read();
+        state->endState();
     }
+}
 
+void LoadSaveTab::endApplySave() {
+    applySave = false;
+    savesHandler->clear();
+}
+
+bool LoadSaveTab::stateMatch(state_enum current_state) const {
+    return state->getStateEnum() == current_state;
 }
 
 void LoadSaveTab::setAccessOption(save_load_option option) {
     switch(option){
         case LOAD_SAVE:{
             for(const auto& i : slots){
-                i->setLoadBtnDisabled(false);
+                i->setLoadBtnDisabled(true);
                 i->setSaveBtnDisabled(false);
             }
             break;
@@ -104,7 +193,7 @@ void LoadSaveTab::setAccessOption(save_load_option option) {
         }
         case LOAD_ONLY:{
             for(const auto& i : slots){
-                i->setLoadBtnDisabled(false);
+                i->setLoadBtnDisabled(true);
                 i->setSaveBtnDisabled(true);
             }
             break;
@@ -126,18 +215,18 @@ void LoadSaveTab::updateButtons(const sf::Vector2f &mousePos) {
     for(const auto& i : slots){
         if(i->saveBtnIsPressed() && state->getKeyTime()){
             i->setSaveBtnDisabled(BTN_IDLE);
-            generateSave();
-            std::cout<<"Saving..."<<std::endl;
+            generateSave(i);
         }
         if(i->loadBtnIsPressed() && state->getKeyTime()){
             i->setLoadBtnDisabled(BTN_IDLE);
-            loadSave();
-            std::cout<<"Loading..."<<std::endl;
+            loadSave(i->getName());
         }
     }
 }
 
 void LoadSaveTab::update(const sf::Vector2f &mousePos) {
+    if(loading)
+        refresh();
     updateButtons(mousePos);
     backBtn->update(mousePos);
     for(const auto& i : slots)
@@ -148,7 +237,11 @@ void LoadSaveTab::render(sf::RenderTarget &target) {
     target.draw(background);
     target.draw(container);
     target.draw(containerTitle);
-    backBtn->render(target);
-    for(const auto& i : slots)
-        i->render(target);
+    if(!loading){
+        backBtn->render(target);
+        for(const auto& i : slots)
+            i->render(target);
+    }else{
+        target.draw(loadingLbl);
+    }
 }

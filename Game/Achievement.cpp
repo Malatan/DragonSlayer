@@ -7,6 +7,8 @@
 //constructors/destructor
 Achievement::Achievement() = default;
 
+Achievement::Achievement(const Achievement &p_achievement) = default;
+
 Achievement::~Achievement() = default;
 
 //accessors/modifiers

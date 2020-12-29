@@ -8,6 +8,7 @@
 void Game::initVariables() {
     window = nullptr;
     dt = 0.f;
+    rsHandler = std::make_shared<ResourcesHandler>();
 }
 
 void Game::initWindow() {
@@ -29,7 +30,7 @@ void Game::initWindow() {
         std::cout<<"window.ini not found. Default settings applied"<<"\n";
     }
     ifs.close();
-
+    window_title += " v" + rsHandler->getGameVersion();
     windowSettings.antialiasingLevel = antialiasing_level;
     window = std::make_shared<sf::RenderWindow>(window_bounds,
                                                 window_title,
@@ -37,7 +38,6 @@ void Game::initWindow() {
                                         windowSettings);
     window->setFramerateLimit(framerate_limit);
     window->setVerticalSyncEnabled(veritcal_enabled);
-    rsHandler = std::make_shared<ResourcesHandler>();
 }
 
 void Game::initStates() {

@@ -37,6 +37,7 @@ public:
 
     //modifiers
     void setSeletecItem(int n);
+    bool selectItemById(unsigned int item_id);
 
     //functions
     std::string playerStatsToString();

@@ -30,6 +30,14 @@ void Player::initAnimations() {
             0, 5, 6, 5, 50 ,37);
 }
 
+void Player::initStats() {
+    playerStats = std::make_shared<Stats>();
+}
+
+void Player::initInventory() {
+    inventory = std::make_shared<Inventory>(&currentInventorySpace);
+}
+
 //constructors/destructors
 Player::Player(float x, float y, float scale_x, float scale_y, sf::Texture& texture_sheet) {
     gold = 0;
@@ -50,10 +58,7 @@ Player::Player(float x, float y, float scale_x, float scale_y, sf::Texture& text
     initAnimations();
 
     Player::setPosition(x, y);
-
     currentInventorySpace = 30;
-    playerStats = std::make_shared<Stats>();
-    inventory = std::make_shared<Inventory>(&currentInventorySpace);
 
     weapon = nullptr;
     shield = nullptr;
@@ -61,13 +66,6 @@ Player::Player(float x, float y, float scale_x, float scale_y, sf::Texture& text
     chest = nullptr;
     arms = nullptr;
     legs = nullptr;
-}
-
-bool Player::hasShield() {
-    if(shield)
-        return true;
-    else
-        return false;
 }
 
 Player::Player() = default;
@@ -162,6 +160,62 @@ void Player::render(sf::RenderTarget &target, sf::Shader* shader, sf::Vector2f l
         hitboxComponent->render(target);
 }
 
+void Player::addGold(unsigned add_amount) {
+    gold += add_amount;
+}
+
+void Player::minusGold(unsigned minus_amount) {
+    if(minus_amount > gold){
+        gold = 0;
+    }else{
+        gold -= minus_amount;
+    }
+}
+
+void Player::unequipItem(int equip_slot) {
+    switch(equip_slot){
+        case 5:  // weapon
+            if(weapon != nullptr){
+                weapon->setEquipped(false);
+                weapon = nullptr;
+            }
+            break;
+        case 4: // shield
+            if(shield != nullptr){
+                shield->setEquipped(false);
+                shield = nullptr;
+            }
+            break;
+        case 3: // helmet
+            if(head != nullptr){
+                head->setEquipped(false);
+                head = nullptr;
+            }
+            break;
+        case 2: // chest
+            if(chest != nullptr){
+                chest->setEquipped(false);
+                chest = nullptr;
+            }
+            break;
+        case 1: // arms
+            if(arms != nullptr){
+                arms->setEquipped(false);
+                arms = nullptr;
+            }
+            break;
+        case 0: // legs
+            if(legs != nullptr){
+                legs->setEquipped(false);
+                legs = nullptr;
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+//GET & SET
 std::shared_ptr<Stats> Player::getPlayerStats() {
     return playerStats;
 }
@@ -240,90 +294,6 @@ bool Player::isSlotEquipped(int equip_slot) {
     }
 }
 
-void Player::unequipItem(int equip_slot) {
-    switch(equip_slot){
-        case 5:  // weapon
-            if(weapon != nullptr){
-                weapon->setEquipped(false);
-                weapon = nullptr;
-            }
-            break;
-        case 4: // shield
-            if(shield != nullptr){
-                shield->setEquipped(false);
-                shield = nullptr;
-            }
-            break;
-        case 3: // helmet
-            if(head != nullptr){
-                head->setEquipped(false);
-                head = nullptr;
-            }
-            break;
-        case 2: // chest
-            if(chest != nullptr){
-                chest->setEquipped(false);
-                chest = nullptr;
-            }
-            break;
-        case 1: // arms
-            if(arms != nullptr){
-                arms->setEquipped(false);
-                arms = nullptr;
-            }
-            break;
-        case 0: // legs
-            if(legs != nullptr){
-                legs->setEquipped(false);
-                legs = nullptr;
-            }
-            break;
-        default:
-            break;
-    }
-}
-
-std::string Player::toStringEquipment() {
-    std::stringstream ss;
-    ss << "\nWeapon: ";
-    if(weapon != nullptr)
-        ss << weapon->getName();
-    else
-        ss << "Nothing";
-
-    ss << "\nShield: ";
-    if(shield != nullptr)
-        ss << shield->getName();
-    else
-        ss << "Nothing";
-
-    ss << "\nHead: ";
-    if(head != nullptr)
-        ss << head->getName();
-    else
-        ss << "Nothing";
-
-    ss << "\nChest: ";
-    if(chest != nullptr)
-        ss << chest->getName();
-    else
-        ss << "Nothing";
-
-    ss << "\nArms: ";
-    if(arms != nullptr)
-        ss << arms->getName();
-    else
-        ss << "Nothing";
-
-    ss << "\nLegs: ";
-    if(legs != nullptr)
-        ss << legs->getName();
-    else
-        ss << "Nothing";
-
-    return ss.str();
-}
-
 std::shared_ptr<Item> Player::getEquippedItem(int equip_slot) {
     switch(equip_slot){
         case 5:  // weapon
@@ -352,18 +322,6 @@ void Player::setBonusStats(int hp, int mp, int dmg, int armor, float cc, float e
     playerStats->setEvadeChanceBonus(ec);
     playerStats->checkHpLimit();
     playerStats->checkMpLimit();
-}
-
-void Player::addGold(unsigned add_amount) {
-    gold += add_amount;
-}
-
-void Player::minusGold(unsigned minus_amount) {
-    if(minus_amount > gold){
-        gold = 0;
-    }else{
-        gold -= minus_amount;
-    }
 }
 
 void Player::setAnimation(entity_animation animation, entity_animation next_animation) {
@@ -396,4 +354,20 @@ void Player::setPosition(float x, float y) {
         hitboxComponent->setPosition(x, y);
     else
         sprite.setPosition(x, y);
+}
+
+void Player::setStats(Stats *new_stats) {
+    playerStats = std::make_shared<Stats>(*new_stats);
+}
+
+void Player::setInventory(std::vector<Item>& items) {
+    inventory = std::make_shared<Inventory>(&currentInventorySpace);
+    inventory->fill(items);
+}
+
+bool Player::hasShield() {
+    if(shield)
+        return true;
+    else
+        return false;
 }

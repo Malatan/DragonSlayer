@@ -48,6 +48,7 @@ public:
     bool getKeyTime();
     const map<string, sf::Texture> &getTextures() const;
     state_enum getStateEnum() const;
+    float getKeyTimef() const;
 
     //functions
     void endState();

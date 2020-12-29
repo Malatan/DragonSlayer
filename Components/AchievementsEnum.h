@@ -20,9 +20,10 @@ enum achievement_event{
     AE_P_ESCAPE_F = 11,
     AE_P_ESCAPE_S = 12,
     AE_P_MAXEDSPELL = 13,
-    AE_FLOOR_REACHED = 14,
-    AE_BOSS_ROOM = 15,
-    AE_END_GAME = 16
+    AE_P_LEVEL = 14,
+    AE_FLOOR_REACHED = 15,
+    AE_BOSS_ROOM = 16,
+    AE_END_GAME = 17
 };
 
 #endif //DRAGONSLAYER_ACHIEVEMENTSENUM_H

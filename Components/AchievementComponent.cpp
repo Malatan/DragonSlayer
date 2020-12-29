@@ -6,7 +6,7 @@
 
 
 //constructor/destructor
-AchievementComponent::AchievementComponent(sf::Font* font) {
+AchievementComponent::AchievementComponent(sf::Font *font) {
     this->font = font;
 }
 
@@ -58,11 +58,14 @@ int AchievementComponent::getAchievementEventValue(achievement_event event_type)
             return playerEscapeFails.second;
         case AE_P_ESCAPE_S:
             return playerEscapeSuccesses.second;
+        case AE_P_LEVEL:
+            return playerLevel.second;
         case AE_P_MAXEDSPELL:
             return playerMaxedSpells.second;
         case AE_FLOOR_REACHED:
             return floorReached.second;
-        case AE_BOSS_ROOM: case AE_END_GAME:
+        case AE_BOSS_ROOM:
+        case AE_END_GAME:
         default:
             return 0;
     }
@@ -84,7 +87,55 @@ float AchievementComponent::getExpGoldBonus() const {
     return expGoldBonus;
 }
 
+std::map<achievement_event, achievementRecord> AchievementComponent::getRecords() {
+    std::map<achievement_event, achievementRecord> records;
+    records.insert(std::pair<achievement_event, achievementRecord>(AE_P_DEATHS, playerDeaths));
+    records.insert(std::pair<achievement_event, achievementRecord>(AE_P_KILLS, playerKills));
+    records.insert(std::pair<achievement_event, achievementRecord>(AE_P_EXP, playerExpGain));
+    records.insert(std::pair<achievement_event, achievementRecord>(AE_P_GOLD, playerGoldGain));
+    records.insert(std::pair<achievement_event, achievementRecord>(AE_P_DMG, playerDmg));
+    records.insert(std::pair<achievement_event, achievementRecord>(AE_P_SPELL_DMG, playerSpellDmg));
+    records.insert(std::pair<achievement_event, achievementRecord>(AE_P_DMG_TAKEN, playerDmgTaken));
+    records.insert(std::pair<achievement_event, achievementRecord>(AE_P_POTION, playerPotionUses));
+    records.insert(std::pair<achievement_event, achievementRecord>(AE_P_DODGE, playerDodge));
+    records.insert(std::pair<achievement_event, achievementRecord>(AE_P_MISS, playerMiss));
+    records.insert(std::pair<achievement_event, achievementRecord>(AE_P_CRITHIT, playerCritHit));
+    records.insert(std::pair<achievement_event, achievementRecord>(AE_P_ESCAPE_F, playerEscapeFails));
+    records.insert(std::pair<achievement_event, achievementRecord>(AE_P_ESCAPE_S, playerEscapeSuccesses));
+    records.insert(std::pair<achievement_event, achievementRecord>(AE_P_LEVEL, playerLevel));
+    records.insert(std::pair<achievement_event, achievementRecord>(AE_FLOOR_REACHED, floorReached));
+    records.insert(std::pair<achievement_event, achievementRecord>(AE_P_MAXEDSPELL, playerMaxedSpells));
+    return records;
+}
+
 //functions
+void AchievementComponent::loadRecords(std::map<achievement_event, achievementRecord>& save_records) {
+    playerDeaths = save_records[AE_P_DEATHS];
+    playerKills = save_records[AE_P_KILLS];
+    playerExpGain = save_records[AE_P_EXP];
+    playerGoldGain = save_records[AE_P_GOLD];
+    playerDmg = save_records[AE_P_DMG];
+    playerSpellDmg = save_records[AE_P_SPELL_DMG];
+    playerDmgTaken = save_records[AE_P_DMG_TAKEN];
+    playerPotionUses = save_records[AE_P_POTION];
+    playerDodge = save_records[AE_P_DODGE];
+    playerMiss = save_records[AE_P_MISS];
+    playerCritHit = save_records[AE_P_CRITHIT];
+    playerEscapeFails = save_records[AE_P_ESCAPE_F];
+    playerEscapeSuccesses = save_records[AE_P_ESCAPE_S];
+    playerLevel = save_records[AE_P_LEVEL];
+    floorReached = save_records[AE_FLOOR_REACHED];
+    playerMaxedSpells = save_records[AE_P_MAXEDSPELL];
+}
+
+void AchievementComponent::loadAchievements(std::vector<Achievement> &save_achievements) {
+    achievements.clear();
+    achievements.reserve(save_achievements.size());
+    for(const auto& i : save_achievements){
+        achievements.push_back(std::make_shared<Achievement>(i));
+    }
+}
+
 void AchievementComponent::unlockAllAchievements() {
     for (const auto &i : achievements) {
         i->setUnlocked(true);
@@ -132,7 +183,7 @@ void AchievementComponent::checkAchievement(achievement_event event_type, int ma
     }
 }
 
-void AchievementComponent::createNotification(const std::shared_ptr<Achievement>& unlocked_achievement) {
+void AchievementComponent::createNotification(const std::shared_ptr<Achievement> &unlocked_achievement) {
     achievementNotifications.push(gui::AchievementNotification(5.f, 80.f, unlocked_achievement, font));
 }
 
@@ -217,22 +268,29 @@ void AchievementComponent::onNotify(achievement_event event, int value) {
             update_list.push(AE_P_ESCAPE_S);
             break;
         }
-        case AE_P_MAXEDSPELL:{
+        case AE_P_MAXEDSPELL: {
             playerMaxedSpells.second = value;
             checkAchievement(AE_P_MAXEDSPELL, 4, playerMaxedSpells);
             update_list.push(AE_P_MAXEDSPELL);
             break;
         }
-        case AE_FLOOR_REACHED:{
+        case AE_P_LEVEL:{
+            playerLevel.second = value;
+            checkAchievement(AE_P_LEVEL, 10, playerLevel);
+            update_list.push(AE_P_LEVEL);
+            break;
+        }
+        case AE_FLOOR_REACHED: {
             floorReached.second = value;
             checkAchievement(AE_FLOOR_REACHED, 5, floorReached);
             update_list.push(AE_FLOOR_REACHED);
             break;
         }
-        case AE_BOSS_ROOM: case AE_END_GAME:
+        case AE_BOSS_ROOM:
+        case AE_END_GAME:
             break;
     }
-    while(!update_list.empty()){
+    while (!update_list.empty()) {
         aTab->updateAchievementsSlot(update_list.top());
         update_list.pop();
     }
@@ -318,6 +376,18 @@ void AchievementComponent::calculateExpGoldBonus() {
         bonus += (0.05f * (float) (playerEscapeSuccesses.first)) + 0.05f;
     }
 
+    if (playerMaxedSpells.first > 3) {
+        bonus += 0.25f;
+    } else if (playerMaxedSpells.first > 0) {
+        bonus += (0.05f * (float) (playerMaxedSpells.first)) + 0.05f;
+    }
+
+    if (playerLevel.first > 9) {
+        bonus += 1.f;
+    } else if (playerMaxedSpells.first > 0) {
+        bonus += (0.1f * (float) (playerMaxedSpells.first));
+    }
+
     if (floorReached.first > 5) {
         bonus += 0.25f;
     } else if (floorReached.first > 0) {
@@ -327,7 +397,7 @@ void AchievementComponent::calculateExpGoldBonus() {
     expGoldBonus = bonus;
 }
 
-void AchievementComponent::update(const float& dt, const sf::Vector2f &mousePos) {
+void AchievementComponent::update(const float &dt, const sf::Vector2f &mousePos) {
     if (!achievementNotifications.empty()) {
         achievementNotifications.front().update(dt, mousePos);
         if (achievementNotifications.front().isDone()) {
@@ -337,7 +407,7 @@ void AchievementComponent::update(const float& dt, const sf::Vector2f &mousePos)
 }
 
 void AchievementComponent::render(sf::RenderTarget &target) {
-    if(!achievementNotifications.empty()){
+    if (!achievementNotifications.empty()) {
         achievementNotifications.front().render(target);
     }
 }

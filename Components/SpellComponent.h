@@ -16,9 +16,11 @@ public:
     virtual ~SpellComponent();
 
     //accessors
-    std::vector<std::shared_ptr<Spell>> getPlayerSpells();
+    std::vector<std::shared_ptr<Spell>>& getPlayerSpells();
+    std::vector<std::shared_ptr<Spell>>& getSpells();
 
     //functions
+    void fill(std::vector<Spell>& save_spells, std::vector<Spell>& save_player_spells);
     int maxedPlayerSpellsSize() const;
     void addSpell(Spell spell);
     void addPlayerSpell(Spell spell);

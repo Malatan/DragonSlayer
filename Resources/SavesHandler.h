@@ -16,8 +16,17 @@ public:
     SavesHandler();
     virtual ~SavesHandler();
 
+    Save* getSave(const std::string& key);
+    std::map<std::string, Save>& getLoadedSaves();
+
+    void clear();
     bool write(Save& save);
-    Save read();
+    bool read(const std::string& saveName);
+
+    std::string savePath;
+    int maxSaves;
+private:
+    std::map<std::string, Save> loadedSaves;
 };
 
 namespace boost {

@@ -21,7 +21,12 @@ enum attribute{
 
 class Stats {
 public:
-    //MANAGE STATS
+    //CONSTRUCTOR & DESTRUCTOR
+    Stats();
+    Stats(const Stats& p_stats);
+    virtual ~Stats();
+
+    //functions
     bool addExp(int earned);
     void levelUp(int newExp);
     void addAttribute(attribute type, int quantity);
@@ -33,19 +38,8 @@ public:
     bool consumeMana(int mana_consumed);
     int gainHp(int gain_amount);
     int gainMp(int gain_amount);
-
-    int getFinalHp() const;
-    int getFinalMp() const;
-    int getFinalDamage() const;
-    int getFinalArmor() const;
-    float getFinalCritChance() const;
-    float getFinalEvadeChance() const;
     void updateSpellDmgMultiplier();
     void updateMultipliers();
-
-    //CONSTRUCTOR & DESTRUCTOR
-    Stats();
-    virtual ~Stats();
 
     //GET & SET
     int getLevel() const;
@@ -91,6 +85,12 @@ public:
     float getEvadeChanceBonus() const;
     void setEvadeChanceBonus(float new_evadeChanceBonus);
     float getSpellDmgMultiplier() const;
+    int getFinalHp() const;
+    int getFinalMp() const;
+    int getFinalDamage() const;
+    int getFinalArmor() const;
+    float getFinalCritChance() const;
+    float getFinalEvadeChance() const;
 
 private:
     friend class boost::serialization::access;
