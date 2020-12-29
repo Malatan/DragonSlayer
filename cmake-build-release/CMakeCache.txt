@@ -20,11 +20,9 @@ BUILD_GMOCK:BOOL=ON
 //The directory containing a CMake configuration file for Boost.
 Boost_DIR:PATH=C:/Program Files/boost/lib/cmake/Boost-1.75.0
 
-//Boost filesystem library (debug)
-Boost_FILESYSTEM_LIBRARY_DEBUG:FILEPATH=Boost_FILESYSTEM_LIBRARY_DEBUG-NOTFOUND
+Boost_FILESYSTEM_LIBRARY_DEBUG:STRING=C:/Program Files/boost/lib/libboost_filesystem-mgw8-mt-d-x32-1_75.a
 
-//Boost filesystem library (release)
-Boost_FILESYSTEM_LIBRARY_RELEASE:FILEPATH=Boost_FILESYSTEM_LIBRARY_RELEASE-NOTFOUND
+Boost_FILESYSTEM_LIBRARY_RELEASE:STRING=C:/Program Files/boost/lib/libboost_filesystem-mgw8-mt-x32-1_75.a
 
 //Path to a file.
 Boost_INCLUDE_DIR:PATH=Boost_INCLUDE_DIR-NOTFOUND
@@ -357,6 +355,9 @@ SFML_DIR:PATH=E:/Progetto/DragonSlayer/SFML_2.5.1/lib/cmake/SFML
 //Path to a file.
 SFML_DOC_DIR:PATH=SFML_DOC_DIR-NOTFOUND
 
+//The directory containing a CMake configuration file for boost_filesystem.
+boost_filesystem_DIR:PATH=C:/Program Files/boost/lib/cmake/boost_filesystem-1.75.0
+
 //The directory containing a CMake configuration file for boost_headers.
 boost_headers_DIR:PATH=C:/Program Files/boost/lib/cmake/boost_headers-1.75.0
 
@@ -631,7 +632,7 @@ CMAKE_STRIP-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 //Details about finding Boost
-FIND_PACKAGE_MESSAGE_DETAILS_Boost:INTERNAL=[C:/Program Files/boost/lib/cmake/Boost-1.75.0/BoostConfig.cmake][cfound components: serialization ][v1.75.0()]
+FIND_PACKAGE_MESSAGE_DETAILS_Boost:INTERNAL=[C:/Program Files/boost/lib/cmake/Boost-1.75.0/BoostConfig.cmake][cfound components: filesystem serialization ][v1.75.0()]
 //Details about finding PythonInterp
 FIND_PACKAGE_MESSAGE_DETAILS_PythonInterp:INTERNAL=[C:/Users/Administrator.000/AppData/Local/Programs/Python/Python37-32/python.exe][v3.7.3()]
 //ADVANCED property for variable: PYTHON_EXECUTABLE
@@ -646,6 +647,8 @@ _Boost_NAMESPACE_LAST:INTERNAL=boost
 _Boost_USE_MULTITHREADED_LAST:INTERNAL=TRUE
 //CMAKE_INSTALL_PREFIX during last run
 _GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX:INTERNAL=C:/Program Files (x86)/DragonSlayer
+//ADVANCED property for variable: boost_filesystem_DIR
+boost_filesystem_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: boost_headers_DIR
 boost_headers_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: boost_serialization_DIR
