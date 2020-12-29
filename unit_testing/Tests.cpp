@@ -29,6 +29,6 @@ TEST_F(Tests, StartMainMenu){
 
 TEST_F(Tests, StartGame){
     auto mainmenu = dynamic_cast<MainMenuState*>(game->getTopState());
-    mainmenu->startNewGame();
+    mainmenu->startGame();
     ASSERT_EQ(game->getTopState()->getStateEnum(), GAME_STATE);
 }

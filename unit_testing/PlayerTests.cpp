@@ -16,7 +16,7 @@ protected:
     void SetUp() override{
         game = new Game();
         auto mainmenu = dynamic_cast<MainMenuState*>(game->getTopState());
-        mainmenu->startNewGame();
+        mainmenu->startGame();
         gState = dynamic_cast<GameState*>(game->getTopState());
         player = gState->getPlayer().get();
         game->testRun();
