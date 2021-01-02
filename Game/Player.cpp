@@ -137,7 +137,7 @@ void Player::update(const float &dt) {
     collisionBoxComponent->update();
     if(!targetPoints.empty()){
         moveTo(dt, targetPoints.front());
-        if(hitboxComponent->getCenterRect().contains(targetPoints.front())){
+        if(collisionBoxComponent->getCollisionEllipse().getGlobalBounds().contains(targetPoints.front())){
             targetPoints.pop();
             stopVelocity();
         }

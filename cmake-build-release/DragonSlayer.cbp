@@ -768,6 +768,18 @@
 			<Option target="DragonSlayer"/>
 			<Option target="unit_testing_run"/>
 		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Resources/EnemySaveData.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Resources/EnemySaveData.h">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Resources/LootBagSaveData.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Resources/LootBagSaveData.h">
+			<Option target="DragonSlayer"/>
+		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Resources/Resource.cpp">
 			<Option target="DragonSlayer"/>
 			<Option target="unit_testing_run"/>

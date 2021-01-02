@@ -15,6 +15,12 @@
 
 class AchievementComponent;
 class BuffComponent;
+class MapGenerator;
+class EnemySaveData;
+class LootBagSaveData;
+class LootBag;
+class Map;
+struct wh;
 typedef std::pair<int, int> achievementRecord;
 
 class Save {
@@ -34,6 +40,9 @@ public:
     void saveSpellsInfo(const std::shared_ptr<SpellComponent>& spell_component);
     void saveAchievementsInfo(const std::shared_ptr<AchievementComponent>& achievement_component);
     void saveBuffsInfo(const std::shared_ptr<BuffComponent>& buff_component);
+    void saveMapsInfo(const std::shared_ptr<MapGenerator>& mg, Map* map, int current_floor, int reached_floor);
+    void saveEnemiesInfo(std::pair<int, int> n, std::vector<std::shared_ptr<Enemy>>& _enemies);
+    void saveLootBagsInfo(std::vector<std::shared_ptr<LootBag>>& loot_bags);
     std::string toString() const;
 
 private:
@@ -56,6 +65,19 @@ private:
         ar & aeRecords;
         ar & achievements;
         ar & playerBuffs;
+        ar & levelDims;
+        ar & openedDoors;
+        ar & currentFloor;
+        ar & reachedFloor;
+        ar & floor1;
+        ar & floor2;
+        ar & floor3;
+        ar & floor4;
+        ar & floor5;
+        ar & enemyCounts;
+        ar & enemiesLeaders;
+        ar & enemiesFollowers;
+        ar & lootBags;
     }
 
     //save info
@@ -84,6 +106,25 @@ private:
 
     //buffs info
     std::vector<Buff> playerBuffs;
+
+    //maps info
+    std::vector<std::pair<int, int>> levelDims;
+    std::vector<std::pair<int, int>> openedDoors;
+    int currentFloor{};
+    int reachedFloor{};
+    std::string floor1;
+    std::string floor2;
+    std::string floor3;
+    std::string floor4;
+    std::string floor5;
+
+    //enemies info
+    std::pair<int, int> enemyCounts;
+    std::vector<EnemySaveData> enemiesLeaders;
+    std::vector<EnemySaveData> enemiesFollowers;
+
+    //lootbags info
+    std::vector<LootBagSaveData> lootBags;
 };
 
 

@@ -304,16 +304,45 @@ void GameState::initButtons() {
 }
 
 void GameState::initMaps() {
-    mg = new MapGenerator();
-    mg->generateDungeon(1);
-    mg->generateDungeon(2);
-    mg->generateDungeon(3);
-    mg->generateDungeon(4);
-    mg->generateDungeon(5);
-    changeMap(0);
+    mg = std::make_shared<MapGenerator>();
     if(loadSaveTab->canApplySave()){
         Save* save = loadSaveTab->getApplySave();
+        mg->setDDims(save->levelDims);
+        utils::writeStringToFile(save->floor1, "../Data/Dungeon_1.txt");
+        utils::writeStringToFile(save->floor2, "../Data/Dungeon_2.txt");
+        utils::writeStringToFile(save->floor3, "../Data/Dungeon_3.txt");
+        utils::writeStringToFile(save->floor4, "../Data/Dungeon_4.txt");
+        utils::writeStringToFile(save->floor5, "../Data/Dungeon_5.txt");
+        floorReached = save->reachedFloor;
+        changeMap(save->currentFloor, true);
+        if(!save->openedDoors.empty()){
+            map->setOpenDoors(save->openedDoors);
+        }
+        if(!save->lootBags.empty()){
+            lootBags.clear();
+            lootBags.reserve(save->lootBags.size());
+            for(const auto& i : save->lootBags){
+                std::vector<std::shared_ptr<Item>> sp_loots;
+                for(const auto& j : i.getLoots()){
+                    sp_loots.push_back(std::make_shared<Item>(j));
+                }
+                std::shared_ptr<LootBag> lb = std::make_shared<LootBag>(
+                        window, sf::Vector2f(i.getPosX(), i.getPosY()),
+                        textures, player, this, sp_loots, font, 0, i.getId());
+                lb->setLifeTimep(i.getLifeTime());
+                lb->setMsCounter(i.getMsCounter());
+                lootBags.push_back(lb);
+            }
+        }
         player->setPosition(save->playerPos.x, save->playerPos.y);
+    }else{
+        floorReached = 0;
+        mg->generateDungeon(1);
+        mg->generateDungeon(2);
+        mg->generateDungeon(3);
+        mg->generateDungeon(4);
+        mg->generateDungeon(5);
+        changeMap(0);
     }
 }
 
@@ -350,7 +379,6 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::u
     npcInteract = NO_NPC;
     noclip = false;
     spawnPos = {1730.f, 770.f};
-    floorReached = 0;
     loadSaveTab->setState(this);
     loadSaveTab->setAccessOption(LOAD_SAVE);
 
@@ -373,8 +401,6 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::u
 }
 
 GameState::~GameState() {
-    delete map;
-    delete mg;
     for(auto i : npcs)
         delete i;
 }
@@ -408,12 +434,24 @@ std::shared_ptr<AchievementComponent> &GameState::getAchievementComponent() {
     return achievementComponent;
 }
 
+std::shared_ptr<MapGenerator> &GameState::getMapGenerator() {
+    return mg;
+}
+
 std::shared_ptr<Player>& GameState::getPlayer() {
     return player;
 }
 
 std::shared_ptr<Enemy>& GameState::getEnemy(int index) {
     return enemies[index];
+}
+
+std::vector<std::shared_ptr<Enemy>> &GameState::getEnemies() {
+    return enemies;
+}
+
+std::vector<std::shared_ptr<LootBag>> &GameState::getLootBags() {
+    return lootBags;
 }
 
 Npc *GameState::getNpc(int index) {
@@ -428,6 +466,18 @@ npc_type GameState::getInteractNpc() const {
 
 bool GameState::getStateKeyTime() {
     return getKeyTime();
+}
+
+int GameState::getCurrentFloor() const {
+    return currentFloor;
+}
+
+int GameState::getReachedFloor() const {
+    return floorReached;
+}
+
+Map *GameState::getMap() {
+    return map;
 }
 
 //observer
@@ -447,6 +497,16 @@ void GameState::notify(achievement_event event, int value) {
 }
 
 //functions
+std::pair<int, int> GameState::getEnemyCount(bool count_followers) const {
+    std::pair<int, int> p = {enemies.size(), 0};
+    if(count_followers){
+        for(const auto& i : enemies){
+            p.second += i->getFollowersNumber();
+        }
+    }
+    return p;
+}
+
 void GameState::addItem(const std::shared_ptr<Item>& new_item) {
     if(player->getInventory()->addItem(new_item)){
         player->getInventory()->sortByItemType();
@@ -481,79 +541,74 @@ void GameState::addItem(const std::shared_ptr<Item>& new_item) {
     }
 }
 
-void GameState::spawnEnemy(float x, float y, enemy_types type, unsigned int enemy_followers) {
+std::shared_ptr<Enemy> GameState::enemyFactory(float x, float y, enemy_types type, bool generate_stats) {
     std::shared_ptr<Enemy> new_enemy;
-    bool new_enemy_spawned = false;
     switch(type){
         case WITCH:
             new_enemy = std::make_shared<Enemy>(WITCH, x, y, 1.2f, 1.2f,
                                                 127.f, 136.f, 50.f, 65.f,
                                                 150.f, 200.f, 9.f,
-                                                textures["ENEMY_WIZARD_SHEET"], currentFloor, rsHandler->generateId());
-            enemies.push_back(new_enemy);
-            new_enemy_spawned = true;
+                                                textures["ENEMY_WIZARD_SHEET"]);
             break;
         case SKELETON:
             new_enemy = std::make_shared<Enemy>(SKELETON, x, y, 2.f, 2.3f,
-                                       85.f, 100.f, 40.f, 60.f,
-                                       105.f, 159.f, 8.f,
-                                       textures["ENEMY_SKELETON_SHEET"], currentFloor, rsHandler->generateId());
-            enemies.push_back(new_enemy);
-            new_enemy_spawned = true;
+                                                85.f, 100.f, 40.f, 60.f,
+                                                105.f, 159.f, 8.f,
+                                                textures["ENEMY_SKELETON_SHEET"]);
             break;
         case SKELETON_2:
             new_enemy = std::make_shared<Enemy>(SKELETON_2, x, y, 1.2f, 1.2f,
-                                       70.f, 60.f, 50.f, 63.f,
-                                       95.f, 122.f, 10.f,
-                                       textures["ENEMY_SKELETON_2_SHEET"], currentFloor, rsHandler->generateId());
-            enemies.push_back(new_enemy);
-            new_enemy_spawned = true;
+                                                70.f, 60.f, 50.f, 63.f,
+                                                95.f, 122.f, 10.f,
+                                                textures["ENEMY_SKELETON_2_SHEET"]);
             break;
         case FLYING_EYE:
             new_enemy = std::make_shared<Enemy>(FLYING_EYE, x, y, 1.3f, 1.3f,
-                                       72.f, 85.f, 58.f, 60.f,
-                                       100.f, 142.f, 11.f,
-                                       textures["ENEMY_FLYINGEYE_SHEET"], currentFloor, rsHandler->generateId());
-            enemies.push_back(new_enemy);
-            new_enemy_spawned = true;
+                                                72.f, 85.f, 58.f, 60.f,
+                                                100.f, 142.f, 11.f,
+                                                textures["ENEMY_FLYINGEYE_SHEET"]);
             break;
         case GOBLIN:
             new_enemy = std::make_shared<Enemy>(GOBLIN, x, y, 1.2f, 1.4f,
-                                       70.f, 94.f, 40.f, 48.f,
-                                       90.f, 142.f, 8.f,
-                                       textures["ENEMY_GOBLIN_SHEET"], currentFloor, rsHandler->generateId());
-            enemies.push_back(new_enemy);
-            new_enemy_spawned = true;
+                                                70.f, 94.f, 40.f, 48.f,
+                                                90.f, 142.f, 8.f,
+                                                textures["ENEMY_GOBLIN_SHEET"]);
             break;
         case MUSHROOM:
             new_enemy = std::make_shared<Enemy>(MUSHROOM, x, y, 1.4f, 1.4f,
-                                       87.f, 87.f, 38.f, 57.f,
-                                       106.f, 143.f, 8.f,
-                                       textures["ENEMY_MUSHROOM_SHEET"], currentFloor, rsHandler->generateId());
-            enemies.push_back(new_enemy);
-            new_enemy_spawned = true;
+                                                87.f, 87.f, 38.f, 57.f,
+                                                106.f, 143.f, 8.f,
+                                                textures["ENEMY_MUSHROOM_SHEET"]);
             break;
         case BANDIT_HEAVY:
             new_enemy = std::make_shared<Enemy>(BANDIT_HEAVY, x, y, 1.8f, 1.8f,
-                                       25.f, 15.f, 45.f, 68.f,
-                                       47.f, 83.f, 9.f,
-                                       textures["ENEMY_BANDITHEAVY_SHEET"], currentFloor, rsHandler->generateId());
-            enemies.push_back(new_enemy);
-            new_enemy_spawned = true;
+                                                25.f, 15.f, 45.f, 68.f,
+                                                47.f, 83.f, 9.f,
+                                                textures["ENEMY_BANDITHEAVY_SHEET"]);
             break;
         case BANDIT_LIGHT:
             new_enemy = std::make_shared<Enemy>(BANDIT_LIGHT, x, y, 1.8f, 1.8f,
-                                       25.f, 15.f, 45.f, 68.f,
-                                       47.f, 83.f, 9.f,
-                                       textures["ENEMY_BANDITLIGHT_SHEET"], currentFloor, rsHandler->generateId());
-            enemies.push_back(new_enemy);
-            new_enemy_spawned = true;
+                                                25.f, 15.f, 45.f, 68.f,
+                                                47.f, 83.f, 9.f,
+                                                textures["ENEMY_BANDITLIGHT_SHEET"]);
             break;
         default:
             std::cout<<"No such enemy: " << type;
             break;
     }
+    return new_enemy;
+}
 
+void GameState::spawnEnemy(float x, float y, enemy_types type, unsigned int enemy_followers) {
+    std::shared_ptr<Enemy> new_enemy;
+    bool new_enemy_spawned = false;
+    new_enemy = enemyFactory(x, y, type, true);
+    if(new_enemy){
+        new_enemy->setId(rsHandler->generateId());
+        new_enemy->generateEnemyStats(currentFloor);
+        new_enemy_spawned = true;
+        enemies.push_back(new_enemy);
+    }
     if(new_enemy_spawned){
         // se enemy_follwers == 5 allora si genera in modo randomico il numero dei follwers
         if(enemy_followers == 5){
@@ -1085,23 +1140,23 @@ void GameState::render(sf::RenderTarget* target) {
         map->render(target, player, nullptr, player->getCenter());
     else
         map->render(target, player, &coreShader, player->getCenter());
-    player->render(*target, &coreShader, player->getCenter(), true, true);
+    player->render(*target, &coreShader, player->getCenter(), false, true);
     for(const auto& i : enemies){
-        i->render(*target, &coreShader, player->getCenter(), true, true);
+        i->render(*target, &coreShader, player->getCenter(), false, true);
     }
     for(auto i : npcs){
-        i->render(*target, true);
+        i->render(*target, false);
         if(player->getHitboxComponent()->getGlobalBounds().intersects(i->getHitboxComponent()->getGlobalBounds())){
             if(player->getCollisionBoxComponent()->getPosition().y > i->getCollisionBoxComponent()->getPosition().y){
-                player->render(*target, &coreShader, player->getCenter(), true, true);
+                player->render(*target, &coreShader, player->getCenter(), false, true);
             }
         }
     }
     for(const auto& i : lootBags){
-        i->render(*target, &coreShader, player->getCenter(), true);
+        i->render(*target, &coreShader, player->getCenter(), false);
         if(player->getHitboxComponent()->getGlobalBounds().intersects(i->getHitboxComponent()->getGlobalBounds())){
             if(player->getCollisionBoxComponent()->getPosition().y > i->getCollisionBoxComponent()->getPosition().y){
-                player->render(*target, &coreShader, player->getCenter(), true, true);
+                player->render(*target, &coreShader, player->getCenter(), false, true);
             }
         }
     }
@@ -1161,7 +1216,26 @@ void GameState::updateTileMap(const float &dt) {
         map->updateTileCollision(player, dt);
 }
 
-void GameState::changeMap(int floor) {
+void GameState::loadEnemyFromSave() {
+    Save* save = loadSaveTab->getApplySave();
+    std::shared_ptr<Enemy> e;
+    for(const auto& i : save->enemiesLeaders){
+        e = enemyFactory(i.getPosX(), i.getPosY(), i.getType(), false);
+        e->setId(i.getId());
+        e->setStats(i.getStats());
+        enemies.push_back(e);
+    }
+    for(const auto& i : save->enemiesFollowers){
+        for(const auto& k : enemies){
+            if(k->getId() == i.getLeaderId() && i.isFollower1()){
+                k->addFollower(std::make_shared<Enemy>(i.getType(), i.getName(), i.getId(), i.getStats()));
+                break;
+            }
+        }
+    }
+}
+
+void GameState::changeMap(int floor, bool load_from_save) {
     currentFloor = floor;
     if(currentFloor > floorReached){
         floorReached = currentFloor;
@@ -1178,7 +1252,11 @@ void GameState::changeMap(int floor) {
         spawnPos.x = map->findStairs().x + 30;
         spawnPos.y = map->findStairs().y + Tile::TILE_SIZE;
         player->setPosition(spawnPos.x, spawnPos.y);
-        spawnEnemyOnMap();
+        if(load_from_save){
+            loadEnemyFromSave();
+        }else{
+            spawnEnemyOnMap();
+        }
     }
     else {
         spawnPos = sf::Vector2f(1430, 620);

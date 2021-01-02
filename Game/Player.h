@@ -5,14 +5,12 @@
 #ifndef DRAGONSLAYER_PLAYER_H
 #define DRAGONSLAYER_PLAYER_H
 
-#include "Entity.h"
 #include <string>
 #include <sstream>
+#include "Entity.h"
 #include "Item.h"
 #include "Inventory.h"
 #include "Stats.h"
-#include "iostream"
-#include "fstream"
 #include "Spell.h"
 
 enum player_equip_slot{

@@ -305,8 +305,25 @@ void LootBag::setLifeTime(int life_time) {
     lifeTime.second = life_time - lifeTime.first * 60;
 }
 
+lifeTimePair LootBag::getLifeTimep() const {
+    return lifeTime;
+}
 
+void LootBag::setLifeTimep(lifeTimePair ltp) {
+    lifeTime = ltp;
+}
 
+float LootBag::getMsCounter() const {
+    return msCounter;
+}
+
+std::vector<shared_ptr<Item>> &LootBag::getLoots() {
+    return loots;
+}
+
+void LootBag::setMsCounter(float f) {
+    msCounter = f;
+}
 
 
 

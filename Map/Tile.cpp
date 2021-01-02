@@ -24,9 +24,7 @@ Tile::Tile(float cx, float cy, bool traversable) {
 
 Tile::~Tile() = default;
 
-types Tile::GetType() {
-    return this->type;
-}
+
 
 void Tile::SetType(char type){
     switch (type) {
@@ -280,4 +278,7 @@ const sf::Sprite &Tile::getShape() const {
     return shape;
 }
 
+types Tile::GetType() {
+    return this->type;
+}
 

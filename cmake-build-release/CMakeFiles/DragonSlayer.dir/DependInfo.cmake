@@ -49,6 +49,8 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "E:/Progetto/DragonSlayer/Map/Map.cpp" "E:/Progetto/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Map/Map.cpp.obj"
   "E:/Progetto/DragonSlayer/Map/MapGenerator.cpp" "E:/Progetto/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Map/MapGenerator.cpp.obj"
   "E:/Progetto/DragonSlayer/Map/Tile.cpp" "E:/Progetto/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Map/Tile.cpp.obj"
+  "E:/Progetto/DragonSlayer/Resources/EnemySaveData.cpp" "E:/Progetto/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Resources/EnemySaveData.cpp.obj"
+  "E:/Progetto/DragonSlayer/Resources/LootBagSaveData.cpp" "E:/Progetto/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Resources/LootBagSaveData.cpp.obj"
   "E:/Progetto/DragonSlayer/Resources/Resource.cpp" "E:/Progetto/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Resources/Resource.cpp.obj"
   "E:/Progetto/DragonSlayer/Resources/ResourcesHandler.cpp" "E:/Progetto/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Resources/ResourcesHandler.cpp.obj"
   "E:/Progetto/DragonSlayer/Resources/SavesHandler.cpp" "E:/Progetto/DragonSlayer/cmake-build-release/CMakeFiles/DragonSlayer.dir/Resources/SavesHandler.cpp.obj"

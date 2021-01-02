@@ -2,6 +2,7 @@
 // Created by Zheng on 24/11/2020.
 //
 
+
 #include "Utils.h"
 
 int utils::generateRandomNumber(int from, int to) {
@@ -68,4 +69,30 @@ bool utils::fileExists(const std::string& path) {
     return infile.good();
 }
 
+std::string utils::readFile(const std::string& path) {
+    std::fstream fin;
+    std::string app;
+    std::stringstream ss;
+    fin = std::fstream(path, std::fstream::in);
+    if(fin.is_open()){
+        while(getline(fin, app)){
+            ss << app << std::endl;
+        }
+        fin.close();
+    }else{
+        std::cerr<<"Could not read [" << path << "]" << std::endl;
+    }
+    return ss.str();
+}
 
+bool utils::writeStringToFile(const std::string& content, const std::string& path) {
+    std::ofstream myfile (path);
+    if(myfile.is_open()){
+        myfile << content;
+        myfile.close();
+    }else{
+        std::cerr<< "Could not write to file" << std::endl;
+        return false;
+    }
+    return true;
+}

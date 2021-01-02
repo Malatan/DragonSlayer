@@ -31,7 +31,11 @@ public:
     unsigned int getId() const;
     void canInteract(bool b);
     bool isExpired() const;
-
+    lifeTimePair getLifeTimep() const;
+    float getMsCounter() const;
+    std::vector<shared_ptr<Item>>& getLoots();
+    void setLifeTimep(lifeTimePair ltp);
+    void setMsCounter(float f);
     //functions
     bool canMerge(sf::FloatRect other_lootbag);
     bool lootItem(const std::shared_ptr<Item>& loot_item);

@@ -58,7 +58,8 @@ Map *MapGenerator::GenerateFromFile(int floor, State *state) {
         }
     }
 
-        map->setWallType();
+    fin.close();
+    map->setWallType();
     map->setTexture();
     return map;
 }
@@ -98,12 +99,19 @@ void MapGenerator::generateDungeon(int n) {
     dDims[n].height = height;
 }
 
-const vector<wh> &MapGenerator::getDDims() const {
+vector<wh> &MapGenerator::getDDims(){
     return dDims;
 }
 
 void MapGenerator::setDDims(const vector<wh> &dDims) {
     MapGenerator::dDims = dDims;
+}
+
+void MapGenerator::setDDims(const vector<pair<int, int>> &data) {
+    dDims.clear();
+    for(auto i : data){
+        dDims.push_back({i.first, i.second});
+    }
 }
 
 

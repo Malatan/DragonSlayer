@@ -95,6 +95,10 @@ set(SOURCE_FILES
         Resources/Resource.h
         Resources/SavesHandler.cpp
         Resources/SavesHandler.h
+        Resources/EnemySaveData.cpp
+        Resources/EnemySaveData.h
+        Resources/LootBagSaveData.cpp
+        Resources/LootBagSaveData.h
         Map/Map.cpp
         Map/Map.h
         Map/MapGenerator.h

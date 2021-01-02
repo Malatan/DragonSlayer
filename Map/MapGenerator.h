@@ -16,9 +16,10 @@ private:
     GameState* gameState{};
 
 public:
-    const vector<wh> &getDDims() const;
+    vector<wh> &getDDims();
 
     void setDDims(const vector<wh> &dDims);
+    void setDDims(const vector<pair<int, int>>& data);
 
     MapGenerator();
     virtual ~MapGenerator();

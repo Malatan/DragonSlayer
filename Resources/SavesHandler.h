@@ -36,7 +36,6 @@ namespace boost {
             ar & v.x;
             ar & v.y;
         }
-
     } // namespace serialization
 } // namespace boost
 

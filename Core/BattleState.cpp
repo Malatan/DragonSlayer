@@ -448,71 +448,65 @@ void BattleState::spawnEnemyModel(sf::Vector2f pos, enemy_types type, unsigned i
             enemy = std::make_shared<Enemy>(WITCH, pos.x, pos.y, -3.2f, 3.2f,
                                             0.f, 0.f, 0.f, 0.f,
                                             0.f, 0.f, 0.f,
-                                            textures["ENEMY_WIZARD_SHEET"], 0, enemy_id);
+                                            textures["ENEMY_WIZARD_SHEET"]);
             enemy->setOrigin(125.f, 167.f);
-         //   if (generateStats)
-        //        enemy->generateEnemyStats(floor);
-            enemiesModels.push_back(enemy);
             break;
         case SKELETON:
             enemy = std::make_shared<Enemy>(SKELETON, pos.x, pos.y, -4.f, 5.f,
                                             0.f, 0.f, 0.f, 0.f,
                                             0.f, 0.f, 0.f,
-                                            textures["ENEMY_SKELETON_SHEET"], 0, enemy_id);
+                                            textures["ENEMY_SKELETON_SHEET"]);
             enemy->setOrigin(50.f, 69.f);
-            enemiesModels.push_back(enemy);
             break;
         case SKELETON_2:
             enemy = std::make_shared<Enemy>(SKELETON_2, pos.x, pos.y, -3.2f, 3.2f,
                                             0.f, 0.f, 0.f, 0.f,
                                             0.f, 0.f, 0.f,
-                                            textures["ENEMY_SKELETON_2_SHEET"], 0, enemy_id);
+                                            textures["ENEMY_SKELETON_2_SHEET"]);
             enemy->setOrigin(80.f, 100.f);
-            enemiesModels.push_back(enemy);
             break;
         case FLYING_EYE:
             enemy = std::make_shared<Enemy>(FLYING_EYE, pos.x, pos.y, -3.3f, 3.3f,
                                             0.f, 0.f, 0.f, 0.f,
                                             0.f, 0.f, 0.f,
-                                            textures["ENEMY_FLYINGEYE_SHEET"], 0, enemy_id);
+                                            textures["ENEMY_FLYINGEYE_SHEET"]);
             enemy->setOrigin(75.f, 110.f);
-            enemiesModels.push_back(enemy);
             break;
         case GOBLIN:
             enemy = std::make_shared<Enemy>(GOBLIN, pos.x, pos.y, -3.0f, 3.0f,
                                             0.f, 0.f, 0.f, 0.f,
                                             0.f, 0.f, 0.f,
-                                            textures["ENEMY_GOBLIN_SHEET"], 0, enemy_id);
+                                            textures["ENEMY_GOBLIN_SHEET"]);
             enemy->setOrigin(75.f, 100.f);
-            enemiesModels.push_back(enemy);
             break;
         case MUSHROOM:
             enemy = std::make_shared<Enemy>(MUSHROOM, pos.x, pos.y, -3.4f, 3.4f,
                                             0.f, 0.f, 0.f, 0.f,
                                             0.f, 0.f, 0.f,
-                                            textures["ENEMY_MUSHROOM_SHEET"], 0, enemy_id);
+                                            textures["ENEMY_MUSHROOM_SHEET"]);
             enemy->setOrigin(75.f, 100.f);
-            enemiesModels.push_back(enemy);
             break;
         case BANDIT_HEAVY:
             enemy = std::make_shared<Enemy>(BANDIT_HEAVY, pos.x, pos.y, 4.3f, 4.3f,
                                             0.f, 0.f, 0.f, 0.f,
                                             0.f, 0.f, 0.f,
-                                            textures["ENEMY_BANDITHEAVY_SHEET"], 0, enemy_id);
+                                            textures["ENEMY_BANDITHEAVY_SHEET"]);
             enemy->setOrigin(24.f, 46.f);
-            enemiesModels.push_back(enemy);
             break;
         case BANDIT_LIGHT:
             enemy = std::make_shared<Enemy>(BANDIT_LIGHT, pos.x, pos.y, 4.f, 4.f,
                                             0.f, 0.f, 0.f, 0.f,
                                             0.f, 0.f, 0.f,
-                                            textures["ENEMY_BANDITLIGHT_SHEET"], 0, enemy_id);
+                                            textures["ENEMY_BANDITLIGHT_SHEET"]);
             enemy->setOrigin(24.f, 46.f);
-            enemiesModels.push_back(enemy);
             break;
         default:
             std::cout << "No such enemy: " << type;
             break;
+    }
+    if(enemy){
+        enemy->setId(enemy_id);
+        enemiesModels.push_back(enemy);
     }
 }
 
@@ -1198,6 +1192,7 @@ void BattleState::updateMainPanel(const float &dt) {
         case ESCAPE_PANEL:
             escapeConfirmBtn->update(mousePosView);
             if (escapeConfirmBtn->isPressed() && getKeyTime()) {
+                escapeConfirmBtn->setButtonState(BTN_IDLE);
                 if (whoseTurn) {
                     if (utils::trueFalse(escapeChance * 10.f)) {
                         battleResultEnum = ESCAPED;

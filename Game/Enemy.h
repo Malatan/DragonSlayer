@@ -6,12 +6,7 @@
 #define DRAGONSLAYER_ENEMY_H
 #include <string>
 #include <sstream>
-#include "Item.h"
-#include "Inventory.h"
 #include "Stats.h"
-#include "iostream"
-#include "fstream"
-#include "Spell.h"
 #include "Entity.h"
 #include "Utils.h"
 
@@ -31,8 +26,9 @@ public:
     //CONSTRUCTOR & DESTRUCTOR
     Enemy(enemy_types type, float x, float y,float scale_x ,float scale_y, float hitbox_offset_x, float hitbox_offset_y,
             float hitbox_width, float hitbox_height, float clsBox_offset_x, float clsBox_offset_y, float clsBox_radius,
-            sf::Texture& texture_sheet, int floor, unsigned int id);
+            sf::Texture& texture_sheet);
     Enemy(enemy_types type, int level, int floor, unsigned int id);
+    Enemy(enemy_types type, std::string name, unsigned int id, const Stats& _stats);
     ~Enemy() override;
 
     //variables
@@ -51,10 +47,10 @@ public:
     void setPosition(float x, float y) override;
     bool isDead() const;
     void generateNameByType();
-    void generateEnemyStats(int level, int floor);
+    void generateEnemyStats(int floor, int level = 0);
     void updateAnimation(const float &dt);
     void update(const float &dt) override;
-    void render(sf::RenderTarget& target, sf::Shader* shader = NULL, sf::Vector2f light_position = sf::Vector2f(), bool show_hitbox = false, bool show_clsBox = false);
+    void render(sf::RenderTarget& target, sf::Shader* shader = nullptr, sf::Vector2f light_position = sf::Vector2f(), bool show_hitbox = false, bool show_clsBox = false);
 
     //getters/setters
     void setId(unsigned int new_id);
@@ -65,13 +61,14 @@ public:
     void setAnimation(entity_animation animation, entity_animation next_animation);
     void setStats(std::shared_ptr<Stats> new_stats);
     const std::shared_ptr<Stats> &getStats() const;
-
+    int getCurrentBoost() const;
+    void setStats(const Stats& _stats);
 private:
     //variables
-    unsigned int Id;
+    unsigned int Id{};
     string name;
-    enemy_types type;
-    int currentBoost;
+    enemy_types type{};
+    int currentBoost{};
 
     bool animationDone{};
     entity_animation animationEnum{};

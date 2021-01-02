@@ -453,9 +453,25 @@ void Map::openDoor(int y, int x) {
     tiles[y][x]->setInteractable(false);
 }
 
+std::vector<std::pair<int,int>> Map::getOpenDoors() {
+    std::vector<std::pair<int,int>> v;
+    for (int y = 0; y < tiles.size(); y++) {
+        for (int x = 0; x < tiles[y].size(); x++) {
+            if(tiles[y][x]->GetType() == OPENDOOR){
+                v.emplace_back(y, x);
+            }
+        }
+    }
+    return v;
+}
 
-
-
+void Map::setOpenDoors(vector<std::pair<int, int>> &open_doors) {
+    for(auto i : open_doors){
+        if(tiles[i.first][i.second]->GetType() == CLOSEDOOR || tiles[i.first][i.second]->GetType() == OPENDOOR){
+            openDoor(i.first, i.second);
+        }
+    }
+}
 
 
 

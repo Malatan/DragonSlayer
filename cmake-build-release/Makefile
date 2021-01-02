@@ -1468,6 +1468,60 @@ Map/Tile.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Map/Tile.cpp.s
 .PHONY : Map/Tile.cpp.s
 
+Resources/EnemySaveData.obj: Resources/EnemySaveData.cpp.obj
+
+.PHONY : Resources/EnemySaveData.obj
+
+# target to build an object file
+Resources/EnemySaveData.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Resources/EnemySaveData.cpp.obj
+.PHONY : Resources/EnemySaveData.cpp.obj
+
+Resources/EnemySaveData.i: Resources/EnemySaveData.cpp.i
+
+.PHONY : Resources/EnemySaveData.i
+
+# target to preprocess a source file
+Resources/EnemySaveData.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Resources/EnemySaveData.cpp.i
+.PHONY : Resources/EnemySaveData.cpp.i
+
+Resources/EnemySaveData.s: Resources/EnemySaveData.cpp.s
+
+.PHONY : Resources/EnemySaveData.s
+
+# target to generate assembly for a file
+Resources/EnemySaveData.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Resources/EnemySaveData.cpp.s
+.PHONY : Resources/EnemySaveData.cpp.s
+
+Resources/LootBagSaveData.obj: Resources/LootBagSaveData.cpp.obj
+
+.PHONY : Resources/LootBagSaveData.obj
+
+# target to build an object file
+Resources/LootBagSaveData.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Resources/LootBagSaveData.cpp.obj
+.PHONY : Resources/LootBagSaveData.cpp.obj
+
+Resources/LootBagSaveData.i: Resources/LootBagSaveData.cpp.i
+
+.PHONY : Resources/LootBagSaveData.i
+
+# target to preprocess a source file
+Resources/LootBagSaveData.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Resources/LootBagSaveData.cpp.i
+.PHONY : Resources/LootBagSaveData.cpp.i
+
+Resources/LootBagSaveData.s: Resources/LootBagSaveData.cpp.s
+
+.PHONY : Resources/LootBagSaveData.s
+
+# target to generate assembly for a file
+Resources/LootBagSaveData.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Resources/LootBagSaveData.cpp.s
+.PHONY : Resources/LootBagSaveData.cpp.s
+
 Resources/Resource.obj: Resources/Resource.cpp.obj
 
 .PHONY : Resources/Resource.obj
@@ -1729,6 +1783,12 @@ help:
 	@echo ... Map/Tile.obj
 	@echo ... Map/Tile.i
 	@echo ... Map/Tile.s
+	@echo ... Resources/EnemySaveData.obj
+	@echo ... Resources/EnemySaveData.i
+	@echo ... Resources/EnemySaveData.s
+	@echo ... Resources/LootBagSaveData.obj
+	@echo ... Resources/LootBagSaveData.i
+	@echo ... Resources/LootBagSaveData.s
 	@echo ... Resources/Resource.obj
 	@echo ... Resources/Resource.i
 	@echo ... Resources/Resource.s

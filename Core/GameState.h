@@ -28,6 +28,8 @@
 #include "../Components/SpellComponent.h"
 #include "../Map/Map.h"
 #include "../Map/MapGenerator.h"
+#include "../Resources/EnemySaveData.h"
+#include "../Resources/LootBagSaveData.h"
 
 class PauseMenu;
 class CharacterTab;
@@ -80,10 +82,16 @@ public:
     std::shared_ptr<LootGenerator>& getLootGenerator();
     std::shared_ptr<Player>& getPlayer();
     std::shared_ptr<ResourcesHandler>& getResourceHandler();
+    std::shared_ptr<MapGenerator>& getMapGenerator();
+    std::vector<std::shared_ptr<Enemy>>& getEnemies();
+    std::vector<std::shared_ptr<LootBag>>& getLootBags();
     Npc* getNpc(int index);
     npc_type getInteractNpc() const;
     std::shared_ptr<Enemy>& getEnemy(int index);
     bool getStateKeyTime();
+    int getCurrentFloor() const;
+    int getReachedFloor() const;
+    Map* getMap();
 
     //observer
     void addObserver(Observer* observer);
@@ -91,8 +99,11 @@ public:
     void notify(achievement_event event, int value);
 
     //functions
-    void changeMap(int floor);
+    std::pair<int, int> getEnemyCount(bool count_followers = false) const;
+    void changeMap(int floor, bool load_from_save = false);
     void checkBattleResult(BattleResult& battle_result);
+    void loadEnemyFromSave();
+    std::shared_ptr<Enemy> enemyFactory(float x, float y, enemy_types type, bool generate_stats);
     void spawnEnemy(float x, float y, enemy_types type, unsigned int enemy_followers = 5);
     void spawnNpc(float x, float y, npc_type spawn_npc_type);
     bool deleteEnemyById(unsigned int enemy_id);
@@ -127,7 +138,7 @@ private:
 
     sf::Shader coreShader;
     Map* map{};
-    MapGenerator* mg{};
+    std::shared_ptr<MapGenerator> mg;
     std::unique_ptr<PauseMenu> pmenu;
     std::shared_ptr<CharacterTab> cTab;
     std::shared_ptr<ShopTab> shopTab;
@@ -153,7 +164,7 @@ private:
     lootBagAccessPair interactLootBag;
     bool noclip;
     int currentFloor{};
-    int floorReached;
+    int floorReached{};
 
     //init
     void applySaveValue();

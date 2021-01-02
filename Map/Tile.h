@@ -89,12 +89,8 @@ public:
     void setOutlineColor(sf::Color color);
     void setOutlineThickness(float f);
 
-
     //RENDERING
     void render(sf::RenderTarget* target, sf::Shader* shader = nullptr, sf::Vector2f player_position = sf::Vector2f());
-
-
-
 
 };
 

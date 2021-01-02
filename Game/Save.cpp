@@ -79,9 +79,58 @@ void Save::saveBuffsInfo(const shared_ptr<BuffComponent> &buff_component) {
     }
 }
 
+void Save::saveMapsInfo(const std::shared_ptr<MapGenerator>& mg, Map* map, int current_floor, int reached_floor) {
+    for(auto i : mg->getDDims()){
+        levelDims.emplace_back(i.width, i.height);
+    }
+    openedDoors = map->getOpenDoors();
+    currentFloor = current_floor;
+    reachedFloor = reached_floor;
+    floor1 = utils::readFile("../Data/Dungeon_1.txt");
+    floor2 = utils::readFile("../Data/Dungeon_2.txt");
+    floor3 = utils::readFile("../Data/Dungeon_3.txt");
+    floor4 = utils::readFile("../Data/Dungeon_4.txt");
+    floor5 = utils::readFile("../Data/Dungeon_5.txt");
+}
+
+void Save::saveEnemiesInfo(std::pair<int, int> n, std::vector<std::shared_ptr<Enemy>>& _enemies) {
+    enemyCounts = n;
+    enemiesLeaders.clear();
+    enemiesLeaders.reserve(n.first);
+    enemiesFollowers.clear();
+    enemiesFollowers.reserve(n.second);
+    for(const auto& i : _enemies){
+        enemiesLeaders.emplace_back(i->getId(), 0, false, i->getName(),
+                             i->getType(), i->getCurrentBoost(), *i->getStats(), i->getPosition().x, i->getPosition().y);
+        if(i->getFollowersNumber() > 0){
+            for(const auto& j : i->getFollowers()){
+                enemiesFollowers.emplace_back(j->getId(), i->getId(), true, j->getName(),
+                                     j->getType(), 0, *j->getStats(), 0.f, 0.f);
+            }
+        }
+    }
+}
+
+void Save::saveLootBagsInfo(std::vector<std::shared_ptr<LootBag>>& loot_bags) {
+    lootBags.clear();
+    lootBags.reserve(loot_bags.size());
+    for(const auto& i : loot_bags){
+        std::vector<Item> v;
+        for(const auto& j : i->getLoots()){
+            v.push_back(*j);
+        }
+        lootBags.emplace_back(i->getId(), i->getMsCounter(), i->getLifeTimep(), v, i->getPosition().x, i->getPosition().y);
+    }
+}
+
 std::string Save::toString() const {
     std::stringstream ss;
-    ss << "Name:[" << name << "] Time:[" << lastModifiedTime << "]" << " Game version:[" << gameVersion << "]" << std::endl;
+    ss << "Name:[" << name << "]"
+    << " Time:[" << lastModifiedTime << "]"
+    << " Version:[" << gameVersion << "]"
+    << " Pos:[" << playerPos.x << ", " << playerPos.y << "]"
+    << " Floor:[" << currentFloor << "]"
+    << " Enemy:[" << enemyCounts.first << " + " << enemyCounts.second << "]" << std::endl;
     return ss.str();
 }
 

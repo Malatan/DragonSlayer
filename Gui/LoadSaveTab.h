@@ -37,6 +37,7 @@ public:
     bool isHide() const;
     void setHide(bool b);
     Save* getApplySave();
+    save_load_option getSLOption() const;
 
     //functions
     void refresh();
@@ -54,6 +55,7 @@ private:
     bool hide{};
     bool loading{};
     bool applySave{};
+    save_load_option slOption{};
     std::string beAppliedSaveName{};
     State* state;
     sf::Font* font;

@@ -4,6 +4,8 @@
 
 #include "Enemy.h"
 
+#include <utility>
+
 //initializer functions
 void Enemy::initAnimations() {
     switch(type){
@@ -130,7 +132,7 @@ void Enemy::initAnimations() {
 //constructors/destructors
 Enemy::Enemy(enemy_types type, float x, float y, float scale_x ,float scale_y, float hitbox_offset_x, float hitbox_offset_y,
              float hitbox_width, float hitbox_height, float clsBox_offset_x, float clsBox_offset_y, float clsBox_radius,
-             sf::Texture& texture_sheet, int floor, unsigned int id) : type(type), Id(id){
+             sf::Texture& texture_sheet) : type(type){
     scale.x = scale_x;
     scale.y = scale_y;
     sprite.setScale(scale);
@@ -138,30 +140,28 @@ Enemy::Enemy(enemy_types type, float x, float y, float scale_x ,float scale_y, f
     nextAnimationEnum = IDLE_ANIMATION;
     animationDone = false;
     currentBoost = 0;
-
     createAnimationComponent(texture_sheet);
     createHitboxComponent(sprite, hitbox_offset_x, hitbox_offset_y, hitbox_width, hitbox_height);
     createCollisionBoxComponent(sprite, clsBox_offset_x, clsBox_offset_y, clsBox_radius);
     initAnimations();
-
     Enemy::setPosition(x, y);
-    stats = std::make_shared<Stats>();
-    //floor 1 = 1-10, 2 = 11-20, 3 = 21-30, 4 = 31-40, 5 = 41-50
-    int level = utils::generateRandomNumber((floor-1)*10+1, floor*10);
-    stats->setLevel(level);
-    generateEnemyStats(level, floor);
     generateNameByType();
-
 }
 
 Enemy::Enemy(enemy_types type, int level, int floor, unsigned int id) : type(type), Id(id){
     scale.x = 1.f;
     scale.y = 1.f;
     currentBoost = 0;
-    stats = std::make_shared<Stats>();
-    stats->setLevel(level);
     generateNameByType();
-    generateEnemyStats(level, floor);
+    generateEnemyStats(floor, level);
+}
+
+Enemy::Enemy(enemy_types type, std::string  name, unsigned int id, const Stats &_stats)
+        : type(type), name(std::move(name)), Id(id) {
+    scale.x = 1.f;
+    scale.y = 1.f;
+    currentBoost = 0;
+    stats = std::make_shared<Stats>(_stats);
 }
 
 Enemy::~Enemy() = default;
@@ -199,8 +199,11 @@ void Enemy::generateNameByType() {
     }
 }
 
-void Enemy::generateEnemyStats(int level, int floor) {
-    // genera un modificatore di mod tra -0.5f e 1.f
+void Enemy::generateEnemyStats(int floor, int level) {
+    if(level == 0){
+        level = utils::generateRandomNumber((floor-1)*10+1, floor*10);
+    }
+    stats = std::make_shared<Stats>();
     float modModifier = (float)utils::generateRandomNumber(-50, 100)/100.f;
     float mod = ((float)level/10.f) + (float)floor + modModifier;
     switch(type){
@@ -485,6 +488,10 @@ unsigned int Enemy::getId() const {
     return Id;
 }
 
+void Enemy::setStats(const Stats &_stats) {
+    stats = std::make_shared<Stats>(_stats);
+}
+
 void Enemy::setPosition(float x, float y) {
     if(hitboxComponent)
         hitboxComponent->setPosition(x, y);
@@ -536,6 +543,10 @@ int Enemy::getDeadFollowersNumber() const{
             count++;
     }
     return count;
+}
+
+int Enemy::getCurrentBoost() const {
+    return currentBoost;
 }
 
 

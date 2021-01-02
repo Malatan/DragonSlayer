@@ -81,6 +81,10 @@ Save *LoadSaveTab::getApplySave() {
     return savesHandler->getSave(beAppliedSaveName);
 }
 
+save_load_option LoadSaveTab::getSLOption() const {
+    return slOption;
+}
+
 //functions
 void LoadSaveTab::refresh() {
     std::string path = savesHandler->savePath + "/";
@@ -150,6 +154,12 @@ void LoadSaveTab::generateSave(const std::shared_ptr<gui::LoadSaveSlot>& s_slot)
     new_save.saveSpellsInfo(game_state->getSpellComponent());
     new_save.saveAchievementsInfo(game_state->getAchievementComponent());
     new_save.saveBuffsInfo(game_state->getBuffComponent());
+    new_save.saveMapsInfo(game_state->getMapGenerator(), game_state->getMap(),
+                          game_state->getCurrentFloor(), game_state->getReachedFloor());
+    if(game_state->getCurrentFloor() != 0){
+        new_save.saveEnemiesInfo(game_state->getEnemyCount(true), game_state->getEnemies());
+        new_save.saveLootBagsInfo(game_state->getLootBags());
+    }
 
     savesHandler->write(new_save);
     loading = true;
@@ -176,6 +186,7 @@ bool LoadSaveTab::stateMatch(state_enum current_state) const {
 }
 
 void LoadSaveTab::setAccessOption(save_load_option option) {
+    slOption = option;
     switch(option){
         case LOAD_SAVE:{
             for(const auto& i : slots){
@@ -193,7 +204,7 @@ void LoadSaveTab::setAccessOption(save_load_option option) {
         }
         case LOAD_ONLY:{
             for(const auto& i : slots){
-                i->setLoadBtnDisabled(true);
+                i->setLoadBtnDisabled(false);
                 i->setSaveBtnDisabled(true);
             }
             break;

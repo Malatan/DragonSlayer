@@ -144,6 +144,9 @@ void MainMenuState::update(const float &dt) {
     if(!loadSaveTab->stateMatch(getStateEnum())){
         loadSaveTab->setState(this);
     }
+    if(loadSaveTab->getSLOption() != LOAD_ONLY){
+        loadSaveTab->setAccessOption(LOAD_ONLY);
+    }
     switch (stateTab) {
         case NO_TAB:
             updateInput(dt);

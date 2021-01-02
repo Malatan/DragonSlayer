@@ -13,6 +13,7 @@
 #include <cmath>
 #include <random>
 #include <chrono>
+#include <fstream>
 #include "ResourcesHandler.h"
 
 namespace utils{
@@ -27,5 +28,7 @@ namespace utils{
     std::string textWrap(sf::Text& label, const std::string& wrap_text, float line_length);
     float absoluteValue(float a);
     bool fileExists(const std::string& path);
+    std::string readFile(const std::string& path);
+    bool writeStringToFile(const std::string& content, const std::string& path);
 }
 #endif //DRAGONSLAYER_UTILS_H
