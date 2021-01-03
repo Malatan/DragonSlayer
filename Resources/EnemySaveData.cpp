@@ -4,8 +4,6 @@
 
 #include "EnemySaveData.h"
 
-#include <utility>
-
 EnemySaveData::EnemySaveData() = default;
 
 EnemySaveData::EnemySaveData(unsigned int _id, unsigned int _leaderId, bool _isFollower, std::string _name,

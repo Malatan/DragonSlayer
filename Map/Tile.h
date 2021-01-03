@@ -33,8 +33,6 @@ enum types{
 };
 
 class Tile {
-
-
 private:
     float cx, cy;
     types type;
@@ -47,49 +45,38 @@ private:
     bool interactable{};
     sf::Sprite shape;
     sf::RectangleShape interact;
-public:
-    bool isInteractable() const;
-
-    void setInteractable(bool interactable);
 
 public:
     static const float TILE_SIZE;
 
+    //constructors/destructor
     Tile(float cx, float cy, bool traversable);
     virtual ~Tile();
 
     //GETTERS AND SETTERS
     types GetType();
-    void SetType(char type);
-    void changeType(types type);
+    void SetType(char new_type);
+    void changeType(types new_type);
     void setTileTexture(const sf::Texture *texture, sf::IntRect intRect);
     sf::FloatRect getGlobalBounds() const;
-    bool intersects(sf::FloatRect bounds) const;
     bool IsTraversable() const;
-    void setTraversable(bool traversable);
-
+    void setTraversable(bool b);
+    bool isInteractable() const;
+    void setInteractable(bool b);
     bool isUp() const;
-    void setUp(bool up);
+    void setUp(bool b);
     bool isDown() const;
-    void setDown(bool down);
+    void setDown(bool b);
     bool isRight() const;
-    void setRight(bool right);
-
-    const sf::Sprite &getShape() const;
-
+    void setRight(bool b);
     bool isLeft() const;
-    void setLeft(bool left);
-
-     sf::RectangleShape &getInteract();
-
-    void setInteract(const sf::RectangleShape &interact);
+    void setLeft(bool b);
+    void setInteract(const sf::RectangleShape &_interact);
     void setInteractTexture(const sf::Texture *texture);
     void enableInteract(bool enable);
 
-    void setOutlineColor(sf::Color color);
-    void setOutlineThickness(float f);
-
-    //RENDERING
+    //function
+    bool intersects(sf::FloatRect bounds) const;
     void render(sf::RenderTarget* target, sf::Shader* shader = nullptr, sf::Vector2f player_position = sf::Vector2f());
 
 };

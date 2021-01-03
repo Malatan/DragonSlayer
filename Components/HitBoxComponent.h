@@ -24,8 +24,6 @@ public:
     //Modifiers
     void setPosition(const sf::Vector2f& position);
     void setPosition(float x, float y);
-    void setPositionY(float y);
-    void setPositionX(float x);
 
     //Functions
     bool intersects(const sf::FloatRect& frect);

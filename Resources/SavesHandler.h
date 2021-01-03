@@ -20,7 +20,7 @@ public:
     std::map<std::string, Save>& getLoadedSaves();
 
     void clear();
-    bool write(Save& save);
+    bool write(Save& save) const;
     bool read(const std::string& saveName);
 
     std::string savePath;

@@ -35,17 +35,8 @@ public:
     static const unsigned int MAX_FOLLOWERS = 4;
     static const int BASE_BOOST = 15;
 
-    //follwers
-    void addFollower(const std::shared_ptr<Enemy>& new_follower);
-    int getFollowersNumber() const;
-    int getAliveFollowersNumber() const;
-    int getDeadFollowersNumber() const;
-    const vector<std::shared_ptr<Enemy>> &getFollowers() const;
-    void updateStatsBoost(bool recover);
-
     //functions
-    void setPosition(float x, float y) override;
-    bool isDead() const;
+    void updateStatsBoost(bool recover);
     void generateNameByType();
     void generateEnemyStats(int floor, int level = 0);
     void updateAnimation(const float &dt);
@@ -53,6 +44,13 @@ public:
     void render(sf::RenderTarget& target, sf::Shader* shader = nullptr, sf::Vector2f light_position = sf::Vector2f(), bool show_hitbox = false, bool show_clsBox = false);
 
     //getters/setters
+    const vector<std::shared_ptr<Enemy>> &getFollowers() const;
+    bool isDead() const;
+    void addFollower(const std::shared_ptr<Enemy>& new_follower);
+    int getFollowersNumber() const;
+    int getAliveFollowersNumber() const;
+    int getDeadFollowersNumber() const;
+    void setPosition(float x, float y) override;
     void setId(unsigned int new_id);
     unsigned int getId() const;
     enemy_types getType() const;
@@ -63,6 +61,8 @@ public:
     const std::shared_ptr<Stats> &getStats() const;
     int getCurrentBoost() const;
     void setStats(const Stats& _stats);
+    void setCurrentBoost(int current_boost);
+
 private:
     //variables
     unsigned int Id{};

@@ -161,10 +161,6 @@ void gui::Button::setBorderLineThickness(float value) {
     shape.setOutlineThickness(value);
 }
 
-void gui::Button::setTextPositionAddY(float y) {
-    this->text.setPosition(this->text.getPosition().x, this->text.getPosition().y + y);
-}
-
 void gui::Button::setTooltipText(const std::string& new_text) {
     tooltipText.setString(new_text);
     tooltipContainer.setSize(sf::Vector2f(tooltipText.getGlobalBounds().width + 10.f,
@@ -192,7 +188,7 @@ void gui::Button::setButtonState(button_states btnstates) {
     buttonState = btnstates;
 }
 
-void gui::Button::setBackgroundTexture(const sf::Texture* texture) {
+void gui::Button::setBackgroundTexture(sf::Texture* texture) {
     background.setTexture(texture);
 }
 
@@ -300,7 +296,7 @@ gui::ProgressBar::ProgressBar(float x, float y, float width, float height, int m
     barShape.setSize(sf::Vector2f(width, height));
     barShape.setPosition(x, y);
     barShape.setFillColor(sf::Color::Transparent);
-    barShape.setOutlineColor(sf::Color::Transparent);
+    barShape.setOutlineColor(sf::Color::Black);
     barShape.setOutlineThickness(2.f);
 
     progressShape.setFillColor(sf::Color::Green);
@@ -308,11 +304,9 @@ gui::ProgressBar::ProgressBar(float x, float y, float width, float height, int m
     progressShape.setPosition(x , y);
 
     text.setString("10/10");
-    text.setFont(*font);
+    text.setFont(*this->font);
     text.setStyle(sf::Text::Bold);
     text.setCharacterSize(15.f);
-    text.setPosition(barShape.getPosition().x + (barShape.getGlobalBounds().width / 2.f) - text.getGlobalBounds().width/2.f,
-            barShape.getPosition().y + (barShape.getGlobalBounds().height / 2.f) - text.getGlobalBounds().height/2.f);
 
 }
 
@@ -336,8 +330,10 @@ bool gui::ProgressBar::isDisabled() const{
 
 void gui::ProgressBar::setText(const std::string& new_text) {
     text.setString(new_text);
-    text.setPosition(barShape.getPosition().x + (barShape.getGlobalBounds().width / 2.f) - text.getGlobalBounds().width/2.f,
-                     barShape.getPosition().y + (barShape.getGlobalBounds().height / 2.f) - text.getGlobalBounds().height);
+    text.setPosition(
+            barShape.getPosition().x + (barShape.getGlobalBounds().width / 2.f) - text.getGlobalBounds().width/2.f,
+            barShape.getPosition().y + (barShape.getGlobalBounds().height / 2.f) - text.getGlobalBounds().height + 3.f
+            );
 }
 
 void gui::ProgressBar::setProgressShapeColor(sf::Color color) {
@@ -357,9 +353,7 @@ void gui::ProgressBar::update(int current, int max_value) {
     }else{
         currentValue = current;
     }
-    text.setString(ss.str());
-    text.setPosition(barShape.getPosition().x + (barShape.getGlobalBounds().width / 2.f) - text.getGlobalBounds().width/2.f,
-                     barShape.getPosition().y + (barShape.getGlobalBounds().height / 2.f) - text.getGlobalBounds().height);
+    setText(ss.str());
     progressPercentage = (float)currentValue / (float)max_value;
     if(progressPercentage == 0.f){
         progressShape.setSize(sf::Vector2f(barShape.getGlobalBounds().width * progressPercentage,
@@ -368,7 +362,6 @@ void gui::ProgressBar::update(int current, int max_value) {
         progressShape.setSize(sf::Vector2f(barShape.getGlobalBounds().width * progressPercentage - 4.f,
                                            progressShape.getGlobalBounds().height));
     }
-
 
 }
 
@@ -663,8 +656,9 @@ void gui::ItemSlot::setIsEquipSlotUnequip(bool b) {
 
 gui::CustomDialog::CustomDialog()= default;
 
-gui::CustomDialog::CustomDialog(float x, float y, std::shared_ptr<Item> item,
-                                State* state, sf::Font* font, dialog_type dType) : item(std::move(item)), state(state){
+gui::CustomDialog::CustomDialog(float x, float y, std::shared_ptr<Item> item, std::shared_ptr<sf::RenderWindow>  window,
+                                State* state, sf::Font* font, dialog_type dType)
+                                : item(std::move(item)), state(state), window(std::move(window)){
     dialogType = dType;
     currentQuantity = 1;
     maxQuantity = this->item->getQuantity();
@@ -672,7 +666,8 @@ gui::CustomDialog::CustomDialog(float x, float y, std::shared_ptr<Item> item,
     answer = PENDING_RESULT;
 
     dialog.setSize(sf::Vector2f(600.f, 150.f));
-    dialog.setPosition(x - 300.f, y - 75.f);
+    dialog.setPosition(this->window->getSize().x/2.f - dialog.getSize().x/2.f,
+                       this->window->getSize().y/2.f - dialog.getSize().y/2.f);
     dialog.setFillColor(sf::Color(61, 61, 61, 230));
     dialog.setOutlineColor(sf::Color(25, 25, 25, 200));
     dialog.setOutlineThickness(10.f);
@@ -696,7 +691,8 @@ gui::CustomDialog::CustomDialog(float x, float y, std::shared_ptr<Item> item,
 }
 
 gui::CustomDialog::CustomDialog(float x, float y, int tot_value, int selected_quantity,
-                                State* state, sf::Font* font, dialog_type dType) : state(state){
+                                std::shared_ptr<sf::RenderWindow>  window, State* state, sf::Font* font, dialog_type dType)
+                                : state(state), window(std::move(window)){
     dialogType = dType;
     multipleItem = true;
     answer = PENDING_RESULT;
@@ -753,11 +749,14 @@ void gui::CustomDialog::updateLbls() {
             quantityLbl.setString(ss.str());
             break;
     }
-    textLbl.setPosition(dialog.getPosition().x + dialog.getGlobalBounds().width/2.f - textLbl.getGlobalBounds().width/2.f,
+    textLbl.setPosition(dialog.getPosition().x + dialog.getGlobalBounds().width/2.f - textLbl.getGlobalBounds().width/2.f - 10.f,
                         dialog.getPosition().y + 15.f);
     quantityLbl.setPosition(dialog.getPosition().x + dialog.getGlobalBounds().width/2.f - quantityLbl.getGlobalBounds().width/2.f,
                             dialog.getPosition().y + textLbl.getGlobalBounds().height + 20.f);
-
+    if(textLbl.getGlobalBounds().width + 20.f > dialog.getGlobalBounds().width){
+        dialog.setSize(sf::Vector2f(textLbl.getGlobalBounds().width + 20.f, dialog.getGlobalBounds().height));
+        dialog.setPosition(window->getSize().x/2.f - dialog.getSize().x/2.f, window->getSize().y/2.f - dialog.getSize().y/2.f);
+    }
 
 }
 
@@ -826,37 +825,40 @@ dialog_type gui::CustomDialog::getDialogType() {
 }
 
 void gui::CustomDialog::initButtons(sf::Font* font) {
+    float width = 40.f;
+    float height = 30.f;
+    int c_size = 20;
     plusOneBtn = Button(dialog.getPosition().x + dialog.getGlobalBounds().width/2.f + 4.f,
                         quantityLbl.getPosition().y + quantityLbl.getGlobalBounds().height + 5.f,
-                        40.f, 30.f, font, "+1", 30);
+                        width, height, font, "+1", c_size);
 
     plusFiveBtn = Button(plusOneBtn.getPosition().x + plusOneBtn.getGlobalBounds().width + 8.f,
                          plusOneBtn.getPosition().y,
-                         40.f, 30.f, font, "+5", 30);
+                         width, height, font, "+5", c_size);
 
     maxBtn = Button(plusFiveBtn.getPosition().x + plusFiveBtn.getGlobalBounds().width + 8.f,
                     plusFiveBtn.getPosition().y,
-                    40.f, 30.f, font, "Max", 30);
+                    width, height, font, "Max", c_size);
 
     minusOneBtn = Button(plusOneBtn.getPosition().x - plusOneBtn.getGlobalBounds().width - 8.f,
                          plusOneBtn.getPosition().y,
-                         40.f, 30.f, font, "-1", 30);
+                         width, height, font, "-1", c_size);
 
     minusFiveBtn = Button(minusOneBtn.getPosition().x - minusOneBtn.getGlobalBounds().width - 8.f,
                           minusOneBtn.getPosition().y,
-                          40.f, 30.f, font, "-5", 30);
+                          width, height, font, "-5", c_size);
 
     minBtn = Button(minusFiveBtn.getPosition().x - minusFiveBtn.getGlobalBounds().width - 8.f,
                     minusFiveBtn.getPosition().y,
-                    40.f, 30.f, font, "Min", 30);
+                    width, height, font, "Min", c_size);
 
     yesBtn = Button(dialog.getPosition().x + dialog.getGlobalBounds().width/2.f - 30.f - 40.f,
                     minBtn.getPosition().y + minBtn.getGlobalBounds().height + 5.f,
-                    40.f, 30.f, font, "Yes", 30);
+                    width, height, font, "Yes", c_size + 5);
 
     noBtn = Button(dialog.getPosition().x + dialog.getGlobalBounds().width/2.f + 30.f,
                    minBtn.getPosition().y + minBtn.getGlobalBounds().height + 5.f,
-                   40.f, 30.f, font, "No", 30);
+                   width, height, font, "No", c_size + 5);
 
 }
 
@@ -1294,7 +1296,7 @@ gui::PlayerStatusPanel::PlayerStatusPanel(std::shared_ptr<Player> player, float 
 
     infoText.setPosition(x + 15.f, y + 2.f);
     infoText.setFont(*this->font);
-    infoText.setCharacterSize(20);
+    infoText.setCharacterSize(16);
     stringstream ss;
     ss << "Player Lv." << this->player->getPlayerStats()->getLevel();
     infoText.setString(ss.str());
@@ -1359,7 +1361,7 @@ gui::EnemyStatusPanel::EnemyStatusPanel(const std::shared_ptr<Enemy>& enemy, flo
 
     infoText.setPosition(x + 5.f, y + 2.f);
     infoText.setFont(*this->font);
-    infoText.setCharacterSize(20);
+    infoText.setCharacterSize(16);
     stringstream ss;
     ss << enemy->getName() << " Lv." << enemy->getStats()->getLevel();
     infoText.setString(ss.str());
@@ -1396,10 +1398,7 @@ void gui::EnemyStatusPanel::update(const sf::Vector2f &mousePos, const float &dt
             isSelected = !isSelected;
         }
     }else{
-        if(current_enemy_pos == idPos && !player_turn){
-            shape.setOutlineColor(sf::Color(15, 15, 15, 150));
-            shape.setOutlineThickness(5.f);
-        }else if(isSelected){
+        if(current_enemy_pos == idPos && !player_turn || isSelected){
             shape.setOutlineColor(sf::Color(15, 15, 15, 150));
             shape.setOutlineThickness(5.f);
         }

@@ -21,6 +21,10 @@ const sf::Vector2f &MovementComponent::getVelocity() const {
     return velocity;
 }
 
+void MovementComponent::setVelocity(sf::Vector2f new_velocity) {
+    velocity = new_velocity;
+}
+
 //functions
 bool MovementComponent::getState(const short unsigned state) const {
     switch(state){
@@ -116,26 +120,10 @@ void MovementComponent::update(const float &dt) {
     sprite.move(velocity * dt);
 }
 
-float MovementComponent::getDeceleration() const {
-    return deceleration;
-}
-
-float MovementComponent::getAcceleration() const {
-    return acceleration;
-}
-
 void MovementComponent::stopVelocity() {
     velocity.x = 0.f;
     velocity.y = 0.f;
 
-}
-
-void MovementComponent::stopVelocityX() {
-    velocity.x = 0.f;
-}
-
-void MovementComponent::stopVelocityY() {
-    velocity.y = 0.f;
 }
 
 const sf::Vector2f &MovementComponent::getPreviousPosition() const {

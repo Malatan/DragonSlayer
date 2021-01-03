@@ -24,7 +24,7 @@ void SavesHandler::clear() {
         loadedSaves.clear();
 }
 
-bool SavesHandler::write(Save& save) {
+bool SavesHandler::write(Save& save) const {
     if (mkdir("../Saves") != -1)
         std::cout << "Saves Directory created" << std::endl;
     std::stringstream ss;

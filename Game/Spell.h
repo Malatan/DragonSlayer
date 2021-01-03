@@ -18,11 +18,6 @@ enum spell_type{
     DEFAULT_SPELL_TYPE
 };
 
-enum spell_base_effect{
-    HEAL_BASE_POINT = 60,
-    MEDITATION_BASE_POINT = 40
-};
-
 using namespace std;
 
 class Spell {

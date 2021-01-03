@@ -15,7 +15,6 @@
 #include <memory>
 
 enum state_enum{
-    DEFAULT_STATE,
     MAINMENU_STATE,
     GAME_STATE,
     BATTLE_STATE
@@ -48,7 +47,6 @@ public:
     bool getKeyTime();
     const map<string, sf::Texture> &getTextures() const;
     state_enum getStateEnum() const;
-    float getKeyTimef() const;
 
     //functions
     void endState();

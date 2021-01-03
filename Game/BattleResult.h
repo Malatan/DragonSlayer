@@ -36,7 +36,6 @@ enum statistic_types{
 class BattleResult {
 public:
     BattleResult();
-    BattleResult(battle_result_types b_result, bool player_killed, const std::shared_ptr<Enemy>& enemy_leader);
     virtual ~BattleResult();
 
     //functions

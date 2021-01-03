@@ -68,6 +68,8 @@ void Game::updateSFMLEvents() {
             case sf::Event::Closed:       //check for CLOSED event
                 window->close();
                 break;
+            default:
+                break;
         }
     }
 }
@@ -130,10 +132,6 @@ void Game::testRun(bool do_render) {
 
 shared_ptr<sf::RenderWindow> Game::getWindow(){
     return window;
-}
-
-int Game::getStateStackSize() const {
-    return states.size();
 }
 
 State *Game::getTopState() {

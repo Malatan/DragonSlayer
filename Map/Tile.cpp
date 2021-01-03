@@ -2,7 +2,7 @@
 
 const float Tile::TILE_SIZE = 100.0f;
 
-
+//constructors/destructor
 Tile::Tile(float cx, float cy, bool traversable) {
     this->cx = cx;
     this->cy = cy;
@@ -25,9 +25,9 @@ Tile::Tile(float cx, float cy, bool traversable) {
 Tile::~Tile() = default;
 
 
-
-void Tile::SetType(char type){
-    switch (type) {
+//GETTERS AND SETTERS
+void Tile::SetType(char new_type){
+    switch (new_type) {
         case ' ': {
             this->type = FLOOR;
             traversable = true;
@@ -38,7 +38,6 @@ void Tile::SetType(char type){
             this->type = VOID;
             this->traversable = false;
             interactable = false;
-          // this->shape.setFillColor(sf::Color::Black);
             break;
         }
         case '#':{
@@ -167,13 +166,8 @@ sf::FloatRect Tile::getGlobalBounds() const{
     return this->shape.getGlobalBounds();
 }
 
-bool Tile::intersects(const sf::FloatRect bounds) const{
-    return this->shape.getGlobalBounds().intersects(bounds);
-}
-
-
-void Tile::changeType(types type) {
-    this->type = type;
+void Tile::changeType(types new_type) {
+    this->type = new_type;
 }
 
 void Tile::setTileTexture(const sf::Texture *texture, sf::IntRect intRect) {
@@ -187,62 +181,44 @@ bool Tile::isUp() const {
     return up;
 }
 
-void Tile::setUp(bool up) {
-    Tile::up = up;
+void Tile::setUp(bool b) {
+    Tile::up = b;
 }
 
 bool Tile::isDown() const {
     return down;
 }
 
-void Tile::setDown(bool down) {
-    Tile::down = down;
+void Tile::setDown(bool b) {
+    Tile::down = b;
 }
 
 bool Tile::isRight() const {
     return right;
 }
 
-void Tile::setRight(bool right) {
-    Tile::right = right;
+void Tile::setRight(bool b) {
+    Tile::right = b;
 }
 
 bool Tile::isLeft() const {
     return left;
 }
 
-void Tile::setLeft(bool left) {
-    Tile::left = left;
-}
-
-void Tile::render(sf::RenderTarget *target, sf::Shader* shader, const sf::Vector2f player_position) {
-    if(shader){
-        shader->setUniform("hasTexture", true);
-        shader->setUniform("lightPos", player_position);
-
-        target->draw(shape, shader);
-    }
-    else
-        target->draw(shape);
-    if (interactable) {
-        target->draw(interact);
-    }
+void Tile::setLeft(bool b) {
+    Tile::left = b;
 }
 
 bool Tile::isInteractable() const {
     return interactable;
 }
 
-void Tile::setInteractable(bool interactable) {
-    Tile::interactable = interactable;
+void Tile::setInteractable(bool b) {
+    Tile::interactable = b;
 }
 
-sf::RectangleShape &Tile::getInteract()  {
-    return interact;
-}
-
-void Tile::setInteract(const sf::RectangleShape &interact) {
-    Tile::interact = interact;
+void Tile::setInteract(const sf::RectangleShape &_interact) {
+    Tile::interact = _interact;
 }
 
 void Tile::setInteractTexture(const sf::Texture *texture) {
@@ -261,24 +237,29 @@ void Tile::enableInteract(bool enable) {
 
 }
 
-void Tile::setOutlineColor(sf::Color color) {
-   // shape.setOutlineColor(color);
-
-}
-
-void Tile::setOutlineThickness(float f) {
-  //  shape.setOutlineThickness(f);
-}
-
-void Tile::setTraversable(bool traversable) {
-    Tile::traversable = traversable;
-}
-
-const sf::Sprite &Tile::getShape() const {
-    return shape;
+void Tile::setTraversable(bool b) {
+    Tile::traversable = b;
 }
 
 types Tile::GetType() {
     return this->type;
 }
 
+//function
+void Tile::render(sf::RenderTarget *target, sf::Shader* shader, const sf::Vector2f player_position) {
+    if(shader){
+        shader->setUniform("hasTexture", true);
+        shader->setUniform("lightPos", player_position);
+
+        target->draw(shape, shader);
+    }
+    else
+        target->draw(shape);
+    if (interactable) {
+        target->draw(interact);
+    }
+}
+
+bool Tile::intersects(const sf::FloatRect bounds) const{
+    return this->shape.getGlobalBounds().intersects(bounds);
+}

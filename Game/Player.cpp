@@ -103,6 +103,8 @@ void Player::updateAnimation(const float &dt) {
             case DEATH_ANIMATION:
                 animationDone = animationComponent->play("DEATH", dt);
                 break;
+            default:
+                break;
         }
         if(animationDone)
             animationEnum = nextAnimationEnum;

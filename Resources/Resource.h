@@ -14,7 +14,6 @@ public:
     Resource(const std::string& resourcePath, const std::string& key,const std::string& stateName);
     virtual ~Resource();
 
-    static bool fileExists(const std::string& path);
     std::string getKey();
     sf::Image getImage() const;
     std::string toString();

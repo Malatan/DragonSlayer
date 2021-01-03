@@ -235,12 +235,12 @@ void BattleState::initActionPanel() {
             spell, 1.f, font, textures["ITEMS_SHEET"]
     ));
 
-    for (int i = 0; i < spellComponent->getPlayerSpells().size(); i++) {
-        if (spellComponent->getPlayerSpells()[i]->isLearned()) {
+    for (auto & i : spellComponent->getPlayerSpells()) {
+        if (i->isLearned()) {
             actionRows.push_back(std::make_unique<gui::ActionRow>(
                     525.f, 50.f,
                     actionPanel.getPosition().x + 15.f, actionPanel.getPosition().y + 15.f + ((float)count * columnMod),
-                    spellComponent->getPlayerSpells()[i], player->getPlayerStats()->getSpellDmgMultiplier(),
+                    i, player->getPlayerStats()->getSpellDmgMultiplier(),
                     font, textures["ITEMS_SHEET"]
             ));
             total_count++;

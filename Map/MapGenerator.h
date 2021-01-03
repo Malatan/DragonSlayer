@@ -10,22 +10,22 @@ struct wh{
 };
 
 class MapGenerator {
-private:
-    std::vector<wh> dDims;
-    wh hDims{};
-    GameState* gameState{};
-
 public:
-    vector<wh> &getDDims();
-
-    void setDDims(const vector<wh> &dDims);
-    void setDDims(const vector<pair<int, int>>& data);
-
+    //constructors/destructor
     MapGenerator();
     virtual ~MapGenerator();
+
+    //getters/setters
+    vector<wh> &getDDims();
+    void setDDims(const vector<pair<int, int>>& data);
+
+    //function
     Map* GenerateFromFile(int floor, State* state);
-    Map* GenerateHub(std::string path, int height, int width, State* state);
     void generateDungeon(int n);
+
+private:
+    std::vector<wh> dDims;
+    GameState* gameState{};
 };
 
 #endif

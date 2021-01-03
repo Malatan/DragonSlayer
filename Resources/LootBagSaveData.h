@@ -44,8 +44,8 @@ private:
     float msCounter{};
     lifeTimePair lifeTime;
     std::vector<Item> loots;
-    float posX;
-    float posY;
+    float posX{};
+    float posY{};
 };
 
 

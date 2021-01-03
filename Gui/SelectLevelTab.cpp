@@ -231,6 +231,8 @@ void SelectLevelTab::updateButtonsAccess(int reached_floor) {
             level5Btn->setDisabled(false);
             break;
         }
+        default:
+            break;
     }
 }
 

@@ -25,20 +25,16 @@ public:
     void enableSpeedControl(bool b);
 
     //accessors
+    void setVelocity(sf::Vector2f new_velocity);
     const float& getMaxVelocity() const;
     const sf::Vector2f& getVelocity() const;
     const sf::Vector2f& getPreviousPosition() const;
-    float getDeceleration() const;
-    float getAcceleration() const;
 
     //functions
     bool getState(short unsigned state) const;
-
     void move(float dir_x, float dir_y, const float &dt);
     void update(const float &dt);
     void stopVelocity();
-    void stopVelocityX();
-    void stopVelocityY();
 
 private:
     sf::Sprite& sprite;

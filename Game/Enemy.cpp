@@ -4,8 +4,6 @@
 
 #include "Enemy.h"
 
-#include <utility>
-
 //initializer functions
 void Enemy::initAnimations() {
     switch(type){
@@ -167,6 +165,43 @@ Enemy::Enemy(enemy_types type, std::string  name, unsigned int id, const Stats &
 Enemy::~Enemy() = default;
 
 //functions
+void Enemy::updateStatsBoost(bool recover) {
+    int alive_followers = getAliveFollowersNumber();
+    if(!followers.empty() && alive_followers != currentBoost){
+        float new_boost_mod = ((float)alive_followers * (float)BASE_BOOST)/100.f;
+        new_boost_mod += 1.f;
+
+        float old_boost_mod = ((float)currentBoost * (float)BASE_BOOST)/100.f;
+        old_boost_mod += 1.f;
+
+        if(currentBoost != alive_followers){
+            stats->setMaxHpBonus(stats->getMaxHpBonus() - (int)((float)stats->getMaxHp() * old_boost_mod));
+            stats->setMaxMpBonus(stats->getMaxMpBonus() - (int)((float)stats->getMaxMp() * old_boost_mod));
+            stats->setDamageBonus(stats->getDamageBonus() - (int)((float)stats->getDamage() * old_boost_mod));
+            stats->setArmorBonus(stats->getArmorBonus() - (int)((float)stats->getArmor() * old_boost_mod));
+            stats->setCritChanceBonus(stats->getCritChanceBonus() -
+                                      utils::roundf(stats->getCritChance() * old_boost_mod, 2));
+            stats->setEvadeChanceBonus(stats->getEvadeChanceBonus() -
+                                       utils::roundf(stats->getEvadeChance() * old_boost_mod, 2));
+        }
+        stats->setMaxHpBonus(stats->getMaxHpBonus() + (int)((float)stats->getMaxHp() * new_boost_mod));
+        stats->setMaxMpBonus(stats->getMaxMpBonus() + (int)((float)stats->getMaxMp() * new_boost_mod));
+        stats->setDamageBonus(stats->getDamageBonus() + (int)((float)stats->getDamage() * new_boost_mod));
+        stats->setArmorBonus(stats->getArmorBonus() + (int)((float)stats->getArmor() * new_boost_mod));
+        stats->setCritChanceBonus(stats->getCritChanceBonus() +
+                                  utils::roundf(stats->getCritChance() * new_boost_mod, 2));
+        stats->setEvadeChanceBonus(stats->getEvadeChanceBonus() +
+                                   utils::roundf(stats->getEvadeChance() * new_boost_mod, 2));
+        stats->checkHpLimit();
+        stats->checkMpLimit();
+        currentBoost = alive_followers;
+        if(recover){
+            stats->refillHp();
+            stats->refillMp();
+        }
+    }
+}
+
 void Enemy::generateNameByType() {
     switch(type){
         case WITCH:
@@ -351,6 +386,8 @@ void Enemy::updateAnimation(const float &dt) {
         case CORPSE_ANIMATION:
             animationDone = animationComponent->play("CORPSE", dt);
             break;
+        default:
+            break;
     }
     if(animationDone)
         animationEnum = nextAnimationEnum;
@@ -499,43 +536,6 @@ void Enemy::setPosition(float x, float y) {
         sprite.setPosition(x, y);
 }
 
-void Enemy::updateStatsBoost(bool recover) {
-    int alive_followers = getAliveFollowersNumber();
-    if(!followers.empty() && alive_followers != currentBoost){
-        float new_boost_mod = ((float)alive_followers * (float)BASE_BOOST)/100.f;
-        new_boost_mod += 1.f;
-
-        float old_boost_mod = ((float)currentBoost * (float)BASE_BOOST)/100.f;
-        old_boost_mod += 1.f;
-
-        if(currentBoost != alive_followers){
-            stats->setMaxHpBonus(stats->getMaxHpBonus() - (int)((float)stats->getMaxHp() * old_boost_mod));
-            stats->setMaxMpBonus(stats->getMaxMpBonus() - (int)((float)stats->getMaxMp() * old_boost_mod));
-            stats->setDamageBonus(stats->getDamageBonus() - (int)((float)stats->getDamage() * old_boost_mod));
-            stats->setArmorBonus(stats->getArmorBonus() - (int)((float)stats->getArmor() * old_boost_mod));
-            stats->setCritChanceBonus(stats->getCritChanceBonus() -
-                                              utils::roundf(stats->getCritChance() * old_boost_mod, 2));
-            stats->setEvadeChanceBonus(stats->getEvadeChanceBonus() -
-                                               utils::roundf(stats->getEvadeChance() * old_boost_mod, 2));
-        }
-        stats->setMaxHpBonus(stats->getMaxHpBonus() + (int)((float)stats->getMaxHp() * new_boost_mod));
-        stats->setMaxMpBonus(stats->getMaxMpBonus() + (int)((float)stats->getMaxMp() * new_boost_mod));
-        stats->setDamageBonus(stats->getDamageBonus() + (int)((float)stats->getDamage() * new_boost_mod));
-        stats->setArmorBonus(stats->getArmorBonus() + (int)((float)stats->getArmor() * new_boost_mod));
-        stats->setCritChanceBonus(stats->getCritChanceBonus() +
-            utils::roundf(stats->getCritChance() * new_boost_mod, 2));
-        stats->setEvadeChanceBonus(stats->getEvadeChanceBonus() +
-            utils::roundf(stats->getEvadeChance() * new_boost_mod, 2));
-        stats->checkHpLimit();
-        stats->checkMpLimit();
-        currentBoost = alive_followers;
-        if(recover){
-            stats->refillHp();
-            stats->refillMp();
-        }
-    }
-}
-
 int Enemy::getDeadFollowersNumber() const{
     int count = 0;
     for(const auto& i : followers){
@@ -549,7 +549,9 @@ int Enemy::getCurrentBoost() const {
     return currentBoost;
 }
 
-
+void Enemy::setCurrentBoost(int current_boost) {
+    currentBoost = current_boost;
+}
 
 
 

@@ -25,7 +25,6 @@ public:
     void addSpell(Spell spell);
     void addPlayerSpell(Spell spell);
     std::string toString() const;
-    std::string toStringPlayer() const;
 
 private:
     std::vector<std::shared_ptr<Spell>> spells;

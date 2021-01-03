@@ -7,7 +7,6 @@
 
 #include "State.h"
 #include "MainMenuState.h"
-#include "RunTimeClock.h"
 #include "../Resources/ResourcesHandler.h"
 
 class Game {
@@ -21,7 +20,6 @@ public:
 
     //Functions
     static void endApplication();
-    int getStateStackSize() const;
     State* getTopState();
     float getDt() const;
 

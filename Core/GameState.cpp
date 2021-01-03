@@ -4,9 +4,6 @@
 
 #include "GameState.h"
 
-#include <random>
-#include <utility>
-
 //init
 void GameState::initTextures() {
     rsHandler->addResource("../Resources/Images/Sprites/Player/player_sheet.png", "player_sheet", "GameState");
@@ -51,6 +48,7 @@ void GameState::initTextures() {
     rsHandler->addResource("../Resources/Images/bootsIcon.png", "bootsIcon", "GameState");
     rsHandler->addResource("../Resources/Images/arrow_down.png", "arrowDownIcon", "GameState");
     rsHandler->addResource("../Resources/Images/loot_bag.png", "lootBagSprite", "GameState");
+    rsHandler->addResource("../Resources/Images/plus.png", "plusIcon", "GameState");
 
     textures["PLAYER_SHEET"].loadFromImage(rsHandler->getResourceByKey("player_sheet")->getImage());
     textures["SHOP_NPC_SHEET"].loadFromImage(rsHandler->getResourceByKey("shop_npc_sheet")->getImage());
@@ -86,6 +84,7 @@ void GameState::initTextures() {
     textures["BOOTS_ICON"].loadFromImage(rsHandler->getResourceByKey("bootsIcon")->getImage());
     textures["ARROWDOWN_ICON"].loadFromImage(rsHandler->getResourceByKey("arrowDownIcon")->getImage());
     textures["LOOTBAG_SPRITE"].loadFromImage(rsHandler->getResourceByKey("lootBagSprite")->getImage());
+    textures["PLUS_ICON"].loadFromImage(rsHandler->getResourceByKey("plusIcon")->getImage());
 }
 
 void GameState::initPauseMenu() {
@@ -403,6 +402,9 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::u
 GameState::~GameState() {
     for(auto i : npcs)
         delete i;
+    for(auto i : observers){
+        delete i;
+    }
 }
 
 //accessors
@@ -882,11 +884,9 @@ void GameState::updateInput(const float &dt) {
 
 void GameState::updateMouseInput(const float &dt) {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && getKeyTime()) {
-        player->clearTargetPoints();
-        player->addTargetPoint(mousePosView);
-        std::cout<<"going to: " << mousePosView.x << " - " << mousePosView.y << " from: "
-                 << player->getHitboxComponent()->getCenter().x
-                 << " - " << player->getHitboxComponent()->getCenter().y<<endl;
+        sf::Vector2f dir = mousePosView - player->getCenter();
+        player->getMovementComponent()->setVelocity(dir);
+
     }
 }
 
@@ -1223,6 +1223,7 @@ void GameState::loadEnemyFromSave() {
         e = enemyFactory(i.getPosX(), i.getPosY(), i.getType(), false);
         e->setId(i.getId());
         e->setStats(i.getStats());
+        e->setCurrentBoost(i.getCurrentBoost());
         enemies.push_back(e);
     }
     for(const auto& i : save->enemiesFollowers){
@@ -1284,7 +1285,7 @@ void GameState::spawnEnemyOnMap() {
         }
     }
 
-    std::shuffle(&f.at(0),&f.at(f.size() - 1), std::mt19937(std::random_device()()));
+    std::shuffle(&f.at(0),&f.at(f.size() - 1), utils::generator);
     for(int i = 0; i < 30; i++){
         randEnemy = utils::generateRandomNumber(0, 6);
         switch(randEnemy) {

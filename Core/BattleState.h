@@ -16,7 +16,6 @@
 #include "../Game/Player.h"
 #include "../Game/Spell.h"
 #include "../Game/Enemy.h"
-#include "../Game/Generator.h"
 #include "../Game/Utils.h"
 #include "../Game/BattleResult.h"
 #include "../Components/PopUpTextComponent.h"

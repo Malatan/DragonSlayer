@@ -39,10 +39,6 @@ state_enum State::getStateEnum() const {
     return stateEnum;
 }
 
-float State::getKeyTimef() const {
-    return keyTime;
-}
-
 //functions
 void State::endState() {
     quit = true;

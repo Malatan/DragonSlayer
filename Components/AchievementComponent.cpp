@@ -148,7 +148,7 @@ void AchievementComponent::unlockAllAchievements() {
     playerSpellDmg.first = 4;
     playerDmgTaken.first = 4;
     playerPotionUses.first = 4;
-    playerDodge.first = 4;;
+    playerDodge.first = 4;
     playerMiss.first = 4;
     playerCritHit.first = 4;
     playerEscapeFails.first = 4;

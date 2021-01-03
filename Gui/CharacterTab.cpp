@@ -37,14 +37,14 @@ void CharacterTab::initStatsContainer() {
                               "Available Points:\n");
     statsName.setFillColor(sf::Color(255, 255, 255, 200));
     statsName.setFont(*font);
-    statsName.setCharacterSize(21);
+    statsName.setCharacterSize(18);
     statsName.setPosition(statsContainer.getPosition().x + 10.f,
                                 statsContainer.getPosition().y + 50.f);
 
     statsValue.setString(playerStatsToString());
     statsValue.setFont(*font);
-    statsValue.setCharacterSize(21);
-    statsValue.setPosition(statsContainer.getPosition().x + 160.f,
+    statsValue.setCharacterSize(18);
+    statsValue.setPosition(statsContainer.getPosition().x + 165.f,
                                  statsContainer.getPosition().y + 50.f);
 
     attributesHints.setString("Hints:\n"
@@ -54,48 +54,27 @@ void CharacterTab::initStatsContainer() {
                                     "Agility: increases your evade and\n"
                                     "   critical chance\n");
     attributesHints.setFont(*font);
-    attributesHints.setCharacterSize(20);
+    attributesHints.setCharacterSize(15);
     attributesHints.setPosition(statsContainer.getPosition().x + 10.f,
                                       statsContainer.getPosition().y + 500.f);
 
     //add attributes btns
     float btnSide = 17.f;
     addStrengthBtn = std::make_unique<gui::Button>(
-            statsValue.getPosition().x + 60.f, statsValue.getPosition().y + 268.f, btnSide, btnSide,
-            font, "+", 48.f,
-            sf::Color(200, 200, 200, 200),
-            sf::Color(250, 250, 250, 250),
-            sf::Color(20, 20, 20, 50),
-
-            sf::Color(70, 70, 70, 0),
-            sf::Color(150, 150, 150, 0),
-            sf::Color(20, 20, 20, 0));
-
+            statsValue.getPosition().x + 80.f, statsValue.getPosition().y + 246.f, btnSide, btnSide,
+            font, "", 18.f);
     addWisdomBtn = std::make_unique<gui::Button>(
-            statsValue.getPosition().x + 60.f, statsValue.getPosition().y + 294.f, btnSide, btnSide,
-            font, "+", 48.f,
-            sf::Color(200, 200, 200, 200),
-            sf::Color(250, 250, 250, 250),
-            sf::Color(20, 20, 20, 50),
-
-            sf::Color(70, 70, 70, 0),
-            sf::Color(150, 150, 150, 0),
-            sf::Color(20, 20, 20, 0));
-
+            addStrengthBtn->getPosition().x, addStrengthBtn->getPosition().y + btnSide + 5.f, btnSide, btnSide,
+            font, "", 18.f);
     addAgilityBtn = std::make_unique<gui::Button>(
-            statsValue.getPosition().x + 60.f, statsValue.getPosition().y + 320.f, btnSide, btnSide,
-            font, "+", 48.f,
-            sf::Color(200, 200, 200, 200),
-            sf::Color(250, 250, 250, 250),
-            sf::Color(20, 20, 20, 50),
-
-            sf::Color(70, 70, 70, 0),
-            sf::Color(150, 150, 150, 0),
-            sf::Color(20, 20, 20, 0));
-
-    addStrengthBtn->setTextPositionAddY(-22.f);
-    addWisdomBtn->setTextPositionAddY(-22.f);
-    addAgilityBtn->setTextPositionAddY(-22.f);
+            addWisdomBtn->getPosition().x, addWisdomBtn->getPosition().y + btnSide + 5.f, btnSide, btnSide,
+            font, "", 18.f);
+    addStrengthBtn->setBackgroundTexture(&textures["PLUS_ICON"]);
+    addWisdomBtn->setBackgroundTexture(&textures["PLUS_ICON"]);
+    addAgilityBtn->setBackgroundTexture(&textures["PLUS_ICON"]);
+    addStrengthBtn->setBackbgroundDisabled(false);
+    addWisdomBtn->setBackbgroundDisabled(false);
+    addAgilityBtn->setBackbgroundDisabled(false);
 }
 
 void CharacterTab::initEquipContainer() {
@@ -187,7 +166,7 @@ void CharacterTab::initInventoryContainer() {
     sellBtn = std::make_unique<gui::Button>(
             inventoryContainer.getPosition().x + 340.f,
             inventoryContainer.getPosition().y + 580.f, 180.f, 40.f,
-            font, "Sell items<S>", 20.f,
+            font, "Sell items<S>", 16.f,
             sf::Color(255, 255, 255, 255),
             sf::Color(160, 160, 160),
             sf::Color(20, 20, 20, 50),
@@ -203,7 +182,7 @@ void CharacterTab::initInventoryContainer() {
     EquipUnEquipBtn = std::make_unique<gui::Button>(
             inventoryContainer.getPosition().x + 540.f,
             inventoryContainer.getPosition().y + 580.f, 180.f, 40.f,
-            font, "Equip/Unequip/Use<R>", 20.f,
+            font, "Un/equip & Use<R>", 16.f,
             sf::Color(255, 255, 255, 255),
             sf::Color(160, 160, 160),
             sf::Color(20, 20, 20, 50),
@@ -217,7 +196,7 @@ void CharacterTab::initInventoryContainer() {
     selectAllBtn = std::make_unique<gui::Button>(
             inventoryContainer.getPosition().x + 340.f,
             inventoryContainer.getPosition().y + 640.f, 180.f, 40.f,
-            font, "Select All", 20.f,
+            font, "Select All", 16.f,
             sf::Color(255, 255, 255, 255),
             sf::Color(160, 160, 160),
             sf::Color(20, 20, 20, 50),
@@ -231,7 +210,7 @@ void CharacterTab::initInventoryContainer() {
     deleteBtn = std::make_unique<gui::Button>(
             inventoryContainer.getPosition().x + 540.f,
             inventoryContainer.getPosition().y + 640.f, 180.f, 40.f,
-            font, "Delete items<Del>", 20.f,
+            font, "Delete items<Del>", 16.f,
             sf::Color(255, 255, 255, 255),
             sf::Color(160, 160, 160),
             sf::Color(20, 20, 20, 50),
@@ -346,35 +325,41 @@ rsHandler(std::move(rsHandler)), npcInteract(npcInteract), selectedItem(0) {
 
     hpBarLbl.setCharacterSize(20);
     hpBarLbl.setFont(*this->font);
-    hpBarLbl.setString("Hp:");
+    hpBarLbl.setString("Hp: ");
     hpBarLbl.setPosition(
             tabText.getPosition().x + 300.f,
             tabText.getPosition().y + 10.f);
 
-    hpBar = std::make_unique<gui::ProgressBar>(hpBarLbl.getPosition().x + 35.f, tabText.getPosition().y + 10.f, 150.f, 25.f,
-                                       0, this->player->getPlayerStats()->getMaxHp(), this->player->getPlayerStats()->getHp(), font);
+    hpBar = std::make_unique<gui::ProgressBar>(hpBarLbl.getPosition().x + hpBarLbl.getGlobalBounds().width,
+                                               tabText.getPosition().y + 10.f,
+                                               150.f, 25.f, 0, this->player->getPlayerStats()->getMaxHp(),
+                                               this->player->getPlayerStats()->getHp(), font);
     hpBar->setProgressShapeColor(sf::Color::Red);
 
     mpBarLbl.setCharacterSize(20);
     mpBarLbl.setFont(*this->font);
-    mpBarLbl.setString("Mp:");
+    mpBarLbl.setString("Mp: ");
     mpBarLbl.setPosition(
             hpBarLbl.getPosition().x + 230.f,
             tabText.getPosition().y + 10.f);
 
-    mpBar = std::make_unique<gui::ProgressBar>(mpBarLbl.getPosition().x + 35.f, tabText.getPosition().y + 10.f, 150.f, 25.f,
-                                       0, this->player->getPlayerStats()->getMaxMp(), this->player->getPlayerStats()->getMp(), font);
+    mpBar = std::make_unique<gui::ProgressBar>(mpBarLbl.getPosition().x + mpBarLbl.getGlobalBounds().width,
+                                               tabText.getPosition().y + 10.f,
+                                               150.f, 25.f, 0, this->player->getPlayerStats()->getMaxMp(),
+                                               this->player->getPlayerStats()->getMp(), font);
     mpBar->setProgressShapeColor(sf::Color::Blue);
 
     expBarLbl.setCharacterSize(20);
     expBarLbl.setFont(*this->font);
-    expBarLbl.setString("Exp:");
+    expBarLbl.setString("Exp: ");
     expBarLbl.setPosition(
             mpBarLbl.getPosition().x + 230.f,
             tabText.getPosition().y + 10.f);
 
-    expBar = std::make_unique<gui::ProgressBar>(expBarLbl.getPosition().x + 35.f, tabText.getPosition().y + 10.f, 150.f, 25.f,
-                                       0, this->player->getPlayerStats()->getMaxExp(), this->player->getPlayerStats()->getExp(), font);
+    expBar = std::make_unique<gui::ProgressBar>(expBarLbl.getPosition().x + expBarLbl.getGlobalBounds().width,
+                                                tabText.getPosition().y + 10.f,
+                                                150.f, 25.f, 0, this->player->getPlayerStats()->getMaxExp(),
+                                                this->player->getPlayerStats()->getExp(), font);
     expBar->setProgressShapeColor(sf::Color::Green);
 
 
@@ -637,7 +622,7 @@ void CharacterTab::deleteBtnFunction() {
                 sellDeleteDialog = std::make_unique<gui::CustomDialog>(
                         container.getPosition().x + (container.getGlobalBounds().width / 2.f),
                         container.getPosition().y + (container.getGlobalBounds().height / 2.f),
-                        i->getItem(), state, font, DELETE_CONFIRM);
+                        i->getItem(), window, state, font, DELETE_CONFIRM);
                 break;
             }
         }
@@ -645,7 +630,7 @@ void CharacterTab::deleteBtnFunction() {
         sellDeleteDialog = std::make_unique<gui::CustomDialog>(
                 container.getPosition().x + (container.getGlobalBounds().width / 2.f),
                 container.getPosition().y + (container.getGlobalBounds().height / 2.f),
-                0, selectedItem, state, font, DELETE_CONFIRM);
+                0, selectedItem, window, state, font, DELETE_CONFIRM);
     }
     openDialog = true;
 }
@@ -657,7 +642,7 @@ void CharacterTab::sellBtnFunction() {
                 sellDeleteDialog = std::make_unique<gui::CustomDialog>(
                         container.getPosition().x + (container.getGlobalBounds().width / 2.f),
                         container.getPosition().y + (container.getGlobalBounds().height / 2.f),
-                        i->getItem(), state, font, SELL_CONFIRM);
+                        i->getItem(), window, state, font, SELL_CONFIRM);
                 break;
             }
         }
@@ -669,7 +654,7 @@ void CharacterTab::sellBtnFunction() {
         sellDeleteDialog = std::make_unique<gui::CustomDialog>(
                 container.getPosition().x + (container.getGlobalBounds().width / 2.f),
                 container.getPosition().y + (container.getGlobalBounds().height / 2.f),
-                tot_value, selectedItem, state, font, SELL_CONFIRM);
+                tot_value, selectedItem, window, state, font, SELL_CONFIRM);
     }
     openDialog = true;
 }
@@ -891,9 +876,9 @@ void CharacterTab::updateEquipBonusLbl() {
     if(armorBonus != 0)
         ss << " + " << armorBonus << " armor\n";
     if(critChanceBonus != 0)
-        ss << " + " << critChanceBonus << " % critical chance\n";
+        ss << " + " << critChanceBonus << " % critical\n chance\n";
     if(evadeChanceBonus != 0)
-        ss << " + " << evadeChanceBonus << " % evade chance\n";
+        ss << " + " << evadeChanceBonus << " % evade\n chance\n";
 
     equipBonusLbl.setString(ss.str());
 

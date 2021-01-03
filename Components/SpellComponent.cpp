@@ -52,16 +52,6 @@ std::string SpellComponent::toString() const {
     return ss.str();
 }
 
-std::string SpellComponent::toStringPlayer() const {
-    std::stringstream ss;
-    ss << "---------------Player Spell list---------------\n";
-    for(const auto& i : playerSpells){
-        ss << i->toString() << "\n";
-    }
-    ss << "------------------------------------------------\n";
-    return ss.str();
-}
-
 int SpellComponent::maxedPlayerSpellsSize() const {
     int count = 0;
     for(const auto& i : playerSpells){

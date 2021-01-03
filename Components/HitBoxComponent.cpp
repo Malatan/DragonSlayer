@@ -70,13 +70,3 @@ const sf::FloatRect & HitboxComponent::getNextPosition(const sf::Vector2f &veloc
     nextPosition.top = hitbox.getPosition().y + velocity.y;
     return nextPosition;
 }
-
-void HitboxComponent::setPositionY(const float y) {
-    hitbox.setPosition(hitbox.getPosition().x, y);
-    sprite.setPosition(sprite.getPosition().x, y - offsetY);
-}
-
-void HitboxComponent::setPositionX(const float x) {
-    hitbox.setPosition(x, hitbox.getPosition().y);
-    sprite.setPosition(x - offsetX, sprite.getPosition().y);
-}

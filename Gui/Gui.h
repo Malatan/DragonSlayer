@@ -69,11 +69,10 @@ namespace gui{
         void setId(short unsigned new_id);
         void setBorderColor(sf::Color color);
         void setBorderLineThickness(float value);
-        void setTextPositionAddY(float y);
         void setTooltipText(const std::string& new_text);
         void setTooltipDisabled(bool b);
         void setDisabled(bool b, bool change_color = true);
-        void setBackgroundTexture(const sf::Texture* texture);
+        void setBackgroundTexture(sf::Texture* texture);
         void setBackbgroundDisabled(bool b);
         void setBackgroundFilLColor(sf::Color color);
 
@@ -297,8 +296,9 @@ namespace gui{
     class CustomDialog{
     public:
         CustomDialog();
-        CustomDialog(float x, float y, std::shared_ptr<Item> item, State* state, sf::Font* font, dialog_type dType);
-        CustomDialog(float x, float y, int tot_value, int selected_quantity,
+        CustomDialog(float x, float y, std::shared_ptr<Item> item, std::shared_ptr<sf::RenderWindow>  window,
+                     State* state, sf::Font* font, dialog_type dType);
+        CustomDialog(float x, float y, int tot_value, int selected_quantity, std::shared_ptr<sf::RenderWindow>  window,
                      State* state, sf::Font* font, dialog_type dType);
         virtual ~CustomDialog();
 
@@ -313,6 +313,7 @@ namespace gui{
         void render(sf::RenderTarget& target);
 
     protected:
+        std::shared_ptr<sf::RenderWindow> window;
         dialog_type dialogType{};
         std::shared_ptr<Item> item;
         State* state{};

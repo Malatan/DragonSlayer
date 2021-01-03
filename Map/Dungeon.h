@@ -7,23 +7,22 @@
 #include <fstream>
 #include "../Game/Utils.h"
 
-
 struct Rect {
     int x, y;
     int width, height;
 };
 
+enum Direction {
+    North,
+    South,
+    West,
+    East,
+    DirectionCount
+};
+
 class Dungeon {
-
-private:
-    int _width, _height;
-    std::vector<char> _tiles;
-    std::vector<Rect> _rooms; // rooms for place stairs or monsters
-    std::vector<Rect> _exits; // 4 sides of rooms or corridors
-
-
 public:
-    enum Tile {
+    enum Tile{
         Unused = ' ',
         Floor = '.',
         Corridor = ',',
@@ -34,37 +33,29 @@ public:
         DownStairs = '>'
     };
 
-    enum Direction {
-        North,
-        South,
-        West,
-        East,
-        DirectionCount
-    };
-
+    //constructors/destructor
     Dungeon(int width, int height);
 
-    void generate(int maxFeatures);
-
-    void writeOnFile(const std::string& path) const;
-
+    //setters/getters
+    char getTile(int x, int y) const;
+    void setTile(int x, int y, char tile);
     void print() const;
 
-    char getTile(int x, int y) const;
-
-    void setTile(int x, int y, char tile);
-
+    //functions
+    void generate(int maxFeatures);
+    void writeOnFile(const std::string& path) const;
     bool createFeature();
-
     bool createFeature(int x, int y, Direction dir);
-
     bool makeRoom(int x, int y, Direction dir, bool firstRoom = false);
-
     bool makeCorridor(int x, int y, Direction dir);
-
     bool placeRect(const Rect &rect, char tile);
-
     bool placeObject(char tile);
+
+private:
+    int _width, _height;
+    std::vector<char> _tiles;
+    std::vector<Rect> _rooms; // rooms for place stairs or monsters
+    std::vector<Rect> _exits; // 4 sides of rooms or corridors
 };
 
 

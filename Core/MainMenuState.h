@@ -13,8 +13,6 @@ public:
                   std::shared_ptr<ResourcesHandler> rsHandler, state_enum _state_enum);
     ~MainMenuState() override;
 
-    void setLoading(bool b);
-
     //functions
     void startGame();
     void updateButtons();

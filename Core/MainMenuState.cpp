@@ -39,7 +39,6 @@ void MainMenuState::initBackground() {
 }
 
 void MainMenuState::initButtons() {
-    float centerX = window->getSize().x / 2.f;
     float percentY = (window->getSize().y)/100.f;
     float btnWidth = 100.f;
     float btnHeight = 40.f;
@@ -90,10 +89,6 @@ MainMenuState::MainMenuState(std::shared_ptr<sf::RenderWindow> window, std::stac
 }
 
 MainMenuState::~MainMenuState() = default;
-
-void MainMenuState::setLoading(bool b) {
-    loading = b;
-}
 
 void MainMenuState::startGame() {
     loading = false;

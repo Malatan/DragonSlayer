@@ -20,7 +20,6 @@ namespace gui{
     class BuffSlot;
 }
 
-
 class BuffComponent {
 public:
     //constructor/destructor
@@ -29,8 +28,6 @@ public:
 
     //accessors
     std::vector<std::shared_ptr<Buff>>& getPlayerBuffsList();
-    std::string toStringBuffs() const;
-    std::string toStringPlayerBuffs() const;
 
     //functions
     void loadPlayerBuffs(std::vector<Buff>& save_buffs);

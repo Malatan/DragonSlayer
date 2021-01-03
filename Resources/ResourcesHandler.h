@@ -38,7 +38,7 @@ public:
     void loadPlayerInventoryTxt(const std::shared_ptr<Inventory>& playerInventory);
     static void loadSpellList(const std::shared_ptr<SpellComponent>& spellComponent);
     void loadMaterialsTxt(std::vector<std::unique_ptr<Item>>& material_list);
-    void loadAchievementsTxt(std::vector<std::shared_ptr<Achievement>>& achievement_list);
+    static void loadAchievementsTxt(std::vector<std::shared_ptr<Achievement>>& achievement_list);
 
     std::string toString();
 

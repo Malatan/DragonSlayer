@@ -16,11 +16,40 @@ struct IntTile{
 };
 
 class Map {
+public:
+    //variables
+    std::vector<std::vector<Tile *> > tiles;
+
+    //constructors/destructor
+    Map(int height, int width, State *state);
+    virtual ~Map();
+
+    //getters/setters
+    const std::vector<std::vector<Tile *>> &getTiles() const;
+    void setTexture();
+    void setIntTile(IntTile int_tile);
+    IntTile getIntTile() const;
+    std::vector<std::pair<int,int>> getOpenDoors();
+    const vector<sf::Vector2f> &getFloorsPos() const;
+    bool isInteracting() const;
+    void setOpenDoors(std::vector<std::pair<int,int>>& open_doors);
+
+    //function
+    void updateCollision(const std::shared_ptr<Player>& entity) const;
+    void updateTileCollision(const std::shared_ptr<Player>& entity, const float &dt);
+    void setWallType();
+    void openDoor(int y, int x);
+    static sf::IntRect getRandomFloorTexture();
+    sf::Vector2f findStairs();
+    void render(sf::RenderTarget *target, const std::shared_ptr<Player>& entity,
+                sf::Shader* shader = NULL, const sf::Vector2f playerPosition = sf::Vector2f());
+
 private:
     GameState *gState;
     int height;
     int width;
-    bool hasTexture;
+    float heightP;
+    float widthP;
     bool interacting;
     IntTile intTile{};
     std::vector<sf::Vector2f> floorsPos{};
@@ -31,33 +60,6 @@ private:
     int toY{};
     sf::Texture texture;
     sf::Texture interactableTexture;
-
-public:
-    std::vector<std::vector<Tile *> > tiles;
-    Map(int height, int width, State *state);
-    virtual ~Map();
-
-    std::string printMap();
-    void updateCollision(const std::shared_ptr<Player>& entity) const;
-    void updateTileCollision(const std::shared_ptr<Player>& entity, const float &dt);
-    void drawTiles(sf::RenderWindow *window) const;
-    void setWallType();
-    const std::vector<std::vector<Tile *>> &getTiles() const;
-    void render(sf::RenderTarget *target, const std::shared_ptr<Player>& entity, sf::Shader* shader = NULL, const sf::Vector2f playerPosition = sf::Vector2f());
-    sf::IntRect getRandomFloorTexture();
-    bool isHasTexture() const;
-    void setHasTexture(bool hasTexture);
-    void setTexture();
-    sf::Vector2f findStairs();
-    IntTile getIntTile() const;
-    void setIntTile(IntTile intTile);
-    bool isInteracting() const;
-    void setInteracting(bool interacting);
-    void openDoor(int y, int x);
-    const vector<sf::Vector2f> &getFloorsPos() const;
-    void setFloorsPos(const vector<sf::Vector2f> &floorsPos);
-    std::vector<std::pair<int,int>> getOpenDoors();
-    void setOpenDoors(std::vector<std::pair<int,int>>& open_doors);
 };
 
 #endif

@@ -62,7 +62,7 @@ AchievementTab::AchievementTab(const shared_ptr<sf::RenderWindow> &window, sf::F
 
     pageLbl.setFont(*this->font);
     pageLbl.setCharacterSize(25);
-    pageLbl.setString("1/1");
+    pageLbl.setString("99/99");
     pageLbl.setPosition(container.getPosition().x + container.getGlobalBounds().width/2.f - pageLbl.getGlobalBounds().width/2.f,
                         container.getPosition().y + container.getGlobalBounds().height - 50.f);
 
@@ -133,6 +133,10 @@ void AchievementTab::updatePageLbl() {
     stringstream ss;
     ss << currentPage << "/" << maxPage;
     pageLbl.setString(ss.str());
+    pageLbl.setPosition(container.getPosition().x + container.getGlobalBounds().width/2.f - pageLbl.getGlobalBounds().width/2.f,
+                        container.getPosition().y + container.getGlobalBounds().height - 50.f);
+    nextPageBtn->setPosition(pageLbl.getPosition().x + pageLbl.getGlobalBounds().width + 20.f, pageLbl.getPosition().y);
+    previousPageBtn->setPosition(pageLbl.getPosition().x - pageLbl.getGlobalBounds().height - 20.f, pageLbl.getPosition().y);
 }
 
 void AchievementTab::updateButtons() {

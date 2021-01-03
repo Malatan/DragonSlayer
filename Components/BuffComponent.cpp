@@ -115,26 +115,6 @@ std::vector<std::shared_ptr<Buff>> &BuffComponent::getPlayerBuffsList() {
     return playerBuffsList;
 }
 
-std::string BuffComponent::toStringBuffs() const {
-    std::stringstream ss;
-    ss << "--------------------Buff list--------------------" << std::endl;
-    for (const auto &i : buffs) {
-        ss << i.second->toString();
-    }
-
-    return ss.str();
-}
-
-std::string BuffComponent::toStringPlayerBuffs() const {
-    std::stringstream ss;
-    ss << "--------------------Player Buff list--------------------" << std::endl;
-    for (const auto &i : playerBuffsList) {
-        ss << i->toString();
-    }
-
-    return ss.str();
-}
-
 //functions
 void BuffComponent::loadPlayerBuffs(std::vector<Buff> &save_buffs) {
     playerBuffsList.clear();

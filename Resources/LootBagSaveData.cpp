@@ -4,8 +4,6 @@
 
 #include "LootBagSaveData.h"
 
-#include <utility>
-
 //constructor/destructor
 LootBagSaveData::LootBagSaveData() = default;
 

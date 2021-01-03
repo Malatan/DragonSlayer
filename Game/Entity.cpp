@@ -97,18 +97,6 @@ sf::FloatRect Entity::getGlobalBounds() const {
     return sprite.getGlobalBounds();
 }
 
-sf::FloatRect Entity::getNextPositionBounds(const float& dt){
-
-    if (hitboxComponent && movementComponent){ //
-        sf::FloatRect np = hitboxComponent->getNextPosition(movementComponent->getVelocity() * dt);
-        np.width = getGlobalBounds().width;
-        np.height = getGlobalBounds().height;
-        return np;
-    }
-
-    return {-1.f, -1.f, -1.f, -1.f};
-}
-
 sf::Vector2i Entity::getGridPosition() const {
     if (hitboxComponent)
         return {

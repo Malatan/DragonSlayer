@@ -48,7 +48,6 @@ public:
     virtual sf::Vector2f getPosition() const;
     virtual sf::Vector2f getCenter() const;
     virtual sf::FloatRect getGlobalBounds() const;
-    virtual sf::FloatRect getNextPositionBounds(const float& dt);
     virtual sf::Vector2i getGridPosition() const;
 
     //functions

@@ -1,9 +1,32 @@
 #include "Dungeon.h"
 
+//constructors/destructor
 Dungeon::Dungeon(int width, int height)
         : _width(width), _height(height), _tiles(width * height, Unused), _rooms(), _exits() {
 }
 
+//setters/getters
+char Dungeon::getTile(int x, int y) const {
+    if (x < 0 || y < 0 || x >= _width || y >= _height)
+        return Unused;
+
+    return _tiles[x + y * _width];
+}
+
+void Dungeon::setTile(int x, int y, char tile) {
+    _tiles[x + y * _width] = tile;
+}
+
+void Dungeon::print() const {
+    for (int y = 0; y < _height; ++y) {
+        for (int x = 0; x < _width; ++x)
+            std::cout << getTile(x, y);
+
+        std::cout << std::endl;
+    }
+}
+
+//functions
 void Dungeon::generate(int maxFeatures) {
     // place the first room in the center
     if (!makeRoom(_width / 2, _height / 2, static_cast<Direction>(utils::generateRandomNumber(0,3), true))) {
@@ -49,34 +72,13 @@ void Dungeon::writeOnFile(const std::string& path) const {
     myfile.close();
 }
 
-void Dungeon::print() const {
-    for (int y = 0; y < _height; ++y) {
-        for (int x = 0; x < _width; ++x)
-            std::cout << getTile(x, y);
-
-        std::cout << std::endl;
-    }
-}
-
-
-char Dungeon::getTile(int x, int y) const {
-    if (x < 0 || y < 0 || x >= _width || y >= _height)
-        return Unused;
-
-    return _tiles[x + y * _width];
-}
-
-void Dungeon::setTile(int x, int y, char tile) {
-    _tiles[x + y * _width] = tile;
-}
-
 bool Dungeon::createFeature() {
     for (int i = 0; i < 1000; ++i) {
         if (_exits.empty())
             break;
 
         // choose a random side of a random room or corridor
-        int r = utils::generateRandomNumber(0, _exits.size()-1);
+        int r = utils::generateRandomNumber(0, (int)_exits.size() - 1);
         int x = utils::generateRandomNumber(_exits[r].x, _exits[r].x + _exits[r].width - 1);
         int y = utils::generateRandomNumber(_exits[r].y, _exits[r].y + _exits[r].height - 1);
 
@@ -265,7 +267,7 @@ bool Dungeon::placeObject(char tile) {
     if (_rooms.empty())
         return false;
 
-    int r = utils::generateRandomNumber(0, _rooms.size()-1); // choose a random room
+    int r = utils::generateRandomNumber(0, (int)_rooms.size()-1); // choose a random room
     int x = utils::generateRandomNumber(_rooms[r].x + 1, _rooms[r].x + _rooms[r].width - 2);
     int y = utils::generateRandomNumber(_rooms[r].y + 1, _rooms[r].y + _rooms[r].height - 2);
 

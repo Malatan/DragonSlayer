@@ -6,15 +6,6 @@
 
 BattleResult::BattleResult() = default;
 
-BattleResult::BattleResult(battle_result_types b_result, bool player_killed, const std::shared_ptr<Enemy>& enemy_leader) {
-    battleResult = b_result;
-    playerKilled = player_killed;
-    enemyLeaderId = enemy_leader->getId();
-    enemyLeaderKilled = enemy_leader->isDead();
-    enemyFollowersCount = enemy_leader->getAliveFollowersNumber();
-    enemyDeadFollowersCount = enemy_leader->getDeadFollowersNumber();
-}
-
 BattleResult::~BattleResult() = default;
 
 void BattleResult::updateBattleResult(battle_result_types b_result, bool player_killed,

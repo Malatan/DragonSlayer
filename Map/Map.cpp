@@ -1,16 +1,18 @@
 
 #include "Map.h"
 
+//constructors/destructor
 Map::Map(int height, int width, State *state) {
     this->gState = dynamic_cast<GameState *>(state);
     interacting = false;
-    hasTexture = false;
     texture.loadFromFile("../Resources/Images/Map/Dungeon2.png");
     interactableTexture.loadFromFile("../Resources/Images/chat.png");
 
 
     this->height = height;
     this->width = width;
+    widthP = (float)width * Tile::TILE_SIZE;
+    heightP = (float)width * Tile::TILE_SIZE;
     this->tiles.resize(height);
     for (int i = 0; i < height; i++) {
         this->tiles.at(i).resize(width);
@@ -24,18 +26,9 @@ Map::Map(int height, int width, State *state) {
     }
 }
 
-
 Map::~Map() = default;
 
 //GETTERS AND SETTERS
-bool Map::isHasTexture() const {
-    return hasTexture;
-}
-
-void Map::setHasTexture(bool hasTexture) {
-    Map::hasTexture = hasTexture;
-}
-
 const std::vector<std::vector<Tile *>> &Map::getTiles() const {
     return tiles;
 }
@@ -44,191 +37,12 @@ bool Map::isInteracting() const {
     return interacting;
 }
 
-void Map::setInteracting(bool interacting) {
-    Map::interacting = interacting;
-}
-
 IntTile Map::getIntTile() const {
     return intTile;
 }
 
-void Map::setIntTile(IntTile intTile) {
-    Map::intTile = intTile;
-}
-
-
-//FUNCTIONS
-void Map::updateCollision(const std::shared_ptr<Player>& entity) const {
-
-    //World Bounds
-    if (entity->getPosition().x < 0.f) {
-        // entity->stopVelocity();
-        // entity->setSpritePositon(entity->getMovementComponent()->getPreviousPosition());
-        entity->setPosition(0.0f, entity->getPosition().y);
-    } else if (entity->getPosition().x + entity->getGlobalBounds().width > ((float)width * Tile::TILE_SIZE)) {
-        //  entity->setPosition(((float)this->width * Tile::TILE_SIZE) - entity->getGlobalBounds().width, entity->getPosition().y);
-        entity->stopVelocity();
-        entity->setSpritePositon(entity->getMovementComponent()->getPreviousPosition());
-    }
-    if (entity->getPosition().y < 0.f) {
-        //  entity->setPosition(entity->getPosition().x, 0.f);
-        entity->stopVelocity();
-        entity->setSpritePositon(entity->getMovementComponent()->getPreviousPosition());
-    } else if (entity->getPosition().y + entity->getGlobalBounds().height > ((float)height * Tile::TILE_SIZE)) {
-        //  entity->setPosition(entity->getPosition().x, ((float)this->height * Tile::TILE_SIZE) - entity->getGlobalBounds().height);
-        entity->stopVelocity();
-        entity->setSpritePositon(entity->getMovementComponent()->getPreviousPosition());
-    }
-
-    //Tiles
-
-}
-
-void Map::updateTileCollision(const std::shared_ptr<Player>& entity, const float &dt) {
-
-    bool flag = false;
-    this->fromX = entity->getGridPosition().x - 2;
-    if (this->fromX < 0)
-        this->fromX = 0;
-    else if (this->fromX > this->width)
-        this->fromX = this->width;
-
-    this->toX = entity->getGridPosition().x + 4;
-    if (this->toX < 0)
-        this->toX = 0;
-    else if (this->toX > this->width)
-        this->toX = this->width;
-
-    this->fromY = entity->getGridPosition().y - 2;
-    if (this->fromY < 0)
-        this->fromY = 0;
-    else if (this->fromY > this->height)
-        this->fromY = this->height;
-
-    this->toY = entity->getGridPosition().y + 4;
-    if (this->toY < 0)
-        this->toY = 0;
-    else if (this->toY >= this->height)
-        this->toY = this->height;
-
-    for (int y = this->fromY; y < this->toY; y++) {
-        for (int x = this->fromX; x < this->toX; x++) {
-            //TILES
-            sf::FloatRect playerBounds = entity->getCollisionBoxComponent()->getCollisionEllipse().getGlobalBounds();
-            sf::FloatRect playerHitbox = entity->getHitboxComponent()->getGlobalBounds();
-            if (!this->tiles[y][x]->IsTraversable() && this->tiles[y][x]->intersects(playerBounds)) {
-
-                entity->stopVelocity();
-                entity->setSpritePositon(entity->getMovementComponent()->getPreviousPosition());
-
-            }
-            if (this->tiles[y][x]->isInteractable()) {
-                if (this->tiles[y][x]->intersects(playerHitbox)) {
-                    this->tiles[y][x]->enableInteract(true);
-                    flag = true;
-                    intTile.type = tiles[y][x]->GetType();
-                    intTile.y = y;
-                    intTile.x = x;
-                } else {
-                    this->tiles[y][x]->enableInteract(false);
-                }
-            }
-        }
-    }
-    interacting = flag;
-}
-
-void Map::drawTiles(sf::RenderWindow *window) const {
-    for (int r = 0; r < this->height; r++) {
-        for (int c = 0; c < this->width; c++) {
-            //this->tiles[r][c]->Draw(window);
-        }
-    }
-}
-
-std::string Map::printMap() {
-    std::stringstream ss;
-    for (int r = 0; r < this->height; r++) {
-        for (int c = 0; c < this->width; c++) {
-            ss << this->tiles[r][c]->GetType();
-        }
-        ss << "\n";
-    }
-
-    return ss.str();
-}
-
-void Map::setWallType() {
-    bool floorFound = false;
-    for (int r = 0; r < this->tiles.size(); r++) {
-        for (int c = 0; c < this->tiles.at(r).size(); c++) {
-            if (tiles[r][c]->GetType() == WALL) {
-                floorFound = false;
-                if (r > 0 && (tiles[r - 1][c]->GetType() == FLOOR || tiles[r - 1][c]->GetType() == CLOSEDOOR ||
-                              tiles[r - 1][c]->GetType() == OPENDOOR)) {
-                    tiles[r][c]->changeType(UPPERWALL);
-                    tiles[r][c]->setDown(true);
-                    floorFound = true;
-                }
-                if (r < tiles.size() - 1 &&
-                    (tiles[r + 1][c]->GetType() == FLOOR || tiles[r + 1][c]->GetType() == CLOSEDOOR ||
-                     tiles[r + 1][c]->GetType() == OPENDOOR)) {
-                    tiles[r][c]->changeType(UPPERWALL);
-                    tiles[r][c]->setUp(true);
-                    floorFound = true;
-                }
-                if (c < tiles.at(r).size() - 1 &&
-                    (tiles[r][c + 1]->GetType() == FLOOR || tiles[r][c + 1]->GetType() == CLOSEDOOR ||
-                     tiles[r][c + 1]->GetType() == OPENDOOR)) {
-                    tiles[r][c]->setLeft(true);
-                    floorFound = true;
-                }
-                if (c > 0 && (tiles[r][c - 1]->GetType() == FLOOR || tiles[r][c - 1]->GetType() == CLOSEDOOR ||
-                              tiles[r][c - 1]->GetType() == OPENDOOR)) {
-                    tiles[r][c]->setRight(true);
-                    floorFound = true;
-                }
-                if (c == tiles[r].size() - 1) {
-                    tiles[r][c]->setRight(true);
-                } else if (c == 0) {
-                    tiles[r][c]->setLeft(true);
-                } else {
-                    if (!floorFound && tiles[r][c + 1]->GetType() == WALL) {
-                        tiles[r][c]->setLeft(true);
-                    }
-                    if (!floorFound && tiles[r][c - 1]->GetType() == UPPERWALL) {
-                        tiles[r][c]->setRight(true);
-                    }
-                }
-
-            }
-        }
-    }
-    for (int r = 0; r < this->tiles.size(); r++) {
-        for (int c = 0; c < this->tiles.at(r).size(); c++) {
-            if ((tiles[r][c]->isLeft() &&
-                 !tiles[r][c]->isRight() &&
-                 !tiles[r][c]->isUp() &&
-                 !tiles[r][c]->isDown()) &&
-                (c > 0 && tiles[r][c - 1]->GetType() == UPPERWALL))
-                tiles[r][c]->setRight(true);
-
-            if ((!tiles[r][c]->isLeft() &&
-                 tiles[r][c]->isRight() &&
-                 !tiles[r][c]->isUp() &&
-                 !tiles[r][c]->isDown()) &&
-                (c < tiles.at(r).size() - 1 && tiles[r][c + 1]->GetType() == UPPERWALL))
-                tiles[r][c]->setLeft(true);
-        }
-    }
-}
-
-sf::IntRect Map::getRandomFloorTexture() {
-    int width;
-    int height;
-    width = utils::generateRandomNumber(1, 77);
-    height = utils::generateRandomNumber(1, 45);
-    return {width, height, 50, 50};
+void Map::setIntTile(IntTile int_tile) {
+    Map::intTile = int_tile;
 }
 
 void Map::setTexture() {
@@ -293,7 +107,7 @@ void Map::setTexture() {
                 }
                 case FLOOR: {
                     tiles[r][c]->setTileTexture(&texture, getRandomFloorTexture());
-                    floorsPos.emplace_back(sf::Vector2f{c * Tile::TILE_SIZE, r * Tile::TILE_SIZE});
+                    floorsPos.emplace_back(sf::Vector2f{(float)c * Tile::TILE_SIZE, (float)r * Tile::TILE_SIZE});
                     break;
                 }
                 case UPSTAIRS: {
@@ -387,8 +201,193 @@ void Map::setTexture() {
     }
 }
 
+const vector<sf::Vector2f> &Map::getFloorsPos() const {
+    return floorsPos;
+}
 
-//RENDER
+std::vector<std::pair<int,int>> Map::getOpenDoors() {
+    std::vector<std::pair<int,int>> v;
+    for (int y = 0; y < tiles.size(); y++) {
+        for (int x = 0; x < tiles[y].size(); x++) {
+            if(tiles[y][x]->GetType() == OPENDOOR){
+                v.emplace_back(y, x);
+            }
+        }
+    }
+    return v;
+}
+
+void Map::setOpenDoors(vector<std::pair<int, int>> &open_doors) {
+    for(auto i : open_doors){
+        if(tiles[i.first][i.second]->GetType() == CLOSEDOOR || tiles[i.first][i.second]->GetType() == OPENDOOR){
+            openDoor(i.first, i.second);
+        }
+    }
+}
+
+//FUNCTIONS
+void Map::updateCollision(const std::shared_ptr<Player>& entity) const {
+    //World Bounds
+    if (entity->getPosition().x < 0.f || entity->getPosition().x + entity->getGlobalBounds().width > widthP) {
+        entity->stopVelocity();
+        entity->setSpritePositon(entity->getMovementComponent()->getPreviousPosition());
+    }
+    if (entity->getPosition().y < 0.f || entity->getPosition().y + entity->getGlobalBounds().height > heightP) {
+        entity->stopVelocity();
+        entity->setSpritePositon(entity->getMovementComponent()->getPreviousPosition());
+    }
+}
+
+void Map::updateTileCollision(const std::shared_ptr<Player>& entity, const float &dt) {
+
+    bool flag = false;
+    this->fromX = entity->getGridPosition().x - 2;
+    if (this->fromX < 0)
+        this->fromX = 0;
+    else if (this->fromX > this->width)
+        this->fromX = this->width;
+
+    this->toX = entity->getGridPosition().x + 4;
+    if (this->toX < 0)
+        this->toX = 0;
+    else if (this->toX > this->width)
+        this->toX = this->width;
+
+    this->fromY = entity->getGridPosition().y - 2;
+    if (this->fromY < 0)
+        this->fromY = 0;
+    else if (this->fromY > this->height)
+        this->fromY = this->height;
+
+    this->toY = entity->getGridPosition().y + 4;
+    if (this->toY < 0)
+        this->toY = 0;
+    else if (this->toY >= this->height)
+        this->toY = this->height;
+
+    for (int y = this->fromY; y < this->toY; y++) {
+        for (int x = this->fromX; x < this->toX; x++) {
+            //TILES
+            sf::FloatRect playerBounds = entity->getCollisionBoxComponent()->getCollisionEllipse().getGlobalBounds();
+            sf::FloatRect playerHitbox = entity->getHitboxComponent()->getGlobalBounds();
+            if (!this->tiles[y][x]->IsTraversable() && this->tiles[y][x]->intersects(playerBounds)) {
+
+                entity->stopVelocity();
+                entity->setSpritePositon(entity->getMovementComponent()->getPreviousPosition());
+
+            }
+            if (this->tiles[y][x]->isInteractable()) {
+                if (this->tiles[y][x]->intersects(playerHitbox)) {
+                    this->tiles[y][x]->enableInteract(true);
+                    flag = true;
+                    intTile.type = tiles[y][x]->GetType();
+                    intTile.y = y;
+                    intTile.x = x;
+                } else {
+                    this->tiles[y][x]->enableInteract(false);
+                }
+            }
+        }
+    }
+    interacting = flag;
+}
+
+void Map::setWallType() {
+    for (int r = 0; r < this->tiles.size(); r++) {
+        for (int c = 0; c < this->tiles.at(r).size(); c++) {
+            if (tiles[r][c]->GetType() == WALL) {
+                bool floorFound = false;
+                if (r > 0 && (tiles[r - 1][c]->GetType() == FLOOR || tiles[r - 1][c]->GetType() == CLOSEDOOR ||
+                              tiles[r - 1][c]->GetType() == OPENDOOR)) {
+                    tiles[r][c]->changeType(UPPERWALL);
+                    tiles[r][c]->setDown(true);
+                    floorFound = true;
+                }
+                if (r < tiles.size() - 1 &&
+                    (tiles[r + 1][c]->GetType() == FLOOR || tiles[r + 1][c]->GetType() == CLOSEDOOR ||
+                     tiles[r + 1][c]->GetType() == OPENDOOR)) {
+                    tiles[r][c]->changeType(UPPERWALL);
+                    tiles[r][c]->setUp(true);
+                    floorFound = true;
+                }
+                if (c < tiles.at(r).size() - 1 &&
+                    (tiles[r][c + 1]->GetType() == FLOOR || tiles[r][c + 1]->GetType() == CLOSEDOOR ||
+                     tiles[r][c + 1]->GetType() == OPENDOOR)) {
+                    tiles[r][c]->setLeft(true);
+                    floorFound = true;
+                }
+                if (c > 0 && (tiles[r][c - 1]->GetType() == FLOOR || tiles[r][c - 1]->GetType() == CLOSEDOOR ||
+                              tiles[r][c - 1]->GetType() == OPENDOOR)) {
+                    tiles[r][c]->setRight(true);
+                    floorFound = true;
+                }
+                if (c == tiles[r].size() - 1) {
+                    tiles[r][c]->setRight(true);
+                } else if (c == 0) {
+                    tiles[r][c]->setLeft(true);
+                } else {
+                    if (!floorFound && tiles[r][c + 1]->GetType() == WALL) {
+                        tiles[r][c]->setLeft(true);
+                    }
+                    if (!floorFound && tiles[r][c - 1]->GetType() == UPPERWALL) {
+                        tiles[r][c]->setRight(true);
+                    }
+                }
+
+            }
+        }
+    }
+    for (int r = 0; r < this->tiles.size(); r++) {
+        for (int c = 0; c < this->tiles.at(r).size(); c++) {
+            if ((tiles[r][c]->isLeft() &&
+                 !tiles[r][c]->isRight() &&
+                 !tiles[r][c]->isUp() &&
+                 !tiles[r][c]->isDown()) &&
+                (c > 0 && tiles[r][c - 1]->GetType() == UPPERWALL))
+                tiles[r][c]->setRight(true);
+
+            if ((!tiles[r][c]->isLeft() &&
+                 tiles[r][c]->isRight() &&
+                 !tiles[r][c]->isUp() &&
+                 !tiles[r][c]->isDown()) &&
+                (c < tiles.at(r).size() - 1 && tiles[r][c + 1]->GetType() == UPPERWALL))
+                tiles[r][c]->setLeft(true);
+        }
+    }
+}
+
+void Map::openDoor(int y, int x) {
+    tiles[y][x]->changeType(OPENDOOR);
+    tiles[y][x]->setTraversable(true);
+    if (tiles[y + 1][x]->GetType() == FLOOR) {
+        tiles[y][x]->setTileTexture(&texture, sf::IntRect(555, 105, 50, 50));
+    } else if (tiles[y][x - 1]->GetType() == FLOOR) {
+        tiles[y][x]->setTileTexture(&texture, sf::IntRect(555, 35, 50, 50));
+    }
+    tiles[y][x]->setInteractable(false);
+}
+
+sf::IntRect Map::getRandomFloorTexture() {
+    int _width;
+    int _height;
+    _width = utils::generateRandomNumber(1, 77);
+    _height = utils::generateRandomNumber(1, 45);
+    return {_width, _height, 50, 50};
+}
+
+sf::Vector2f Map::findStairs() {
+    sf::Vector2f pos;
+    for (int r = 0; r < this->height; r++) {
+        for (int c = 0; c < this->width; c++) {
+            if (this->tiles[r][c]->GetType() == DOWNSTAIRS) {
+                pos.y = (float)r * Tile::TILE_SIZE;
+                pos.x = (float)c * Tile::TILE_SIZE;
+            }
+        }
+    }
+    return pos;
+}
+
 void Map::render(sf::RenderTarget *target, const std::shared_ptr<Player>& entity, sf::Shader* shader, const sf::Vector2f playerPosition) {
     this->fromX = entity->getGridPosition().x - 10;
     if (this->fromX < 0)
@@ -421,57 +420,7 @@ void Map::render(sf::RenderTarget *target, const std::shared_ptr<Player>& entity
     }
 }
 
-sf::Vector2f Map::findStairs() {
-    sf::Vector2f pos;
-    for (int r = 0; r < this->height; r++) {
-        for (int c = 0; c < this->width; c++) {
-            if (this->tiles[r][c]->GetType() == DOWNSTAIRS) {
-                pos.y = r * Tile::TILE_SIZE;
-                pos.x = c * Tile::TILE_SIZE;
-            }
-        }
-    }
-    return pos;
-}
 
-const vector<sf::Vector2f> &Map::getFloorsPos() const {
-    return floorsPos;
-}
-
-void Map::setFloorsPos(const vector<sf::Vector2f> &floorsPos) {
-    Map::floorsPos = floorsPos;
-}
-
-void Map::openDoor(int y, int x) {
-    tiles[y][x]->changeType(OPENDOOR);
-    tiles[y][x]->setTraversable(true);
-    if (tiles[y + 1][x]->GetType() == FLOOR) {
-        tiles[y][x]->setTileTexture(&texture, sf::IntRect(555, 105, 50, 50));
-    } else if (tiles[y][x - 1]->GetType() == FLOOR) {
-        tiles[y][x]->setTileTexture(&texture, sf::IntRect(555, 35, 50, 50));
-    }
-    tiles[y][x]->setInteractable(false);
-}
-
-std::vector<std::pair<int,int>> Map::getOpenDoors() {
-    std::vector<std::pair<int,int>> v;
-    for (int y = 0; y < tiles.size(); y++) {
-        for (int x = 0; x < tiles[y].size(); x++) {
-            if(tiles[y][x]->GetType() == OPENDOOR){
-                v.emplace_back(y, x);
-            }
-        }
-    }
-    return v;
-}
-
-void Map::setOpenDoors(vector<std::pair<int, int>> &open_doors) {
-    for(auto i : open_doors){
-        if(tiles[i.first][i.second]->GetType() == CLOSEDOOR || tiles[i.first][i.second]->GetType() == OPENDOOR){
-            openDoor(i.first, i.second);
-        }
-    }
-}
 
 
 

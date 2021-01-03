@@ -1,7 +1,7 @@
 #include "MapGenerator.h"
 #include "Dungeon.h"
 
-
+//constructors/destructor
 MapGenerator::MapGenerator() {
     wh d = wh{0, 0};
     for (int i = 0; i <= 5; i++) {
@@ -13,6 +13,19 @@ MapGenerator::MapGenerator() {
 
 MapGenerator::~MapGenerator() = default;
 
+//getters/setters
+vector<wh> &MapGenerator::getDDims(){
+    return dDims;
+}
+
+void MapGenerator::setDDims(const vector<pair<int, int>> &data) {
+    dDims.clear();
+    for(auto i : data){
+        dDims.push_back({i.first, i.second});
+    }
+}
+
+//function
 Map *MapGenerator::GenerateFromFile(int floor, State *state) {
     this->gameState = dynamic_cast<GameState *>(state);
     Map *map = new Map(dDims[floor].height, dDims[floor].width, state);
@@ -99,20 +112,7 @@ void MapGenerator::generateDungeon(int n) {
     dDims[n].height = height;
 }
 
-vector<wh> &MapGenerator::getDDims(){
-    return dDims;
-}
 
-void MapGenerator::setDDims(const vector<wh> &dDims) {
-    MapGenerator::dDims = dDims;
-}
-
-void MapGenerator::setDDims(const vector<pair<int, int>> &data) {
-    dDims.clear();
-    for(auto i : data){
-        dDims.push_back({i.first, i.second});
-    }
-}
 
 
 
