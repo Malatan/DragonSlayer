@@ -13,7 +13,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/unit_testing_run.dir/__/Core/Game.cpp.obj"
   "CMakeFiles/unit_testing_run.dir/__/Core/GameState.cpp.obj"
   "CMakeFiles/unit_testing_run.dir/__/Core/MainMenuState.cpp.obj"
-  "CMakeFiles/unit_testing_run.dir/__/Core/RunTimeClock.cpp.obj"
   "CMakeFiles/unit_testing_run.dir/__/Core/State.cpp.obj"
   "CMakeFiles/unit_testing_run.dir/__/Game/Achievement.cpp.obj"
   "CMakeFiles/unit_testing_run.dir/__/Game/BattleResult.cpp.obj"

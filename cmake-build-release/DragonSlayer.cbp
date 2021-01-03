@@ -504,14 +504,6 @@
 			<Option target="DragonSlayer"/>
 			<Option target="unit_testing_run"/>
 		</Unit>
-		<Unit filename="E:/Progetto/DragonSlayer/Core/RunTimeClock.cpp">
-			<Option target="DragonSlayer"/>
-			<Option target="unit_testing_run"/>
-		</Unit>
-		<Unit filename="E:/Progetto/DragonSlayer/Core/RunTimeClock.h">
-			<Option target="DragonSlayer"/>
-			<Option target="unit_testing_run"/>
-		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Core/State.cpp">
 			<Option target="DragonSlayer"/>
 			<Option target="unit_testing_run"/>
@@ -565,11 +557,9 @@
 			<Option target="unit_testing_run"/>
 		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Game/Generator.cpp">
-			<Option target="DragonSlayer"/>
 			<Option target="unit_testing_run"/>
 		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Game/Generator.h">
-			<Option target="DragonSlayer"/>
 			<Option target="unit_testing_run"/>
 		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Game/Inventory.cpp">

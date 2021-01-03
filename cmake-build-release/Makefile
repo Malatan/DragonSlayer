@@ -577,33 +577,6 @@ Core/MainMenuState.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Core/MainMenuState.cpp.s
 .PHONY : Core/MainMenuState.cpp.s
 
-Core/RunTimeClock.obj: Core/RunTimeClock.cpp.obj
-
-.PHONY : Core/RunTimeClock.obj
-
-# target to build an object file
-Core/RunTimeClock.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Core/RunTimeClock.cpp.obj
-.PHONY : Core/RunTimeClock.cpp.obj
-
-Core/RunTimeClock.i: Core/RunTimeClock.cpp.i
-
-.PHONY : Core/RunTimeClock.i
-
-# target to preprocess a source file
-Core/RunTimeClock.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Core/RunTimeClock.cpp.i
-.PHONY : Core/RunTimeClock.cpp.i
-
-Core/RunTimeClock.s: Core/RunTimeClock.cpp.s
-
-.PHONY : Core/RunTimeClock.s
-
-# target to generate assembly for a file
-Core/RunTimeClock.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Core/RunTimeClock.cpp.s
-.PHONY : Core/RunTimeClock.cpp.s
-
 Core/State.obj: Core/State.cpp.obj
 
 .PHONY : Core/State.obj
@@ -765,33 +738,6 @@ Game/Entity.s: Game/Entity.cpp.s
 Game/Entity.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Entity.cpp.s
 .PHONY : Game/Entity.cpp.s
-
-Game/Generator.obj: Game/Generator.cpp.obj
-
-.PHONY : Game/Generator.obj
-
-# target to build an object file
-Game/Generator.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Generator.cpp.obj
-.PHONY : Game/Generator.cpp.obj
-
-Game/Generator.i: Game/Generator.cpp.i
-
-.PHONY : Game/Generator.i
-
-# target to preprocess a source file
-Game/Generator.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Generator.cpp.i
-.PHONY : Game/Generator.cpp.i
-
-Game/Generator.s: Game/Generator.cpp.s
-
-.PHONY : Game/Generator.s
-
-# target to generate assembly for a file
-Game/Generator.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Game/Generator.cpp.s
-.PHONY : Game/Generator.cpp.s
 
 Game/Inventory.obj: Game/Inventory.cpp.obj
 
@@ -1684,9 +1630,6 @@ help:
 	@echo ... Core/MainMenuState.obj
 	@echo ... Core/MainMenuState.i
 	@echo ... Core/MainMenuState.s
-	@echo ... Core/RunTimeClock.obj
-	@echo ... Core/RunTimeClock.i
-	@echo ... Core/RunTimeClock.s
 	@echo ... Core/State.obj
 	@echo ... Core/State.i
 	@echo ... Core/State.s
@@ -1705,9 +1648,6 @@ help:
 	@echo ... Game/Entity.obj
 	@echo ... Game/Entity.i
 	@echo ... Game/Entity.s
-	@echo ... Game/Generator.obj
-	@echo ... Game/Generator.i
-	@echo ... Game/Generator.s
 	@echo ... Game/Inventory.obj
 	@echo ... Game/Inventory.i
 	@echo ... Game/Inventory.s

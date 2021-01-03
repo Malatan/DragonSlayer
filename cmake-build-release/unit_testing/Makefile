@@ -568,33 +568,6 @@ __/Core/MainMenuState.cpp.s:
 	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/MainMenuState.cpp.s
 .PHONY : __/Core/MainMenuState.cpp.s
 
-__/Core/RunTimeClock.obj: __/Core/RunTimeClock.cpp.obj
-
-.PHONY : __/Core/RunTimeClock.obj
-
-# target to build an object file
-__/Core/RunTimeClock.cpp.obj:
-	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/RunTimeClock.cpp.obj
-.PHONY : __/Core/RunTimeClock.cpp.obj
-
-__/Core/RunTimeClock.i: __/Core/RunTimeClock.cpp.i
-
-.PHONY : __/Core/RunTimeClock.i
-
-# target to preprocess a source file
-__/Core/RunTimeClock.cpp.i:
-	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/RunTimeClock.cpp.i
-.PHONY : __/Core/RunTimeClock.cpp.i
-
-__/Core/RunTimeClock.s: __/Core/RunTimeClock.cpp.s
-
-.PHONY : __/Core/RunTimeClock.s
-
-# target to generate assembly for a file
-__/Core/RunTimeClock.cpp.s:
-	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Core/RunTimeClock.cpp.s
-.PHONY : __/Core/RunTimeClock.cpp.s
-
 __/Core/State.obj: __/Core/State.cpp.obj
 
 .PHONY : __/Core/State.obj
@@ -1541,9 +1514,6 @@ help:
 	@echo ... __/Core/MainMenuState.obj
 	@echo ... __/Core/MainMenuState.i
 	@echo ... __/Core/MainMenuState.s
-	@echo ... __/Core/RunTimeClock.obj
-	@echo ... __/Core/RunTimeClock.i
-	@echo ... __/Core/RunTimeClock.s
 	@echo ... __/Core/State.obj
 	@echo ... __/Core/State.i
 	@echo ... __/Core/State.s

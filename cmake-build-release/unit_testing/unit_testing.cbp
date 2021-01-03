@@ -366,12 +366,6 @@
 		<Unit filename="E:/Progetto/DragonSlayer/Core/Observer.h">
 			<Option target="unit_testing_run"/>
 		</Unit>
-		<Unit filename="E:/Progetto/DragonSlayer/Core/RunTimeClock.cpp">
-			<Option target="unit_testing_run"/>
-		</Unit>
-		<Unit filename="E:/Progetto/DragonSlayer/Core/RunTimeClock.h">
-			<Option target="unit_testing_run"/>
-		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Core/State.cpp">
 			<Option target="unit_testing_run"/>
 		</Unit>
