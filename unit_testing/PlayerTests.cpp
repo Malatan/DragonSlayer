@@ -14,7 +14,7 @@ protected:
     GameState* gState;
 
     void SetUp() override{
-        game = new Game();
+        game = new Game(true);
         auto mainmenu = dynamic_cast<MainMenuState*>(game->getTopState());
         mainmenu->startGame();
         gState = dynamic_cast<GameState*>(game->getTopState());
@@ -46,7 +46,7 @@ TEST_F(PlayerTests, MovementCheck){
     while(move_time > 0.f){
         player->move(game->getDt(), 0.f, -1.f);
         move_time -= game->getDt();
-        game->testRun();
+        game->testRun(true);
     }
     ASSERT_LT(player->getCenter().y, previous.y);
 
@@ -111,8 +111,8 @@ TEST_F(PlayerTests, MaxSpeedCheck){
 }
 
 TEST_F(PlayerTests, WorldBoundsCollisionCheck){
-    player->setPosition(201.f, 1.f);
-    sf::Vector2f origin = {200.f, 0.f};
+    player->setPosition(1.f, 1.f);
+    sf::Vector2f origin = {0.f, 0.f};
     float test_time = 1.5f;
     while(test_time > 0.f){
         test_time -= game->getDt();
@@ -126,8 +126,8 @@ TEST_F(PlayerTests, WorldBoundsCollisionCheck){
         game->testRun();
     }
     player->stopVelocity();
-    ASSERT_GT(player->getCollisionBoxComponent()->getPosition().x, origin.x);
-    ASSERT_GT(player->getCollisionBoxComponent()->getPosition().y, origin.y);
+    ASSERT_GE(player->getCollisionBoxComponent()->getPosition().x, origin.x);
+    ASSERT_GE(player->getCollisionBoxComponent()->getPosition().y, origin.y);
 }
 
 TEST_F(PlayerTests, NotTraversableTileCollisionCheck){

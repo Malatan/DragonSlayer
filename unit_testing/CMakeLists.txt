@@ -38,6 +38,8 @@ set(SOURCE_FILES
         ../Gui/SelectLevelTab.h
         ../Gui/AchievementTab.cpp
         ../Gui/AchievementTab.h
+        ../Gui/LoadSaveTab.cpp
+        ../Gui/LoadSaveTab.h
         ../Game/Entity.cpp
         ../Game/Entity.h
         ../Game/Player.cpp
@@ -66,6 +68,8 @@ set(SOURCE_FILES
         ../Game/LootBag.cpp
         ../Game/Achievement.cpp
         ../Game/Achievement.h
+        ../Game/Save.cpp
+        ../Game/Save.h
         ../Components/MovementComponent.cpp
         ../Components/MovementComponent.h
         ../Components/AnimationComponent.cpp
@@ -87,6 +91,12 @@ set(SOURCE_FILES
         ../Resources/ResourcesHandler.h
         ../Resources/Resource.cpp
         ../Resources/Resource.h
+        ../Resources/SavesHandler.cpp
+        ../Resources/SavesHandler.h
+        ../Resources/EnemySaveData.cpp
+        ../Resources/EnemySaveData.h
+        ../Resources/LootBagSaveData.cpp
+        ../Resources/LootBagSaveData.h
         ../Map/Map.cpp
         ../Map/Map.h
         ../Map/MapGenerator.h
@@ -109,5 +119,15 @@ add_executable(unit_testing_run ${SOURCE_FILES})
 set(SFML_ROOT "../SFML_2.5.1")
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
 find_package(SFML REQUIRED COMPONENTS audio graphics window system)
-
 target_link_libraries(unit_testing_run gtest gtest_main sfml-system sfml-window sfml-graphics sfml-audio sfml-network)
+
+#BOOST CONFIG
+set(Boost_INCLUDE_DIR E:/boost/include)
+set(Boost_LIBRARY_DIRS E:/boost/lib)
+find_package(Boost REQUIRED COMPONENTS filesystem serialization)
+IF (Boost_FOUND)
+    MESSAGE(STATUS "Boost found")
+    link_directories(${Boost_LIBRARY_DIR})
+    target_link_libraries(unit_testing_run gtest gtest_main ${Boost_LIBRARIES})
+    include_directories(${Boost_INCLUDE_DIR})
+ENDIF()

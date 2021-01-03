@@ -11,7 +11,7 @@ class Tests : public  testing::Test{
 protected:
     Game* game;
     void SetUp() override{
-        game = new Game();
+        game = new Game(true);
         game->testRun();
     }
     void TearDown() override {
