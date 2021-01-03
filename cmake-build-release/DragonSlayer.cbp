@@ -136,12 +136,14 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add option="-DBOOST_ALL_NO_LIB"/>
 					<Add directory="E:/Progetto/DragonSlayer/Resources"/>
 					<Add directory="E:/boost/include"/>
 					<Add directory="E:/Progetto/DragonSlayer/unit_testing/../Resources"/>
 					<Add directory="E:/Progetto/DragonSlayer/unit_testing/lib/googletest-master/googletest/include"/>
 					<Add directory="E:/Progetto/DragonSlayer/unit_testing/lib/googletest-master/googletest"/>
 					<Add directory="E:/Progetto/DragonSlayer/SFML_2.5.1/include"/>
+					<Add directory="C:/Program Files/boost/include/boost-1_75"/>
 					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++"/>
 					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++/i686-w64-mingw32"/>
 					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++/backward"/>
@@ -163,12 +165,14 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add option="-DBOOST_ALL_NO_LIB"/>
 					<Add directory="E:/Progetto/DragonSlayer/Resources"/>
 					<Add directory="E:/boost/include"/>
 					<Add directory="E:/Progetto/DragonSlayer/unit_testing/../Resources"/>
 					<Add directory="E:/Progetto/DragonSlayer/unit_testing/lib/googletest-master/googletest/include"/>
 					<Add directory="E:/Progetto/DragonSlayer/unit_testing/lib/googletest-master/googletest"/>
 					<Add directory="E:/Progetto/DragonSlayer/SFML_2.5.1/include"/>
+					<Add directory="C:/Program Files/boost/include/boost-1_75"/>
 					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++"/>
 					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++/i686-w64-mingw32"/>
 					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++/backward"/>
@@ -556,12 +560,6 @@
 			<Option target="DragonSlayer"/>
 			<Option target="unit_testing_run"/>
 		</Unit>
-		<Unit filename="E:/Progetto/DragonSlayer/Game/Generator.cpp">
-			<Option target="unit_testing_run"/>
-		</Unit>
-		<Unit filename="E:/Progetto/DragonSlayer/Game/Generator.h">
-			<Option target="unit_testing_run"/>
-		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Game/Inventory.cpp">
 			<Option target="DragonSlayer"/>
 			<Option target="unit_testing_run"/>
@@ -612,9 +610,11 @@
 		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Game/Save.cpp">
 			<Option target="DragonSlayer"/>
+			<Option target="unit_testing_run"/>
 		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Game/Save.h">
 			<Option target="DragonSlayer"/>
+			<Option target="unit_testing_run"/>
 		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Game/Spell.cpp">
 			<Option target="DragonSlayer"/>
@@ -666,9 +666,11 @@
 		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Gui/LoadSaveTab.cpp">
 			<Option target="DragonSlayer"/>
+			<Option target="unit_testing_run"/>
 		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Gui/LoadSaveTab.h">
 			<Option target="DragonSlayer"/>
+			<Option target="unit_testing_run"/>
 		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Gui/PauseMenu.cpp">
 			<Option target="DragonSlayer"/>
@@ -760,15 +762,19 @@
 		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Resources/EnemySaveData.cpp">
 			<Option target="DragonSlayer"/>
+			<Option target="unit_testing_run"/>
 		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Resources/EnemySaveData.h">
 			<Option target="DragonSlayer"/>
+			<Option target="unit_testing_run"/>
 		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Resources/LootBagSaveData.cpp">
 			<Option target="DragonSlayer"/>
+			<Option target="unit_testing_run"/>
 		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Resources/LootBagSaveData.h">
 			<Option target="DragonSlayer"/>
+			<Option target="unit_testing_run"/>
 		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Resources/Resource.cpp">
 			<Option target="DragonSlayer"/>
@@ -788,9 +794,11 @@
 		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Resources/SavesHandler.cpp">
 			<Option target="DragonSlayer"/>
+			<Option target="unit_testing_run"/>
 		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Resources/SavesHandler.h">
 			<Option target="DragonSlayer"/>
+			<Option target="unit_testing_run"/>
 		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Shader/fragment_shader.frag">
 			<Option target="DragonSlayer"/>

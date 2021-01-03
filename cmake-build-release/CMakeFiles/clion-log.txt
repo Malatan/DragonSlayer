@@ -2,6 +2,7 @@
 -- Found SFML 2.5.1 in E:/Progetto/DragonSlayer/SFML_2.5.1/lib/cmake/SFML
 -- Boost found
 -- Found SFML 2.5.1 in E:/Progetto/DragonSlayer/SFML_2.5.1/lib/cmake/SFML
+-- Boost found
 -- Configuring done
 -- Generating done
 -- Build files have been written to: E:/Progetto/DragonSlayer/cmake-build-release

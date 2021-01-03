@@ -730,33 +730,6 @@ __/Game/Entity.cpp.s:
 	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Entity.cpp.s
 .PHONY : __/Game/Entity.cpp.s
 
-__/Game/Generator.obj: __/Game/Generator.cpp.obj
-
-.PHONY : __/Game/Generator.obj
-
-# target to build an object file
-__/Game/Generator.cpp.obj:
-	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Generator.cpp.obj
-.PHONY : __/Game/Generator.cpp.obj
-
-__/Game/Generator.i: __/Game/Generator.cpp.i
-
-.PHONY : __/Game/Generator.i
-
-# target to preprocess a source file
-__/Game/Generator.cpp.i:
-	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Generator.cpp.i
-.PHONY : __/Game/Generator.cpp.i
-
-__/Game/Generator.s: __/Game/Generator.cpp.s
-
-.PHONY : __/Game/Generator.s
-
-# target to generate assembly for a file
-__/Game/Generator.cpp.s:
-	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Generator.cpp.s
-.PHONY : __/Game/Generator.cpp.s
-
 __/Game/Inventory.obj: __/Game/Inventory.cpp.obj
 
 .PHONY : __/Game/Inventory.obj
@@ -919,6 +892,33 @@ __/Game/Player.cpp.s:
 	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Player.cpp.s
 .PHONY : __/Game/Player.cpp.s
 
+__/Game/Save.obj: __/Game/Save.cpp.obj
+
+.PHONY : __/Game/Save.obj
+
+# target to build an object file
+__/Game/Save.cpp.obj:
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Save.cpp.obj
+.PHONY : __/Game/Save.cpp.obj
+
+__/Game/Save.i: __/Game/Save.cpp.i
+
+.PHONY : __/Game/Save.i
+
+# target to preprocess a source file
+__/Game/Save.cpp.i:
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Save.cpp.i
+.PHONY : __/Game/Save.cpp.i
+
+__/Game/Save.s: __/Game/Save.cpp.s
+
+.PHONY : __/Game/Save.s
+
+# target to generate assembly for a file
+__/Game/Save.cpp.s:
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Game/Save.cpp.s
+.PHONY : __/Game/Save.cpp.s
+
 __/Game/Spell.obj: __/Game/Spell.cpp.obj
 
 .PHONY : __/Game/Spell.obj
@@ -1080,6 +1080,33 @@ __/Gui/Gui.s: __/Gui/Gui.cpp.s
 __/Gui/Gui.cpp.s:
 	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/Gui.cpp.s
 .PHONY : __/Gui/Gui.cpp.s
+
+__/Gui/LoadSaveTab.obj: __/Gui/LoadSaveTab.cpp.obj
+
+.PHONY : __/Gui/LoadSaveTab.obj
+
+# target to build an object file
+__/Gui/LoadSaveTab.cpp.obj:
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/LoadSaveTab.cpp.obj
+.PHONY : __/Gui/LoadSaveTab.cpp.obj
+
+__/Gui/LoadSaveTab.i: __/Gui/LoadSaveTab.cpp.i
+
+.PHONY : __/Gui/LoadSaveTab.i
+
+# target to preprocess a source file
+__/Gui/LoadSaveTab.cpp.i:
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/LoadSaveTab.cpp.i
+.PHONY : __/Gui/LoadSaveTab.cpp.i
+
+__/Gui/LoadSaveTab.s: __/Gui/LoadSaveTab.cpp.s
+
+.PHONY : __/Gui/LoadSaveTab.s
+
+# target to generate assembly for a file
+__/Gui/LoadSaveTab.cpp.s:
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Gui/LoadSaveTab.cpp.s
+.PHONY : __/Gui/LoadSaveTab.cpp.s
 
 __/Gui/PauseMenu.obj: __/Gui/PauseMenu.cpp.obj
 
@@ -1378,6 +1405,60 @@ __/Map/Tile.cpp.s:
 	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Map/Tile.cpp.s
 .PHONY : __/Map/Tile.cpp.s
 
+__/Resources/EnemySaveData.obj: __/Resources/EnemySaveData.cpp.obj
+
+.PHONY : __/Resources/EnemySaveData.obj
+
+# target to build an object file
+__/Resources/EnemySaveData.cpp.obj:
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/EnemySaveData.cpp.obj
+.PHONY : __/Resources/EnemySaveData.cpp.obj
+
+__/Resources/EnemySaveData.i: __/Resources/EnemySaveData.cpp.i
+
+.PHONY : __/Resources/EnemySaveData.i
+
+# target to preprocess a source file
+__/Resources/EnemySaveData.cpp.i:
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/EnemySaveData.cpp.i
+.PHONY : __/Resources/EnemySaveData.cpp.i
+
+__/Resources/EnemySaveData.s: __/Resources/EnemySaveData.cpp.s
+
+.PHONY : __/Resources/EnemySaveData.s
+
+# target to generate assembly for a file
+__/Resources/EnemySaveData.cpp.s:
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/EnemySaveData.cpp.s
+.PHONY : __/Resources/EnemySaveData.cpp.s
+
+__/Resources/LootBagSaveData.obj: __/Resources/LootBagSaveData.cpp.obj
+
+.PHONY : __/Resources/LootBagSaveData.obj
+
+# target to build an object file
+__/Resources/LootBagSaveData.cpp.obj:
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/LootBagSaveData.cpp.obj
+.PHONY : __/Resources/LootBagSaveData.cpp.obj
+
+__/Resources/LootBagSaveData.i: __/Resources/LootBagSaveData.cpp.i
+
+.PHONY : __/Resources/LootBagSaveData.i
+
+# target to preprocess a source file
+__/Resources/LootBagSaveData.cpp.i:
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/LootBagSaveData.cpp.i
+.PHONY : __/Resources/LootBagSaveData.cpp.i
+
+__/Resources/LootBagSaveData.s: __/Resources/LootBagSaveData.cpp.s
+
+.PHONY : __/Resources/LootBagSaveData.s
+
+# target to generate assembly for a file
+__/Resources/LootBagSaveData.cpp.s:
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/LootBagSaveData.cpp.s
+.PHONY : __/Resources/LootBagSaveData.cpp.s
+
 __/Resources/Resource.obj: __/Resources/Resource.cpp.obj
 
 .PHONY : __/Resources/Resource.obj
@@ -1431,6 +1512,33 @@ __/Resources/ResourcesHandler.s: __/Resources/ResourcesHandler.cpp.s
 __/Resources/ResourcesHandler.cpp.s:
 	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/ResourcesHandler.cpp.s
 .PHONY : __/Resources/ResourcesHandler.cpp.s
+
+__/Resources/SavesHandler.obj: __/Resources/SavesHandler.cpp.obj
+
+.PHONY : __/Resources/SavesHandler.obj
+
+# target to build an object file
+__/Resources/SavesHandler.cpp.obj:
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/SavesHandler.cpp.obj
+.PHONY : __/Resources/SavesHandler.cpp.obj
+
+__/Resources/SavesHandler.i: __/Resources/SavesHandler.cpp.i
+
+.PHONY : __/Resources/SavesHandler.i
+
+# target to preprocess a source file
+__/Resources/SavesHandler.cpp.i:
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/SavesHandler.cpp.i
+.PHONY : __/Resources/SavesHandler.cpp.i
+
+__/Resources/SavesHandler.s: __/Resources/SavesHandler.cpp.s
+
+.PHONY : __/Resources/SavesHandler.s
+
+# target to generate assembly for a file
+__/Resources/SavesHandler.cpp.s:
+	cd /d E:\Progetto\DragonSlayer\cmake-build-release && $(MAKE) $(MAKESILENT) -f unit_testing\CMakeFiles\unit_testing_run.dir\build.make unit_testing/CMakeFiles/unit_testing_run.dir/__/Resources/SavesHandler.cpp.s
+.PHONY : __/Resources/SavesHandler.cpp.s
 
 mainTest.obj: mainTest.cpp.obj
 
@@ -1532,9 +1640,6 @@ help:
 	@echo ... __/Game/Entity.obj
 	@echo ... __/Game/Entity.i
 	@echo ... __/Game/Entity.s
-	@echo ... __/Game/Generator.obj
-	@echo ... __/Game/Generator.i
-	@echo ... __/Game/Generator.s
 	@echo ... __/Game/Inventory.obj
 	@echo ... __/Game/Inventory.i
 	@echo ... __/Game/Inventory.s
@@ -1553,6 +1658,9 @@ help:
 	@echo ... __/Game/Player.obj
 	@echo ... __/Game/Player.i
 	@echo ... __/Game/Player.s
+	@echo ... __/Game/Save.obj
+	@echo ... __/Game/Save.i
+	@echo ... __/Game/Save.s
 	@echo ... __/Game/Spell.obj
 	@echo ... __/Game/Spell.i
 	@echo ... __/Game/Spell.s
@@ -1571,6 +1679,9 @@ help:
 	@echo ... __/Gui/Gui.obj
 	@echo ... __/Gui/Gui.i
 	@echo ... __/Gui/Gui.s
+	@echo ... __/Gui/LoadSaveTab.obj
+	@echo ... __/Gui/LoadSaveTab.i
+	@echo ... __/Gui/LoadSaveTab.s
 	@echo ... __/Gui/PauseMenu.obj
 	@echo ... __/Gui/PauseMenu.i
 	@echo ... __/Gui/PauseMenu.s
@@ -1604,12 +1715,21 @@ help:
 	@echo ... __/Map/Tile.obj
 	@echo ... __/Map/Tile.i
 	@echo ... __/Map/Tile.s
+	@echo ... __/Resources/EnemySaveData.obj
+	@echo ... __/Resources/EnemySaveData.i
+	@echo ... __/Resources/EnemySaveData.s
+	@echo ... __/Resources/LootBagSaveData.obj
+	@echo ... __/Resources/LootBagSaveData.i
+	@echo ... __/Resources/LootBagSaveData.s
 	@echo ... __/Resources/Resource.obj
 	@echo ... __/Resources/Resource.i
 	@echo ... __/Resources/Resource.s
 	@echo ... __/Resources/ResourcesHandler.obj
 	@echo ... __/Resources/ResourcesHandler.i
 	@echo ... __/Resources/ResourcesHandler.s
+	@echo ... __/Resources/SavesHandler.obj
+	@echo ... __/Resources/SavesHandler.i
+	@echo ... __/Resources/SavesHandler.s
 	@echo ... mainTest.obj
 	@echo ... mainTest.i
 	@echo ... mainTest.s
