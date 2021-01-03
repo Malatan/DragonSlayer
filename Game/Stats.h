@@ -6,8 +6,7 @@
 #define DRAGONSLAYER_STATS_H
 #include <string>
 #include <sstream>
-#include <boost/archive/text_oarchive.hpp>
-#include <boost/archive/text_iarchive.hpp>
+#include <boost/serialization/serialization.hpp>
 
 using namespace std;
 

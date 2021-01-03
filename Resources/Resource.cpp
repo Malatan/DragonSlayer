@@ -9,13 +9,13 @@ Resource::Resource(const std::string& resourcePath, const std::string& key,const
 
     if(utils::fileExists(resourcePath)){
         if(!image.loadFromFile(resourcePath)){
-            std::cout<<"Resource load error: " << stateName << "-" << key << " path:" << resourcePath;
-            std::cout<< "Calling defualt constructor sf::Image() " << std::endl;
+            std::cerr<<"Resource load error: " << stateName << "-" << key << " path:" << resourcePath;
+            std::cerr<< "Calling defualt constructor sf::Image() " << std::endl;
             image = sf::Image();
         }
     }else{
-        std::cout<< resourcePath << " does not exist. ";
-        std::cout<< "Calling defualt constructor sf::Image() " << std::endl;
+        std::cerr<< resourcePath << " does not exist. ";
+        std::cerr<< "Calling defualt constructor sf::Image() " << std::endl;
         image = sf::Image();
     }
 }

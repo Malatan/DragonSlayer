@@ -12,7 +12,7 @@
 class Game {
 public:
     //Constructors/Destructors
-    Game();
+    explicit Game(bool unit_testing = false);
     virtual ~Game();
 
     //accessors
@@ -46,7 +46,7 @@ private:
     std::stack<std::unique_ptr<State>> states;
 
     //Initialization
-    void initVariables();
+    void initVariables(bool unit_testing);
     void initWindow();
     void initStates();
 };

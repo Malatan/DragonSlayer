@@ -12,7 +12,7 @@ struct wh{
 class MapGenerator {
 public:
     //constructors/destructor
-    MapGenerator();
+    MapGenerator(State* state);
     virtual ~MapGenerator();
 
     //getters/setters

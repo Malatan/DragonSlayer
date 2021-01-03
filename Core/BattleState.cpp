@@ -5,7 +5,6 @@
 
 #include "BattleState.h"
 
-
 void BattleState::initResources() {
     rsHandler->addResource("../Resources/Images/Backgrounds/battleBG.png", "battleBG", "BattleState");
     rsHandler->addResource("../Resources/Images/Backgrounds/battleStateWall.png", "battleStateWall", "BattleState");

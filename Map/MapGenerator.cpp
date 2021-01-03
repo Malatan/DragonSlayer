@@ -2,13 +2,14 @@
 #include "Dungeon.h"
 
 //constructors/destructor
-MapGenerator::MapGenerator() {
+MapGenerator::MapGenerator(State* state) {
     wh d = wh{0, 0};
     for (int i = 0; i <= 5; i++) {
         dDims.push_back(d);
     }
     dDims[0].height = 11;
-    dDims[0].width = 29;
+    dDims[0].width = 25;
+    gameState = dynamic_cast<GameState *>(state);
 }
 
 MapGenerator::~MapGenerator() = default;
@@ -27,33 +28,36 @@ void MapGenerator::setDDims(const vector<pair<int, int>> &data) {
 
 //function
 Map *MapGenerator::GenerateFromFile(int floor, State *state) {
-    this->gameState = dynamic_cast<GameState *>(state);
     Map *map = new Map(dDims[floor].height, dDims[floor].width, state);
+    std::string prefix;
+    if(gameState->getResourceHandler()->isUnitTesting()){
+        prefix = "../";
+    }
     std::fstream fin;
     char ch;
     switch(floor){
         case 0:{
-            fin = std::fstream("../Data/Hub.txt", std::fstream::in);
+            fin = std::fstream(prefix + "../Data/Hub.txt", std::fstream::in);
             break;
         }
         case 1:{
-            fin = std::fstream("../Data/Dungeon_1.txt", std::fstream::in);
+            fin = std::fstream(prefix + "../Data/Dungeon_1.txt", std::fstream::in);
             break;
         }
         case 2:{
-            fin = std::fstream("../Data/Dungeon_2.txt", std::fstream::in);
+            fin = std::fstream(prefix + "../Data/Dungeon_2.txt", std::fstream::in);
             break;
         }
         case 3:{
-            fin = std::fstream("../Data/Dungeon_3.txt", std::fstream::in);
+            fin = std::fstream(prefix + "../Data/Dungeon_3.txt", std::fstream::in);
             break;
         }
         case 4:{
-            fin = std::fstream("../Data/Dungeon_4.txt", std::fstream::in);
+            fin = std::fstream(prefix + "../Data/Dungeon_4.txt", std::fstream::in);
             break;
         }
         case 5:{
-            fin = std::fstream("../Data/Dungeon_5.txt", std::fstream::in);
+            fin = std::fstream(prefix + "../Data/Dungeon_5.txt", std::fstream::in);
             break;
         }
         default:
@@ -78,6 +82,10 @@ Map *MapGenerator::GenerateFromFile(int floor, State *state) {
 }
 
 void MapGenerator::generateDungeon(int n) {
+    std::string prefix;
+    if(gameState->getResourceHandler()->isUnitTesting()){
+        prefix = "../";
+    }
     int width;
     int height;
     width = utils::generateRandomNumber(40, 60);
@@ -86,23 +94,23 @@ void MapGenerator::generateDungeon(int n) {
     d.generate(50);
     switch (n) {
         case 1: {
-            d.writeOnFile("../Data/Dungeon_1.txt");
+            d.writeOnFile(prefix + "../Data/Dungeon_1.txt");
             break;
         }
         case 2: {
-            d.writeOnFile("../Data/Dungeon_2.txt");
+            d.writeOnFile(prefix + "../Data/Dungeon_2.txt");
             break;
         }
         case 3: {
-            d.writeOnFile("../Data/Dungeon_3.txt");
+            d.writeOnFile(prefix + "../Data/Dungeon_3.txt");
             break;
         }
         case 4: {
-            d.writeOnFile("../Data/Dungeon_4.txt");
+            d.writeOnFile(prefix + "../Data/Dungeon_4.txt");
             break;
         }
         case 5: {
-            d.writeOnFile("../Data/Dungeon_5.txt");
+            d.writeOnFile(prefix + "../Data/Dungeon_5.txt");
             break;
         }
         default:

@@ -120,12 +120,12 @@ SelectLevelTab::SelectLevelTab(const std::shared_ptr<sf::RenderWindow>& window, 
     background.setFillColor(sf::Color(20, 20, 20, 100));
 
     //init container
-    container.setSize(sf::Vector2f(625.f,820.f));
+    container.setSize(sf::Vector2f(555.f,620.f));
     container.setFillColor(sf::Color(20, 20, 20, 200));
 
     container.setPosition(sf::Vector2f(
-            static_cast<float>(window->getSize().x) / 2.f - container.getSize().x / 2.f,
-            40.f));
+            window->getSize().x/2.f - container.getGlobalBounds().width/2.f,
+            window->getSize().y/2.f - container.getGlobalBounds().height/2.f));
     container.setOutlineThickness(5.f);
     container.setOutlineColor(sf::Color(10, 10, 10));
 

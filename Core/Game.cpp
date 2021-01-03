@@ -5,14 +5,21 @@
 #include <iostream>
 #include "Game.h"
 
-void Game::initVariables() {
+void Game::initVariables(bool unit_testing) {
     window = nullptr;
     dt = 0.f;
     rsHandler = std::make_shared<ResourcesHandler>();
+    rsHandler->setUnitTesting(unit_testing);
 }
 
 void Game::initWindow() {
-    std::ifstream ifs("../Resources/Config/window.ini");
+    std::string config_path;
+    if(rsHandler->isUnitTesting()){
+        config_path = "../../Resources/Config/window.ini";
+    }else{
+        config_path = "../Resources/Config/window.ini";
+    }
+    std::ifstream ifs(config_path);
 
     std::string window_title = "None";
     sf::VideoMode window_bounds = sf::VideoMode::getDesktopMode();
@@ -45,8 +52,8 @@ void Game::initStates() {
 }
 
 //Constructors/Destructors
-Game::Game() {
-    initVariables();
+Game::Game(bool unit_testing) {
+    initVariables(unit_testing);
     initWindow();
     initStates();
 }

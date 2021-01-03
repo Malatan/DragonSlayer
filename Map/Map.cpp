@@ -5,14 +5,18 @@
 Map::Map(int height, int width, State *state) {
     this->gState = dynamic_cast<GameState *>(state);
     interacting = false;
-    texture.loadFromFile("../Resources/Images/Map/Dungeon2.png");
-    interactableTexture.loadFromFile("../Resources/Images/chat.png");
-
+    if(gState->getResourceHandler()->isUnitTesting()){
+        texture.loadFromFile("../../Resources/Images/Map/Dungeon2.png");
+        interactableTexture.loadFromFile("../../Resources/Images/chat.png");
+    }else{
+        texture.loadFromFile("../Resources/Images/Map/Dungeon2.png");
+        interactableTexture.loadFromFile("../Resources/Images/chat.png");
+    }
 
     this->height = height;
     this->width = width;
     widthP = (float)width * Tile::TILE_SIZE;
-    heightP = (float)width * Tile::TILE_SIZE;
+    heightP = (float)height * Tile::TILE_SIZE;
     this->tiles.resize(height);
     for (int i = 0; i < height; i++) {
         this->tiles.at(i).resize(width);

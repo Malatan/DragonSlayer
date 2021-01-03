@@ -23,6 +23,8 @@ public:
     virtual ~ResourcesHandler();
 
     std::string getGameVersion() const;
+    void setUnitTesting(bool b);
+    bool isUnitTesting() const;
 
     //id
     unsigned int generateId();
@@ -34,15 +36,16 @@ public:
     bool addResource(const std::string& path, const std::string& key, const std::string& state_name);
     std::shared_ptr<Resource> getResourceByKey(const std::string& key);
 
-    static void loadPlayerStatsTxt(const std::shared_ptr<Stats>& playerStats);
+    void loadPlayerStatsTxt(const std::shared_ptr<Stats>& playerStats) const;
     void loadPlayerInventoryTxt(const std::shared_ptr<Inventory>& playerInventory);
-    static void loadSpellList(const std::shared_ptr<SpellComponent>& spellComponent);
+    void loadSpellList(const std::shared_ptr<SpellComponent>& spellComponent) const;
     void loadMaterialsTxt(std::vector<std::unique_ptr<Item>>& material_list);
-    static void loadAchievementsTxt(std::vector<std::shared_ptr<Achievement>>& achievement_list);
+    void loadAchievementsTxt(std::vector<std::shared_ptr<Achievement>>& achievement_list) const;
 
     std::string toString();
 
 private:
+    bool unitTesting{};
     unsigned int IdCounter;
     std::string gameVersion;
 

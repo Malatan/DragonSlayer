@@ -90,28 +90,33 @@ void LoadSaveTab::refresh() {
     std::string path = savesHandler->savePath + "/";
     boost::filesystem::path p(path);
     std::vector<std::string> files;
-    for (auto i = boost::filesystem::directory_iterator(p); i != boost::filesystem::directory_iterator(); i++) {
-        if(!is_directory(i->path())){
-            files.push_back(i->path().stem().string());
-            if(files.size() == savesHandler->maxSaves)
-                break;
-        }
-    }
-
-    if(!files.empty()){
-        savesHandler->clear();
-        for(const auto& i : files){
-            if(savesHandler->read(i)){
-                std::cout << " >>>> LOADED " << savesHandler->getSave(i)->toString();
+    if(boost::filesystem::exists(p)){
+        for (auto i = boost::filesystem::directory_iterator(p); i != boost::filesystem::directory_iterator(); i++) {
+            if(!is_directory(i->path())){
+                files.push_back(i->path().stem().string());
+                if(files.size() == savesHandler->maxSaves)
+                    break;
             }
         }
 
-        int count = 0;
-        for(const auto& i : savesHandler->getLoadedSaves()){
-            slots[count]->setInfo(i.second.getName(), i.second.getLastModifiedTime());
-            slots[count]->setLoadBtnDisabled(false);
-            count++;
+        if(!files.empty()){
+            savesHandler->clear();
+            for(const auto& i : files){
+                if(savesHandler->read(i)){
+                    std::cout << " >>>> LOADED " << savesHandler->getSave(i)->toString();
+                }
+            }
+
+            int count = 0;
+            for(const auto& i : savesHandler->getLoadedSaves()){
+                slots[count]->setInfo(i.second.getName(), i.second.getLastModifiedTime());
+                slots[count]->setLoadBtnDisabled(false);
+                count++;
+            }
         }
+    }
+    for(const auto& i : slots){
+        i->setLoadBtnDisabled(i->isEmpty());
     }
     loading = false;
 }

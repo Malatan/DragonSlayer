@@ -8,8 +8,14 @@ void MainMenuState::initResources() {
     rsHandler->addResource("../Resources/Images/Backgrounds/mainMenuBG.png",
                            "mainmenu background", "MainMenuState");
 
-    if(!font.loadFromFile("../Resources/Fonts/BreatheFire-65pg.ttf")){
-        std::cerr<<"Errore: mainmenustate could not load font" << std::endl;
+    if(rsHandler->isUnitTesting()){
+        if(!font.loadFromFile("../../Resources/Fonts/BreatheFire-65pg.ttf")){
+            std::cerr<<"Error: mainmenustate could not load font" << std::endl;
+        }
+    }else{
+        if(!font.loadFromFile("../Resources/Fonts/BreatheFire-65pg.ttf")){
+            std::cerr<<"Error: mainmenustate could not load font" << std::endl;
+        }
     }
 }
 

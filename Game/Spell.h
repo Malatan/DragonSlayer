@@ -6,8 +6,7 @@
 #define DRAGONSLAYER_SPELL_H
 #include <string>
 #include <sstream>
-#include <boost/archive/text_oarchive.hpp>
-#include <boost/archive/text_iarchive.hpp>
+#include <boost/serialization/serialization.hpp>
 
 enum spell_type{
     FIRE,

@@ -303,7 +303,7 @@ void GameState::initButtons() {
 }
 
 void GameState::initMaps() {
-    mg = std::make_shared<MapGenerator>();
+    mg = std::make_shared<MapGenerator>(this);
     if(loadSaveTab->canApplySave()){
         Save* save = loadSaveTab->getApplySave();
         mg->setDDims(save->levelDims);
@@ -346,8 +346,16 @@ void GameState::initMaps() {
 }
 
 void GameState::initShader() {
-    if(!coreShader.loadFromFile("../Shader/vertex_shader.vert", "../Shader/fragment_shader.frag")){
-        std::cout<<"Error shader";
+    if(rsHandler->isUnitTesting()){
+        if(!coreShader.loadFromFile("../../Shader/vertex_shader.vert",
+                                    "../../Shader/fragment_shader.frag")){
+            std::cerr<<"Error while loading shader" << std::endl;
+        }
+    }else{
+        if(!coreShader.loadFromFile("../Shader/vertex_shader.vert",
+                                    "../Shader/fragment_shader.frag")){
+            std::cerr<<"Error while loading shader" << std::endl;
+        }
     }
 }
 
@@ -402,9 +410,6 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::u
 GameState::~GameState() {
     for(auto i : npcs)
         delete i;
-    for(auto i : observers){
-        delete i;
-    }
 }
 
 //accessors
@@ -1260,14 +1265,14 @@ void GameState::changeMap(int floor, bool load_from_save) {
         }
     }
     else {
-        spawnPos = sf::Vector2f(1430, 620);
+        spawnPos = sf::Vector2f(1230, 620);
         player->setPosition(spawnPos.x, spawnPos.y);
         if (!enemies.empty())
             enemies.clear();
 
-        spawnNpc(1430.f, 870.f, WIZARD);
-        spawnNpc(1960.f, 570.f, SHOP);
-        spawnNpc(910.f, 570.f, PRIEST);
+        spawnNpc(1230.f, 870.f, WIZARD);
+        spawnNpc(1760.f, 570.f, SHOP);
+        spawnNpc(710.f, 570.f, PRIEST);
     }
 }
 

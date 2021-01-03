@@ -17,7 +17,12 @@ bool ResourcesHandler::addResource(const std::string& path, const std::string& k
             return false;
         }
     }
-    resources.push_back(std::make_shared<Resource>(path, key, state_name));
+    if(unitTesting){
+        std::string new_path = "../" + path;
+        resources.push_back(std::make_shared<Resource>(new_path, key, state_name));
+    }else{
+        resources.push_back(std::make_shared<Resource>(path, key, state_name));
+    }
     return true;
 }
 
@@ -38,11 +43,17 @@ std::string ResourcesHandler::toString() {
     return app;
 }
 
-void ResourcesHandler::loadPlayerStatsTxt(const std::shared_ptr<Stats>& playerStats) {
-    ifstream file;
-    file.open("../Data/Stats.txt");
+void ResourcesHandler::loadPlayerStatsTxt(const std::shared_ptr<Stats>& playerStats) const {
+    std::string path;
+    if(unitTesting){
+        path = "../../Data/Stats.txt";
+    }else{
+        path = "../Data/Stats.txt";
+    }
+    std::ifstream file;
+    file.open(path);
     if (!file.is_open()){
-        cout<<"Resource load error: Could not load Stats.txt";
+        std::cerr << "Resource load error: Could not load " << path << std::endl;
     } else{
         float appf;
         int appi;
@@ -78,11 +89,17 @@ void ResourcesHandler::loadPlayerStatsTxt(const std::shared_ptr<Stats>& playerSt
 }
 
 void ResourcesHandler::loadPlayerInventoryTxt(const std::shared_ptr<Inventory>& playerInventory) {
+    std::string path;
+    if(unitTesting){
+        path = "../../Data/Inventory.txt";
+    }else{
+        path = "../Data/Inventory.txt";
+    }
     std::shared_ptr<Item> item;
-    ifstream file;
-    file.open("../Data/Inventory.txt");
+    std::ifstream file;
+    file.open(path);
     if (!file.is_open()){
-        cout<<"Resource load error: Could not load Inventory.txt";
+        std::cout << "Resource load error: Could not load " << path << std::endl;
     } else{
         std::string app;
         while(file.peek() != EOF){
@@ -138,12 +155,18 @@ void ResourcesHandler::loadPlayerInventoryTxt(const std::shared_ptr<Inventory>& 
     }
 }
 
-void ResourcesHandler::loadSpellList(const std::shared_ptr<SpellComponent>& spellComponent) {
+void ResourcesHandler::loadSpellList(const std::shared_ptr<SpellComponent>& spellComponent) const {
+    std::string path;
+    if(unitTesting){
+        path = "../../Data/Spells.txt";
+    }else{
+        path = "../Data/Spells.txt";
+    }
     Spell spell;
     ifstream file;
-    file.open("../Data/Spells.txt");
+    file.open(path);
     if (!file.is_open()){
-        cout<<"Resource load error: Could not load Spells.txt";
+        cout<<"Resource load error: Could not load " << path << endl;
     } else{
         std::string app;
         while(file.peek() != EOF){
@@ -186,10 +209,16 @@ void ResourcesHandler::loadSpellList(const std::shared_ptr<SpellComponent>& spel
 
 void ResourcesHandler::loadMaterialsTxt(std::vector<std::unique_ptr<Item>> &material_list) {
     std::unique_ptr<Item> material;
+    std::string path;
+    if(unitTesting){
+        path = "../../Data/Materials.txt";
+    }else{
+        path = "../Data/Materials.txt";
+    }
     ifstream file;
-    file.open("../Data/Materials.txt");
+    file.open(path);
     if (!file.is_open()){
-        cout<<"Resource load error: Could not load Materials.txt";
+        cout<<"Resource load error: Could not load " << path << endl;
     } else {
         std::string app;
         while (file.peek() != EOF) {
@@ -219,12 +248,18 @@ void ResourcesHandler::loadMaterialsTxt(std::vector<std::unique_ptr<Item>> &mate
     }
 }
 
-void ResourcesHandler::loadAchievementsTxt(std::vector<std::shared_ptr<Achievement>> &achievement_list) {
+void ResourcesHandler::loadAchievementsTxt(std::vector<std::shared_ptr<Achievement>> &achievement_list) const {
     std::shared_ptr<Achievement> achievement;
+    std::string path;
+    if(unitTesting){
+        path = "../../Data/Achievements.txt";
+    }else{
+        path = "../Data/Achievements.txt";
+    }
     ifstream file;
-    file.open("../Data/Achievements.txt");
+    file.open(path);
     if (!file.is_open()){
-        cout<<"Resource load error: Could not load Achievements.txt";
+        cout<<"Resource load error: Could not load " << path << endl;
     } else {
         std::string app;
         while (file.peek() != EOF) {
@@ -279,8 +314,13 @@ std::string ResourcesHandler::getGameVersion() const {
     return gameVersion;
 }
 
+void ResourcesHandler::setUnitTesting(bool b) {
+    unitTesting = b;
+}
 
-
+bool ResourcesHandler::isUnitTesting() const {
+    return unitTesting;
+}
 
 
 
