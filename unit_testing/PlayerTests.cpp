@@ -159,11 +159,11 @@ TEST_F(PlayerTests, NpcInteractCheck){
 TEST_F(PlayerTests, EnemyInteractCheck){
     gState->spawnEnemy(player->getPosition().x + 100.f, player->getPosition().y, SKELETON);
     player->addTargetPoint(gState->getEnemy(0)->getHitboxComponent()->getCenter());
-    float test_time = 1.5f;
+    float test_time = 2.5f;
     while(test_time > 0.f){
         test_time -= game->getDt();
-        game->testRun();
-        if(player->getHitboxComponent()->getGlobalBounds().intersects(gState->getEnemy(0)->getGlobalBounds())){
+        game->testRun(true);
+        if(game->getTopState()->getStateEnum() == BATTLE_STATE){
             break;
         }
     }

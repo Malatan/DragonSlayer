@@ -14,10 +14,13 @@ void Game::initVariables(bool unit_testing) {
 
 void Game::initWindow() {
     std::string config_path;
+    std::string icon_path;
     if(rsHandler->isUnitTesting()){
         config_path = "../../Resources/Config/window.ini";
+        icon_path = "../../Resources/Images/dragon.png";
     }else{
         config_path = "../Resources/Config/window.ini";
+        icon_path = "../Resources/Images/dragon.png";
     }
     std::ifstream ifs(config_path);
 
@@ -34,17 +37,19 @@ void Game::initWindow() {
         ifs >> veritcal_enabled;
         ifs >> antialiasing_level;
     } else{
-        std::cout<<"window.ini not found. Default settings applied"<<"\n";
+        std::cerr<<"window.ini not found. Default settings applied"<< std::endl;
     }
     ifs.close();
+    auto image = sf::Image{};
+    if (!image.loadFromFile(icon_path)){
+        std::cerr<<"Could not load icon png file " << icon_path << std::endl;
+    }
     window_title += " v" + rsHandler->getGameVersion();
     windowSettings.antialiasingLevel = antialiasing_level;
-    window = std::make_shared<sf::RenderWindow>(window_bounds,
-                                                window_title,
-                                        sf::Style::Close,
-                                        windowSettings);
+    window = std::make_shared<sf::RenderWindow>(window_bounds, window_title, sf::Style::Close, windowSettings);
     window->setFramerateLimit(framerate_limit);
     window->setVerticalSyncEnabled(veritcal_enabled);
+    window->setIcon(image.getSize().x, image.getSize().y, image.getPixelsPtr());
 }
 
 void Game::initStates() {

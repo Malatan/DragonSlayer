@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.15)
 set(PROJECT_NAME DragonSlayer)
 project(${PROJECT_NAME})
 set(CMAKE_CXX_STANDARD 14)
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libstdc++ -static-libgcc")
+
 set(SOURCE_FILES
         main.cpp
         Core/Game.cpp
@@ -106,12 +108,14 @@ set(SOURCE_FILES
         Shader/fragment_shader.frag
         Shader/vertex_shader.vert)
 
+include_directories(Resources)
+link_directories(SFML_2.5.1/bin)
+
 if (CMAKE_BUILD_TYPE STREQUAL "Release")
     add_executable(${PROJECT_NAME} WIN32 ${SOURCE_FILES})
 else ()
     add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 endif ()
-include_directories(Resources)
 
 #SFML CONFIG
 set(SFML_DIR SFML_2.5.1/lib/cmake/SFML)

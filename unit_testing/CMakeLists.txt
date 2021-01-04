@@ -108,17 +108,14 @@ set(SOURCE_FILES
         ../Shader/fragment_shader.frag
         ../Shader/vertex_shader.vert
         )
-# 'lib' is the folder with Google Test sources
+
 add_subdirectory(lib/googletest-master)
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
-# 'Google_Tests_run' is the target name
-# 'test1.cpp tests2.cpp' are source files with tests
-add_executable(unit_testing_run ${SOURCE_FILES})
-
 
 set(SFML_ROOT "../SFML_2.5.1")
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
 find_package(SFML REQUIRED COMPONENTS audio graphics window system)
+add_executable(unit_testing_run ${SOURCE_FILES})
 target_link_libraries(unit_testing_run gtest gtest_main sfml-system sfml-window sfml-graphics sfml-audio sfml-network)
 
 #BOOST CONFIG

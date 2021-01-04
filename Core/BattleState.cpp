@@ -521,8 +521,6 @@ void BattleState::generateModels() {
     }
     std::reverse(enemiesMoveOrder.begin(), enemiesMoveOrder.end());
 
-   // spawnEnemyModel(enemyPos[0].getPosition(), enemyLeader->getType(), false);
-   // enemiesModels[0]->copyStats(enemyLeader);
     spawnEnemyModel(enemyPos[0].getPosition(), enemyLeader->getType(), enemyLeader->getId());
     enemiesModels[0]->setStats(enemyLeader->getStats());
 

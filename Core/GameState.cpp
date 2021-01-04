@@ -1009,7 +1009,6 @@ void GameState::update(const float& dt) {
     updateMousePosition(nullptr);
     achievementComponent->update(dt, mousePosView);
     buffComponent->update(dt, mousePosView);
-
     if(!paused){ //unpaused update
         updateView(dt);
         updatePlayerInput(dt);
@@ -1052,7 +1051,6 @@ void GameState::update(const float& dt) {
                     break;
                 }
             }
-
         }
     } else{ // paused update
         switch(stato){

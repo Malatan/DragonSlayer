@@ -235,6 +235,9 @@ void Enemy::generateNameByType() {
 }
 
 void Enemy::generateEnemyStats(int floor, int level) {
+    if(floor <= 0 ){
+        floor = 5;
+    }
     if(level == 0){
         level = utils::generateRandomNumber((floor-1)*10+1, floor*10);
     }
