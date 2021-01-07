@@ -333,7 +333,7 @@ void GameState::initMaps() {
                 lootBags.push_back(lb);
             }
         }
-        player->setPosition(save->playerPos.x, save->playerPos.y);
+        player->setPosition(save->playerPosX, save->playerPosY);
     }else{
         floorReached = 0;
         mg->generateDungeon(1);
@@ -388,7 +388,6 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::u
     spawnPos = {1730.f, 770.f};
     loadSaveTab->setState(this);
     loadSaveTab->setAccessOption(LOAD_SAVE);
-
     applySaveValue();
     initShader();
     initTextures();
@@ -1126,6 +1125,7 @@ void GameState::update(const float& dt) {
                     changeStato(NO_TAB);
                     loadSaveTab->setHide(true);
                 }
+                popUpTextComponent->update(dt);
                 break;
             case NO_TAB:
                 break;

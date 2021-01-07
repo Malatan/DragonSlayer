@@ -8,7 +8,7 @@
 #include <sstream>
 #include <memory>
 #include "Stats.h"
-#include <boost/serialization/serialization.hpp>
+#include <../includers/CerealHeaders.h>
 
 using namespace std;
 
@@ -45,23 +45,11 @@ public:
     void updateLifeTime();
 
 private:
-    friend class boost::serialization::access;
-    template<class Archive>
-    void serialize(Archive& ar, const unsigned int version){
-        ar & name;
-        ar & description;
-        ar & keyWord;
-        ar & addHp;
-        ar & addMp;
-        ar & addDamage;
-        ar & addArmor;
-        ar & addCritChance;
-        ar & addEvadeChance;
-        ar & turns;
-        ar & instant;
-        ar & debuff;
-        ar & intRectX;
-        ar & intRectY;
+    friend class cereal::access;
+    template <class Archive>
+    void serialize(Archive & ar){
+        ar(name, description, keyWord, addHp, addMp, addDamage, addArmor, addCritChance, addEvadeChance, turns, instant,
+           debuff, intRectX, intRectY);
     }
 
     string name;

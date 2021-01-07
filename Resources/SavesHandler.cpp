@@ -5,6 +5,7 @@
 #include "SavesHandler.h"
 
 SavesHandler::SavesHandler() {
+    saveFileExtension = ".cereal";
     savePath = "../Saves";
     maxSaves = 5;
 }
@@ -28,22 +29,22 @@ bool SavesHandler::write(Save& save) const {
     if (mkdir("../Saves") != -1)
         std::cout << "Saves Directory created" << std::endl;
     std::stringstream ss;
-    ss << savePath << "/" << save.getName() << ".dat";
-    std::ofstream ofs(ss.str());
-    boost::archive::text_oarchive oa(ofs);
-    oa << save;
+    ss << savePath << "/" << save.getName() << saveFileExtension;
+    std::ofstream ofs(ss.str(), std::ios::binary);
+    cereal::BinaryOutputArchive archive(ofs);
+    archive(save);
     ofs.clear();
     return true;
 }
 
 bool SavesHandler::read(const std::string& saveName) {
     std::stringstream ss;
-    ss << savePath << "/" << saveName << ".dat";
-    std::ifstream ifs(ss.str());
+    ss << savePath << "/" << saveName << saveFileExtension;
+    std::ifstream ifs(ss.str(), std::ios::binary);
     Save loaded_save;
     if(ifs.is_open()){
-        boost::archive::text_iarchive ia(ifs);
-        ia >> loaded_save;
+        cereal::BinaryInputArchive archive(ifs);
+        archive >> loaded_save;
         ifs.close();
         loadedSaves.insert(std::pair<std::string, Save>(saveName, loaded_save));
         return true;

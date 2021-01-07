@@ -8,8 +8,7 @@
 #include <iostream>
 #include <sstream>
 #include "../Core/GameState.h"
-#include <boost/serialization/vector.hpp>
-#include <boost/serialization/map.hpp>
+#include <../includers/CerealHeaders.h>
 
 class AchievementComponent;
 class BuffComponent;
@@ -44,39 +43,37 @@ public:
     std::string toString() const;
 
 private:
-    friend class boost::serialization::access;
     friend class GameState;
+    friend class cereal::access;
     template<class Archive>
-    void serialize(Archive& ar, const unsigned int version){
-        ar & name;
-        ar & lastModifiedTime;
-        ar & gameVersion;
-        ar & rsHandlerIdCounter;
-        ar & playerPos;
-        ar & playerStats;
-        ar & playerGold;
-        ar & playerInventoryMaxSpace;
-        ar & inventory;
-        ar & equips;
-        ar & spells;
-        ar & playerSpells;
-        ar & aeRecords;
-        ar & achievements;
-        ar & playerBuffs;
-        ar & levelDims;
-        ar & openedDoors;
-        ar & currentFloor;
-        ar & reachedFloor;
-        ar & floor1;
-        ar & floor2;
-        ar & floor3;
-        ar & floor4;
-        ar & floor5;
-        ar & enemyCounts;
-        ar & enemiesLeaders;
-        ar & enemiesFollowers;
-        ar & lootBags;
+    void serialize(Archive & ar){
+        /*ar(name, lastModifiedTime, gameVersion, rsHandlerIdCounter, playerPosX, playerPosY, playerStats, playerGold,
+                playerInventoryMaxSpace, inventory);*/
+       ar(name, lastModifiedTime, gameVersion, rsHandlerIdCounter, playerPosX, playerPosY, playerStats, playerGold,
+           playerInventoryMaxSpace, inventory, equips, spells, playerSpells, aeRecords, achievements, playerBuffs,
+           levelDims, openedDoors, currentFloor, reachedFloor, floor1, floor2, floor3, floor4, floor5, enemyCounts,
+           enemiesLeaders, enemiesFollowers, lootBags);
     }
+
+  /*  template <class Archive>
+    void save( Archive & ar) const{
+        ar << name << lastModifiedTime << gameVersion << rsHandlerIdCounter << playerPosX << playerPosY << playerStats
+        << playerGold << playerInventoryMaxSpace << inventory;
+    }
+
+    template <class Archive>
+    void load( Archive & ar){
+        ar >> name;
+        ar >> lastModifiedTime;
+        ar >> gameVersion;
+        ar >> rsHandlerIdCounter;
+        ar >> playerPosX;
+        ar >> playerPosY;
+        ar >> playerStats;
+        ar >> playerGold;
+        ar >> playerInventoryMaxSpace;
+        ar >> inventory;
+    }*/
 
     //save info
     std::string name{};
@@ -87,7 +84,8 @@ private:
     unsigned int rsHandlerIdCounter{};
 
     //player info
-    sf::Vector2f playerPos;
+    float playerPosX{};
+    float playerPosY{};
     Stats playerStats;
     unsigned playerGold{};
     int playerInventoryMaxSpace{};
@@ -124,6 +122,5 @@ private:
     //lootbags info
     std::vector<LootBagSaveData> lootBags;
 };
-
 
 #endif //DRAGONSLAYER_SAVE_H

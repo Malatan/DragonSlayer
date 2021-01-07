@@ -3,7 +3,7 @@
 //
 
 #include "../Game/Enemy.h"
-#include <boost/serialization/serialization.hpp>
+#include <../includers/CerealHeaders.h>
 #include <utility>
 
 #ifndef DRAGONSLAYER_ENEMIESSAVEDATA_H
@@ -30,18 +30,11 @@ public:
     float getPosY() const;
 
 private:
-    friend class boost::serialization::access;
-    template<class Archive>
-    void serialize(Archive& ar, const unsigned int version){
-        ar & id;
-        ar & leaderId;
-        ar & isFollower;
-        ar & name;
-        ar & type;
-        ar & currentBoost;
-        ar & _stats;
-        ar & posX;
-        ar & posY;
+    friend class cereal::access;
+    template <class Archive>
+    void serialize(Archive & ar){
+        ar(id, leaderId, isFollower, name, type, currentBoost,
+           _stats, posX, posY);
     }
 
     unsigned int id{};

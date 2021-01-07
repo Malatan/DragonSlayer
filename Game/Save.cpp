@@ -29,7 +29,8 @@ void Save::saveRsHandlerInfo(const shared_ptr<ResourcesHandler> &rshandler_info)
 }
 
 void Save::savePlayerInfo(const std::shared_ptr<Player>& player_info) {
-    playerPos = player_info->getPosition();
+    playerPosX = player_info->getPosition().x;
+    playerPosY = player_info->getPosition().y;
     playerStats = *player_info->getPlayerStats();
     playerInventoryMaxSpace = player_info->getInventory()->getCurrentMaxSpace();
     inventory.clear();
@@ -128,7 +129,7 @@ std::string Save::toString() const {
     ss << "Name:[" << name << "]"
     << " Time:[" << lastModifiedTime << "]"
     << " Version:[" << gameVersion << "]"
-    << " Pos:[" << playerPos.x << ", " << playerPos.y << "]"
+    << " Pos:[" << playerPosX << ", " << playerPosY << "]"
     << " Floor:[" << currentFloor << "]"
     << " Enemy:[" << enemyCounts.first << " + " << enemyCounts.second << "]" << std::endl;
     return ss.str();

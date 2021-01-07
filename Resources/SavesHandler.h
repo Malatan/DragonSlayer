@@ -5,14 +5,10 @@
 #ifndef DRAGONSLAYER_SAVESHANDLER_H
 #define DRAGONSLAYER_SAVESHANDLER_H
 
+#include "../Game/Save.h"
 #include <sys/stat.h>
 #include <sys/types.h>
-#include "../Game/Save.h"
-#include <boost/archive/text_oarchive.hpp>
-#include <boost/archive/text_iarchive.hpp>
-#include <boost/archive/binary_oarchive.hpp>
-#include <boost/archive/binary_iarchive.hpp>
-#include <boost/serialization/binary_object.hpp>
+#include <../includers/CerealHeaders.h>
 
 class Save;
 
@@ -28,21 +24,11 @@ public:
     bool write(Save& save) const;
     bool read(const std::string& saveName);
 
+    std::string saveFileExtension;
     std::string savePath;
     int maxSaves;
 private:
     std::map<std::string, Save> loadedSaves;
 };
-
-namespace boost {
-    namespace serialization {
-        template<class Archive>
-        void serialize(Archive & ar, sf::Vector2f& v, const unsigned int version){
-            ar & v.x;
-            ar & v.y;
-        }
-    } // namespace serialization
-} // namespace boost
-
 
 #endif //DRAGONSLAYER_SAVESHANDLER_H

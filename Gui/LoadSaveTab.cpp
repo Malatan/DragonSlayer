@@ -5,6 +5,7 @@
 #include "LoadSaveTab.h"
 
 void LoadSaveTab::initSlots() {
+    slots.clear();
     float x = container.getPosition().x + 10.f;
     float y = containerTitle.getPosition().y + 65.f;
     float mod_y = 120.f;
@@ -88,16 +89,21 @@ save_load_option LoadSaveTab::getSLOption() const {
 //functions
 void LoadSaveTab::refresh() {
     std::string path = savesHandler->savePath + "/";
-    boost::filesystem::path p(path);
     std::vector<std::string> files;
-    if(boost::filesystem::exists(p)){
-        for (auto i = boost::filesystem::directory_iterator(p); i != boost::filesystem::directory_iterator(); i++) {
-            if(!is_directory(i->path())){
-                files.push_back(i->path().stem().string());
+    for(const auto& i : slots){
+        i->clear();
+    }
+    DIR *dir;
+    struct dirent *ent;
+    if ((dir = opendir (path.c_str())) != nullptr) {
+        while ((ent = readdir (dir)) != nullptr) {
+            if(utils::getFileExtension(ent->d_name) == savesHandler->saveFileExtension){
+                files.push_back(utils::getFileName(ent->d_name));
                 if(files.size() == savesHandler->maxSaves)
                     break;
             }
         }
+        closedir (dir);
 
         if(!files.empty()){
             savesHandler->clear();
@@ -114,6 +120,8 @@ void LoadSaveTab::refresh() {
                 count++;
             }
         }
+    } else {
+        perror ("save folder missing");
     }
     for(const auto& i : slots){
         i->setLoadBtnDisabled(i->isEmpty());
@@ -127,8 +135,8 @@ std::string LoadSaveTab::generateSaveName() const {
     while(!flag){
         std::stringstream ss;
         ss << "save" << std::setfill('0') << std::setw(3) << count;
-        std::string s_path = savesHandler->savePath + "/" + ss.str() + ".dat";
-        if(!boost::filesystem::exists(s_path)){
+        std::string s_path = savesHandler->savePath + "/" + ss.str() + savesHandler->saveFileExtension;
+        if(!utils::fileExists(s_path)){
             flag = true;
         }else{
             count++;

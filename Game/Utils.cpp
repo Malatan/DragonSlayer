@@ -96,3 +96,27 @@ bool utils::writeStringToFile(const std::string& content, const std::string& pat
     }
     return true;
 }
+
+std::string utils::getFileExtension(const string &file_name) {
+    std::stringstream res;
+    for(int i = 0; i< file_name.length(); i++) {
+        if(file_name.at(i) == '.'){
+            res << file_name.substr(i, file_name.length() - 1);
+            break;
+        }
+    }
+    std::cout<<"e:"<<res.str()<<endl;
+    return res.str();
+}
+
+std::string utils::getFileName(const string &file_name) {
+    std::stringstream res;
+    for(int i = 0; i< file_name.length(); i++) {
+        if(file_name.at(i) == '.'){
+            res << file_name.substr(0, i);
+            break;
+        }
+    }
+    std::cout<<"n:"<<res.str()<<endl;
+    return res.str();
+}

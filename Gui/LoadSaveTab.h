@@ -7,7 +7,8 @@
 
 #include "Gui.h"
 #include "SavesHandler.h"
-#include <boost/filesystem.hpp>
+#include <dirent.h>
+#include <iomanip>
 
 class PopUpTextComponent;
 class SavesHandler;

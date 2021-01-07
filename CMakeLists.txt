@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.15)
 set(PROJECT_NAME DragonSlayer)
 project(${PROJECT_NAME})
 set(CMAKE_CXX_STANDARD 14)
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libstdc++ -static-libgcc")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libstdc++ -static-libgcc")
 
 set(SOURCE_FILES
         main.cpp
@@ -110,6 +110,7 @@ set(SOURCE_FILES
 
 include_directories(Resources)
 link_directories(SFML_2.5.1/bin)
+include_directories ("lib")
 
 if (CMAKE_BUILD_TYPE STREQUAL "Release")
     add_executable(${PROJECT_NAME} WIN32 ${SOURCE_FILES})
@@ -123,17 +124,6 @@ set(SFML_ROOT "SFML_2.5.1")
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
 find_package(SFML REQUIRED COMPONENTS audio graphics window system)
 target_link_libraries(${PROJECT_NAME} sfml-system sfml-window sfml-graphics sfml-audio sfml-network)
-
-#BOOST CONFIG
-set(Boost_INCLUDE_DIR E:/boost/include)
-set(Boost_LIBRARY_DIRS E:/boost/lib)
-find_package(Boost REQUIRED COMPONENTS filesystem serialization)
-IF (Boost_FOUND)
-    MESSAGE(STATUS "Boost found")
-    link_directories(${Boost_LIBRARY_DIR})
-    target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
-    include_directories(${Boost_INCLUDE_DIR})
-ENDIF()
 
 #GOOGLE TEST CONFIG
 add_subdirectory(unit_testing)

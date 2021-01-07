@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.15)
 # 'unit_testing' is the subproject name
 project(unit_testing)
 include_directories(../Resources)
+
 set(SOURCE_FILES
         mainTest.cpp
         Tests.cpp
@@ -118,13 +119,3 @@ find_package(SFML REQUIRED COMPONENTS audio graphics window system)
 add_executable(unit_testing_run ${SOURCE_FILES})
 target_link_libraries(unit_testing_run gtest gtest_main sfml-system sfml-window sfml-graphics sfml-audio sfml-network)
 
-#BOOST CONFIG
-set(Boost_INCLUDE_DIR E:/boost/include)
-set(Boost_LIBRARY_DIRS E:/boost/lib)
-find_package(Boost REQUIRED COMPONENTS filesystem serialization)
-IF (Boost_FOUND)
-    MESSAGE(STATUS "Boost found")
-    link_directories(${Boost_LIBRARY_DIR})
-    target_link_libraries(unit_testing_run gtest gtest_main ${Boost_LIBRARIES})
-    include_directories(${Boost_INCLUDE_DIR})
-ENDIF()

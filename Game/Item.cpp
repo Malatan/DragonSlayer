@@ -4,6 +4,8 @@
 
 #include "Item.h"
 
+Item::Item(const Item &p_item) = default;
+
 Item::Item(string itemType, string name, string description, int value, item_rarity rarity, int iconRectX,
            int iconRectY, int hp, int mp, int damage, int armor, float critchance, float evadechance, int quantity, bool isNew,
            unsigned int id) :

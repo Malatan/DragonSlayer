@@ -30,5 +30,7 @@ namespace utils{
     bool fileExists(const std::string& path);
     std::string readFile(const std::string& path);
     bool writeStringToFile(const std::string& content, const std::string& path);
+    std::string getFileExtension(const std::string& file_name);
+    std::string getFileName(const std::string& file_name);
 }
 #endif //DRAGONSLAYER_UTILS_H

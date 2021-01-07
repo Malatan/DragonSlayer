@@ -6,7 +6,7 @@
 #define DRAGONSLAYER_STATS_H
 #include <string>
 #include <sstream>
-#include <boost/serialization/serialization.hpp>
+#include <../includers/CerealHeaders.h>
 
 using namespace std;
 
@@ -90,31 +90,12 @@ public:
     float getFinalEvadeChance() const;
 
 private:
-    friend class boost::serialization::access;
-    template<class Archive>
-    void serialize(Archive& ar, const unsigned int version){
-        ar & level;
-        ar & exp;
-        ar & maxExp;
-        ar & hp;
-        ar & maxHp;
-        ar & mp;
-        ar & maxMp;
-        ar & armor;
-        ar & damage;
-        ar & critChance;
-        ar & evadeChance;
-        ar & agility;
-        ar & wisdom;
-        ar & strength;
-        ar & freePoints;
-        ar & spellDmgMultiplier;
-        ar & maxHpBonus;
-        ar & maxMpBonus;
-        ar & damageBonus;
-        ar & armorBonus;
-        ar & critChanceBonus;
-        ar & evadeChanceBonus;
+    friend class cereal::access;
+    template <class Archive>
+    void serialize(Archive & ar){
+        ar(level, exp, maxExp, hp, maxHp, mp, maxMp, armor, damage, critChance, evadeChance, agility,
+           wisdom, strength, freePoints, spellDmgMultiplier, maxHpBonus, maxMpBonus, damageBonus,
+           armorBonus, critChanceBonus, evadeChanceBonus);
     }
 
     int level{};

@@ -6,8 +6,7 @@
 #define DRAGONSLAYER_LOOTBAGSAVEDATA_H
 
 #include "../Game/Item.h"
-#include <boost/serialization/serialization.hpp>
-#include <boost/serialization/vector.hpp>
+#include <../includers/CerealHeaders.h>
 
 typedef std::pair<int, int> lifeTimePair;
 
@@ -28,15 +27,10 @@ public:
     float getPosY() const;
 
 private:
-    friend class boost::serialization::access;
-    template<class Archive>
-    void serialize(Archive& ar, const unsigned int version){
-        ar & id;
-        ar & msCounter;
-        ar & lifeTime;
-        ar & loots;
-        ar & posX;
-        ar & posY;
+    friend class cereal::access;
+    template <class Archive>
+    void serialize(Archive & ar){
+        ar(id, msCounter, lifeTime, loots, posX, posY);
     }
 
     unsigned int id{};

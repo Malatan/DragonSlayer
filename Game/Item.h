@@ -36,6 +36,7 @@ class Item {
 public:
     //CONSTRUCTOR & DESTRUCTOR
     Item();
+    Item(const Item& p_item);
     Item(string itemType, string name, string description, int value, item_rarity rarity,
             int iconRectX, int iconRectY, int hp, int mp, int damage, int armor, float critchance,
             float evadechance, int quantity, bool isNew, unsigned int id);
@@ -100,53 +101,35 @@ public:
     void setEvadeChance(float new_evadeChance);
 
 private:
-    friend class boost::serialization::access;
-    template<class Archive>
-    void serialize(Archive& ar, const unsigned int version){
-        ar & Id;
-        ar & descriptionWrapped;
-        ar & usageType;
-        ar & itemType;
-        ar & name;
-        ar & description;
-        ar & value;
-        ar & rarity;
-        ar & rarityEnum;
-        ar & iconRectX;
-        ar & iconRectY;
-        ar & isNew;
-        ar & equipped;
-        ar & quantity;
-        ar & hp;
-        ar & mp;
-        ar & damage;
-        ar & armor;
-        ar & critChance;
-        ar & evadeChance;
+    friend class cereal::access;
+    template <class Archive>
+    void serialize(Archive & ar){
+        ar(Id, descriptionWrapped, usageType, itemType, name, description, value, rarity, rarityEnum, iconRectX, iconRectY,
+           isNew, equipped, quantity, hp, mp, damage, armor, critChance, evadeChance);
     }
 
-    unsigned int Id;
-    bool descriptionWrapped;
-    item_usage_type usageType;      // 6-Consumable/5-Weapon/4-Shield/3-Head/2-Chest/1-Arms/0-Legs
+    unsigned int Id{};
+    bool descriptionWrapped{};
+    item_usage_type usageType{};      // 6-Consumable/5-Weapon/4-Shield/3-Head/2-Chest/1-Arms/0-Legs
     string itemType;    // ITEM/WEAPON/ARMATURE
     string name;
     string description;
-    int value;
+    int value{};
     string rarity;
-    item_rarity rarityEnum;
-    int iconRectX;
-    int iconRectY;
-    bool isNew;
-    bool equipped;
-    int quantity;
+    item_rarity rarityEnum{};
+    int iconRectX{};
+    int iconRectY{};
+    bool isNew{};
+    bool equipped{};
+    int quantity{};
 
     //Bonus Attributes
-    int hp;
-    int mp;
-    int damage;
-    int armor;
-    float critChance;
-    float evadeChance;
+    int hp{};
+    int mp{};
+    int damage{};
+    int armor{};
+    float critChance{};
+    float evadeChance{};
 };
 
 

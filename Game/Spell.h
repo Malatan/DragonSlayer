@@ -6,7 +6,7 @@
 #define DRAGONSLAYER_SPELL_H
 #include <string>
 #include <sstream>
-#include <boost/serialization/serialization.hpp>
+#include <../includers/CerealHeaders.h>
 
 enum spell_type{
     FIRE,
@@ -66,23 +66,11 @@ public:
     void setIntRectY(int new_intRectY);
 
 private:
-    friend class boost::serialization::access;
-    template<class Archive>
-    void serialize(Archive& ar, const unsigned int version){
-        ar & spellType;
-        ar & name;
-        ar & type;
-        ar & description;
-        ar & cost;
-        ar & cooldown;
-        ar & damage;
-        ar & aoe;
-        ar & learned;
-        ar & level;
-        ar & maxLevel;
-        ar & learnCost;
-        ar & intRectX;
-        ar & intRectY;
+    friend class cereal::access;
+    template <class Archive>
+    void serialize(Archive & ar){
+        ar(spellType, name, type, description, cost, cooldown, damage, aoe, learned, level, maxLevel, learnCost,
+           intRectX, intRectY);
     }
 
     spell_type spellType{};
