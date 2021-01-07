@@ -11,7 +11,7 @@ set(CMAKE_CXX_COMPILER_ID "GNU")
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../Resources"
-  "E:/boost/include"
+  "../lib"
   "../unit_testing/../Resources"
   "../unit_testing/lib/googletest-master/googletest/include"
   "../unit_testing/lib/googletest-master/googletest"

@@ -905,10 +905,6 @@ unit_testing/unit_testing_run.exe: ../SFML_2.5.1/lib/libsfml-graphics.a
 unit_testing/unit_testing_run.exe: ../SFML_2.5.1/lib/libsfml-audio.a
 unit_testing/unit_testing_run.exe: ../SFML_2.5.1/lib/libsfml-network.a
 unit_testing/unit_testing_run.exe: lib/libgtest.a
-unit_testing/unit_testing_run.exe: lib/libgtest_main.a
-unit_testing/unit_testing_run.exe: C:/Program\ Files/boost/lib/libboost_filesystem-mgw8-mt-x32-1_75.a
-unit_testing/unit_testing_run.exe: C:/Program\ Files/boost/lib/libboost_serialization-mgw8-mt-x32-1_75.a
-unit_testing/unit_testing_run.exe: lib/libgtest.a
 unit_testing/unit_testing_run.exe: ../SFML_2.5.1/lib/libsfml-window.a
 unit_testing/unit_testing_run.exe: ../SFML_2.5.1/lib/libsfml-system.a
 unit_testing/unit_testing_run.exe: unit_testing/CMakeFiles/unit_testing_run.dir/linklibs.rsp

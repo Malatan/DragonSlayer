@@ -17,17 +17,6 @@
 //Builds the googlemock subproject
 BUILD_GMOCK:BOOL=ON
 
-//The directory containing a CMake configuration file for Boost.
-Boost_DIR:PATH=C:/Program Files/boost/lib/cmake/Boost-1.75.0
-
-Boost_FILESYSTEM_LIBRARY_DEBUG:STRING=C:/Program Files/boost/lib/libboost_filesystem-mgw8-mt-d-x32-1_75.a
-
-Boost_FILESYSTEM_LIBRARY_RELEASE:STRING=C:/Program Files/boost/lib/libboost_filesystem-mgw8-mt-x32-1_75.a
-
-Boost_SERIALIZATION_LIBRARY_DEBUG:STRING=C:/Program Files/boost/lib/libboost_serialization-mgw8-mt-d-x32-1_75.a
-
-Boost_SERIALIZATION_LIBRARY_RELEASE:STRING=C:/Program Files/boost/lib/libboost_serialization-mgw8-mt-x32-1_75.a
-
 //Path to a program.
 CMAKE_ADDR2LINE:FILEPATH=C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/addr2line.exe
 
@@ -340,15 +329,6 @@ SFML_DIR:PATH=E:/Progetto/DragonSlayer/SFML_2.5.1/lib/cmake/SFML
 //Path to a file.
 SFML_DOC_DIR:PATH=SFML_DOC_DIR-NOTFOUND
 
-//The directory containing a CMake configuration file for boost_filesystem.
-boost_filesystem_DIR:PATH=C:/Program Files/boost/lib/cmake/boost_filesystem-1.75.0
-
-//The directory containing a CMake configuration file for boost_headers.
-boost_headers_DIR:PATH=C:/Program Files/boost/lib/cmake/boost_headers-1.75.0
-
-//The directory containing a CMake configuration file for boost_serialization.
-boost_serialization_DIR:PATH=C:/Program Files/boost/lib/cmake/boost_serialization-1.75.0
-
 //Value Computed by CMake
 gmock_BINARY_DIR:STATIC=E:/Progetto/DragonSlayer/cmake-build-release/unit_testing/lib/googletest-master/googlemock
 
@@ -406,8 +386,6 @@ unit_testing_SOURCE_DIR:STATIC=E:/Progetto/DragonSlayer/unit_testing
 # INTERNAL cache entries
 ########################
 
-//ADVANCED property for variable: Boost_DIR
-Boost_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_ADDR2LINE
 CMAKE_ADDR2LINE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_AR
@@ -602,20 +580,12 @@ CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 CMAKE_STRIP-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
-//Details about finding Boost
-FIND_PACKAGE_MESSAGE_DETAILS_Boost:INTERNAL=[C:/Program Files/boost/lib/cmake/Boost-1.75.0/BoostConfig.cmake][cfound components: filesystem serialization ][v1.75.0()]
 //Details about finding PythonInterp
 FIND_PACKAGE_MESSAGE_DETAILS_PythonInterp:INTERNAL=[C:/Users/Administrator.000/AppData/Local/Programs/Python/Python37-32/python.exe][v3.7.3()]
 //ADVANCED property for variable: PYTHON_EXECUTABLE
 PYTHON_EXECUTABLE-ADVANCED:INTERNAL=1
 //CMAKE_INSTALL_PREFIX during last run
 _GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX:INTERNAL=C:/Program Files (x86)/DragonSlayer
-//ADVANCED property for variable: boost_filesystem_DIR
-boost_filesystem_DIR-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: boost_headers_DIR
-boost_headers_DIR-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: boost_serialization_DIR
-boost_serialization_DIR-ADVANCED:INTERNAL=1
 generated_dir:INTERNAL=E:/Progetto/DragonSlayer/cmake-build-release/unit_testing/lib/googletest-master/googletest/generated
 //ADVANCED property for variable: gmock_build_tests
 gmock_build_tests-ADVANCED:INTERNAL=1
