@@ -572,7 +572,7 @@ namespace gui{
         //modifiers/accessors
         bool isEmpty() const;
         std::string getName() const;
-        void setInfo(const std::string& s_name, const std::string& s_time);
+        void setInfo(const std::string& s_name, const std::string& s_time, const sf::Image& s_image);
         bool saveBtnIsPressed() const;
         bool loadBtnIsPressed() const;
 
@@ -585,6 +585,8 @@ namespace gui{
 
     private:
         sf::RectangleShape container;
+        sf::RectangleShape imageShape;
+        sf::Texture imageTexture;
         sf::Text titleLbl;
         sf::Text timeLbl;
         gui::Button saveBtn;

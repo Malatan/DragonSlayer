@@ -4,6 +4,8 @@
 
 #include "Save.h"
 
+#include <utility>
+
 //constructors/destructor
 Save::Save() = default;
 
@@ -21,6 +23,23 @@ std::string Save::getName() const {
 
 std::string Save::getLastModifiedTime() const {
     return lastModifiedTime;
+}
+
+void Save::setSaveImage(const sf::Image &save_image) {
+    Save::saveImage = save_image;
+}
+
+void Save::loadSaveImage() {
+    if(!saveImage.loadFromFile(imagePath)){
+        std::cerr << name << " missing save image" << endl;
+        if(!saveImage.loadFromFile("../Resources/Images/dragon.png")){
+            std::cerr << " missing default save image" << endl;
+        }
+    }
+}
+
+void Save::setImagePath(const string &path) {
+    imagePath = path;
 }
 
 //functions
@@ -134,5 +153,11 @@ std::string Save::toString() const {
     << " Enemy:[" << enemyCounts.first << " + " << enemyCounts.second << "]" << std::endl;
     return ss.str();
 }
+
+const sf::Image &Save::getSaveImage() const {
+    return saveImage;
+}
+
+
 
 

@@ -8,9 +8,9 @@ void LoadSaveTab::initSlots() {
     slots.clear();
     float x = container.getPosition().x + 10.f;
     float y = containerTitle.getPosition().y + 65.f;
-    float mod_y = 120.f;
+    float mod_y = 143.f;
     for(auto i = 0 ; i < 5 ; i++){
-        slots.push_back(std::make_shared<gui::LoadSaveSlot>(x,y + (mod_y * i), 680.f, 100.f, font));
+        slots.push_back(std::make_shared<gui::LoadSaveSlot>(x,y + (mod_y * i), 730.f, 130.f, font));
     }
 }
 
@@ -24,7 +24,7 @@ LoadSaveTab::LoadSaveTab(const std::shared_ptr<sf::RenderWindow>& window, std::s
             static_cast<float>(window->getSize().y)));
     background.setFillColor(sf::Color(20, 20, 20, 100));
     //init container
-    container.setSize(sf::Vector2f(700.f,750.f));
+    container.setSize(sf::Vector2f(750.f,850.f));
     container.setFillColor(sf::Color(50, 50, 50));
     container.setPosition(sf::Vector2f(
             static_cast<float>(window->getSize().x)/2.f - container.getGlobalBounds().width/2.f,
@@ -115,7 +115,7 @@ void LoadSaveTab::refresh() {
 
             int count = 0;
             for(const auto& i : savesHandler->getLoadedSaves()){
-                slots[count]->setInfo(i.second.getName(), i.second.getLastModifiedTime());
+                slots[count]->setInfo(i.second.getName(), i.second.getLastModifiedTime(), i.second.getSaveImage());
                 slots[count]->setLoadBtnDisabled(false);
                 count++;
             }
@@ -152,7 +152,6 @@ void LoadSaveTab::generateSave(const std::shared_ptr<gui::LoadSaveSlot>& s_slot)
     std::time_t result = std::time(nullptr);
     std::string time_str = std::asctime(std::localtime(&result));
     time_str.pop_back();
-
     std::string save_name;
     if(!s_slot->isEmpty()){ //overwrite
         save_name = s_slot->getName();
@@ -162,6 +161,7 @@ void LoadSaveTab::generateSave(const std::shared_ptr<gui::LoadSaveSlot>& s_slot)
 
     Save new_save = Save(save_name, time_str, rsHandler->getGameVersion());
     auto* game_state = dynamic_cast<GameState*>(state);
+    new_save.setSaveImage(gameScreen);
     new_save.saveRsHandlerInfo(game_state->getResourceHandler());
     new_save.savePlayerInfo(game_state->getPlayer());
     new_save.saveSpellsInfo(game_state->getSpellComponent());
@@ -268,4 +268,8 @@ void LoadSaveTab::render(sf::RenderTarget &target) {
     }else{
         target.draw(loadingLbl);
     }
+}
+
+void LoadSaveTab::setGameScreen(const sf::Image &game_screen) {
+    LoadSaveTab::gameScreen = game_screen;
 }

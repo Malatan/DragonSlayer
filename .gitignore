@@ -1,3 +1,10 @@
 # Project exclude paths
 cmake-build-debug/
+cmake-build-release/
 Saves/
+ScreenShoots/
+Data/dungeon_1.txt
+Data/dungeon_2.txt
+Data/dungeon_3.txt
+Data/dungeon_4.txt
+Data/dungeon_5.txt

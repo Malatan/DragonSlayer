@@ -1109,6 +1109,9 @@ void BattleState::updateInput(const float &dt) {
             currentWindowState = UNPAUSED;
         else
             currentWindowState = PAUSE_MENU;
+    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::F12) && getKeyTime()) {
+        std::string msg = saveScreenShoot();
+        popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG, msg, "", "");
     }
 }
 

@@ -40,6 +40,31 @@ state_enum State::getStateEnum() const {
 }
 
 //functions
+sf::Image State::getScreenShoot() {
+    sf::Texture texture;
+    texture.create(window->getSize().x, window->getSize().y);
+    texture.update(*window);
+    return texture.copyToImage();
+}
+
+std::string State::saveScreenShoot() {
+    if (mkdir("../ScreenShoots") != -1)
+        std::cout << "ScreenShoots Directory created" << std::endl;
+    auto start = std::chrono::system_clock::now();
+    auto legacyStart = std::chrono::system_clock::to_time_t(start);
+    std::stringstream ss;
+    ss << "../ScreenShoots/" << std::ctime(&legacyStart);
+    std::string f_path = ss.str();
+    f_path.erase(std::remove(f_path.begin(), f_path.end(), ':'), f_path.end());
+    f_path.erase(std::remove(f_path.begin(), f_path.end(), ' '), f_path.end());
+    f_path.pop_back();
+    f_path += ".png";
+    getScreenShoot().saveToFile(f_path);
+    ss.str("");
+    ss << "ScreenShot saved in " << f_path;
+    return ss.str();
+}
+
 void State::endState() {
     quit = true;
 }

@@ -2236,17 +2236,27 @@ gui::LoadSaveSlot::LoadSaveSlot(float x, float y, float width, float height, sf:
     container.setPosition(x, y);
     container.setFillColor(sf::Color(30, 30, 30));
     container.setOutlineColor(sf::Color(20, 20, 20));
-    container.setOutlineThickness(5.f);
+    container.setOutlineThickness(4.f);
+
+    sf::Vector2f shape_v = {170.f, 115.f};
+    imageShape.setSize(shape_v);
+    imageShape.setPosition(container.getPosition().x + 10.f,
+                           container.getPosition().y + container.getGlobalBounds().height/2.f - imageShape.getSize().y/2.f - 4.f);
+    imageShape.setFillColor(sf::Color(70, 70, 70, 150));
+    imageShape.setOutlineColor(sf::Color(50, 50, 50));
+    imageShape.setOutlineThickness(3.f);
 
     titleLbl.setFont(*font);
     titleLbl.setCharacterSize(30);
     titleLbl.setString("Empty Slot");
-    titleLbl.setPosition(x + 15.f, y + 5.f);
+    titleLbl.setPosition(imageShape.getPosition().x + imageShape.getGlobalBounds().width + 15.f,
+                         imageShape.getPosition().y + 5.f);
 
     timeLbl.setFont(*font);
     timeLbl.setCharacterSize(20);
     timeLbl.setString("-");
-    timeLbl.setPosition(x + 25.f, titleLbl.getPosition().y + titleLbl.getGlobalBounds().height + 15.f);
+    timeLbl.setPosition(imageShape.getPosition().x + imageShape.getGlobalBounds().width + 25.f,
+                        titleLbl.getPosition().y + titleLbl.getGlobalBounds().height + 15.f);
 
     saveBtn = gui::Button(container.getPosition().x + container.getGlobalBounds().width - 100.f - 20.f,
                           container.getPosition().y + container.getGlobalBounds().height/2.f - 35.f - 5.f,
@@ -2273,12 +2283,16 @@ std::string gui::LoadSaveSlot::getName() const {
     return saveName;
 }
 
-void gui::LoadSaveSlot::setInfo(const std::string& s_name, const std::string& s_time) {
+void gui::LoadSaveSlot::setInfo(const std::string& s_name, const std::string& s_time, const sf::Image& s_image) {
     empty = false;
     saveName = s_name;
     saveLastMod = s_time;
     titleLbl.setString(saveName);
     timeLbl.setString(saveLastMod);
+    imageTexture.loadFromImage(s_image);
+    imageShape.setFillColor(sf::Color(255, 255, 255, 255));
+    imageShape.setTexture(&imageTexture);
+
 }
 
 bool gui::LoadSaveSlot::saveBtnIsPressed() const {
@@ -2296,6 +2310,8 @@ void gui::LoadSaveSlot::clear() {
     saveLastMod = "-";
     titleLbl.setString(saveName);
     timeLbl.setString(saveLastMod);
+    imageShape.setTexture(nullptr);
+    imageShape.setFillColor(sf::Color(70, 70, 70, 150));
 }
 
 void gui::LoadSaveSlot::setLoadBtnDisabled(bool b) {
@@ -2315,6 +2331,7 @@ void gui::LoadSaveSlot::update(const sf::Vector2f &mousePos) {
 
 void gui::LoadSaveSlot::render(sf::RenderTarget &target) {
     target.draw(container);
+    target.draw(imageShape);
     target.draw(titleLbl);
     target.draw(timeLbl);
     if(!saveBtn.isDisabled())

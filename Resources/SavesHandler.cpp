@@ -29,6 +29,10 @@ bool SavesHandler::write(Save& save) const {
     if (mkdir("../Saves") != -1)
         std::cout << "Saves Directory created" << std::endl;
     std::stringstream ss;
+    ss << savePath << "/" << save.getName() << ".png";
+    save.getSaveImage().saveToFile(ss.str());
+    save.setImagePath(ss.str());
+    ss.str("");
     ss << savePath << "/" << save.getName() << saveFileExtension;
     std::ofstream ofs(ss.str(), std::ios::binary);
     cereal::BinaryOutputArchive archive(ofs);
@@ -46,6 +50,7 @@ bool SavesHandler::read(const std::string& saveName) {
         cereal::BinaryInputArchive archive(ifs);
         archive >> loaded_save;
         ifs.close();
+        loaded_save.loadSaveImage();
         loadedSaves.insert(std::pair<std::string, Save>(saveName, loaded_save));
         return true;
     }

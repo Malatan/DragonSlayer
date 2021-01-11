@@ -159,6 +159,7 @@ void GameState::initHintsTab() {
                           " <M> to gain gold\n"
                           " <T> to gain exp\n"
                           " <X> to noclip\n"
+                          " <F12> to screenshot\n"
                                 );
 
     hints.setPosition(5.f, window->getSize().y - hints.getGlobalBounds().height + 20.f);
@@ -824,6 +825,7 @@ void GameState::updateLocationLbl() {
 void GameState::updateInput(const float &dt) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && getKeyTime()) {
         changeStato(PAUSEMENU_TAB);
+        loadSaveTab->setGameScreen(getScreenShoot());
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::C) && getKeyTime()) {
         changeStato(CHARACTER_TAB);
         cTab->unselectAll();
@@ -886,11 +888,19 @@ void GameState::updateInput(const float &dt) {
     }
 }
 
-void GameState::updateMouseInput(const float &dt) {
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && getKeyTime()) {
-        sf::Vector2f dir = mousePosView - player->getCenter();
-        player->getMovementComponent()->setVelocity(dir);
+void GameState::updateGlobalInput(const float &dt) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::F12) && getKeyTime()) {
+        std::string msg = saveScreenShoot();
+        popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG, msg, "", "");
+    }
+}
 
+void GameState::updateMouseInput(const float &dt) {
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
+        sf::Vector2f dir = mousePosView - player->getCenter();
+        auto vec_length = (float)sqrt(pow(dir.x, 2) + pow(dir.y, 2));
+        dir /= vec_length;
+        player->move(dt, dir.x, dir.y);
     }
 }
 
@@ -988,6 +998,7 @@ void GameState::updateButtons() {
     } else if(pauseMenuBtn->isPressed() && getKeyTime()){
         pauseMenuBtn->setButtonState(BTN_IDLE);
         changeStato(PAUSEMENU_TAB);
+        loadSaveTab->setGameScreen(getScreenShoot());
     } else if(spellTabBtn->isPressed() && getKeyTime()){
         spellTabBtn->setButtonState(BTN_IDLE);
         changeStato(SPELL_TAB);
@@ -1003,6 +1014,7 @@ void GameState::update(const float& dt) {
     updateTileMap(dt);
     updateDebugText();
     updateButtons();
+    updateGlobalInput(dt);
     if(!paused)
         updateMouseInput(dt);
     updateMousePosition(nullptr);

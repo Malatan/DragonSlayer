@@ -102,7 +102,10 @@ void MainMenuState::startGame() {
 }
 
 void MainMenuState::updateInput(const float &dt) {
-
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::F12) && getKeyTime()) {
+        std::string msg = saveScreenShoot();
+        popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG, msg, "", "");
+    }
 }
 
 void MainMenuState::updateButtons() {

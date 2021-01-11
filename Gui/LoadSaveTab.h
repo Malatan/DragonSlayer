@@ -39,6 +39,7 @@ public:
     void setHide(bool b);
     Save* getApplySave();
     save_load_option getSLOption() const;
+    void setGameScreen(const sf::Image &game_screen);
 
     //functions
     void refresh();
@@ -53,6 +54,7 @@ public:
     void render(sf::RenderTarget& target);
 
 private:
+    sf::Image gameScreen;
     bool hide{};
     bool loading{};
     bool applySave{};

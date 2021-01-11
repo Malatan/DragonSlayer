@@ -114,6 +114,7 @@ public:
     void updateTabsInvSpaceLbl();
     void updateTabsPlayerStatsLbl(state_tab update_tab = NO_TAB);
     void updateInput(const float &dt) override;
+    void updateGlobalInput(const float &dt);
     void updateMouseInput(const float &dt);
     void updatePlayerInput(const float& dt);
     void updatePausedMenuButtons();

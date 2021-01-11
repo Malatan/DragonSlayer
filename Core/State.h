@@ -11,6 +11,8 @@
 #include <SFML/Graphics.hpp>
 #include <stack>
 #include <map>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include "../Resources/ResourcesHandler.h"
 #include <memory>
 
@@ -49,6 +51,8 @@ public:
     state_enum getStateEnum() const;
 
     //functions
+    std::string saveScreenShoot();
+    sf::Image getScreenShoot();
     void endState();
     void pauseState();
     void unpauseState();

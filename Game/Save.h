@@ -24,12 +24,16 @@ class Save {
 public:
     //constructors/destructor
     Save();
-    Save(std::string  name, std::string modified_time, std::string game_version);
+    Save(std::string name, std::string modified_time, std::string game_version);
     virtual ~Save();
 
     //accessors/modifiers
     std::string getName() const;
     std::string getLastModifiedTime() const;
+    void setSaveImage(const sf::Image &save_image);
+    const sf::Image &getSaveImage() const;
+    void loadSaveImage();
+    void setImagePath(const std::string& path);
 
     //functions
     void saveRsHandlerInfo(const std::shared_ptr<ResourcesHandler>& rshandler_info);
@@ -47,12 +51,10 @@ private:
     friend class cereal::access;
     template<class Archive>
     void serialize(Archive & ar){
-        /*ar(name, lastModifiedTime, gameVersion, rsHandlerIdCounter, playerPosX, playerPosY, playerStats, playerGold,
-                playerInventoryMaxSpace, inventory);*/
-       ar(name, lastModifiedTime, gameVersion, rsHandlerIdCounter, playerPosX, playerPosY, playerStats, playerGold,
-           playerInventoryMaxSpace, inventory, equips, spells, playerSpells, aeRecords, achievements, playerBuffs,
-           levelDims, openedDoors, currentFloor, reachedFloor, floor1, floor2, floor3, floor4, floor5, enemyCounts,
-           enemiesLeaders, enemiesFollowers, lootBags);
+       ar(name, lastModifiedTime, gameVersion, imagePath, rsHandlerIdCounter, playerPosX, playerPosY, playerStats,
+          playerGold, playerInventoryMaxSpace, inventory, equips, spells, playerSpells, aeRecords, achievements, playerBuffs,
+          levelDims, openedDoors, currentFloor, reachedFloor, floor1, floor2, floor3, floor4, floor5, enemyCounts,
+          enemiesLeaders, enemiesFollowers, lootBags);
     }
 
   /*  template <class Archive>
@@ -79,6 +81,8 @@ private:
     std::string name{};
     std::string lastModifiedTime{};
     std::string gameVersion{};
+    std::string imagePath{};
+    sf::Image saveImage;
 
     //rshandler info
     unsigned int rsHandlerIdCounter{};

@@ -105,7 +105,6 @@ std::string utils::getFileExtension(const string &file_name) {
             break;
         }
     }
-    std::cout<<"e:"<<res.str()<<endl;
     return res.str();
 }
 
@@ -117,6 +116,5 @@ std::string utils::getFileName(const string &file_name) {
             break;
         }
     }
-    std::cout<<"n:"<<res.str()<<endl;
     return res.str();
 }
