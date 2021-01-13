@@ -34,7 +34,10 @@ enum types{
 
 class Tile {
 private:
+    friend class PathFinder;
     float cx, cy;
+    int gridX;
+    int gridY;
     types type;
     bool traversable;
     bool up;
@@ -45,6 +48,7 @@ private:
     bool interactable{};
     sf::Sprite shape;
     sf::RectangleShape interact;
+    sf::RectangleShape rect;
 
 public:
     static const float TILE_SIZE;
@@ -74,11 +78,18 @@ public:
     void setInteract(const sf::RectangleShape &_interact);
     void setInteractTexture(const sf::Texture *texture);
     void enableInteract(bool enable);
+    float getCx() const;
+    float getCy() const;
+    bool isTraversable() const;
+
+    int getGridX() const;
+
+    int getGridY() const;
 
     //function
     bool intersects(sf::FloatRect bounds) const;
     void render(sf::RenderTarget* target, sf::Shader* shader = nullptr, sf::Vector2f player_position = sf::Vector2f());
-
+    void renderF(sf::RenderTarget* target);
 };
 
 #endif

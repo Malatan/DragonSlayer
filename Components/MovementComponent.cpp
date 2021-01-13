@@ -21,11 +21,10 @@ const sf::Vector2f &MovementComponent::getVelocity() const {
     return velocity;
 }
 
-void MovementComponent::setVelocity(sf::Vector2f new_velocity) {
-    velocity = new_velocity;
+const sf::Vector2f &MovementComponent::getPreviousPosition() const {
+    return previousPosition;
 }
 
-//functions
 bool MovementComponent::getState(const short unsigned state) const {
     switch(state){
         case IDLE:
@@ -58,17 +57,41 @@ bool MovementComponent::getState(const short unsigned state) const {
     return false;
 }
 
+void MovementComponent::setVelocity(sf::Vector2f new_vel) {
+    velocity = new_vel;
+}
+
+//modifers
+void MovementComponent::enableSpeedControl(bool b) {
+    speedControl = b;
+}
+
+//functions
 void MovementComponent::move(const float dir_x, const float dir_y, const float &dt) {
+    direction.x = dir_x;
+    direction.y = dir_y;
     //accelera lo sprite fino alla velocita massima
     velocity.x += acceleration * dir_x;
     velocity.y += acceleration * dir_y;
+}
+
+void MovementComponent::pathMove(float dir_x, float dir_y, const float &dt) {
+    direction.x = dir_x;
+    direction.y = dir_y;
+
+    velocity.x = maxVelocity * dir_x;
+    velocity.y = maxVelocity * dir_y;
+}
+
+void MovementComponent::stopVelocity() {
+    velocity.x = 0.f;
+    velocity.y = 0.f;
 
 }
 
 void MovementComponent::update(const float &dt) {
     //decelera lo sprite e controlla la velocita massima
     //fa movere lo sprite
-
     //controllo hitbox collisions
 
     if(velocity.x > 0.f){//controlla per x positiva
@@ -120,17 +143,14 @@ void MovementComponent::update(const float &dt) {
     sprite.move(velocity * dt);
 }
 
-void MovementComponent::stopVelocity() {
-    velocity.x = 0.f;
-    velocity.y = 0.f;
+void MovementComponent::render(sf::RenderTarget &target) {
 
 }
 
-const sf::Vector2f &MovementComponent::getPreviousPosition() const {
-    return previousPosition;
+const sf::Vector2f &MovementComponent::getDirection() const {
+    return direction;
 }
 
-//modifers
-void MovementComponent::enableSpeedControl(bool b) {
-    speedControl = b;
-}
+
+
+

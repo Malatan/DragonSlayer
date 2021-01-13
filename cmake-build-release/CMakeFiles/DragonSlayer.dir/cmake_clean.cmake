@@ -41,6 +41,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/DragonSlayer.dir/Map/Dungeon.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Map/Map.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Map/MapGenerator.cpp.obj"
+  "CMakeFiles/DragonSlayer.dir/Map/Node.cpp.obj"
+  "CMakeFiles/DragonSlayer.dir/Map/PathFinder.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Map/Tile.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Resources/EnemySaveData.cpp.obj"
   "CMakeFiles/DragonSlayer.dir/Resources/LootBagSaveData.cpp.obj"

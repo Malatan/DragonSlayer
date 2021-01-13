@@ -9,6 +9,8 @@
 #include "Tile.h"
 #include "ctime"
 #include "../Game/Utils.h"
+#include "Node.h"
+
 struct IntTile{
     types type;
     int y;
@@ -33,8 +35,13 @@ public:
     const vector<sf::Vector2f> &getFloorsPos() const;
     bool isInteracting() const;
     void setOpenDoors(std::vector<std::pair<int,int>>& open_doors);
+    int getHeight() const;
+    int getWidth() const;
+    float getHeightP() const;
+    float getWidthP() const;
 
     //function
+    Tile* getTileByPoint(sf::Vector2f v_point);
     void updateCollision(const std::shared_ptr<Player>& entity) const;
     void updateTileCollision(const std::shared_ptr<Player>& entity, const float &dt);
     void setWallType();
@@ -43,14 +50,14 @@ public:
     sf::Vector2f findStairs();
     void render(sf::RenderTarget *target, const std::shared_ptr<Player>& entity,
                 sf::Shader* shader = NULL, const sf::Vector2f playerPosition = sf::Vector2f());
-
+    void renderF(sf::RenderTarget *target);
 private:
     GameState *gState;
-    int height;
-    int width;
-    float heightP;
-    float widthP;
-    bool interacting;
+    int height{};
+    int width{};
+    float heightP{};
+    float widthP{};
+    bool interacting{};
     IntTile intTile{};
     std::vector<sf::Vector2f> floorsPos{};
 

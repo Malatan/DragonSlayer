@@ -5,6 +5,7 @@
 #ifndef DRAGONSLAYER_GAMESTATE_H
 #define DRAGONSLAYER_GAMESTATE_H
 
+#include <chrono>
 #include "State.h"
 #include "BattleState.h"
 #include "Subject.h"
@@ -28,6 +29,7 @@
 #include "../Components/SpellComponent.h"
 #include "../Map/Map.h"
 #include "../Map/MapGenerator.h"
+#include "../Map/PathFinder.h"
 #include "../Resources/EnemySaveData.h"
 #include "../Resources/LootBagSaveData.h"
 
@@ -47,6 +49,7 @@ class AchievementComponent;
 class Map;
 class MapGenerator;
 class LootBag;
+class PathFinder;
 
 typedef std::pair<unsigned int, unsigned int> lootBagAccessPair;
 
@@ -139,6 +142,7 @@ private:
 
     sf::Shader coreShader;
     Map* map{};
+    std::shared_ptr<PathFinder> pathFinder;
     std::shared_ptr<MapGenerator> mg;
     std::unique_ptr<PauseMenu> pmenu;
     std::shared_ptr<CharacterTab> cTab;
@@ -166,6 +170,7 @@ private:
     bool noclip;
     int currentFloor{};
     int floorReached{};
+    float enemyRenderDistance{};
 
     //init
     void applySaveValue();

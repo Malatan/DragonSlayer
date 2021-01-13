@@ -30,7 +30,12 @@ Map::Map(int height, int width, State *state) {
     }
 }
 
-Map::~Map() = default;
+Map::~Map(){
+    for(const auto& i : tiles){
+        for(auto j : i)
+            delete j;
+    }
+}
 
 //GETTERS AND SETTERS
 const std::vector<std::vector<Tile *>> &Map::getTiles() const {
@@ -275,10 +280,8 @@ void Map::updateTileCollision(const std::shared_ptr<Player>& entity, const float
             sf::FloatRect playerBounds = entity->getCollisionBoxComponent()->getCollisionEllipse().getGlobalBounds();
             sf::FloatRect playerHitbox = entity->getHitboxComponent()->getGlobalBounds();
             if (!this->tiles[y][x]->IsTraversable() && this->tiles[y][x]->intersects(playerBounds)) {
-
                 entity->stopVelocity();
                 entity->setSpritePositon(entity->getMovementComponent()->getPreviousPosition());
-
             }
             if (this->tiles[y][x]->isInteractable()) {
                 if (this->tiles[y][x]->intersects(playerHitbox)) {
@@ -392,26 +395,32 @@ sf::Vector2f Map::findStairs() {
     return pos;
 }
 
+Tile* Map::getTileByPoint(sf::Vector2f v_point) {
+    int pos_x = (int)(v_point.x / Tile::TILE_SIZE);
+    int pos_y = (int)(v_point.y / Tile::TILE_SIZE);
+    return tiles[pos_y][pos_x];
+}
+
 void Map::render(sf::RenderTarget *target, const std::shared_ptr<Player>& entity, sf::Shader* shader, const sf::Vector2f playerPosition) {
-    this->fromX = entity->getGridPosition().x - 10;
+    this->fromX = entity->getGridPosition().x - 3;
     if (this->fromX < 0)
         this->fromX = 0;
     else if (this->fromX > this->width)
         this->fromX = this->width;
 
-    this->toX = entity->getGridPosition().x + 10;
+    this->toX = entity->getGridPosition().x + 4;
     if (this->toX < 0)
         this->toX = 0;
     else if (this->toX > this->width)
         this->toX = this->width;
 
-    this->fromY = entity->getGridPosition().y - 10;
+    this->fromY = entity->getGridPosition().y - 3;
     if (this->fromY < 0)
         this->fromY = 0;
     else if (this->fromY > this->height)
         this->fromY = this->height;
 
-    this->toY = entity->getGridPosition().y + 10;
+    this->toY = entity->getGridPosition().y + 4;
     if (this->toY < 0)
         this->toY = 0;
     else if (this->toY >= this->height)
@@ -424,6 +433,29 @@ void Map::render(sf::RenderTarget *target, const std::shared_ptr<Player>& entity
     }
 }
 
+void Map::renderF(sf::RenderTarget *target) {
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            tiles[y][x]->renderF(target);
+        }
+    }
+}
+
+int Map::getHeight() const {
+    return height;
+}
+
+int Map::getWidth() const {
+    return width;
+}
+
+float Map::getHeightP() const {
+    return heightP;
+}
+
+float Map::getWidthP() const {
+    return widthP;
+}
 
 
 

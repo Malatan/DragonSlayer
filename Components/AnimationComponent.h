@@ -64,11 +64,11 @@ private:
                 //animate
                 if(currentRect != endRect){
                     currentRect.left += width;
-                    sprite.setTextureRect(currentRect);
                 } else{  //reset
                     currentRect.left = startRect.left;
                     done = true;
                 }
+                sprite.setTextureRect(currentRect);
             }
 
             return done;

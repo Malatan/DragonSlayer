@@ -11,6 +11,8 @@
 #include "../Components/CollisionBoxComponent.h"
 #include <iostream>
 #include <queue>
+#include <cmath>
+#include <../Game/Utils.h>
 
 enum entity_animation{
     IDLE_ANIMATION,
@@ -41,23 +43,28 @@ public:
     void createAnimationComponent(sf::Texture& texture_sheet);
     void createCollisionBoxComponent(sf::Sprite& entity_sprite, float offset_x, float offset_y, float radius);
 
+    //waypoints
+    void setWayPoint(sf::Vector2f point, int index);
+    void addWayPoint(sf::Vector2f point);
+    void clearWayPoints();
+
     //accessors
     virtual std::shared_ptr<MovementComponent> getMovementComponent();
     virtual std::shared_ptr<HitboxComponent> getHitboxComponent();
     virtual std::shared_ptr<CollisionBoxComponent> getCollisionBoxComponent();
     virtual sf::Vector2f getPosition() const;
+    virtual sf::Vector2f getSpritePosition() const;
     virtual sf::Vector2f getCenter() const;
+    virtual sf::Vector2f getCollisionBoxCenter() const;
     virtual sf::FloatRect getGlobalBounds() const;
     virtual sf::Vector2i getGridPosition() const;
 
     //functions
-    virtual void addTargetPoint(sf::Vector2f new_target_point);
-    virtual void clearTargetPoints();
     virtual void setPosition(float x, float y);
     virtual void setOrigin(float x, float y);
     virtual void move(const float& dt, float x, float y);
-    virtual void moveTo(const float& dt, sf::Vector2f& target_point);
     virtual void setSpritePositon(sf::Vector2f pos);
+    virtual void updateWaypoint(const float& dt);
     virtual void update(const float& dt);
     virtual void render(sf::RenderTarget& target);
     virtual void stopVelocity();
@@ -65,8 +72,8 @@ public:
 protected:
     sf::Sprite sprite;
     sf::Vector2f scale;
-    std::queue<sf::Vector2f> targetPoints;
-
+    std::vector<sf::Vertex> wayPoints;
+    bool startMove{};
     std::shared_ptr<MovementComponent> movementComponent;
     std::shared_ptr<AnimationComponent> animationComponent;
     std::shared_ptr<HitboxComponent> hitboxComponent;

@@ -44,6 +44,7 @@ public:
     void render(sf::RenderTarget& target, sf::Shader* shader = nullptr, sf::Vector2f light_position = sf::Vector2f(), bool show_hitbox = false, bool show_clsBox = false);
 
     //getters/setters
+    bool canBeRendered(float distance, sf::Vector2f from);
     const vector<std::shared_ptr<Enemy>> &getFollowers() const;
     bool isDead() const;
     void addFollower(const std::shared_ptr<Enemy>& new_follower);

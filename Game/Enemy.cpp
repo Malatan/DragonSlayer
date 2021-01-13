@@ -165,6 +165,12 @@ Enemy::Enemy(enemy_types type, std::string  name, unsigned int id, const Stats &
 Enemy::~Enemy() = default;
 
 //functions
+bool Enemy::canBeRendered(float distance, sf::Vector2f from) {
+    sf::Vector2f v_diff = {getPosition().x - from.x, getPosition().y - from.y};
+    auto vec_length = (float)sqrt(pow(v_diff.x, 2) + pow(v_diff.y, 2));
+    return vec_length <= distance;
+}
+
 void Enemy::updateStatsBoost(bool recover) {
     int alive_followers = getAliveFollowersNumber();
     if(!followers.empty() && alive_followers != currentBoost){
@@ -408,12 +414,11 @@ void Enemy::render(sf::RenderTarget &target, sf::Shader* shader, sf::Vector2f li
     if(shader){
         shader->setUniform("hasTexture", true);
         shader->setUniform("lightPos", light_position);
-
         target.draw(sprite, shader);
     }
-
-    else
+    else{
         target.draw(sprite);
+    }
     if(show_hitbox)
         hitboxComponent->render(target);
 }

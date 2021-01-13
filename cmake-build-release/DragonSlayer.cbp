@@ -744,6 +744,18 @@
 			<Option target="DragonSlayer"/>
 			<Option target="unit_testing_run"/>
 		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Map/Node.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Map/Node.h">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Map/PathFinder.cpp">
+			<Option target="DragonSlayer"/>
+		</Unit>
+		<Unit filename="E:/Progetto/DragonSlayer/Map/PathFinder.h">
+			<Option target="DragonSlayer"/>
+		</Unit>
 		<Unit filename="E:/Progetto/DragonSlayer/Map/Tile.cpp">
 			<Option target="DragonSlayer"/>
 			<Option target="unit_testing_run"/>

@@ -16,10 +16,14 @@ Tile::Tile(float cx, float cy, bool traversable) {
   //  shape = sf::Sprite(sf::Vector2f(Tile::TILE_SIZE, Tile::TILE_SIZE));
 
     shape.setPosition(sf::Vector2f((cx - (Tile::TILE_SIZE / 2)), (cy - (Tile::TILE_SIZE / 2))));
+    gridX = (int)(shape.getPosition().x/TILE_SIZE);
+    gridY = (int)(shape.getPosition().y/TILE_SIZE);
     interact.setPosition(sf::Vector2f((cx - (Tile::TILE_SIZE / 2)), (cy - (Tile::TILE_SIZE / 2))));
-
-
-
+    rect.setPosition(shape.getPosition());
+    rect.setSize(sf::Vector2f(TILE_SIZE, TILE_SIZE));
+    rect.setFillColor(sf::Color::Transparent);
+    rect.setOutlineColor(sf::Color::Blue);
+    rect.setOutlineThickness(-1.f);
 }
 
 Tile::~Tile() = default;
@@ -258,8 +262,37 @@ void Tile::render(sf::RenderTarget *target, sf::Shader* shader, const sf::Vector
     if (interactable) {
         target->draw(interact);
     }
+    target->draw(rect);
+}
+
+void Tile::renderF(sf::RenderTarget *target) {
+    target->draw(shape);
+    if (interactable) {
+        target->draw(interact);
+    }
+    target->draw(rect);
 }
 
 bool Tile::intersects(const sf::FloatRect bounds) const{
     return this->shape.getGlobalBounds().intersects(bounds);
+}
+
+bool Tile::isTraversable() const {
+    return traversable;
+}
+
+float Tile::getCx() const {
+    return cx;
+}
+
+float Tile::getCy() const {
+    return cy;
+}
+
+int Tile::getGridX() const {
+    return gridX;
+}
+
+int Tile::getGridY() const {
+    return gridY;
 }

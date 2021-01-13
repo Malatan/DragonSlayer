@@ -8,7 +8,7 @@
 void Player::initAnimations() {
     animationComponent->addAnimation("IDLE", 15.f,
             0, 0, 3, 0, 50 ,37);
-    animationComponent->addAnimation("WALK", 6.f,
+    animationComponent->addAnimation("WALK", 8.f,
             0, 1, 5, 1, 50 ,37);
     animationComponent->addAnimation("ATTACK", 6.f,
             0, 3, 13, 3, 50 ,37);
@@ -54,12 +54,12 @@ Player::Player(float x, float y, float scale_x, float scale_y, sf::Texture& text
     createAnimationComponent(texture_sheet);
     createMovementComponent(200.f, 14.f, 6.f);
     createHitboxComponent(sprite, 27.f, 12.f, 41.f, 62.f);
-    createCollisionBoxComponent(sprite, 48.f, 72.f, 5.f);
+    createCollisionBoxComponent(sprite, 48.f, 72.f, 4.5f);
     initAnimations();
 
     Player::setPosition(x, y);
     currentInventorySpace = 30;
-
+    wayPoints.emplace_back(sf::Vertex(sf::Vector2f(x, y)));
     weapon = nullptr;
     shield = nullptr;
     head = nullptr;
@@ -111,55 +111,41 @@ void Player::updateAnimation(const float &dt) {
     } else if(movementComponent->getState(MOVING_LEFT)){
         sprite.setOrigin(48.f, 0.f);
         sprite.setScale(-scale.x, scale.y);
-
-        animationComponent->play("WALK", dt,
-                                       movementComponent->getVelocity().x,
-                                       movementComponent->getMaxVelocity());
-
+        animationComponent->play("WALK", dt);
     } else if(movementComponent->getState(MOVING_RIGHT)){
         sprite.setOrigin(0.f, 0.f);
         sprite.setScale(scale.x, scale.y);
-
-        animationComponent->play("WALK", dt,
-                                       movementComponent->getVelocity().x,
-                                       movementComponent->getMaxVelocity());
-
+        animationComponent->play("WALK", dt);
     } else if(movementComponent->getState(MOVING_UP) || movementComponent->getState(MOVING_DOWN)){
-        animationComponent->play("WALK", dt,
-                                       movementComponent->getVelocity().y,
-                                       movementComponent->getMaxVelocity());
-
+        animationComponent->play("WALK", dt);
     }
 }
 
 void Player::update(const float &dt) {
+    updateWaypoint(dt);
     movementComponent->update(dt);
-    updateAnimation(dt);
-    hitboxComponent->update();
     collisionBoxComponent->update();
-    if(!targetPoints.empty()){
-        moveTo(dt, targetPoints.front());
-        if(collisionBoxComponent->getCollisionEllipse().getGlobalBounds().contains(targetPoints.front())){
-            targetPoints.pop();
-            stopVelocity();
-        }
-    }
+    hitboxComponent->update();
+    updateAnimation(dt);
 }
 
 void Player::render(sf::RenderTarget &target, sf::Shader* shader, sf::Vector2f light_position, const bool show_hitbox, const bool show_clsBox ) {
     if(show_clsBox)
         collisionBoxComponent->render(target);
+
     if(shader){
         shader->setUniform("hasTexture", true);
         shader->setUniform("lightPos", light_position);
-
         target.draw(sprite, shader);
     }
-
     else
         target.draw(sprite);
+
     if(show_hitbox)
         hitboxComponent->render(target);
+
+    target.draw(&wayPoints[0], wayPoints.size(), sf::LineStrip);
+
 }
 
 void Player::addGold(unsigned add_amount) {

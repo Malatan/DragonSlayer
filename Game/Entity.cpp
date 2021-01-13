@@ -41,6 +41,27 @@ std::shared_ptr<HitboxComponent> Entity::getHitboxComponent() {
     return hitboxComponent;
 }
 
+sf::Vector2f Entity::getCollisionBoxCenter() const {
+    sf::Vector2f v = getCenter();
+    return {v.x, v.y + 30.f};
+}
+
+//waypoints
+void Entity::setWayPoint(sf::Vector2f point, int index) {
+    wayPoints[index] = point;
+}
+
+void Entity::addWayPoint(sf::Vector2f point) {
+    startMove = true;
+    if(wayPoints.back().position.x == point.x || wayPoints.back().position.y == point.y){
+        wayPoints.back().position = point;
+    }
+    wayPoints.emplace_back(sf::Vertex(point));
+}
+
+void Entity::clearWayPoints() {
+    wayPoints.erase(wayPoints.begin() + 1, wayPoints.end());
+}
 
 //functions
 void Entity::setPosition(const float x, const float y) {
@@ -55,22 +76,25 @@ void Entity::move(const float& dt, const float dir_x, const float dir_y) {
         //sets velocity
         movementComponent->move(dir_x, dir_y, dt);
     }
-
+    wayPoints.clear();
 }
 
-void Entity::moveTo(const float& dt, sf::Vector2f& target_point) {
-   if(std::abs(hitboxComponent->getCenter().x - target_point.x) > 0.5f){
-        if(hitboxComponent->getCenter().x > target_point.x){
-            movementComponent->move(-1.f, 0.f, dt);
-        }else if(hitboxComponent->getCenter().x < target_point.x){
-            movementComponent->move(1.f, 0.f, dt);
-        }
-    }
-    if(std::abs(hitboxComponent->getCenter().y - target_point.y) > 0.5f){
-        if(hitboxComponent->getCenter().y < target_point.y){
-            movementComponent->move(0.f, 1.f, dt);
-        }else if(hitboxComponent->getCenter().y > target_point.y){
-            movementComponent->move(0.f, -1.f, dt);
+void Entity::updateWaypoint(const float &dt) {
+    wayPoints[0] = getCollisionBoxCenter();
+    if(wayPoints.size() > 1){
+        sf::Vector2f dir = {wayPoints[1].position.x - wayPoints[0].position.x,
+                            wayPoints[1].position.y - wayPoints[0].position.y};
+
+        auto vec_length = (float)sqrt(pow(dir.x, 2) + pow(dir.y, 2));
+        dir /= vec_length;
+        movementComponent->pathMove(dir.x, dir.y, dt);
+        if(vec_length < 3.f){
+            wayPoints.erase(wayPoints.begin() + 1);
+            if(wayPoints.size() != 1) {
+                movementComponent->stopVelocity();
+            }else{
+                movementComponent->setVelocity(movementComponent->getVelocity()/3.f);
+            }
         }
     }
 }
@@ -80,7 +104,6 @@ void Entity::update(const float &dt) {
 }
 
 void Entity::render(sf::RenderTarget& target) {
-
     target.draw(sprite);
 }
 
@@ -120,6 +143,10 @@ void Entity::setSpritePositon(const sf::Vector2f pos) {
     sprite.setPosition(pos);
 }
 
+sf::Vector2f Entity::getSpritePosition() const {
+    return sprite.getPosition();
+}
+
 std::shared_ptr<CollisionBoxComponent> Entity::getCollisionBoxComponent() {
     return collisionBoxComponent;
 }
@@ -143,14 +170,6 @@ sf::Vector2f Entity::getCenter() const {
            );
 }
 
-void Entity::addTargetPoint(sf::Vector2f new_target_point) {
-    targetPoints.push(new_target_point);
-}
-
-void Entity::clearTargetPoints() {
-    while(!targetPoints.empty())
-        targetPoints.pop();
-}
 
 
 

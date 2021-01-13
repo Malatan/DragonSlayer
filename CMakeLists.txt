@@ -105,6 +105,10 @@ set(SOURCE_FILES
         Map/Tile.cpp
         Map/Dungeon.cpp
         Map/Dungeon.h
+        Map/Node.cpp
+        Map/Node.h
+        Map/PathFinder.cpp
+        Map/PathFinder.h
         Shader/fragment_shader.frag
         Shader/vertex_shader.vert)
 

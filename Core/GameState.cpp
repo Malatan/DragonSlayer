@@ -199,6 +199,7 @@ void GameState::initShopItemTextures() {
 }
 
 void GameState::initComponents() {
+    pathFinder = std::make_shared<PathFinder>();
     spellComponent = std::make_shared<SpellComponent>();
     achievementComponent = std::make_shared<AchievementComponent>(font);
     buffComponent = std::make_shared<BuffComponent>(popUpTextComponent, player, this, font);
@@ -239,7 +240,8 @@ void GameState::initView() {
 
 void GameState::initDebugText() {
     debugText.setFont(*font);
-    debugText.setCharacterSize(15);
+    debugText.setCharacterSize(25);
+    debugText.setFillColor(sf::Color::Red);
     debugText.setString("Debug text");
     debugText.setPosition(5.f, 40.f);
 }
@@ -386,7 +388,7 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::u
     stato = NO_TAB;
     npcInteract = NO_NPC;
     noclip = false;
-    spawnPos = {1730.f, 770.f};
+    enemyRenderDistance = 350.f;
     loadSaveTab->setState(this);
     loadSaveTab->setAccessOption(LOAD_SAVE);
     applySaveValue();
@@ -700,7 +702,6 @@ void GameState::changeStato(state_tab current_stato) {
 }
 
 void GameState::checkBattleResult(BattleResult& battle_result) {
-    std::cout<<battle_result.generateReport();
     switch(battle_result.getResultType()){
         case WIN:{
             int exp_gain = battle_result.getExpGainCount();
@@ -747,8 +748,7 @@ void GameState::checkBattleResult(BattleResult& battle_result) {
                     break;
                 }
             }
-            if(deleteEnemyById(battle_result.getEnemyLeaderId()))
-                std::cout<<"Enemy " << battle_result.getEnemyLeaderId() << " deleted" << endl;
+            deleteEnemyById(battle_result.getEnemyLeaderId());
             player->stopVelocity();
             break;
         }
@@ -773,6 +773,7 @@ void GameState::checkBattleResult(BattleResult& battle_result) {
         case NOT_FINISHED:
             break;
     }
+    player->clearWayPoints();
     if(battle_result.getResultType() != QUIT_GAME){
         //notifica achivements data
         for(auto i : battle_result.getAchievementDataSet()){
@@ -883,6 +884,7 @@ void GameState::updateInput(const float &dt) {
                 }
             } else if(map->getIntTile().type == CLOSEDOOR){
                 map->openDoor(map->getIntTile().y, map->getIntTile().x);
+                pathFinder->updateNodes(map, player->getGridPosition());
             }
         }
     }
@@ -896,29 +898,42 @@ void GameState::updateGlobalInput(const float &dt) {
 }
 
 void GameState::updateMouseInput(const float &dt) {
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
-        sf::Vector2f dir = mousePosView - player->getCenter();
-        auto vec_length = (float)sqrt(pow(dir.x, 2) + pow(dir.y, 2));
-        dir /= vec_length;
-        player->move(dt, dir.x, dir.y);
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && getKeyTime()) {
+        int node_x = (int)(mousePosView.x/(Tile::TILE_SIZE/(float)pathFinder->nodeMultiplier));
+        int node_y = (int)(mousePosView.y/(Tile::TILE_SIZE/(float)pathFinder->nodeMultiplier));
+        if(pathFinder->nodes[node_y][node_x]->isWalkable()){
+            bool path_found;
+            if(currentFloor == 0){
+                path_found = pathFinder->FindPath(player->getCollisionBoxCenter(), mousePosView, 9999);
+            }else{
+                path_found = pathFinder->FindPath(player->getCollisionBoxCenter(), mousePosView, 400);
+            }
+            if(path_found){
+                player->clearWayPoints();
+                for(auto i : pathFinder->path){
+                    auto mod = (float)pathFinder->nodeMultiplier;
+                    sf::Vector2f new_waypoint = {((float)i->getPosX() * Tile::TILE_SIZE/mod)
+                                                 + Tile::TILE_SIZE/(2.f * mod),
+                                                 ((float)i->getPosY() * Tile::TILE_SIZE/mod)
+                                                 + Tile::TILE_SIZE/(2.f * mod)};
+                    player->addWayPoint(new_waypoint);
+                }
+            }
+        }
     }
 }
 
 void GameState::updatePlayerInput(const float &dt) {
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
-        player->clearTargetPoints();
         player->move(dt, -1.f, 0.f);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
-        player->clearTargetPoints();
         player->move(dt, 1.f, 0.f);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
-        player->clearTargetPoints();
         player->move(dt, 0.f, -1.f);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
-        player->clearTargetPoints();
         player->move(dt, 0.f, 1.f);
     }
 }
@@ -980,13 +995,38 @@ void GameState::updatePausedMenuButtons() {
 
 void GameState::updateView(const float &dt) {
     view.setCenter(player->getHitboxComponent()->getCenter());
+    sf::Vector2f player_pos = player->getHitboxComponent()->getCenter();
+    sf::Vector2f view_center = view.getCenter();
+    sf::Vector2f view_size = view.getSize();
+    float map_width = map->getWidthP();
+    float map_height = map->getHeightP();
+    if(player_pos.y - (view_size.y/2.f) < 0.f){
+        view_center.y = view_size.y /2;
+    }
+    if(player_pos.y + (view_size.y/2.f) > map_height){
+        view_center.y = map_height - (view_size.y/2);
+    }
+    if(player_pos.x - (view_size.x/2.f) < 0.f){
+        view_center.x = view_size.x/2;
+    }
+    if(player_pos.x + (view_size.x/2) > map_width){
+        view_center.x = map_width - (view_size.x/2);
+    }
+    view.setCenter(view_center);
 }
 
 void GameState::updateDebugText() {
+    sf::Vector2f vv = player->getMovementComponent()->getVelocity();
+    sf::Vector2f vd = player->getMovementComponent()->getDirection();
     //debbuging tool: show mouse pos coords
     std::stringstream ss;
     ss << "Mouse pos: x: " << mousePosView.x << " y: " << mousePosView.y << std::endl
-    << "Enemies: " << enemies.size() << std::endl << "Lootbags: " << lootBags.size();
+        << "Enemies: " << enemies.size() << std::endl
+        << "Lootbags: " << lootBags.size() << std::endl
+        << "Nodes[x]: " << pathFinder->widthN << " Nodes[y]: " << pathFinder->heightN << std::endl
+        << "Nodes: " << pathFinder->nodesN << " Empty nodes: " << pathFinder->emptyNodes << std::endl
+        << "Dx: " << vd.x << std::endl << "Dy: " << vd.y << std::endl
+        << "Vx: " << vv.x << std::endl << "Vy: " << vv.y;
     debugText.setString(ss.str());
 }
 
@@ -1051,6 +1091,7 @@ void GameState::update(const float& dt) {
         spellTabBtn->update(mousePosView);
         achievementTabBtn->update(mousePosView);
         popUpTextComponent->update(dt);
+
         for(const auto& i : enemies){
             i->update(dt);
             if(!noclip){
@@ -1063,6 +1104,7 @@ void GameState::update(const float& dt) {
                 }
             }
         }
+
     } else{ // paused update
         switch(stato){
             case PAUSEMENU_TAB:{
@@ -1152,13 +1194,16 @@ void GameState::render(sf::RenderTarget* target) {
     target->setView(view);
 
     if(currentFloor == 0)
-        map->render(target, player, nullptr, player->getCenter());
+        map->renderF(target);
     else
         map->render(target, player, &coreShader, player->getCenter());
-    player->render(*target, &coreShader, player->getCenter(), false, true);
+    player->render(*target, &coreShader, player->getCenter(), true, true);
+
     for(const auto& i : enemies){
-        i->render(*target, &coreShader, player->getCenter(), false, true);
+        if(i->canBeRendered(enemyRenderDistance, player->getPosition()))
+            i->render(*target, &coreShader, player->getCenter(), false, true);
     }
+
     for(auto i : npcs){
         i->render(*target, false);
         if(player->getHitboxComponent()->getGlobalBounds().intersects(i->getHitboxComponent()->getGlobalBounds())){
@@ -1260,6 +1305,8 @@ void GameState::changeMap(int floor, bool load_from_save) {
     selectLevelTab->updateButtonsAccess(floorReached);
     updateLocationLbl();
     map = mg->GenerateFromFile(floor, this);
+    pathFinder->generateNodes(map);
+    player->clearWayPoints();
     if(!lootBags.empty())
         lootBags.clear();
     if(floor != 0) {
@@ -1275,14 +1322,14 @@ void GameState::changeMap(int floor, bool load_from_save) {
         }
     }
     else {
-        spawnPos = sf::Vector2f(1230, 620);
+        spawnPos = sf::Vector2f(830, 620);
         player->setPosition(spawnPos.x, spawnPos.y);
         if (!enemies.empty())
             enemies.clear();
 
-        spawnNpc(1230.f, 870.f, WIZARD);
-        spawnNpc(1760.f, 570.f, SHOP);
-        spawnNpc(710.f, 570.f, PRIEST);
+        spawnNpc(830.f, 870.f, WIZARD);
+        spawnNpc(1360.f, 570.f, SHOP);
+        spawnNpc(310.f, 570.f, PRIEST);
     }
 }
 

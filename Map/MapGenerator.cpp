@@ -8,7 +8,7 @@ MapGenerator::MapGenerator(State* state) {
         dDims.push_back(d);
     }
     dDims[0].height = 11;
-    dDims[0].width = 25;
+    dDims[0].width = 17;
     gameState = dynamic_cast<GameState *>(state);
 }
 

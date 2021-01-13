@@ -1387,6 +1387,60 @@ Map/MapGenerator.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Map/MapGenerator.cpp.s
 .PHONY : Map/MapGenerator.cpp.s
 
+Map/Node.obj: Map/Node.cpp.obj
+
+.PHONY : Map/Node.obj
+
+# target to build an object file
+Map/Node.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Map/Node.cpp.obj
+.PHONY : Map/Node.cpp.obj
+
+Map/Node.i: Map/Node.cpp.i
+
+.PHONY : Map/Node.i
+
+# target to preprocess a source file
+Map/Node.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Map/Node.cpp.i
+.PHONY : Map/Node.cpp.i
+
+Map/Node.s: Map/Node.cpp.s
+
+.PHONY : Map/Node.s
+
+# target to generate assembly for a file
+Map/Node.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Map/Node.cpp.s
+.PHONY : Map/Node.cpp.s
+
+Map/PathFinder.obj: Map/PathFinder.cpp.obj
+
+.PHONY : Map/PathFinder.obj
+
+# target to build an object file
+Map/PathFinder.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Map/PathFinder.cpp.obj
+.PHONY : Map/PathFinder.cpp.obj
+
+Map/PathFinder.i: Map/PathFinder.cpp.i
+
+.PHONY : Map/PathFinder.i
+
+# target to preprocess a source file
+Map/PathFinder.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Map/PathFinder.cpp.i
+.PHONY : Map/PathFinder.cpp.i
+
+Map/PathFinder.s: Map/PathFinder.cpp.s
+
+.PHONY : Map/PathFinder.s
+
+# target to generate assembly for a file
+Map/PathFinder.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\DragonSlayer.dir\build.make CMakeFiles/DragonSlayer.dir/Map/PathFinder.cpp.s
+.PHONY : Map/PathFinder.cpp.s
+
 Map/Tile.obj: Map/Tile.cpp.obj
 
 .PHONY : Map/Tile.obj
@@ -1720,6 +1774,12 @@ help:
 	@echo ... Map/MapGenerator.obj
 	@echo ... Map/MapGenerator.i
 	@echo ... Map/MapGenerator.s
+	@echo ... Map/Node.obj
+	@echo ... Map/Node.i
+	@echo ... Map/Node.s
+	@echo ... Map/PathFinder.obj
+	@echo ... Map/PathFinder.i
+	@echo ... Map/PathFinder.s
 	@echo ... Map/Tile.obj
 	@echo ... Map/Tile.i
 	@echo ... Map/Tile.s
