@@ -10,9 +10,11 @@
 #include "Enemy.h"
 #include "../Components/AchievementsEnum.h"
 
+class Enemy;
+
 typedef std::pair<achievement_event, int> achievementPair;
 
-enum battle_result_types{
+enum battle_result_types : unsigned int{
     WIN,
     LOST,
     ESCAPED,

@@ -11,6 +11,7 @@
 #include "../Game/Enemy.h"
 #include "libraries/RichText.hpp"
 
+class Enemy;
 enum button_states{
     BTN_IDLE = 0,
     BTN_ACTIVE,

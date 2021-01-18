@@ -7,10 +7,9 @@
 
 #include <chrono>
 #include "State.h"
-#include "BattleState.h"
+
 #include "Subject.h"
-#include "../Game/LootGenerator.h"
-#include "../Game/BattleResult.h"
+#include "../Map/Map.h"
 #include "../Game/Player.h"
 #include "../Game/Enemy.h"
 #include "../Game/Npc.h"
@@ -27,11 +26,14 @@
 #include "../Components/BuffComponent.h"
 #include "../Components/PopUpTextComponent.h"
 #include "../Components/SpellComponent.h"
-#include "../Map/Map.h"
+#include "BattleState.h"
+#include "../Game/BattleResult.h"
 #include "../Map/MapGenerator.h"
 #include "../Map/PathFinder.h"
-#include "../Resources/EnemySaveData.h"
 #include "../Resources/LootBagSaveData.h"
+
+#include "../Resources/EnemySaveData.h"
+#include "../Game/LootGenerator.h"
 
 class PauseMenu;
 class CharacterTab;
@@ -48,8 +50,8 @@ class SpellComponent;
 class AchievementComponent;
 class Map;
 class MapGenerator;
-class LootBag;
 class PathFinder;
+class EnemySaveData;
 
 typedef std::pair<unsigned int, unsigned int> lootBagAccessPair;
 
@@ -95,6 +97,7 @@ public:
     int getCurrentFloor() const;
     int getReachedFloor() const;
     Map* getMap();
+    PathFinder* getPathFinder() const;
 
     //observer
     void addObserver(Observer* observer);
@@ -104,7 +107,7 @@ public:
     //functions
     std::pair<int, int> getEnemyCount(bool count_followers = false) const;
     void changeMap(int floor, bool load_from_save = false);
-    void checkBattleResult(BattleResult& battle_result);
+    void checkBattleResult(BattleResult* battle_result);
     void loadEnemyFromSave();
     std::shared_ptr<Enemy> enemyFactory(float x, float y, enemy_types type, bool generate_stats);
     void spawnEnemy(float x, float y, enemy_types type, unsigned int enemy_followers = 5);

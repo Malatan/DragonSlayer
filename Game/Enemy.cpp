@@ -130,7 +130,7 @@ void Enemy::initAnimations() {
 //constructors/destructors
 Enemy::Enemy(enemy_types type, float x, float y, float scale_x ,float scale_y, float hitbox_offset_x, float hitbox_offset_y,
              float hitbox_width, float hitbox_height, float clsBox_offset_x, float clsBox_offset_y, float clsBox_radius,
-             sf::Texture& texture_sheet) : type(type){
+             sf::Texture& texture_sheet, State* gameState) : type(type){
     scale.x = scale_x;
     scale.y = scale_y;
     sprite.setScale(scale);
@@ -141,9 +141,16 @@ Enemy::Enemy(enemy_types type, float x, float y, float scale_x ,float scale_y, f
     createAnimationComponent(texture_sheet);
     createHitboxComponent(sprite, hitbox_offset_x, hitbox_offset_y, hitbox_width, hitbox_height);
     createCollisionBoxComponent(sprite, clsBox_offset_x, clsBox_offset_y, clsBox_radius);
+    createMovementComponent(200.f, 14.f, 7.f);
     initAnimations();
     Enemy::setPosition(x, y);
     generateNameByType();
+    wayPoints.emplace_back(sf::Vertex(sf::Vector2f(x, y)));
+    spawnPos = {x,y};
+    auto i = dynamic_cast<GameState*>(gameState);
+    player = i->getPlayer();
+    aIBehaviour = new AIBehaviour(i->getPathFinder(), *this, *i->getPlayer(), spawnPos);
+
 }
 
 Enemy::Enemy(enemy_types type, int level, int floor, unsigned int id) : type(type), Id(id){
@@ -162,7 +169,10 @@ Enemy::Enemy(enemy_types type, std::string  name, unsigned int id, const Stats &
     stats = std::make_shared<Stats>(_stats);
 }
 
-Enemy::~Enemy() = default;
+Enemy::~Enemy(){
+
+    delete aIBehaviour;
+}
 
 //functions
 bool Enemy::canBeRendered(float distance, sf::Vector2f from) {
@@ -370,42 +380,60 @@ void Enemy::generateEnemyStats(int floor, int level) {
 }
 
 void Enemy::updateAnimation(const float &dt) {
-    switch(animationEnum){
-        case IDLE_ANIMATION:
-            animationDone = animationComponent->play("IDLE", dt);
-            break;
-        case ATTACK_ANIMATION:
-            animationDone = animationComponent->play("ATTACK", dt);
-            break;
-        case ATTACK2_ANIMATION:
-            animationDone = animationComponent->play("ATTACK2", dt);
-            break;
-        case SHIELD_ANIMATION:
-            animationDone = animationComponent->play("SHIELD", dt);
-            break;
-        case WALK_ANIMATION:
-            animationDone = animationComponent->play("WALK", dt);
-            break;
-        case GETHIT_ANIMATION:
-            animationDone = animationComponent->play("GETHIT", dt);
-            break;
-        case DEATH_ANIMATION:
-            animationDone = animationComponent->play("DEATH", dt);
-            break;
-        case CORPSE_ANIMATION:
-            animationDone = animationComponent->play("CORPSE", dt);
-            break;
-        default:
-            break;
+    if(movementComponent->getState(IDLE)) {
+        switch (animationEnum) {
+            case IDLE_ANIMATION:
+                animationDone = animationComponent->play("IDLE", dt);
+                break;
+            case ATTACK_ANIMATION:
+                animationDone = animationComponent->play("ATTACK", dt);
+                break;
+            case ATTACK2_ANIMATION:
+                animationDone = animationComponent->play("ATTACK2", dt);
+                break;
+            case SHIELD_ANIMATION:
+                animationDone = animationComponent->play("SHIELD", dt);
+                break;
+            case WALK_ANIMATION:
+                animationDone = animationComponent->play("WALK", dt);
+                break;
+            case GETHIT_ANIMATION:
+                animationDone = animationComponent->play("GETHIT", dt);
+                break;
+            case DEATH_ANIMATION:
+                animationDone = animationComponent->play("DEATH", dt);
+                break;
+            case CORPSE_ANIMATION:
+                animationDone = animationComponent->play("CORPSE", dt);
+                break;
+            default:
+                break;
+        }
+        if (animationDone)
+            animationEnum = nextAnimationEnum;
+    } else if(movementComponent->getState(MOVING_LEFT)){
+         sprite.setOrigin(animationComponent->getWalkWidth(), 0.f);
+         sprite.setScale(-scale.x, scale.y);
+         animationComponent->play("WALK", dt);
+    } else if(movementComponent->getState(MOVING_RIGHT)){
+          sprite.setOrigin(0.f, 0.f);
+          sprite.setScale(scale.x, scale.y);
+        animationComponent->play("WALK", dt);
+    } else if(movementComponent->getState(MOVING_UP) || movementComponent->getState(MOVING_DOWN)){
+         animationComponent->play("WALK", dt);
     }
-    if(animationDone)
-        animationEnum = nextAnimationEnum;
 }
 
 void Enemy::update(const float &dt) {
     updateAnimation(dt);
     hitboxComponent->update();
     collisionBoxComponent->update();
+    if(aIBehaviour != nullptr) {
+        updateWaypoint(dt);
+        aIBehaviour->update(dt);
+    }
+    movementComponent->update(dt);
+
 }
 
 void Enemy::render(sf::RenderTarget &target, sf::Shader* shader, sf::Vector2f light_position, bool show_hitbox, bool show_clsBox) {
@@ -421,6 +449,8 @@ void Enemy::render(sf::RenderTarget &target, sf::Shader* shader, sf::Vector2f li
     }
     if(show_hitbox)
         hitboxComponent->render(target);
+
+    target.draw(&wayPoints[0], wayPoints.size(), sf::LineStrip);
 }
 
 //getters/setters
@@ -560,6 +590,32 @@ int Enemy::getCurrentBoost() const {
 void Enemy::setCurrentBoost(int current_boost) {
     currentBoost = current_boost;
 }
+
+Enemy::Enemy(enemy_types type, float x, float y, float scale_x, float scale_y, float hitbox_offset_x,
+             float hitbox_offset_y, float hitbox_width, float hitbox_height, float clsBox_offset_x,
+             float clsBox_offset_y, float clsBox_radius, sf::Texture &texture_sheet): type(type) {
+    scale.x = scale_x;
+    scale.y = scale_y;
+    sprite.setScale(scale);
+    animationEnum = IDLE_ANIMATION;
+    nextAnimationEnum = IDLE_ANIMATION;
+    animationDone = false;
+    currentBoost = 0;
+    createAnimationComponent(texture_sheet);
+    createHitboxComponent(sprite, hitbox_offset_x, hitbox_offset_y, hitbox_width, hitbox_height);
+    createCollisionBoxComponent(sprite, clsBox_offset_x, clsBox_offset_y, clsBox_radius);
+    createMovementComponent(100.f, 14.f, 7.f);
+    initAnimations();
+    Enemy::setPosition(x, y);
+    generateNameByType();
+    wayPoints.emplace_back(sf::Vertex(sf::Vector2f(x, y)));
+}
+
+const sf::Vector2f &Enemy::getSpawnPos() const {
+    return spawnPos;
+}
+
+
 
 
 

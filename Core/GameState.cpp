@@ -557,49 +557,49 @@ std::shared_ptr<Enemy> GameState::enemyFactory(float x, float y, enemy_types typ
             new_enemy = std::make_shared<Enemy>(WITCH, x, y, 1.2f, 1.2f,
                                                 127.f, 136.f, 50.f, 65.f,
                                                 150.f, 200.f, 9.f,
-                                                textures["ENEMY_WIZARD_SHEET"]);
+                                                textures["ENEMY_WIZARD_SHEET"], this);
             break;
         case SKELETON:
             new_enemy = std::make_shared<Enemy>(SKELETON, x, y, 2.f, 2.3f,
                                                 85.f, 100.f, 40.f, 60.f,
                                                 105.f, 159.f, 8.f,
-                                                textures["ENEMY_SKELETON_SHEET"]);
+                                                textures["ENEMY_SKELETON_SHEET"], this);
             break;
         case SKELETON_2:
             new_enemy = std::make_shared<Enemy>(SKELETON_2, x, y, 1.2f, 1.2f,
                                                 70.f, 60.f, 50.f, 63.f,
                                                 95.f, 122.f, 10.f,
-                                                textures["ENEMY_SKELETON_2_SHEET"]);
+                                                textures["ENEMY_SKELETON_2_SHEET"], this);
             break;
         case FLYING_EYE:
             new_enemy = std::make_shared<Enemy>(FLYING_EYE, x, y, 1.3f, 1.3f,
                                                 72.f, 85.f, 58.f, 60.f,
                                                 100.f, 142.f, 11.f,
-                                                textures["ENEMY_FLYINGEYE_SHEET"]);
+                                                textures["ENEMY_FLYINGEYE_SHEET"], this);
             break;
         case GOBLIN:
             new_enemy = std::make_shared<Enemy>(GOBLIN, x, y, 1.2f, 1.4f,
                                                 70.f, 94.f, 40.f, 48.f,
                                                 90.f, 142.f, 8.f,
-                                                textures["ENEMY_GOBLIN_SHEET"]);
+                                                textures["ENEMY_GOBLIN_SHEET"], this);
             break;
         case MUSHROOM:
             new_enemy = std::make_shared<Enemy>(MUSHROOM, x, y, 1.4f, 1.4f,
                                                 87.f, 87.f, 38.f, 57.f,
                                                 106.f, 143.f, 8.f,
-                                                textures["ENEMY_MUSHROOM_SHEET"]);
+                                                textures["ENEMY_MUSHROOM_SHEET"], this);
             break;
         case BANDIT_HEAVY:
             new_enemy = std::make_shared<Enemy>(BANDIT_HEAVY, x, y, 1.8f, 1.8f,
                                                 25.f, 15.f, 45.f, 68.f,
                                                 47.f, 83.f, 9.f,
-                                                textures["ENEMY_BANDITHEAVY_SHEET"]);
+                                                textures["ENEMY_BANDITHEAVY_SHEET"], this);
             break;
         case BANDIT_LIGHT:
             new_enemy = std::make_shared<Enemy>(BANDIT_LIGHT, x, y, 1.8f, 1.8f,
                                                 25.f, 15.f, 45.f, 68.f,
                                                 47.f, 83.f, 9.f,
-                                                textures["ENEMY_BANDITLIGHT_SHEET"]);
+                                                textures["ENEMY_BANDITLIGHT_SHEET"], this);
             break;
         default:
             std::cout<<"No such enemy: " << type;
@@ -701,11 +701,11 @@ void GameState::changeStato(state_tab current_stato) {
     }
 }
 
-void GameState::checkBattleResult(BattleResult& battle_result) {
-    switch(battle_result.getResultType()){
+void GameState::checkBattleResult(BattleResult* battle_result) {
+    switch(battle_result->getResultType()){
         case WIN:{
-            int exp_gain = battle_result.getExpGainCount();
-            int gold_gain = battle_result.getGoldGainCount();
+            int exp_gain = battle_result->getExpGainCount();
+            int gold_gain = battle_result->getGoldGainCount();
 
             if(exp_gain > 0){
                 if(player->getPlayerStats()->addExp(exp_gain)){
@@ -722,7 +722,7 @@ void GameState::checkBattleResult(BattleResult& battle_result) {
             }
 
             for(const auto& i : enemies){
-                if(i->getId() == battle_result.getEnemyLeaderId()){
+                if(i->getId() == battle_result->getEnemyLeaderId()){
                     std::vector<std::shared_ptr<Item>> juices = lootGenerator->generateLoot(i, currentFloor);
                     int lootbag_lifetime = 999;
                     if(!juices.empty()){
@@ -748,7 +748,7 @@ void GameState::checkBattleResult(BattleResult& battle_result) {
                     break;
                 }
             }
-            deleteEnemyById(battle_result.getEnemyLeaderId());
+            deleteEnemyById(battle_result->getEnemyLeaderId());
             player->stopVelocity();
             break;
         }
@@ -774,9 +774,9 @@ void GameState::checkBattleResult(BattleResult& battle_result) {
             break;
     }
     player->clearWayPoints();
-    if(battle_result.getResultType() != QUIT_GAME){
+    if(battle_result->getResultType() != QUIT_GAME){
         //notifica achivements data
-        for(auto i : battle_result.getAchievementDataSet()){
+        for(auto i : battle_result->getAchievementDataSet()){
             notify(i.first, i.second);
         }
     }
@@ -1348,7 +1348,7 @@ void GameState::spawnEnemyOnMap() {
     }
 
     std::shuffle(&f.at(0),&f.at(f.size() - 1), utils::generator);
-    for(int i = 0; i < 30; i++){
+    for(int i = 0; i < 1; i++){
         randEnemy = utils::generateRandomNumber(0, 6);
         switch(randEnemy) {
             case 0:{
@@ -1383,6 +1383,10 @@ void GameState::spawnEnemyOnMap() {
                 break;
         }
     }
+}
+
+PathFinder* GameState::getPathFinder() const {
+    return pathFinder.get();
 }
 
 

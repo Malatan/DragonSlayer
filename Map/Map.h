@@ -11,6 +11,7 @@
 #include "../Game/Utils.h"
 #include "Node.h"
 
+class GameState; 
 struct IntTile{
     types type;
     int y;

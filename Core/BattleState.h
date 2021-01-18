@@ -21,9 +21,15 @@
 #include "../Components/PopUpTextComponent.h"
 #include "../Components/BuffComponent.h"
 
+
 class CharacterTab;
 class BuffComponent;
 class PauseMenu;
+class BattleResult;
+
+enum battle_result_types : unsigned int;
+
+enum enemy_types : unsigned int;
 namespace gui{
     class Button;
     class ActionRow;
@@ -89,7 +95,7 @@ private:
     float playerBlockPercentage{};
     bool potionUsed;
     window_states currentWindowState;
-    BattleResult battleResult;
+    std::shared_ptr<BattleResult> battleResult;
 
     unsigned int turnCount;
     bool whoseTurn; // true = player , false = enemies

@@ -9,8 +9,12 @@
 #include "Stats.h"
 #include "Entity.h"
 #include "Utils.h"
+#include "Player.h"
+#include "../AI/AIBehaviour.h"
 
-enum enemy_types{
+class AIBehaviour;
+
+enum enemy_types : unsigned int{
     WITCH,
     SKELETON,
     SKELETON_2,
@@ -21,12 +25,16 @@ enum enemy_types{
     BANDIT_LIGHT
 };
 
+
 class Enemy : public Entity{
 public:
     //CONSTRUCTOR & DESTRUCTOR
     Enemy(enemy_types type, float x, float y,float scale_x ,float scale_y, float hitbox_offset_x, float hitbox_offset_y,
             float hitbox_width, float hitbox_height, float clsBox_offset_x, float clsBox_offset_y, float clsBox_radius,
-            sf::Texture& texture_sheet);
+            sf::Texture& texture_sheet, State* gameState);
+    Enemy(enemy_types type, float x, float y,float scale_x ,float scale_y, float hitbox_offset_x, float hitbox_offset_y,
+          float hitbox_width, float hitbox_height, float clsBox_offset_x, float clsBox_offset_y, float clsBox_radius,
+          sf::Texture& texture_sheet);
     Enemy(enemy_types type, int level, int floor, unsigned int id);
     Enemy(enemy_types type, std::string name, unsigned int id, const Stats& _stats);
     ~Enemy() override;
@@ -34,6 +42,7 @@ public:
     //variables
     static const unsigned int MAX_FOLLOWERS = 4;
     static const int BASE_BOOST = 15;
+
 
     //functions
     void updateStatsBoost(bool recover);
@@ -64,6 +73,9 @@ public:
     void setStats(const Stats& _stats);
     void setCurrentBoost(int current_boost);
 
+    const sf::Vector2f &getSpawnPos() const;
+
+
 private:
     //variables
     unsigned int Id{};
@@ -71,12 +83,18 @@ private:
     enemy_types type{};
     int currentBoost{};
 
+    sf::Vector2f spawnPos;
+
     bool animationDone{};
     entity_animation animationEnum{};
     entity_animation nextAnimationEnum{};
 
     std::vector<std::shared_ptr<Enemy>> followers;
     std::shared_ptr<Stats> stats;
+    std::shared_ptr<Player> player;
+
+    AIBehaviour* aIBehaviour{};
+
 
     //initializer functions
     void initAnimations();

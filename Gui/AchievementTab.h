@@ -12,6 +12,7 @@ class AchievementComponent;
 namespace gui{
     class AchievementSlot;
     class AchievementNotification;
+    class Button;
 }
 
 class AchievementTab {

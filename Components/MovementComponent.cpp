@@ -151,6 +151,10 @@ const sf::Vector2f &MovementComponent::getDirection() const {
     return direction;
 }
 
+void MovementComponent::setMaxVelocity(float maxVelocity) {
+    MovementComponent::maxVelocity = maxVelocity;
+}
+
 
 
 

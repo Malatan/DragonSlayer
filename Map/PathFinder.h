@@ -10,6 +10,8 @@
 #include "Node.h"
 #include "Map.h"
 
+class Map;
+
 class PathFinder {
 public:
     //constructors/destructor

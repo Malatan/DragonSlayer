@@ -88,8 +88,8 @@ void MapGenerator::generateDungeon(int n) {
     }
     int width;
     int height;
-    width = utils::generateRandomNumber(40, 60);
-    height = utils::generateRandomNumber(40, 60);
+    width = utils::generateRandomNumber(40, 40);
+    height = utils::generateRandomNumber(30, 30);
     Dungeon d = Dungeon(width, height);
     d.generate(50);
     switch (n) {

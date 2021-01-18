@@ -32,6 +32,8 @@ public:
     bool getState(short unsigned state) const;
     const sf::Vector2f &getDirection() const;
 
+    void setMaxVelocity(float maxVelocity);
+
     //functions
     void stopVelocity();
     void move(float dir_x, float dir_y, const float &dt);

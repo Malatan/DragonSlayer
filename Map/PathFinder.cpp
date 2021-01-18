@@ -32,14 +32,11 @@ void PathFinder::generateNodes(Map* _map) {
         for(auto yy = 1 ; yy < nodeMultiplier ; yy++)
             nodes[y + yy].resize(widthN);
         for(auto x = 0 ; x < widthN ; x += nodeMultiplier){
-            types tile_type = tiles[y/nodeMultiplier][x/nodeMultiplier]->GetType();
-            if(tile_type != VOID){
-                bool is_walkable = tiles[y/nodeMultiplier][x/nodeMultiplier]->isTraversable();
-                for(auto y1 = 0 ; y1 < nodeMultiplier ; y1 ++){
-                    for(auto x1 = 0 ; x1 < nodeMultiplier ; x1 ++){
-                        nodes[y + y1][x + x1] = new Node(is_walkable, x + x1, y + y1);
-                        nodesN++;
-                    }
+            bool is_walkable = tiles[y/nodeMultiplier][x/nodeMultiplier]->isTraversable();
+            for(auto y1 = 0 ; y1 < nodeMultiplier ; y1 ++){
+                for(auto x1 = 0 ; x1 < nodeMultiplier ; x1 ++){
+                    nodes[y + y1][x + x1] = new Node(is_walkable, x + x1, y + y1);
+                    nodesN++;
                 }
             }
         }

@@ -13,6 +13,9 @@ public:
     AnimationComponent(sf::Sprite& sprite, sf::Texture& texture_sheet);
     virtual ~AnimationComponent();
 
+    //accessors
+    float getWalkWidth();
+
     //functions
     void addAnimation(const std::string& key,
                       float animation_timer, int start_frame_x,
@@ -53,6 +56,8 @@ private:
         const bool& isDone() const{
             return done;
         }
+
+
         //functions
         const bool& play(const float &dt){
             //update timer
@@ -106,6 +111,7 @@ private:
     sf::Sprite& sprite;
     sf::Texture& textureSheet;
     std::map<std::string, std::shared_ptr<Animation>> animations;
+
 };
 
 #endif //DRAGONSLAYER_ANIMATIONCOMPONENT_H

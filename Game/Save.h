@@ -17,6 +17,7 @@ class EnemySaveData;
 class LootBagSaveData;
 class LootBag;
 class Map;
+class Enemy;
 struct wh;
 typedef std::pair<int, int> achievementRecord;
 

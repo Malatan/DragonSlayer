@@ -110,7 +110,9 @@ set(SOURCE_FILES
         Map/PathFinder.cpp
         Map/PathFinder.h
         Shader/fragment_shader.frag
-        Shader/vertex_shader.vert)
+        Shader/vertex_shader.vert
+        AI/AIBehaviour.cpp
+        AI/AIBehaviour.h)
 
 include_directories(Resources)
 link_directories(SFML_2.5.1/bin)

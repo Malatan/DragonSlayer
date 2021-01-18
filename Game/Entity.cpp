@@ -41,7 +41,7 @@ std::shared_ptr<HitboxComponent> Entity::getHitboxComponent() {
     return hitboxComponent;
 }
 
-sf::Vector2f Entity::getCollisionBoxCenter() const {
+sf::Vector2f Entity::getCollisionBoxCenter()  {
     sf::Vector2f v = getCenter();
     return {v.x, v.y + 30.f};
 }
@@ -168,6 +168,10 @@ sf::Vector2f Entity::getCenter() const {
                    sprite.getGlobalBounds().width/2.f,
                    sprite.getGlobalBounds().height/2.f
            );
+}
+
+bool Entity::isWayPointEmpty() {
+    return wayPoints.size() == 1;
 }
 
 

@@ -8,6 +8,8 @@
 #include "CharacterTab.h"
 
 class GameState;
+class LootGenerator;
+
 namespace gui{
     class ShopSlot;
 }

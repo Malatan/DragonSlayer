@@ -31,3 +31,7 @@ const bool& AnimationComponent::play(const std::string& key, const float &dt, co
     animations[key]->play(dt, std::abs(modifier / modifier_max));
     return  animations[key]->isDone();
 }
+
+float AnimationComponent::getWalkWidth(){
+    return animations.at("WALK")->width;
+}

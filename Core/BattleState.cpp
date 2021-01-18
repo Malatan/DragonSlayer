@@ -338,8 +338,8 @@ void BattleState::initBattleResultPanel() {
             ss << "You killed " << enemyLeader->getDeadFollowersNumber() + 1 << " enemis and won the battle!" << std::endl;
             ss << "   + " << final_exp << " exp(" << xp_gain << " * " << expGoldBonus << ")" << std::endl;
             ss << "   + " << final_gold << " golds(" << gold_gain << " * " << expGoldBonus << ")" << std::endl;
-            battleResult.setExpGainCount(final_exp);
-            battleResult.setGoldGainCount(final_gold);
+            battleResult->setExpGainCount(final_exp);
+            battleResult->setGoldGainCount(final_gold);
             break;
         }
         case LOST:{
@@ -625,6 +625,7 @@ BattleState::BattleState(std::shared_ptr<sf::RenderWindow> window, std::shared_p
     potionUsed = false;
     currentWindowState = UNPAUSED;
 
+    battleResult = std::make_shared<BattleResult>();
     initResources();
     initBattleFieldComponents();
     generateModels();
@@ -709,7 +710,7 @@ void BattleState::playerBattle(unsigned int row_index) {
                                                              to_string(dmg_dealt), "-", "");
                             if(enemiesModels[enemiesMoveOrder[i]]->isDead())
                                 deadEnemiesIndex.push_back(enemiesMoveOrder[i]);
-                            battleResult.addStatistics(SPELL_DAMAGE_DEALT_COUNT, dmg_dealt);
+                            battleResult->addStatistics(SPELL_DAMAGE_DEALT_COUNT, dmg_dealt);
                         }
                     }
                     if(!deadEnemiesIndex.empty()){
@@ -770,8 +771,8 @@ void BattleState::playerBattle(unsigned int row_index) {
                                                                  enemyPos[selectedId].getPosition().x,
                                                                  enemyPos[selectedId].getPosition().y - 100.f,
                                                                  dmg_dealt, "Critical Hit!\n-", "");
-                                battleResult.addStatistics(DAMAGE_DEALT_COUNT, dmg_dealt);
-                                battleResult.addStatistics(CRITICAL_HIT_COUNT, 1);
+                                battleResult->addStatistics(DAMAGE_DEALT_COUNT, dmg_dealt);
+                                battleResult->addStatistics(CRITICAL_HIT_COUNT, 1);
                             }else{
                                 int dmg_dealt = enemiesModels[selectedId]->getStats()->getHit(
                                         player->getPlayerStats()->getFinalDamage(), 0.f, false);
@@ -779,7 +780,7 @@ void BattleState::playerBattle(unsigned int row_index) {
                                                                  enemyPos[selectedId].getPosition().x,
                                                                  enemyPos[selectedId].getPosition().y - 100.f,
                                                                  dmg_dealt, "-", "");
-                                battleResult.addStatistics(DAMAGE_DEALT_COUNT, dmg_dealt);
+                                battleResult->addStatistics(DAMAGE_DEALT_COUNT, dmg_dealt);
                             }
                             enemiesModels[selectedId]->setAnimation(GETHIT_ANIMATION, IDLE_ANIMATION);
 
@@ -793,7 +794,7 @@ void BattleState::playerBattle(unsigned int row_index) {
                                     enemiesModels[selectedId]->getPosition().x,
                                     enemiesModels[selectedId]->getPosition().y - 100.f,
                                     "MISS", "", "");
-                            battleResult.addStatistics(MISS_COUNT, 1);
+                            battleResult->addStatistics(MISS_COUNT, 1);
                         }
                     }else if(actionRows[row_index]->getAction()->getAoe() == 1){
                         actionRows[row_index]->startCd();
@@ -816,7 +817,7 @@ void BattleState::playerBattle(unsigned int row_index) {
                            << enemiesModels[selectedId]->getName() << "Lv." << enemiesModels[selectedId]->getStats()->getLevel();
                         popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG,
                                                                ss.str(), "", "");
-                        battleResult.addStatistics(SPELL_DAMAGE_DEALT_COUNT, dmg_dealt);
+                        battleResult->addStatistics(SPELL_DAMAGE_DEALT_COUNT, dmg_dealt);
                     }
 
                     if(enemiesModels[selectedId]->isDead()){
@@ -867,7 +868,7 @@ void BattleState::useItem(unsigned int row_index) {
                                                ss.str(), "", "");
         playerModel->setAnimation(CAST_ANIMATION, IDLE_ANIMATION);
         updatePlayerStatsLbl();
-        battleResult.addStatistics(POTION_USED_COUNT, 1);
+        battleResult->addStatistics(POTION_USED_COUNT, 1);
         //endPlayerTurn();
     }else{
         popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG,
@@ -937,8 +938,8 @@ void BattleState::enemyBattle(const float &dt) {
                         playerModel->setAnimation(SHIELD_ANIMATION, IDLE_ANIMATION);
                     }
                     int dmg_reduced_by_defense = enemy_dmg - dmg_dealt - player->getPlayerStats()->getFinalArmor();
-                    battleResult.addStatistics(DAMAGE_TAKEN_COUNT, dmg_dealt);
-                    battleResult.addStatistics(DAMAGE_REDUCED_COUNT, dmg_reduced_by_defense);
+                    battleResult->addStatistics(DAMAGE_TAKEN_COUNT, dmg_dealt);
+                    battleResult->addStatistics(DAMAGE_REDUCED_COUNT, dmg_reduced_by_defense);
                 }else{
                     dmg_dealt = player->getPlayerStats()->getHit(
                             (int)((float)enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->getFinalDamage()
@@ -948,7 +949,7 @@ void BattleState::enemyBattle(const float &dt) {
                     }else{
                         playerModel->setAnimation(GETHIT_ANIMATION, IDLE_ANIMATION);
                     }
-                    battleResult.addStatistics(DAMAGE_TAKEN_COUNT, dmg_dealt);
+                    battleResult->addStatistics(DAMAGE_TAKEN_COUNT, dmg_dealt);
                 }
                 popUpTextComponent->addPopUpText(NEGATIVE_TAG,
                                                  playerModel->getPosition().x,
@@ -959,7 +960,7 @@ void BattleState::enemyBattle(const float &dt) {
                                                  playerModel->getPosition().x,
                                                  playerModel->getPosition().y - 100.f,
                                                  "MISS", "", "");
-                battleResult.addStatistics(DODGE_COUNT, 1);
+                battleResult->addStatistics(DODGE_COUNT, 1);
             }
             ss.str("");
             ss << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getName() << "Lv."
@@ -1010,9 +1011,9 @@ void BattleState::endBattle() {
             break;
     }
     if(battleResultEnum != NOT_FINISHED){
-        battleResult.updateBattleResult(battleResultEnum, player->isDead(), enemyLeader);
+        battleResult->updateBattleResult(battleResultEnum, player->isDead(), enemyLeader);
         enemyLeader.reset();
-        cTab->getGState()->checkBattleResult(battleResult);
+        cTab->getGState()->checkBattleResult(battleResult.get());
     }
 }
 
@@ -1196,10 +1197,10 @@ void BattleState::updateMainPanel(const float &dt) {
                 if (whoseTurn) {
                     if (utils::trueFalse(escapeChance * 10.f)) {
                         battleResultEnum = ESCAPED;
-                        battleResult.addStatistics(ESCAPE_SUCCESS_COUNT, 1);
+                        battleResult->addStatistics(ESCAPE_SUCCESS_COUNT, 1);
                     } else {
                         popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG, "", "You failed to escape!", "");
-                        battleResult.addStatistics(ESCAPE_FAIL_COUNT, 1);
+                        battleResult->addStatistics(ESCAPE_FAIL_COUNT, 1);
                         endPlayerTurn();
                     }
                 } else {

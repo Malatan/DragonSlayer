@@ -1,14 +1,16 @@
 //
 // Created by Administrator on 01/01/2021.
 //
-
-#include "../Game/Enemy.h"
-#include <../includers/CerealHeaders.h>
-#include <utility>
-
 #ifndef DRAGONSLAYER_ENEMIESSAVEDATA_H
 #define DRAGONSLAYER_ENEMIESSAVEDATA_H
 
+
+#include <../includers/CerealHeaders.h>
+#include <utility>
+#include "../Game/Enemy.h"
+class Enemy;
+
+enum enemy_types : unsigned int;
 
 class EnemySaveData {
 public:

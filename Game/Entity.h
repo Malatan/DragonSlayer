@@ -47,6 +47,7 @@ public:
     void setWayPoint(sf::Vector2f point, int index);
     void addWayPoint(sf::Vector2f point);
     void clearWayPoints();
+    bool isWayPointEmpty();
 
     //accessors
     virtual std::shared_ptr<MovementComponent> getMovementComponent();
@@ -55,7 +56,7 @@ public:
     virtual sf::Vector2f getPosition() const;
     virtual sf::Vector2f getSpritePosition() const;
     virtual sf::Vector2f getCenter() const;
-    virtual sf::Vector2f getCollisionBoxCenter() const;
+    virtual sf::Vector2f getCollisionBoxCenter();
     virtual sf::FloatRect getGlobalBounds() const;
     virtual sf::Vector2i getGridPosition() const;
 
