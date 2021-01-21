@@ -362,3 +362,31 @@ float Stats::getSpellDmgMultiplier() const {
     return spellDmgMultiplier;
 }
 
+std::string Stats::toString(const std::string& prefix) const {
+    std::stringstream ss;
+    ss << "-------------------- " << prefix << " Stats --------------------" << std::endl;
+    ss << "Level: [" << level << "]"
+            << " Exp: [" << exp << "]"
+            << " MaxExp: [" << maxExp << "]"
+            << " Hp: [" << hp << "]"
+            << " MaxHp: [" << maxHp << "]"
+            << " Mp: [" << mp << "]"
+            << " MaxMp: [" << maxMp << "]"
+            << " Armor: [" << armor << "]"
+            << " Damage: [" << damage << "]"
+            << " CritChance: [" << critChance << "]"
+            << " EvadeChance: [" << evadeChance << "]" << std::endl
+            << "Agility: [" << agility << "]"
+            << " Wisdom: [" << wisdom << "]"
+            << " Strength: [" << strength << "]"
+            << " Freepoints: [" << freePoints << "]"
+            << " SpellDmgMultiplier: [" << spellDmgMultiplier << "]" << std::endl
+            << "MaxHpBonus: [" << maxHpBonus << "]"
+            << " MaxMpBonus: [" << maxMpBonus << "]"
+            << " DamageBonus: [" << damageBonus << "]"
+            << " ArmorBonus: [" << armorBonus << "]"
+            << " CritchanceBonus: [" << critChanceBonus << "]"
+            << " EvadeChanceBonus: [" << evadeChanceBonus << "]" << std::endl;
+    ss << "------------------End- " << prefix << " Stats -End ------------------" << std::endl;
+    return ss.str();
+}

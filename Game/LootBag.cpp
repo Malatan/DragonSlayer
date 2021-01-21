@@ -111,6 +111,12 @@ LootBag::LootBag(const std::shared_ptr<sf::RenderWindow>& window, sf::Vector2f p
 LootBag::~LootBag() = default;
 
 //functions
+bool LootBag::canBeRendered(float distance, sf::Vector2f from) {
+    sf::Vector2f v_diff = {getPosition().x - from.x, getPosition().y - from.y};
+    auto vec_length = (float)sqrt(pow(v_diff.x, 2) + pow(v_diff.y, 2));
+    return vec_length <= distance;
+}
+
 bool LootBag::lootItem(const std::shared_ptr<Item>& loot_item) {
     if(!player->getInventory()->isFull() ||
        (player->getInventory()->hasItemByName(loot_item->getName()) && loot_item->getUsageType() == CONSUMABLE_USAGE)){
@@ -198,7 +204,7 @@ void LootBag::update(const float &dt) {
     updateLifeTime(dt);
 }
 
-void LootBag::render(sf::RenderTarget &target, sf::Shader *shader, sf::Vector2f light_position, bool show_hitbox) {
+void LootBag::render(sf::RenderTarget &target, sf::Shader *shader, sf::Vector2f light_position) {
     collisionBoxComponent->render(target);
     if(shader){
         shader->setUniform("hasTexture", true);
@@ -212,8 +218,6 @@ void LootBag::render(sf::RenderTarget &target, sf::Shader *shader, sf::Vector2f 
     target.draw(lifeTimeLbl);
     if(interact)
         target.draw(interactIcon);
-    if(show_hitbox)
-        hitboxComponent->render(target);
 }
 
 void LootBag::updatePage(const sf::Vector2f& mousePos) {
@@ -325,7 +329,15 @@ void LootBag::setMsCounter(float f) {
     msCounter = f;
 }
 
-
+std::string LootBag::toString() const {
+    std::stringstream ss;
+    ss << "--------------------LootBag " << id << "--------------------" << std::endl;
+    ss << "Expired: [" << expired << "]"
+            << " LifeTime: [" << lifeTime.first << "]" << "[" << lifeTime.second << "]"
+            << " Loots: [" << loots.size() << "]" << std::endl;
+    ss << "------------------End-LootBag " << id << "-End------------------" << std::endl;
+    return ss.str();
+}
 
 
 

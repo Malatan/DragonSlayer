@@ -118,3 +118,39 @@ std::string utils::getFileName(const string &file_name) {
     }
     return res.str();
 }
+
+bool utils::lineRectIntersect(const sf::FloatRect &rect, const sf::Vector2f &a_p1, const sf::Vector2f &a_p2) {
+    auto minX = std::min(a_p1.x, a_p2.x);
+    auto maxX = std::max(a_p1.x, a_p2.x);
+    if (maxX > rect.left + rect.width) {
+        maxX = rect.left + rect.width;
+    }
+    if (minX < rect.left) {
+        minX = rect.left;
+    }
+    if (minX > maxX) {
+        return false;
+    }
+    auto minY = a_p1.y;
+    auto maxY = a_p2.y;
+    auto dx = a_p2.x - a_p1.x;
+    if (std::abs(dx) > 0.0000001f) {
+        auto k = (a_p2.y - a_p1.y) / dx;
+        auto b = a_p1.y - k * a_p1.x;
+        minY = k * minX + b;
+        maxY = k * maxX + b;
+    }
+    if (minY > maxY) {
+        std::swap(minY, maxY);
+    }
+    if (maxY > rect.top + rect.height) {
+        maxY = rect.top + rect.height;
+    }
+    if (minY < rect.top) {
+        minY = rect.top;
+    }
+    if (minY > maxY) {
+        return false;
+    }
+    return true;
+}

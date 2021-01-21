@@ -7,6 +7,7 @@
 
 #include "State.h"
 #include "MainMenuState.h"
+#include "Common.h"
 #include "../Resources/ResourcesHandler.h"
 
 class Game {
@@ -24,6 +25,7 @@ public:
     float getDt() const;
 
     //update
+    void updateInput();
     void updateDt();
     void updateSFMLEvents();
     void update();
@@ -43,6 +45,7 @@ private:
     sf::ContextSettings windowSettings;
     sf::Clock dtClock;
     float dt{}; //delta time
+    bool debugAccess{};
     std::stack<std::unique_ptr<State>> states;
 
     //Initialization

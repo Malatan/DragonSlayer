@@ -88,6 +88,7 @@ public:
     int getFinalArmor() const;
     float getFinalCritChance() const;
     float getFinalEvadeChance() const;
+    std::string toString(const std::string& prefix) const;
 
 private:
     friend class cereal::access;

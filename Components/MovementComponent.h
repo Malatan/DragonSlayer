@@ -6,6 +6,7 @@
 #define DRAGONSLAYER_MOVEMENTCOMPONENT_H
 
 #include <SFML/Graphics.hpp>
+#include "../Core/Common.h"
 
 enum movement_states{
     IDLE = 0,
@@ -21,9 +22,6 @@ public:
     MovementComponent(sf::Sprite& sprite, float maxVelocity, float acceleration, float deceleration);
     virtual ~MovementComponent();
 
-    //modifers
-    void enableSpeedControl(bool b);
-
     //accessors
     void setVelocity(sf::Vector2f new_vel);
     const float& getMaxVelocity() const;
@@ -31,8 +29,7 @@ public:
     const sf::Vector2f& getPreviousPosition() const;
     bool getState(short unsigned state) const;
     const sf::Vector2f &getDirection() const;
-
-    void setMaxVelocity(float maxVelocity);
+    void setMaxVelocity(float max_velocity);
 
     //functions
     void stopVelocity();
@@ -47,7 +44,6 @@ private:
     float maxVelocity{};
     float acceleration{};
     float deceleration{};
-    bool speedControl{};
 
     sf::Vector2f direction;
     sf::Vector2f velocity;

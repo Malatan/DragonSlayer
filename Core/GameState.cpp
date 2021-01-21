@@ -156,12 +156,8 @@ void GameState::initHintsTab() {
                           " <P> to open/close spell tab\n"
                           " <C> to open/close character tab\n"
                           " <O> to open/close achievements tab\n"
-                          " <M> to gain gold\n"
-                          " <T> to gain exp\n"
-                          " <X> to noclip\n"
                           " <F12> to screenshot\n"
-                                );
-
+                          " <Home> Debug mode\n");
     hints.setPosition(5.f, window->getSize().y - hints.getGlobalBounds().height + 20.f);
 }
 
@@ -222,28 +218,17 @@ void GameState::initLootGenerator() {
 void GameState::initView() {
     locationLbl.setFont(*font);
     locationLbl.setCharacterSize(20);
+    float window_height = window->getSize().y;
+    float window_width = window->getSize().x;
+    view.setSize(sf::Vector2f(window_width / 1.3f,window_height / 1.3f));
+    view.setCenter(sf::Vector2f(window_width / 2.f, window_height / 2.f));
 
-    view.setSize(
-            sf::Vector2f(
-                    static_cast<float>(window->getSize().x / 1.3f),
-                    static_cast<float>(window->getSize().y / 1.3f)
-            )
-    );
 
-    view.setCenter(
-            sf::Vector2f(
-                    static_cast<float>(window->getSize().x / 2.f),
-                    static_cast<float>(window->getSize().y / 2.f)
-            )
-    );
-}
-
-void GameState::initDebugText() {
-    debugText.setFont(*font);
-    debugText.setCharacterSize(25);
-    debugText.setFillColor(sf::Color::Red);
-    debugText.setString("Debug text");
-    debugText.setPosition(5.f, 40.f);
+    float PWIDTH = 0.2f;
+    float MINISCALE = 0.2f;
+    minimapView.setCenter(sf::Vector2f(window_width*(PWIDTH+(1-PWIDTH)/2), window_height*0.5));
+    minimapView.setSize(sf::Vector2f(window_width*(1-PWIDTH), window_height));
+    minimapView.setViewport(sf::FloatRect(1-MINISCALE, 0, MINISCALE, MINISCALE));
 }
 
 void GameState::initButtons() {
@@ -399,7 +384,6 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::u
     initComponents();
     initLootGenerator();
     initView();
-    initDebugText();
     initButtons();
     initTabs();
     initHintsTab();
@@ -412,6 +396,9 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::u
 GameState::~GameState() {
     for(auto i : npcs)
         delete i;
+    delete debugTool;
+    debug = false;
+    noclip = false;
 }
 
 //accessors
@@ -782,6 +769,15 @@ void GameState::checkBattleResult(BattleResult* battle_result) {
     }
 }
 
+void GameState::enableDisableDebugTool() {
+    if(debug){
+        debugTool = new DebugTool(font, this);
+    }else{
+        delete debugTool;
+        debugTool = nullptr;
+    }
+}
+
 void GameState::updateLocationLbl() {
     std::stringstream ss;
     ss << "Current location: ";
@@ -834,23 +830,7 @@ void GameState::updateInput(const float &dt) {
         changeStato(SPELL_TAB);
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::O) && getKeyTime()) {
         changeStato(ACHIEVEMENT_TAB);
-    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) && getKeyTime()) {
-        player->getMovementComponent()->enableSpeedControl(noclip);
-        noclip = !noclip;
-    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::T) && getKeyTime()) {
-        int exp = utils::generateRandomNumber(100, 5000);
-        if(player->getPlayerStats()->addExp(exp)){
-            updateTabsPlayerStatsLbl();
-            notify(AE_P_LEVEL, player->getPlayerStats()->getLevel());
-        }
-        popUpTextComponent->addPopUpTextCenter(EXPERIENCE_TAG, exp, "+", "Exp");
-        notify(AE_P_EXP, exp);
-    }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::M) && getKeyTime()){
-        int gold = utils::generateRandomNumber(99999, 999999);
-        player->addGold(gold);
-        updateTabsGoldLbl();
-        popUpTextComponent->addPopUpTextCenter(GOLD_TAG, gold, "+", " gold");
-    }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::E) && getKeyTime()){
+    } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::E) && getKeyTime()){
         if(npcInteract != NO_NPC){
             switch(npcInteract){
                 case SHOP:
@@ -1015,21 +995,6 @@ void GameState::updateView(const float &dt) {
     view.setCenter(view_center);
 }
 
-void GameState::updateDebugText() {
-    sf::Vector2f vv = player->getMovementComponent()->getVelocity();
-    sf::Vector2f vd = player->getMovementComponent()->getDirection();
-    //debbuging tool: show mouse pos coords
-    std::stringstream ss;
-    ss << "Mouse pos: x: " << mousePosView.x << " y: " << mousePosView.y << std::endl
-        << "Enemies: " << enemies.size() << std::endl
-        << "Lootbags: " << lootBags.size() << std::endl
-        << "Nodes[x]: " << pathFinder->widthN << " Nodes[y]: " << pathFinder->heightN << std::endl
-        << "Nodes: " << pathFinder->nodesN << " Empty nodes: " << pathFinder->emptyNodes << std::endl
-        << "Dx: " << vd.x << std::endl << "Dy: " << vd.y << std::endl
-        << "Vx: " << vv.x << std::endl << "Vy: " << vv.y;
-    debugText.setString(ss.str());
-}
-
 void GameState::updateButtons() {
     if(cTabBtn->isPressed() && getKeyTime()){
         cTabBtn->setButtonState(BTN_IDLE);
@@ -1048,15 +1013,49 @@ void GameState::updateButtons() {
     }
 }
 
+void GameState::updateEnemy(const float &dt) {
+    for(const auto& i : enemies){
+        i->update(dt);
+        if(i->canBeRendered(400.f, player->getCollisionBoxCenter())){
+            auto tiles = map->getTiles();
+            for (int y = map->getFromY(); y < map->getToY(); y++) {
+                for (int x = map->getFromX(); x < map->getToX(); x++) {
+                    if(tiles[y][x]->GetType() == WALL || tiles[y][x]->GetType() == CLOSEDOOR){
+                        if(utils::lineRectIntersect(tiles[y][x]->getGlobalBounds(),
+                                                    player->getCollisionBoxCenter(),
+                                                    i->getCollisionBoxCenter())){
+                            i->setPlayerInView(false);
+                            goto endviewcheck;
+                        }
+                    }
+                }
+            }
+            i->setPlayerInView(true);
+            endviewcheck:
+            if(!noclip){
+                if(i->getHitboxComponent()->intersects(player->getHitboxComponent()->getGlobalBounds())){
+                    states->push(std::make_unique<BattleState>(
+                            window, player, states, BATTLE_STATE,
+                            popUpTextComponent, spellComponent, buffComponent,
+                            rsHandler, textures, font, i, achievementComponent->getExpGoldBonus(), currentFloor, cTab));
+                    break;
+                }
+            }
+        }
+    }
+}
+
 void GameState::update(const float& dt) {
+    pathFinder->updateTimer(dt);
     updateMousePosition(&view);
     updateKeyTime(dt);
     updateTileMap(dt);
-    updateDebugText();
     updateButtons();
     updateGlobalInput(dt);
     if(!paused)
         updateMouseInput(dt);
+    if(debugTool)
+        debugTool->update(dt, mousePosView);
     updateMousePosition(nullptr);
     achievementComponent->update(dt, mousePosView);
     buffComponent->update(dt, mousePosView);
@@ -1085,26 +1084,12 @@ void GameState::update(const float& dt) {
             i->update(dt);
             i->updateCollision(player, &npcInteract);
         }
-
         cTabBtn->update(mousePosView);
         pauseMenuBtn->update(mousePosView);
         spellTabBtn->update(mousePosView);
         achievementTabBtn->update(mousePosView);
         popUpTextComponent->update(dt);
-
-        for(const auto& i : enemies){
-            i->update(dt);
-            if(!noclip){
-                if(i->getHitboxComponent()->intersects(player->getHitboxComponent()->getGlobalBounds())){
-                    states->push(std::make_unique<BattleState>(
-                            window, player, states, BATTLE_STATE,
-                            popUpTextComponent, spellComponent, buffComponent,
-                            rsHandler, textures, font, i, achievementComponent->getExpGoldBonus(), currentFloor, cTab));
-                    break;
-                }
-            }
-        }
-
+        updateEnemy(dt);
     } else{ // paused update
         switch(stato){
             case PAUSEMENU_TAB:{
@@ -1185,42 +1170,42 @@ void GameState::update(const float& dt) {
                 break;
         }
     }
+
 }
 
 void GameState::render(sf::RenderTarget* target) {
-    if(!target){
+    if(!target)
         target = window.get();
-    }
     target->setView(view);
-
     if(currentFloor == 0)
         map->renderF(target);
     else
         map->render(target, player, &coreShader, player->getCenter());
-    player->render(*target, &coreShader, player->getCenter(), true, true);
-
+    player->render(*target, &coreShader, player->getCenter());
     for(const auto& i : enemies){
         if(i->canBeRendered(enemyRenderDistance, player->getPosition()))
-            i->render(*target, &coreShader, player->getCenter(), false, true);
+            i->render(*target, &coreShader, player->getCenter());
     }
-
     for(auto i : npcs){
         i->render(*target, false);
         if(player->getHitboxComponent()->getGlobalBounds().intersects(i->getHitboxComponent()->getGlobalBounds())){
             if(player->getCollisionBoxComponent()->getPosition().y > i->getCollisionBoxComponent()->getPosition().y){
-                player->render(*target, &coreShader, player->getCenter(), false, true);
+                player->render(*target, &coreShader, player->getCenter());
             }
         }
     }
     for(const auto& i : lootBags){
-        i->render(*target, &coreShader, player->getCenter(), false);
-        if(player->getHitboxComponent()->getGlobalBounds().intersects(i->getHitboxComponent()->getGlobalBounds())){
-            if(player->getCollisionBoxComponent()->getPosition().y > i->getCollisionBoxComponent()->getPosition().y){
-                player->render(*target, &coreShader, player->getCenter(), false, true);
+        if(i->canBeRendered(enemyRenderDistance, player->getPosition())){
+            i->render(*target, &coreShader, player->getCenter());
+            if(player->getHitboxComponent()->getGlobalBounds().intersects(i->getHitboxComponent()->getGlobalBounds())){
+                if(player->getCollisionBoxComponent()->getPosition().y > i->getCollisionBoxComponent()->getPosition().y){
+                    player->render(*target, &coreShader, player->getCenter());
+                }
             }
         }
     }
-
+    if(debugTool)
+        debugTool->render(target);
     target->setView(target->getDefaultView());
     cTabBtn->render(*target);
     pauseMenuBtn->render(*target);
@@ -1264,7 +1249,6 @@ void GameState::render(sf::RenderTarget* target) {
                 break;
         }
     }
-    target->draw(debugText);
     achievementComponent->render(*target);
     buffComponent->render(*target);
     popUpTextComponent->render(*target);
@@ -1348,7 +1332,7 @@ void GameState::spawnEnemyOnMap() {
     }
 
     std::shuffle(&f.at(0),&f.at(f.size() - 1), utils::generator);
-    for(int i = 0; i < 1; i++){
+    for(int i = 0; i < 15; i++){
         randEnemy = utils::generateRandomNumber(0, 6);
         switch(randEnemy) {
             case 0:{

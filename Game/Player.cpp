@@ -129,23 +129,16 @@ void Player::update(const float &dt) {
     updateAnimation(dt);
 }
 
-void Player::render(sf::RenderTarget &target, sf::Shader* shader, sf::Vector2f light_position, const bool show_hitbox, const bool show_clsBox ) {
-    if(show_clsBox)
-        collisionBoxComponent->render(target);
-
+void Player::render(sf::RenderTarget &target, sf::Shader* shader, sf::Vector2f light_position) {
+    collisionBoxComponent->render(target);
     if(shader){
         shader->setUniform("hasTexture", true);
         shader->setUniform("lightPos", light_position);
         target.draw(sprite, shader);
     }
-    else
+    else{
         target.draw(sprite);
-
-    if(show_hitbox)
-        hitboxComponent->render(target);
-
-    target.draw(&wayPoints[0], wayPoints.size(), sf::LineStrip);
-
+    }
 }
 
 void Player::addGold(unsigned add_amount) {
@@ -358,4 +351,41 @@ bool Player::hasShield() {
         return true;
     else
         return false;
+}
+
+std::string Player::toStringEquips() const {
+    std::stringstream ss;
+    ss << "--------------------Player Equips--------------------" << std::endl;
+    if(weapon){
+        ss << weapon->listItem(false);
+    }else{
+        ss << "No weapon equipped" << std::endl;
+    }
+    if(shield){
+        ss << shield->listItem(false);
+    }else{
+        ss << "No shield equipped" << std::endl;
+    }
+    if(head){
+        ss << head->listItem(false);
+    }else{
+        ss << "No head equipped" << std::endl;
+    }
+    if(chest){
+        ss << chest->listItem(false);
+    }else{
+        ss << "No chest equipped" << std::endl;
+    }
+    if(arms){
+        ss << arms->listItem(false);
+    }else{
+        ss << "No arms equipped" << std::endl;
+    }
+    if(legs){
+        ss << legs->listItem(false);
+    }else{
+        ss << "No legs equipped" << std::endl;
+    }
+    ss << "------------------End-Player Equips-End------------------" << std::endl;
+    return ss.str();
 }

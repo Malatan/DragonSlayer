@@ -15,6 +15,7 @@ public:
 
     //functions
     void startGame();
+    void enableDisableDebugTool() override;
     void updateButtons();
     void renderButtons(sf::RenderTarget& target);
     void updateInput(const float& dt) override;

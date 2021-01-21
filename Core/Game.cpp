@@ -4,9 +4,12 @@
 
 #include <iostream>
 #include "Game.h"
+bool debug;
+bool noclip;
 
 void Game::initVariables(bool unit_testing) {
-    window = nullptr;
+    debug = false;
+    noclip = false;
     dt = 0.f;
     rsHandler = std::make_shared<ResourcesHandler>();
     rsHandler->setUnitTesting(unit_testing);
@@ -36,6 +39,7 @@ void Game::initWindow() {
         ifs >> framerate_limit;
         ifs >> veritcal_enabled;
         ifs >> antialiasing_level;
+        ifs >> debugAccess;
     } else{
         std::cerr<<"window.ini not found. Default settings applied"<< std::endl;
     }
@@ -74,6 +78,17 @@ void Game::endApplication() {
     std::cout << "Ending Application" << "\n";
 }
 
+void Game::updateInput() {
+    if(!states.empty()){
+        if(debugAccess){
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Home) && states.top()->getKeyTime()){
+                debug = !debug;
+                states.top()->enableDisableDebugTool();
+            }
+        }
+    }
+}
+
 void Game::updateSFMLEvents() {
     while(window->pollEvent(sfEvent)) {
         switch (sfEvent.type) {
@@ -90,6 +105,7 @@ void Game::update() {
     updateSFMLEvents();
     if(!states.empty()){
         if (window->hasFocus()) {
+            updateInput();
             states.top()->update(dt);
             if(states.top()->getQuit()) {
                 states.top()->endState();

@@ -32,5 +32,7 @@ namespace utils{
     bool writeStringToFile(const std::string& content, const std::string& path);
     std::string getFileExtension(const std::string& file_name);
     std::string getFileName(const std::string& file_name);
+    bool lineRectIntersect(const sf::FloatRect& rect, const sf::Vector2f& a_p1, const sf::Vector2f& a_p2);
+
 }
 #endif //DRAGONSLAYER_UTILS_H

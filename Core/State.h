@@ -14,6 +14,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include "../Resources/ResourcesHandler.h"
+#include "Common.h"
 #include <memory>
 
 enum state_enum{
@@ -57,6 +58,7 @@ public:
     void pauseState();
     void unpauseState();
 
+    virtual void enableDisableDebugTool() = 0;
     virtual void updateMousePosition(sf::View* view);
     virtual void updateKeyTime(const float& dt);
     virtual void updateInput(const float& dt);

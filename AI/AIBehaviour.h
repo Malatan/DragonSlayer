@@ -18,15 +18,18 @@ enum AIStatus{
 class PathFinder;
 class AIBehaviour {
 public:
-
-
+    //constructor/destructor
     AIBehaviour(PathFinder* pathFinder, Entity& enemy, Entity& player, sf::Vector2f spawnPos);
     virtual ~AIBehaviour();
-     void update(const float& dt);
-     bool getKeyTime();
-     void updateKeyTime(const float& dt);
-     void updateWayPoints();
 
+    //getters/setters
+    bool getKeyTime();
+    static std::string getStateString(AIStatus stato_enum);
+
+    //functions
+    void update(const float& dt);
+    void updateKeyTime(const float& dt);
+    void updateWayPoints();
 
 private:
     PathFinder* pathFinder;
@@ -34,13 +37,13 @@ private:
     Entity& player;
     sf::Vector2f spawnPos;
     AIStatus stato{};
-    float keyTime = 0.f;
-    float keyTimeMax = 20.f;
-    float idleTime = 0;
-    float idleTimeMax = 0;
+    float keyTime{};
+    float keyTimeMax;
+    float idleTime{};
+    float idleTimeMax{};
+    float chaseTime{};
+    float chaseTimeMax;
     AIStatus statoP{};
-
-
 };
 
 

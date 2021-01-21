@@ -50,7 +50,7 @@ public:
     void generateEnemyStats(int floor, int level = 0);
     void updateAnimation(const float &dt);
     void update(const float &dt) override;
-    void render(sf::RenderTarget& target, sf::Shader* shader = nullptr, sf::Vector2f light_position = sf::Vector2f(), bool show_hitbox = false, bool show_clsBox = false);
+    void render(sf::RenderTarget& target, sf::Shader* shader = nullptr, sf::Vector2f light_position = sf::Vector2f());
 
     //getters/setters
     bool canBeRendered(float distance, sf::Vector2f from);
@@ -73,28 +73,20 @@ public:
     void setStats(const Stats& _stats);
     void setCurrentBoost(int current_boost);
 
-    const sf::Vector2f &getSpawnPos() const;
-
-
 private:
     //variables
     unsigned int Id{};
     string name;
     enemy_types type{};
     int currentBoost{};
-
     sf::Vector2f spawnPos;
-
     bool animationDone{};
     entity_animation animationEnum{};
     entity_animation nextAnimationEnum{};
-
     std::vector<std::shared_ptr<Enemy>> followers;
     std::shared_ptr<Stats> stats;
     std::shared_ptr<Player> player;
-
     AIBehaviour* aIBehaviour{};
-
 
     //initializer functions
     void initAnimations();

@@ -29,29 +29,33 @@ public:
 
     //getters/setters
     const std::vector<std::vector<Tile *>> &getTiles() const;
-    void setTexture();
-    void setIntTile(IntTile int_tile);
     IntTile getIntTile() const;
     std::vector<std::pair<int,int>> getOpenDoors();
     const vector<sf::Vector2f> &getFloorsPos() const;
-    bool isInteracting() const;
-    void setOpenDoors(std::vector<std::pair<int,int>>& open_doors);
+    static sf::IntRect getRandomFloorTexture();
     int getHeight() const;
     int getWidth() const;
     float getHeightP() const;
     float getWidthP() const;
+    int getFromX() const;
+    int getToX() const;
+    int getFromY() const;
+    int getToY() const;
+    void setTexture();
+    void setIntTile(IntTile int_tile);
+    void setOpenDoors(std::vector<std::pair<int,int>>& open_doors);
+    void setWallType();
+    bool isInteracting() const;
 
     //function
-    Tile* getTileByPoint(sf::Vector2f v_point);
+    sf::Vector2f findStairs();
     void updateCollision(const std::shared_ptr<Player>& entity) const;
     void updateTileCollision(const std::shared_ptr<Player>& entity, const float &dt);
-    void setWallType();
     void openDoor(int y, int x);
-    static sf::IntRect getRandomFloorTexture();
-    sf::Vector2f findStairs();
     void render(sf::RenderTarget *target, const std::shared_ptr<Player>& entity,
-                sf::Shader* shader = NULL, const sf::Vector2f playerPosition = sf::Vector2f());
+                sf::Shader* shader = nullptr, const sf::Vector2f playerPosition = sf::Vector2f());
     void renderF(sf::RenderTarget *target);
+
 private:
     GameState *gState;
     int height{};

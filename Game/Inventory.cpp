@@ -81,12 +81,14 @@ int Inventory::getAvailableSpace() {
 
 //GET & SET
 string Inventory::listInventory(){
-    string desc;
+    std::stringstream desc;
+    desc << "------------------------------Player Inventory------------------------------" << std::endl;
     for(const auto& i : items){
         //if(!i->getItemType().empty())
-        desc+= i->listItem(true) + "\n";
+        desc << i->listItem(true);
     }
-    return desc;
+    desc << "----------------------------End-Player Inventory-End----------------------------" << std::endl;
+    return desc.str();
 }
 
 std::shared_ptr<Item> Inventory::getItemById(unsigned int id) {

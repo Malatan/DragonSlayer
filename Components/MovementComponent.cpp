@@ -7,7 +7,6 @@ MovementComponent::MovementComponent(sf::Sprite& sprite,
                                      float maxVelocity, float acceleration, float deceleration)
         : sprite(sprite), maxVelocity(maxVelocity), acceleration(acceleration), deceleration(deceleration){
     previousPosition = sprite.getPosition();
-    speedControl = true;
 }
 
 MovementComponent::~MovementComponent() = default;
@@ -61,11 +60,6 @@ void MovementComponent::setVelocity(sf::Vector2f new_vel) {
     velocity = new_vel;
 }
 
-//modifers
-void MovementComponent::enableSpeedControl(bool b) {
-    speedControl = b;
-}
-
 //functions
 void MovementComponent::move(const float dir_x, const float dir_y, const float &dt) {
     direction.x = dir_x;
@@ -96,7 +90,7 @@ void MovementComponent::update(const float &dt) {
 
     if(velocity.x > 0.f){//controlla per x positiva
         //controlla velocita massima per x positiva
-        if(velocity.x > maxVelocity && speedControl){
+        if(velocity.x > maxVelocity && !noclip){
             velocity.x = maxVelocity;
         }
         //decelerazione per x positiva
@@ -106,7 +100,7 @@ void MovementComponent::update(const float &dt) {
         }
     } else if(velocity.x < 0.f){//controlla per x negativa
         //controlla velocita massima per x negativa
-        if(velocity.x < -maxVelocity && speedControl){
+        if(velocity.x < -maxVelocity && !noclip){
             velocity.x = -maxVelocity;
         }
         //decelerazione per x negativa
@@ -118,7 +112,7 @@ void MovementComponent::update(const float &dt) {
 
     if(velocity.y > 0.f){//controlla per y positiva
         //controlla velocita massima per y positiva
-        if(velocity.y > maxVelocity && speedControl){
+        if(velocity.y > maxVelocity && !noclip){
             velocity.y = maxVelocity;
         }
         //decelerazione per y positiva
@@ -128,7 +122,7 @@ void MovementComponent::update(const float &dt) {
         }
     } else if(velocity.y < 0.f){//controlla per y negativa
         //controlla velocita massima per y negativa
-        if(velocity.y < -maxVelocity && speedControl){
+        if(velocity.y < -maxVelocity && !noclip){
             velocity.y = -maxVelocity;
         }
         //decelerazione per y negativa
@@ -151,8 +145,8 @@ const sf::Vector2f &MovementComponent::getDirection() const {
     return direction;
 }
 
-void MovementComponent::setMaxVelocity(float maxVelocity) {
-    MovementComponent::maxVelocity = maxVelocity;
+void MovementComponent::setMaxVelocity(float max_velocity) {
+    maxVelocity = max_velocity;
 }
 
 

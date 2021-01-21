@@ -36,7 +36,10 @@ public:
     std::vector<shared_ptr<Item>>& getLoots();
     void setLifeTimep(lifeTimePair ltp);
     void setMsCounter(float f);
+    std::string toString() const;
+
     //functions
+    bool canBeRendered(float distance, sf::Vector2f from);
     bool canMerge(sf::FloatRect other_lootbag);
     bool lootItem(const std::shared_ptr<Item>& loot_item);
     void mergeLoots(const std::vector<shared_ptr<Item>>& more_loots);
@@ -50,8 +53,7 @@ public:
     void renderPage(sf::RenderTarget& target);
     void setPosition(float x, float y) override;
     void update(const float& dt) override;
-    void render(sf::RenderTarget& target, sf::Shader* shader = nullptr,
-                sf::Vector2f light_position = sf::Vector2f(), bool show_hitbox = false);
+    void render(sf::RenderTarget& target, sf::Shader* shader = nullptr, sf::Vector2f light_position = sf::Vector2f());
 
 private:
     unsigned int id{};

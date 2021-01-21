@@ -18,6 +18,9 @@ set(SOURCE_FILES
         Core/BattleState.h
         Core/Observer.h
         Core/Subject.h
+        Core/Common.h
+        Core/DebugTool.cpp
+        Core/DebugTool.h
         Gui/Gui.cpp
         Gui/Gui.h
         Gui/PauseMenu.cpp

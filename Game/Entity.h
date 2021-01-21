@@ -5,6 +5,7 @@
 #ifndef DRAGONSLAYER_ENTITY_H
 #define DRAGONSLAYER_ENTITY_H
 
+#include "../Core/Common.h"
 #include "../Components/MovementComponent.h"
 #include "../Components/AnimationComponent.h"
 #include "../Components/HitBoxComponent.h"
@@ -44,7 +45,7 @@ public:
     void createCollisionBoxComponent(sf::Sprite& entity_sprite, float offset_x, float offset_y, float radius);
 
     //waypoints
-    void setWayPoint(sf::Vector2f point, int index);
+    const vector<sf::Vertex> &getWayPoints() const;
     void addWayPoint(sf::Vector2f point);
     void clearWayPoints();
     bool isWayPointEmpty();
@@ -54,11 +55,12 @@ public:
     virtual std::shared_ptr<HitboxComponent> getHitboxComponent();
     virtual std::shared_ptr<CollisionBoxComponent> getCollisionBoxComponent();
     virtual sf::Vector2f getPosition() const;
-    virtual sf::Vector2f getSpritePosition() const;
     virtual sf::Vector2f getCenter() const;
     virtual sf::Vector2f getCollisionBoxCenter();
     virtual sf::FloatRect getGlobalBounds() const;
     virtual sf::Vector2i getGridPosition() const;
+    virtual bool isPlayerInView() const;
+    virtual void setPlayerInView(bool player_in_view);
 
     //functions
     virtual void setPosition(float x, float y);
@@ -74,7 +76,7 @@ protected:
     sf::Sprite sprite;
     sf::Vector2f scale;
     std::vector<sf::Vertex> wayPoints;
-    bool startMove{};
+    bool playerInView{};
     std::shared_ptr<MovementComponent> movementComponent;
     std::shared_ptr<AnimationComponent> animationComponent;
     std::shared_ptr<HitboxComponent> hitboxComponent;

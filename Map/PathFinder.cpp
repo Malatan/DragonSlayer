@@ -41,7 +41,6 @@ void PathFinder::generateNodes(Map* _map) {
             }
         }
     }
-    emptyNodes = (heightN * widthN) - nodesN;
     updateWalkableNodes(_map);
 }
 
@@ -118,6 +117,7 @@ void PathFinder::updateWalkableNodes(Map* _map) {
 }
 
 bool PathFinder::FindPath(sf::Vector2f start_pos, sf::Vector2f target_pos, int max_cost) {
+    counts++;
     int start_grid_x = (int)(start_pos.x / (Tile::TILE_SIZE / (float)nodeMultiplier));
     int start_grid_y = (int)(start_pos.y / (Tile::TILE_SIZE / (float)nodeMultiplier));
     int target_grid_x = (int)(target_pos.x / (Tile::TILE_SIZE / (float)nodeMultiplier));
@@ -144,14 +144,10 @@ bool PathFinder::FindPath(sf::Vector2f start_pos, sf::Vector2f target_pos, int m
 
         if (node == target_node) {
             RetracePath(start_node, target_node);
-            for(auto i : openSet){
-                i->hCost = 0;
-                i->gCost = 0;
-            }
-            for(auto i : closedSet){
-                i->hCost = 0;
-                i->gCost = 0;
-            }
+            for(auto i : openSet)
+                i->resetCosts();
+            for(auto i : closedSet)
+                i->resetCosts();
             return true;
         }
 
@@ -172,7 +168,6 @@ bool PathFinder::FindPath(sf::Vector2f start_pos, sf::Vector2f target_pos, int m
             }
         }
     }
-
     return false;
 }
 
@@ -208,4 +203,12 @@ void PathFinder::RetracePath(Node* start_node, Node* end_node) {
         current_node = current_node->parent;
     }
     std::reverse(path.begin(), path.end());
+}
+
+void PathFinder::updateTimer(const float &dt) {
+    timer += dt;
+    if(timer >= 1.f){
+        timer = 0.f;
+        counts = 0;
+    }
 }

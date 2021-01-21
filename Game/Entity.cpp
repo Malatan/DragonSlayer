@@ -43,16 +43,15 @@ std::shared_ptr<HitboxComponent> Entity::getHitboxComponent() {
 
 sf::Vector2f Entity::getCollisionBoxCenter()  {
     sf::Vector2f v = getCenter();
+    if(hitboxComponent){
+        return {hitboxComponent->getPosition().x + hitboxComponent->getGlobalBounds().width/2.f,
+                hitboxComponent->getPosition().y + hitboxComponent->getGlobalBounds().height};
+    }
     return {v.x, v.y + 30.f};
 }
 
 //waypoints
-void Entity::setWayPoint(sf::Vector2f point, int index) {
-    wayPoints[index] = point;
-}
-
 void Entity::addWayPoint(sf::Vector2f point) {
-    startMove = true;
     if(wayPoints.back().position.x == point.x || wayPoints.back().position.y == point.y){
         wayPoints.back().position = point;
     }
@@ -143,10 +142,6 @@ void Entity::setSpritePositon(const sf::Vector2f pos) {
     sprite.setPosition(pos);
 }
 
-sf::Vector2f Entity::getSpritePosition() const {
-    return sprite.getPosition();
-}
-
 std::shared_ptr<CollisionBoxComponent> Entity::getCollisionBoxComponent() {
     return collisionBoxComponent;
 }
@@ -172,6 +167,18 @@ sf::Vector2f Entity::getCenter() const {
 
 bool Entity::isWayPointEmpty() {
     return wayPoints.size() == 1;
+}
+
+bool Entity::isPlayerInView() const {
+    return playerInView;
+}
+
+void Entity::setPlayerInView(bool player_in_view) {
+    playerInView = player_in_view;
+}
+
+const vector<sf::Vertex> &Entity::getWayPoints() const {
+    return wayPoints;
 }
 
 

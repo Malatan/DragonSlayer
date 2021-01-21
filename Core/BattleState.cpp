@@ -1104,6 +1104,10 @@ void BattleState::updateEnemyStatsLbl(const std::shared_ptr<Enemy> &enemy) {
     enemyStatsValueLbl.setString(ss.str());
 }
 
+void BattleState::enableDisableDebugTool() {
+
+}
+
 void BattleState::updateInput(const float &dt) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && getKeyTime()) {
         if(currentWindowState == PAUSE_MENU)
@@ -1341,7 +1345,7 @@ void BattleState::render(sf::RenderTarget *target) {
 
     playerModel->render(*target);
     for (const auto &i : enemiesModels) {
-        i->render(*target, nullptr, player->getCenter(), true);
+        i->render(*target, nullptr, player->getCenter());
     }
     target->draw(playerPos);
     for (const auto &i : enemyPos)

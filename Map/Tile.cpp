@@ -254,23 +254,22 @@ void Tile::render(sf::RenderTarget *target, sf::Shader* shader, const sf::Vector
     if(shader){
         shader->setUniform("hasTexture", true);
         shader->setUniform("lightPos", player_position);
-
         target->draw(shape, shader);
     }
     else
         target->draw(shape);
-    if (interactable) {
+    if (interactable)
         target->draw(interact);
-    }
-    target->draw(rect);
+    if(debug)
+        target->draw(rect);
 }
 
 void Tile::renderF(sf::RenderTarget *target) {
     target->draw(shape);
-    if (interactable) {
+    if (interactable)
         target->draw(interact);
-    }
-    target->draw(rect);
+    if(debug)
+        target->draw(rect);
 }
 
 bool Tile::intersects(const sf::FloatRect bounds) const{

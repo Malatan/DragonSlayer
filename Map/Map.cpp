@@ -234,71 +234,6 @@ void Map::setOpenDoors(vector<std::pair<int, int>> &open_doors) {
     }
 }
 
-//FUNCTIONS
-void Map::updateCollision(const std::shared_ptr<Player>& entity) const {
-    //World Bounds
-    if (entity->getPosition().x < 0.f || entity->getPosition().x + entity->getGlobalBounds().width > widthP) {
-        entity->stopVelocity();
-        entity->setSpritePositon(entity->getMovementComponent()->getPreviousPosition());
-    }
-    if (entity->getPosition().y < 0.f || entity->getPosition().y + entity->getGlobalBounds().height > heightP) {
-        entity->stopVelocity();
-        entity->setSpritePositon(entity->getMovementComponent()->getPreviousPosition());
-    }
-}
-
-void Map::updateTileCollision(const std::shared_ptr<Player>& entity, const float &dt) {
-
-    bool flag = false;
-    this->fromX = entity->getGridPosition().x - 2;
-    if (this->fromX < 0)
-        this->fromX = 0;
-    else if (this->fromX > this->width)
-        this->fromX = this->width;
-
-    this->toX = entity->getGridPosition().x + 4;
-    if (this->toX < 0)
-        this->toX = 0;
-    else if (this->toX > this->width)
-        this->toX = this->width;
-
-    this->fromY = entity->getGridPosition().y - 2;
-    if (this->fromY < 0)
-        this->fromY = 0;
-    else if (this->fromY > this->height)
-        this->fromY = this->height;
-
-    this->toY = entity->getGridPosition().y + 4;
-    if (this->toY < 0)
-        this->toY = 0;
-    else if (this->toY >= this->height)
-        this->toY = this->height;
-
-    for (int y = this->fromY; y < this->toY; y++) {
-        for (int x = this->fromX; x < this->toX; x++) {
-            //TILES
-            sf::FloatRect playerBounds = entity->getCollisionBoxComponent()->getCollisionEllipse().getGlobalBounds();
-            sf::FloatRect playerHitbox = entity->getHitboxComponent()->getGlobalBounds();
-            if (!this->tiles[y][x]->IsTraversable() && this->tiles[y][x]->intersects(playerBounds)) {
-                entity->stopVelocity();
-                entity->setSpritePositon(entity->getMovementComponent()->getPreviousPosition());
-            }
-            if (this->tiles[y][x]->isInteractable()) {
-                if (this->tiles[y][x]->intersects(playerHitbox)) {
-                    this->tiles[y][x]->enableInteract(true);
-                    flag = true;
-                    intTile.type = tiles[y][x]->GetType();
-                    intTile.y = y;
-                    intTile.x = x;
-                } else {
-                    this->tiles[y][x]->enableInteract(false);
-                }
-            }
-        }
-    }
-    interacting = flag;
-}
-
 void Map::setWallType() {
     for (int r = 0; r < this->tiles.size(); r++) {
         for (int c = 0; c < this->tiles.at(r).size(); c++) {
@@ -363,6 +298,47 @@ void Map::setWallType() {
     }
 }
 
+sf::IntRect Map::getRandomFloorTexture() {
+    int _width;
+    int _height;
+    _width = utils::generateRandomNumber(1, 77);
+    _height = utils::generateRandomNumber(1, 45);
+    return {_width, _height, 50, 50};
+}
+
+int Map::getHeight() const {
+    return height;
+}
+
+int Map::getWidth() const {
+    return width;
+}
+
+float Map::getHeightP() const {
+    return heightP;
+}
+
+float Map::getWidthP() const {
+    return widthP;
+}
+
+int Map::getFromX() const {
+    return fromX;
+}
+
+int Map::getToX() const {
+    return toX;
+}
+
+int Map::getFromY() const {
+    return fromY;
+}
+
+int Map::getToY() const {
+    return toY;
+}
+
+//FUNCTIONS
 void Map::openDoor(int y, int x) {
     tiles[y][x]->changeType(OPENDOOR);
     tiles[y][x]->setTraversable(true);
@@ -372,14 +348,6 @@ void Map::openDoor(int y, int x) {
         tiles[y][x]->setTileTexture(&texture, sf::IntRect(555, 35, 50, 50));
     }
     tiles[y][x]->setInteractable(false);
-}
-
-sf::IntRect Map::getRandomFloorTexture() {
-    int _width;
-    int _height;
-    _width = utils::generateRandomNumber(1, 77);
-    _height = utils::generateRandomNumber(1, 45);
-    return {_width, _height, 50, 50};
 }
 
 sf::Vector2f Map::findStairs() {
@@ -395,10 +363,68 @@ sf::Vector2f Map::findStairs() {
     return pos;
 }
 
-Tile* Map::getTileByPoint(sf::Vector2f v_point) {
-    int pos_x = (int)(v_point.x / Tile::TILE_SIZE);
-    int pos_y = (int)(v_point.y / Tile::TILE_SIZE);
-    return tiles[pos_y][pos_x];
+void Map::updateCollision(const std::shared_ptr<Player>& entity) const {
+    //World Bounds
+    if (entity->getPosition().x < 0.f || entity->getPosition().x + entity->getGlobalBounds().width > widthP) {
+        entity->stopVelocity();
+        entity->setSpritePositon(entity->getMovementComponent()->getPreviousPosition());
+    }
+    if (entity->getPosition().y < 0.f || entity->getPosition().y + entity->getGlobalBounds().height > heightP) {
+        entity->stopVelocity();
+        entity->setSpritePositon(entity->getMovementComponent()->getPreviousPosition());
+    }
+}
+
+void Map::updateTileCollision(const std::shared_ptr<Player>& entity, const float &dt) {
+
+    bool flag = false;
+    this->fromX = entity->getGridPosition().x - 2;
+    if (this->fromX < 0)
+        this->fromX = 0;
+    else if (this->fromX > this->width)
+        this->fromX = this->width;
+
+    this->toX = entity->getGridPosition().x + 4;
+    if (this->toX < 0)
+        this->toX = 0;
+    else if (this->toX > this->width)
+        this->toX = this->width;
+
+    this->fromY = entity->getGridPosition().y - 2;
+    if (this->fromY < 0)
+        this->fromY = 0;
+    else if (this->fromY > this->height)
+        this->fromY = this->height;
+
+    this->toY = entity->getGridPosition().y + 4;
+    if (this->toY < 0)
+        this->toY = 0;
+    else if (this->toY >= this->height)
+        this->toY = this->height;
+
+    for (int y = this->fromY; y < this->toY; y++) {
+        for (int x = this->fromX; x < this->toX; x++) {
+            //TILES
+            sf::FloatRect playerBounds = entity->getCollisionBoxComponent()->getCollisionEllipse().getGlobalBounds();
+            sf::FloatRect playerHitbox = entity->getHitboxComponent()->getGlobalBounds();
+            if (!this->tiles[y][x]->IsTraversable() && this->tiles[y][x]->intersects(playerBounds)) {
+                entity->stopVelocity();
+                entity->setSpritePositon(entity->getMovementComponent()->getPreviousPosition());
+            }
+            if (this->tiles[y][x]->isInteractable()) {
+                if (this->tiles[y][x]->intersects(playerHitbox)) {
+                    this->tiles[y][x]->enableInteract(true);
+                    flag = true;
+                    intTile.type = tiles[y][x]->GetType();
+                    intTile.y = y;
+                    intTile.x = x;
+                } else {
+                    this->tiles[y][x]->enableInteract(false);
+                }
+            }
+        }
+    }
+    interacting = flag;
 }
 
 void Map::render(sf::RenderTarget *target, const std::shared_ptr<Player>& entity, sf::Shader* shader, const sf::Vector2f playerPosition) {
@@ -439,22 +465,6 @@ void Map::renderF(sf::RenderTarget *target) {
             tiles[y][x]->renderF(target);
         }
     }
-}
-
-int Map::getHeight() const {
-    return height;
-}
-
-int Map::getWidth() const {
-    return width;
-}
-
-float Map::getHeightP() const {
-    return heightP;
-}
-
-float Map::getWidthP() const {
-    return widthP;
 }
 
 

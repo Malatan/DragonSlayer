@@ -7,7 +7,6 @@
 
 #include <chrono>
 #include "State.h"
-
 #include "Subject.h"
 #include "../Map/Map.h"
 #include "../Game/Player.h"
@@ -31,9 +30,9 @@
 #include "../Map/MapGenerator.h"
 #include "../Map/PathFinder.h"
 #include "../Resources/LootBagSaveData.h"
-
 #include "../Resources/EnemySaveData.h"
 #include "../Game/LootGenerator.h"
+#include "DebugTool.h"
 
 class PauseMenu;
 class CharacterTab;
@@ -52,6 +51,7 @@ class Map;
 class MapGenerator;
 class PathFinder;
 class EnemySaveData;
+class DebugTool;
 
 typedef std::pair<unsigned int, unsigned int> lootBagAccessPair;
 
@@ -99,6 +99,7 @@ public:
     Map* getMap();
     PathFinder* getPathFinder() const;
 
+
     //observer
     void addObserver(Observer* observer);
     void removeObserver(Observer* observer);
@@ -115,6 +116,7 @@ public:
     bool deleteEnemyById(unsigned int enemy_id);
     void addItem(const std::shared_ptr<Item>& new_item);
     void changeStato(state_tab current_stato);
+    void enableDisableDebugTool() override;
     void updateLocationLbl();
     void updateTabsGoldLbl();
     void updateTabsInvSpaceLbl();
@@ -125,18 +127,19 @@ public:
     void updatePlayerInput(const float& dt);
     void updatePausedMenuButtons();
     void updateView(const float& dt);
-    void updateDebugText();
     void updateButtons();
+    void updateEnemy(const float& dt);
     void update(const float& dt) override;
     void updateTileMap(const float& dt);
     void render(sf::RenderTarget* target) override;
     void spawnEnemyOnMap();
 
 private:
+    friend class DebugTool;
     sf::Font* font;
     sf::View view;
+    sf::View minimapView;
     sf::Text hints;
-    sf::Text debugText;
     sf::Text locationLbl;
     std::unique_ptr<gui::Button> cTabBtn;
     std::unique_ptr<gui::Button> pauseMenuBtn;
@@ -144,6 +147,7 @@ private:
     std::unique_ptr<gui::Button> achievementTabBtn;
 
     sf::Shader coreShader;
+    DebugTool* debugTool{};
     Map* map{};
     std::shared_ptr<PathFinder> pathFinder;
     std::shared_ptr<MapGenerator> mg;
@@ -170,7 +174,6 @@ private:
     state_tab stato;
     npc_type npcInteract;
     lootBagAccessPair interactLootBag;
-    bool noclip;
     int currentFloor{};
     int floorReached{};
     float enemyRenderDistance{};
@@ -187,7 +190,6 @@ private:
     void initComponents();
     void initLootGenerator();
     void initView();
-    void initDebugText();
     void initButtons();
     void initMaps();
     void initShader();

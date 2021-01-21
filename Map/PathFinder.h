@@ -24,16 +24,19 @@ public:
     void updateWalkableNodes(Map* _map);
     bool FindPath(sf::Vector2f start_pos, sf::Vector2f target_pos, int max_cost);
     std::vector<Node*> getNearNodes(int grid_x, int grid_y);
-    int GetDistance(Node* node_a, Node* node_b);
+    static int GetDistance(Node* node_a, Node* node_b);
     void RetracePath(Node* start_node, Node* end_node);
+    void updateTimer(const float& dt);
 
     std::vector<Node*> path;
     std::vector<std::vector<Node*>> nodes;
     int widthN{};
     int heightN{};
     int nodesN{};
-    int emptyNodes{};
     int nodeMultiplier{1};
+
+    float timer{};
+    int counts{};
 };
 
 

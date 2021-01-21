@@ -20,10 +20,11 @@ public:
     int getPosY() const;
     void setWalkable(bool _walkable);
     bool isWalkable() const;
-
+    void resetCosts();
     bool operator!=(const Node& obj) const;
     bool operator==(const Node& obj) const;
     std::string toString() const;
+
 private:
     friend class PathFinder;
     bool walkable{};

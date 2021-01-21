@@ -436,9 +436,8 @@ void Enemy::update(const float &dt) {
 
 }
 
-void Enemy::render(sf::RenderTarget &target, sf::Shader* shader, sf::Vector2f light_position, bool show_hitbox, bool show_clsBox) {
-    if(show_clsBox)
-        collisionBoxComponent->render(target);
+void Enemy::render(sf::RenderTarget &target, sf::Shader* shader, sf::Vector2f light_position) {
+    collisionBoxComponent->render(target);
     if(shader){
         shader->setUniform("hasTexture", true);
         shader->setUniform("lightPos", light_position);
@@ -447,10 +446,6 @@ void Enemy::render(sf::RenderTarget &target, sf::Shader* shader, sf::Vector2f li
     else{
         target.draw(sprite);
     }
-    if(show_hitbox)
-        hitboxComponent->render(target);
-
-    target.draw(&wayPoints[0], wayPoints.size(), sf::LineStrip);
 }
 
 //getters/setters
@@ -610,11 +605,6 @@ Enemy::Enemy(enemy_types type, float x, float y, float scale_x, float scale_y, f
     generateNameByType();
     wayPoints.emplace_back(sf::Vertex(sf::Vector2f(x, y)));
 }
-
-const sf::Vector2f &Enemy::getSpawnPos() const {
-    return spawnPos;
-}
-
 
 
 

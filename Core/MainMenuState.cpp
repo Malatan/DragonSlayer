@@ -101,6 +101,10 @@ void MainMenuState::startGame() {
     states->push(std::make_unique<GameState>(window, states, rsHandler, popUpTextComponent, loadSaveTab, &font, GAME_STATE));
 }
 
+void MainMenuState::enableDisableDebugTool() {
+
+}
+
 void MainMenuState::updateInput(const float &dt) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::F12) && getKeyTime()) {
         std::string msg = saveScreenShoot();

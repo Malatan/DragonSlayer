@@ -39,7 +39,7 @@ public:
     void minusGold(unsigned minus_amount);
     void updateAnimation(const float &dt);
     void update(const float &dt) override;
-    void render(sf::RenderTarget& target, sf::Shader* shader = nullptr, sf::Vector2f light_position = sf::Vector2f(), bool show_hitbox = false, bool show_clsBox = false);
+    void render(sf::RenderTarget& target, sf::Shader* shader = nullptr, sf::Vector2f light_position = sf::Vector2f());
 
     //GET & SET
     void setEquipItem(const std::shared_ptr<Item>& equip_item, int equip_slot);
@@ -59,6 +59,7 @@ public:
     void setAnimation(entity_animation animation, entity_animation next_animation);
     void setDefense(bool b);
     bool isDefense() const;
+    std::string toStringEquips() const;
 
 private:
     //variables

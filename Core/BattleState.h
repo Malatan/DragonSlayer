@@ -70,6 +70,7 @@ public:
     void updateButtons();
     void updateMainPanel(const float &dt);
     void updatePausedMenuButtons();
+    void enableDisableDebugTool() override;
     void updateInput(const float &dt) override;
     void update(const float& dt) override;
     void render(sf::RenderTarget* target) override;

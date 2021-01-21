@@ -2,6 +2,7 @@
 #define DRAGONSLAYER_TILE_H
 
 #include <SFML/Graphics.hpp>
+#include "../Core/Common.h"
 #include "string"
 
 enum types{
