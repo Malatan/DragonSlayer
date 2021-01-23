@@ -38,22 +38,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e176dfb-d06b-4a3a-ae60-4825526ebf88" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AI/AIBehaviour.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/AI/AIBehaviour.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AI/AIBehaviour.h" beforeDir="false" afterPath="$PROJECT_DIR$/AI/AIBehaviour.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/DebugTool.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/DebugTool.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/GameState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/GameState.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/GameState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/GameState.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Enemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Enemy.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Enemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Enemy.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/LootGenerator.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/LootGenerator.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/LootGenerator.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/LootGenerator.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Stats.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Stats.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Stats.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Stats.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Map/MiniMap.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Map/MiniMap.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shader/fragment_shader.frag" beforeDir="false" afterPath="$PROJECT_DIR$/Shader/fragment_shader.frag" afterDir="false" />
-    </list>
+    <list default="true" id="5e176dfb-d06b-4a3a-ae60-4825526ebf88" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -353,7 +338,7 @@
       <workItem from="1611265348899" duration="716000" />
       <workItem from="1611276324805" duration="647000" />
       <workItem from="1611324348931" duration="35502000" />
-      <workItem from="1611414636165" duration="8951000" />
+      <workItem from="1611414636165" duration="9132000" />
     </task>
     <servers />
   </component>

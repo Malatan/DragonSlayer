@@ -370,7 +370,7 @@ void GameState::generateInitialInventory() {
     new_item->setQuantity(5);
     new_item->setId(rsHandler->generateId());
     addItem(new_item);
-    
+
     //equipments
     std::vector<unsigned int> item_ids;
     new_item = lootGenerator->generateTierEquipment(UNCOMMON, false, WEAPON_LOOT);

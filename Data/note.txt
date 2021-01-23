@@ -51,7 +51,62 @@ Base value
 intrect x
 intrect y
 
+Material		120	
+Comsumable	20	140
+Weapon		10	150
+Shield		10	160
+Helmet		10	170
+Chestplate	10	180
+Gloves		10	190
+Boots		10	200
+Nothing		100	300	
 
+Uncommon	60	
+Common		40	100
+Rare		20	120
+
+1		60
+2		30	90
+3		15	105
+4		12	117
+5		8	125
+6		5	130
+
+
+
+Default		80	
+Higher		20	100
+Highiest		5	105
+
+Uncommon	60	
+Common		32	92
+Rare		16	108
+Epic		8	116
+Legendary		4	120
+
+Uncommon	54	
+Common		33	87
+Rare		18	105
+Epic		10	115
+Legendary		5	120
+
+Uncommon	48	
+Common		34	82
+Rare		20	102
+Epic		12	114
+Legendary		6	120
+
+Uncommon	43	
+Common		34	77
+Rare		22	99
+Epic		14	113
+Legendary		7	120
+
+Uncommon	36	
+Common		35	71
+Rare		24	95
+Epic		16	111
+Legendary		9	120
 
 
 
