@@ -46,20 +46,22 @@ bool Stats::addExp(int earned) {
     return leveledUp;
 }
 
-void Stats::addAttribute(attribute type, int quantity) {
+void Stats::addAttribute(attribute type, int quantity, bool consume_freepoint) {
     switch(type){
         case AGILITY:
             agility += quantity;
             critChance = critChance + (0.4f * (float)quantity);
             evadeChance = evadeChance + (0.3f * (float)quantity);
-            freePoints --;
+            if(consume_freepoint)
+                freePoints --;
             break;
         case WISDOM:{
             wisdom += quantity;
             int extra_mana = 15 * quantity;
             maxMp = maxMp + extra_mana;
             gainMp(extra_mana);
-            freePoints --;
+            if(consume_freepoint)
+                freePoints --;
             break;
         }
         case STRENGTH:{
@@ -69,7 +71,8 @@ void Stats::addAttribute(attribute type, int quantity) {
             gainHp(extra_hp);
             armor = armor + (2 * quantity);
             damage = damage + (2 * quantity);
-            freePoints --;
+            if(consume_freepoint)
+                freePoints --;
             break;
         }
     }

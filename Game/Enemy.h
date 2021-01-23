@@ -74,6 +74,7 @@ public:
     void setCurrentBoost(int current_boost);
     std::string getAIStatoString() const;
     std::string toStringDebug() const;
+    const sf::Vector2f &getSpawnPos() const;
 
 private:
     //variables

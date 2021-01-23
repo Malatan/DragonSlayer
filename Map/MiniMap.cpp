@@ -21,9 +21,9 @@ void MiniMap::initGui(sf::Vector2u window_size) {
                                 minimapBackground.getPosition().y + minimapBackground.getGlobalBounds().height - 5.f};
     hideBtn = new gui::Button(minimapBackground.getPosition().x, center_down.y,
                               50.f, 30.f, font, "Hide", 15, 0);
-    zoomInBtn = new gui::Button(hideBtn->getPosition().x + 55.f, hideBtn->getPosition().y,
+    zoomInBtn = new gui::Button(hideBtn->getPosition().x + 60.f, hideBtn->getPosition().y,
                                 90.f, 30.f, font, "Zoom In", 15, 0);
-    zoomOutBtn = new gui::Button(zoomInBtn->getPosition().x + 95.f, zoomInBtn->getPosition().y,
+    zoomOutBtn = new gui::Button(zoomInBtn->getPosition().x + 100.f, zoomInBtn->getPosition().y,
                                  90.f, 30.f, font, "Zoom Out", 15, 0);
     zoomInBtn->setBorderLineThickness(5.f);
     zoomInBtn->setBorderColor(sf::Color::Blue);

@@ -24,10 +24,12 @@ void DebugTool::addButton(const std::string& btn_key, const std::string& text) {
 void DebugTool::initButtons() {
     addButton("G_ADD_EXP", "ADD 1000 EXP");
     addButton("G_ADD_GOLD", "ADD 10000 GOLD");
+    addButton("G_STATSBOOST", "STATS BOOST");
     addButton("G_UNLOCKFLOORS", "UNLOCK FLOORS");
     addButton("G_NOCLIP", "NOCLIP");
     addButton("G_TPTOSPAWN", "TP TO SPAWN");
     addButton("G_REDRAWMINIMAP", "REDRAW MINIMAP");
+    addButton("R_RELOADSHADER", "RELOAD SHADER");
     addButton("PRINT_G_ENEMIES", "PRINT ENEMIS");
     addButton("PRINT_G_LOOTBAGS", "PRINT LOOTBAGS");
     addButton("PRINT_P_INV", "PRINT INVENTORY");
@@ -67,7 +69,7 @@ void DebugTool::updateDebugText() {
     sf::Vector2f vv = gstate->player->getMovementComponent()->getVelocity();
     sf::Vector2f vd = gstate->player->getMovementComponent()->getDirection();
     std::stringstream ss;
-    ss << "<Ctrl + F11> Open Debug Menu" << std::endl
+    ss << "<F11> Open Debug Menu" << std::endl
        << "<Home> Close Debugtool" << std::endl
        << "Pos x: " << gstate->mousePosView.x << " Pos y: " << gstate->mousePosView.y << std::endl
        << "Grid x: " << (int)(gstate->mousePosView.x/Tile::TILE_SIZE)
@@ -78,18 +80,16 @@ void DebugTool::updateDebugText() {
        << "Dx: " << vd.x << std::endl << "Dy: " << vd.y << std::endl
        << "Vx: " << vv.x << std::endl << "Vy: " << vv.y << std::endl
        << "Minimap zoom factor: " << gstate->minimap->getZoomFactor()
-       << " [" << gstate->minimap->getMinZoomFactor() << " - " << gstate->minimap->getMaxZoomFactor() << "]"
-       << " Scale: " << gstate->minimap->getScale()
+       << " [" << gstate->minimap->getMinZoomFactor() << " - " << gstate->minimap->getMaxZoomFactor() << "]" << std::endl
+       << "Scale: " << gstate->minimap->getScale()
        << " Hide: " << std::boolalpha << gstate->minimap->isHide() << std::endl
        << "PathFinding called per second: " << gstate->pathFinder->counts << std::endl;
     textLbl.setString(ss.str());
 }
 
 void DebugTool::updateInput() {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)){
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::F11) && gstate->getKeyTime()){
-            showMenu = !showMenu;
-        }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::F11) && gstate->getKeyTime()){
+        showMenu = !showMenu;
     }
 }
 
@@ -106,6 +106,14 @@ void DebugTool::applyFunctions(const string &key) {
         gstate->player->addGold(gold);
         gstate->updateTabsGoldLbl();
         gstate->popUpTextComponent->addPopUpTextCenter(GOLD_TAG, gold, "+", " Gold");
+    }else if(key == "G_STATSBOOST"){
+        int boost_quantity = 1000;
+        gstate->player->getPlayerStats()->addAttribute(STRENGTH, boost_quantity, false);
+        gstate->player->getPlayerStats()->addAttribute(WISDOM, boost_quantity, false);
+        gstate->player->getPlayerStats()->addAttribute(AGILITY, boost_quantity, false);
+        gstate->updateTabsPlayerStatsLbl(NO_TAB);
+        gstate->popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG, boost_quantity,
+                                                       "+", " STRENGTH, WISDOM AND AGILITY");
     }else if(key == "G_UNLOCKFLOORS"){
         while(gstate->floorReached <= 5){
             gstate->floorReached++;
@@ -123,6 +131,9 @@ void DebugTool::applyFunctions(const string &key) {
         gstate->player->setPosition(gstate->spawnPos.x, gstate->spawnPos.y);
     }else if(key == "G_REDRAWMINIMAP"){
         gstate->minimap->drawTexture();
+    }else if(key == "R_RELOADSHADER"){
+        gstate->initShader();
+        gstate->popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG, "SHADER RELOADED", "", "");
     }else if(key == "PRINT_P_INV"){
         std::cout << "Player Gold: " << gstate->player->getGold() << std::endl;
         std::cout << gstate->player->getInventory()->listInventory();
@@ -174,10 +185,18 @@ void DebugTool::renderPlayerDebugInfo(sf::RenderTarget *target) {
 void DebugTool::renderEnemisDebugInfo(sf::RenderTarget *target) {
     for(const auto& i : gstate->enemies){
         target->draw(&i->getWayPoints()[0], i->getWayPoints().size(), sf::LineStrip);
+
         sf::Vertex line[] = {{gstate->player->getCollisionBoxCenter(), sf::Color::Red},
                              {i->getCollisionBoxCenter(), sf::Color::Red}};
         target->draw(line, 2, sf::Lines);
+
+        sf::Vertex line2[] = {{i->getSpawnPos(), sf::Color::Magenta},
+                             {i->getCollisionBoxCenter(), sf::Color::Magenta}};
+        target->draw(line2, 2, sf::Lines);
+
         i->getHitboxComponent()->render(*target);
+
+
         sf::Text ai_stato;
         ai_stato.setFont(*font);
         ai_stato.setCharacterSize(15);

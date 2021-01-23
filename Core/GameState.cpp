@@ -99,8 +99,7 @@ void GameState::initPauseMenu() {
 }
 
 void GameState::initPlayers() {
-    player = std::make_shared<Player>(spawnPos.x, spawnPos.y, 2.f, 2.f,
-                                      textures["PLAYER_SHEET"]);
+    player = std::make_shared<Player>(spawnPos.x, spawnPos.y, 2.f, 2.f, textures["PLAYER_SHEET"]);
     if(loadSaveTab->canApplySave()){
         Save* save = loadSaveTab->getApplySave();
         player->setGold(save->playerGold);
@@ -109,13 +108,10 @@ void GameState::initPlayers() {
         player->getInventory()->setCurrentMaxSpace(save->playerInventoryMaxSpace);
     }else{
         player->setGold(0);
-        // legge i valori di default del Stats dal Data/Stats.txt
         player->initStats();
         rsHandler->loadPlayerStatsTxt(player->getPlayerStats());
-        // legge i valori di default dell 'inventario dal Data/Inventory.txt
         player->initInventory();
         player->getInventory()->setCurrentMaxSpace(35);
-        rsHandler->loadPlayerInventoryTxt(player->getInventory());
     }
     player->getPlayerStats()->updateMultipliers();
 }
@@ -355,6 +351,56 @@ void GameState::applySaveValue() {
     }
 }
 
+void GameState::generateInitialInventory() {
+    std::shared_ptr<Item> new_item;
+    //consumables
+    new_item = std::make_shared<Item>(lootGenerator->getShopList().at("HealthPotion(S)"));
+    new_item->setQuantity(10);
+    new_item->setId(rsHandler->generateId());
+    addItem(new_item);
+    new_item = std::make_shared<Item>(lootGenerator->getShopList().at("HealthPotion(M)"));
+    new_item->setQuantity(5);
+    new_item->setId(rsHandler->generateId());
+    addItem(new_item);
+    new_item = std::make_shared<Item>(lootGenerator->getShopList().at("ManaPotion(S)"));
+    new_item->setQuantity(10);
+    new_item->setId(rsHandler->generateId());
+    addItem(new_item);
+    new_item = std::make_shared<Item>(lootGenerator->getShopList().at("ManaPotion(M)"));
+    new_item->setQuantity(5);
+    new_item->setId(rsHandler->generateId());
+    addItem(new_item);
+    
+    //equipments
+    std::vector<unsigned int> item_ids;
+    new_item = lootGenerator->generateTierEquipment(UNCOMMON, false, WEAPON_LOOT);
+    addItem(new_item);
+    item_ids.push_back(new_item->getId());
+    new_item = lootGenerator->generateTierEquipment(UNCOMMON, false, SHIELD_LOOT);
+    addItem(new_item);
+    item_ids.push_back(new_item->getId());
+    new_item = lootGenerator->generateTierEquipment(UNCOMMON, false, HELMET_LOOT);
+    addItem(new_item);
+    item_ids.push_back(new_item->getId());
+    new_item = lootGenerator->generateTierEquipment(UNCOMMON, false, CHESTPLATE_LOOT);
+    addItem(new_item);
+    item_ids.push_back(new_item->getId());
+    new_item = lootGenerator->generateTierEquipment(UNCOMMON, false, GLOVES_LOOT);
+    addItem(new_item);
+    item_ids.push_back(new_item->getId());
+    new_item = lootGenerator->generateTierEquipment(UNCOMMON, false, BOOTS_LOOT);
+    addItem(new_item);
+    item_ids.push_back(new_item->getId());
+    for(auto i : item_ids){
+        cTab->selectItemById(i);
+        cTab->equipUnEquipBtnFunction();
+    }
+    player->getPlayerStats()->refillHp();
+    player->getPlayerStats()->refillMp();
+    updateTabsPlayerStatsLbl();
+    updateTabsInvSpaceLbl();
+}
+
 //constructors/destructors
 GameState::GameState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::unique_ptr<State>>* states,
                      std::shared_ptr<ResourcesHandler> rsHandler, std::shared_ptr<PopUpTextComponent> popuptext_component,
@@ -382,6 +428,9 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> window, std::stack<std::u
     initMaps();
     initObservers();
     preNotifiers();
+    if(!loadSaveTab->canApplySave()){
+        generateInitialInventory();
+    }
     this->loadSaveTab->endApplySave();
 }
 

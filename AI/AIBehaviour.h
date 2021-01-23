@@ -44,6 +44,8 @@ private:
     float idleTimeMax{};
     float chaseTime{};
     float chaseTimeMax;
+    float stuckTime{};
+    float stuckTimeMax;
     AIStatus statoP{};
 };
 

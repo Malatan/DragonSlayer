@@ -11,9 +11,6 @@
 #include "ResourcesHandler.h"
 #include "Enemy.h"
 
-
-
-
 enum loot_type{
     MATERIAL_LOOT,
     COMSUMABLE_LOOT,
@@ -53,7 +50,7 @@ public:
     virtual ~LootGenerator();
 
     std::vector<std::shared_ptr<Item>> generateLoot(const std::shared_ptr<Enemy>& defeated_enemy, int floor);
-    std::shared_ptr<Item> generateTierEquipment(item_rarity equip_rarity, bool random_rarity);
+    std::shared_ptr<Item> generateTierEquipment(item_rarity equip_rarity, bool random_rarity, loot_type item_type = NO_LOOT);
     Item *getMaterialByEnemyType(enemy_types type);
     static std::string getRarityString(item_rarity rarity_enum);
     static std::string getRarityString(loot_rarity rarity_enum);

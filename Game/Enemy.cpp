@@ -616,6 +616,10 @@ std::string Enemy::toStringDebug() const {
     return ss.str();
 }
 
+const sf::Vector2f &Enemy::getSpawnPos() const {
+    return spawnPos;
+}
+
 
 
 

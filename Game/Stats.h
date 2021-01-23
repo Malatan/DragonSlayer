@@ -26,7 +26,7 @@ public:
     //functions
     bool addExp(int earned);
     void levelUp(int newExp);
-    void addAttribute(attribute type, int quantity);
+    void addAttribute(attribute type, int quantity, bool consume_freepoint = true);
     void checkHpLimit();
     void checkMpLimit();
     void refillHp();

@@ -181,6 +181,7 @@ private:
 
     //init
     void applySaveValue();
+    void generateInitialInventory();
     void initTextures();
     void initPauseMenu();
     void initPlayers();

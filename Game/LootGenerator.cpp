@@ -833,13 +833,19 @@ std::string LootGenerator::getRarityString(loot_rarity rarity_enum) {
     }
 }
 
-std::shared_ptr<Item> LootGenerator::generateTierEquipment(item_rarity equip_rarity, bool random_rarity) {
-    int random_value = utils::generateRandomNumber(lootProbabilities[1], lootProbabilities[7]);
-    int starting_loot_type = 2;
-    //si scorre il loot finche non troppa il range giusto
-    while (lootProbabilities[starting_loot_type] < random_value)
-        starting_loot_type++;
-    auto loot_type_enum = static_cast<loot_type>(starting_loot_type);
+std::shared_ptr<Item> LootGenerator::generateTierEquipment(item_rarity equip_rarity, bool random_rarity, loot_type item_type) {
+    loot_type loot_type_enum;
+    int random_value;
+    if(item_type == NO_LOOT){
+        random_value = utils::generateRandomNumber(lootProbabilities[1], lootProbabilities[7]);
+        int starting_loot_type = 2;
+        //si scorre il loot finche non troppa il range giusto
+        while (lootProbabilities[starting_loot_type] < random_value)
+            starting_loot_type++;
+        loot_type_enum = static_cast<loot_type>(starting_loot_type);
+    }else{
+        loot_type_enum = item_type;
+    }
     std::string equip_type;
     switch (loot_type_enum) {
         case WEAPON_LOOT: {

@@ -11,6 +11,7 @@ AIBehaviour::AIBehaviour(PathFinder *pathFinder, Entity &enemy, Entity &player, 
     this->spawnPos = spawnPos;
     keyTimeMax = 20.f;
     chaseTimeMax = 5.f;
+    stuckTimeMax = 5.f;
 }
 
 AIBehaviour::~AIBehaviour() = default;
@@ -52,6 +53,7 @@ void AIBehaviour::update(const float &dt) {
     float idleChance = 50.f;
     int MAXdistance = 300;
     updateKeyTime(dt);
+
     if(!noclip){
         if ((abs(enemy.getCollisionBoxCenter().x - spawnPos.x) > MAXRange ||
              abs(enemy.getCollisionBoxCenter().y - spawnPos.y) > MAXRange) || stato == AI_BACKTOSPAWN) {
@@ -63,6 +65,13 @@ void AIBehaviour::update(const float &dt) {
                 statoP = stato;
                 stato = AI_FOLLOW;
             }
+        }
+    }
+    if(enemy.getMovementComponent()->getVelocity() == sf::Vector2f()){
+        stuckTime += dt;
+        if(stuckTime >= stuckTimeMax){
+            stuckTime = 0.f;
+            goto forceback;
         }
     }
 
@@ -136,6 +145,7 @@ void AIBehaviour::update(const float &dt) {
                 statoP = stato;
                 stato = AI_DEFAULT;
             } else if (statoP != AI_BACKTOSPAWN && !enemy.isWayPointEmpty()) {
+                forceback:
                 if (pathFinder->FindPath(enemy.getCollisionBoxCenter(), spawnPos, 9999)) {
                     updateWayPoints();
                     statoP = stato;
