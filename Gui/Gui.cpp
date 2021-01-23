@@ -43,8 +43,8 @@ gui::Button::Button(float x, float y, float width, float height,
     this->text.setFillColor(textIdleColor);
     this->text.setCharacterSize(character_size);
     this->text.setPosition(
-            (shape.getPosition().x + width /2.f) - this->text.getGlobalBounds().width/2.f,
-            (shape.getPosition().y + height /2.f) - this->text.getGlobalBounds().height/1.5f
+            (shape.getPosition().x + width /2.f) - this->text.getGlobalBounds().width/2.f - shape.getOutlineThickness()/2.f,
+            (shape.getPosition().y + height /2.f) - this->text.getGlobalBounds().height/2.f - shape.getOutlineThickness()/2.f
     );
 
     //tooltip
@@ -124,16 +124,16 @@ sf::Vector2f gui::Button::getPosition() {
 void gui::Button::setPosition(float x, float y) {
     shape.setPosition(x,y);
     text.setPosition(
-            (x + shape.getGlobalBounds().width /2.f) - text.getGlobalBounds().width/2.f,
-            (y + shape.getGlobalBounds().height /2.f) - text.getGlobalBounds().height/1.5f
+            (x + shape.getGlobalBounds().width /2.f) - (text.getGlobalBounds().width/2.f) - (shape.getOutlineThickness()/2.f),
+            (y + shape.getGlobalBounds().height /2.f) - (text.getGlobalBounds().height/1.5f) - (shape.getOutlineThickness()/2.f)
     );
 }
 
 void gui::Button::setPosition(sf::Vector2f pos) {
     shape.setPosition(pos);
     text.setPosition(
-            (pos.x + shape.getGlobalBounds().width /2.f) - text.getGlobalBounds().width/2.f,
-            (pos.y + shape.getGlobalBounds().height /2.f) - text.getGlobalBounds().height/1.5f
+            (shape.getPosition().x + shape.getGlobalBounds().width /2.f) - text.getGlobalBounds().width/2.f,
+            (shape.getPosition().y + shape.getGlobalBounds().height /2.f) - text.getGlobalBounds().height/1.5f
     );
 }
 
@@ -142,11 +142,11 @@ void gui::Button::setSize(sf::Vector2f size) {
 }
 
 void gui::Button::setText(const std::string& new_text) {
-    this->text.setString(new_text);
-    this->text.setPosition(
-            (shape.getPosition().x + shape.getGlobalBounds().width /2.f) - this->text.getGlobalBounds().width/2.f,
-            (shape.getPosition().y + shape.getGlobalBounds().height /2.f) - this->text.getGlobalBounds().height/1.5f
-    );
+    text.setString(new_text);
+    text.setPosition(
+            (shape.getPosition().x + shape.getGlobalBounds().width /2.f) - text.getGlobalBounds().width/2.f
+            - shape.getOutlineThickness()/2.f,
+            text.getPosition().y);
 }
 
 void gui::Button::setId(const short unsigned new_id) {

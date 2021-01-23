@@ -22,6 +22,10 @@ public:
     void updateInput();
     void updateDebugText();
     void update(const float& dt, const sf::Vector2f &mousePos);
+    void renderPlayerDebugInfo(sf::RenderTarget* target);
+    void renderEnemisDebugInfo(sf::RenderTarget* target);
+    void renderLootBagsDebugInfo(sf::RenderTarget* target);
+    void renderMapDebugInfo(sf::RenderTarget* target);
     void render(sf::RenderTarget* target);
 
 private:

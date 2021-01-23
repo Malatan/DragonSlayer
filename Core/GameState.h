@@ -33,6 +33,7 @@
 #include "../Resources/EnemySaveData.h"
 #include "../Game/LootGenerator.h"
 #include "DebugTool.h"
+#include "../Map/MiniMap.h"
 
 class PauseMenu;
 class CharacterTab;
@@ -52,6 +53,7 @@ class MapGenerator;
 class PathFinder;
 class EnemySaveData;
 class DebugTool;
+class MiniMap;
 
 typedef std::pair<unsigned int, unsigned int> lootBagAccessPair;
 
@@ -91,6 +93,7 @@ public:
     std::vector<std::shared_ptr<Enemy>>& getEnemies();
     std::vector<std::shared_ptr<LootBag>>& getLootBags();
     Npc* getNpc(int index);
+    const vector<Npc *> &getNpcs() const;
     npc_type getInteractNpc() const;
     std::shared_ptr<Enemy>& getEnemy(int index);
     bool getStateKeyTime();
@@ -98,7 +101,7 @@ public:
     int getReachedFloor() const;
     Map* getMap();
     PathFinder* getPathFinder() const;
-
+    std::pair<int, int> getEnemyCount(bool count_followers = false) const;
 
     //observer
     void addObserver(Observer* observer);
@@ -106,7 +109,6 @@ public:
     void notify(achievement_event event, int value);
 
     //functions
-    std::pair<int, int> getEnemyCount(bool count_followers = false) const;
     void changeMap(int floor, bool load_from_save = false);
     void checkBattleResult(BattleResult* battle_result);
     void loadEnemyFromSave();
@@ -116,8 +118,8 @@ public:
     bool deleteEnemyById(unsigned int enemy_id);
     void addItem(const std::shared_ptr<Item>& new_item);
     void changeStato(state_tab current_stato);
+    void spawnEnemyOnMap();
     void enableDisableDebugTool() override;
-    void updateLocationLbl();
     void updateTabsGoldLbl();
     void updateTabsInvSpaceLbl();
     void updateTabsPlayerStatsLbl(state_tab update_tab = NO_TAB);
@@ -126,21 +128,19 @@ public:
     void updateMouseInput(const float &dt);
     void updatePlayerInput(const float& dt);
     void updatePausedMenuButtons();
-    void updateView(const float& dt);
+    void updateView();
     void updateButtons();
     void updateEnemy(const float& dt);
-    void update(const float& dt) override;
     void updateTileMap(const float& dt);
+    void update(const float& dt) override;
     void render(sf::RenderTarget* target) override;
-    void spawnEnemyOnMap();
 
 private:
     friend class DebugTool;
     sf::Font* font;
     sf::View view;
-    sf::View minimapView;
+
     sf::Text hints;
-    sf::Text locationLbl;
     std::unique_ptr<gui::Button> cTabBtn;
     std::unique_ptr<gui::Button> pauseMenuBtn;
     std::unique_ptr<gui::Button> spellTabBtn;
@@ -149,6 +149,7 @@ private:
     sf::Shader coreShader;
     DebugTool* debugTool{};
     Map* map{};
+    std::shared_ptr<MiniMap> minimap;
     std::shared_ptr<PathFinder> pathFinder;
     std::shared_ptr<MapGenerator> mg;
     std::unique_ptr<PauseMenu> pmenu;

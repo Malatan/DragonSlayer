@@ -6,7 +6,7 @@
 
 //initializers
 void DebugTool::addButton(const std::string& btn_key, const std::string& text) {
-    float _x = 400.f;
+    float _x = 450.f;
     float _y = 5.f;
     float width = 150.f;
     float height = 30.f;
@@ -22,10 +22,12 @@ void DebugTool::addButton(const std::string& btn_key, const std::string& text) {
 }
 
 void DebugTool::initButtons() {
-    addButton("G_ADD_EXP", "ADD 100 EXP");
-    addButton("G_ADD_GOLD", "ADD 1000 GOLD");
+    addButton("G_ADD_EXP", "ADD 1000 EXP");
+    addButton("G_ADD_GOLD", "ADD 10000 GOLD");
     addButton("G_UNLOCKFLOORS", "UNLOCK FLOORS");
     addButton("G_NOCLIP", "NOCLIP");
+    addButton("G_TPTOSPAWN", "TP TO SPAWN");
+    addButton("G_REDRAWMINIMAP", "REDRAW MINIMAP");
     addButton("PRINT_G_ENEMIES", "PRINT ENEMIS");
     addButton("PRINT_G_LOOTBAGS", "PRINT LOOTBAGS");
     addButton("PRINT_P_INV", "PRINT INVENTORY");
@@ -54,6 +56,8 @@ DebugTool::DebugTool(sf::Font* _font, State* state) : font(_font){
 }
 
 DebugTool::~DebugTool() {
+    noclip = false;
+    debug = false;
     for(const auto& i : buttons)
         delete i.second;
 }
@@ -65,12 +69,18 @@ void DebugTool::updateDebugText() {
     std::stringstream ss;
     ss << "<Ctrl + F11> Open Debug Menu" << std::endl
        << "<Home> Close Debugtool" << std::endl
-       << "Mouse pos: x: " << gstate->mousePosView.x << " y: " << gstate->mousePosView.y << std::endl
+       << "Pos x: " << gstate->mousePosView.x << " Pos y: " << gstate->mousePosView.y << std::endl
+       << "Grid x: " << (int)(gstate->mousePosView.x/Tile::TILE_SIZE)
+       << " Grid y: " << (int)(gstate->mousePosView.y/Tile::TILE_SIZE) << std::endl
        << "Enemies: " << gstate->enemies.size() << " Lootbags: " << gstate->lootBags.size() << std::endl
        << "Nodes[x]: " << gstate->pathFinder->widthN << " Nodes[y]: " << gstate->pathFinder->heightN
-       << "Nodes: " << gstate->pathFinder->nodesN << std::endl
+       << " Nodes: " << gstate->pathFinder->nodesN << std::endl
        << "Dx: " << vd.x << std::endl << "Dy: " << vd.y << std::endl
        << "Vx: " << vv.x << std::endl << "Vy: " << vv.y << std::endl
+       << "Minimap zoom factor: " << gstate->minimap->getZoomFactor()
+       << " [" << gstate->minimap->getMinZoomFactor() << " - " << gstate->minimap->getMaxZoomFactor() << "]"
+       << " Scale: " << gstate->minimap->getScale()
+       << " Hide: " << std::boolalpha << gstate->minimap->isHide() << std::endl
        << "PathFinding called per second: " << gstate->pathFinder->counts << std::endl;
     textLbl.setString(ss.str());
 }
@@ -85,14 +95,14 @@ void DebugTool::updateInput() {
 
 void DebugTool::applyFunctions(const string &key) {
     if(key == "G_ADD_EXP"){
-        int exp = 100;
+        int exp = 1000;
         if(gstate->player->getPlayerStats()->addExp(exp)){
             gstate->updateTabsPlayerStatsLbl();
             gstate->notify(AE_P_LEVEL, gstate->player->getPlayerStats()->getLevel());
         }
         gstate->popUpTextComponent->addPopUpTextCenter(EXPERIENCE_TAG, exp, "+", " Exp");
     }else if(key == "G_ADD_GOLD"){
-        int gold = 1000;
+        int gold = 10000;
         gstate->player->addGold(gold);
         gstate->updateTabsGoldLbl();
         gstate->popUpTextComponent->addPopUpTextCenter(GOLD_TAG, gold, "+", " Gold");
@@ -109,6 +119,10 @@ void DebugTool::applyFunctions(const string &key) {
         }else{
             gstate->popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG, "Disable Noclip", "", "");
         }
+    }else if(key == "G_TPTOSPAWN"){
+        gstate->player->setPosition(gstate->spawnPos.x, gstate->spawnPos.y);
+    }else if(key == "G_REDRAWMINIMAP"){
+        gstate->minimap->drawTexture();
     }else if(key == "PRINT_P_INV"){
         std::cout << "Player Gold: " << gstate->player->getGold() << std::endl;
         std::cout << gstate->player->getInventory()->listInventory();
@@ -132,8 +146,6 @@ void DebugTool::applyFunctions(const string &key) {
                 std::cout << i->toString();
             }
         }
-    }else if(key.empty()){
-
     }else{
         gstate->popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG, key, "NO SUCH FUNCTION: ", "");
     }
@@ -154,23 +166,55 @@ void DebugTool::update(const float &dt, const sf::Vector2f &mousePos) {
     }
 }
 
-void DebugTool::render(sf::RenderTarget *target) {
+void DebugTool::renderPlayerDebugInfo(sf::RenderTarget *target) {
+    target->draw(&gstate->player->getWayPoints()[0], gstate->player->getWayPoints().size(), sf::LineStrip);
+    gstate->player->getHitboxComponent()->render(*target);
+}
+
+void DebugTool::renderEnemisDebugInfo(sf::RenderTarget *target) {
     for(const auto& i : gstate->enemies){
         target->draw(&i->getWayPoints()[0], i->getWayPoints().size(), sf::LineStrip);
         sf::Vertex line[] = {{gstate->player->getCollisionBoxCenter(), sf::Color::Red},
                              {i->getCollisionBoxCenter(), sf::Color::Red}};
         target->draw(line, 2, sf::Lines);
         i->getHitboxComponent()->render(*target);
+        sf::Text ai_stato;
+        ai_stato.setFont(*font);
+        ai_stato.setCharacterSize(15);
+        ai_stato.setString(i->toStringDebug());
+        ai_stato.setPosition(i->getPosition().x, i->getPosition().y - 25.f);
+        target->draw(ai_stato);
     }
+}
+
+void DebugTool::renderLootBagsDebugInfo(sf::RenderTarget *target) {
     for(const auto& i : gstate->lootBags){
         sf::Vertex line[] = {{gstate->player->getCollisionBoxCenter(), sf::Color::Green},
                              {i->getCollisionBoxCenter(), sf::Color::Green}};
         target->draw(line, 2, sf::Lines);
         i->getHitboxComponent()->render(*target);
     }
-    target->draw(&gstate->player->getWayPoints()[0], gstate->player->getWayPoints().size(), sf::LineStrip);
-    gstate->player->getHitboxComponent()->render(*target);
+}
 
+void DebugTool::renderMapDebugInfo(sf::RenderTarget *target) {
+    auto tiles = gstate->map->getTiles();
+    for (int y = gstate->map->getFromY(); y < gstate->map->getToY(); y++) {
+        for (int x = gstate->map->getFromX(); x < gstate->map->getToX(); x++) {
+            sf::Text tile_type;
+            tile_type.setFont(*font);
+            tile_type.setCharacterSize(20);
+            tile_type.setString(to_string(tiles[y][x]->GetType()));
+            tile_type.setPosition((float)x * Tile::TILE_SIZE, (float)y * Tile::TILE_SIZE);
+            target->draw(tile_type);
+        }
+    }
+}
+
+void DebugTool::render(sf::RenderTarget *target) {
+    renderEnemisDebugInfo(target);
+    renderLootBagsDebugInfo(target);
+    renderMapDebugInfo(target);
+    renderPlayerDebugInfo(target);
     target->setView(target->getDefaultView());
     target->draw(textLbl);
     if(showMenu){

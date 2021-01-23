@@ -31,7 +31,7 @@ std::string AIBehaviour::getStateString(AIStatus stato_enum) {
         case AI_FOLLOW:
             return "AI-FOLLOW";
         case AI_PATROL:
-            return "AI-PATROL";;
+            return "AI-PATROL";
         case AI_BACKTOSPAWN:
             return "AI-BACKTOSPAWN";
         case AI_IDLE:
@@ -39,6 +39,10 @@ std::string AIBehaviour::getStateString(AIStatus stato_enum) {
         default:
             return "NO SUCH AI STATUS ENUM";
     }
+}
+
+std::string AIBehaviour::getCurrentStateString() const {
+    return getStateString(stato);
 }
 
 //functions

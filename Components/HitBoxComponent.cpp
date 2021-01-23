@@ -35,6 +35,10 @@ sf::FloatRect HitboxComponent::getGlobalBounds() const {
     return hitbox.getGlobalBounds();
 }
 
+sf::Vector2f HitboxComponent::getSize() const{
+    return hitbox.getSize();
+}
+
 //Modifiers
 void HitboxComponent::setPosition(const sf::Vector2f& position) {
     hitbox.setPosition(position);

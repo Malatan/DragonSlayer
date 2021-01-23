@@ -25,6 +25,7 @@ public:
     //getters/setters
     bool getKeyTime();
     static std::string getStateString(AIStatus stato_enum);
+    std::string getCurrentStateString() const;
 
     //functions
     void update(const float& dt);

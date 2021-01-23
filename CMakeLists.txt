@@ -112,6 +112,8 @@ set(SOURCE_FILES
         Map/Node.h
         Map/PathFinder.cpp
         Map/PathFinder.h
+        Map/MiniMap.cpp
+        Map/MiniMap.h
         Shader/fragment_shader.frag
         Shader/vertex_shader.vert
         AI/AIBehaviour.cpp

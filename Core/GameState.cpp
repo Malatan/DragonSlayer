@@ -216,19 +216,10 @@ void GameState::initLootGenerator() {
 }
 
 void GameState::initView() {
-    locationLbl.setFont(*font);
-    locationLbl.setCharacterSize(20);
     float window_height = window->getSize().y;
     float window_width = window->getSize().x;
     view.setSize(sf::Vector2f(window_width / 1.3f,window_height / 1.3f));
     view.setCenter(sf::Vector2f(window_width / 2.f, window_height / 2.f));
-
-
-    float PWIDTH = 0.2f;
-    float MINISCALE = 0.2f;
-    minimapView.setCenter(sf::Vector2f(window_width*(PWIDTH+(1-PWIDTH)/2), window_height*0.5));
-    minimapView.setSize(sf::Vector2f(window_width*(1-PWIDTH), window_height));
-    minimapView.setViewport(sf::FloatRect(1-MINISCALE, 0, MINISCALE, MINISCALE));
 }
 
 void GameState::initButtons() {
@@ -292,6 +283,7 @@ void GameState::initButtons() {
 
 void GameState::initMaps() {
     mg = std::make_shared<MapGenerator>(this);
+    minimap = std::make_shared<MiniMap>(this, font, window->getSize(), 5);
     if(loadSaveTab->canApplySave()){
         Save* save = loadSaveTab->getApplySave();
         mg->setDDims(save->levelDims);
@@ -456,6 +448,10 @@ Npc *GameState::getNpc(int index) {
     return nullptr;
 }
 
+const vector<Npc *> &GameState::getNpcs() const {
+    return npcs;
+}
+
 npc_type GameState::getInteractNpc() const {
     return npcInteract;
 }
@@ -476,6 +472,10 @@ Map *GameState::getMap() {
     return map;
 }
 
+PathFinder* GameState::getPathFinder() const {
+    return pathFinder.get();
+}
+
 //observer
 
 void GameState::addObserver(Observer *observer) {
@@ -492,7 +492,6 @@ void GameState::notify(achievement_event event, int value) {
     }
 }
 
-//functions
 std::pair<int, int> GameState::getEnemyCount(bool count_followers) const {
     std::pair<int, int> p = {enemies.size(), 0};
     if(count_followers){
@@ -503,6 +502,7 @@ std::pair<int, int> GameState::getEnemyCount(bool count_followers) const {
     return p;
 }
 
+//functions
 void GameState::addItem(const std::shared_ptr<Item>& new_item) {
     if(player->getInventory()->addItem(new_item)){
         player->getInventory()->sortByItemType();
@@ -667,6 +667,116 @@ void GameState::spawnNpc(float x, float y, npc_type spawn_npc_type) {
     }
 }
 
+void GameState::loadEnemyFromSave() {
+    Save* save = loadSaveTab->getApplySave();
+    std::shared_ptr<Enemy> e;
+    for(const auto& i : save->enemiesLeaders){
+        e = enemyFactory(i.getPosX(), i.getPosY(), i.getType(), false);
+        e->setId(i.getId());
+        e->setStats(i.getStats());
+        e->setCurrentBoost(i.getCurrentBoost());
+        enemies.push_back(e);
+    }
+    for(const auto& i : save->enemiesFollowers){
+        for(const auto& k : enemies){
+            if(k->getId() == i.getLeaderId() && i.isFollower1()){
+                k->addFollower(std::make_shared<Enemy>(i.getType(), i.getName(), i.getId(), i.getStats()));
+                break;
+            }
+        }
+    }
+}
+
+void GameState::changeMap(int floor, bool load_from_save) {
+    currentFloor = floor;
+    if(currentFloor > floorReached){
+        floorReached = currentFloor;
+        notify(AE_FLOOR_REACHED, floorReached);
+    }
+    selectLevelTab->updateButtonsAccess(floorReached);
+    map = mg->GenerateFromFile(floor, this);
+    pathFinder->generateNodes(map);
+    player->clearWayPoints();
+    if(!lootBags.empty())
+        lootBags.clear();
+    if(floor != 0) {
+        if (!npcs.empty())
+            npcs.clear();
+        spawnPos.x = map->findStairs().x + 30;
+        spawnPos.y = map->findStairs().y + Tile::TILE_SIZE;
+        player->setPosition(spawnPos.x, spawnPos.y);
+        if(load_from_save){
+            loadEnemyFromSave();
+        }else{
+            spawnEnemyOnMap();
+        }
+    }
+    else {
+        spawnPos = sf::Vector2f(830, 620);
+        player->setPosition(spawnPos.x, spawnPos.y);
+        if (!enemies.empty())
+            enemies.clear();
+
+        spawnNpc(830.f, 870.f, WIZARD);
+        spawnNpc(1360.f, 570.f, SHOP);
+        spawnNpc(310.f, 570.f, PRIEST);
+    }
+    minimap->updateLocationLbl(currentFloor);
+    minimap->drawTexture();
+}
+
+void GameState::spawnEnemyOnMap() {
+    int randEnemy;
+    sf::Vector2f dStairs = map->findStairs();
+    if(!enemies.empty())
+        enemies.clear();
+    std::vector<sf::Vector2f> f = map->getFloorsPos();
+    for(int i = 0; i < f.size(); i++){
+        if((utils::absoluteValue(f[i].y - dStairs.y) < (5 * Tile::TILE_SIZE) &&
+            (utils::absoluteValue(f[i].x - dStairs.x) < (5 * Tile::TILE_SIZE)))){
+            f.erase(f.begin() + i);
+            i--;
+        }
+    }
+
+    std::shuffle(&f.at(0),&f.at(f.size() - 1), utils::generator);
+    for(int i = 0; i < 15; i++){
+        randEnemy = utils::generateRandomNumber(0, 6);
+        switch(randEnemy) {
+            case 0:{
+                spawnEnemy(f.at(i).x + 30, f.at(i).y + 30, GOBLIN, 5);
+                break;
+            }
+            case 1:{
+                spawnEnemy(f.at(i).x + 30,f.at(i).y + 30, BANDIT_LIGHT, 5);
+                break;
+            }
+            case 2:{
+                spawnEnemy(f.at(i).x + 30, f.at(i).y + 30, SKELETON, 5);
+                break;
+            }
+            case 3:{
+                spawnEnemy(f.at(i).x + 30, f.at(i).y + 30, SKELETON_2, 5);
+                break;
+            }
+            case 4:{
+                spawnEnemy(f.at(i).x + 30, f.at(i).y + 30, FLYING_EYE, 5);
+                break;
+            }
+            case 5:{
+                spawnEnemy(f.at(i).x + 30, f.at(i).y + 30, BANDIT_HEAVY, 5);
+                break;
+            }
+            case 6:{
+                spawnEnemy(f.at(i).x + 30, f.at(i).y + 30, WITCH, 5);
+                break;
+            }
+            default:
+                break;
+        }
+    }
+}
+
 bool GameState::deleteEnemyById(unsigned int enemy_id) {
     for(auto iter = enemies.begin(); iter != enemies.end(); ++iter ){
         if((*iter)->getId() == enemy_id){
@@ -778,47 +888,6 @@ void GameState::enableDisableDebugTool() {
     }
 }
 
-void GameState::updateLocationLbl() {
-    std::stringstream ss;
-    ss << "Current location: ";
-    switch (currentFloor) {
-        case 0:{
-            ss << "Hub";
-            break;
-        }
-        case 1:{
-            ss << "Dungeon - First Floor";
-            break;
-        }
-        case 2:{
-            ss << "Dungeon - Second Floor";
-            break;
-        }
-        case 3:{
-            ss << "Dungeon - Third Floor";
-            break;
-        }
-        case 4:{
-            ss << "Dungeon - Fourth Floor";
-            break;
-        }
-        case 5:{
-            ss << "Dungeon - Fifth Floor";
-            break;
-        }
-        case 6:{
-            ss << "Dungeon - Boss Room";
-            break;
-        }
-        default:
-            ss << "Unknown";
-            break;
-    }
-    locationLbl.setString(ss.str());
-    locationLbl.setPosition(window->getSize().x - locationLbl.getGlobalBounds().width - 10.f,
-                            locationLbl.getGlobalBounds().height - 10.f);
-}
-
 void GameState::updateInput(const float &dt) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && getKeyTime()) {
         changeStato(PAUSEMENU_TAB);
@@ -865,6 +934,7 @@ void GameState::updateInput(const float &dt) {
             } else if(map->getIntTile().type == CLOSEDOOR){
                 map->openDoor(map->getIntTile().y, map->getIntTile().x);
                 pathFinder->updateNodes(map, player->getGridPosition());
+                minimap->drawTexture(false);
             }
         }
     }
@@ -973,7 +1043,7 @@ void GameState::updatePausedMenuButtons() {
     }
 }
 
-void GameState::updateView(const float &dt) {
+void GameState::updateView() {
     view.setCenter(player->getHitboxComponent()->getCenter());
     sf::Vector2f player_pos = player->getHitboxComponent()->getCenter();
     sf::Vector2f view_center = view.getCenter();
@@ -1013,6 +1083,12 @@ void GameState::updateButtons() {
     }
 }
 
+void GameState::updateTileMap(const float &dt) {
+    map->updateCollision(player);
+    if(!noclip)
+        map->updateTileCollision(player, dt);
+}
+
 void GameState::updateEnemy(const float &dt) {
     for(const auto& i : enemies){
         i->update(dt);
@@ -1020,7 +1096,8 @@ void GameState::updateEnemy(const float &dt) {
             auto tiles = map->getTiles();
             for (int y = map->getFromY(); y < map->getToY(); y++) {
                 for (int x = map->getFromX(); x < map->getToX(); x++) {
-                    if(tiles[y][x]->GetType() == WALL || tiles[y][x]->GetType() == CLOSEDOOR){
+                    if(tiles[y][x]->GetType() == WALL || tiles[y][x]->GetType() == CLOSEDOOR
+                       || tiles[y][x]->GetType() == UPPERWALL){
                         if(utils::lineRectIntersect(tiles[y][x]->getGlobalBounds(),
                                                     player->getCollisionBoxCenter(),
                                                     i->getCollisionBoxCenter())){
@@ -1060,10 +1137,11 @@ void GameState::update(const float& dt) {
     achievementComponent->update(dt, mousePosView);
     buffComponent->update(dt, mousePosView);
     if(!paused){ //unpaused update
-        updateView(dt);
+        updateView();
         updatePlayerInput(dt);
         updateInput(dt);
         player->update(dt);
+        minimap->update(mousePosView);
         interactLootBag.first = 0;
         for(auto i = 0 ; i < lootBags.size() ; i++){
             lootBags[i]->update(dt);
@@ -1181,6 +1259,7 @@ void GameState::render(sf::RenderTarget* target) {
         map->renderF(target);
     else
         map->render(target, player, &coreShader, player->getCenter());
+
     player->render(*target, &coreShader, player->getCenter());
     for(const auto& i : enemies){
         if(i->canBeRendered(enemyRenderDistance, player->getPosition()))
@@ -1212,7 +1291,7 @@ void GameState::render(sf::RenderTarget* target) {
     spellTabBtn->render(*target);
     achievementTabBtn->render(*target);
     target->draw(hints);
-    target->draw(locationLbl);
+    minimap->render(target);
     if(paused){ // pause menu render
         switch(stato){
             case PAUSEMENU_TAB:
@@ -1252,126 +1331,13 @@ void GameState::render(sf::RenderTarget* target) {
     achievementComponent->render(*target);
     buffComponent->render(*target);
     popUpTextComponent->render(*target);
+
 }
 
-void GameState::updateTileMap(const float &dt) {
-    map->updateCollision(player);
-    if(!noclip)
-        map->updateTileCollision(player, dt);
-}
 
-void GameState::loadEnemyFromSave() {
-    Save* save = loadSaveTab->getApplySave();
-    std::shared_ptr<Enemy> e;
-    for(const auto& i : save->enemiesLeaders){
-        e = enemyFactory(i.getPosX(), i.getPosY(), i.getType(), false);
-        e->setId(i.getId());
-        e->setStats(i.getStats());
-        e->setCurrentBoost(i.getCurrentBoost());
-        enemies.push_back(e);
-    }
-    for(const auto& i : save->enemiesFollowers){
-        for(const auto& k : enemies){
-            if(k->getId() == i.getLeaderId() && i.isFollower1()){
-                k->addFollower(std::make_shared<Enemy>(i.getType(), i.getName(), i.getId(), i.getStats()));
-                break;
-            }
-        }
-    }
-}
 
-void GameState::changeMap(int floor, bool load_from_save) {
-    currentFloor = floor;
-    if(currentFloor > floorReached){
-        floorReached = currentFloor;
-        notify(AE_FLOOR_REACHED, floorReached);
-    }
-    selectLevelTab->updateButtonsAccess(floorReached);
-    updateLocationLbl();
-    map = mg->GenerateFromFile(floor, this);
-    pathFinder->generateNodes(map);
-    player->clearWayPoints();
-    if(!lootBags.empty())
-        lootBags.clear();
-    if(floor != 0) {
-        if (!npcs.empty())
-            npcs.clear();
-        spawnPos.x = map->findStairs().x + 30;
-        spawnPos.y = map->findStairs().y + Tile::TILE_SIZE;
-        player->setPosition(spawnPos.x, spawnPos.y);
-        if(load_from_save){
-            loadEnemyFromSave();
-        }else{
-            spawnEnemyOnMap();
-        }
-    }
-    else {
-        spawnPos = sf::Vector2f(830, 620);
-        player->setPosition(spawnPos.x, spawnPos.y);
-        if (!enemies.empty())
-            enemies.clear();
 
-        spawnNpc(830.f, 870.f, WIZARD);
-        spawnNpc(1360.f, 570.f, SHOP);
-        spawnNpc(310.f, 570.f, PRIEST);
-    }
-}
 
-void GameState::spawnEnemyOnMap() {
-    int randEnemy;
-    sf::Vector2f dStairs = map->findStairs();
-    if(!enemies.empty())
-        enemies.clear();
-    std::vector<sf::Vector2f> f = map->getFloorsPos();
-    for(int i = 0; i < f.size(); i++){
-        if((utils::absoluteValue(f[i].y - dStairs.y) < (5 * Tile::TILE_SIZE) &&
-            (utils::absoluteValue(f[i].x - dStairs.x) < (5 * Tile::TILE_SIZE)))){
-            f.erase(f.begin() + i);
-            i--;
-        }
-    }
-
-    std::shuffle(&f.at(0),&f.at(f.size() - 1), utils::generator);
-    for(int i = 0; i < 15; i++){
-        randEnemy = utils::generateRandomNumber(0, 6);
-        switch(randEnemy) {
-            case 0:{
-                spawnEnemy(f.at(i).x + 30, f.at(i).y + 30, GOBLIN, 5);
-                break;
-            }
-            case 1:{
-                spawnEnemy(f.at(i).x + 30,f.at(i).y + 30, BANDIT_LIGHT, 5);
-                break;
-            }
-            case 2:{
-                spawnEnemy(f.at(i).x + 30, f.at(i).y + 30, SKELETON, 5);
-                break;
-            }
-            case 3:{
-                spawnEnemy(f.at(i).x + 30, f.at(i).y + 30, SKELETON_2, 5);
-                break;
-            }
-            case 4:{
-                spawnEnemy(f.at(i).x + 30, f.at(i).y + 30, FLYING_EYE, 5);
-                break;
-            }
-            case 5:{
-                spawnEnemy(f.at(i).x + 30, f.at(i).y + 30, BANDIT_HEAVY, 5);
-                break;
-            }
-            case 6:{
-                spawnEnemy(f.at(i).x + 30, f.at(i).y + 30, WITCH, 5);
-                break;
-            }
-            default:
-                break;
-        }
-    }
-}
-
-PathFinder* GameState::getPathFinder() const {
-    return pathFinder.get();
-}
 
 
 

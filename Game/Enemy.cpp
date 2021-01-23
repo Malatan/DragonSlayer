@@ -153,6 +153,26 @@ Enemy::Enemy(enemy_types type, float x, float y, float scale_x ,float scale_y, f
 
 }
 
+Enemy::Enemy(enemy_types type, float x, float y, float scale_x, float scale_y, float hitbox_offset_x,
+             float hitbox_offset_y, float hitbox_width, float hitbox_height, float clsBox_offset_x,
+             float clsBox_offset_y, float clsBox_radius, sf::Texture &texture_sheet): type(type) {
+    scale.x = scale_x;
+    scale.y = scale_y;
+    sprite.setScale(scale);
+    animationEnum = IDLE_ANIMATION;
+    nextAnimationEnum = IDLE_ANIMATION;
+    animationDone = false;
+    currentBoost = 0;
+    createAnimationComponent(texture_sheet);
+    createHitboxComponent(sprite, hitbox_offset_x, hitbox_offset_y, hitbox_width, hitbox_height);
+    createCollisionBoxComponent(sprite, clsBox_offset_x, clsBox_offset_y, clsBox_radius);
+    createMovementComponent(100.f, 14.f, 7.f);
+    initAnimations();
+    Enemy::setPosition(x, y);
+    generateNameByType();
+    wayPoints.emplace_back(sf::Vertex(sf::Vector2f(x, y)));
+}
+
 Enemy::Enemy(enemy_types type, int level, int floor, unsigned int id) : type(type), Id(id){
     scale.x = 1.f;
     scale.y = 1.f;
@@ -586,28 +606,15 @@ void Enemy::setCurrentBoost(int current_boost) {
     currentBoost = current_boost;
 }
 
-Enemy::Enemy(enemy_types type, float x, float y, float scale_x, float scale_y, float hitbox_offset_x,
-             float hitbox_offset_y, float hitbox_width, float hitbox_height, float clsBox_offset_x,
-             float clsBox_offset_y, float clsBox_radius, sf::Texture &texture_sheet): type(type) {
-    scale.x = scale_x;
-    scale.y = scale_y;
-    sprite.setScale(scale);
-    animationEnum = IDLE_ANIMATION;
-    nextAnimationEnum = IDLE_ANIMATION;
-    animationDone = false;
-    currentBoost = 0;
-    createAnimationComponent(texture_sheet);
-    createHitboxComponent(sprite, hitbox_offset_x, hitbox_offset_y, hitbox_width, hitbox_height);
-    createCollisionBoxComponent(sprite, clsBox_offset_x, clsBox_offset_y, clsBox_radius);
-    createMovementComponent(100.f, 14.f, 7.f);
-    initAnimations();
-    Enemy::setPosition(x, y);
-    generateNameByType();
-    wayPoints.emplace_back(sf::Vertex(sf::Vector2f(x, y)));
+std::string Enemy::getAIStatoString() const {
+    return aIBehaviour->getCurrentStateString();
 }
 
-
-
+std::string Enemy::toStringDebug() const {
+    std::stringstream ss;
+    ss << Id << " - " << getAIStatoString();
+    return ss.str();
+}
 
 
 

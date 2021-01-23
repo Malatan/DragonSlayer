@@ -19,7 +19,7 @@ public:
     const sf::Vector2f& getPosition() const;
     sf::FloatRect getGlobalBounds() const;
     const sf::FloatRect & getNextPosition(const sf::Vector2f& velocity);
-
+    sf::Vector2f getSize() const;
 
     //Modifiers
     void setPosition(const sf::Vector2f& position);

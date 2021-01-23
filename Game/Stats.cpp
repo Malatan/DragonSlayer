@@ -50,27 +50,28 @@ void Stats::addAttribute(attribute type, int quantity) {
     switch(type){
         case AGILITY:
             agility += quantity;
-
             critChance = critChance + (0.4f * (float)quantity);
             evadeChance = evadeChance + (0.3f * (float)quantity);
             freePoints --;
             break;
-        case WISDOM:
+        case WISDOM:{
             wisdom += quantity;
-
-            maxMp = maxMp + (15 * quantity);
-            mp = maxMp;
+            int extra_mana = 15 * quantity;
+            maxMp = maxMp + extra_mana;
+            gainMp(extra_mana);
             freePoints --;
             break;
-        case STRENGTH:
+        }
+        case STRENGTH:{
             strength += quantity;
-
-            maxHp = maxHp + (15 * quantity);
-            hp = maxHp;
+            int extra_hp = 15 * quantity;
+            maxHp = maxHp + extra_hp;
+            gainHp(extra_hp);
             armor = armor + (2 * quantity);
             damage = damage + (2 * quantity);
             freePoints --;
             break;
+        }
     }
     updateMultipliers();
 }

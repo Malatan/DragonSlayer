@@ -72,6 +72,8 @@ public:
     int getCurrentBoost() const;
     void setStats(const Stats& _stats);
     void setCurrentBoost(int current_boost);
+    std::string getAIStatoString() const;
+    std::string toStringDebug() const;
 
 private:
     //variables
