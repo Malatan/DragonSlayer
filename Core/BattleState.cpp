@@ -903,7 +903,10 @@ void BattleState::enemyBattle(const float &dt) {
     turnPanelLbl.setString(ss.str());
     if (!enemyMoveDone) {
         ss.str("");
-        ss << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getName() << " Lv."
+        ss << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->getMobHealSpell() <<"/"
+           << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getCd() << "/Pot"
+           << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->getMobHealPotions() << "_"
+           << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getName() << " Lv."
            << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->getLevel() << " is deciding...";
         turnPanelActionLbl.setString(ss.str());
     }
@@ -911,61 +914,120 @@ void BattleState::enemyBattle(const float &dt) {
         turnLengthKeyTime += 10.f * dt;
         if (turnLengthKeyTime > turnLengthMaxKeyTime / 1.5f && !enemyMoveDone) {
             enemyMoveDone = true;
-            enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->setAnimation(ATTACK_ANIMATION, IDLE_ANIMATION);
-            // player evade determine
-            if (!utils::trueFalse(player->getPlayerStats()->getFinalEvadeChance())) {
-                int dmg_dealt;
-                //enemy criticalhit determine
-                bool critical_hit = utils::trueFalse(
-                        enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->getFinalCritChance());
-                float critical_hit_multiplier = 1.f;
-                std::string critical_hit_prefix;
-                if(critical_hit){
-                    critical_hit_multiplier = criticalhitMultiplier;
-                    critical_hit_prefix = "Critical Hit!\n";
-                }
-                if(player->isDefense()){
-                    int enemy_dmg = (int)((float)enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->getFinalDamage()
-                                          * critical_hit_multiplier);
-                    dmg_dealt = player->getPlayerStats()->getHit(enemy_dmg, playerBlockPercentage, false);
+            BattleAI enemyAI = BattleAI(enemiesModels[enemiesMoveOrder[enemiesMoves-1]], player);
+
+            switch(enemyAI.behaviour()){
+
+                case 0: //ATTACK
+
+                    enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->setAnimation(ATTACK_ANIMATION, IDLE_ANIMATION);
+                    // player evade determine
+                    if (!utils::trueFalse(player->getPlayerStats()->getFinalEvadeChance())) {
+                        int dmg_dealt;
+                        //enemy criticalhit determine
+                        bool critical_hit = utils::trueFalse(
+                                enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->getFinalCritChance());
+                        float critical_hit_multiplier = 1.f;
+                        std::string critical_hit_prefix;
+                        if(critical_hit){
+                            critical_hit_multiplier = criticalhitMultiplier;
+                            critical_hit_prefix = "Critical Hit!\n";
+                        }
+                        if(player->isDefense()){
+                            int enemy_dmg = (int)((float)enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->getFinalDamage()
+                                                  * critical_hit_multiplier);
+                            dmg_dealt = player->getPlayerStats()->getHit(enemy_dmg, playerBlockPercentage, false);
+                            popUpTextComponent->addPopUpText(DEFAULT_TAG,
+                                                             playerModel->getPosition().x,
+                                                             playerModel->getPosition().y - 120.f,
+                                                             "DAMAGE REDUCED", "", "");
+                            if(player->isDead()){
+                                playerModel->setAnimation(DEATH_ANIMATION, CORPSE_ANIMATION);
+                            }else{
+                                playerModel->setAnimation(SHIELD_ANIMATION, IDLE_ANIMATION);
+                            }
+                            int dmg_reduced_by_defense = enemy_dmg - dmg_dealt - player->getPlayerStats()->getFinalArmor();
+                            battleResult->addStatistics(DAMAGE_TAKEN_COUNT, dmg_dealt);
+                            battleResult->addStatistics(DAMAGE_REDUCED_COUNT, dmg_reduced_by_defense);
+                        }else{
+                            dmg_dealt = player->getPlayerStats()->getHit(
+                                    (int)((float)enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->getFinalDamage()
+                                          * critical_hit_multiplier), 0.f, false);
+                            if(player->isDead()){
+                                playerModel->setAnimation(DEATH_ANIMATION, CORPSE_ANIMATION);
+                            }else{
+                                playerModel->setAnimation(GETHIT_ANIMATION, IDLE_ANIMATION);
+                            }
+                            battleResult->addStatistics(DAMAGE_TAKEN_COUNT, dmg_dealt);
+                        }
+                        popUpTextComponent->addPopUpText(NEGATIVE_TAG,
+                                                         playerModel->getPosition().x,
+                                                         playerModel->getPosition().y - 100.f,
+                                                         dmg_dealt, critical_hit_prefix+"-", "");
+                    } else {
+                        popUpTextComponent->addPopUpText(DEFAULT_TAG,
+                                                         playerModel->getPosition().x,
+                                                         playerModel->getPosition().y - 100.f,
+                                                         "MISS", "", "");
+                        battleResult->addStatistics(DODGE_COUNT, 1);
+                    }
+                    ss.str("");
+                    ss << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getName() << "Lv."
+                       << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->getLevel() << " uses Normal Attack";
+                    turnPanelActionLbl.setString(ss.str());
+
+                    if(enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getCd() > 0){
+                        enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->updateCd();
+                    }
+                    break;
+                case 1: //HEAL SPELL
+
+                    enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->setAnimation(ATTACK_ANIMATION, IDLE_ANIMATION);
+
+                    enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->gainHp(100);
+
+                    //temp = enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->getMobHealSpell();
+                    enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->setCd(enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->getMobHealSpell() +1); //Set healSpell Cooldown
+
                     popUpTextComponent->addPopUpText(DEFAULT_TAG,
-                                                     playerModel->getPosition().x,
-                                                     playerModel->getPosition().y - 120.f,
-                                                     "DAMAGE REDUCED", "", "");
-                    if(player->isDead()){
-                        playerModel->setAnimation(DEATH_ANIMATION, CORPSE_ANIMATION);
-                    }else{
-                        playerModel->setAnimation(SHIELD_ANIMATION, IDLE_ANIMATION);
+                                                     enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getPosition().x,
+                                                     enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getPosition().y - 100.f,
+                                                     "HEALED", "", "");
+
+                    ss.str("");
+                    ss << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getName() << "Lv."
+                       << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->getLevel() << " uses Heal Spell";
+                    turnPanelActionLbl.setString(ss.str());
+
+                    if(enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getCd() > 0){
+                        enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->updateCd();
                     }
-                    int dmg_reduced_by_defense = enemy_dmg - dmg_dealt - player->getPlayerStats()->getFinalArmor();
-                    battleResult->addStatistics(DAMAGE_TAKEN_COUNT, dmg_dealt);
-                    battleResult->addStatistics(DAMAGE_REDUCED_COUNT, dmg_reduced_by_defense);
-                }else{
-                    dmg_dealt = player->getPlayerStats()->getHit(
-                            (int)((float)enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->getFinalDamage()
-                            * critical_hit_multiplier), 0.f, false);
-                    if(player->isDead()){
-                        playerModel->setAnimation(DEATH_ANIMATION, CORPSE_ANIMATION);
-                    }else{
-                        playerModel->setAnimation(GETHIT_ANIMATION, IDLE_ANIMATION);
+                    break;
+                case 2: //HEAL POTION
+
+                    enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->setAnimation(ATTACK_ANIMATION, IDLE_ANIMATION);
+
+                    enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->gainHp(50);
+                    enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->setMobHealPotions(
+                            enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->getMobHealPotions() - 1);   //Update potions cont
+
+                    popUpTextComponent->addPopUpText(DEFAULT_TAG,
+                                                     enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getPosition().x,
+                                                     enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getPosition().y - 100.f,
+                                                     "HEALED", "", "");
+
+                    ss.str("");
+                    ss << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getName() << "Lv."
+                       << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->getLevel() << " uses Heal Potion";
+                    turnPanelActionLbl.setString(ss.str());
+
+                    if(enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getCd() > 0){
+                        enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->updateCd();
                     }
-                    battleResult->addStatistics(DAMAGE_TAKEN_COUNT, dmg_dealt);
-                }
-                popUpTextComponent->addPopUpText(NEGATIVE_TAG,
-                                                 playerModel->getPosition().x,
-                                                 playerModel->getPosition().y - 100.f,
-                                                 dmg_dealt, critical_hit_prefix+"-", "");
-            } else {
-                popUpTextComponent->addPopUpText(DEFAULT_TAG,
-                                                 playerModel->getPosition().x,
-                                                 playerModel->getPosition().y - 100.f,
-                                                 "MISS", "", "");
-                battleResult->addStatistics(DODGE_COUNT, 1);
+                    break;
+                default:
+                    break;
             }
-            ss.str("");
-            ss << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getName() << "Lv."
-               << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->getLevel() << " uses Normal Attack";
-            turnPanelActionLbl.setString(ss.str());
         }
     } else {
         turnLengthKeyTime = 0.f;

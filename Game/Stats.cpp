@@ -394,3 +394,19 @@ std::string Stats::toString(const std::string& prefix) const {
     ss << "------------------End- " << prefix << " Stats -End ------------------" << std::endl;
     return ss.str();
 }
+
+int Stats::getMobHealSpell() const {
+    return mobHealSpell;return mobHealSpell;
+}
+
+void Stats::setMobHealSpell(int mobHealSpell) {
+    Stats::mobHealSpell = mobHealSpell;
+}
+
+int Stats::getMobHealPotions() const {
+    return mobHealPotions;
+}
+
+void Stats::setMobHealPotions(int mobHealPotions) {
+    Stats::mobHealPotions = mobHealPotions;
+}

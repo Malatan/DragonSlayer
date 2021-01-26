@@ -90,6 +90,18 @@ public:
     float getFinalEvadeChance() const;
     std::string toString(const std::string& prefix) const;
 
+    int getMobHealSpell() const;
+
+    void setMobHealSpell(int mobHealSpell);
+
+    int getMobHealCd() const;
+
+    void setMobHealCd(int mobHealCd);
+
+    int getMobHealPotions() const;
+
+    void setMobHealPotions(int mobHealPotions);
+
 private:
     friend class cereal::access;
     template <class Archive>
@@ -125,6 +137,9 @@ private:
     int armorBonus{};
     float critChanceBonus{};
     float evadeChanceBonus{};
+
+    int mobHealSpell;  //if > 0 enemy can use heal spell with that CD
+    int mobHealPotions;
 };
 
 

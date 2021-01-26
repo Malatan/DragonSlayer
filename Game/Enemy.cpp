@@ -280,6 +280,9 @@ void Enemy::generateEnemyStats(int floor, int level) {
     stats = std::make_shared<Stats>();
     float modModifier = (float)utils::generateRandomNumber(-50, 100)/100.f;
     float mod = ((float)level/10.f) + (float)floor + modModifier;
+
+
+
     switch(type){
         case WITCH:
             stats->setLevel(level);
@@ -294,6 +297,9 @@ void Enemy::generateEnemyStats(int floor, int level) {
             stats->setEvadeChance(3.8f + mod + ((float)stats->getAgility()/10.f));
             stats->refillHp();
             stats->refillMp();
+
+            stats->setMobHealSpell(2);
+            stats->setMobHealPotions(generatePotions());
             break;
         case SKELETON:
             stats->setLevel(level);
@@ -308,6 +314,9 @@ void Enemy::generateEnemyStats(int floor, int level) {
             stats->setEvadeChance(3.4f + mod + ((float)stats->getAgility()/10.f));
             stats->refillHp();
             stats->refillMp();
+
+            stats->setMobHealSpell(0);
+            stats->setMobHealPotions(generatePotions());
             break;
         case SKELETON_2:
             stats->setLevel(level);
@@ -322,6 +331,9 @@ void Enemy::generateEnemyStats(int floor, int level) {
             stats->setEvadeChance(2.f + mod + ((float)stats->getAgility()/10.f));
             stats->refillHp();
             stats->refillMp();
+
+            stats->setMobHealSpell(0);
+            stats->setMobHealPotions(generatePotions());
             break;
         case FLYING_EYE:
             stats->setLevel(level);
@@ -336,6 +348,9 @@ void Enemy::generateEnemyStats(int floor, int level) {
             stats->setEvadeChance(5.8f + mod + ((float)stats->getAgility()/10.f));
             stats->refillHp();
             stats->refillMp();
+
+            stats->setMobHealSpell(3);
+            stats->setMobHealPotions(generatePotions());
             break;
         case GOBLIN:
             stats->setLevel(level);
@@ -350,6 +365,9 @@ void Enemy::generateEnemyStats(int floor, int level) {
             stats->setEvadeChance(2.f + mod + ((float)stats->getAgility()/10.f));
             stats->refillHp();
             stats->refillMp();
+
+            stats->setMobHealSpell(4);
+            stats->setMobHealPotions(generatePotions());
             break;
         case MUSHROOM:
             stats->setLevel(level);
@@ -364,6 +382,9 @@ void Enemy::generateEnemyStats(int floor, int level) {
             stats->setEvadeChance(2.f + mod + ((float)stats->getAgility()/10.f));
             stats->refillHp();
             stats->refillMp();
+
+            stats->setMobHealSpell(3);
+            stats->setMobHealPotions(generatePotions());
             break;
         case BANDIT_HEAVY:
             stats->setLevel(level);
@@ -378,6 +399,9 @@ void Enemy::generateEnemyStats(int floor, int level) {
             stats->setEvadeChance(3.8f + mod + ((float)stats->getAgility()/10.f));
             stats->refillHp();
             stats->refillMp();
+
+            stats->setMobHealSpell(0);
+            stats->setMobHealPotions(generatePotions());
             break;
         case BANDIT_LIGHT:
             stats->setLevel(level);
@@ -392,6 +416,9 @@ void Enemy::generateEnemyStats(int floor, int level) {
             stats->setEvadeChance(3.8f + mod + ((float)stats->getAgility()/10.f));
             stats->refillHp();
             stats->refillMp();
+
+            stats->setMobHealSpell(0);
+            stats->setMobHealPotions(generatePotions());
             break;
         default:
             std::cout<<"No such enemy: " << type;
@@ -620,9 +647,31 @@ const sf::Vector2f &Enemy::getSpawnPos() const {
     return spawnPos;
 }
 
+int Enemy::generatePotions() {
 
+    int gen = utils::generateRandomNumber(1, 10);
+    int pot;
 
+    if(gen <= 4){           //40% mob with 0 potions
+        pot = 0;
+    }else if(gen <= 7){     //30% mob with 1 potions
+        pot = 1;
+    }else if(gen <= 9){     //20% mob with 2 potions
+        pot = 2;
+    }else{                  //10% mob with 3 potions
+        pot = 3;
+    }
+    return pot;
+}
 
+int Enemy::getCd() const {
+    return cd;
+}
 
+void Enemy::setCd(int cd) {
+    Enemy::cd = cd;
+}
 
-
+void Enemy::updateCd() {
+    cd--;
+}

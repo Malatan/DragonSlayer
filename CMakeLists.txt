@@ -117,7 +117,9 @@ set(SOURCE_FILES
         Shader/fragment_shader.frag
         Shader/vertex_shader.vert
         AI/AIBehaviour.cpp
-        AI/AIBehaviour.h)
+        AI/AIBehaviour.h
+        AI/BattleAI.cpp
+        AI/BattleAI.h)
 
 include_directories(Resources)
 link_directories(SFML_2.5.1/bin)

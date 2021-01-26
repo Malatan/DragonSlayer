@@ -20,6 +20,7 @@
 #include "../Game/BattleResult.h"
 #include "../Components/PopUpTextComponent.h"
 #include "../Components/BuffComponent.h"
+#include "../AI/BattleAI.h"
 
 
 class CharacterTab;

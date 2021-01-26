@@ -75,6 +75,10 @@ public:
     std::string getAIStatoString() const;
     std::string toStringDebug() const;
     const sf::Vector2f &getSpawnPos() const;
+    int generatePotions();
+    int getCd() const;
+    void setCd(int cd);
+    void updateCd();
 
 private:
     //variables
@@ -90,6 +94,7 @@ private:
     std::shared_ptr<Stats> stats;
     std::shared_ptr<Player> player;
     AIBehaviour* aIBehaviour{};
+    int cd = 0;
 
     //initializer functions
     void initAnimations();
