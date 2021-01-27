@@ -901,12 +901,10 @@ void BattleState::enemyBattle(const float &dt) {
     ss.str("");
     ss << "Enemy moves: " << enemiesMoves;
     turnPanelLbl.setString(ss.str());
+
     if (!enemyMoveDone) {
         ss.str("");
-        ss << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->getMobHealSpell() <<"/"
-           << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getCd() << "/Pot"
-           << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->getMobHealPotions() << "_"
-           << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getName() << " Lv."
+        ss << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getName() << " Lv."
            << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->getLevel() << " is deciding...";
         turnPanelActionLbl.setString(ss.str());
     }
@@ -914,7 +912,7 @@ void BattleState::enemyBattle(const float &dt) {
         turnLengthKeyTime += 10.f * dt;
         if (turnLengthKeyTime > turnLengthMaxKeyTime / 1.5f && !enemyMoveDone) {
             enemyMoveDone = true;
-            BattleAI enemyAI = BattleAI(enemiesModels[enemiesMoveOrder[enemiesMoves-1]], player);
+            BattleAI enemyAI = BattleAI(player, enemiesModels, enemiesMoveOrder, enemiesMoves, popUpTextComponent);
 
             switch(enemyAI.behaviour()){
 
@@ -972,7 +970,7 @@ void BattleState::enemyBattle(const float &dt) {
                         battleResult->addStatistics(DODGE_COUNT, 1);
                     }
                     ss.str("");
-                    ss << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getName() << "Lv."
+                    ss << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getName() << " Lv."
                        << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->getLevel() << " uses Normal Attack";
                     turnPanelActionLbl.setString(ss.str());
 
@@ -984,18 +982,8 @@ void BattleState::enemyBattle(const float &dt) {
 
                     enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->setAnimation(ATTACK_ANIMATION, IDLE_ANIMATION);
 
-                    enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->gainHp(100);
-
-                    //temp = enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->getMobHealSpell();
-                    enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->setCd(enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->getMobHealSpell() +1); //Set healSpell Cooldown
-
-                    popUpTextComponent->addPopUpText(DEFAULT_TAG,
-                                                     enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getPosition().x,
-                                                     enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getPosition().y - 100.f,
-                                                     "HEALED", "", "");
-
                     ss.str("");
-                    ss << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getName() << "Lv."
+                    ss << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getName() << " Lv."
                        << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->getLevel() << " uses Heal Spell";
                     turnPanelActionLbl.setString(ss.str());
 
@@ -1007,17 +995,13 @@ void BattleState::enemyBattle(const float &dt) {
 
                     enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->setAnimation(ATTACK_ANIMATION, IDLE_ANIMATION);
 
-                    enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->gainHp(50);
-                    enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->setMobHealPotions(
-                            enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->getMobHealPotions() - 1);   //Update potions cont
-
                     popUpTextComponent->addPopUpText(DEFAULT_TAG,
                                                      enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getPosition().x,
                                                      enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getPosition().y - 100.f,
                                                      "HEALED", "", "");
 
                     ss.str("");
-                    ss << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getName() << "Lv."
+                    ss << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getName() << " Lv."
                        << enemiesModels[enemiesMoveOrder[enemiesMoves-1]]->getStats()->getLevel() << " uses Heal Potion";
                     turnPanelActionLbl.setString(ss.str());
 
@@ -1028,6 +1012,7 @@ void BattleState::enemyBattle(const float &dt) {
                 default:
                     break;
             }
+
         }
     } else {
         turnLengthKeyTime = 0.f;

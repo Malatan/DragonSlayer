@@ -10,16 +10,17 @@
 class BattleAI {
 public:
     //constructor/destructor
-    BattleAI(std::shared_ptr<Enemy> currentEnemy, std::shared_ptr<Player> player);
+    BattleAI(std::shared_ptr<Player> player, std::vector<std::shared_ptr<Enemy>> enemies, std::vector<unsigned int> enemiesOrder, unsigned int current, std::shared_ptr<PopUpTextComponent> popUpTextComponent);
 
     //functions
     int behaviour();
 
 private:
-    std::shared_ptr<Enemy> currentEnemy;
+    std::shared_ptr<PopUpTextComponent> popUpTextComponent;
     std::shared_ptr<Player> player;
-
+    std::vector<std::shared_ptr<Enemy>> enemies;
+    std::vector<unsigned int> enemiesOrder;
+    unsigned int current;
 };
-
 
 #endif //DRAGONSLAYER_BATTLEAI_H
