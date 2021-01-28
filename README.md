@@ -7,3 +7,6 @@ Progetto scolastico
 [SFML 2.5.1](https://github.com/SFML/SFML)<br/>
 [Google test v1.10.0](https://github.com/google/googletest)<br/>
 [RichText](https://github.com/skyrpex/RichText)<br/>
+
+
+![GitHub Logo](/Resources/Images/dragon.png)
