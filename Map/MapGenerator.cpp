@@ -1,5 +1,4 @@
 #include "MapGenerator.h"
-#include "Dungeon.h"
 
 //constructors/destructor
 MapGenerator::MapGenerator(State* state) {
@@ -88,10 +87,21 @@ void MapGenerator::generateDungeon(int n) {
     }
     int width;
     int height;
+    Dungeon d(0,0);
+
+    generateMap:
     width = utils::generateRandomNumber(40, 40);
     height = utils::generateRandomNumber(30, 30);
-    Dungeon d = Dungeon(width, height);
+    d = Dungeon(width, height);
     d.generate(50);
+    for (int y = 0; y < height; ++y) {
+        for (int x = 0; x < width; ++x){
+            if(d.getTile(x,y) == ','){
+                goto generateMap;
+            }
+        }
+    }
+
     switch (n) {
         case 1: {
             d.writeOnFile(prefix + "../Data/Dungeon_1.txt");

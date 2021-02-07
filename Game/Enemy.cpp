@@ -280,9 +280,9 @@ void Enemy::generateEnemyStats(int floor, int level) {
     stats = std::make_shared<Stats>();
     float modModifier = (float)utils::generateRandomNumber(-50, 100)/100.f;
     float mod = ((float)level/10.f) + (float)floor + modModifier;
-
-
-
+    if(mod < 1.f){
+        mod = 1.f;
+    }
     switch(type){
         case WITCH:
             stats->setLevel(level);

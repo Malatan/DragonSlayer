@@ -2,6 +2,8 @@
 #define DRAGONSLAYER_MAPGENERATOR_H
 
 #include "Map.h"
+#include "Dungeon.h"
+
 class Map;
 
 struct wh{

@@ -33,16 +33,17 @@
   </component>
   <component name="CMakeSettings">
     <configurations>
-      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
-      <configuration PROFILE_NAME="Release" CONFIG_NAME="Release" />
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" ENABLED="true" />
+      <configuration PROFILE_NAME="Release" CONFIG_NAME="Release" ENABLED="true" />
     </configurations>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5e176dfb-d06b-4a3a-ae60-4825526ebf88" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AI/BattleAI.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/AI/BattleAI.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AI/BattleAI.h" beforeDir="false" afterPath="$PROJECT_DIR$/AI/BattleAI.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/BattleState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/BattleState.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Enemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Enemy.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Map/Dungeon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Map/Dungeon.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Map/MapGenerator.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Map/MapGenerator.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Map/MapGenerator.h" beforeDir="false" afterPath="$PROJECT_DIR$/Map/MapGenerator.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,59 +109,49 @@
     </key>
   </component>
   <component name="RunManager" selected="CMake Application.DragonSlayer">
-    <configuration name="ClassDeclaration" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DragonSlayer" TARGET_NAME="unit_testing_run" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="DragonSlayer" RUN_TARGET_NAME="unit_testing_run" TEST_CLASS="ClassDeclaration" TEST_MODE="SUITE_TEST">
+    <configuration name="ClassDeclaration" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DragonSlayer" TARGET_NAME="unit_testing_run" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="DragonSlayer" RUN_TARGET_NAME="unit_testing_run" TEST_CLASS="ClassDeclaration" TEST_MODE="SUITE_TEST">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
         <option name="BeforeTestRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DragonSlayer" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DragonSlayer" TARGET_NAME="DragonSlayer" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="DragonSlayer" RUN_TARGET_NAME="DragonSlayer">
+    <configuration name="DragonSlayer" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DragonSlayer" TARGET_NAME="DragonSlayer" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="DragonSlayer" RUN_TARGET_NAME="DragonSlayer">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="gmock" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DragonSlayer" TARGET_NAME="gmock" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="gmock" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DragonSlayer" TARGET_NAME="gmock" CONFIG_NAME="Debug">
+    <configuration name="gmock_main" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DragonSlayer" TARGET_NAME="gmock_main" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="gmock_main" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DragonSlayer" TARGET_NAME="gmock_main" CONFIG_NAME="Debug">
+    <configuration name="gtest" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DragonSlayer" TARGET_NAME="gtest" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="gtest" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DragonSlayer" TARGET_NAME="gtest" CONFIG_NAME="Debug">
+    <configuration name="gtest_main" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DragonSlayer" TARGET_NAME="unit_testing_run" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="DragonSlayer" RUN_TARGET_NAME="unit_testing_run">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="gtest_main" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DragonSlayer" TARGET_NAME="unit_testing_run" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="DragonSlayer" RUN_TARGET_NAME="unit_testing_run">
+    <configuration name="unit_testing" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DragonSlayer" TARGET_NAME="unit_testing_run" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="DragonSlayer" RUN_TARGET_NAME="unit_testing_run">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="unit_testing" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DragonSlayer" TARGET_NAME="unit_testing_run" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="DragonSlayer" RUN_TARGET_NAME="unit_testing_run">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <list>
-      <item itemvalue="CMake Application.unit_testing" />
       <item itemvalue="CMake Application.DragonSlayer" />
       <item itemvalue="CMake Application.gmock" />
       <item itemvalue="CMake Application.gmock_main" />
       <item itemvalue="CMake Application.gtest" />
       <item itemvalue="CMake Application.gtest_main" />
+      <item itemvalue="CMake Application.unit_testing" />
       <item itemvalue="Google Test.ClassDeclaration" />
     </list>
     <recent_temporary>
@@ -346,6 +337,10 @@
       <workItem from="1611414636165" duration="9132000" />
       <workItem from="1611582649064" duration="14458000" />
       <workItem from="1611668324739" duration="23916000" />
+      <workItem from="1611876327843" duration="52000" />
+      <workItem from="1611876461036" duration="6634000" />
+      <workItem from="1611931814939" duration="3594000" />
+      <workItem from="1612662634796" duration="29000" />
     </task>
     <servers />
   </component>
@@ -364,56 +359,6 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
-  <component name="WindowStateProjectService">
-    <state x="765" y="256" key="#com.intellij.ide.util.MemberChooser" timestamp="1611670741451">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="765" y="256" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1611670741451" />
-    <state x="740" y="295" key="FileChooserDialogImpl" timestamp="1611590367241">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="740" y="295" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1611590367241" />
-    <state width="1877" height="101" key="GridCell.Tab.0.bottom" timestamp="1611770542685">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state width="1877" height="101" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1611770542685" />
-    <state width="1877" height="101" key="GridCell.Tab.0.center" timestamp="1611770542685">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state width="1877" height="101" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1611770542685" />
-    <state width="1877" height="101" key="GridCell.Tab.0.left" timestamp="1611770542685">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state width="1877" height="101" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1611770542685" />
-    <state width="1877" height="101" key="GridCell.Tab.0.right" timestamp="1611770542685">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state width="1877" height="101" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1611770542685" />
-    <state width="1877" height="173" key="GridCell.Tab.1.bottom" timestamp="1611768073213">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state width="1877" height="173" key="GridCell.Tab.1.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1611768073213" />
-    <state width="1877" height="173" key="GridCell.Tab.1.center" timestamp="1611768073213">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state width="1877" height="173" key="GridCell.Tab.1.center/0.0.1920.1080@0.0.1920.1080" timestamp="1611768073213" />
-    <state width="1877" height="173" key="GridCell.Tab.1.left" timestamp="1611768073212">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state width="1877" height="173" key="GridCell.Tab.1.left/0.0.1920.1080@0.0.1920.1080" timestamp="1611768073212" />
-    <state width="1877" height="173" key="GridCell.Tab.1.right" timestamp="1611768073213">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state width="1877" height="173" key="GridCell.Tab.1.right/0.0.1920.1080@0.0.1920.1080" timestamp="1611768073213" />
-    <state x="461" y="185" key="SettingsEditor" timestamp="1611764482307">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="461" y="185" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1611764482307" />
-    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup" timestamp="1611687257653">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1611687257653" />
-  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
@@ -431,11 +376,6 @@
           <url>file://$PROJECT_DIR$/Game/Stats.cpp</url>
           <line>90</line>
           <option name="timeStamp" value="74" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/AI/BattleAI.cpp</url>
-          <line>64</line>
-          <option name="timeStamp" value="89" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
