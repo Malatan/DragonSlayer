@@ -75,6 +75,7 @@ private:
     achievementRecord playerLevel{};
     achievementRecord floorReached{};
     achievementRecord playerMaxedSpells{};
+    achievementRecord endGame{};
 };
 
 

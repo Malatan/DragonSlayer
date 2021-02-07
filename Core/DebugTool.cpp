@@ -196,7 +196,6 @@ void DebugTool::renderEnemisDebugInfo(sf::RenderTarget *target) {
 
         i->getHitboxComponent()->render(*target);
 
-
         sf::Text ai_stato;
         ai_stato.setFont(*font);
         ai_stato.setCharacterSize(15);

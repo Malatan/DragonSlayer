@@ -27,6 +27,8 @@ void GameState::initTextures() {
                            "GameState");
     rsHandler->addResource("../Resources/Images/Sprites/Enemy/LightBandit/LightBandit.png", "BanditLight_enemy_sheet",
                            "GameState");
+    rsHandler->addResource("../Resources/Images/Sprites/Enemy/Dragon/dragon_sprite.png", "Dragon_enemy_sheet",
+                           "GameState");
 
     rsHandler->addResource("../Resources/Images/chat.png", "chattable_icon", "GameState");
 
@@ -63,6 +65,7 @@ void GameState::initTextures() {
     textures["ENEMY_SKELETON_2_SHEET"].loadFromImage(rsHandler->getResourceByKey("Skeleton_2_enemy_sheet")->getImage());
     textures["ENEMY_BANDITHEAVY_SHEET"].loadFromImage(rsHandler->getResourceByKey("BanditHeavy_enemy_sheet")->getImage());
     textures["ENEMY_BANDITLIGHT_SHEET"].loadFromImage(rsHandler->getResourceByKey("BanditLight_enemy_sheet")->getImage());
+    textures["ENEMY_DRAGON_SHEET"].loadFromImage(rsHandler->getResourceByKey("Dragon_enemy_sheet")->getImage());
 
     textures["CHATTABLE_ICON"].loadFromImage(rsHandler->getResourceByKey("chattable_icon")->getImage());
 
@@ -318,6 +321,9 @@ void GameState::initMaps() {
         mg->generateDungeon(4);
         mg->generateDungeon(5);
         changeMap(0);
+        currentFloor = 6;
+        spawnEnemy(spawnPos.x - 200.f, spawnPos.y - 200.f, DRAGON, 0);
+        currentFloor = 0;
     }
 }
 
@@ -637,6 +643,12 @@ std::shared_ptr<Enemy> GameState::enemyFactory(float x, float y, enemy_types typ
                                                 47.f, 83.f, 9.f,
                                                 textures["ENEMY_BANDITLIGHT_SHEET"], this);
             break;
+        case DRAGON:
+            new_enemy = std::make_shared<Enemy>(DRAGON, x, y, 1.8f, 1.8f,
+                                                112.f, 113.f, 135.f, 180.f,
+                                                180.f, 285.f, 20.f,
+                                                textures["ENEMY_DRAGON_SHEET"], this);
+            break;
         default:
             std::cout<<"No such enemy: " << type;
             break;
@@ -869,29 +881,33 @@ void GameState::checkBattleResult(BattleResult* battle_result) {
 
             for(const auto& i : enemies){
                 if(i->getId() == battle_result->getEnemyLeaderId()){
-                    std::vector<std::shared_ptr<Item>> juices = lootGenerator->generateLoot(i, currentFloor);
-                    int lootbag_lifetime = 999;
-                    if(!juices.empty()){
-                        //controlla se e' nel mergerange di altri lootbag
-                        bool merged = false;
-                        sf::FloatRect app = {i->getGlobalBounds().left, i->getGlobalBounds().top,
-                                             40.f, 40.f};
-                        for(const auto& j : lootBags){
-                            if(j->canMerge(app)){
-                                j->mergeLoots(juices);
-                                j->setLifeTime(lootbag_lifetime);
-                                merged = true;
-                                break;
+                    if(i->getType() == DRAGON){
+                        notify(AE_END_GAME, 1);
+                    }else{
+                        std::vector<std::shared_ptr<Item>> juices = lootGenerator->generateLoot(i, currentFloor);
+                        int lootbag_lifetime = 999;
+                        if(!juices.empty()){
+                            //controlla se e' nel mergerange di altri lootbag
+                            bool merged = false;
+                            sf::FloatRect app = {i->getGlobalBounds().left, i->getGlobalBounds().top,
+                                                 40.f, 40.f};
+                            for(const auto& j : lootBags){
+                                if(j->canMerge(app)){
+                                    j->mergeLoots(juices);
+                                    j->setLifeTime(lootbag_lifetime);
+                                    merged = true;
+                                    break;
+                                }
+                            }
+                            if(!merged){
+                                lootBags.push_back(
+                                        std::make_shared<LootBag>(
+                                                window, i->getPosition(), textures, player, this, juices, font,
+                                                lootbag_lifetime, rsHandler->generateId()));
                             }
                         }
-                        if(!merged){
-                            lootBags.push_back(
-                                    std::make_shared<LootBag>(
-                                            window, i->getPosition(), textures, player, this, juices, font,
-                                            lootbag_lifetime, rsHandler->generateId()));
-                        }
+                        break;
                     }
-                    break;
                 }
             }
             deleteEnemyById(battle_result->getEnemyLeaderId());

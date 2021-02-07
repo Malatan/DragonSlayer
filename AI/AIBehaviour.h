@@ -23,6 +23,8 @@ public:
     virtual ~AIBehaviour();
 
     //getters/setters
+    bool isCanThink() const;
+    void setCanThink(bool b);
     bool getKeyTime();
     static std::string getStateString(AIStatus stato_enum);
     std::string getCurrentStateString() const;
@@ -33,6 +35,7 @@ public:
     void updateWayPoints();
 
 private:
+    bool canThink{};
     PathFinder* pathFinder;
     Entity& enemy;
     Entity& player;

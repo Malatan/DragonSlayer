@@ -499,6 +499,13 @@ void BattleState::spawnEnemyModel(sf::Vector2f pos, enemy_types type, unsigned i
                                             textures["ENEMY_BANDITLIGHT_SHEET"]);
             enemy->setOrigin(24.f, 46.f);
             break;
+        case DRAGON:
+            enemy = std::make_shared<Enemy>(DRAGON, pos.x, pos.y, -4.f, 4.f,
+                                            0.f, 0.f, 0.f, 0.f,
+                                            0.f, 0.f, 0.f,
+                                            textures["ENEMY_DRAGON_SHEET"]);
+            enemy->setOrigin(105.f, 155.f);
+            break;
         default:
             std::cout << "No such enemy: " << type;
             break;

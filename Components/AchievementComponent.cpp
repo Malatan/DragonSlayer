@@ -66,6 +66,7 @@ int AchievementComponent::getAchievementEventValue(achievement_event event_type)
             return floorReached.second;
         case AE_BOSS_ROOM:
         case AE_END_GAME:
+            return endGame.second;
         default:
             return 0;
     }
@@ -288,6 +289,9 @@ void AchievementComponent::onNotify(achievement_event event, int value) {
         }
         case AE_BOSS_ROOM:
         case AE_END_GAME:
+            endGame.second = value;
+            checkAchievement(AE_END_GAME, 1, endGame);
+            update_list.push(AE_END_GAME);
             break;
     }
     while (!update_list.empty()) {

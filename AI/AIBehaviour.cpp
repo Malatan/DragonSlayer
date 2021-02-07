@@ -12,6 +12,7 @@ AIBehaviour::AIBehaviour(PathFinder *pathFinder, Entity &enemy, Entity &player, 
     keyTimeMax = 20.f;
     chaseTimeMax = 5.f;
     stuckTimeMax = 5.f;
+    canThink = true;
 }
 
 AIBehaviour::~AIBehaviour() = default;
@@ -44,6 +45,14 @@ std::string AIBehaviour::getStateString(AIStatus stato_enum) {
 
 std::string AIBehaviour::getCurrentStateString() const {
     return getStateString(stato);
+}
+
+void AIBehaviour::setCanThink(bool b) {
+    canThink = b;
+}
+
+bool AIBehaviour::isCanThink() const {
+    return canThink;
 }
 
 //functions

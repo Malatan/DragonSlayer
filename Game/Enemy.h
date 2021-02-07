@@ -22,7 +22,8 @@ enum enemy_types : unsigned int{
     GOBLIN,
     MUSHROOM,
     BANDIT_HEAVY,
-    BANDIT_LIGHT
+    BANDIT_LIGHT,
+    DRAGON
 };
 
 

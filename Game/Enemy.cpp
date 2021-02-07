@@ -81,20 +81,6 @@ void Enemy::initAnimations() {
             animationComponent->addAnimation("CORPSE", 10.f,
                     3, 4, 3, 4, 150 ,150);
             break;
-        case MUSHROOM:
-            animationComponent->addAnimation("IDLE", 10.f,
-                    0, 2, 3, 2, 150 ,150);
-            animationComponent->addAnimation("ATTACK", 10.f,
-                    0, 1, 7, 1, 150 ,150);
-            animationComponent->addAnimation("WALK", 10.f,
-                    0, 0, 7, 0, 150 ,150);
-            animationComponent->addAnimation("GETHIT", 10.f,
-                    0, 3, 3, 3, 150 ,150);
-            animationComponent->addAnimation("DEATH", 10.f,
-                    0, 4, 3, 4, 150 ,150);
-            animationComponent->addAnimation("CORPSE", 10.f,
-                    3, 4, 3, 4, 150 ,150);
-            break;
         case BANDIT_HEAVY:
             animationComponent->addAnimation("IDLE", 10.f,
                     0, 0, 3, 0, 48 ,48);
@@ -109,6 +95,20 @@ void Enemy::initAnimations() {
             animationComponent->addAnimation("CORPSE", 10.f,
                     4, 4, 4, 4, 48 ,48);
             break;
+        case MUSHROOM:
+            animationComponent->addAnimation("IDLE", 10.f,
+                                             0, 2, 3, 2, 150 ,150);
+            animationComponent->addAnimation("ATTACK", 10.f,
+                                             0, 1, 7, 1, 150 ,150);
+            animationComponent->addAnimation("WALK", 10.f,
+                                             0, 0, 7, 0, 150 ,150);
+            animationComponent->addAnimation("GETHIT", 10.f,
+                                             0, 3, 3, 3, 150 ,150);
+            animationComponent->addAnimation("DEATH", 10.f,
+                                             0, 4, 3, 4, 150 ,150);
+            animationComponent->addAnimation("CORPSE", 10.f,
+                                             3, 4, 3, 4, 150 ,150);
+            break;
         case BANDIT_LIGHT:
             animationComponent->addAnimation("IDLE", 10.f,
                     0, 0, 3, 0, 48 ,48);
@@ -122,6 +122,18 @@ void Enemy::initAnimations() {
                     1, 4, 4, 4, 48 ,48);
             animationComponent->addAnimation("CORPSE", 10.f,
                     4, 4, 4, 4, 48 ,48);
+            break;
+        case DRAGON:
+            animationComponent->addAnimation("IDLE", 13.f,
+                                             0, 0, 13, 0, 210 ,210);
+            animationComponent->addAnimation("ATTACK", 10.f,
+                                             0, 1, 3, 1, 210 ,210);
+            animationComponent->addAnimation("GETHIT", 15.f,
+                                             0, 2, 3, 2, 210 ,210);
+            animationComponent->addAnimation("DEATH", 10.f,
+                                             0, 3, 3, 3, 210 ,210);
+            animationComponent->addAnimation("CORPSE", 10.f,
+                                             4, 3, 4, 3, 210 ,210);
             break;
     }
 
@@ -150,7 +162,8 @@ Enemy::Enemy(enemy_types type, float x, float y, float scale_x ,float scale_y, f
     auto i = dynamic_cast<GameState*>(gameState);
     player = i->getPlayer();
     aIBehaviour = new AIBehaviour(i->getPathFinder(), *this, *i->getPlayer(), spawnPos);
-
+    if(type == DRAGON)
+        aIBehaviour->setCanThink(false);
 }
 
 Enemy::Enemy(enemy_types type, float x, float y, float scale_x, float scale_y, float hitbox_offset_x,
@@ -263,6 +276,9 @@ void Enemy::generateNameByType() {
             break;
         case BANDIT_LIGHT:
             name = "Bandit Minion";
+            break;
+        case DRAGON:
+            name = "Evil Dragon";
             break;
         default:
             std::cout<<"No such enemy: " << type;
@@ -420,6 +436,23 @@ void Enemy::generateEnemyStats(int floor, int level) {
             stats->setMobHealSpell(0);
             stats->setMobHealPotions(generatePotions());
             break;
+        case DRAGON:
+            stats->setLevel(level);
+            stats->setAgility((int)(7 * mod));
+            stats->setWisdom((int)(4 * mod));
+            stats->setStrength((int)(7 * mod));
+            stats->setMaxHp(350 * (int)(mod + ((float)stats->getStrength()/10.f)));
+            stats->setMaxMp(200 * (int)(mod + ((float)stats->getWisdom()/10.f)));
+            stats->setArmor(30 * (int)(mod + ((float)stats->getStrength()/10.f)));
+            stats->setDamage(45 * (int)(mod + ((float)stats->getStrength()/10.f)));
+            stats->setCritChance(15.f + mod + ((float)stats->getAgility()/10.f));
+            stats->setEvadeChance(6.f + mod + ((float)stats->getAgility()/10.f));
+            stats->refillHp();
+            stats->refillMp();
+
+            stats->setMobHealSpell(5);
+            stats->setMobHealPotions(0);
+            break;
         default:
             std::cout<<"No such enemy: " << type;
             break;
@@ -476,8 +509,10 @@ void Enemy::update(const float &dt) {
     hitboxComponent->update();
     collisionBoxComponent->update();
     if(aIBehaviour != nullptr) {
-        updateWaypoint(dt);
-        aIBehaviour->update(dt);
+        if(aIBehaviour->isCanThink()){
+            updateWaypoint(dt);
+            aIBehaviour->update(dt);
+        }
     }
     movementComponent->update(dt);
 
