@@ -39,13 +39,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5e176dfb-d06b-4a3a-ae60-4825526ebf88" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/AI/AIBehaviour.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/AI/AIBehaviour.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AI/AIBehaviour.h" beforeDir="false" afterPath="$PROJECT_DIR$/AI/AIBehaviour.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Components/AchievementComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Components/AchievementComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Components/AchievementComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Components/AchievementComponent.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/BattleState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/BattleState.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/DebugTool.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/DebugTool.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/GameState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/GameState.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/Enemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Enemy.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/Enemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Enemy.h" afterDir="false" />
     </list>
@@ -120,11 +114,6 @@
       </method>
     </configuration>
     <configuration name="DragonSlayer" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DragonSlayer" TARGET_NAME="DragonSlayer" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="DragonSlayer" RUN_TARGET_NAME="DragonSlayer">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -356,6 +345,7 @@
       <workItem from="1611931814939" duration="3594000" />
       <workItem from="1612662634796" duration="29000" />
       <workItem from="1612662722386" duration="330000" />
+      <workItem from="1612710084202" duration="328000" />
     </task>
     <servers />
   </component>
@@ -391,6 +381,11 @@
           <url>file://$PROJECT_DIR$/Game/Stats.cpp</url>
           <line>90</line>
           <option name="timeStamp" value="74" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Gui/Gui.cpp</url>
+          <line>2084</line>
+          <option name="timeStamp" value="87" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

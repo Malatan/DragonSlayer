@@ -83,6 +83,7 @@ public:
 
 private:
     //variables
+    bool leftRightReverse{};
     unsigned int Id{};
     string name;
     enemy_types type{};

@@ -94,6 +94,7 @@ void Enemy::initAnimations() {
                     1, 4, 4, 4, 48 ,48);
             animationComponent->addAnimation("CORPSE", 10.f,
                     4, 4, 4, 4, 48 ,48);
+            leftRightReverse = true;
             break;
         case MUSHROOM:
             animationComponent->addAnimation("IDLE", 10.f,
@@ -122,6 +123,7 @@ void Enemy::initAnimations() {
                     1, 4, 4, 4, 48 ,48);
             animationComponent->addAnimation("CORPSE", 10.f,
                     4, 4, 4, 4, 48 ,48);
+            leftRightReverse = true;
             break;
         case DRAGON:
             animationComponent->addAnimation("IDLE", 13.f,
@@ -492,15 +494,25 @@ void Enemy::updateAnimation(const float &dt) {
         if (animationDone)
             animationEnum = nextAnimationEnum;
     } else if(movementComponent->getState(MOVING_LEFT)){
-         sprite.setOrigin(animationComponent->getWalkWidth(), 0.f);
-         sprite.setScale(-scale.x, scale.y);
-         animationComponent->play("WALK", dt);
+        if(leftRightReverse){
+            sprite.setOrigin(0.f, 0.f);
+            sprite.setScale(scale.x, scale.y);
+        }else{
+            sprite.setOrigin(animationComponent->getWalkWidth(), 0.f);
+            sprite.setScale(-scale.x, scale.y);
+        }
+        animationComponent->play("WALK", dt);
     } else if(movementComponent->getState(MOVING_RIGHT)){
-          sprite.setOrigin(0.f, 0.f);
-          sprite.setScale(scale.x, scale.y);
+        if(leftRightReverse){
+            sprite.setOrigin(animationComponent->getWalkWidth(), 0.f);
+            sprite.setScale(-scale.x, scale.y);
+        }else{
+            sprite.setOrigin(0.f, 0.f);
+            sprite.setScale(scale.x, scale.y);
+        }
         animationComponent->play("WALK", dt);
     } else if(movementComponent->getState(MOVING_UP) || movementComponent->getState(MOVING_DOWN)){
-         animationComponent->play("WALK", dt);
+        animationComponent->play("WALK", dt);
     }
 }
 
