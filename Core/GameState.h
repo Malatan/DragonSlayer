@@ -120,6 +120,7 @@ public:
     void changeStato(state_tab current_stato);
     void spawnEnemyOnMap();
     void enableDisableDebugTool() override;
+    bool movePlayer(sf::Vector2f destination);
     void updateTabsGoldLbl();
     void updateTabsInvSpaceLbl();
     void updateTabsPlayerStatsLbl(state_tab update_tab = NO_TAB);

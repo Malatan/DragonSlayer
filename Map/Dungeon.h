@@ -40,6 +40,7 @@ public:
     char getTile(int x, int y) const;
     void setTile(int x, int y, char tile);
     void print() const;
+    std::string getGenerationLog() const;
 
     //functions
     void generate(int maxFeatures);
@@ -56,6 +57,7 @@ private:
     std::vector<char> _tiles;
     std::vector<Rect> _rooms; // rooms for place stairs or monsters
     std::vector<Rect> _exits; // 4 sides of rooms or corridors
+    std::string generationLog;
 };
 
 

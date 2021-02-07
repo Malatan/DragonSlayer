@@ -26,29 +26,33 @@ void Dungeon::print() const {
     }
 }
 
+std::string Dungeon::getGenerationLog() const {
+    return generationLog;
+}
+
 //functions
 void Dungeon::generate(int maxFeatures) {
     // place the first room in the center
     if (!makeRoom(_width / 2, _height / 2, static_cast<Direction>(utils::generateRandomNumber(0,3), true))) {
-        std::cout << "Unable to place the first room.\n";
+        generationLog += "Unable to place the first room.\n";
         return;
     }
 
     // we already placed 1 feature (the first room)
     for (int i = 1; i < maxFeatures; ++i) {
         if (!createFeature()) {
-            std::cout << "Unable to place more features (placed " << i << ").\n";
+            generationLog += "Unable to place more features (placed " + to_string(i) + ").\n";
             break;
         }
     }
 
     if (!placeObject(UpStairs)) {
-        std::cout << "Unable to place up stairs.\n";
+        generationLog += "Unable to place up stairs.\n";
         return;
     }
 
     if (!placeObject(DownStairs)) {
-        std::cout << "Unable to place down stairs.\n";
+        generationLog += "Unable to place down stairs.\n";
         return;
     }
 

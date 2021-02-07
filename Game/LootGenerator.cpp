@@ -389,10 +389,15 @@ std::vector<std::shared_ptr<Item>> LootGenerator::generateLoot(const std::shared
                         //prende un nome a caso dal file txt
                         ifstream file;
                         ifstream file_desc;
-                        file.open("../Data/Equipment names/" + equip_type.substr(2) + ".txt");
-                        file_desc.open("../Data/random descriptions.txt");
+                        if(unitTesting){
+                            file.open("../../Data/Equipment names/" + equip_type.substr(2) + ".txt");
+                            file_desc.open("../../Data/random descriptions.txt");
+                        }else{
+                            file.open("../Data/Equipment names/" + equip_type.substr(2) + ".txt");
+                            file_desc.open("../Data/random descriptions.txt");
+                        }
                         if (!file.is_open()) {
-                            cout << "Resource load error: Could not load name .txt";
+                            cout << "Resource load error: Could not load name.txt";
                         } else if(!file_desc.is_open()){
                             cout << "Resource load error: Could not load random descriptions.txt";
                         } else {
@@ -898,8 +903,13 @@ std::shared_ptr<Item> LootGenerator::generateTierEquipment(item_rarity equip_rar
             //prende un nome a caso dal file txt
             ifstream file;
             ifstream file_desc;
-            file.open("../Data/Equipment names/" + equip_type.substr(2) + ".txt");
-            file_desc.open("../Data/random descriptions.txt");
+            if(unitTesting){
+                file.open("../../Data/Equipment names/" + equip_type.substr(2) + ".txt");
+                file_desc.open("../../Data/random descriptions.txt");
+            }else{
+                file.open("../Data/Equipment names/" + equip_type.substr(2) + ".txt");
+                file_desc.open("../Data/random descriptions.txt");
+            }
             if (!file.is_open()) {
                 cout << "Resource load error: Could not load name .txt";
             } else if(!file_desc.is_open()){

@@ -7,6 +7,10 @@ set(SOURCE_FILES
         mainTest.cpp
         Tests.cpp
         PlayerTests.cpp
+        ../AI/AIBehaviour.cpp
+        ../AI/AIBehaviour.h
+        ../AI/BattleAI.cpp
+        ../AI/BattleAI.h
         ../Core/Game.cpp
         ../Core/Game.h
         ../Core/State.cpp
@@ -19,6 +23,8 @@ set(SOURCE_FILES
         ../Core/BattleState.h
         ../Core/Observer.h
         ../Core/Subject.h
+        ../Core/DebugTool.h
+        ../Core/DebugTool.cpp
         ../Gui/Gui.cpp
         ../Gui/Gui.h
         ../Gui/PauseMenu.cpp
@@ -106,6 +112,12 @@ set(SOURCE_FILES
         ../Map/Tile.cpp
         ../Map/Dungeon.cpp
         ../Map/Dungeon.h
+        ../Map/PathFinder.h
+        ../Map/PathFinder.cpp
+        ../Map/Node.h
+        ../Map/Node.cpp
+        ../Map/MiniMap.h
+        ../Map/MiniMap.cpp
         ../Shader/fragment_shader.frag
         ../Shader/vertex_shader.vert
         )

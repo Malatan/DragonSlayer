@@ -7,5 +7,6 @@
 
 extern bool debug;
 extern bool noclip;
+extern bool unitTesting;
 
 #endif //DRAGONSLAYER_COMMON_H

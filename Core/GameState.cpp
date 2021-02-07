@@ -321,9 +321,6 @@ void GameState::initMaps() {
         mg->generateDungeon(4);
         mg->generateDungeon(5);
         changeMap(0);
-        currentFloor = 6;
-        spawnEnemy(spawnPos.x - 200.f, spawnPos.y - 200.f, DRAGON, 0);
-        currentFloor = 0;
     }
 }
 
@@ -953,6 +950,30 @@ void GameState::enableDisableDebugTool() {
     }
 }
 
+bool GameState::movePlayer(sf::Vector2f destination) {
+    int node_x = (int)(destination.x/(Tile::TILE_SIZE/(float)pathFinder->nodeMultiplier));
+    int node_y = (int)(destination.y/(Tile::TILE_SIZE/(float)pathFinder->nodeMultiplier));
+    if(pathFinder->nodes[node_y][node_x]->isWalkable()){
+        bool path_found;
+        if(currentFloor == 0)
+            path_found = pathFinder->FindPath(player->getCollisionBoxCenter(), destination, 9999);
+        else
+            path_found = pathFinder->FindPath(player->getCollisionBoxCenter(), destination, 400);
+        if(path_found){
+            player->clearWayPoints();
+            for(auto i : pathFinder->path){
+                auto mod = (float)pathFinder->nodeMultiplier;
+                sf::Vector2f new_waypoint = {((float)i->getPosX() * Tile::TILE_SIZE/mod) + Tile::TILE_SIZE/(2.f * mod),
+                                             ((float)i->getPosY() * Tile::TILE_SIZE/mod) + Tile::TILE_SIZE/(2.f * mod)};
+                player->addWayPoint(new_waypoint);
+            }
+        }
+        return path_found;
+    }else{
+        return false;
+    }
+}
+
 void GameState::updateInput(const float &dt) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && getKeyTime()) {
         changeStato(PAUSEMENU_TAB);
@@ -1014,27 +1035,7 @@ void GameState::updateGlobalInput(const float &dt) {
 
 void GameState::updateMouseInput(const float &dt) {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && getKeyTime()) {
-        int node_x = (int)(mousePosView.x/(Tile::TILE_SIZE/(float)pathFinder->nodeMultiplier));
-        int node_y = (int)(mousePosView.y/(Tile::TILE_SIZE/(float)pathFinder->nodeMultiplier));
-        if(pathFinder->nodes[node_y][node_x]->isWalkable()){
-            bool path_found;
-            if(currentFloor == 0){
-                path_found = pathFinder->FindPath(player->getCollisionBoxCenter(), mousePosView, 9999);
-            }else{
-                path_found = pathFinder->FindPath(player->getCollisionBoxCenter(), mousePosView, 400);
-            }
-            if(path_found){
-                player->clearWayPoints();
-                for(auto i : pathFinder->path){
-                    auto mod = (float)pathFinder->nodeMultiplier;
-                    sf::Vector2f new_waypoint = {((float)i->getPosX() * Tile::TILE_SIZE/mod)
-                                                 + Tile::TILE_SIZE/(2.f * mod),
-                                                 ((float)i->getPosY() * Tile::TILE_SIZE/mod)
-                                                 + Tile::TILE_SIZE/(2.f * mod)};
-                    player->addWayPoint(new_waypoint);
-                }
-            }
-        }
+        movePlayer(mousePosView);
     }
 }
 

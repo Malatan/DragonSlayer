@@ -82,17 +82,19 @@ TEST_F(PlayerTests, MovementCheck){
 }
 
 TEST_F(PlayerTests, MoveToCheck){
-    float test_time = 3.f;
-    sf::Vector2f target_point = {player->getPosition().x + 80.f, player->getPosition().y + 50.f};
+    float test_time = 10.f;
+    sf::Vector2f target_point = {player->getPosition().x + 100.f, player->getPosition().y + 100.f};
+    gState->movePlayer(target_point);
     while(test_time > 0.f){
         test_time -= game->getDt();
-        player->clearTargetPoints();
-        player->addTargetPoint(target_point);
-        game->testRun();
-        if(player->getMovementComponent()->getState(IDLE))
+        game->testRun(true);
+        if(player->isWayPointEmpty())
             break;
     }
-    ASSERT_TRUE(player->getHitboxComponent()->getCenterRect().contains(target_point));
+    auto vec_diff = target_point - player->getCollisionBoxCenter();
+    auto vec_length = (float)sqrt(pow(vec_diff.x, 2) + pow(vec_diff.y, 2));
+
+    ASSERT_LE(vec_length, 3.f);
 }
 
 TEST_F(PlayerTests, MaxSpeedCheck){
@@ -145,12 +147,12 @@ TEST_F(PlayerTests, NotTraversableTileCollisionCheck){
 }
 
 TEST_F(PlayerTests, NpcInteractCheck){
-    player->addTargetPoint(gState->getNpc(0)->getHitboxComponent()->getCenter());
+    gState->movePlayer(gState->getNpc(0)->getHitboxComponent()->getCenter());
     float test_time = 3.0f;
     while(test_time > 0.f){
         test_time -= game->getDt();
-        game->testRun();
-        if(player->getMovementComponent()->getState(IDLE))
+        game->testRun(true);
+        if(player->isWayPointEmpty())
             break;
     }
     ASSERT_TRUE(gState->getInteractNpc() != NO_NPC);
@@ -158,7 +160,7 @@ TEST_F(PlayerTests, NpcInteractCheck){
 
 TEST_F(PlayerTests, EnemyInteractCheck){
     gState->spawnEnemy(player->getPosition().x + 100.f, player->getPosition().y, SKELETON);
-    player->addTargetPoint(gState->getEnemy(0)->getHitboxComponent()->getCenter());
+    gState->movePlayer(gState->getEnemy(0)->getHitboxComponent()->getCenter());
     float test_time = 2.5f;
     while(test_time > 0.f){
         test_time -= game->getDt();

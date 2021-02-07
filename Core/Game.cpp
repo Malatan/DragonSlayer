@@ -6,10 +6,12 @@
 #include "Game.h"
 bool debug;
 bool noclip;
+bool unitTesting;
 
 void Game::initVariables(bool unit_testing) {
     debug = false;
     noclip = false;
+    unitTesting = unit_testing;
     dt = 0.f;
     rsHandler = std::make_shared<ResourcesHandler>();
     rsHandler->setUnitTesting(unit_testing);
