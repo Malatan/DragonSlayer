@@ -130,6 +130,8 @@ void AchievementComponent::loadRecords(std::map<achievement_event, achievementRe
     playerLevel = save_records[AE_P_LEVEL];
     floorReached = save_records[AE_FLOOR_REACHED];
     playerMaxedSpells = save_records[AE_P_MAXEDSPELL];
+    bossRoom = save_records[AE_BOSS_ROOM];
+    endGame = save_records[AE_END_GAME];
 }
 
 void AchievementComponent::loadAchievements(std::vector<Achievement> &save_achievements) {
@@ -405,6 +407,14 @@ void AchievementComponent::calculateExpGoldBonus() {
         bonus += 0.25f;
     } else if (floorReached.first > 0) {
         bonus += (0.05f * (float) (floorReached.first));
+    }
+
+    if(bossRoom.first == 1){
+        bonus += 0.25f;
+    }
+
+    if(endGame.first == 1){
+        bonus += 0.25f;
     }
 
     expGoldBonus = bonus;

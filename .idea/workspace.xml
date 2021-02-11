@@ -41,14 +41,8 @@
     <list default="true" id="5e176dfb-d06b-4a3a-ae60-4825526ebf88" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Components/AchievementComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Components/AchievementComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Components/AchievementComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Components/AchievementComponent.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/DebugTool.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/DebugTool.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/BattleState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/BattleState.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/GameState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/GameState.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Enemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Enemy.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/Enemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Enemy.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Map/Map.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Map/Map.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Map/MapGenerator.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Map/MapGenerator.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Map/MiniMap.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Map/MiniMap.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +92,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="Debugger.ObjectiveC" />
+    <property name="settings.editor.selected.configurable" value="CPPToolchains" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -358,7 +352,7 @@
       <workItem from="1612662634796" duration="29000" />
       <workItem from="1612662722386" duration="330000" />
       <workItem from="1612710084202" duration="4424000" />
-      <workItem from="1613058446899" duration="5790000" />
+      <workItem from="1613058446899" duration="9146000" />
     </task>
     <servers />
   </component>

@@ -330,6 +330,10 @@ void BattleState::initBattleResultPanel() {
             multiplier = utils::generateRandomNumberf(1.5f, 2.5f, 2);
             int gold_gain = (int)((float)xp_gain * multiplier);
 
+            if(enemyLeader->getType() == DRAGON){
+                xp_gain *= 9;
+                gold_gain *= 9;
+            }
             int final_exp = std::ceil((float)xp_gain * expGoldBonus);
             int final_gold = std::ceil((float)gold_gain * expGoldBonus);
             resultTitleLbl.setFillColor(sf::Color::Green);

@@ -777,7 +777,6 @@ void GameState::changeMap(int floor, bool load_from_save) {
         spawnPos.x = map->findStairs().x + 30;
         spawnPos.y = map->findStairs().y + Tile::TILE_SIZE;
         player->setPosition(spawnPos.x, spawnPos.y);
-        std::cout<<achievementComponent->getAchievementEventValue(AE_END_GAME);
         if(achievementComponent->getAchievementEventValue(AE_END_GAME) != 1){
             spawnEnemy(25 * Tile::TILE_SIZE, 6 * Tile::TILE_SIZE, DRAGON, 4);
             enemies[0]->turnLeft();
