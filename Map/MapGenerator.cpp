@@ -3,11 +3,13 @@
 //constructors/destructor
 MapGenerator::MapGenerator(State* state) {
     wh d = wh{0, 0};
-    for (int i = 0; i <= 5; i++) {
+    for (int i = 0; i <= 6; i++) {
         dDims.push_back(d);
     }
     dDims[0].height = 11;
     dDims[0].width = 17;
+    dDims[6].height = 15;
+    dDims[6].width = 33;
     gameState = dynamic_cast<GameState *>(state);
 }
 
@@ -57,6 +59,10 @@ Map *MapGenerator::GenerateFromFile(int floor, State *state) {
         }
         case 5:{
             fin = std::fstream(prefix + "../Data/Dungeon_5.txt", std::fstream::in);
+            break;
+        }
+        case 6:{
+            fin = std::fstream(prefix + "../Data/bossroom.txt", std::fstream::in);
             break;
         }
         default:

@@ -115,7 +115,7 @@ void DebugTool::applyFunctions(const string &key) {
         gstate->popUpTextComponent->addPopUpTextCenter(DEFAULT_TAG, boost_quantity,
                                                        "+", " STRENGTH, WISDOM AND AGILITY");
     }else if(key == "G_UNLOCKFLOORS"){
-        while(gstate->floorReached <= 5){
+        while(gstate->floorReached < 5){
             gstate->floorReached++;
             gstate->notify(AE_FLOOR_REACHED, gstate->floorReached);
             gstate->selectLevelTab->updateButtonsAccess(gstate->floorReached);

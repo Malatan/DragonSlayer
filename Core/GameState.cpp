@@ -749,7 +749,12 @@ void GameState::changeMap(int floor, bool load_from_save) {
     currentFloor = floor;
     if(currentFloor > floorReached){
         floorReached = currentFloor;
-        notify(AE_FLOOR_REACHED, floorReached);
+        if(floor == 6){
+            notify(AE_BOSS_ROOM, 1);
+        }
+        else if(floor < 6){
+            notify(AE_FLOOR_REACHED, floorReached);
+        }
     }
     selectLevelTab->updateButtonsAccess(floorReached);
     map = mg->GenerateFromFile(floor, this);
@@ -757,9 +762,28 @@ void GameState::changeMap(int floor, bool load_from_save) {
     player->clearWayPoints();
     if(!lootBags.empty())
         lootBags.clear();
-    if(floor != 0) {
-        if (!npcs.empty())
-            npcs.clear();
+    if(!enemies.empty())
+        enemies.clear();
+    if(!npcs.empty())
+        npcs.clear();
+    if(floor == 0) {
+        spawnPos = sf::Vector2f(830, 620);
+        player->setPosition(spawnPos.x, spawnPos.y);
+        spawnNpc(830.f, 870.f, WIZARD);
+        spawnNpc(1360.f, 570.f, SHOP);
+        spawnNpc(310.f, 570.f, PRIEST);
+    }
+    else if(floor == 6){
+        spawnPos.x = map->findStairs().x + 30;
+        spawnPos.y = map->findStairs().y + Tile::TILE_SIZE;
+        player->setPosition(spawnPos.x, spawnPos.y);
+        std::cout<<achievementComponent->getAchievementEventValue(AE_END_GAME);
+        if(achievementComponent->getAchievementEventValue(AE_END_GAME) != 1){
+            spawnEnemy(25 * Tile::TILE_SIZE, 6 * Tile::TILE_SIZE, DRAGON, 4);
+            enemies[0]->turnLeft();
+        }
+    }
+    else {
         spawnPos.x = map->findStairs().x + 30;
         spawnPos.y = map->findStairs().y + Tile::TILE_SIZE;
         player->setPosition(spawnPos.x, spawnPos.y);
@@ -769,16 +793,6 @@ void GameState::changeMap(int floor, bool load_from_save) {
             spawnEnemyOnMap();
         }
     }
-    else {
-        spawnPos = sf::Vector2f(830, 620);
-        player->setPosition(spawnPos.x, spawnPos.y);
-        if (!enemies.empty())
-            enemies.clear();
-
-        spawnNpc(830.f, 870.f, WIZARD);
-        spawnNpc(1360.f, 570.f, SHOP);
-        spawnNpc(310.f, 570.f, PRIEST);
-    }
     minimap->updateLocationLbl(currentFloor);
     minimap->drawTexture();
 }
@@ -786,8 +800,6 @@ void GameState::changeMap(int floor, bool load_from_save) {
 void GameState::spawnEnemyOnMap() {
     int randEnemy;
     sf::Vector2f dStairs = map->findStairs();
-    if(!enemies.empty())
-        enemies.clear();
     std::vector<sf::Vector2f> f = map->getFloorsPos();
     for(int i = 0; i < f.size(); i++){
         if((utils::absoluteValue(f[i].y - dStairs.y) < (5 * Tile::TILE_SIZE) &&
@@ -1013,7 +1025,7 @@ void GameState::updateInput(const float &dt) {
             } else if(map->getIntTile().type == DOWNSTAIRS){
                 changeMap(0);
             } else if(map->getIntTile().type == UPSTAIRS){
-                if(currentFloor < 5){
+                if(currentFloor < 6){
                     int next_floor = currentFloor + 1;
                     changeMap(next_floor);
                 }

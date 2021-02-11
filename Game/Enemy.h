@@ -44,8 +44,9 @@ public:
     static const unsigned int MAX_FOLLOWERS = 4;
     static const int BASE_BOOST = 15;
 
-
     //functions
+    void turnRight();
+    void turnLeft();
     void updateStatsBoost(bool recover);
     void generateNameByType();
     void generateEnemyStats(int floor, int level = 0);

@@ -128,6 +128,8 @@ void Enemy::initAnimations() {
         case DRAGON:
             animationComponent->addAnimation("IDLE", 13.f,
                                              0, 0, 13, 0, 210 ,210);
+            animationComponent->addAnimation("WALK", 13.f,
+                                             0, 0, 13, 0, 210 ,210);
             animationComponent->addAnimation("ATTACK", 10.f,
                                              0, 1, 3, 1, 210 ,210);
             animationComponent->addAnimation("GETHIT", 15.f,
@@ -210,6 +212,26 @@ Enemy::~Enemy(){
 }
 
 //functions
+void Enemy::turnRight() {
+    if(leftRightReverse){
+        sprite.setOrigin(animationComponent->getWalkWidth(), 0.f);
+        sprite.setScale(-scale.x, scale.y);
+    }else{
+        sprite.setOrigin(0.f, 0.f);
+        sprite.setScale(scale.x, scale.y);
+    }
+}
+
+void Enemy::turnLeft() {
+    if(leftRightReverse){
+        sprite.setOrigin(0.f, 0.f);
+        sprite.setScale(scale.x, scale.y);
+    }else{
+        sprite.setOrigin(animationComponent->getWalkWidth(), 0.f);
+        sprite.setScale(-scale.x, scale.y);
+    }
+}
+
 bool Enemy::canBeRendered(float distance, sf::Vector2f from) {
     sf::Vector2f v_diff = {getPosition().x - from.x, getPosition().y - from.y};
     auto vec_length = (float)sqrt(pow(v_diff.x, 2) + pow(v_diff.y, 2));

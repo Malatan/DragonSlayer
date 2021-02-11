@@ -65,6 +65,7 @@ int AchievementComponent::getAchievementEventValue(achievement_event event_type)
         case AE_FLOOR_REACHED:
             return floorReached.second;
         case AE_BOSS_ROOM:
+            return bossRoom.second;
         case AE_END_GAME:
             return endGame.second;
         default:
@@ -106,6 +107,8 @@ std::map<achievement_event, achievementRecord> AchievementComponent::getRecords(
     records.insert(std::pair<achievement_event, achievementRecord>(AE_P_LEVEL, playerLevel));
     records.insert(std::pair<achievement_event, achievementRecord>(AE_FLOOR_REACHED, floorReached));
     records.insert(std::pair<achievement_event, achievementRecord>(AE_P_MAXEDSPELL, playerMaxedSpells));
+    records.insert(std::pair<achievement_event, achievementRecord>(AE_BOSS_ROOM, bossRoom));
+    records.insert(std::pair<achievement_event, achievementRecord>(AE_END_GAME, endGame));
     return records;
 }
 
@@ -287,12 +290,18 @@ void AchievementComponent::onNotify(achievement_event event, int value) {
             update_list.push(AE_FLOOR_REACHED);
             break;
         }
-        case AE_BOSS_ROOM:
-        case AE_END_GAME:
+        case AE_BOSS_ROOM:{
+            bossRoom.second = value;
+            checkAchievement(AE_BOSS_ROOM, 1, bossRoom);
+            update_list.push(AE_BOSS_ROOM);
+            break;
+        }
+        case AE_END_GAME:{
             endGame.second = value;
             checkAchievement(AE_END_GAME, 1, endGame);
             update_list.push(AE_END_GAME);
             break;
+        }
     }
     while (!update_list.empty()) {
         aTab->updateAchievementsSlot(update_list.top());

@@ -124,7 +124,7 @@ void MiniMap::updateLocationLbl(int floor) {
 }
 
 void MiniMap::updateValues() {
-    if(gState->getCurrentFloor() == 0){
+    if(gState->getCurrentFloor() == 0 || gState->getCurrentFloor() == 6){
         zoomFactor = 10;
         maxZoomFactor = zoomFactor;
         minZoomFactor = zoomFactor;

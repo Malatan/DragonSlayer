@@ -357,9 +357,11 @@ sf::Vector2f Map::findStairs() {
             if (this->tiles[r][c]->GetType() == DOWNSTAIRS) {
                 pos.y = (float)r * Tile::TILE_SIZE;
                 pos.x = (float)c * Tile::TILE_SIZE;
+                goto exit;
             }
         }
     }
+    exit:
     return pos;
 }
 
