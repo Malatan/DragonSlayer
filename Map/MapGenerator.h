@@ -15,7 +15,7 @@ class MapGenerator {
 public:
     //constructors/destructor
     MapGenerator(State* state);
-    virtual ~MapGenerator();
+    ~MapGenerator();
 
     //getters/setters
     vector<wh> &getDDims();

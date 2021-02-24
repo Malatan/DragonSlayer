@@ -16,7 +16,7 @@ public:
     const static int MAX_SPACE = 70; //MASSIMO NUMERO DI SLOT OCCUPABILI NEL GIOCO
     //CONSTRUCTOR & DESTRUCTOR
     explicit Inventory(int* currentSpace);
-    virtual ~Inventory();
+    ~Inventory();
 
     //functions
     void fill(std::vector<Item>& item_list);

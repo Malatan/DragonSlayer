@@ -505,7 +505,7 @@ void Enemy::updateAnimation(const float &dt) {
                 animationDone = animationComponent->play("GETHIT", dt);
                 break;
             case DEATH_ANIMATION:
-                animationDone = animationComponent->play("DEATH", dt);
+                animationDone = animationComponent->play("DEATH", dt, false);
                 break;
             case CORPSE_ANIMATION:
                 animationDone = animationComponent->play("CORPSE", dt);

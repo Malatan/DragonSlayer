@@ -15,7 +15,7 @@ class Save;
 class SavesHandler {
 public:
     SavesHandler();
-    virtual ~SavesHandler();
+    ~SavesHandler();
 
     Save* getSave(const std::string& key);
     std::map<std::string, Save>& getLoadedSaves();

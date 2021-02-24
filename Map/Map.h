@@ -25,7 +25,7 @@ public:
 
     //constructors/destructor
     Map(int height, int width, State *state);
-    virtual ~Map();
+    ~Map();
 
     //getters/setters
     const std::vector<std::vector<Tile *>> &getTiles() const;

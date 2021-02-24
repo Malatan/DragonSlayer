@@ -56,7 +56,7 @@ public:
 
     //constructors/destructor
     Tile(float cx, float cy, bool traversable);
-    virtual ~Tile();
+    ~Tile();
 
     //GETTERS AND SETTERS
     types GetType();

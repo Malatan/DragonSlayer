@@ -28,7 +28,7 @@ public:
           int intRectX, int intRectY);
     Spell(const Spell& p_spell);
     explicit Spell(Spell* spell);
-    virtual ~Spell();
+    ~Spell();
 
     //function
     bool isMaxed() const;

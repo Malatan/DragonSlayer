@@ -22,16 +22,11 @@ void AnimationComponent::addAnimation(const std::string& key,float animation_tim
             width, height);
 }
 
-const bool& AnimationComponent::play(const std::string& key, const float &dt) {
-    animations[key]->play(dt);
+const bool& AnimationComponent::play(const std::string& key, const float &dt, bool resetStartRect) {
+    animations[key]->play(dt, resetStartRect);
     return animations[key]->isDone();
 }
 
-const bool& AnimationComponent::play(const std::string& key, const float &dt, const float &modifier, const float &modifier_max) {
-    animations[key]->play(dt, std::abs(modifier / modifier_max));
-    return  animations[key]->isDone();
-}
-
 float AnimationComponent::getWalkWidth(){
-    return animations.at("WALK")->width;
+    return (float)animations.at("WALK")->width;
 }

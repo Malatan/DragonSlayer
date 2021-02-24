@@ -38,7 +38,7 @@ enum statistic_types{
 class BattleResult {
 public:
     BattleResult();
-    virtual ~BattleResult();
+    ~BattleResult();
 
     //functions
     void addStatistics(statistic_types statistic, int value);

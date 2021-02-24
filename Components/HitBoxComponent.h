@@ -13,7 +13,7 @@ public:
     HitboxComponent(sf::Sprite& sprite,
                     float offset_x, float offset_y,
                     float width, float height);
-    virtual ~HitboxComponent();
+    ~HitboxComponent();
 
     //Accessors
     const sf::Vector2f& getPosition() const;

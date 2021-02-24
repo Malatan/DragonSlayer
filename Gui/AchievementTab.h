@@ -19,7 +19,7 @@ class AchievementTab {
 public:
     AchievementTab(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* font, State *state,
                    std::shared_ptr<AchievementComponent> achievementComponent);
-    virtual ~AchievementTab();
+    ~AchievementTab();
 
     bool closeTabByClicking(const sf::Vector2f& mousePos, gui::Button* achievementTab_Btn);
     void updateAchievementsSlots(bool achieved = false);

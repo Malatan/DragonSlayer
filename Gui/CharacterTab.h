@@ -22,7 +22,7 @@ class CharacterTab {
 public:
     CharacterTab(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* font, std::shared_ptr<Player> player, State* state, map<string,
             sf::Texture> textures, std::shared_ptr<ResourcesHandler> rsHandler, npc_type* npcInteract);
-    virtual ~CharacterTab();
+    ~CharacterTab();
 
     //initializers
     void initStatsContainer();

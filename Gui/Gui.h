@@ -51,7 +51,7 @@ namespace gui{
                const std::string& text, unsigned character_size,
                sf::Color text_idle_color, sf::Color text_hover_color,sf::Color text_active_color,
                sf::Color idle_color,sf::Color hover_color, sf::Color active_color, short unsigned id = 0);
-        virtual ~Button();
+        ~Button();
 
         //accessors
         bool isPressed() const;
@@ -114,7 +114,7 @@ namespace gui{
         //constuctors/destructors
         ProgressBar();
         ProgressBar(float x, float y, float width, float height, int min, int max, int currentValue, sf::Font* font);
-        virtual ~ProgressBar();
+        ~ProgressBar();
 
         //accessors
         sf::Vector2f getPosition();
@@ -150,7 +150,7 @@ namespace gui{
         ItemSlot();
         ItemSlot(float x, float y, float width, float height, std::shared_ptr<sf::RenderWindow> window,
                 sf::Font* font, const std::shared_ptr<Item>& item, State* state, bool isEquipSlot);
-        virtual ~ItemSlot();
+        ~ItemSlot();
 
         //accessors
         bool getIsSelected() const;
@@ -206,7 +206,7 @@ namespace gui{
         //constructors/destructor
         ShopSlot();
         ShopSlot(float width, float height, float pos_x, float pos_y, sf::Font* font, Item item, std::string  key);
-        virtual ~ShopSlot();
+        ~ShopSlot();
 
         //accessors
         Item getItem() const;
@@ -243,7 +243,7 @@ namespace gui{
         SpellSlot();
         SpellSlot(float width, float height, float pos_x, float pos_y, const std::shared_ptr<Spell>& spell,
                 const sf::Texture* texture, float rect_size, sf::Font* font, unsigned int char_size);
-        virtual ~SpellSlot();
+        ~SpellSlot();
 
         //accessor
         sfe::RichText* getSpellInfoLbl();
@@ -267,7 +267,7 @@ namespace gui{
         WizardSpellSlot();
         WizardSpellSlot(float width, float height, float pos_x, float pos_y, const std::shared_ptr<Spell>& spell,
                   const sf::Texture* texture, float rect_size, sf::Font* font, unsigned int char_size);
-        virtual ~WizardSpellSlot();
+        ~WizardSpellSlot();
 
         //accessor
         sfe::RichText* getSpellDescriptionLbl();
@@ -301,7 +301,7 @@ namespace gui{
                      State* state, sf::Font* font, dialog_type dType);
         CustomDialog(float x, float y, int tot_value, int selected_quantity, std::shared_ptr<sf::RenderWindow>  window,
                      State* state, sf::Font* font, dialog_type dType);
-        virtual ~CustomDialog();
+        ~CustomDialog();
 
         dialog_result getResult();
         dialog_type getDialogType();
@@ -345,7 +345,7 @@ namespace gui{
         BuffSlot();
         BuffSlot(float x, float y, float width, float height,
                 const std::shared_ptr<Buff>& buff, const sf::Texture& buff_texture, sf::Font* font);
-        virtual ~BuffSlot();
+        ~BuffSlot();
 
         void setBuff(std::shared_ptr<Buff> new_buff, bool updateLbl = false);
         std::shared_ptr<Buff> getBuff() const;
@@ -370,7 +370,7 @@ namespace gui{
     public:
         PlayerStatusPanel();
         PlayerStatusPanel(std::shared_ptr<Player> player, float x, float y, sf::Font* font);
-        virtual ~PlayerStatusPanel();
+        ~PlayerStatusPanel();
 
         void setShapeOutlineThickness(float thickness);
         //functions
@@ -391,7 +391,7 @@ namespace gui{
         EnemyStatusPanel();
         EnemyStatusPanel(const std::shared_ptr<Enemy>& enemy, float x, float y, sf::Font* font,
                 sf::Texture& selected_icon_texture, State* state, unsigned int id);
-        virtual ~EnemyStatusPanel();
+        ~EnemyStatusPanel();
 
         //functions
         void selectedIconAnimation(const float& dt);
@@ -422,7 +422,7 @@ namespace gui{
     public:
         ActionRow(float width, float height, float x, float y, const std::shared_ptr<Spell>& spell, float spellDmgMultiplier,
                 sf::Font* font, sf::Texture& action_texture);
-        virtual ~ActionRow();
+        ~ActionRow();
 
         void setUseBtnState(button_states btn_state);
         std::shared_ptr<Spell> getAction() const;
@@ -457,7 +457,7 @@ namespace gui{
     public:
         ItemRow(float width, float height, float x, float y, const std::shared_ptr<Item>& item,
                   sf::Font* font, sf::Texture& item_texture);
-        virtual ~ItemRow();
+        ~ItemRow();
 
         std::shared_ptr<Item> getItem() const;
         void setUseBtnState(button_states btn_state);
@@ -486,7 +486,7 @@ namespace gui{
         //constructors/destructor
         LootSlot(float width, float height, float pos_x, float pos_y, sf::Font* font, const std::shared_ptr<Item>& item,
                  sf::Texture& item_texture);
-        virtual ~LootSlot();
+        ~LootSlot();
 
         //getters
         unsigned int getId();
@@ -517,7 +517,7 @@ namespace gui{
         //constructors/destructor
         AchievementSlot(float width, float height, float pos_x, float pos_y, sf::Font* font,
                         const std::shared_ptr<Achievement>& achievement, int current_value);
-        virtual ~AchievementSlot();
+        ~AchievementSlot();
 
         //accessor/modifiers
         achievement_event getAchievementEventType();
@@ -568,7 +568,7 @@ namespace gui{
     public:
         //constructors/destructor
         LoadSaveSlot(float x, float y, float width, float height, sf::Font* font);
-        virtual ~LoadSaveSlot();
+        ~LoadSaveSlot();
 
         //modifiers/accessors
         bool isEmpty() const;

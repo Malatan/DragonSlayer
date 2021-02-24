@@ -14,7 +14,7 @@ enum TextTypes { DEFAULT_TAG, NEGATIVE_TAG, EXPERIENCE_TAG, GOLD_TAG, HEAL_TAG, 
 class PopUpTextComponent {
 public:
     PopUpTextComponent(const sf::Font& font, const std::shared_ptr<sf::RenderWindow>& window);
-    virtual ~PopUpTextComponent();
+    ~PopUpTextComponent();
 
     //Functions
     void addPopUpText(unsigned tag_type, float pos_x, float pos_y,

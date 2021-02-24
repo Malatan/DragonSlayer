@@ -20,7 +20,7 @@ class Resource;
 class ResourcesHandler {
 public:
     ResourcesHandler();
-    virtual ~ResourcesHandler();
+    ~ResourcesHandler();
 
     std::string getGameVersion() const;
     void setUnitTesting(bool b);

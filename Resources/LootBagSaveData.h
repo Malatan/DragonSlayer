@@ -16,7 +16,7 @@ public:
     LootBagSaveData();
     LootBagSaveData(unsigned int _id, float _msCounter, lifeTimePair _lifeTime, std::vector<Item> _loots, float pos_x,
                     float pos_y);
-    virtual ~LootBagSaveData();
+    ~LootBagSaveData();
 
     //getters/setters
     unsigned int getId() const;

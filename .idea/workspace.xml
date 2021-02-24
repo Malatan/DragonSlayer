@@ -40,9 +40,43 @@
   <component name="ChangeListManager">
     <list default="true" id="5e176dfb-d06b-4a3a-ae60-4825526ebf88" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Components/AchievementComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Components/AchievementComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/BattleState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/BattleState.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/GameState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/GameState.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/AnimationComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Components/AnimationComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/AnimationComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Components/AnimationComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/CollisionBoxComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Components/CollisionBoxComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/HitBoxComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Components/HitBoxComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/MovementComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Components/MovementComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/PopUpTextComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Components/PopUpTextComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Components/SpellComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Components/SpellComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/DebugTool.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/DebugTool.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Game.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Game.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/BattleResult.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/BattleResult.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Buff.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Buff.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Enemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Enemy.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Inventory.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Inventory.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Item.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Item.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/LootGenerator.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/LootGenerator.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Save.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Save.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Spell.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Spell.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Stats.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Stats.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gui/AchievementTab.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/AchievementTab.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gui/CharacterTab.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/CharacterTab.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gui/Gui.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/Gui.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gui/LoadSaveTab.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/LoadSaveTab.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gui/PauseMenu.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/PauseMenu.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gui/PriestTab.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/PriestTab.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gui/ShopTab.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/ShopTab.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gui/SpellTab.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/SpellTab.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gui/WizardTab.h" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/WizardTab.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Map/Map.h" beforeDir="false" afterPath="$PROJECT_DIR$/Map/Map.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Map/MapGenerator.h" beforeDir="false" afterPath="$PROJECT_DIR$/Map/MapGenerator.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Map/MiniMap.h" beforeDir="false" afterPath="$PROJECT_DIR$/Map/MiniMap.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Map/Node.h" beforeDir="false" afterPath="$PROJECT_DIR$/Map/Node.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Map/Tile.h" beforeDir="false" afterPath="$PROJECT_DIR$/Map/Tile.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/EnemySaveData.h" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/EnemySaveData.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/LootBagSaveData.h" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/LootBagSaveData.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/Resource.h" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/Resource.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/ResourcesHandler.h" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/ResourcesHandler.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/SavesHandler.h" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/SavesHandler.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,11 +181,6 @@
     <configuration name="unit_testing" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DragonSlayer" TARGET_NAME="unit_testing_run" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="DragonSlayer" RUN_TARGET_NAME="unit_testing_run">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <list>
@@ -352,7 +381,9 @@
       <workItem from="1612662634796" duration="29000" />
       <workItem from="1612662722386" duration="330000" />
       <workItem from="1612710084202" duration="4424000" />
-      <workItem from="1613058446899" duration="9146000" />
+      <workItem from="1613058446899" duration="9421000" />
+      <workItem from="1614100485334" duration="2376000" />
+      <workItem from="1614187332332" duration="3544000" />
     </task>
     <servers />
   </component>
@@ -383,11 +414,6 @@
           <url>file://$PROJECT_DIR$/lib/cereal/cereal.hpp</url>
           <line>861</line>
           <option name="timeStamp" value="36" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Game/Stats.cpp</url>
-          <line>90</line>
-          <option name="timeStamp" value="74" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

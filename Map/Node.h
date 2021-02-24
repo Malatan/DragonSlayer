@@ -12,7 +12,7 @@ class Node {
 public:
     //constructors/destructor
     Node(bool _walkable, int pos_x, int pos_y);
-    virtual ~Node();
+    ~Node();
 
     //functions
     int fCost() const;

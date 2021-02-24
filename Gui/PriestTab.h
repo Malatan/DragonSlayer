@@ -13,7 +13,7 @@ class PriestTab {
 public:
     PriestTab(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* font, std::shared_ptr<Player> player, State *state,
               std::shared_ptr<ResourcesHandler> rsHandler, std::map<std::string, sf::Texture> textures);
-    virtual ~PriestTab();
+    ~PriestTab();
 
     void initButtons();
 

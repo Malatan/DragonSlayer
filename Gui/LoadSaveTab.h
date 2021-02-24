@@ -30,7 +30,7 @@ public:
     //constructors/destructor
     LoadSaveTab(const std::shared_ptr<sf::RenderWindow>& window, std::shared_ptr<ResourcesHandler> rs_handler,
                 std::shared_ptr<PopUpTextComponent> popuptext_component, sf::Font* font, State* state);
-    virtual ~LoadSaveTab();
+    ~LoadSaveTab();
 
     //accessor
     bool canApplySave() const;

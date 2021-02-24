@@ -14,7 +14,7 @@ class DebugTool {
 public:
     //constructors/destructor
     DebugTool(sf::Font* _font, State* state);
-    virtual ~DebugTool();
+    ~DebugTool();
 
     //functions
 

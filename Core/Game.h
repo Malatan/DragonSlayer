@@ -14,7 +14,7 @@ class Game {
 public:
     //Constructors/Destructors
     explicit Game(bool unit_testing = false);
-    virtual ~Game();
+    ~Game();
 
     //accessors
     shared_ptr<sf::RenderWindow> getWindow();

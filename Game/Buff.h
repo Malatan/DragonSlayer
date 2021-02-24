@@ -22,7 +22,7 @@ public:
          float add_critchance, float add_evadechance, int turns, bool is_debuff, int intRectX, int intRectY);
     Buff(std::string name, std::string description, std::string key_word, int add_hp, int add_mp, int add_damage, int add_armor,
          float add_critchance, float add_evadechance, bool instant, bool is_debuff, int intRectX, int intRectY);
-    virtual ~Buff();
+    ~Buff();
 
     //accessors
     int getTurns() const;

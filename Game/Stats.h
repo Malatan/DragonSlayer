@@ -21,7 +21,7 @@ public:
     //CONSTRUCTOR & DESTRUCTOR
     Stats();
     Stats(const Stats& p_stats);
-    virtual ~Stats();
+    ~Stats();
 
     //functions
     bool addExp(int earned);

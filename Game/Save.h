@@ -26,7 +26,7 @@ public:
     //constructors/destructor
     Save();
     Save(std::string name, std::string modified_time, std::string game_version);
-    virtual ~Save();
+    ~Save();
 
     //accessors/modifiers
     std::string getName() const;

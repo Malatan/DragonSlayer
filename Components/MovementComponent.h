@@ -20,7 +20,7 @@ enum movement_states{
 class MovementComponent {
 public:
     MovementComponent(sf::Sprite& sprite, float maxVelocity, float acceleration, float deceleration);
-    virtual ~MovementComponent();
+    ~MovementComponent();
 
     //accessors
     void setVelocity(sf::Vector2f new_vel);

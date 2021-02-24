@@ -11,7 +11,7 @@
 class AnimationComponent {
 public:
     AnimationComponent(sf::Sprite& sprite, sf::Texture& texture_sheet);
-    virtual ~AnimationComponent();
+    ~AnimationComponent();
 
     //accessors
     float getWalkWidth();
@@ -22,8 +22,7 @@ public:
                       int start_frame_y, int frames_x, int frames_y,
                       int width, int height);
 
-    const bool& play(const std::string& key, const float &dt);
-    const bool& play(const std::string& key, const float &dt, const float &modifier, const float &modifier_max);
+    const bool& play(const std::string& key, const float &dt, bool resetStartRect = true);
 
 private:
     class Animation{
@@ -59,7 +58,7 @@ private:
 
 
         //functions
-        const bool& play(const float &dt){
+        const bool& play(const float &dt, const bool resetStartRect){
             //update timer
             done = false;
             timer += 100.f * dt;
@@ -69,11 +68,14 @@ private:
                 //animate
                 if(currentRect != endRect){
                     currentRect.left += width;
+                    if(!resetStartRect)
+                        sprite.setTextureRect(currentRect);
                 } else{  //reset
                     currentRect.left = startRect.left;
                     done = true;
                 }
-                sprite.setTextureRect(currentRect);
+                if(resetStartRect)
+                    sprite.setTextureRect(currentRect);
             }
 
             return done;

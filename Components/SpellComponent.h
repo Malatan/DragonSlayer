@@ -13,7 +13,7 @@ class SpellComponent {
 public:
     //constructors/desctructor
     SpellComponent();
-    virtual ~SpellComponent();
+    ~SpellComponent();
 
     //accessors
     std::vector<std::shared_ptr<Spell>>& getPlayerSpells();

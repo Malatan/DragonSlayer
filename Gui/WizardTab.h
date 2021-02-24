@@ -16,7 +16,7 @@ public:
     //constructors/destructor
     WizardTab(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* font, std::shared_ptr<Player> player, State *state,
             std::map<std::string, sf::Texture> textures);
-    virtual ~WizardTab();
+    ~WizardTab();
 
     void initWizardSpellSlots();
 

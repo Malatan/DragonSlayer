@@ -47,7 +47,7 @@ typedef std::pair<int, enemy_types> dropCount;
 class LootGenerator {
 public:
     explicit LootGenerator(std::shared_ptr<ResourcesHandler> rs_handler);
-    virtual ~LootGenerator();
+    ~LootGenerator();
 
     std::vector<std::shared_ptr<Item>> generateLoot(const std::shared_ptr<Enemy>& defeated_enemy, int floor);
     std::shared_ptr<Item> generateTierEquipment(item_rarity equip_rarity, bool random_rarity, loot_type item_type = NO_LOOT);

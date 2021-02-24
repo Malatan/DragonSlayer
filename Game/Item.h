@@ -41,7 +41,7 @@ public:
             int iconRectX, int iconRectY, int hp, int mp, int damage, int armor, float critchance,
             float evadechance, int quantity, bool isNew, unsigned int id);
     explicit Item(Item* item);
-    virtual ~Item();
+    ~Item();
 
     //functions
     std::string sortKeyWord();

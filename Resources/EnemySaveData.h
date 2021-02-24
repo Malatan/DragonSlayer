@@ -18,7 +18,7 @@ public:
     EnemySaveData();
     EnemySaveData(unsigned int _id, unsigned int _leaderId, bool _isFollower, std::string _name, enemy_types _type,
                   int _currentBoost, const Stats &stats, float pos_x, float pos_y);
-    virtual ~EnemySaveData();
+    ~EnemySaveData();
 
     //getters/setters
     unsigned int getId() const;

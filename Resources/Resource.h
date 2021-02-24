@@ -12,7 +12,7 @@
 class Resource {
 public:
     Resource(const std::string& resourcePath, const std::string& key,const std::string& stateName);
-    virtual ~Resource();
+    ~Resource();
 
     std::string getKey();
     sf::Image getImage() const;

@@ -11,7 +11,7 @@ class MiniMap {
 public:
     //Constructor/desctructor
     MiniMap(State* state, sf::Font* font, sf::Vector2u window_size, int scale);
-    virtual ~MiniMap();
+    ~MiniMap();
 
     //getters
     int getZoomFactor() const;

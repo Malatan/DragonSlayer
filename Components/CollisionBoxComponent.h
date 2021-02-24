@@ -12,7 +12,7 @@ class CollisionBoxComponent {
 public:
     //constructors/destructor
     CollisionBoxComponent(sf::Sprite& sprite, float offset_x, float offset_y, float radius);
-    virtual ~CollisionBoxComponent();
+    ~CollisionBoxComponent();
 
     //accessors
     sf::CircleShape &getCollisionEllipse();

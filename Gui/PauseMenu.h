@@ -11,7 +11,7 @@ class PauseMenu {
 public:
     PauseMenu();
     PauseMenu(const std::shared_ptr<sf::RenderWindow>& window, sf::Font* font);
-    virtual ~PauseMenu();
+    ~PauseMenu();
 
     //functions
     bool isButtonPressed(const std::string& key);
