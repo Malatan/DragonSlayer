@@ -98,4 +98,17 @@ Making progress in your game and try to unlock all the achievements
 [Google test v1.10.0](https://github.com/google/googletest)<br/>
 [RichText](https://github.com/skyrpex/RichText)<br/>
 
+#### Credits
+Graphic source:<br/>
+https://www.pinterest.it/pin/415668240582727552/<br/>
+https://spritedatabase.net/file/14020<br/>
+https://raou.itch.io/free-dungeon-mini-tileset<br/>
+https://rvros.itch.io/animated-pixel-hero<br/>
+https://jesse-m.itch.io/skeleton-pack<br/>
+https://luizmelo.itch.io/monsters-creatures-fantasy<br/>
+https://oco.itch.io/medieval-fantasy-character-pack-3<br/>
+https://sventhole.itch.io/bandits<br/>
+https://luizmelo.itch.io/wizard-pack<br/>
+https://www.flaticon.com/<br/>
 
+A special thanks to [Suraj Sharma](https://www.youtube.com/channel/UC2i39AOpDSlO1Mrn1jQ8Xkg), helped a lot with his SFML RPG game tutorials!
